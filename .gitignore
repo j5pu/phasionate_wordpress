@@ -15,3 +15,4 @@ wp-content/upgrade/
 wp-content/uploads/
 wp-content/wfcache/
 wp-content/wp-cache-config.php
+wp-content/plugins/wordfence/tmp/configCache.php
