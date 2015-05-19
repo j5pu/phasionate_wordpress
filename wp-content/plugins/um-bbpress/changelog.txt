@@ -1,0 +1,7 @@
+Version 1.1.1
+
+* Fixed: forum tabs were not showing any content on specific installations
+
+Version 1.1.0
+
+* New: added option to hide forums tab from guests

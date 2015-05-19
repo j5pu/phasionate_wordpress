@@ -1,0 +1,232 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ultimate Member\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-10 18:14+0200\n"
+"PO-Revision-Date: 2015-04-28 12:28+0100\n"
+"Last-Translator: Calum Allison <umplugin@gmail.com>\n"
+"Language-Team: Ultimate Member <umplugin@gmail.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.6\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/templates/list.php:5
+msgid "Choose a list"
+msgstr "Elegir una lista"
+
+#: admin/templates/list.php:5
+msgid "Choose a list from your MailChimp account"
+msgstr "Seleccione una lista de su cuenta de MailChimp"
+
+#: admin/templates/list.php:18
+msgid "Enable this MailChimp list"
+msgstr "Habilitar esta lista MailChimp"
+
+#: admin/templates/list.php:18
+msgid ""
+"Turn on or off this list globally. If enabled the list will be available in "
+"user account page."
+msgstr ""
+"Activar o desactivar esta lista a nivel global. Si se habilita la lista "
+"estará disponible en la cuenta de usuario."
+
+#: admin/templates/list.php:27
+msgid "List Description in Account Page"
+msgstr "Descripción de la lista en la cuenta de la página"
+
+#: admin/templates/list.php:27
+msgid ""
+"This text will be displayed in Account > Notifications to encourage user to "
+"sign or know what this list is about"
+msgstr ""
+"Este texto se mostrará en Cuenta >Notificaciones para animar a los usuarios "
+"a registrarse o saber sobre que es esta lista"
+
+#: admin/templates/list.php:36
+msgid "List Description in Registration"
+msgstr "Descripción de la lista en el registro"
+
+#: admin/templates/list.php:36
+msgid ""
+"This text will be displayed in register form if you enable this mailing list "
+"to be available during signup"
+msgstr ""
+"Este texto se mostrará en el formulario de registro si se habilita esta "
+"lista de correo para estar disponible durante el registro"
+
+#: admin/templates/list.php:45
+msgid "Automatically add new users to this list"
+msgstr "Añadir automáticamente los nuevos usuarios a esta lista"
+
+#: admin/templates/list.php:45
+msgid "Turn on to automatically add new signups to this list"
+msgstr "Activar para añadir automáticamente nuevos registros a esta lista"
+
+#: admin/templates/list.php:54
+msgid "Make available to these <strong>user roles only</strong>"
+msgstr "Habilitar esto solo para estos roles de usuario"
+
+#: admin/templates/list.php:54
+msgid "By default, the list will be available to everyone."
+msgstr "Por defecto, la lista estará disponible para todos."
+
+#: core/actions/um-mailchimp-fields.php:18
+msgid "Select a List"
+msgstr "Seleccionar una lista"
+
+#: core/actions/um-mailchimp-fields.php:18
+msgid "You can set up lists or integrations in Ultimate Member > MailChimp"
+msgstr ""
+"Puedes configurar la listas o integrarlas en Ultimate Member > MailChimp"
+
+#: core/filters/um-mailchimp-account.php:19
+msgid "Email Newsletters"
+msgstr "Boletín"
+
+#: core/filters/um-mailchimp-fields.php:54
+#: core/filters/um-mailchimp-settings.php:12 core/um-mailchimp-admin.php:42
+#: core/um-mailchimp-taxonomies.php:18 core/um-mailchimp-taxonomies.php:19
+msgid "MailChimp"
+msgstr "MailChimp"
+
+#: core/filters/um-mailchimp-fields.php:60
+msgid "You must provide a title"
+msgstr "Debes proporcionar un título"
+
+#: core/filters/um-mailchimp-settings.php:18
+msgid "MailChimp API Key"
+msgstr "MailChimp API Key"
+
+#: core/filters/um-mailchimp-settings.php:19
+msgid ""
+"The MailChimp API Key is required and enables you access and integration "
+"with your lists."
+msgstr ""
+"MailChimp API Key requiere y permite acceder a la integración con sus listas."
+
+#: core/um-mailchimp-admin.php:23
+msgid "e.g. My First Mailing List"
+msgstr "Ejemplo: Mi primera lista de correos"
+
+#: core/um-mailchimp-cols.php:20
+msgid "Title"
+msgstr "Título"
+
+#: core/um-mailchimp-cols.php:21
+msgid "Status"
+msgstr "Estado"
+
+#: core/um-mailchimp-cols.php:22
+msgid "Automatic Signup"
+msgstr "Registro automático"
+
+#: core/um-mailchimp-cols.php:23
+msgid "List ID"
+msgstr "Lista ID"
+
+#: core/um-mailchimp-cols.php:24
+msgid "Subscribers"
+msgstr "Suscriptores"
+
+#: core/um-mailchimp-cols.php:25
+msgid "Roles"
+msgstr "Roles"
+
+#: core/um-mailchimp-cols.php:42 core/um-mailchimp-cols.php:51
+msgid "Active"
+msgstr "Activo"
+
+#: core/um-mailchimp-cols.php:44
+msgid "Inactive"
+msgstr "Inactivo"
+
+#: core/um-mailchimp-cols.php:53
+msgid "Manual"
+msgstr "Manual"
+
+#: core/um-mailchimp-cols.php:69
+msgid "Everyone"
+msgstr "Todos"
+
+#: core/um-mailchimp-func.php:161
+msgid "No lists found"
+msgstr "Lista no encontrada"
+
+#: core/um-mailchimp-init.php:22
+#, php-format
+msgid ""
+"The <strong>%s</strong> extension requires the Ultimate Member plugin to be "
+"activated to work properly. You can download it <a href=\"https://wordpress."
+"org/plugins/ultimate-member\">here</a>"
+msgstr ""
+"La extensión <strong>%s</ strong> requiere el plugin Ultimate Member  "
+"activado para que funcione correctamente. Puede descargarlo <a href="
+"\"https://wordpress.org/plugins/ultimate-member\">aquí</a>"
+
+#: core/um-mailchimp-init.php:27
+#, php-format
+msgid ""
+"The <strong>%s</strong> extension requires a <a href=\"https://wordpress.org/"
+"plugins/ultimate-member\">newer version</a> of Ultimate Member to work "
+"properly."
+msgstr ""
+"La extensión <strong>%s</strong> requiere una <a href=\"https://wordpress."
+"org/plugins/ultimate-member\">versión mas reciente </a> de Ultimate Member "
+"para un funcionamiento correcto"
+
+#: core/um-mailchimp-metabox.php:30
+msgid "Setup List"
+msgstr "Lista de configuración"
+
+#: core/um-mailchimp-notices.php:27
+#, php-format
+msgid ""
+"You must add your <strong>MailChimp API</strong> key before connecting your "
+"newsletter lists. <a href=\"%s\">Hide this notice</a>"
+msgstr ""
+"Debe agregar su <strong>MailChimp API</strong> key antes de conectar tu "
+"lista de newsletter.  <a href=\"%s\">Ocultar este mensaje</a>"
+
+#: core/um-mailchimp-notices.php:31
+msgid "Setup MailChimp API"
+msgstr "Configurar MailChimp API"
+
+#: core/um-mailchimp-taxonomies.php:20 core/um-mailchimp-taxonomies.php:21
+msgid "Add New List"
+msgstr "Añadir nueva lista"
+
+#: core/um-mailchimp-taxonomies.php:22
+msgid "Edit List"
+msgstr "Editar lista"
+
+#: core/um-mailchimp-taxonomies.php:23
+msgid "You did not create any MailChimp lists yet"
+msgstr "No has creado ninguna lista MailChimp todavía."
+
+#: core/um-mailchimp-taxonomies.php:24
+msgid "Nothing found in Trash"
+msgstr "No hay nada en la papelera"
+
+#: core/um-mailchimp-taxonomies.php:25
+msgid "Search MailChimp lists"
+msgstr "Buscar lista MailChimp"
+
+#~ msgid "outdatedBrowser_page_message"
+#~ msgstr ""
+#~ "The site you are visiting can only be viewed using a modern browser. "
+#~ "Please upgrade your browser to increase safety and your browsing "
+#~ "experience. Choose one of the browsers above. If you don't care <a href="
+#~ "\"?forwardOutdatedBrowser=1\">click here</a>"
+
+#~ msgid "404_page_message"
+#~ msgstr ""
+#~ "The Page you are looking for doesn't exist or an other error occurred. <a "
+#~ "href=\"javascript:history.go(-1)\">Go back</a>, or head over to <a href="
+#~ "\"%s\">%s</a> to choose a new direction."

@@ -1,0 +1,344 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ultimate Member\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-14 02:46+0200\n"
+"PO-Revision-Date: 2015-04-28 17:47+0100\n"
+"Last-Translator: Calum Allison <umplugin@gmail.com>\n"
+"Language-Team: Ultimate Member <umplugin@gmail.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.6\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: EDD_SL_Plugin_Updater.php:177
+#, php-format
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+msgstr ""
+"Hay una nueva versión disponible de %1$s. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">Ver detalles de la versión %3$s</a>."
+
+#: EDD_SL_Plugin_Updater.php:184
+#, php-format
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a href=\"%4$s"
+"\">update now</a>."
+msgstr ""
+"Hay una nueva versión disponible de %1$s. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">Ver detalles de la versión %3$s</a> o <a href="
+"\"%4$s\">actualiza ahora</a>."
+
+#: EDD_SL_Plugin_Updater.php:324
+msgid "You do not have permission to install plugin updates"
+msgstr "No tienes permisos para actualizar el plugin"
+
+#: EDD_SL_Plugin_Updater.php:324
+msgid "Error"
+msgstr "Error"
+
+#: admin/templates/cta.php:4
+msgid "Enable Call to Action button"
+msgstr "Habilitar botón Llamada a la acción"
+
+#: admin/templates/cta.php:13
+msgid "Button Text"
+msgstr "Botón de Texto"
+
+#: admin/templates/cta.php:22
+msgid "Button URL"
+msgstr "Botón URL"
+
+#: admin/templates/cta.php:31
+msgid "Button Background Color"
+msgstr "Botón Color de fondo"
+
+#: admin/templates/cta.php:40
+msgid "Button Text Color"
+msgstr "Botón Color de texto"
+
+#: admin/templates/notice.php:3 core/um-notices-cols.php:17
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: admin/templates/notice.php:19 core/um-notices-cols.php:18
+msgid "Reach"
+msgstr "Alcance"
+
+#: admin/templates/notice.php:24
+msgid "Flush"
+msgstr "Limpiar"
+
+#: admin/templates/notice.php:25
+msgid ""
+"Flushing a notice makes it appear as a new notice to users even those who "
+"have seen it already."
+msgstr ""
+"Limpiar este aviso lo hace aparecer como un nuevo aviso a los usuarios, "
+"incluso a los que lo han visto ya."
+
+#: admin/templates/notice.php:26
+msgid "Flush this notice"
+msgstr "Limpiar este aviso"
+
+#: admin/templates/options.php:4
+msgid "Allow this notice to appear in footer"
+msgstr "Permitir que este aviso aparezca en el pie de página"
+
+#: admin/templates/options.php:4
+msgid "If turned off, this notice can only appear using shortcode method"
+msgstr ""
+"Si está desactivado, este aviso sólo puede aparecer mediante  shortcode"
+
+#: admin/templates/options.php:13
+msgid "Display this notice to logged in users"
+msgstr "Muestra este aviso a los usuarios registrados"
+
+#: admin/templates/options.php:22
+msgid "Display this notice to logged out users"
+msgstr "Muestra este aviso a los usuarios no registrados"
+
+#: admin/templates/options.php:31
+msgid "Which user roles can see this notice"
+msgstr "Qué roles de usuario pueden ver este aviso"
+
+#: admin/templates/options.php:31
+msgid "Leave blank to show to all user roles"
+msgstr "Dejar en blanco para mostrar a todos los usuarios"
+
+#: admin/templates/options.php:44
+msgid "Show If the user did not"
+msgstr "Mostrar si el usuario no"
+
+#: admin/templates/options.php:49
+msgid "Upload profile photo"
+msgstr "Subir foto de perfil"
+
+#: admin/templates/options.php:50
+msgid "Upload cover photo"
+msgstr "Subir foto de portada"
+
+#: admin/templates/options.php:51
+msgid "Other"
+msgstr "Otro"
+
+#: admin/templates/options.php:58
+msgid "Show If the user did not fill that metakey"
+msgstr "Mostrar si el usuario no rellena ese metakey"
+
+#: admin/templates/rules.php:4
+msgid "Show on Homepage"
+msgstr "Mostrar en la pagina principal"
+
+#: admin/templates/rules.php:13
+msgid "Show on Posts"
+msgstr "Mostrar en Entradas"
+
+#: admin/templates/rules.php:22
+msgid "Show on Pages"
+msgstr "Mostrar en Páginas"
+
+#: admin/templates/rules.php:31
+msgid "Show on Custom Post Types"
+msgstr "Mostrar en Campos personalizados de la entrada"
+
+#: admin/templates/rules.php:40
+msgid "Show on specific URLs"
+msgstr "Mostrar en URLs especificas"
+
+#: admin/templates/rules.php:49
+msgid "Enter allowed URLs one per line"
+msgstr "Permite introducir una URLs por linea"
+
+#: admin/templates/styling.php:3
+msgid "If you do not provide custom styling here, defaults will be used."
+msgstr ""
+"Si  introduces un estilo a un campo personalizado aquí, se usará por defecto."
+
+#: admin/templates/styling.php:6
+msgid "Notice Minimum Width"
+msgstr "Aviso Anchura mínima"
+
+#: admin/templates/styling.php:6
+msgid "Set a minimum width for notice wrapper"
+msgstr "Introducir una anchura mínima al wrapper de aviso"
+
+#: admin/templates/styling.php:15
+msgid "Notice background color"
+msgstr "Color de fondo de aviso"
+
+#: admin/templates/styling.php:24
+msgid "Notice text color"
+msgstr "Color de texto de aviso"
+
+#: admin/templates/styling.php:33
+msgid "Notice font size"
+msgstr "Tamaño de fuente de aviso"
+
+#: admin/templates/styling.php:42
+msgid "Notice Icon"
+msgstr "Icono de aviso"
+
+#: admin/templates/styling.php:42
+msgid "You can optionally add an icon to this notice"
+msgstr "Opcionalmente, puedes añadir un icono a este aviso"
+
+#: admin/templates/styling.php:45
+msgid "Choose Icon"
+msgstr "Elegir icono"
+
+#: admin/templates/styling.php:51
+msgid "No Icon"
+msgstr "No hay icono"
+
+#: admin/templates/styling.php:67
+msgid "Notice Icon color"
+msgstr "Color de icono de aviso"
+
+#: admin/templates/styling.php:76
+msgid "Notice Close Icon color"
+msgstr "Color de icono de cerrar de aviso"
+
+#: admin/templates/styling.php:85
+msgid "Border"
+msgstr "Borde"
+
+#: admin/templates/styling.php:85
+msgid "Enter border css here"
+msgstr "Introducir css del borde aquí"
+
+#: admin/templates/styling.php:94
+msgid "Border Radius"
+msgstr "Radio del borde (Border Radius)"
+
+#: admin/templates/styling.php:94
+msgid "Enter border radius here. e.g. 3px"
+msgstr "Introducir radio del borde (border radius) aquí, por ejemplo: 3px"
+
+#: admin/templates/styling.php:103
+msgid "Box Shadow"
+msgstr "Sombra de la caja (Box Shadow)"
+
+#: admin/templates/styling.php:103
+msgid "Change this If you want to apply a box-shadow to the notice box"
+msgstr "Cambia esto si deseas aplicar un box-shadow a la caja de aviso"
+
+#: core/filters/um-notices-settings.php:14
+msgid "Notice Position in Footer"
+msgstr "Posicionar Aviso en el footer"
+
+#: core/filters/um-notices-settings.php:17
+msgid "Show to Right"
+msgstr "Mostrar a la derecha"
+
+#: core/filters/um-notices-settings.php:18
+msgid "Show to Left"
+msgstr "Mostrar a la izquierda"
+
+#: core/filters/um-notices-settings.php:20
+msgid "Select..."
+msgstr "Seleccionar"
+
+#: core/filters/um-notices-settings.php:26 core/um-notices-admin.php:30
+#: core/um-notices-cpt.php:18
+msgid "Notices"
+msgstr "Avisos"
+
+#: core/um-notices-admin.php:21
+msgid "Enter notice title here"
+msgstr "Introducir título del aviso"
+
+#: core/um-notices-cols.php:18
+msgid ""
+"How many people reached this notice? Count users who seen and closed the "
+"notice only"
+msgstr ""
+"¿A cuantas personas ha llegado este aviso? Contar los usuarios que solo ven "
+"y cierran el aviso"
+
+#: core/um-notices-cpt.php:19
+msgid "Notice"
+msgstr "Aviso"
+
+#: core/um-notices-cpt.php:20 core/um-notices-cpt.php:21
+msgid "Add New Notice"
+msgstr "Añadir nuevo aviso"
+
+#: core/um-notices-cpt.php:22
+msgid "Edit Notice"
+msgstr "Editar aviso"
+
+#: core/um-notices-cpt.php:23
+msgid "You did not create any notices yet"
+msgstr "No has creado ningún aviso todavía"
+
+#: core/um-notices-cpt.php:24
+msgid "Nothing found in Trash"
+msgstr "No hay nada en la papelera"
+
+#: core/um-notices-cpt.php:25
+msgid "Search Notices"
+msgstr "Buscar avisos"
+
+#: core/um-notices-init.php:22
+#, php-format
+msgid ""
+"The <strong>%s</strong> extension requires the Ultimate Member plugin to be "
+"activated to work properly. You can download it <a href=\"https://wordpress."
+"org/plugins/ultimate-member\">here</a>"
+msgstr ""
+"La extensión <strong>%s</ strong> requiere el plugin Ultimate Member  "
+"activado para que funcione correctamente. Puede descargarlo <a href="
+"\"https://wordpress.org/plugins/ultimate-member\">aquí</a>"
+
+#: core/um-notices-init.php:27
+#, php-format
+msgid ""
+"The <strong>%s</strong> extension requires a <a href=\"https://wordpress.org/"
+"plugins/ultimate-member\">newer version</a> of Ultimate Member to work "
+"properly."
+msgstr ""
+"La extensión <strong>%s</strong> requiere una <a href=\"https://wordpress."
+"org/plugins/ultimate-member\">versión mas reciente </a> de Ultimate Member "
+"para un funcionamiento correcto"
+
+#: core/um-notices-metabox.php:30
+msgid "Options"
+msgstr "Opciones"
+
+#: core/um-notices-metabox.php:31
+msgid "Footer Notice Rules"
+msgstr "Reglas de avisos en el footer"
+
+#: core/um-notices-metabox.php:32
+msgid "Styling"
+msgstr "Styling"
+
+#: core/um-notices-metabox.php:33
+msgid "CTA (Call to Action)"
+msgstr "CTA (Call to Action)"
+
+#: core/um-notices-metabox.php:35
+msgid "This Notice"
+msgstr "Esta noticia"
+
+#~ msgid "outdatedBrowser_page_message"
+#~ msgstr ""
+#~ "The site you are visiting can only be viewed using a modern browser. "
+#~ "Please upgrade your browser to increase safety and your browsing "
+#~ "experience. Choose one of the browsers above. If you don't care <a href="
+#~ "\"?forwardOutdatedBrowser=1\">click here</a>"
+
+#~ msgid "404_page_message"
+#~ msgstr ""
+#~ "The Page you are looking for doesn't exist or an other error occurred. <a "
+#~ "href=\"javascript:history.go(-1)\">Go back</a>, or head over to <a href="
+#~ "\"%s\">%s</a> to choose a new direction."
