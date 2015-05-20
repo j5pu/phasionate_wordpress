@@ -510,7 +510,7 @@ function ownResize(){
 		$('.bigCover').append($('<div>', {class: 'popUpSection'}));
 		$('.popUpSection').append($('<div>', {class: 'logoPhasionateLogIn'}));
 		$('.logoPhasionateLogIn').text('PHASIONÂTE');
-		$('.#text-57').appendTo('.popUpSection');
+		$('#text-57').appendTo('.popUpSection');
 		$('.popUpSection').append($('<div>', {class: 'getBackLinkContainer'}));
 		$('.getBackLinkContainer').append($('<div>', {class: 'getBackLink'}));
 		//$urlPrincipal = $('.logo a').attr('href');
@@ -525,8 +525,8 @@ function ownResize(){
 		setTimeout(function(){$('.popUpSection').slideDown("slow")},2000);
 	}
 	function closePopUpRegister(){
-		$('.#text-57').css('display','none');
-		$('.#text-57').appendTo('#footer-sidebar-4');
+		$('#text-57').css('display','none');
+		$('#text-57').appendTo('#footer-sidebar-4');
 		$('.bigCover').remove();
 		$('.popUpSection').remove();
 		$('.logoPhasionateLogIn').remove();
