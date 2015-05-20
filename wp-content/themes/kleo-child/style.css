@@ -288,7 +288,7 @@ body {
 }
 
 #socket{
-	background-color: transparent;
+	background-color: #000;
 }
 
 .header-color .navbar-toggle:hover .icon-bar {
@@ -3560,6 +3560,9 @@ div.col-sm-12 ul.um-reviews-widget span.um-reviews-send input:hover{
 div.col-sm-12 ul.um-reviews-widget .ya-votado{
 	float:right;
 	margin-top: -50px;
+}
+.um-members-intro{
+	display: none;
 }
 /* Boton Editar Rol */
 body.page.page-id-15817 .um-form .um-cover, body.page.page-id-15817 .um-form .um-header, body.page.page-id-15817 .um-form .um-profile-nav{
