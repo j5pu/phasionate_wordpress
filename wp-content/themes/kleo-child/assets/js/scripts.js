@@ -380,6 +380,7 @@ function ownResize(){
 	// 15587 -> aphasionate o unete
 	// 15897 -> login
 	// 15306 -> aphasionate (acceder)
+	console.log(navigator.userAgent);
 	if ($win.width()>990){
 		/*if ($('body.bbpress').length>0 || $('body.page-id-15304').length>0 || $('body.page-id-15566').length>0 || $('body.page-id-15817').length>0 || $('body.page-id-15314').length>0 
 				|| $('body.page-id-15993').length>0 || $('body.page-id-15587').length>0 || $('body.page-id-15897').length>0 || $('body.page-id-15306').length>0 ){*/
@@ -504,12 +505,12 @@ function ownResize(){
 		$('.botton_register_main').click(function () { showPopUpRegister(); return false;});
 	}
 	function showPopUpRegister(){
-		$('.registro-um-popup').css('display','inline-block');
+		$('#text-57').css('display','inline-block');
 		$('body').append($('<div>', {class: 'bigCover'}));
 		$('.bigCover').append($('<div>', {class: 'popUpSection'}));
 		$('.popUpSection').append($('<div>', {class: 'logoPhasionateLogIn'}));
 		$('.logoPhasionateLogIn').text('PHASIONÂTE');
-		$('.registro-um-popup').appendTo('.popUpSection');
+		$('.#text-57').appendTo('.popUpSection');
 		$('.popUpSection').append($('<div>', {class: 'getBackLinkContainer'}));
 		$('.getBackLinkContainer').append($('<div>', {class: 'getBackLink'}));
 		//$urlPrincipal = $('.logo a').attr('href');
@@ -524,8 +525,8 @@ function ownResize(){
 		setTimeout(function(){$('.popUpSection').slideDown("slow")},2000);
 	}
 	function closePopUpRegister(){
-		$('.registro-um-popup').css('display','none');
-		$('.registro-um-popup').appendTo('#footer-sidebar-4');
+		$('.#text-57').css('display','none');
+		$('.#text-57').appendTo('#footer-sidebar-4');
 		$('.bigCover').remove();
 		$('.popUpSection').remove();
 		$('.logoPhasionateLogIn').remove();

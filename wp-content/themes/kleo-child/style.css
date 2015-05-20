@@ -4324,10 +4324,10 @@ div.um .um-form div.um-reviews-post .um-reviews-content textarea {
 }
 
 /*Pop Up Registro*/
-.registro-um-popup{
+#text-57{
 	display:none;
 }	
-.popUpSection section.registro-um-popup{
+.popUpSection section#text-57{
 	padding-top: 0px !important;
 	padding-bottom: 0px !important;
 	display: block !important;
