@@ -3841,15 +3841,15 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 .top-rated-user .um-reviews-widget-pic {
 	width: auto;
 }
-.top_portada_mayo li:first-child,
-.top_portada_mayo li:nth-child(2),
-.top_portada_mayo li:nth-child(3) {
+.top_portada_mayo.first_page_ranking_list li:first-child,
+.top_portada_mayo.first_page_ranking_list li:nth-child(2),
+.top_portada_mayo.first_page_ranking_list li:nth-child(3) {
 	margin: 0.5%;
 	width: 32.33%;
 }
-.top_portada_mayo li:first-child div:nth-child(2),
-.top_portada_mayo li:nth-child(2) div:nth-child(2),
-.top_portada_mayo li:nth-child(3) div:nth-child(2) {
+.top_portada_mayo.first_page_ranking_list li:first-child div:nth-child(2),
+.top_portada_mayo.first_page_ranking_list li:nth-child(2) div:nth-child(2),
+.top_portada_mayo.first_page_ranking_list li:nth-child(3) div:nth-child(2) {
 	text-align: center;
 	width: 100%;
 }
@@ -3901,7 +3901,7 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 }
 .selectBoxdown {
 	clear: both;
-	margin-top: 10px;
+	padding-top: 10px;
 }
 .selectBoxup {
 	padding-bottom: 20px;
@@ -4015,25 +4015,25 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 	.top_portada_mayo li div:first-child {
 		width: auto;
 	}
-	.top_portada_mayo li:first-child,
-	.top_portada_mayo li:nth-child(2),
-	.top_portada_mayo li:nth-child(3){
+	.top_portada_mayo.first_page_ranking_list li:first-child,
+	.top_portada_mayo.first_page_ranking_list li:nth-child(2),
+	.top_portada_mayo.first_page_ranking_list li:nth-child(3){
 		width: 32.33%;
 		clear: none;
 		height: 300px;	
 	}
-	.top_portada_mayo li:first-child div:first-child,
-	.top_portada_mayo li:nth-child(2) div:first-child,
-	.top_portada_mayo li:nth-child(3) div:first-child,
-	.top_portada_mayo li:first-child div:nth-child(2) div:first-child,
-	.top_portada_mayo li:nth-child(2) div:nth-child(2) div:first-child,
-	.top_portada_mayo li:nth-child(3) div:nth-child(2) div:first-child  {
+	.top_portada_mayo.first_page_ranking_list li:first-child div:first-child,
+	.top_portada_mayo.first_page_ranking_list li:nth-child(2) div:first-child,
+	.top_portada_mayo.first_page_ranking_list li:nth-child(3) div:first-child,
+	.top_portada_mayo.first_page_ranking_list li:first-child div:nth-child(2) div:first-child,
+	.top_portada_mayo.first_page_ranking_list li:nth-child(2) div:nth-child(2) div:first-child,
+	.top_portada_mayo.first_page_ranking_list li:nth-child(3) div:nth-child(2) div:first-child  {
 	    width: 100%;
 	    line-height: inherit;
 	}
-	.top_portada_mayo li:first-child div:nth-child(2) div:first-child,
-	.top_portada_mayo li:nth-child(2) div:nth-child(2) div:first-child,
-	.top_portada_mayo li:nth-child(3) div:nth-child(2) div:first-child  {
+	.top_portada_mayo.first_page_ranking_list li:first-child div:nth-child(2) div:first-child,
+	.top_portada_mayo.first_page_ranking_list li:nth-child(2) div:nth-child(2) div:first-child,
+	.top_portada_mayo.first_page_ranking_list li:nth-child(3) div:nth-child(2) div:first-child  {
 		margin: 10px 0px 0px 0px;
 	}
 	.top_portada_mayo li .um-reviews-widget-user:hover {
@@ -4044,9 +4044,9 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 	.top_portada_mayo li div:first-child a img{
 		margin: 0px 10px;
 	}
-	.top_portada_mayo li:first-child div:first-child a img,
-	.top_portada_mayo li:nth-child(2) div:first-child a img,
-	.top_portada_mayo li:nth-child(3) div:first-child a img {
+	.top_portada_mayo.first_page_ranking_list li:first-child div:first-child a img,
+	.top_portada_mayo.first_page_ranking_list li:nth-child(2) div:first-child a img,
+	.top_portada_mayo.first_page_ranking_list li:nth-child(3) div:first-child a img {
 		margin: 0px auto;
 	}
 	.top_portada_mayo li div:nth-child(2) div:first-child {
@@ -4058,9 +4058,9 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 	    top: -45px;
 	    left: 5%;
 	}
-	.top_portada_mayo li:first-child div:nth-child(2) div:nth-child(4),
-	.top_portada_mayo li:nth-child(2) div:nth-child(2) div:nth-child(4),
-	.top_portada_mayo li:nth-child(3) div:nth-child(2) div:nth-child(4) {
+	.top_portada_mayo.first_page_ranking_list li:first-child div:nth-child(2) div:nth-child(4),
+	.top_portada_mayo.first_page_ranking_list li:nth-child(2) div:nth-child(2) div:nth-child(4),
+	.top_portada_mayo.first_page_ranking_list li:nth-child(3) div:nth-child(2) div:nth-child(4) {
 	    position: inherit;
 	    top: 0px;
 	    left: 0px;
@@ -4069,9 +4069,9 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 		width: 100px !important;
 		padding: 10px !important;
 	}
-	.top_portada_mayo li:first-child .um-reviews-send .um-button,
-	.top_portada_mayo li:nth-child(2) .um-reviews-send .um-button,
-	.top_portada_mayo li:nth-child(3) .um-reviews-send .um-button {
+	.top_portada_mayo.first_page_ranking_list li:first-child .um-reviews-send .um-button,
+	.top_portada_mayo.first_page_ranking_list li:nth-child(2) .um-reviews-send .um-button,
+	.top_portada_mayo.first_page_ranking_list li:nth-child(3) .um-reviews-send .um-button {
 		width: 100% !important;
 		padding: 16px 20px !important;
 	}

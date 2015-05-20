@@ -104,8 +104,14 @@ class UM_Reviews_Shortcode {
 			$page_number = 1;
 		}
 
-		$total_participants_show = 20;
-		$offset_query = ($page_number-1)*$total_participants_show;
+		$total_participants_show_basic = 7;
+		if($page_number>1){
+			$total_participants_show = $total_participants_show_basic  + 1;
+			$offset_query = (($page_number-1)*$total_participants_show)-1;
+		}else{
+			$total_participants_show = $total_participants_show_basic;
+			$offset_query = ($page_number-1)*$total_participants_show;
+		}
 		
 		$query_args = array(
 			'fields' => 'ID',
@@ -125,7 +131,8 @@ class UM_Reviews_Shortcode {
 		$users = new WP_User_Query( $query_args );
 
 		$total_participants = count($users->results) + $offset_query;
-		$n_pages = ceil($total_participants/$total_participants_show);
+		echo "total_participants = ".$total_participants;
+		$n_pages = ceil($total_participants/$total_participants_show_basic);
 		?>
 
 		<?php
@@ -152,7 +159,7 @@ class UM_Reviews_Shortcode {
 			</select>
 		</div>
 
-		<ul class="um-reviews-widget top-rated top_portada_mayo">
+		<ul class="um-reviews-widget top-rated top_portada_mayo <?php if($page_number == 1){ echo "first_page_ranking_list"; }?>">
 		
 			<?php 
 			$i = $offset_query+1;
