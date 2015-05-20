@@ -55,7 +55,7 @@ class UM_Form {
 		$http_post = ('POST' == $_SERVER['REQUEST_METHOD']);
 		
 		if ( $http_post && !is_admin() && isset( $_POST['form_id'] ) && is_numeric($_POST['form_id']) ) {
-			
+
 			$this->form_id = $_POST['form_id'];
 			$this->form_status = get_post_status( $this->form_id );
 			
@@ -72,9 +72,9 @@ class UM_Form {
 				
 				$this->post_form = array_merge( $this->form_data, $this->post_form );
 
-				if ( $_POST[ $ultimatemember->honeypot ] != '' )
+				if ( isset( $_POST[ $ultimatemember->honeypot ] ) && $_POST[ $ultimatemember->honeypot ] != '' )
 					wp_die('Hello, spam bot!');
-				
+
 				if ( !in_array( $this->form_data['mode'], array('login') ) ) {
 				
 					$form_timestamp  = trim($_POST['timestamp']);
@@ -83,7 +83,7 @@ class UM_Form {
 					if ( $form_timestamp == '' && um_get_option('enable_timebot') == 1 )
 						wp_die( __('Hello, spam bot!') );
 
-					if ( $live_timestamp - $form_timestamp < 6 && um_get_option('enable_timebot') == 1  )
+					if ( !current_user_can('manage_options') && $live_timestamp - $form_timestamp < 6 && um_get_option('enable_timebot') == 1  )
 						wp_die( __('Whoa, slow down! You\'re seeing this message because you tried to submit a form too fast and we think you might be a spam bot. If you are a real human being please wait a few seconds before submitting the form. Thanks!') );
 
 				}

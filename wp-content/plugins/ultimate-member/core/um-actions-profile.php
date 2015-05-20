@@ -92,7 +92,7 @@
 		}
 		
 		if ( isset( $args['submitted']['description'] ) ) {
-			$to_update['description'] = $ultimatemember->validation->remove_html( $args['submitted']['description'] );
+			$to_update['description'] = $args['submitted']['description'];
 		}
 		
 		if ( isset( $args['submitted']['role'] ) && !empty( $args['submitted']['role'] ) ) {
@@ -111,8 +111,8 @@
 			$ultimatemember->user->update_files( $files );
 		}
 		
+		do_action('um_after_user_updated', um_user('ID') );
 		do_action('um_after_user_upload', um_user('ID') );
-		
 		do_action('um_user_after_updating_profile', $to_update );
 		
 		if ( !isset( $args['is_signup'] ) ) {
@@ -433,7 +433,7 @@
 	/***
 	***	@display the edit profile icon
 	***/
-	//add_action('um_pre_header_editprofile', 'um_add_edit_icon' );
+	add_action('um_pre_header_editprofile', 'um_add_edit_icon' );
 	function um_add_edit_icon( $args ) {
 		global $ultimatemember;
 		$output = '';
@@ -614,7 +614,7 @@
 				?>
 			
 			<div class="um-profile-nav-item um-profile-nav-<?php echo $id; ?> <?php if ( !um_get_option('profile_menu_icons') ) { echo 'without-icon'; } ?> <?php if ( $id == $active_tab ) { echo 'active'; } ?>">
-				<a href="<?php if ($id == 'gallery' && get_current_user_id()==um_profile_id()){echo $nav_link.'&um_action=edit';}else{echo $nav_link;} ?>" title="<?php echo $tab['name']; ?>">
+				<a href="<?php echo $nav_link; ?>" title="<?php echo $tab['name']; ?>">
 
 					<i class="<?php echo $tab['icon']; ?>"></i>
 					

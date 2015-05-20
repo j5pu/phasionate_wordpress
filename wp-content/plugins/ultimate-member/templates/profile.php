@@ -1,15 +1,14 @@
-<div class="um <?php echo $this->get_class( $mode ); ?> um-<?php echo $form_id; ?>" data-error_required="This field is required" data-password_not_match="Passwords do not match" data-password_not_long="Password must be 8 characters at least">
+<div class="um <?php echo $this->get_class( $mode ); ?> um-<?php echo $form_id; ?>">
 
 	<div class="um-form">
-		
+	
 		<?php do_action('um_profile_before_header', $args ); ?>
+		
 		<?php if ( um_is_on_edit_profile() ) { ?><form method="post" action=""><?php } ?>
 		
 			<?php do_action('um_profile_header_cover_area', $args ); ?>
 			
 			<?php do_action('um_profile_header', $args ); ?>
-
-			<?php apply_filters('um_profile_after_header', $args); ?>
 			
 			<?php do_action('um_profile_navbar', $args ); ?>
 			
@@ -27,11 +26,9 @@
 			print "</div>";
 				
 			?>
+		
 		<?php if ( um_is_on_edit_profile() ) { ?></form><?php } ?>
-
 	
 	</div>
-
-
 	
 </div>

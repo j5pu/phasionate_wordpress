@@ -22,12 +22,18 @@
  *
  */
 function um_user_ip() {
-	if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-		return $_SERVER['HTTP_CLIENT_IP'];
-	} else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) { 
-		return $_SERVER['HTTP_X_FORWARDED_FOR'];
+	$ip = '127.0.0.1';
+
+	if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+		//check ip from share internet
+		$ip = $_SERVER['HTTP_CLIENT_IP'];
+	} elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+		//to check ip is pass from proxy
+		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+	} elseif( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
+		$ip = $_SERVER['REMOTE_ADDR'];
 	}
-	return $_SERVER['REMOTE_ADDR'];
+	return apply_filters( 'um_user_ip', $ip );
 }
 
 	/***
@@ -125,7 +131,7 @@ function um_user_ip() {
 		if ( isset( $data ) && is_array( $data ) ) {
 			foreach( $data as $k => $v ) {
 				
-				if ( !strstr( $k, 'user_pass' ) ) {
+				if ( !strstr( $k, 'user_pass' ) && $k != 'g-recaptcha-response' && $k != 'request' ) {
 				
 					if ( is_array($v) ) {
 						$v = implode(',', $v );
@@ -490,6 +496,7 @@ function um_reset_user() {
 	***/
 	function um_edit_my_profile_cancel_uri() {
 		$url = remove_query_arg( 'um_action' );
+		$url = remove_query_arg( 'profiletab', $url );
 		return $url;
 	}
 	
@@ -795,6 +802,33 @@ function um_fetch_user( $user_id ) {
 	}
 	
 	/***
+	***	@Get youtube video ID from url
+	***/
+	function um_youtube_id_from_url($url) {
+		$pattern = 
+			'%^# Match any youtube URL
+			(?:https?://)?  # Optional scheme. Either http or https
+			(?:www\.)?      # Optional www subdomain
+			(?:             # Group host alternatives
+			  youtu\.be/    # Either youtu.be,
+			| youtube\.com  # or youtube.com
+			  (?:           # Group path alternatives
+				/embed/     # Either /embed/
+			  | /v/         # or /v/
+			  | /watch\?v=  # or /watch\?v=
+			  )             # End path alternatives.
+			)               # End host alternatives.
+			([\w-]{10,12})  # Allow 10-12 for 11 char youtube id.
+			$%x'
+			;
+		$result = preg_match($pattern, $url, $matches);
+		if (false !== $result) {
+			return $matches[1];
+		}
+		return false;
+	}
+	
+	/***
 	***	@user uploads uri
 	***/
 	function um_user_uploads_uri() {
@@ -871,6 +905,10 @@ function um_fetch_user( $user_id ) {
 				
 				$uri = um_user_uploads_uri() . 'profile_photo.jpg?' . current_time( 'timestamp' );
 			
+			}
+			
+			if ( $attrs == 'original' ) {
+				$uri = um_user_uploads_uri() . 'profile_photo.jpg?' . current_time( 'timestamp' );
 			}
 			
 		}
@@ -1073,9 +1111,9 @@ function um_user( $data, $attrs = null ) {
 			} else {
 				$avatar_uri = um_get_default_avatar_uri();
 			}
-			
+
 			$avatar_uri = apply_filters('um_user_avatar_url_filter', $avatar_uri, um_user('ID') );
-				
+
 			if ( $avatar_uri )
 				return '<img src="' . $avatar_uri . '" class="gravatar avatar avatar-'.$attrs.' um-avatar" width="'.$attrs.'" height="'.$attrs.'" alt="" />';
 				

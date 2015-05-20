@@ -13,6 +13,105 @@ class UM_Admin_Dashboard {
 		add_action('admin_menu', array(&$this, 'secondary_menu_items'), 1000);
 		add_action('admin_menu', array(&$this, 'extension_menu'), 9999); 
 		
+		add_action( 'admin_head', array( $this, 'menu_order_count' ) );
+		
+		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 1000 );
+		
+		add_action( 'wp_ajax_ultimatemember_rated', array( $this, 'ultimatemember_rated' ) );
+		add_action( 'wp_ajax_nopriv_ultimatemember_rated', array( $this, 'ultimatemember_rated' ) );
+		
+	}
+	
+	/**
+	 * Change the admin footer text on UM admin pages
+	 */
+	public function admin_footer_text( $footer_text ) {
+		$current_screen = get_current_screen();
+		
+		// Add the dashboard pages
+		$um_pages[] = 'toplevel_page_ultimatemember';
+		$um_pages[] = 'admin_page_ultimatemember-about';
+		$um_pages[] = 'ultimate-member_page_um_options';
+		$um_pages[] = 'edit-um_form';
+		$um_pages[] = 'edit-um_role';
+		$um_pages[] = 'edit-um_directory';
+		$um_pages[] = 'ultimate-member_page_ultimatemember-extensions';
+		
+		if ( isset( $current_screen->id ) && in_array( $current_screen->id, $um_pages ) ) {
+			// Change the footer text
+			if ( ! get_option( 'um_admin_footer_text_rated' ) ) {
+				
+			$footer_text = sprintf( __( 'If you like Ultimate Member please consider leaving a %s&#9733;&#9733;&#9733;&#9733;&#9733;%s review. It will help us to grow the plugin and make it more popular. Thank you.', 'ultimatemember' ), '<a href="https://wordpress.org/support/view/plugin-reviews/ultimate-member?filter=5#postform" target="_blank" class="um-admin-rating-link" data-rated="' . __( 'Thanks :)', 'ultimatemember' ) . '">', '</a>' );
+			
+			$footer_text .= "<script type='text/javascript'>
+					jQuery('a.um-admin-rating-link').click(function() {
+						jQuery.post( '" . admin_url( 'admin-ajax.php', 'relative' ) . "', { action: 'ultimatemember_rated' } );
+						jQuery(this).parent().text( jQuery(this).data( 'rated' ) );
+					});
+				</script>";
+			}
+		}
+
+		return $footer_text;
+	}
+	
+	/**
+	 * When user clicks the review link in backend
+	 */
+	function ultimatemember_rated() {
+		update_option('um_admin_footer_text_rated', 1 );
+		die();
+	}
+	
+	/**
+	 * Get pending users (in queue)
+	 */
+	function get_pending_users_count() {
+		
+		if ( get_option('um_cached_users_queue') > 0 ) {
+			return get_option('um_cached_users_queue');
+		}
+		
+		$args = array( 'fields' => 'ID', 'number' => 20 );
+		$args['meta_query']['relation'] = 'OR';
+		$args['meta_query'][] = array(
+				'key' => 'account_status',
+				'value' => 'awaiting_email_confirmation',
+				'compare' => '='
+		);
+		$args['meta_query'][] = array(
+				'key' => 'account_status',
+				'value' => 'awaiting_admin_review',
+				'compare' => '='
+		);
+		$users = new WP_User_Query( $args );
+		
+		delete_option('um_cached_users_queue');
+		add_option('um_cached_users_queue', count($users->results), '', 'no' );
+		
+		return count($users->results);
+	}
+	
+	/**
+	 * Manage order of admin menu items
+	 */
+	public function menu_order_count() {
+		global $menu, $submenu;
+		
+		if ( !current_user_can( 'list_users' ) ) return;
+		
+		$count = $this->get_pending_users_count();
+		
+		foreach( $menu as $key => $menu_item ) {
+			if ( 0 === strpos( $menu_item[0], _x( 'Users', 'Admin menu name' ) ) ) {
+				$menu[ $key ][0] .= ' <span class="update-plugins count-'.$count.'"><span class="processing-count">'.$count.'</span></span>';
+			}
+		}
+		foreach ( $submenu['users.php'] as $key => $menu_item ) {
+			if ( 0 === strpos( $menu_item[0], _x( 'All Users', 'Admin menu name' ) ) ) {
+				$submenu['users.php'][ $key ][0] .= ' <span class="update-plugins count-'.$count.'"><span class="processing-count">'.$count.'</span></span>';
+			}
+		}
 	}
 	
 	/***
@@ -51,7 +150,7 @@ class UM_Admin_Dashboard {
 	***	@extension menu
 	***/
 	function extension_menu() {
-		add_submenu_page( $this->slug, __('Extensions', $this->slug), '<span style="color: #3dc3e5">' .__('Extensions', $this->slug) . '</span>', 'manage_options', $this->slug . '-extensions', array(&$this, 'admin_page') );
+		add_submenu_page( $this->slug, __('Extensions', $this->slug), '<span style="color: #00B9EB">' .__('Extensions', $this->slug) . '</span>', 'manage_options', $this->slug . '-extensions', array(&$this, 'admin_page') );
 	}
 	
 	/***

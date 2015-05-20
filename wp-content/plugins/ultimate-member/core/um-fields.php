@@ -245,8 +245,12 @@ class UM_Fields {
 	/***
 	***	@Print field error
 	***/
-	function field_error($text) {
+	function field_error($text, $force_show = false ) {
 		global $ultimatemember;
+		if ( $force_show ) {
+			$output = '<div class="um-field-error"><span class="um-field-arrow"><i class="um-faicon-caret-up"></i></span>'.$text.'</div>';
+			return $output;
+		}
 		if ( isset( $this->set_id ) && $ultimatemember->form->processing == $this->set_id ) {
 			$output = '<div class="um-field-error"><span class="um-field-arrow"><i class="um-faicon-caret-up"></i></span>'.$text.'</div>';
 		} else {
@@ -588,6 +592,14 @@ class UM_Fields {
 		
 		switch( $array['type'] ) {
 
+			case 'googlemap':
+			case 'youtube_video':
+			case 'vimeo_video':
+			case 'soundcloud_track':
+				$array['disabled'] = '';
+				$array['input'] = 'text';
+				break;
+				
 			case 'text':
 				
 				$array['disabled'] = '';
@@ -598,30 +610,18 @@ class UM_Fields {
 				
 				$array['input'] = 'text';
 
-				if (!isset($array['autocomplete'])) $array['autocomplete'] = 'on';
-				
-				if ( $key == 'user_login' ) $array['autocomplete'] = 'off';
-				
 				break;
 				
 			case 'password':
 				
 				$array['input'] = 'password';
 
-				if (!isset($array['autocomplete'])) $array['autocomplete'] = 'on';
-				
-				$array['autocomplete'] = 'off';
-				
 				break;
 				
 			case 'url':
 				
 				$array['input'] = 'text';
 
-				if (!isset($array['autocomplete'])) $array['autocomplete'] = 'on';
-				
-				if ( $key == 'user_login' ) $array['autocomplete'] = 'off';
-				
 				break;
 				
 			case 'date':
@@ -697,9 +697,7 @@ class UM_Fields {
 					}
 
 				}
-				
-				if (!isset($array['autocomplete'])) $array['autocomplete'] = 'on';
-
+			
 				break;
 				
 			case 'time':
@@ -723,8 +721,6 @@ class UM_Fields {
 				$array['js_format'] = $js_format;
 				
 				if ( !isset( $array['intervals'] ) ) $array['intervals'] = 60;
-				
-				if (!isset($array['autocomplete'])) $array['autocomplete'] = 'on';
 
 				break;
 				
@@ -928,6 +924,37 @@ class UM_Fields {
 				$mode = (isset($this->set_mode))?$this->set_mode:'no_mode';
 				$output .= apply_filters("um_edit_field_{$mode}_{$type}", $output, $data);
 				break;
+				
+			/* Other fields */
+			case 'googlemap':
+			case 'youtube_video':
+			case 'vimeo_video':
+			case 'soundcloud_track':
+
+				$output .= '<div class="um-field' . $classes . '"' . $conditional . ' data-key="'.$key.'">';
+						
+						if ( isset( $data['label'] ) ) {
+						$output .= $this->field_label($label, $key, $data);
+						}
+
+						$output .= '<div class="um-field-area">';
+						
+						if ( isset($icon) && $icon && isset( $this->field_icons ) && $this->field_icons == 'field' ) {
+						
+						$output .= '<div class="um-field-icon"><i class="'.$icon.'"></i></div>';
+						
+						}
+						
+						$output .= '<input '.$disabled.' class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. htmlspecialchars( $this->field_value( $key, $default, $data ) ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" />
+							
+						</div>';
+							
+						if ( $this->is_error($key) ) {
+							$output .= $this->field_error( $this->show_error($key) );
+						}
+					
+						$output .= '</div>';
+				break;
 
 			/* Text */
 			case 'text':
@@ -946,7 +973,7 @@ class UM_Fields {
 						
 						}
 						
-						$output .= '<input '.$disabled.' class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" autocomplete="'.$autocomplete.'" />
+						$output .= '<input '.$disabled.' class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. htmlspecialchars( $this->field_value( $key, $default, $data ) ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" />
 							
 						</div>';
 							
@@ -980,7 +1007,7 @@ class UM_Fields {
 							
 							}
 							
-							$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" autocomplete="'.$autocomplete.'" />
+							$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" />
 								
 							</div>';
 								
@@ -1009,7 +1036,7 @@ class UM_Fields {
 								
 								}
 								
-								$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="' . $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" autocomplete="'.$autocomplete.'" />
+								$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="' . $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" />
 									
 								</div>';
 									
@@ -1043,7 +1070,7 @@ class UM_Fields {
 						
 						}
 						
-						$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" autocomplete="'.$autocomplete.'" />
+						$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" />
 							
 						</div>';
 							
@@ -1070,7 +1097,7 @@ class UM_Fields {
 								
 								}
 								
-								$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="' . $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" autocomplete="'.$autocomplete.'" />
+								$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="' . $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" />
 									
 								</div>';
 									
@@ -1103,7 +1130,7 @@ class UM_Fields {
 						
 						}
 						
-						$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" autocomplete="'.$autocomplete.'" />
+						$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" />
 							
 						</div>';
 							
@@ -1131,7 +1158,7 @@ class UM_Fields {
 						
 						}
 						
-						$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" autocomplete="'.$autocomplete.'" data-range="'.$range.'" data-years="'.$years.'" data-years_x="'.$years_x.'" data-disabled_weekdays="'.$disabled_weekdays.'" data-date_min="'.$date_min.'" data-date_max="'.$date_max.'" data-format="'.$js_format.'" data-value="'. $this->field_value( $key, $default, $data ) .'" />
+						$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'"    data-range="'.$range.'" data-years="'.$years.'" data-years_x="'.$years_x.'" data-disabled_weekdays="'.$disabled_weekdays.'" data-date_min="'.$date_min.'" data-date_max="'.$date_max.'" data-format="'.$js_format.'" data-value="'. $this->field_value( $key, $default, $data ) .'" />
 							
 						</div>';
 							
@@ -1159,7 +1186,7 @@ class UM_Fields {
 						
 						}
 						
-						$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'" autocomplete="'.$autocomplete.'" data-format="'.$js_format.'" data-intervals="'.$intervals.'" data-value="'. $this->field_value( $key, $default, $data ) .'" />
+						$output .= '<input class="'.$this->get_class($key, $data).'" type="'.$input.'" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $this->field_value( $key, $default, $data ) .'" placeholder="'.$placeholder.'" data-validate="'.$validate.'" data-key="'.$key.'"  data-format="'.$js_format.'" data-intervals="'.$intervals.'" data-value="'. $this->field_value( $key, $default, $data ) .'" />
 							
 						</div>';
 							
@@ -1232,7 +1259,13 @@ class UM_Fields {
 			case 'image':
 				$output .= '<div class="um-field' . $classes . '"' . $conditional . ' data-key="'.$key.'">';
 				
-					$output .= '<input type="hidden" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $this->field_value( $key, $default, $data ) . '" />';
+					if ( in_array( $key, array('profile_photo','cover_photo') )  ) {
+						$field_value = '';
+					} else {
+						$field_value = $this->field_value( $key, $default, $data );
+					}
+					
+					$output .= '<input type="hidden" name="'.$key.$ultimatemember->form->form_suffix.'" id="'.$key.$ultimatemember->form->form_suffix.'" value="'. $field_value . '" />';
 					
 					if ( isset( $data['label'] ) ) {
 						$output .= $this->field_label($label, $key, $data);
@@ -1244,17 +1277,19 @@ class UM_Fields {
 					
 					if ( $this->field_value( $key, $default, $data ) ) {
 					
-						$uri = um_user_uploads_uri() . $this->field_value( $key, $default, $data );
-						
-						if ( isset( $ultimatemember->form->errors ) && !empty( $ultimatemember->form->errors ) ) {
+						if ( !in_array( $key, array('profile_photo','cover_photo') ) ) {
 							if ( isset( $this->set_mode ) && $this->set_mode == 'register' ) {
-								$uri = $this->field_value( $key, $default, $data );
+								$imgValue = $this->field_value( $key, $default, $data );
+							} else {
+								$imgValue = um_user_uploads_uri() . $this->field_value( $key, $default, $data );
 							}
+							$img = '<img src="' . $imgValue . '" alt="" />';
+						} else {
+							$img = '';
 						}
 						
 						$output .= '<div class="um-single-image-preview show '. $crop_class .'" data-crop="'.$crop_data.'" data-key="'.$key.'">
-								<a href="#" class="cancel"><i class="um-icon-close"></i></a>
-								<img src="' . $uri . '" alt="" />
+								<a href="#" class="cancel"><i class="um-icon-close"></i></a>' . $img . '
 							</div><a href="#" data-modal="um_upload_single" data-modal-size="'.$modal_size.'" data-modal-copy="1" class="um-button um-btn-auto-width">'. __('Change photo') . '</a>';
 						
 					} else {
@@ -1961,7 +1996,7 @@ class UM_Fields {
 						}
 
 						$output .= '<div class="um-field-area">';
-						$output .= '<div class="um-field-value">' . $this->field_value( $key, $default, $data ) . '</div>';
+						$output .= '<div class="um-field-value">' . stripslashes( $this->field_value( $key, $default, $data ) ) . '</div>';
 						$output .= '</div>';
 						
 						$output .= '</div>';

@@ -24,9 +24,12 @@ class UM_API {
 			'de_DE'	=> 'Deutsch',
 			'nl_NL' => 'Nederlands',
 			'fi_FI' => 'Suomi',
+			'da_DK' => 'Dansk',
+			'sv_SE' => 'Svenska',
 			'pl_PL' => 'Polski',
 			'ru_RU' => 'Русский',
 			'tr_TR' => 'Türkçe',
+			'he_IL' => 'Hebrew',
 			'ar' 	=> 'العربية'
 		);
 		
@@ -61,6 +64,7 @@ class UM_API {
 
 		ob_start();
 		
+		require_once um_path . 'core/um-api.php';
 		require_once um_path . 'core/um-rewrite.php';
 		require_once um_path . 'core/um-setup.php';
 		require_once um_path . 'core/um-uninstall.php';
@@ -109,15 +113,12 @@ class UM_API {
 		require_once um_path . 'core/um-actions-password.php';
 		require_once um_path . 'core/um-actions-members.php';
 		require_once um_path . 'core/um-actions-global.php';
-		require_once um_path . 'core/um-actions-tracking.php';
 		require_once um_path . 'core/um-actions-user.php';
 		require_once um_path . 'core/um-actions-save-profile.php';
 		require_once um_path . 'core/um-actions-modal.php';
 		require_once um_path . 'core/um-actions-misc.php';
-		require_once um_path . 'core/um-actions-posts.php';
-		
+
 		require_once um_path . 'core/um-filters-login.php';
-		require_once um_path . 'core/um-filters-register.php';
 		require_once um_path . 'core/um-filters-fields.php';
 		require_once um_path . 'core/um-filters-files.php';
 		require_once um_path . 'core/um-filters-navmenu.php';
@@ -132,6 +133,7 @@ class UM_API {
 		require_once um_path . 'core/um-filters-commenting.php';
 		
 		/* initialize UM */
+		$this->api = new UM_REST_API();
 		$this->rewrite = new UM_Rewrite();
 		$this->setup = new UM_Setup();
 		$this->uninstall = new UM_Uninstall();
@@ -170,7 +172,7 @@ class UM_API {
 		$this->options = get_option('um_options');
 		
 		$domain = 'ultimatemember';
-		$locale = get_option('WPLANG');
+		$locale = ( get_option('WPLANG') ) ? get_option('WPLANG') : 'en_US';
 		load_textdomain($domain, WP_LANG_DIR . '/plugins/' .$domain.'-'.$locale.'.mo');
 		
 	}
