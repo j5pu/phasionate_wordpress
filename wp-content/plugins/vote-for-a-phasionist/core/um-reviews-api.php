@@ -470,6 +470,9 @@ class UM_Reviews_API_Core {
 		}
 	}
 
+	/**
+	 * Devuelve true si el usuario es concursante
+	 */
 	function is_a_player($user_id){
 		$role = get_user_meta( $user_id, 'role', false );
 
@@ -478,6 +481,24 @@ class UM_Reviews_API_Core {
 		}else{
 			return false;
 		}
+	}
+
+	/**
+	 * Sort Users By Meta Key
+	 *
+	 * @param array $user_ids
+	 * @param string $meta_key
+	 *
+	 * @return array|boolean
+	 */
+	function it4_sort_users_by_meta_key( array $user_ids, $meta_key ) {
+	    $user_order = array();
+	    foreach( $user_ids as $user_id ) {
+	        $user_order[$user_id] = intval( get_user_meta( $user_id, $meta_key, true ) );
+	    }
+	    arsort( $user_order );
+
+	    return array_keys( $user_order );
 	}
 	
 }

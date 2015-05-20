@@ -44,12 +44,12 @@ class UM_Reviews_Shortcode {
 		);
 
 		$users = new WP_User_Query( $query_args );
-
+		$sorted_users_ids = $um_reviews->api->it4_sort_users_by_meta_key( $users->results, '_reviews_total' );
 		?>
 
 		<?php 
 		$i=0;
-		foreach( $users->results as $user_id ) {
+		foreach( $sorted_users_ids as $user_id ) {
 			$i += 1;
 			$current_user_id = get_current_user_id();
 
@@ -130,6 +130,8 @@ class UM_Reviews_Shortcode {
 
 		$users = new WP_User_Query( $query_args );
 
+		$sorted_users_ids = $um_reviews->api->it4_sort_users_by_meta_key( $users->results, '_reviews_total' );
+
 		$total_participants = count($users->results) + $offset_query;
 		$n_pages = ceil($total_participants/$total_participants_show_basic);
 		?>
@@ -163,7 +165,7 @@ class UM_Reviews_Shortcode {
 			<?php 
 			$i = $offset_query+1;
 			$current_user_id = get_current_user_id();
-			foreach( $users->results as $user_id ) {
+			foreach( $sorted_users_ids as $user_id ) {
 				$count = round($um_reviews->api->get_rating( $user_id ));
 				get_avatar( $user_id, 100 );
 			?>

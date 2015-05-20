@@ -48,7 +48,7 @@ jQuery(document).ready(function() {
 	        beforeSend: function(){
             	//this_form.find('.um-reviews-send input').val("Enviando");
             	this_form.find('.um-reviews-send input').hide();
-            	document.getElementById(spinner_place).innerHTML = '<img id="' + spinner_place + '" class="cargando" src="http://localhost/phasionate_wordpress/wp-content/plugins/vote-for-a-phasionist/assets/img/loader.gif" style="width: 25px; margin: 5px 40%;"></img>';
+            	document.getElementById(spinner_place).innerHTML = '<img id="' + spinner_place + '" class="cargando" src="https://www.phasionate.com/wp-content/plugins/vote-for-a-phasionist/assets/img/loader.gif" style="width: 25px; margin: 5px 40%;"></img>';
         	},
 			success: function(data) {
 
