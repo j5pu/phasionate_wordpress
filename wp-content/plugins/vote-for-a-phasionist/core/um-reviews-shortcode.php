@@ -104,7 +104,7 @@ class UM_Reviews_Shortcode {
 			$page_number = 1;
 		}
 
-		$total_participants_show_basic = 7;
+		$total_participants_show_basic = 19;
 		if($page_number>1){
 			$total_participants_show = $total_participants_show_basic  + 1;
 			$offset_query = (($page_number-1)*$total_participants_show)-1;
@@ -131,7 +131,6 @@ class UM_Reviews_Shortcode {
 		$users = new WP_User_Query( $query_args );
 
 		$total_participants = count($users->results) + $offset_query;
-		echo "total_participants = ".$total_participants;
 		$n_pages = ceil($total_participants/$total_participants_show_basic);
 		?>
 
