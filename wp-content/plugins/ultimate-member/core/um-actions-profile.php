@@ -433,7 +433,7 @@
 	/***
 	***	@display the edit profile icon
 	***/
-	add_action('um_pre_header_editprofile', 'um_add_edit_icon' );
+	//add_action('um_pre_header_editprofile', 'um_add_edit_icon' );
 	function um_add_edit_icon( $args ) {
 		global $ultimatemember;
 		$output = '';
