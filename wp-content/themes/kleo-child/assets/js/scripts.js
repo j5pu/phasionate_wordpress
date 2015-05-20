@@ -515,7 +515,7 @@ function ownResize(){
 		//$urlPrincipal = $('.logo a').attr('href');
 		//$('.getBackLink').attr('href',$urlPrincipal+'/login');
 		$('.getBackLink').click(function () { closePopUpRegister(); });
-		$('.getBackLink').text('Volver');
+		$('.getBackLink').text('Cerrar');
 
 		$('.bigCover').css('display','inline-block');
 		$('.popUpSection').css('margin-top',($(window).height()-$('.popUpSection').height())/2);
@@ -550,7 +550,7 @@ function ownResize(){
 		//$urlPrincipal = $('.logo a').attr('href');
 		//$('.getBackLink').attr('href',$urlPrincipal+'/login');
 		$('.getBackLink').click(function () { closePopUpLogin(); });
-		$('.getBackLink').text('Volver');
+		$('.getBackLink').text('Cerrar');
 
 		$('.bigCover').css('display','inline-block');
 		$('.popUpSection').css('margin-top',($(window).height()-$('.popUpSection').height())/2);
