@@ -326,13 +326,13 @@ span.um-reviews-filter {
 
 
 /* Boton votame en perfil*/
-.um-profile .review-form, .ya{
+.um-profile .review-form, .um-profile #mostrar-pop-up-registro{
     position: absolute;
     left: 82%;
     bottom: 52%;
 }
 @media screen and (max-width: 900px){
-	.um-profile .review-form{
+	.um-profile .review-form, .um-profile #mostrar-pop-up-registro{
 	    position: absolute;
 	    left: 79%;
 	    bottom: 52%;
@@ -342,21 +342,21 @@ span.um-reviews-filter {
 	}
 }
 @media screen and (max-width: 820px){
-	.um-profile .review-form{
+	.um-profile .review-form, .um-profile #mostrar-pop-up-registro{
 	    position: absolute;
 	    left: 76%;
 	    bottom: 65%;
 	}
 }
 @media screen and (max-width: 767px){
-	.um-profile .review-form{
+	.um-profile .review-form, .um-profile #mostrar-pop-up-registro{
 	    position: absolute;
 	    left: 80%;
 	    bottom: 51%;
 	}
 }
 @media screen and (max-width: 570px){
-	.um-profile .review-form{
+	.um-profile .review-form, .um-profile #mostrar-pop-up-registro{
 	    position: absolute;
 	    left: 75%;
 	    bottom: 51%;
@@ -365,7 +365,7 @@ span.um-reviews-filter {
 
 
 @media screen and (max-width: 557px){
-	.um-profile .review-form{
+	.um-profile .review-form, .um-profile #mostrar-pop-up-registro{
 	    position: absolute;
 	    left: 70%;
 	    bottom: 65%;

@@ -229,44 +229,49 @@ class UM_Reviews_API_Core {
 	***/
 	function already_reviewed( $user_id = false ) {
 		$current_user_id = get_current_user_id();
-		if($user_id != $current_user_id){
-			$args = array(
-				'post_type' => 'um_review',
-				'posts_per_page' => 1,
-				'author' => $user_id,
-				'post_status' => array('publish'),
-			);
-			
-			$args['meta_query'][] = array(
-				'key' => '_reviewer_id',
-				'value' => $current_user_id,
-				'compare' => '='
-			);
-			
-			$review_query = new WP_Query( $args );
-			// Si hay reviews, miramos si han pasado 24 horas desde que se escribió.
-			if ( $review_query->have_posts()) {
-				while ( $review_query->have_posts() ) {
-					$review_query->the_post();
-					//echo '<li>' . the_date( 'Y-m-d', '', '', false ) . '</li>';
-					$post_date = the_date( 'Y-m-d', '', '', false );
-					//echo '<li>' . $post_date . '</li>';
-					$cutoff_date = strtotime( $post_date. ' +1 days -1 hours' );
-					//echo '<li>' . date("Y-m-d H:i:s", $cutoff_date) . '</li>';
-					$now = strtotime( 'today' );
-					//echo '<li>' . date("Y-m-d H:i:s", $now) . '</li>';
-					if ($now >= $cutoff_date ){
-						return false;
+		if ($current_user_id != 0){
+			if(  $user_id != $current_user_id){
+				$args = array(
+					'post_type' => 'um_review',
+					'posts_per_page' => 1,
+					'author' => $user_id,
+					'post_status' => array('publish'),
+				);
+				
+				$args['meta_query'][] = array(
+					'key' => '_reviewer_id',
+					'value' => $current_user_id,
+					'compare' => '='
+				);
+				
+				$review_query = new WP_Query( $args );
+				// Si hay reviews, miramos si han pasado 24 horas desde que se escribió.
+				if ( $review_query->have_posts()) {
+					while ( $review_query->have_posts() ) {
+						$review_query->the_post();
+						//echo '<li>' . the_date( 'Y-m-d', '', '', false ) . '</li>';
+						$post_date = the_date( 'Y-m-d', '', '', false );
+						//echo '<li>' . $post_date . '</li>';
+						$cutoff_date = strtotime( $post_date. ' +1 days -1 hours' );
+						//echo '<li>' . date("Y-m-d H:i:s", $cutoff_date) . '</li>';
+						$now = strtotime( 'today' );
+						//echo '<li>' . date("Y-m-d H:i:s", $now) . '</li>';
+						if ($now >= $cutoff_date ){
+							return false;
+						}
 					}
+					return true;
+				} else {
+					// no posts found
+					return false;
 				}
+			}else{
 				return true;
-			} else {
-				// no posts found
-				return false;
-			}
+			}			
 		}else{
 			return true;
 		}
+
 	}
 
 

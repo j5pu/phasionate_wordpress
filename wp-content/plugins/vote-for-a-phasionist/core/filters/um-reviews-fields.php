@@ -65,12 +65,14 @@
 			<?php
 			}elseif ($user_id == get_current_user_id()){
 				?><div id="ya-votado-<?php echo $user_id ;?>"><span></span></div><?php
+			}elseif (get_current_user_id() == 0){
+				?>	<span id="mostrar-pop-up-registro" class="um-reviews-send">
+						<input type="submit" value="<?php _e('¡Vótame!','um-reviews'); ?>" class="um-button" />
+					</span><?php
 			}else{
 				?><div id="ya-votado-<?php echo $user_id ;?>"><span>¡Vuelve a votarle mañana!</span></div><?php
 			}
-
 		}
-
 	}
 	/***
 	***	@Show votame button
