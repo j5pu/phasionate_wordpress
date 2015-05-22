@@ -1,10 +1,10 @@
 === AdRotate ===
 Contributors: adegans
-Donate link: http://meandmymac.net/donate/
+Donate link: http://meandmymac.net/donate/?pk_campaign=adrotatefree-readme&pk_kwd=donatelink
 Tags: ads, banner, commercial, admin, advertise, adrotator, 2013, plugin, random, rotator, ad, advertising, advertisement, block, blocks, advertiser, publisher, adsense, geo, geolocation, geotarget, chitika, clickbank, broadstreet, banner manager,advert manager, campaign manager, export, import, freegeoip, geoplugin, maxmind, referrer, email, menu, statistics, stats, report, advert, adverts, best, great, 2014, geoselect, geobytes, schedules, schedule, monetize, header, widget, javascript, jquery, tracking, clicks, impressions, rotate, zone, zones, sidebar, footer, content, posts, pages
 Requires at least: 3.8, PHP5.3
-Tested up to: 4.1.1
-Stable tag: 3.11.3
+Tested up to: 4.2.2
+Stable tag: 3.11.6
  
 Used on over a hundred thousand websites and by even more people! With over a million downloads AdRotate is the popular choice for monetizing your website with adverts while keeping things simple. Make money with advertising while you do other things. Make making money easy!
 
@@ -19,13 +19,13 @@ AdRotate looks and feels similar to the dashboard you already know, so you're al
 The thought out menu structure and features make advert management very easy and straightforward.
 
 AdRotate is also available as a premium plugin for a very low price. Offering extra and more extensive features and faster support! 
-Check out the benefits of AdRotate Pro! [Get AdRotate Pro today](https://ajdg.solutions/products/adrotate-for-wordpress/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=details)!
+Check out the benefits of AdRotate Pro! [Get AdRotate Pro today](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=adrotatepage)!
 
 **Important links**
 
-* [Details](https://ajdg.solutions/products/adrotate-for-wordpress/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=details) - Lots of Additional plugin information
-* [Manuals & Support](https://ajdg.solutions/forums/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=manuals) - Setup instructions and support
-* [AdRotate Store](https://ajdg.solutions/products/adrotate-for-wordpress/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=shop) - Buy AdRotate Pro or hire me to install or troubleshoot AdRotate
+* [Details](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=adrotatepage) - Lots of Additional plugin information
+* [Manuals & Support](https://ajdg.solutions/forums/?pk_campaign=adrotatefree-readme&pk_kwd=manuals) - Setup instructions and support
+* [AdRotate Store](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=buypro) - Buy AdRotate Pro or hire me to install or troubleshoot AdRotate
 
 **Some Features**
 
@@ -33,12 +33,14 @@ Check out the benefits of AdRotate Pro! [Get AdRotate Pro today](https://ajdg.so
 * Automated Javascript cycles of ads with Dynamic Groups
 * Have your advertisers add/edit/manage their own ads
 * Geo Targeting for adverts
+* Mobile adverts
 * Detect ad blockers in browser and nag visitors about it
 * Works with Google AdSense, DFP and most other referrer/ad servers
 * Get push notifications right on your iOS or Android device about adverts and important events
 * Get email notifications when your ads need you
 * Perfectly suited for any size of advertisement, including 125x125, 468x60, 729x90, 160x600 and much more
 * Easy to use stats so you can follow how each advert is performing
+* Responsive adverts
 * Daily, monthly and yearly stats
 * Couple ads to users so that user can follow his personalized stats
 * Advertisers can easily contact you from their dashboard
@@ -55,7 +57,7 @@ Check out the benefits of AdRotate Pro! [Get AdRotate Pro today](https://ajdg.so
 * Warns you on the dashboard when ads are about to expire or need attention
 * Use shortcodes, widgets or PHP to put ads on your site
 
-NOTE: Certain features are exclusive to AdRotate PRO. Learn more about what AdRotate Pro will do for you in the [features list](https://ajdg.solutions/products/adrotate-for-wordpress/features/).
+NOTE: Certain features are exclusive to AdRotate PRO. Learn more about what AdRotate Pro will do for you in the [features list](https://ajdg.solutions/products/adrotate-for-wordpress/features/?pk_campaign=adrotatefree-readme&pk_kwd=features).
 
 **AdRotate Switch**
 
@@ -73,10 +75,9 @@ Looking to switch from another plugin? Check out [AdRotate Switch](https://wordp
 
 **Important links**
 
-* [Manual Installation](https://ajdg.solutions/manuals/adrotate/installing-adrotate-on-your-website/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=manuals)
-* [Upgrade AdRotate Free to Pro](https://ajdg.solutions/manuals/adrotate/upgrade-adrotate-to-adrotate-pro/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=buyadrotatepro)
-* [Manuals & Support](https://https://ajdg.solutions/forums/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=manuals)
-* [AdRotate Store](https://ajdg.solutions/products/adrotate-for-wordpress/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=shop)
+* [Manual Installation](https://ajdg.solutions/manuals/adrotate/installing-adrotate-on-your-website/?pk_campaign=adrotatefree-readme&pk_kwd=installation)
+* [Manuals & Support](https://https://ajdg.solutions/forums/?pk_campaign=adrotatefree-readme&pk_kwd=manuals)
+* [AdRotate Store](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=buypro)
 
 == Frequently Asked Questions ==
 
@@ -84,65 +85,66 @@ Looking to switch from another plugin? Check out [AdRotate Switch](https://wordp
 **Answer:**
 Maybe. Take a look at [AdRotate Switch](https://wordpress.org/plugins/adrotate-switch/) and see if your current advertising plugin is compatible for migrating your data!
 
-There are [manual](https://ajdg.solutions/manuals/adrotate/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=manuals) with every feature explained.
-If that's not enough you can post on the [forum](https://ajdg.solutions/forums/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=support) and ask your question there!
+There are [manual](https://ajdg.solutions/manuals/adrotate/?pk_campaign=adrotatefree-readme&pk_kwd=manuals) with every feature explained.
+If that's not enough you can post on the [forum](https://ajdg.solutions/forums/?pk_campaign=adrotatefree-readme&pk_kwd=forum) and ask your question there!
 
 == Changelog ==
 
-= 3.11.3 FREE =
-* [fix] Undefined notice for some setups when using Page Injection
-* [fix] Incorrect path for images on some setups
-* [fix] Max ads wrongly applied to Groups in block mode
-* [fix] Cleaned up irrelevant user roles
-* [change] No longer use 'ORDER BY RAND()' for groups
-* [change] Blocks can now have up to 32 rows
-* [new] More error notices for wrongly configured adverts
-* [new] Revised upgrade routine with manual trigger
-* [new] Revised installer routine better self-healing function
-* [i18n] Updated group settings descriptions and labels
+= 3.11.6 FREE =
+* [fix] Output of Dynamic groups and Block groups
+* [fix] Notice error on schedules page
+* [fix] Typo on AdRotate Info page
 
-NOTE: Certain features are exclusive to AdRotate PRO. If you need these features please consider upgrading to [AdRotate PRO](https://ajdg.solutions/products/adrotate-for-wordpress/features/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=features).
+= 3.11.5 FREE =
+* [tweak] Minor tweaks and improvements to dashboards
+* [fix] More accurate regexes for AdRotate Tracker
+* [fix] Ambiguous array match in post injection
+* [fix] Unwanted advert after content with post injection on some settings
+* [i18n] Updated strings for all language files
 
-= 3.12.5 PRO =
-* [fix] Undefined notice for some setups when using Page Injection
-* [fix] Incorrect path for images on some setups
-* [fix] Max ads wrongly applied to Groups in block mode
-* [fix] Access to schedule dashboard properly applied on activation
-* [change] Most dashboards updated, revised and labels updated
-* [change] Merged advert budgets to be in line with market
-* [change] No longer use 'ORDER BY RAND()' for groups
-* [change] Blocks can now have up to 32 rows
-* [new] Advertisers can select groups when creating or editing adverts
-* [new] More error notices for wrongly configured adverts
-* [new] Revised upgrade routine with manual trigger
-* [new] Revised installer routine better self-healing function
-* [i18n] Updated group settings descriptions and labels
+= 3.12.8 PRO =
+* [fix] strip_tags error when saving adverts
+* [fix] Typo on AdRotate Info page
 
-The full changelog can be found on the [AdRotate website](https://ajdg.solutions/products/adrotate-for-wordpress/development/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=changelog).
-Get more AdRotate! [Get AdRotate Pro today](https://ajdg.solutions/products/adrotate-for-wordpress/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=buyadrotatepro)!
+= 3.12.7 PRO =
+* [new] Show select adverts on mobile only when in a group
+* [new] Budget, CPC and CPM visible on advert overview
+* [new] Budget, CPC and CPM visible for advertisers
+* [tweak] Minor tweaks and improvements to dashboards
+* [fix] Serialize error when exporting multiple adverts
+* [fix] Geo data not serialized when importing CSV file
+* [fix] Advertiser summary stats navigation now works
+* [fix] Advertiser ads with errors not listed in regular dashboard
+* [fix] More accurate regexes for AdRotate Tracker
+* [fix] Ambiguous array match in post injection
+* [fix] Unwanted advert after content with post injection on some settings
+* [i18n] Updated strings for all language files
+
+The full changelog can be found on the [AdRotate website](https://ajdg.solutions/products/adrotate-for-wordpress/development/?pk_campaign=adrotatefree-readme&pk_kwd=changelog).
+Get more AdRotate! [Get AdRotate Pro today](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=buypro)!
 
 NOTE: Unsolicited offers, parnterships, job offers, promotional emails or product offers to "enhance" my business or products through this site or any means are not appreciated and will most likely be ignored.
 
 == Upgrade Notice ==
 
-= 3.11.3 FREE =
-* [fix] Undefined notice for some setups when using Page Injection
-* [fix] Incorrect path for images on some setups
-* [fix] Max ads wrongly applied to Groups in block mode
-* [fix] Cleaned up irrelevant user roles
-* [change] No longer use 'ORDER BY RAND()' for groups
-* [change] Blocks can now have up to 32 rows
-* [new] More error notices for wrongly configured adverts
-* [new] Revised upgrade routine with manual trigger
-* [new] Revised installer routine better self-healing function
-* [i18n] Updated group settings descriptions and labels
+= 3.11.6 FREE =
+* [fix] Output of Dynamic groups and Block groups
+* [fix] Notice error on schedules page
+* [fix] Typo on AdRotate Info page
 
-The full changelog can be found on the [AdRotate website](https://ajdg.solutions/products/adrotate-for-wordpress/development/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=changelog).
-Get more AdRotate! [Get AdRotate Pro today](https://ajdg.solutions/products/adrotate-for-wordpress/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=buyadrotatepro)!
+= 3.11.5 FREE =
+* [tweak] Minor tweaks and improvements to dashboards
+* [fix] More accurate regexes for AdRotate Tracker
+* [fix] Ambiguous array match in post injection
+* [fix] Unwanted advert after content with post injection on some settings
+* [i18n] Updated strings for all language files
 
-NOTE: Certain features are exclusive to AdRotate PRO. If you need these features please consider upgrading to [AdRotate PRO](https://ajdg.solutions/products/adrotate-for-wordpress/features/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=features).
+The full changelog can be found on the [AdRotate website](https://ajdg.solutions/products/adrotate-for-wordpress/development/?pk_campaign=adrotatefree-readme&pk_kwd=changelog).
+Get more AdRotate! [Get AdRotate Pro today](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=buypro)!
+
+NOTE: Certain features are exclusive to AdRotate PRO. If you need these features please consider upgrading to [AdRotate PRO](https://ajdg.solutions/products/adrotate-for-wordpress/features/?pk_campaign=adrotatefree-readme&pk_kwd=features).
 
 == Screenshots ==
 
-* Visit [the site](https://ajdg.solutions/products/adrotate-for-wordpress/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=screenshots) for screenshots.
-* [Manuals & Support](https://https://ajdg.solutions/forums/?utm_source=wordpress.org&utm_medium=adrotate_free_readme&utm_campaign=manuals)
+* Visit [the site](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=screenshots) for screenshots.
+* [Manuals & Support](https://https://ajdg.solutions/forums/?pk_campaign=adrotatefree-readme&pk_kwd=manuals)

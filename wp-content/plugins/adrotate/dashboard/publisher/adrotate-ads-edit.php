@@ -10,9 +10,9 @@
 ------------------------------------------------------------------------------------ */
 
 if(!$ad_edit_id) {
-	$edit_id = $wpdb->get_var("SELECT `id` FROM `".$wpdb->prefix."adrotate` WHERE `type` = 'empty' ORDER BY `id` DESC LIMIT 1;");
+	$edit_id = $wpdb->get_var("SELECT `id` FROM `{$wpdb->prefix}adrotate` WHERE `type` = 'empty' ORDER BY `id` DESC LIMIT 1;");
 	if($edit_id == 0) {
-	    $wpdb->insert($wpdb->prefix."adrotate", array('title' => '', 'bannercode' => '', 'thetime' => $now, 'updated' => $now, 'author' => $current_user->user_login, 'imagetype' => 'dropdown', 'image' => '', 'link' => '', 'tracker' => 'N', 'responsive' => 'N', 'type' => 'empty', 'weight' => 6, 'sortorder' => 0, 'budget' => 0, 'crate' => 0, 'irate' => 0, 'cities' => serialize(array()), 'countries' => serialize(array())));
+	    $wpdb->insert($wpdb->prefix."adrotate", array('title' => '', 'bannercode' => '', 'thetime' => $now, 'updated' => $now, 'author' => $current_user->user_login, 'imagetype' => 'dropdown', 'image' => '', 'link' => '', 'tracker' => 'N', 'mobile' => 'N', 'responsive' => 'N', 'type' => 'empty', 'weight' => 6, 'sortorder' => 0, 'budget' => 0, 'crate' => 0, 'irate' => 0, 'cities' => serialize(array()), 'countries' => serialize(array())));
 	    $edit_id = $wpdb->insert_id;
 		$wpdb->insert($wpdb->prefix.'adrotate_schedule', array('name' => 'Schedule for ad '.$edit_id, 'starttime' => $now, 'stoptime' => $in84days, 'maxclicks' => 0, 'maximpressions' => 0));
 	    $schedule_id = $wpdb->insert_id;
@@ -21,10 +21,10 @@ if(!$ad_edit_id) {
 	$ad_edit_id = $edit_id;
 }
 
-$edit_banner = $wpdb->get_row("SELECT * FROM `".$wpdb->prefix."adrotate` WHERE `id` = '$ad_edit_id';");
-$groups	= $wpdb->get_results("SELECT * FROM `".$wpdb->prefix."adrotate_groups` WHERE `name` != '' ORDER BY `sortorder` ASC, `id` ASC;"); 
-$schedules = $wpdb->get_row("SELECT `".$wpdb->prefix."adrotate_schedule`.`id`, `starttime`, `stoptime`, `maxclicks`, `maximpressions` FROM `".$wpdb->prefix."adrotate_schedule`, `".$wpdb->prefix."adrotate_linkmeta` WHERE `ad` = $edit_banner->id AND `group` = 0 AND `user` = 0 AND `schedule` = `".$wpdb->prefix."adrotate_schedule`.`id` ORDER BY `".$wpdb->prefix."adrotate_schedule`.`id` ASC LIMIT 1;");
-$linkmeta = $wpdb->get_results("SELECT `group` FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `ad` = '$edit_banner->id' AND `user` = 0 AND `schedule` = 0;");
+$edit_banner = $wpdb->get_row("SELECT * FROM `{$wpdb->prefix}adrotate` WHERE `id` = '$ad_edit_id';");
+$groups	= $wpdb->get_results("SELECT * FROM `{$wpdb->prefix}adrotate_groups` WHERE `name` != '' ORDER BY `sortorder` ASC, `id` ASC;"); 
+$schedules = $wpdb->get_row("SELECT `{$wpdb->prefix}adrotate_schedule`.`id`, `starttime`, `stoptime`, `maxclicks`, `maximpressions` FROM `{$wpdb->prefix}adrotate_schedule`, `{$wpdb->prefix}adrotate_linkmeta` WHERE `ad` = $edit_banner->id AND `group` = 0 AND `user` = 0 AND `schedule` = `{$wpdb->prefix}adrotate_schedule`.`id` ORDER BY `{$wpdb->prefix}adrotate_schedule`.`id` ASC LIMIT 1;");
+$linkmeta = $wpdb->get_results("SELECT `group` FROM `{$wpdb->prefix}adrotate_linkmeta` WHERE `ad` = '$edit_banner->id' AND `user` = 0 AND `schedule` = 0;");
 
 wp_enqueue_media();
 wp_enqueue_script('uploader-hook', plugins_url().'/'.ADROTATE_FOLDER.'/library/uploader-hook.js', array('jquery'));
@@ -52,13 +52,13 @@ if($ad_edit_id) {
 			echo '<div class="error"><p>'. __('You did use %image% in your AdCode but did not select an image!', 'adrotate').'</p></div>';
 		
 		if((($edit_banner->imagetype != '' AND $edit_banner->image == '') OR ($edit_banner->imagetype == '' AND $edit_banner->image != ''))) 
-			echo '<div class="error"><p>'. __('There is a problem saving the image specification. Please reset your image and re-save the ad!', 'adrotate').'</p></div>';
+			echo '<div class="error"><p>'. __('There is a problem saving the image. Please reset your image and re-save the ad!', 'adrotate').'</p></div>';
 
 		if(!preg_match("/%image%/i", $edit_banner->bannercode) AND $edit_banner->responsive == 'Y') 
 			echo '<div class="error"><p>'. __(' You did not use %image% in your AdCode. The responsive checkbox will be ineffective.', 'adrotate').'</p></div>';
 		
 		if(strlen($edit_banner->image) > 0 AND !preg_match("/full/", $edit_banner->image) AND $edit_banner->responsive == 'Y') 
-			echo '<div class="error"><p>'. __('Your chosen banner image does not have the right name. Check the responsive description and try again.', 'adrotate').'</p></div>';
+			echo '<div class="error"><p>'. __('Responsive is enabled but your banner image has the wrong name.', 'adrotate').'</p></div>';
 
 		if(!preg_match_all('/<a[^>](.*?)>/i', stripslashes(htmlspecialchars_decode($edit_banner->bannercode, ENT_QUOTES)), $things) AND $edit_banner->tracker == 'Y')
 			echo '<div class="error"><p>'. __("Clicktracking is enabled but no valid link was found in the adcode!", 'adrotate').'</p></div>';
@@ -112,13 +112,13 @@ if($edit_banner->imagetype == "field") {
 	<table class="widefat" style="margin-top: .5em">
 		<tbody>
       	<tr>
-	        <th width="15%"><?php _e('Title:', 'adrotate'); ?></th>
+	        <th width="15%"><?php _e('Title', 'adrotate'); ?></th>
 	        <td colspan="2">
 	        	<label for="adrotate_title"><input tabindex="1" name="adrotate_title" type="text" size="50" class="search-input" value="<?php echo stripslashes($edit_banner->title);?>" autocomplete="off" /></label>
 	        </td>
       	</tr>
       	<tr>
-	        <th valign="top"><?php _e('AdCode:', 'adrotate'); ?></th>
+	        <th valign="top"><?php _e('AdCode', 'adrotate'); ?></th>
 	        <td>
 	        	<label for="adrotate_bannercode"><textarea tabindex="2" id="adrotate_bannercode" name="adrotate_bannercode" cols="65" rows="10"><?php echo stripslashes($edit_banner->bannercode); ?></textarea></label>
 	        </td>
@@ -130,13 +130,13 @@ if($edit_banner->imagetype == "field") {
 	        </td>
       	</tr>
       	<tr>
-	        <th valign="top"><?php _e('Useful tags:', 'adrotate'); ?></th>
+	        <th valign="top"><?php _e('Useful tags', 'adrotate'); ?></th>
 	        <td colspan="2">
 		        <p><em><a href="#" title="<?php _e('Insert the advert ID Number.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','%id%');return false;">%id%</a>, <a href="#" title="<?php _e('Insert the %image% tag. Required when selecting a image below.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','%image%');return false;">%image%</a>, <a href="#" title="<?php _e('Insert the advert name.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','%title%');return false;">%title%</a>, <a href="#" title="<?php _e('Insert a random seed. Useful for DFP/DoubleClick type adverts.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','%random%');return false;">%random%</a>, <a href="#" title="<?php _e('Add inside the <a> tag to open advert in a new window.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','target=&quot;_blank&quot;');return false;">target="_blank"</a>, <a href="#" title="<?php _e('Add inside the <a> tag to tell crawlers to ignore this link', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','rel=&quot;nofollow&quot;');return false;">rel="nofollow"</a></em><br /><?php _e('Place the cursor in your AdCode where you want to add any of these tags and click to add it.', 'adrotate'); ?></p>
 	        </td>
       	</tr>
 		<tr>
-	        <th valign="top"><?php _e('Banner image:', 'adrotate'); ?></th>
+	        <th valign="top"><?php _e('Banner image', 'adrotate'); ?></th>
 			<td colspan="2">
 				<label for="adrotate_image">
 					<?php _e('WordPress media:', 'adrotate'); ?> <input tabindex="3" id="adrotate_image" type="text" size="50" name="adrotate_image" value="<?php echo $image_field; ?>" /> <input tabindex="4" id="adrotate_image_button" class="button" type="button" value="<?php _e('Select Banner', 'adrotate'); ?>" />
@@ -151,18 +151,18 @@ if($edit_banner->imagetype == "field") {
 				<em><?php _e('Use %image% in the code. Accepted files are:', 'adrotate'); ?> jpg, jpeg, gif, png, swf <?php _e('and', 'adrotate'); ?> flv. <?php _e('Use either the text field or the dropdown. If the textfield has content that field has priority.', 'adrotate'); ?></em>
 			</td>
 		</tr>
-		<?php if($adrotate_config['enable_stats'] == 'Y') { ?>
+		<?php if($adrotate_config['stats'] > 0) { ?>
       	<tr>
-	        <th width="15%" valign="top"><?php _e('Clicktracking:', 'adrotate'); ?></th>
+	        <th width="15%" valign="top"><?php _e('Statistics', 'adrotate'); ?></th>
 	        <td colspan="2">
-	        	<label for="adrotate_tracker"><input tabindex="6" type="checkbox" name="adrotate_tracker" <?php if($edit_banner->tracker == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Enable click tracking for this advert.', 'adrotate'); ?> <br />
-	        	<em><?php _e('Note: Clicktracking does not work for Javascript adverts such as those provided by Google AdSense/DFP/DoubleClick. Flash Adverts also are not supported.', 'adrotate'); ?></em>
+	        	<label for="adrotate_tracker"><input tabindex="6" type="checkbox" name="adrotate_tracker" <?php if($edit_banner->tracker == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Enable click and impression tracking for this advert.', 'adrotate'); ?> <br />
+	        	<em><?php _e('Note: Clicktracking does not work for Javascript adverts such as those provided by Google AdSense/DFP/DoubleClick. Flash adverts are not always supported.', 'adrotate'); ?></em>
 		        </label>
 	        </td>
       	</tr>
 		<?php } ?>
       	<tr>
-	        <th><?php _e('Activate:', 'adrotate'); ?></th>
+	        <th><?php _e('Activate', 'adrotate'); ?></th>
 	        <td colspan="2">
 		        <label for="adrotate_active">
 			        <select tabindex="7" name="adrotate_active">
@@ -200,13 +200,13 @@ if($edit_banner->imagetype == "field") {
 	<table class="widefat" style="margin-top: .5em">
 		<tbody>
       	<tr>
-	        <th width="15%"><?php _e('Widget:', 'adrotate'); ?></th>
+	        <th width="15%"><?php _e('Widget', 'adrotate'); ?></th>
 	        <td colspan="3"><?php _e('Drag the AdRotate widget to the sidebar you want it in, select "Single Ad" and enter ID', 'adrotate'); ?> "<?php echo $edit_banner->id; ?>".</td>
       	</tr>
       	<tr>
-	        <th width="15%"><?php _e('In a post or page:', 'adrotate'); ?></th>
+	        <th width="15%"><?php _e('In a post or page', 'adrotate'); ?></th>
 	        <td>[adrotate banner="<?php echo $edit_banner->id; ?>"]</td>
-	        <th width="15%"><?php _e('Directly in a theme:', 'adrotate'); ?></th>
+	        <th width="15%"><?php _e('Directly in a theme', 'adrotate'); ?></th>
 	        <td>&lt;?php echo adrotate_ad(<?php echo $edit_banner->id; ?>); ?&gt;</td>
       	</tr>
       	</tbody>
@@ -216,7 +216,7 @@ if($edit_banner->imagetype == "field") {
 	<table class="widefat" style="margin-top: .5em">
 		<tbody>
       	<tr>
-	        <th width="15%"><?php _e('Start date (day/month/year):', 'adrotate'); ?></th>
+	        <th width="15%"><?php _e('Start date (day/month/year)', 'adrotate'); ?></th>
 	        <td>
 	        	<label for="adrotate_sday">
 	        	<input tabindex="9" name="adrotate_sday" class="search-input" type="text" size="4" maxlength="2" value="<?php echo $sday;?>" /> /
@@ -237,7 +237,7 @@ if($edit_banner->imagetype == "field") {
 				<input tabindex="11" name="adrotate_syear" class="search-input" type="text" size="4" maxlength="4" value="<?php echo $syear;?>" />&nbsp;&nbsp;&nbsp; 
 				</label>
 	        </td>
-	        <th width="15%"><?php _e('End date (day/month/year):', 'adrotate'); ?></th>
+	        <th width="15%"><?php _e('End date (day/month/year)', 'adrotate'); ?></th>
 	        <td>
 	        	<label for="adrotate_eday">
 	        	<input tabindex="12" name="adrotate_eday" class="search-input" type="text" size="4" maxlength="2" value="<?php echo $eday;?>"  /> /
@@ -260,14 +260,14 @@ if($edit_banner->imagetype == "field") {
 			</td>
       	</tr>	
       	<tr>
-	        <th><?php _e('Start time (hh:mm):', 'adrotate'); ?></th>
+	        <th><?php _e('Start time (hh:mm)', 'adrotate'); ?></th>
 	        <td>
 	        	<label for="adrotate_sday">
 				<input tabindex="15" name="adrotate_shour" class="search-input" type="text" size="2" maxlength="4" value="<?php echo $shour;?>" /> :
 				<input tabindex="16" name="adrotate_sminute" class="search-input" type="text" size="2" maxlength="4" value="<?php echo $sminute;?>" />
 				</label>
 	        </td>
-	        <th><?php _e('End time (hh:mm):', 'adrotate'); ?></th>
+	        <th><?php _e('End time (hh:mm)', 'adrotate'); ?></th>
 	        <td>
 	        	<label for="adrotate_eday">
 				<input tabindex="17" name="adrotate_ehour" class="search-input" type="text" size="2" maxlength="4" value="<?php echo $ehour;?>" /> :
@@ -275,17 +275,17 @@ if($edit_banner->imagetype == "field") {
 				</label>
 			</td>
       	</tr>	
-		<?php if($adrotate_config['enable_stats'] == 'Y') { ?>
+		<?php if($adrotate_config['stats'] == 1) { ?>
       	<tr>
-      		<th><?php _e('Maximum Clicks:', 'adrotate'); ?></th>
+      		<th><?php _e('Maximum Clicks', 'adrotate'); ?></th>
 	        <td><input tabindex="19" name="adrotate_maxclicks" type="text" size="5" class="search-input" autocomplete="off" value="<?php echo $schedules->maxclicks;?>" /> <em><?php _e('Leave empty or 0 to skip this.', 'adrotate'); ?></em></td>
-		    <th><?php _e('Maximum Impressions:', 'adrotate'); ?></th>
+		    <th><?php _e('Maximum Impressions', 'adrotate'); ?></th>
 	        <td><input tabindex="20" name="adrotate_maxshown" type="text" size="5" class="search-input" autocomplete="off" value="<?php echo $schedules->maximpressions;?>" /> <em><?php _e('Leave empty or 0 to skip this.', 'adrotate'); ?></em></td>
 		</tr>
 		<?php } ?>
       	<tr>
-      		<th valign="top">Important:</th>
-	        <td colspan="3"><em><?php _e('Time uses a 24 hour clock. When you\'re used to the AM/PM system keep this in mind: If the start or end time is after lunch, add 12 hours. 2PM is 14:00 hours. 6AM is 6:00 hours.', 'adrotate'); ?><br /><?php _e('The maximum clicks and impressions are measured over the set schedule only. Every schedule can have it\'s own limit!', 'adrotate'); ?></em></td>
+      		<th valign="top"><?php _e('Important', 'adrotate'); ?></th>
+	        <td colspan="3"><em><?php _e('Note: Time uses a 24 hour clock. When you are used to the AM/PM system keep this in mind: If the start or end time is after lunch, add 12 hours. 2PM is 14:00 hours. 6AM is 6:00 hours.', 'adrotate'); ?></em></td>
 		</tr>
 		</tbody>					
 	</table>
@@ -301,7 +301,7 @@ if($edit_banner->imagetype == "field") {
 	<table class="widefat" style="margin-top: .5em">
 		<tbody>
       	<tr>
-	        <th width="15%" valign="top"><?php _e('Responsive:', 'adrotate'); ?></th>
+	        <th width="15%" valign="top"><?php _e('Responsive', 'adrotate'); ?></th>
 	        <td colspan="3">
 	        	<label for="adrotate_responsive"><input tabindex="22" type="checkbox" name="adrotate_responsive" <?php if($edit_banner->responsive == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Enable responsive support for this advert.', 'adrotate'); ?></label><br />
 		        <em><?php _e('Upload your images to the banner folder and make sure the filename is in the following format; "imagename.full.ext". A full set of sized images is strongly recommended.', 'adrotate'); ?></em><br />
@@ -310,7 +310,7 @@ if($edit_banner->imagetype == "field") {
 	        </td>
       	</tr>
       	<tr>
-		    <th valign="top"><?php _e('Weight:', 'adrotate'); ?><br /><em><?php _e('AdRotate Pro only', 'adrotate'); ?></em></th>
+		    <th valign="top"><?php _e('Weight', 'adrotate'); ?><br /><em><?php _e('Available in AdRotate Pro', 'adrotate'); ?></em></th>
 	        <td colspan="3">
 	        	<label for="adrotate_weight">
 	        	&nbsp;<input type="radio" name="adrotate_weight" value="2" disabled />&nbsp;&nbsp;&nbsp;2, <?php _e('Barely visible', 'adrotate'); ?><br />
@@ -322,7 +322,7 @@ if($edit_banner->imagetype == "field") {
 			</td>
 		</tr>
       	<tr>
-	        <th><?php _e('Sortorder:', 'adrotate'); ?></th>
+	        <th><?php _e('Sortorder', 'adrotate'); ?></th>
 	        <td colspan="3">
 		        <label for="adrotate_sortorder"><input tabindex="23" name="adrotate_sortorder" type="text" size="5" class="search-input" autocomplete="off" value="<?php echo $edit_banner->sortorder;?>" /> <em><?php _e('For administrative purposes set a sortorder.', 'adrotate'); ?> <?php _e('Leave empty or 0 to skip this. Will default to ad id.', 'adrotate'); ?></em></label>
 			</td>
@@ -336,14 +336,14 @@ if($edit_banner->imagetype == "field") {
 	<table class="widefat" style="margin-top: .5em">			
 		<tbody>
 	    <tr>
-			<th width="15%" valign="top"><?php _e('Cities/States:', 'adrotate'); ?></strong></th>
+			<th width="15%" valign="top"><?php _e('Cities/States', 'adrotate'); ?></strong></th>
 			<td colspan="2">
 				<textarea name="adrotate_geo_cities" cols="85" rows="3" disabled>Amsterdam, Noord Holland, New York, California, Tokyo, London</textarea><br />
 		        <p><em><?php _e('A comma separated list of cities (or the Metro ID) and/or states (Also the states ISO codes are supported)', 'adrotate'); ?> (Alkmaar, Philadelphia, Melbourne, ...)<br /><?php _e('AdRotate does not check the validity of names so make sure you spell them correctly!', 'adrotate'); ?></em></p>
 			</td>
 		</tr>
 	    <tr>
-			<th valign="top"><?php _e('Countries:', 'adrotate'); ?></strong></th>
+			<th valign="top"><?php _e('Countries', 'adrotate'); ?></strong></th>
 	        <td colspan="2">
 		        <label for="adrotate_geo_countries">
 			        <div class="adrotate-select">
@@ -379,13 +379,13 @@ if($edit_banner->imagetype == "field") {
 	<table class="widefat" style="margin-top: .5em">
 		<tbody>
        	<tr>
-	        <th width="15%"><?php _e('Widget:', 'adrotate'); ?></th>
+	        <th width="15%"><?php _e('Widget', 'adrotate'); ?></th>
 	        <td colspan="3"><?php _e('Drag the AdRotate widget to the sidebar you want it in, select "Single Ad" and enter ID', 'adrotate'); ?> "<?php echo $edit_banner->id; ?>".</td>
       	</tr>
      	<tr>
-	        <th width="15%"><?php _e('In a post or page:', 'adrotate'); ?></th>
+	        <th width="15%"><?php _e('In a post or page', 'adrotate'); ?></th>
 	        <td>[adrotate banner="<?php echo $edit_banner->id; ?>"]</td>
-	        <th width="15%"><?php _e('Directly in a theme:', 'adrotate'); ?></th>
+	        <th width="15%"><?php _e('Directly in a theme', 'adrotate'); ?></th>
 	        <td>&lt;?php echo adrotate_ad(<?php echo $edit_banner->id; ?>); ?&gt;</td>
       	</tr>
       	</tbody>
@@ -418,7 +418,7 @@ if($edit_banner->imagetype == "field") {
 	        if($group->cat_loc > 0 OR $group->page_loc > 0) $modus[] = __('Post Injection', 'adrotate');
 	        if($group->geo == 1 AND $adrotate_config['enable_geo'] > 0) $modus[] = __('Geolocation', 'adrotate');
 
-			$ads_in_group = $wpdb->get_var("SELECT COUNT(*) FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `group` = ".$group->id." AND `user` = 0 AND `schedule` = 0;");
+			$ads_in_group = $wpdb->get_var("SELECT COUNT(*) FROM `{$wpdb->prefix}adrotate_linkmeta` WHERE `group` = ".$group->id." AND `user` = 0 AND `schedule` = 0;");
 			$class = ('alternate' != $class) ? 'alternate' : ''; ?>
 		    <tr id='group-<?php echo $group->id; ?>' class=' <?php echo $class; ?>'>
 				<th class="check-column" width="2%"><input type="checkbox" name="groupselect[]" value="<?php echo $group->id; ?>" <?php if(in_array($group->id, $meta_array)) echo "checked"; ?> /></th>

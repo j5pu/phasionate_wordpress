@@ -40,11 +40,13 @@
 			<th width="15%"><?php _e('Start / End', 'adrotate'); ?></th>
 			<th><?php _e('Title', 'adrotate'); ?></th>
 			<th width="5%"><center><?php _e('Weight', 'adrotate'); ?></center></th>
-			<th width="5%"><center><?php _e('Shown', 'adrotate'); ?></center></th>
-			<th width="5%"><center><?php _e('Today', 'adrotate'); ?></center></th>
-			<th width="5%"><center><?php _e('Clicks', 'adrotate'); ?></center></th>
-			<th width="5%"><center><?php _e('Today', 'adrotate'); ?></center></th>
-			<th width="7%"><center><?php _e('CTR', 'adrotate'); ?></center></th>
+			<?php if($adrotate_config['stats'] == 1) { ?>
+				<th width="5%"><center><?php _e('Shown', 'adrotate'); ?></center></th>
+				<th width="5%"><center><?php _e('Today', 'adrotate'); ?></center></th>
+				<th width="5%"><center><?php _e('Clicks', 'adrotate'); ?></center></th>
+				<th width="5%"><center><?php _e('Today', 'adrotate'); ?></center></th>
+				<th width="7%"><center><?php _e('CTR', 'adrotate'); ?></center></th>
+			<?php } ?>
 		</tr>
 		</thead>
 		<tbody>
@@ -82,25 +84,29 @@
 				<th class="check-column"><input type="checkbox" name="bannercheck[]" value="<?php echo $banner['id']; ?>" /></th>
 				<td><center><?php echo $banner['id'];?></center></td>
 				<td><?php echo date_i18n("F d, Y", $banner['firstactive']);?><br /><span style="color: <?php echo adrotate_prepare_color($banner['lastactive']);?>;"><?php echo date_i18n("F d, Y", $banner['lastactive']);?></span></td>
-				<td><strong><a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=edit&ad='.$banner['id']);?>" title="<?php _e('Edit', 'adrotate'); ?>"><?php echo stripslashes(html_entity_decode($banner['title']));?></a></strong> - <a href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=report&ad='.$banner['id']);?>" title="<?php _e('Report', 'adrotate'); ?>"><?php _e('Report', 'adrotate'); ?></a><span style="color:#999;"><?php if(strlen($grouplist) > 0) echo '<br /><span style="font-weight:bold;">'.__('Groups:', 'adrotate').'</span> '.$grouplist; ?></span></td>
+				<td><strong><a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=edit&ad='.$banner['id']);?>" title="<?php _e('Edit', 'adrotate'); ?>"><?php echo stripslashes(html_entity_decode($banner['title']));?></a></strong> <?php if($adrotate_config['stats'] == 1) { ?>- <a href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=report&ad='.$banner['id']);?>" title="<?php _e('Report', 'adrotate'); ?>"><?php _e('Report', 'adrotate'); ?></a><?php } ?><span style="color:#999;"><?php if(strlen($grouplist) > 0) echo '<br /><span style="font-weight:bold;">'.__('Groups:', 'adrotate').'</span> '.$grouplist; ?></span></td>
 				<td><center><?php echo $banner['weight']; ?></center></td>
-				<td><center><?php echo $stats['impressions']; ?></center></td>
-				<td><center><?php echo $stats_today['impressions']; ?></center></td>
-				<?php if($banner['tracker'] == "Y") { ?>
-				<td><center><?php echo $stats['clicks']; ?></center></td>
-				<td><center><?php echo $stats_today['clicks']; ?></center></td>
-				<td><center><?php echo $ctr; ?> %</center></td>
-				<?php } else { ?>
-				<td><center>--</center></td>
-				<td><center>--</center></td>
-				<td><center>--</center></td>
+				<?php if($adrotate_config['stats'] == 1) { ?>
+					<?php if($banner['tracker'] == "Y") { ?>
+					<td><center><?php echo $stats['impressions']; ?></center></td>
+					<td><center><?php echo $stats_today['impressions']; ?></center></td>
+					<td><center><?php echo $stats['clicks']; ?></center></td>
+					<td><center><?php echo $stats_today['clicks']; ?></center></td>
+					<td><center><?php echo $ctr; ?> %</center></td>
+					<?php } else { ?>
+					<td><center>--</center></td>
+					<td><center>--</center></td>
+					<td><center>--</center></td>
+					<td><center>--</center></td>
+					<td><center>--</center></td>
+					<?php } ?>
 				<?php } ?>
 			</tr>
 			<?php } ?>
 		<?php } else { ?>
 		<tr id='no-groups'>
 			<th class="check-column">&nbsp;</th>
-			<td colspan="10"><em><?php _e('No ads created yet!', 'adrotate'); ?></em></td>
+			<td colspan="<?php echo ($adrotate_config['stats'] == 1) ? '10' : '5'; ?>"><em><?php _e('No ads created yet!', 'adrotate'); ?></em></td>
 		</tr>
 	<?php } ?>
 	</tbody>

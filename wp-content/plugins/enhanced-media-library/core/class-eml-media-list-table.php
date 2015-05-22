@@ -13,17 +13,28 @@
  */
  
 class WPUXSS_EML_Media_List_Table extends WP_Media_List_Table {
+    
+    protected $detached;
+    
+    protected $uncategorized;
+    
+    protected $is_trash;
+    
 
 	public function __construct( $args = array() ) 
-    {
+    {         
+        $this->detached = ( isset( $_REQUEST['attachment-filter'] ) && 'detached' === $_REQUEST['attachment-filter'] );
+        
 		$this->uncategorized = ( isset( $_REQUEST['attachment-filter'] ) && 'uncategorized' === $_REQUEST['attachment-filter'] );
+        
+        $this->is_trash = isset( $_REQUEST['attachment-filter'] ) && 'trash' == $_REQUEST['attachment-filter'];
 
 		parent::__construct();
 	}
     
     
-    protected function get_views() 
-    {  
+    protected function get_views() { 
+     
 		global $wpdb, $post_mime_types, $avail_post_mime_types;
 
 		$type_links = array();
@@ -45,7 +56,7 @@ class WPUXSS_EML_Media_List_Table extends WP_Media_List_Table {
 			if ( !empty( $_GET['attachment-filter'] ) && strpos( $_GET['attachment-filter'], 'post_mime_type:' ) === 0 && wp_match_mime_types( $mime_type, str_replace( 'post_mime_type:', '', $_GET['attachment-filter'] ) ) )
 				$selected = ' selected="selected"';
 			if ( !empty( $num_posts[$mime_type] ) )
-				$type_links[$mime_type] = '<option value="post_mime_type:' . sanitize_mime_type( $mime_type ) . '"' . $selected . '>' . sprintf( translate_nooped_plural( $label[2], $num_posts[$mime_type] ), number_format_i18n( $num_posts[$mime_type] )) . '</option>';
+				$type_links[$mime_type] = '<option value="post_mime_type:' . esc_attr( $mime_type ) . '"' . $selected . '>' . sprintf( translate_nooped_plural( $label[2], $num_posts[$mime_type] ), number_format_i18n( $num_posts[$mime_type] )) . '</option>';
 		}
 		$type_links['detached'] = '<option value="detached"' . ( $this->detached ? ' selected="selected"' : '' ) . '>' . sprintf( _nx( 'Unattached (%s)', 'Unattached (%s)', $total_orphans, 'detached files' ), number_format_i18n( $total_orphans ) ) . '</option>';
         
@@ -86,3 +97,5 @@ class WPUXSS_EML_Media_List_Table extends WP_Media_List_Table {
 	}
     
 }
+
+?>

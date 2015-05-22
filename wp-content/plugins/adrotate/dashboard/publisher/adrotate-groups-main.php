@@ -32,10 +32,12 @@
 			<th width="5%"><center><?php _e('ID', 'adrotate'); ?></center></th>
 			<th><?php _e('Name', 'adrotate'); ?></th>
 			<th width="5%"><center><?php _e('Ads', 'adrotate'); ?></center></th>
-			<th width="5%"><center><?php _e('Impressions', 'adrotate'); ?></center></th>
-			<th width="5%"><center><?php _e('Today', 'adrotate'); ?></center></th>
-			<th width="5%"><center><?php _e('Clicks', 'adrotate'); ?></center></th>
-			<th width="5%"><center><?php _e('Today', 'adrotate'); ?></center></th>
+	        <?php if($adrotate_config['stats'] == 1) { ?>
+				<th width="5%"><center><?php _e('Impressions', 'adrotate'); ?></center></th>
+				<th width="5%"><center><?php _e('Today', 'adrotate'); ?></center></th>
+				<th width="5%"><center><?php _e('Clicks', 'adrotate'); ?></center></th>
+				<th width="5%"><center><?php _e('Today', 'adrotate'); ?></center></th>
+			<?php } ?>
 			<th width="15%"><center><?php _e('Code', 'adrotate'); ?></center></th>
 		</tr>
 			</thead>
@@ -46,32 +48,34 @@
 			$class = '';
 			$modus = array();
 			foreach($groups as $group) {
-				$stats 			= $wpdb->get_row("SELECT SUM(`clicks`) as `clicks`, SUM(`impressions`) as `impressions` FROM `".$wpdb->prefix."adrotate_stats` WHERE `group` = '$group->id';", ARRAY_A);
-				$stats_today	= $wpdb->get_row("SELECT SUM(`clicks`) as `clicks`, SUM(`impressions`) as `impressions` FROM `".$wpdb->prefix."adrotate_stats` WHERE `group` = '$group->id' AND `thetime` = '$today';", ARRAY_A);
+				if($adrotate_config['stats'] == 1) {
+					$stats 			= $wpdb->get_row("SELECT SUM(`clicks`) as `clicks`, SUM(`impressions`) as `impressions` FROM `".$wpdb->prefix."adrotate_stats` WHERE `group` = '$group->id';", ARRAY_A);
+					$stats_today	= $wpdb->get_row("SELECT SUM(`clicks`) as `clicks`, SUM(`impressions`) as `impressions` FROM `".$wpdb->prefix."adrotate_stats` WHERE `group` = '$group->id' AND `thetime` = '$today';", ARRAY_A);
+					if(empty($stats['impressions'])) $stats['impressions'] = 0;
+					if(empty($stats['clicks']))	$stats['clicks'] = 0;
+					if(empty($stats_today['impressions'])) $stats_today['impressions'] = 0;
+					if(empty($stats_today['clicks'])) $stats_today['clicks'] = 0;
+				}
 
-				// Prevent gaps in display
-				if(empty($stats['impressions'])) $stats['impressions'] = 0;
-				if(empty($stats['clicks']))	$stats['clicks'] = 0;
-				if(empty($stats_today['impressions'])) $stats_today['impressions'] = 0;
-				if(empty($stats_today['clicks'])) $stats_today['clicks'] = 0;
 				if($group->adspeed > 0) $adspeed = $group->adspeed / 1000;
 		        if($group->modus == 0) $modus[] = __('Default', 'adrotate');
 		        if($group->modus == 1) $modus[] = __('Dynamic', 'adrotate').' ('.$adspeed.' '. __('second rotation', 'adrotate').')';
 		        if($group->modus == 2) $modus[] = __('Block', 'adrotate').' ('.$group->gridrows.' x '.$group->gridcolumns.' '. __('grid', 'adrotate').')';
 		        if($group->cat_loc > 0 OR $group->page_loc > 0) $modus[] = __('Post Injection', 'adrotate');
-		        if($group->geo == 1) $modus[] = __('Geolocation', 'adrotate');
 
 				$ads_in_group = $wpdb->get_var("SELECT COUNT(*) FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `group` = ".$group->id.";");
 				$class = ('alternate' != $class) ? 'alternate' : ''; ?>
 			    <tr class='<?php echo $class; ?>'>
 					<th class="check-column"><input type="checkbox" name="groupcheck[]" value="<?php echo $group->id; ?>" /></th>
 					<td><center><?php echo $group->id;?></center></td>
-					<td><strong><a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=edit&group='.$group->id);?>" title="<?php _e('Edit', 'adrotate'); ?>"><?php echo $group->name;?></a></strong> - <a href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=report&group='.$group->id);?>" title="<?php _e('Report', 'adrotate'); ?>"><?php _e('Report', 'adrotate'); ?></a><span style="color:#999;"><?php echo '<br /><span style="font-weight:bold;">'.__('Mode', 'adrotate').':</span> '.implode(', ', $modus); ?></span></td>
+					<td><strong><a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=edit&group='.$group->id);?>" title="<?php _e('Edit', 'adrotate'); ?>"><?php echo $group->name;?></a></strong> <?php if($adrotate_config['stats'] == 1) { ?>- <a href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=report&group='.$group->id);?>" title="<?php _e('Report', 'adrotate'); ?>"><?php _e('Report', 'adrotate'); ?></a><?php } ?><span style="color:#999;"><?php echo '<br /><span style="font-weight:bold;">'.__('Mode', 'adrotate').':</span> '.implode(', ', $modus); ?></span></td>
 					<td><center><?php echo $ads_in_group; ?></center></td>
-					<td><center><?php echo $stats['impressions']; ?></center></td>
-					<td><center><?php echo $stats_today['impressions']; ?></center></td>
-					<td><center><?php echo $stats['clicks']; ?></center></td>
-					<td><center><?php echo $stats_today['clicks']; ?></center></td>
+					<?php if($adrotate_config['stats'] == 1) { ?>
+						<td><center><?php echo $stats['impressions']; ?></center></td>
+						<td><center><?php echo $stats_today['impressions']; ?></center></td>
+						<td><center><?php echo $stats['clicks']; ?></center></td>
+						<td><center><?php echo $stats_today['clicks']; ?></center></td>
+					<?php } ?>
 					<td><center>[adrotate group="<?php echo $group->id; ?>"]</center></td>
 				</tr>
 				<?php unset($stats, $stats_today, $adspeed, $modus);?>
@@ -79,7 +83,7 @@
 		<?php } else { ?>
 		<tr>
 			<th class="check-column">&nbsp;</th>
-			<td colspan="9"><em><?php _e('No groups created!', 'adrotate'); ?></em></td>
+			<td colspan="<?php echo ($adrotate_config['stats'] == 1) ? '9' : '5'; ?>"><em><?php _e('No groups created!', 'adrotate'); ?></em></td>
 		</tr>
 		<?php } ?>
 			</tbody>

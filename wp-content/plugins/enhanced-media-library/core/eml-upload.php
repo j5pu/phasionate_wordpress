@@ -307,3 +307,5 @@ if ( !empty($message) ) { ?>
 
 <?php
 include( ABSPATH . 'wp-admin/admin-footer.php' );
+
+?>

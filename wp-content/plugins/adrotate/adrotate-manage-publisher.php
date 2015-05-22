@@ -146,7 +146,7 @@ function adrotate_insert_input() {
 			$wpdb->update($wpdb->prefix.'adrotate_schedule', array('starttime' => $startdate, 'stoptime' => $enddate, 'maxclicks' => $maxclicks, 'maximpressions' => $maxshown), array('id' => $schedule_id));
 
 			// Save the ad to the DB
-			$wpdb->update($wpdb->prefix.'adrotate', array('title' => $title, 'bannercode' => $bannercode, 'updated' => $thetime, 'author' => $author, 'imagetype' => $imagetype, 'image' => $image, 'link' => $link, 'tracker' => $tracker, 'responsive' => $responsive, 'sortorder' => $sortorder), array('id' => $id));
+			$wpdb->update($wpdb->prefix.'adrotate', array('title' => $title, 'bannercode' => $bannercode, 'updated' => $thetime, 'author' => $author, 'imagetype' => $imagetype, 'image' => $image, 'link' => $link, 'tracker' => $tracker, 'responsive' => $responsive, 'type' => $active, 'sortorder' => $sortorder), array('id' => $id));
 
 			// Determine Responsive requirement
 			$responsive_count = $wpdb->get_var("SELECT COUNT(*) as `total` FROM `".$wpdb->prefix."adrotate` WHERE `responsive` = 'Y';");
@@ -183,14 +183,8 @@ function adrotate_insert_input() {
 			}
 			
 			if($active == "active") {
-				// Determine status of ad 
-				$adstate = adrotate_evaluate_ad($id);
-				if($adstate == 'error' OR $adstate == 'expired' OR $adstate == 'expiring') {
-					$action = 'field_error';
-				}
-				$active = $adstate;
+				adrotate_prepare_evaluate_ads(false, $id);
 			}
-		    $wpdb->update($wpdb->prefix."adrotate", array('type' => $active), array('id' => $id));
 
 			adrotate_return($action, array($id));
 			exit;
@@ -594,9 +588,13 @@ function adrotate_options_submit() {
 		$config['group_manage'] 		= $_POST['adrotate_group_manage'];
 		$config['group_delete'] 		= $_POST['adrotate_group_delete'];
 
-		//Advertisers
-		if(isset($_POST['adrotate_enable_stats'])) $config['enable_stats'] = 'Y';
-			else $config['enable_stats'] = 'N';
+		// Enable stats
+		$stats = trim($_POST['adrotate_stats']);
+		if(is_numeric($stats) AND $stats >= 0 AND $stats <= 2) {
+			$config['stats'] = $stats;
+		} else {
+			$config['stats'] = 1;
+		}
 
 		// Set the banner folder, reset if empty
 		$config['banner_folder'] = "wp-content/banners/";

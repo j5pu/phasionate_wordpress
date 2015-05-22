@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: AdRotate
-Plugin URI: https://ajdg.solutions/products/adrotate-for-wordpress/
+Plugin URI: https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-pluginpage&pk_kwd=pluginurl
 Author: Arnan de Gans of AJdG Solutions
-Author URI: http://ajdg.solutions/
+Author URI: http://ajdg.solutions/?pk_campaign=adrotatefree-pluginpage&pk_kwd=authorurl
 Description: Used on over a hundred thousand websites and by even more people! AdRotate is the popular choice for monetizing your website with adverts while keeping things simple.
-Version: 3.11.3
+Version: 3.11.6
 License: GPLv3
 */
 
@@ -20,9 +20,9 @@ License: GPLv3
 ------------------------------------------------------------------------------------ */
 
 /*--- AdRotate values ---------------------------------------*/
-define("ADROTATE_DISPLAY", '3.11.3');
-define("ADROTATE_VERSION", 378);
-define("ADROTATE_DB_VERSION", 50);
+define("ADROTATE_DISPLAY", '3.11.6');
+define("ADROTATE_VERSION", 379);
+define("ADROTATE_DB_VERSION", 51);
 define("ADROTATE_FOLDER", 'adrotate');
 /*-----------------------------------------------------------*/
 
@@ -57,7 +57,7 @@ add_action('widgets_init', create_function('', 'return register_widget("adrotate
 /*-----------------------------------------------------------*/
 
 /*--- Front end ---------------------------------------------*/
-if($adrotate_config['enable_stats'] == 'Y'){
+if($adrotate_config['stats'] == 1){
 	add_action('wp_ajax_adrotate_impression', 'adrotate_impression_callback');
 	add_action('wp_ajax_nopriv_adrotate_impression', 'adrotate_impression_callback');
 	add_action('wp_ajax_adrotate_click', 'adrotate_click_callback');
@@ -217,8 +217,6 @@ function adrotate_manage() {
 			<div id="message" class="updated"><p><?php _e('The ad was saved but has an issue which might prevent it from working properly. Review the yellow marked ad.', 'adrotate'); ?></p></div>
 		<?php } else if ($message == 'exported') { ?>
 			<div id="message" class="updated"><p><?php _e('Export created', 'adrotate'); ?> <a href="<?php echo WP_CONTENT_URL; ?>/reports/<?php echo $file; ?>">Download</a>.</p></div>
-
-
 		<?php } else if ($message == 'no_access') { ?>
 			<div id="message" class="updated"><p><?php _e('Action prohibited', 'adrotate'); ?></p></div>
 		<?php } else if ($message == 'nodata') { ?>
@@ -335,7 +333,7 @@ function adrotate_manage() {
  Return:    -none-
 -------------------------------------------------------------*/
 function adrotate_manage_group() {
-	global $wpdb, $adrotate_debug;
+	global $wpdb, $adrotate_config, $adrotate_debug;
 
 	$message = $view = $group_edit_id = '';
 	if(isset($_GET['message'])) $message = esc_attr($_GET['message']);
@@ -378,6 +376,9 @@ function adrotate_manage_group() {
 				<div class="alignleft actions">
 					<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=manage');?>"><?php _e('Manage', 'adrotate'); ?></a> | 
 					<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=addnew');?>"><?php _e('Add New', 'adrotate'); ?></a>
+					<?php if($group_edit_id AND $adrotate_config['stats'] == 1) { ?>
+					| <a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=report&group='.$group_edit_id);?>"><?php _e('Report', 'adrotate'); ?></a>
+					<?php } ?>
 				</div>
 			</div>
 
@@ -469,7 +470,7 @@ function adrotate_manage_schedules() {
 		if($schedules) {
 			$class = '';
 			foreach($schedules as $schedule) {
-				$schedulesmeta = $wpdb->get_results("SELECT `ad` FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `group` = 0 AND `block` = 0 AND `user` = 0 AND `schedule` = ".$schedule->id.";");
+				$schedulesmeta = $wpdb->get_results("SELECT `ad` FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `group` = 0 AND `user` = 0 AND `schedule` = ".$schedule->id.";");
 				if($schedule->maxclicks == 0) $schedule->maxclicks = 'unlimited';
 				if($schedule->maximpressions == 0) $schedule->maximpressions = 'unlimited';
 	
@@ -690,9 +691,23 @@ function adrotate_options() {
 			<h3><?php _e('Statistics', 'adrotate'); ?></h3></td>
 			<table class="form-table">
 				<tr>
-					<th valign="top"><?php _e('Enable stats', 'adrotate'); ?></th>
+					<th valign="top"><?php _e('How to track stats', 'adrotate'); ?></th>
 					<td>
-						<input type="checkbox" name="adrotate_enable_stats" <?php if($adrotate_config['enable_stats'] == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Track clicks and impressions.', 'adrotate'); ?><br /><span class="description"><?php _e('Disabling this also disables click and impression limits on schedules.', 'adrotate'); ?></span><br />
+						<select name="adrotate_stats">
+							<option value="0" <?php if($adrotate_config['stats'] == 0) { echo 'selected'; } ?>><?php _e('Disabled', 'adrotate'); ?></option>
+							<option value="1" <?php if($adrotate_config['stats'] == 1) { echo 'selected'; } ?>>AdRotate (Default)</option>
+							<option value="0" disabled>Piwik Analytics (Advanced, Faster)</option>
+							<option value="0" disabled>Google Analytics (Advanced)</option>
+						</select><br />
+						<span class="description">
+							<strong>Disabled</strong> - <?php _e('No impressions and clicks are recorded for any of your adverts.', 'adrotate'); ?><br /><br />
+							<strong>AdRotate</strong> - <?php _e('Tracks impressions and clicks internally.', 'adrotate'); ?><br />
+							<strong>Supports:</strong> <em><?php _e('Click and Impression recording, Click and impression limits, impression spread for schedules, local stats display.', 'adrotate'); ?></em><br /><br />
+							<strong>Piwik Analytics</strong> - <?php _e('Requires Piwik Analytics tracker installed in your sites footer! Uses data attributes.', 'adrotate'); ?> <?php _e('Available in AdRotate Pro!', 'adrotate'); ?><br />
+							<strong>Supports:</strong> <em><?php _e('Click and Impression recording via Cookie, stats are displayed in Actions > Contents.', 'adrotate'); ?></em><br /><br />
+							<strong>Google Analytics</strong> - <?php _e('Requires Google Analytics tracker installed in your sites footer! uses onClick() in adverts.', 'adrotate'); ?> <?php _e('Available in AdRotate Pro!', 'adrotate'); ?><br />
+							<strong>Supports:</strong> <em><?php _e('Click and Impression recording via Cookie, stats are displayed in Events.', 'adrotate'); ?></em>
+						</span>
 					</td>
 				</tr>
 				<tr>

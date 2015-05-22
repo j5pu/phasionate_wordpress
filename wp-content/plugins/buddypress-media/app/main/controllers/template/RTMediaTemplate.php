@@ -35,7 +35,6 @@ class RTMediaTemplate {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_enqueue_script( 'wp-ajax-response' );
 		wp_enqueue_script( 'rtmedia-image-edit', admin_url( "js/image-edit$suffix.js" ), array( 'jquery', 'json2', 'imgareaselect' ), false, 1 );
-		wp_enqueue_style( 'rtmedia-image-edit', RTMEDIA_URL . 'app/assets/css/image-edit.css' );
 		wp_enqueue_style( 'rtmedia-image-area-select', includes_url( '/js/imgareaselect/imgareaselect.css' ) );
 	}
 
@@ -293,11 +292,8 @@ class RTMediaTemplate {
 			$media = new RTMediaMedia();
 			$model = new RTMediaModel();
 			if ( isset ( $_POST[ 'submit' ] ) ){
-				$data = $_POST;
-				unset ( $data[ 'rtmedia_media_nonce' ] );
-				unset ( $data[ '_wp_http_referer' ] );
-				unset ( $data[ 'submit' ] );
-				$data       = rtmedia_sanitize_object( $_POST, $data );
+				$data_array = array( 'media_title', 'description', 'privacy' );
+				$data       = rtmedia_sanitize_object( $_POST, $data_array );
 				$album = $model->get_media( array( 'id' => $rtmedia_query->media_query[ 'album_id' ] ), false, false );
 				$state = $media->update( $album[ 0 ]->id, $data, $album[ 0 ]->media_id );
 				global $rtmedia_points_media_id;

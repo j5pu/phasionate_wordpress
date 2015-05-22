@@ -20,11 +20,11 @@
 function adrotate_shortcode($atts, $content = null) {
 	global $adrotate_config;
 
-	$banner_id = $group_ids = $fallback = $weight = 0;
+	$banner_id = $group_ids = 0;
 	if(!empty($atts['banner'])) $banner_id = trim($atts['banner'], "\r\t ");
 	if(!empty($atts['group'])) $group_ids = trim($atts['group'], "\r\t ");
-	if(!empty($atts['fallback'])) $fallback	= trim($atts['fallback'], "\r\t "); // Optional for groups (override)
-	if(!empty($atts['weight']))	$weight	= trim($atts['weight'], "\r\t "); // Optional for groups (override)
+	if(!empty($atts['fallback'])) $fallback	= 0; // Not supported in free version
+	if(!empty($atts['weight']))	$weight	= 0; // Not supported in free version
 	if(!empty($atts['site'])) $site = 0; // Not supported in free version
 
 	$output = '';
@@ -38,8 +38,8 @@ function adrotate_shortcode($atts, $content = null) {
 	}
 
 	if($banner_id == 0 AND $group_ids > 0) { // Show group 
-		if($adrotate_config['supercache'] == "Y") $output .= '<!--mfunc echo adrotate_group('.$group_ids.', '.$fallback.', '.$weight.') -->';
-		$output .= adrotate_group($group_ids, $fallback, $weight);
+		if($adrotate_config['supercache'] == "Y") $output .= '<!--mfunc echo adrotate_group('.$group_ids.', 0, 0, 0) -->';
+		$output .= adrotate_group($group_ids, 0, 0, 0);
 		if($adrotate_config['supercache'] == "Y") $output .= '<!--/mfunc-->';
 	}
 
@@ -57,7 +57,7 @@ function adrotate_shortcode($atts, $content = null) {
  Since:		3.9.8
 -------------------------------------------------------------*/
 function adrotate_is_networked() {
-	if(!function_exists( 'is_plugin_active_for_network')) require_once(ABSPATH.'/wp-admin/includes/plugin.php');
+	if(!function_exists('is_plugin_active_for_network')) require_once(ABSPATH.'/wp-admin/includes/plugin.php');
 	 
 	if(is_plugin_active_for_network(ADROTATE_FOLDER.'/adrotate.php')) {
 		return true;
@@ -244,27 +244,22 @@ function adrotate_filter_schedule($selected, $banner) {
 	
 	// Get schedules for advert
 	$schedules = $wpdb->get_results("SELECT `".$wpdb->prefix."adrotate_schedule`.`id`, `starttime`, `stoptime`, `maxclicks`, `maximpressions` FROM `".$wpdb->prefix."adrotate_schedule`, `".$wpdb->prefix."adrotate_linkmeta` WHERE `schedule` = `".$wpdb->prefix."adrotate_schedule`.`id` AND `ad` = '".$banner->id."' ORDER BY `starttime` ASC LIMIT 1;");
-
 	$schedule = $schedules[0];
 	
-	$current = array();
-	if($schedule->starttime > $now OR $schedule->stoptime < $now) {
-		$current[] = 0;
+	if($adrotate_debug['general'] == true) {
+		echo "<p><strong>[DEBUG][adrotate_filter_schedule] Ad ".$banner->id." - Has schedule (id: ".$schedule->id.")</strong><pre>";
+		echo "<br />Start: ".$schedule->starttime." (".date("F j, Y, g:i a", $schedule->starttime).")";
+		echo "<br />End: ".$schedule->stoptime." (".date("F j, Y, g:i a", $schedule->stoptime).")";
+		echo "</pre></p>";
+	}
+
+	if($now < $schedule->starttime OR $now > $schedule->stoptime) {
+		unset($selected[$banner->id]);
 	} else {
-		$current[] = 1;
-		if($adrotate_config['enable_stats'] == 'Y') {
+		if($adrotate_config['stats'] == 1 AND $banner->tracker == "Y") {
 			$stat = adrotate_stats($banner->id, $schedule->starttime, $schedule->stoptime);
 
-			if($adrotate_debug['general'] == true) {
-				echo "<p><strong>[DEBUG][adrotate_filter_schedule] Ad ".$banner->id." - Has schedule (id: ".$schedule->id.")</strong><pre>";
-				echo "<br />Start: ".$schedule->starttime." (".date("F j, Y, g:i a", $schedule->starttime).")";
-				echo "<br />End: ".$schedule->stoptime." (".date("F j, Y, g:i a", $schedule->stoptime).")";
-				echo "<br />Clicks this period: ".$stat['clicks'];
-				echo "<br />Impressions this period: ".$stat['impressions'];
-				echo "</pre></p>";
-			}
-
-			if($stat['clicks'] >= $schedule->maxclicks AND $schedule->maxclicks > 0 AND $banner->tracker == "Y") {
+			if($stat['clicks'] >= $schedule->maxclicks AND $schedule->maxclicks > 0) {
 				unset($selected[$banner->id]);
 			}
 
@@ -273,12 +268,6 @@ function adrotate_filter_schedule($selected, $banner) {
 			}
 		}
 	}
-	
-	// Remove advert from array if all schedules are false (0)
-	if(!in_array(1, $current)) {
-		unset($selected[$banner->id]);
-	}
-	unset($current, $schedules);
 	
 	return $selected;
 } 
@@ -449,15 +438,22 @@ function adrotate_select_pages($savedpages, $count = 2, $child_of = 0, $parent =
  Name:      adrotate_prepare_evaluate_ads
 
  Purpose:   Initiate evaluations for errors and determine the ad status
- Receive:   -None-
- Return:    -None-
+ Receive:   $return, $id
+ Return:    
  Since:		3.6.5
 -------------------------------------------------------------*/
-function adrotate_prepare_evaluate_ads($return = true) {
+function adrotate_prepare_evaluate_ads($return = true, $id = 0) {
 	global $wpdb;
 	
+	$getid = '';
+	if($id > 0) {
+		$getid = " AND `id` = {$id}";
+	} else {
+		$getid = " AND `type` != 'empty'";
+ 	}
+	
 	// Fetch ads
-	$ads = $wpdb->get_results("SELECT `id`, `type` FROM `".$wpdb->prefix."adrotate` WHERE `type` != 'disabled' AND `type` != 'empty' ORDER BY `id` ASC;");
+	$ads = $wpdb->get_results("SELECT `id` FROM `".$wpdb->prefix."adrotate` WHERE `type` != 'disabled'{$getid} ORDER BY `id` ASC;");
 
 	// Determine error states
 	$error = $expired = $expiressoon = $normal = $unknown = 0;
@@ -743,15 +739,10 @@ function adrotate_dashboard_scripts() {
 
 	// WP Pointers
 	$seen_it = explode(',', get_user_meta(get_current_user_id(), 'dismissed_wp_pointers', true));
-	$do_add_script = false;
-	if(!in_array('adrotate_free_'.ADROTATE_VERSION.ADROTATE_DB_VERSION, $seen_it)) {
-		$do_add_script = true;
-		add_action('admin_print_footer_scripts', 'adrotate_welcome_pointer');
-	}
-
-	if($do_add_script) {
+	if(!in_array('adrotatefree_'.ADROTATE_VERSION.ADROTATE_DB_VERSION, $seen_it)) {
 		wp_enqueue_script('wp-pointer');
 		wp_enqueue_style('wp-pointer');
+		add_action('admin_print_footer_scripts', 'adrotate_welcome_pointer');
 	}
 }
 

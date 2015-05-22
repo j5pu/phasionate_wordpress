@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../includes/settings-template.php:17
@@ -24,12 +24,12 @@ msgstr "Editor de Roles"
 #: ../includes/settings-template.php:21
 #: ../includes/class-user-role-editor.php:591
 msgid "General"
-msgstr "General"
+msgstr ""
 
 #: ../includes/settings-template.php:26
 #: ../includes/class-user-role-editor.php:597
 msgid "Additional Modules"
-msgstr "Módulos adicionales"
+msgstr ""
 
 #: ../includes/settings-template.php:30
 #: ../includes/class-user-role-editor.php:603
@@ -40,16 +40,16 @@ msgstr "Rol Predeterminado"
 #: ../includes/settings-template.php:34
 #: ../includes/class-user-role-editor.php:609
 msgid "Multisite"
-msgstr "Multisitio"
+msgstr ""
 
 #: ../includes/settings-template.php:39
 msgid "About"
-msgstr "Acerca de"
+msgstr ""
 
 #: ../includes/settings-template.php:53
 #: ../includes/class-ure-screen-help.php:15
 msgid "Show Administrator role at User Role Editor"
-msgstr "Mostrar rol de Administrador a usuarios con rol de editor"
+msgstr ""
 
 #: ../includes/settings-template.php:61
 #: ../includes/class-ure-screen-help.php:18
@@ -76,7 +76,7 @@ msgstr "Guardar"
 #: ../includes/settings-template.php:111
 #: ../includes/class-ure-screen-help.php:45
 msgid "Count users without role"
-msgstr "Contar usuarios sin role"
+msgstr ""
 
 #: ../includes/settings-template.php:138
 #, fuzzy
@@ -85,7 +85,7 @@ msgstr "Rol Primario:"
 
 #: ../includes/settings-template.php:145
 msgid "Other default roles for new registered user: "
-msgstr "Otros roles predeterminados para nuevo usuario registrado:"
+msgstr ""
 
 #: ../includes/settings-template.php:151
 msgid ""
@@ -93,26 +93,22 @@ msgid ""
 "should exist at the site, in order to be assigned to the new registered "
 "users."
 msgstr ""
-"Nota para entorno multisitio: tener en cuenta que deben existir otros roles "
-"predeterminados en el sitio, con el fin de asignarlo a los nuevos usuarios "
-"registrados"
 
 #: ../includes/settings-template.php:177
 msgid "Allow non super administrators to create, edit, and delete users"
 msgstr ""
-"No permitir que los super-administradores creen, edite y eliminen ususarios"
 
 #: ../includes/class-user-role-editor.php:234
 msgid "Change role for users without role"
-msgstr "Cambiar rol de usuarios sin rol"
+msgstr ""
 
 #: ../includes/class-user-role-editor.php:235
 msgid "No rights"
-msgstr "No rights"
+msgstr ""
 
 #: ../includes/class-user-role-editor.php:236
 msgid "Provide new role"
-msgstr "Proporcionar nuevo rol"
+msgstr ""
 
 #: ../includes/class-user-role-editor.php:320
 #: ../includes/class-user-role-editor.php:322
@@ -210,8 +206,6 @@ msgid ""
 " WordPress does not support numeric Role name (ID). Add latin characters to "
 "it."
 msgstr ""
-" WordPress no admite nombres de role numéricos (ID). Añadir caracteres "
-"latinos"
 
 #: ../includes/class-user-role-editor.php:987
 msgid "Add Role"
@@ -241,29 +235,22 @@ msgstr "Reiniciar"
 #: ../includes/class-user-role-editor.php:994
 msgid "DANGER! Resetting will restore default settings from WordPress Core."
 msgstr ""
-"¡Peligro! Restablecer restaurará la configuración predeterminada de "
-"Wordpress Core."
 
 #: ../includes/class-user-role-editor.php:995
 msgid ""
 "If any plugins have changed capabilities in any way upon installation (such "
 "as S2Member, WooCommerce, and many more), those capabilities will be DELETED!"
 msgstr ""
-"Si ningún plugin ha cambiado las capacidades de alguna manera en la "
-"instalación (como S2Member, WooCommerce y muchos más), esas capacidades "
-"¡serán BORRADAS!"
 
 #: ../includes/class-user-role-editor.php:996
 msgid ""
 "For more information on how to undo changes and restore plugin capabilities "
 "go to"
 msgstr ""
-"Para obtener más información acerca de cómo deshacer los cambios y restaurar "
-"las capacidades del plugin ir a"
 
 #: ../includes/class-user-role-editor.php:998
 msgid "Continue?"
-msgstr "¿Continuar?"
+msgstr ""
 
 #: ../includes/class-user-role-editor.php:999
 msgid "Default Role"
@@ -399,7 +386,7 @@ msgstr ""
 
 #: ../includes/class-ure-lib.php:1444
 msgid "read about"
-msgstr "Leer acerca de"
+msgstr ""
 
 #: ../includes/class-ure-lib.php:1445
 #, fuzzy
@@ -427,8 +414,6 @@ msgid ""
 "Error: WordPress does not support numeric Role name (ID). Add latin "
 "characters to it."
 msgstr ""
-"Error: WordPress no es compatible con nombres de rol numéricos (ID). Añadir "
-"caracteres latinos."
 
 #: ../includes/class-ure-lib.php:1979
 #, php-format
@@ -446,11 +431,11 @@ msgstr "El Rol %s fue creado exitosamente"
 
 #: ../includes/class-ure-lib.php:2020
 msgid "Error: Role ID is empty!"
-msgstr "Error: ID del Role está vacío"
+msgstr ""
 
 #: ../includes/class-ure-lib.php:2038
 msgid "Error: Empty role display name is not allowed."
-msgstr "Error: Mostrar un nombre de rol vacío no está permitido."
+msgstr ""
 
 #: ../includes/class-ure-lib.php:2045
 #, fuzzy, php-format
@@ -468,7 +453,7 @@ msgstr "Un error fue encontrado durante la eliminación del Rol"
 
 #: ../includes/class-ure-lib.php:2128
 msgid "Unused roles are deleted successfully"
-msgstr "Los roles no utilizados se eliminarán con éxito"
+msgstr ""
 
 #: ../includes/class-ure-lib.php:2130
 #, php-format
@@ -776,7 +761,7 @@ msgstr "La Capacidad %s fue eliminada exitosamente"
 
 #: ../includes/class-ure-lib.php:2536
 msgid "Version:"
-msgstr "Versión:"
+msgstr ""
 
 #: ../includes/class-ure-lib.php:2537
 msgid "Author's website"
@@ -801,15 +786,15 @@ msgstr "Ninguno"
 
 #: ../includes/class-ure-lib.php:2616
 msgid "Delete All Unused Roles"
-msgstr "Eliminar todos los roles no utilizados"
+msgstr ""
 
 #: ../includes/class-ure-lib.php:2640
 msgid "&mdash; No role for this site &mdash;"
-msgstr "&mdash; Ningún rol en este sitio &mdash;"
+msgstr ""
 
 #: ../includes/ure-user-edit.php:32
 msgid "Network Super Admin"
-msgstr "Network Super Admin"
+msgstr ""
 
 #: ../includes/ure-user-edit.php:35
 msgid "Change capabilities for user"

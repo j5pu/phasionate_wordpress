@@ -267,7 +267,7 @@ function adrotate_check_config() {
 	if(!isset($config['moderate_approve'])) $config['moderate_approve'] = 'administrator';
 	if(!isset($config['enable_advertisers']) OR ($config['enable_advertisers'] != 'Y' AND $config['enable_advertisers'] != 'N')) $config['enable_advertisers'] = 'N';
 	if(!isset($config['enable_editing']) OR ($config['enable_editing'] != 'Y' AND $config['enable_editing'] != 'N')) $config['enable_editing'] = 'N';
-	if(!isset($config['enable_stats']) OR ($config['enable_stats'] != 'Y' AND $config['enable_stats'] != 'N')) $config['enable_stats'] = 'Y';
+	if(!isset($config['stats']) OR ($config['stats'] < 0 AND $config['stats'] > 2)) $config['stats'] = 1;
 	if(!isset($config['enable_loggedin_impressions']) OR ($config['enable_loggedin_impressions'] != 'Y' AND $config['enable_loggedin_impressions'] != 'N')) $config['enable_loggedin_impressions'] = 'Y';
 	if(!isset($config['enable_loggedin_clicks']) OR ($config['enable_loggedin_clicks'] != 'Y' AND $config['enable_loggedin_clicks'] != 'N')) $config['enable_loggedin_clicks'] = 'Y';
 	if(!isset($config['enable_geo'])) $config['enable_geo'] = 0;
@@ -387,7 +387,7 @@ function adrotate_database_install() {
 		$engine = ' ENGINE=InnoDB';
 	}
 
-	$found_tables = $wpdb->get_col("SHOW TABLES LIKE '{$wpdb->prefix}adrotate';");
+	$found_tables = $wpdb->get_col("SHOW TABLES LIKE '{$wpdb->prefix}adrotate%';");
 
 	if(!in_array("{$wpdb->prefix}adrotate", $found_tables)) {
 		dbDelta("CREATE TABLE `{$wpdb->prefix}adrotate` (
@@ -401,6 +401,7 @@ function adrotate_database_install() {
 		  	`image` varchar(255) NOT NULL,
 		  	`link` longtext NOT NULL,
 		  	`tracker` varchar(5) NOT NULL default 'N',
+		  	`mobile` varchar(5) NOT NULL default 'N',
 		  	`responsive` varchar(5) NOT NULL default 'N',
 		  	`type` varchar(10) NOT NULL default '0',
 		  	`weight` int(3) NOT NULL default '6',
@@ -427,6 +428,7 @@ function adrotate_database_install() {
 			`page` longtext NOT NULL,
 			`page_loc` tinyint(1) NOT NULL default '0',
 			`page_par` tinyint(2) NOT NULL default '0',
+			`mobile` tinyint(1) NOT NULL default '0',
 			`geo` tinyint(1) NOT NULL default '0',
 			`wrapper_before` longtext NOT NULL,
 			`wrapper_after` longtext NOT NULL,
@@ -739,6 +741,13 @@ function adrotate_database_upgrade() {
 		adrotate_del_column("{$wpdb->prefix}adrotate", 'ibudget');
 	}
 
+	// Database: 	51
+	// AdRotate:	3.12.5b2
+	if($adrotate_db_version['current'] < 51) {
+		adrotate_add_column("{$wpdb->prefix}adrotate", 'mobile', 'varchar(5) NOT NULL default \'N\' AFTER `tracker`');
+		adrotate_add_column("{$wpdb->prefix}adrotate_groups", 'mobile', 'tinyint(1) NOT NULL default \'0\' AFTER `page_par`');
+	}
+
 	update_option("adrotate_db_version", array('current' => ADROTATE_DB_VERSION, 'previous' => $adrotate_db_version['current']));
 }
 
@@ -881,6 +890,18 @@ function adrotate_core_upgrade() {
 		if(!wp_next_scheduled('adrotate_notification')) wp_schedule_event($firstrun, 'daily', 'adrotate_notification');
 		if(!wp_next_scheduled('adrotate_clean_trackerdata')) wp_schedule_event($firstrun + 1800, 'twicedaily', 'adrotate_clean_trackerdata');
 		if(!wp_next_scheduled('adrotate_evaluate_ads')) wp_schedule_event($firstrun + 3600, 'twicedaily', 'adrotate_evaluate_ads');
+	}
+
+	// 3.11.4
+	if($adrotate_version['current'] < 379) {
+		$config379 = get_option('adrotate_config');
+		if($config379['enable_stats'] == 'Y') {
+			$config379['stats'] = 1;
+		} else {
+			$config379['stats'] = 0;
+		}
+		unset($config379['enable_stats']);
+		update_option('adrotate_config', $config379);
 	}
 
 	update_option("adrotate_version", array('current' => ADROTATE_VERSION, 'previous' => $adrotate_version['current']));

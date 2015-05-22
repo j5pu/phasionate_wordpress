@@ -171,7 +171,6 @@ if( ! function_exists( 'wpuxss_eml_tax_options_validate' ) ) {
 
 add_action( 'wp_ajax_query-attachments', 'wpuxss_eml_ajax_query_attachments', 0 );
 
-
 if( ! function_exists( 'wpuxss_eml_ajax_query_attachments' ) ) {
         
     function wpuxss_eml_ajax_query_attachments() {
@@ -207,8 +206,6 @@ if( ! function_exists( 'wpuxss_eml_ajax_query_attachments' ) ) {
                 'post_parent', 'post__in', 'post__not_in', 'year', 'monthnum'
             ) ) );
         }
-            
-        $query['tax_query'] = array( 'relation' => 'AND' );
         
         foreach ( get_object_taxonomies( 'attachment', 'names' ) as $taxonomy )
         {		
@@ -216,32 +213,32 @@ if( ! function_exists( 'wpuxss_eml_ajax_query_attachments' ) ) {
             {
                 $terms = get_terms( $taxonomy, array('fields'=>'ids','get'=>'all') );
                 
-                $query['tax_query'][] = array(
+                $tax_query[] = array(
                     'taxonomy' => $taxonomy,
-                    'field' => 'id',
+                    'field' => 'term_id',
                     'terms' => $terms,
                     'operator' => 'NOT IN',
                 );	
             } 
             else       
             {
-                if ( isset( $_REQUEST['query'][$taxonomy] ) ) 
+                if ( isset( $_REQUEST['query'][$taxonomy] ) && $_REQUEST['query'][$taxonomy] ) 
                 {
                     if( is_numeric( $_REQUEST['query'][$taxonomy] ) ) 
                     {
-                        $query['tax_query'][] = array(
+                        $tax_query[] = array(
                             'taxonomy' => $taxonomy,
-                            'field' => 'id',
-                            'terms' => $_REQUEST['query'][$taxonomy]
+                            'field' => 'term_id',
+                            'terms' => array( $_REQUEST['query'][$taxonomy] )
                         );	
                     }
                     elseif ( 'not_in' === $_REQUEST['query'][$taxonomy] )
                     {
                         $terms = get_terms( $taxonomy, array('fields'=>'ids','get'=>'all') );
                 
-                        $query['tax_query'][] = array(
+                        $tax_query[] = array(
                             'taxonomy' => $taxonomy,
-                            'field' => 'id',
+                            'field' => 'term_id',
                             'terms' => $terms,
                             'operator' => 'NOT IN',
                         );	
@@ -250,9 +247,9 @@ if( ! function_exists( 'wpuxss_eml_ajax_query_attachments' ) ) {
                     {
                         $terms = get_terms( $taxonomy, array('fields'=>'ids','get'=>'all') );
                 
-                        $query['tax_query'][] = array(
+                        $tax_query[] = array(
                             'taxonomy' => $taxonomy,
-                            'field' => 'id',
+                            'field' => 'term_id',
                             'terms' => $terms,
                             'operator' => 'IN',
                         );	
@@ -260,7 +257,12 @@ if( ! function_exists( 'wpuxss_eml_ajax_query_attachments' ) ) {
                 }
             }
         } // endforeach
-    
+            
+        if ( ! empty( $tax_query ) )
+        {
+            $query['tax_query'] = $tax_query;
+        }
+
         $query['post_type'] = 'attachment';
         
         if ( MEDIA_TRASH
@@ -287,10 +289,11 @@ if( ! function_exists( 'wpuxss_eml_ajax_query_attachments' ) ) {
 
 
 
+
 /**
  *  wpuxss_eml_restrict_manage_posts
  *
- *  Adds taxonomy filters to Media Library List Views
+ *  Adds taxonomy filters to Media Library List View
  *
  *  @since    1.0
  *  @created  11/08/13
@@ -323,7 +326,7 @@ if( ! function_exists( 'wpuxss_eml_restrict_manage_posts' ) ) {
                
                     $selected = ( ! $uncategorized && isset( $wp_query->query[$taxonomy->name] ) ) ? $wp_query->query[$taxonomy->name] : 0;
                     
-                    wpuxss_eml_dropdown_terms(
+                    wp_dropdown_categories(
                         array(
                             'show_option_all'    =>  __( 'Filter by ', 'eml' ) . $taxonomy->labels->singular_name,
                             'show_option_in'     =>  '— ' . __( 'All ', 'eml' ) . $taxonomy->labels->name . ' —',
@@ -342,6 +345,70 @@ if( ! function_exists( 'wpuxss_eml_restrict_manage_posts' ) ) {
                 }
             } // endforeach
         }
+    }
+}
+
+
+
+
+
+/**
+ *  wpuxss_eml_dropdown_cats
+ *
+ *  Modifies taxonomy filters in Media Library List View
+ *
+ *  @since    2.0.4.5
+ *  @created  19/04/15
+ */
+ 
+add_filter( 'wp_dropdown_cats', 'wpuxss_eml_dropdown_cats', 10, 2 );
+
+if( ! function_exists( 'wpuxss_eml_dropdown_cats' ) ) {
+
+    function wpuxss_eml_dropdown_cats( $output, $r ) {
+        
+        global $current_screen; 
+        
+        if ( ! is_admin() ) {
+            return $output;
+        }
+        
+        $media_library_mode = get_user_option( 'media_library_mode' ) ? get_user_option( 'media_library_mode' ) : 'grid';
+        
+        if ( isset( $current_screen ) && 'upload' === $current_screen->base && 'list' === $media_library_mode )
+        {
+            $whole_select = $output;
+            
+            $options_array = array();
+            while ( strlen( $whole_select ) >= 7 && false !== ( $option_pos = strpos( $whole_select, '<option', 7 ) ) )
+            {
+                $options_array[] = substr($whole_select, 0, $option_pos);
+                $whole_select = substr($whole_select, $option_pos);
+            }
+            $options_array[] = $whole_select;
+            
+            $new_output = ''; 
+            
+            if ( isset( $r['show_option_in'] ) && $r['show_option_in'] ) 
+            {
+                $show_option_in = $r['show_option_in'];
+                $selected = ( 'in' === strval($r['selected']) ) ? " selected='selected'" : '';
+                $new_output .= "\t<option value='in'$selected>$show_option_in</option>\n";
+            }
+        
+            if ( isset( $r['show_option_not_in'] ) && $r['show_option_not_in'] ) 
+            {
+                $show_option_not_in = $r['show_option_not_in'];
+                $selected = ( 'not_in' === strval($r['selected']) ) ? " selected='selected'" : '';
+                $new_output .= "\t<option value='not_in'$selected>$show_option_not_in</option>\n";
+            }
+            
+            array_splice( $options_array, 2, 0, $new_output );
+            
+            $output = implode('', $options_array);
+        }
+        
+        return $output;
     }
 }
 
@@ -379,108 +446,10 @@ if( ! function_exists( 'wpuxss_eml_custom_media' ) ) {
 
 
 /**
- *  wpuxss_eml_dropdown_terms
- *
- *  Based on wp_dropdown_categories()
- * 
- *  @since    2.0.4
- *  @created  12/02/15
- */
-
-if( ! function_exists( 'wpuxss_eml_dropdown_terms' ) ) {
-    
-    function wpuxss_eml_dropdown_terms( $args = '' ) {
-        
-        $defaults = array(
-            'show_option_all' => '', 
-            'show_option_in' => '', 
-            'show_option_not_in' => '',
-            'orderby' => 'id', 
-            'order' => 'ASC',
-            'show_count' => 0,
-            'hide_empty' => 1, 
-            'child_of' => 0,
-            'exclude' => '', 
-            'echo' => 1,
-            'selected' => 0, 
-            'hierarchical' => 0,
-            'name' => '', 
-            'id' => '',
-            'class' => 'postform', 
-            'depth' => 0,
-            'tab_index' => 0, 
-            'taxonomy' => 'category',
-            'hide_if_empty' => false, 
-        );
-     
-        $r = wp_parse_args( $args, $defaults );
-     
-        $terms = get_terms( $r['taxonomy'], $r );   
-        $name = esc_attr( $r['name'] );
-        $class = esc_attr( $r['class'] );
-        $id = $r['id'] ? esc_attr( $r['id'] ) : $name;
-     
-        if ( ! $r['hide_if_empty'] || ! empty( $terms ) ) 
-        {
-            $output = "<select name='$name' id='$id' class='$class'>\n";
-            $show_option_all = $r['show_option_all'];
-            $selected = ( '0' === strval($r['selected']) ) ? " selected='selected'" : '';
-            $output .= "\t<option value='0'$selected>$show_option_all</option>\n";
-        } 
-        else 
-        {
-            $output = '';
-        }
-     
-        if ( ! empty( $terms ) ) 
-        {
-            if ( $r['show_option_in'] ) 
-            {
-                $show_option_in = $r['show_option_in'];
-                $selected = ( 'in' === strval($r['selected']) ) ? " selected='selected'" : '';
-                $output .= "\t<option value='in'$selected>$show_option_in</option>\n";
-            }
-     
-            if ( $r['show_option_not_in'] ) 
-            {
-                $show_option_not_in = $r['show_option_not_in'];
-                $selected = ( 'not_in' === strval($r['selected']) ) ? " selected='selected'" : '';
-                $output .= "\t<option value='not_in'$selected>$show_option_not_in</option>\n";
-            }
-     
-            if ( $r['hierarchical'] ) 
-            {
-                $depth = $r['depth'];  // Walk the full depth.
-            } 
-            else 
-            {
-                $depth = -1; // Flat.
-            }
-            $output .= walk_category_dropdown_tree( $terms, $depth, $r );
-        }
-     
-        if ( ! $r['hide_if_empty'] || ! empty( $terms ) ) 
-        {
-            $output .= "</select>\n";
-        }
-     
-        if ( $r['echo'] ) 
-        {
-            echo $output;
-        }
-        return $output;
-    }
-}
-
-
-
-
-
-/**
  *  wpuxss_eml_parse_tax_query
  *
  *  @since    2.0.4
- *  @created  19/02/13
+ *  @created  19/02/15
  */
  
 add_action( 'parse_tax_query', 'wpuxss_eml_parse_tax_query' );
@@ -535,10 +504,7 @@ if( ! function_exists( 'wpuxss_eml_parse_tax_query' ) ) {
                 $term = get_term_by( 'slug', $query->query_vars['term'], $tax );
                 
                 if ( $term )
-                {
-                    if ( 'category' == $tax )
-                        $tax = 'category_name';				
-                    
+                {	
                     $query->query_vars[$tax] = $term->term_id;
                     $query->query[$tax] = $term->term_id;
                     
@@ -550,8 +516,6 @@ if( ! function_exists( 'wpuxss_eml_parse_tax_query' ) ) {
                 }
             }
             
-            $tax_query = array( 'relation' => 'AND' );
-            
             foreach ( get_object_taxonomies( 'attachment','names' ) as $taxonomy ) 
             {
                 if ( $uncategorized )
@@ -560,7 +524,7 @@ if( ! function_exists( 'wpuxss_eml_parse_tax_query' ) ) {
                     
                     $tax_query[] = array(
                         'taxonomy' => $taxonomy,
-                        'field' => 'id',
+                        'field' => 'term_id',
                         'terms' => $terms,
                         'operator' => 'NOT IN',
                     );	 
@@ -597,7 +561,7 @@ if( ! function_exists( 'wpuxss_eml_parse_tax_query' ) ) {
                     
                             $tax_query[] = array(
                                 'taxonomy' => $taxonomy,
-                                'field' => 'id',
+                                'field' => 'term_id',
                                 'terms' => $terms,
                                 'operator' => 'IN',
                             );	
@@ -606,7 +570,10 @@ if( ! function_exists( 'wpuxss_eml_parse_tax_query' ) ) {
                 }
             } // endforeach
             
-            $query->tax_query = new WP_Tax_Query( $tax_query );
+            if ( ! empty( $tax_query ) )
+            {
+                $query->tax_query = new WP_Tax_Query( $tax_query );
+            }
             
         } // endif
     }
