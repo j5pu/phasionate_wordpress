@@ -1034,7 +1034,7 @@ if ( !function_exists( 'kleo_prepare_layout' ) ) {
 		}
 
 		//Show title in main content - if set from Theme options
-		add_action('kleo_before_main_content', 'kleo_title_main_content');
+		//add_action('kleo_before_main_content', 'kleo_title_main_content');
 	}
 }
 
