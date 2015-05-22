@@ -4,12 +4,12 @@
  *
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     2.1.0
+ * @version     2.3.8
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
-global $woocommerce;
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
 
 wc_print_notices();
 
@@ -21,9 +21,6 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 <div class="row">
 	<div class="col-sm-8">
-
-		<?php /*?><h3 class="cart-summary"><?php _e('Your products', 'kleo_framework');?> <span>(<?php echo kleo_product_items_text( WC()->cart->cart_contents_count ); ?>)</span></h3><?php */?>
-	
 		<table class="shop_table cart" cellspacing="0">
 			<thead>
 				<tr>
@@ -60,16 +57,16 @@ do_action( 'woocommerce_before_cart' ); ?>
 									if ( ! $_product->is_visible() )
 										echo $thumbnail;
 									else
-										printf( '<a href="%s">%s</a>', $_product->get_permalink(), $thumbnail );
+								printf( '<a href="%s">%s</a>', $_product->get_permalink( $cart_item ), $thumbnail );
 								?>
 							</td>
 
 							<td class="product-name">
 								<?php
 									if ( ! $_product->is_visible() )
-										echo apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key );
+								        echo apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key ) . '&nbsp;';
 									else
-										echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', $_product->get_permalink(), $_product->get_title() ), $cart_item, $cart_item_key );
+								        echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s </a>', $_product->get_permalink( $cart_item ), $_product->get_title() ), $cart_item, $cart_item_key );
 
 									// Meta data
 									echo WC()->cart->get_item_data( $cart_item );
@@ -95,6 +92,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 											'input_name'  => "cart[{$cart_item_key}][qty]",
 											'input_value' => $cart_item['quantity'],
 											'max_value'   => $_product->backorders_allowed() ? '' : $_product->get_stock_quantity(),
+									        'min_value'   => '0'
 										), $_product, false );
 									}
 
@@ -118,43 +116,60 @@ do_action( 'woocommerce_before_cart' ); ?>
 				<?php do_action( 'woocommerce_after_cart_contents' ); ?>
 			</tbody>
 		</table>
-		
+
 		<?php do_action( 'woocommerce_after_cart_table' ); ?>
-		
+
 		<div class="cart-collaterals">
 
 			<?php do_action( 'woocommerce_cart_collaterals' ); ?>
 
-
 		</div>
-		
+
 	</div>
-	
+
 	<div class="col-sm-4">
 		<div class="kleo-cart-totals">
-			
-      <div class="totals-wrap">
-			<?php woocommerce_cart_totals(); ?>
 
-			<input type="submit" class="button" name="update_cart" value="<?php _e( 'Update Cart', 'woocommerce' ); ?>" /> <input type="submit" class="checkout-button button alt wc-forward" name="proceed" value="<?php _e( 'Proceed to Checkout', 'woocommerce' ); ?>" />
-      </div>
+            <div class="totals-wrap">
 
-			<?php do_action( 'woocommerce_proceed_to_checkout' ); ?>
+                <?php woocommerce_cart_totals(); ?>
 
-			<?php wp_nonce_field( 'woocommerce-cart' ); ?>
-			
+                <input type="submit" class="button" name="update_cart" value="<?php _e( 'Update Cart', 'woocommerce' ); ?>" />
+
+                <?php if ( version_compare( WOOCOMMERCE_VERSION, 2.3, '<' ) ) : ?>
+                    <input type="submit" class="checkout-button button alt wc-forward" name="proceed" value="<?php _e( 'Proceed to Checkout', 'woocommerce' ); ?>" />
+                <?php endif; ?>
+
+            </div>
+            <?php if ( version_compare( WOOCOMMERCE_VERSION, 2.3, '<' ) ) : ?>
+
+                <?php do_action( 'woocommerce_proceed_to_checkout' ); ?>
+
+            <?php else : ?>
+
+                <?php do_action( 'woocommerce_cart_actions' ); ?>
+
+            <?php endif; ?>
+
+            <?php wp_nonce_field( 'woocommerce-cart' ); ?>
+
 			<?php if ( WC()->cart->coupons_enabled() ) { ?>
 				<div class="coupon">
 
-					<label for="coupon_code" class="coupon-code"><?php _e( 'Coupon', 'woocommerce' ); ?>:</label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php _e( 'Coupon code', 'woocommerce' ); ?>" /> <input type="submit" class="button" name="apply_coupon" value="<?php _e( 'Apply Coupon', 'woocommerce' ); ?>" />
+					<label for="coupon_code" class="coupon-code"><?php _e( 'Coupon', 'woocommerce' ); ?>:</label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php _e( 'Coupon code', 'woocommerce' ); ?>" />
+                    <input type="submit" class="button" name="apply_coupon" value="<?php _e( 'Apply Coupon', 'woocommerce' ); ?>" />
 
 					<?php do_action('woocommerce_cart_coupon'); ?>
 
 				</div>
 			<?php } ?>
 
-			<?php woocommerce_shipping_calculator(); ?>
-			
+            <?php if ( version_compare( WOOCOMMERCE_VERSION, 2.3, '<' ) ) : ?>
+
+			    <?php woocommerce_shipping_calculator(); ?>
+
+            <?php endif; ?>
+
 		</div>
 	</div>
 </div>

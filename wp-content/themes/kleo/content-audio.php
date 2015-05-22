@@ -9,15 +9,15 @@
 ?>
 
 <?php
-$postclass = '';
-if( is_single() && get_cfield('centered_text') == 1) { $postclass = 'text-center'; } 
+$post_class = 'clearfix';
+if( is_single() && get_cfield( 'centered_text' ) == 1 ) { $post_class .= ' text-center'; }
 ?>
 
 <!-- Begin Article -->
-<article id="post-<?php the_ID(); ?>" <?php post_class(array($postclass)); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(array( $post_class )); ?>>
 
 	<?php if ( ! is_single() ) : ?>
-		<h2 class="article-title">
+		<h2 class="article-title entry-title">
 				<a href="<?php echo get_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
 		</h2>
 	<?php endif;?>

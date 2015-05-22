@@ -38,6 +38,8 @@ if ( ! empty ( $_SERVER[ 'HTTP_X_REQUESTED_WITH' ] ) &&
                 //if it is a buddypress member profile
                 ?>
 								<div class="row">
+
+                                    <?php if( sq_option( 'bp_full_profile', 0 ) == 0 ): ?>
 									<div class="col-sm-12">
 										<div id="item-header">
 
@@ -45,6 +47,8 @@ if ( ! empty ( $_SERVER[ 'HTTP_X_REQUESTED_WITH' ] ) &&
 
 										</div><!--#item-header-->
 									</div>
+                                    <?php endif; ?>
+
 									<div class="col-sm-12">
 										<div id="item-nav">
 												<div class="item-list-tabs no-ajax" id="object-nav" role="navigation">

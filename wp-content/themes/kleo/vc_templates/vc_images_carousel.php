@@ -60,10 +60,20 @@ $data_attr .= ' data-items-height="variable"';
 				<?php 
 				if(is_array($images)) :
 					foreach($images as $attach_id):
-					$i++;
-					if ($attach_id > 0 && wp_get_attachment_image($attach_id)) {
-						$post_thumbnail = wpb_getImageBySize(array( 'attach_id' => $attach_id, 'thumb_size' => $img_size ));
-	
+					    $i++;
+                        $img_path = wp_get_attachment_image_src($attach_id, 'full');
+                        if ( $attach_id > 0 && $img_path != NULL ) {
+                            $post_thumbnail = wpb_getImageBySize( array( 'attach_id' => $attach_id, 'thumb_size' => $img_size ) );
+                            if ( $post_thumbnail == NULL || (isset( $post_thumbnail['p_img_large'] ) && $post_thumbnail['p_img_large'] == FALSE  ) ) {
+                                $post_thumbnail = array();
+                                $post_thumbnail['thumbnail'] = '<img src="' . vc_asset_url( 'vc/no_image.png' ) . '" />';
+                                $post_thumbnail['p_img_large'][0] = vc_asset_url( 'vc/no_image.png' );
+                            }
+                        } else {
+                            $post_thumbnail = array();
+                            $post_thumbnail['thumbnail'] = '<img src="' . vc_asset_url( 'vc/no_image.png' ) . '" />';
+                            $post_thumbnail['p_img_large'][0] = vc_asset_url( 'vc/no_image.png' );
+                        }
 						$thumbnail = $post_thumbnail['thumbnail'];
 						$p_img_large = $post_thumbnail['p_img_large'];
 						?>
@@ -80,8 +90,7 @@ $data_attr .= ' data-items-height="variable"';
 								echo '<a class="kleo-gallery-img">' . $thumbnail . '</a>';
 						endif; ?>
 
-					<?php 
-					}
+					<?php
 					endforeach;
 				endif;
 				?>

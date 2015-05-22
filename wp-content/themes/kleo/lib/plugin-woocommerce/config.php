@@ -178,16 +178,22 @@ if (is_admin()) {
 remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 
 //remove single product short description - excerpt
-remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
+if( sq_option( 'woo_show_excerpt_single' , 0 ) == 0 ) {
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
+}
+
 
 //Single product data tabs
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 add_action( 'woocommerce_single_product_summary', 'woocommerce_output_product_data_tabs', 31 );
 
 //Single product sharing
-add_action('woocommerce_share', 'kleo_social_share', 10);
+$enabled_posts = sq_option('blog_share_types', array('post', 'product'));
+if( sq_option( 'blog_social_share', 1 ) == 1 && in_array('product', (array)$enabled_posts) ) {
+    add_action('woocommerce_share', 'kleo_social_share', 10);
+}
 
-//sale bagde
+//sale badge
 remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 add_action( 'woocommerce_product_thumbnails', 'woocommerce_show_product_sale_flash' );
 
@@ -246,7 +252,13 @@ if ( ! function_exists( 'kleo_woocommerce_before_content' ) )
 	{
 		//title section
 		$title_arr = array();
-		$shop_id = woocommerce_get_page_id( 'shop' );
+		$shop_id = wc_get_page_id( 'shop' );
+
+        $title_arr['show_title'] = true;
+        //hide breadcrumb?
+        if(sq_option('breadcrumb_status', 1) == 0) {
+            $title_arr['show_breadcrumb'] = false;
+        }
 		
 		if (is_shop()) {
 			$title_arr = kleo_prepare_title( $shop_id );
@@ -281,8 +293,7 @@ if ( ! function_exists( 'kleo_woocommerce_before_content' ) )
 
 		$title_arr['title'] = $title;
 		$title_arr['link'] = '';
-		
-		if ( ( isset($title_arr['show_breadcrumb']) && $title_arr['show_breadcrumb'] ) || ! isset( $title_arr['extra'] ) || $title_arr['show_title'] ) {
+		if ( ( isset($title_arr['show_breadcrumb']) && $title_arr['show_breadcrumb'] ) || isset( $title_arr['extra'] ) || $title_arr['show_title'] ) {
 			echo kleo_title_section($title_arr);
 		}
 
@@ -316,7 +327,7 @@ function kleo_woo_change_layout($layout) {
 	global $kleo_config;
 	
 	if (is_woocommerce()) {
-		$shop_id = woocommerce_get_page_id( 'shop' );
+		$shop_id = wc_get_page_id( 'shop' );
 		$shop_template = get_post_meta( $shop_id, '_wp_page_template', true );
 		
 		if ( is_shop() && $shop_id && $shop_template && $shop_template != 'default'
@@ -346,45 +357,56 @@ function kleo_woo_change_layout($layout) {
 	return $layout;
 }
 
-//Add custom HTML to Shop page set from Theme options
+/***************************************************
+:: Add custom HTML to top header page set from Page edit
+ ***************************************************/
+
 add_action('kleo_before_main', 'kleo_shop_header', 8);
 
 function kleo_shop_header() {
-	
-	$shop_id = wc_get_page_id( 'shop' );
-	if ( ! $shop_id ) {
-		return;
-	}
-	
-	$page_header = get_cfield( 'header_content', $shop_id );
-	if( is_shop() && $page_header != '' ) {
-		echo '<section class="kleo-shop-header container-wrap main-color">';
-		echo do_shortcode($page_header);
-		echo '</section>';
-	}
+
+    if ( ! is_shop() ) {
+        return;
+    }
+
+    $shop_id = wc_get_page_id( 'shop' );
+    if ( ! $shop_id ) {
+        return;
+    }
+
+    $page_header = get_cfield( 'header_content', $shop_id );
+    if( $page_header != '' ) {
+        echo '<section class="kleo-shop-header container-wrap main-color">';
+        echo do_shortcode( $page_header );
+        echo '</section>';
+    }
 }
 
 
 
 /***************************************************
 :: Add custom HTML to bottom page set from Page edit
-***************************************************/
+ ***************************************************/
 
 add_action( 'kleo_after_main_content', 'kleo_woo_bottom_content', 12 );
 
 function kleo_woo_bottom_content() {
-	
-	$shop_id = wc_get_page_id( 'shop' );
-	if ( ! $shop_id ) {
-		return;
-	}
-	
-	$page_bottom = get_cfield( 'bottom_content', $shop_id );
-	if( is_shop() && $page_bottom != '' ) {
-		echo '<div class="kleo-page-bottom">';
-		echo do_shortcode( $page_bottom );
-		echo '</div>';
-	}
+
+    if ( ! is_shop() ) {
+        return;
+    }
+
+    $shop_id = wc_get_page_id( 'shop' );
+    if ( ! $shop_id ) {
+        return;
+    }
+
+    $page_bottom = get_cfield( 'bottom_content', $shop_id );
+    if( $page_bottom != '' ) {
+        echo '<div class="kleo-page-bottom">';
+        echo do_shortcode( $page_bottom );
+        echo '</div>';
+    }
 }
 
 
@@ -443,6 +465,11 @@ if ( ! function_exists( 'kleo_woocommerce_cross_sell_display' ) )
 }
 
 
+//cart.php template
+if ( version_compare( WOOCOMMERCE_VERSION, '2.3.8', '>=' ) ) {
+    remove_action('woocommerce_cart_collaterals', 'woocommerce_cart_totals', 10);
+}
+
 
 /***************************************************
 :: Product loop badges
@@ -451,10 +478,42 @@ if ( ! function_exists( 'kleo_woocommerce_cross_sell_display' ) )
 // On sale wrapper
 remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 );
 add_action( 'woocommerce_before_shop_loop_item_title', 'kleo_woo_loop_badges', 10 );
-add_filter( 'woocommerce_sale_flash', 'kleo_woo_sale_flash');
+add_filter( 'woocommerce_sale_flash', 'kleo_woo_sale_flash', 10, 3 );
 
-function kleo_woo_sale_flash($data) {
-	return '<span class="kleo-sale-flash">' . $data . '</span>';
+function kleo_woo_sale_flash( $data, $post, $product ) {
+	$output = '<span class="kleo-sale-flash">' . $data . '</span>';
+    if ( sq_option( 'woo_percentage_badge', 0 ) == 1 ) {
+
+        if ($product->is_on_sale() && $product->product_type == 'variable') {
+
+            $available_variations = $product->get_available_variations();
+            $max_percentage = 0;
+            for ($i = 0; $i < count($available_variations); ++$i) {
+                $variation_id = $available_variations[$i]['variation_id'];
+                $variable_product1 = new WC_Product_Variation($variation_id);
+                $regular_price = $variable_product1->regular_price;
+                $sales_price = $variable_product1->sale_price;
+                if( $sales_price && $sales_price != '' ) {
+                    $partial_percentage = (($regular_price - $sales_price) / $regular_price) * 100;
+                    if ($partial_percentage > $max_percentage) {
+                        $max_percentage = $partial_percentage;
+                    }
+                }
+            }
+            $percentage = round( $max_percentage );
+        }
+        elseif($product->is_on_sale() && $product->product_type == 'simple') {
+            $percentage = round((($product->regular_price - $product->sale_price) / $product->regular_price) * 100);
+        }
+        elseif($product->is_on_sale() && $product->product_type == 'external') {
+            $percentage = round((($product->regular_price - $product->sale_price) / $product->regular_price) * 100);
+        }
+
+        $output = '<span class="onsale percentage-badge">' . __( 'SAVE NOW', 'kleo_framework' ) . '<br>' .
+        '<span class="big">' . $percentage . '%</span></span>';
+    }
+
+    return $output;
 }
 
 function kleo_woo_loop_badges() {
@@ -471,11 +530,11 @@ function kleo_woo_loop_badges() {
 
 		echo '<span class="free-badge">' . __( 'Free', 'woocommerce' ) . '</span>';
 
-	} else {
+	} else if ( sq_option( 'woo_new_badge', 1 ) == 1 ) {
 
 		$postdate 		= get_the_time( 'Y-m-d' );			// Post date
 		$postdatestamp 	= strtotime( $postdate );			// Timestamped post date
-		$newness 		= 7; 	// Number of days to treat a product as new
+		$newness 		= sq_option( 'woo_new_days', 7 ); 	// Number of days to treat a product as new
 
 		if ( ( time() - ( 60 * 60 * 24 * $newness ) ) < $postdatestamp ) { 
 			echo '<span class="new-badge">' . __( 'New', 'kleo_framework' ) . '</span>';
@@ -591,7 +650,7 @@ add_action( 'yith_wcwl_after_wishlist_share', 'kleo_woo_wishlist_share');
 
 function kleo_woo_wishlist_share() {
 	global $yith_wcwl;
-	if( get_option( 'yith_wcwl_share_fb' ) == 'yes' || get_option( 'yith_wcwl_share_twitter' ) == 'yes' || get_option( 'yith_wcwl_share_pinterest' ) == 'yes' ) {
+	if( get_option( 'yith_wcwl_share_fb' ) == 'yes' || get_option( 'yith_wcwl_share_twitter' ) == 'yes' || get_option( 'yith_wcwl_share_pinterest' ) == 'yes'  || get_option( 'yith_wcwl_share_googleplus' ) == 'yes'  || get_option( 'yith_wcwl_share_email' ) == 'yes') {
 			$url  = $yith_wcwl->get_wishlist_url();
 			$url .= get_option( 'permalink-structure' ) != '' ? '&amp;user_id=' : '?user_id=';
 			$url .= get_current_user_id();
@@ -606,17 +665,20 @@ function kleo_woo_wishlist_share() {
 			$html .= apply_filters( 'yith_wcwl_socials_share_title', '<div class="hr-title hr-full"><abbr>' . __("Social share", "kleo_framework") . '</abbr></div>' );
 
 
-			if( get_option( 'yith_wcwl_share_fb' ) )
+			if( get_option( 'yith_wcwl_share_fb' ) == 'yes' )
 			{ $html .= '<span class="kleo-facebook"><a target="_blank" class="facebook" href="https://www.facebook.com/sharer.php?s=100&amp;p[title]=' . $title . '&amp;p[url]=' . $url . '&amp;p[summary]=' . $summary . '&amp;p[images][0]=' . $imageurl . '" title="' . __( 'Facebook', 'yit' ) . '"><i class="icon-facebook"></i></a></span>'; }
 
-			if( get_option( 'yith_wcwl_share_twitter' ) )
+			if( get_option( 'yith_wcwl_share_twitter' ) == 'yes' )
 			{ $html .= '<span class="kleo-twitter"><a target="_blank" class="twitter" href="https://twitter.com/share?url=' . $url . '&amp;text=' . $twitter_summary . '" title="' . __( 'Twitter', 'yit' ) . '"><i class="icon-twitter"></i></a></span>'; }
 
-			if( get_option( 'yith_wcwl_share_pinterest' ) )
+			if( get_option( 'yith_wcwl_share_pinterest' ) == 'yes' )
 			{ $html .= '<span class="kleo-pinterest"><a target="_blank" class="pinterest" href="http://pinterest.com/pin/create/button/?url=' . $url . '&amp;description=' . $summary . '&media=' . $imageurl . '" onclick="window.open(this.href); return false;"><i class="icon-pinterest-circled"></i></a></span>'; }
 
 			if( get_option( 'yith_wcwl_share_googleplus' ) == 'yes' )
 			{ $html .= '<span class="kleo-googleplus"><a target="_blank" class="googleplus" href="https://plus.google.com/share?url=' . $url . '&amp;title="' . $title . '" onclick=\'javascript:window.open(this.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");return false;\'><i class="icon-gplus"></i></a></span>'; }
+
+			if( get_option( 'yith_wcwl_share_email' ) == 'yes' )
+			{ $html .= '<span class="kleo-mail"><a target="_blank" class="post_share_email" href="mailto:?subject=' . $title . '&body='. $url . '"><i class="icon-mail"></i></a></span>'; }
 
 			$html .= '</div>';
 			
@@ -677,28 +739,29 @@ if ( ! function_exists( 'kleo_social_share' ) ) {
 			<div class="hr-title hr-full"><abbr><?php _e("Social share", "kleo_framework"); ?></abbr></div>
 
 			<span class="kleo-facebook">
-				<a href="http://www.facebook.com/sharer.php?u=<?php the_permalink(); ?>" class="post_share_facebook" onclick="javascript:window.open(this.href,
-					'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;"><i class="icon-facebook"></i>
-					</a>
-				</li>
+				<a href="http://www.facebook.com/sharer.php?u=<?php the_permalink(); ?>" class="post_share_facebook" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;">
+                    <i class="icon-facebook"></i>
+                </a>
 			</span>
 			<span class="kleo-twitter">
-				<a href="https://twitter.com/share?url=<?php the_permalink(); ?>" class="post_share_twitter" onclick="javascript:window.open(this.href,
-					'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;"><i class="icon-twitter"></i>
-					</a>
+				<a href="https://twitter.com/share?url=<?php the_permalink(); ?>" class="post_share_twitter" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;">
+                    <i class="icon-twitter"></i>
+                </a>
 			</span>
 			<span class="kleo-googleplus">
-				<a href="https://plus.google.com/share?url=<?php the_permalink(); ?>" onclick="javascript:window.open(this.href,
-					'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="icon-gplus"></i>
-					</a>
+				<a href="https://plus.google.com/share?url=<?php the_permalink(); ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                    <i class="icon-gplus"></i>
+                </a>
 			</span>
 			<span class="kleo-pinterest">
-				<a href="http://pinterest.com/pin/create/button/?url=<?php the_permalink(); ?>&media=<?php if(function_exists('the_post_thumbnail')) echo wp_get_attachment_url(get_post_thumbnail_id()); ?>&description=<?php echo get_the_title(); ?>"><i class="icon-pinterest-circled"></i>
-					</a>
+				<a href="http://pinterest.com/pin/create/button/?url=<?php the_permalink(); ?>&media=<?php if(function_exists('the_post_thumbnail')) echo wp_get_attachment_url(get_post_thumbnail_id()); ?>&description=<?php echo get_the_title(); ?>">
+                    <i class="icon-pinterest-circled"></i>
+                </a>
 			</span>
 			<span class="kleo-mail">
-				<a href="mailto:?subject=<?php the_title(); ?>&body=<?php echo strip_tags(get_the_excerpt()); ?> <?php the_permalink(); ?>" class="post_share_email"><i class="icon-mail"></i>
-					</a>
+				<a href="mailto:?subject=<?php echo strip_tags(get_the_title()); ?>&body=<?php echo strip_tags(get_the_excerpt()); ?> <?php the_permalink(); ?>" class="post_share_email" target="_blank" >
+                    <i class="icon-mail"></i>
+                </a>
 			</span>
 		</div>
 
@@ -711,7 +774,11 @@ add_action( 'woocommerce_single_product_modal_summary', 'woocommerce_template_si
 add_action( 'woocommerce_single_product_modal_summary', 'woocommerce_template_single_excerpt', 20 );
 add_action( 'woocommerce_single_product_modal_summary', 'woocommerce_template_single_add_to_cart', 30 );
 add_action( 'woocommerce_single_product_modal_summary', 'woocommerce_template_single_meta', 40 );
-add_action( 'woocommerce_single_product_modal_summary', 'kleo_social_share', 50 );
+
+$enabled_posts = sq_option('blog_share_types', array('post', 'product'));
+if( sq_option( 'blog_social_share', 1 ) == 1 && in_array('product', (array)$enabled_posts) ) {
+    add_action( 'woocommerce_single_product_modal_summary', 'kleo_social_share', 50 );
+}
 
 
 
@@ -825,11 +892,10 @@ if (!function_exists('kleo_woo_get_mini_cart')) {
 		$cart_has_items = '';
 		if ($cart_count != "0") {
 			$cart_has_items = ' has-products';
-			$carrito_has_items = ' has-productos';
 		}
 		
 		if ( ! $just_inner ) {
-		$cart_output .= '<li class="menu-item kleo-toggle-menu shop-drop'.$carrito_has_items.'">'
+		$cart_output .= '<li class="menu-item kleo-toggle-menu shop-drop">'
 						. '<a class="cart-contents" href="'.$woocommerce->cart->get_cart_url().'" title="'.__("View Cart", "woocommerce").'" style="line-height: normal;">'
 							. '<span class="cart-items' . $cart_has_items . '"><i class="icon icon-basket-full-alt"></i> ';
 
@@ -847,7 +913,7 @@ if (!function_exists('kleo_woo_get_mini_cart')) {
 		
 		if ( $cart_count != "0" ) {
 
-			$cart_output .= '<div class="minicart-header">'.$cart_count_text.' '.__('en el carrito de compra', 'kleo_framework').'</div>';
+			$cart_output .= '<div class="minicart-header">'.$cart_count_text.' '.__('in the shopping cart', 'kleo_framework').'</div>';
 
 			$cart_output .= '<div class="minicart-contents">';
 
@@ -873,7 +939,7 @@ if (!function_exists('kleo_woo_get_mini_cart')) {
 
 			$cart_output .= '</div>';
 			
-			$cart_output .= '<div class="minicart-total-checkout">' . __( 'Subtotal', 'woocommerce' ) . ' ' . $cart_total . '</div>';
+			$cart_output .= '<div class="minicart-total-checkout">' . __( 'Cart Subtotal', 'woocommerce' ) . ' ' . $cart_total . '</div>';
 
 			$cart_output .= '<div class="minicart-buttons">';
 
@@ -896,7 +962,7 @@ if (!function_exists('kleo_woo_get_mini_cart')) {
 
 		} else {
 
-			$cart_output .= '<div class="minicart-header">' . __('Tu carrito de compra está vacío.','kleo_framework') . '</div>';                                 
+			$cart_output .= '<div class="minicart-header">' . __('Your shopping bag is empty.','kleo_framework') . '</div>';                                 
 
 			$shop_page_url = "";
 			if ( version_compare( WOOCOMMERCE_VERSION, "2.1.0" ) >= 0 ) {
@@ -907,12 +973,11 @@ if (!function_exists('kleo_woo_get_mini_cart')) {
 
 			$cart_output .= '<div class="minicart-buttons">';
 
-			$cart_output .= '<a class="btn btn-default kleo-go-shop" href="'.esc_url( $shop_page_url ).'"><span class="text">'.__('Ir a la tienda.', 'kleo_framework').'</span></a>';
+			$cart_output .= '<a class="btn btn-default kleo-go-shop" href="'.esc_url( $shop_page_url ).'"><span class="text">'.__('Go to the shop', 'kleo_framework').'</span></a>';
 
 			$cart_output .= '</div>';
 
 		}
-
 
 		$cart_output .= '</div>'
 							. '</li>';
@@ -933,11 +998,11 @@ function kleo_product_items_text($count) {
 	$product_item_text = "";
 
 		if ( $count > 1 ) {
-				$product_item_text = str_replace('%', number_format_i18n($count), __('% artículos', 'kleo_framework'));
+				$product_item_text = str_replace('%', number_format_i18n($count), __('% items', 'kleo_framework'));
 			} elseif ( $count == 0 ) {
-				$product_item_text = __('0 artículos', 'kleo_framework');
+				$product_item_text = __('0 items', 'kleo_framework');
 			} else {
-				$product_item_text = __('1 artículo', 'kleo_framework');
+				$product_item_text = __('1 item', 'kleo_framework');
 			}
 
 			return $product_item_text;
@@ -955,17 +1020,16 @@ function kleo_woo_get_mobile_icon() {
 	
 	if ($cart_count != "0") {
 		$cart_has_items = ' has-products';
-		$carrito_has_items = ' has-productos';
 	}
 	
-	$output .= '<a class="cart-contents'. $carrito_has_items .' mheader" href="'.$woocommerce->cart->get_cart_url().'" title="'.__("View Cart", "woocommerce").'">'
+	$output .= '<a class="cart-contents mheader" href="'.$woocommerce->cart->get_cart_url().'" title="'.__("View Cart", "woocommerce").'">'
 		. '<span class="cart-items' . $cart_has_items . '"><i class="icon icon-basket-full-alt"></i> ';
 
 	if ($cart_count != "0") { 
 		$output .= "<span>" . $cart_count . "</span>"; 
 	}
 	
-	$output .= '</a>';
+	$output .= '</span></a>';
 	
 	return $output;
 }
@@ -1017,11 +1081,11 @@ if (!function_exists('kleo_checkout_steps')) {
 	?>
 
 		<div class="checkout-steps">
-			<span class="step-cart"><a href="<?php echo WC()->cart->get_cart_url(); ?>"><?php _e('Carrito de compra', 'kleo_framework'); ?></a></span>   
+			<span class="step-cart"><a href="<?php echo WC()->cart->get_cart_url(); ?>"><?php _e('Shopping Cart', 'kleo_framework'); ?></a></span>   
 				<i class="icon icon-angle-right"></i>    
-				<span class="step-checkout"><?php _e('Revisar detalles de compra', 'kleo_framework'); ?></span>  
+				<span class="step-checkout"><?php _e('Checkout details', 'kleo_framework'); ?></span>  
 				<i class="icon icon-angle-right"></i>  
-				<span class="step-complete"><?php _e('Pedido completado', 'kleo_framework'); ?></span>
+				<span class="step-complete"><?php _e('Order Complete', 'kleo_framework'); ?></span>
 		</div>
 
 	<?php
@@ -1032,9 +1096,40 @@ add_action('woocommerce_before_cart', 'kleo_checkout_steps');
 add_action('woocommerce_before_checkout_page', 'kleo_checkout_steps');
 
 
+
+/***************************************************
+:: Custom main menu select for each page
+ ***************************************************/
+function kleo_woo_set_custom_menu( $args = '' ) {
+
+    $shop_id = wc_get_page_id( 'shop' );
+
+    if (is_shop()) {
+
+        $menuslug = get_cfield( 'page_menu', $shop_id );
+
+        if( ! empty( $menuslug ) && $menuslug != 'default' && is_nav_menu( $menuslug ) ) {
+            $args['menu'] = $menuslug;
+        }
+
+    }
+
+    return $args;
+} // END function kleo_set_custom_menu($args = '')
+add_filter('wp_nav_menu_args', 'kleo_woo_set_custom_menu', 11);
+
+
+/* Append dynamic CSS */
+function kleo_woo_dynamic_css() {
+    echo '.percentage-badge { color: ' . sq_option( 'woo_percent_color', '#fff' ) . ' !important; background: ' . sq_option( 'woo_percent_bg', '#000' ) . ' !important; }';
+}
+add_action( 'kleo_add_dynamic_style', 'kleo_woo_dynamic_css' );
+
+
+
 /* Visual composer integration */
 
-if( function_exists( 'vc_set_as_theme' ) ) {
+if( defined('WPB_VC_VERSION') && version_compare( WPB_VC_VERSION, '4.4' ) < 0 ) {
 
 /**** Order Tracking ***/
 
@@ -1294,7 +1389,7 @@ vc_map( array(
 				"holder" => "div",
 				"class" => "",
 				"heading" => "Order By",
-				"param_name" => "order_by",
+				"param_name" => "orderby",
 				"value" => array(
 					"Date" => "date",
 					"Title" => "title",
@@ -1328,3 +1423,193 @@ vc_map( array(
 ));
 
 }
+
+/***************************************************
+:: WooCommerce My Account Buddypress Integration
+ ***************************************************/
+
+if ( function_exists( 'bp_is_active' ) && is_user_logged_in() && sq_option( 'woo_buddypress_menus' , 1 ) == 1 ) {
+	// Add the Orders tab to BuddyPress profile
+	add_action( 'bp_setup_nav', 'kleo_woo_profile_nav_orders' , 301 );
+	function kleo_woo_profile_nav_orders() {
+		global $bp;
+		bp_core_new_nav_item(
+			array(
+				'name' => __('Orders', 'woocommerce'),
+				'slug' => 'orders',
+				'position' => 21,
+				'show_for_displayed_user' => false,
+				'screen_function' => 'bp_woo_orders_screen',
+				'default_subnav_slug' => 'my-orders',
+			));
+	}
+
+	// Add submenus to Orders tab
+	add_action( 'bp_setup_nav', 'kleo_woo_order_submenus' , 302 );
+	function kleo_woo_order_submenus() {
+		global $bp;
+		bp_core_new_subnav_item(
+			array(
+				'name' => __('My Orders', 'woocommerce'),
+				'slug' => 'my-orders',
+				'parent_url' => $bp->loggedin_user->domain  . $bp->bp_nav['orders']['slug'] . '/',
+				'parent_slug' => $bp->bp_nav['orders']['slug'],
+				'position' => 10,
+				'show_for_displayed_user' => false,
+				'screen_function' => 'kleo_woo_orders_screen',
+			));
+
+		bp_core_new_subnav_item(
+			array(
+				'name' => __('My Downloads', 'woocommerce'),
+				'slug' => 'downloads',
+				'parent_url' => $bp->loggedin_user->domain  . $bp->bp_nav['orders']['slug'] . '/',
+				'parent_slug' => $bp->bp_nav['orders']['slug'],
+				'position' => 20,
+				'show_for_displayed_user' => false,
+				'screen_function' => 'kleo_woo_downloads_screen'
+			));
+	}
+
+	// Load My Orders template
+	function kleo_woo_orders_screen() {
+		add_action( 'bp_template_content', 'kleo_woo_orders_screen_content' );
+		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+	}
+
+	// Display My Orders screen
+	function kleo_woo_orders_screen_content() {
+		echo '<div class="woocommerce">';
+		wc_get_template( 'myaccount/my-orders.php', array( 'order_count' => 'all' ) );
+		echo '</div>';
+	}
+
+	// Load My Downloads template
+	function kleo_woo_downloads_screen() {
+		add_action( 'bp_template_content', 'kleo_woo_downloads_screen_content' );
+		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+	}
+
+	// Display My Downloads screen
+	function kleo_woo_downloads_screen_content() {
+		echo '<div class="woocommerce">';
+		wc_get_template( 'myaccount/my-downloads.php' );
+		echo '</div>';
+	}
+
+	// Add account settings into profile settings
+
+	// Add address sub menu to settings menu
+	add_action( 'bp_setup_nav', 'kleo_woo_address_submenu' , 302 );
+	function kleo_woo_address_submenu() {
+		global $bp;
+		bp_core_new_subnav_item(
+			array(
+				'name' => __('Addresses', 'woocommerce'),
+				'slug' => 'my-address',
+				'parent_url' => $bp->loggedin_user->domain  . $bp->bp_nav['settings']['slug'] . '/',
+				'parent_slug' => $bp->bp_nav['settings']['slug'],
+				'position' => 15,
+				'show_for_displayed_user' => false,
+				'screen_function' => 'kleo_woo_address_screen',
+			));
+	}
+
+	// Load address template
+	function kleo_woo_address_screen() {
+		add_action( 'bp_template_content', 'kleo_woo_address_screen_content' );
+		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+	}
+
+	// Load address screen
+	function kleo_woo_address_screen_content() {
+		echo '<div class="woocommerce">';
+
+        wc_get_template( 'myaccount/form-edit-address.php', array(
+			'load_address' 	=> ''
+		) );
+		echo '</div>';
+	}
+
+	//Remove Settings > General screen and replace with woo account edit screen
+	//add_action( 'bp_setup_nav', 'kleo_remove_general_settings' , 301 );
+	function kleo_remove_general_settings() {
+		bp_core_remove_subnav_item( 'settings', 'general' );
+	}
+
+	//Change default subnav for settings
+	//add_action('bp_setup_nav', 'kleo_change_settings_subnav', 5);
+	function kleo_change_settings_subnav() {
+		$args = array(
+			'parent_slug' => 'settings',
+			'screen_function' => 'bp_woo_edit_account_screen',
+			'subnav_slug' => 'account'
+		);
+		bp_core_new_nav_default($args);
+	}
+
+	// Add edit account sub menu
+	//add_action( 'bp_setup_nav', 'kleo_woo_edit_account_submenu' , 302 );
+	function kleo_woo_edit_account_submenu() {
+		global $bp;
+		bp_core_new_subnav_item(
+			array(
+				'name' => __('Account', 'woocommerce'),
+				'slug' => 'account',
+				'parent_url' => $bp->loggedin_user->domain  . $bp->bp_nav['settings']['slug'] . '/',
+				'parent_slug' => $bp->bp_nav['settings']['slug'],
+				'position' => 10,
+				'show_for_displayed_user' => false,
+				'screen_function' => 'kleo_woo_edit_account_screen',
+			));
+	}
+
+	// Load account template
+	function kleo_woo_edit_account_screen() {
+		add_action( 'bp_template_content', 'kleo_woo_edit_account_screen_content' );
+		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+	}
+
+	// Display edit account screen
+	function kleo_woo_edit_account_screen_content() {
+		echo '<div class="woocommerce">';
+		wc_get_template( 'myaccount/form-edit-account.php', array( 'user' => get_user_by( 'id', get_current_user_id() ) ) );
+		echo '</div>';
+
+	}
+
+	// Make sure we stay in Buddypress profile after edits
+	add_action( 'woocommerce_customer_save_address', 'kleo_save_address_bp_redirect' );
+	function kleo_save_address_bp_redirect() {
+		global $bp;
+		wp_safe_redirect( $bp->loggedin_user->domain . $bp->settings->slug . '/my-address/' );
+		exit;
+	}
+
+	//add_action( 'woocommerce_save_account_details', 'kleo_save_account_bp_redirect' );
+	function kleo_save_account_bp_redirect() {
+		global $bp;
+		wp_safe_redirect( $bp->loggedin_user->domain . $bp->settings->slug . '/account/' );
+		exit;
+	}
+
+	// Add button on order detail screen to return to order list
+	add_action('woocommerce_view_order', 'kleo_return_to_bp_order_list');
+	function kleo_return_to_bp_order_list() { ?>
+		<?php global $bp; ?>
+		<a href="<?php echo $bp->loggedin_user->domain . 'orders/'; ?>" title="<?php _e('View All Orders','woocommerce'); ?>" class="button"><?php _e('View All Orders','woocommerce'); ?></a>
+	<?php }
+
+} else {
+
+	// Add button on order detail screen to return to order list
+	add_action('woocommerce_view_order', 'kleo_return_to_wc_order_list');
+	function kleo_return_to_wc_order_list()
+	{ ?>
+		<a href="<?php echo get_permalink(get_option('woocommerce_myaccount_page_id')); ?>"
+		   title="<?php _e('View All Orders', 'woocommerce'); ?>"
+		   class="button"><?php _e('My Account', 'woocommerce'); ?></a>
+	<?php
+	}
+}
+

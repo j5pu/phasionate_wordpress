@@ -270,15 +270,15 @@ function changeMediaVisibility(el) {
         return false;
     }
     if ( el.val() == 'slider' ) {
-        jQuery("._kleo_embed, ._kleo_video_mp4, ._kleo_video_ogv, ._kleo_video_webm").hide();
+        jQuery("._kleo_embed, ._kleo_video_mp4, ._kleo_video_ogv, ._kleo_video_webm, ._kleo_video_poster").hide();
         jQuery("._kleo_slider").show();
     } else if ( el.val() == 'hosted_video' ) {
         jQuery("._kleo_embed, ._kleo_slider").hide();
-        jQuery("._kleo_video_mp4, ._kleo_video_ogv, ._kleo_video_webm").show();
+        jQuery("._kleo_video_mp4, ._kleo_video_ogv, ._kleo_video_webm, ._kleo_video_poster").show();
     } else if ( el.val() == 'video' ) {
-        jQuery("._kleo_video_mp4, ._kleo_video_ogv, ._kleo_video_webm, ._kleo_slider").hide();
+        jQuery("._kleo_video_mp4, ._kleo_video_ogv, ._kleo_video_webm, ._kleo_video_poster, ._kleo_slider").hide();
         jQuery("._kleo_embed").show();
     } else {
-        jQuery("._kleo_embed, ._kleo_video_mp4, ._kleo_video_ogv, ._kleo_video_webm, ._kleo_slider").hide();
+        jQuery("._kleo_embed, ._kleo_video_mp4, ._kleo_video_ogv, ._kleo_video_webm, ._kleo_video_poster, ._kleo_slider").hide();
     }
 }

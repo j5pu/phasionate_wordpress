@@ -21,10 +21,10 @@ if ( defined('WP_INSTALLING') && WP_INSTALLING == true && ! function_exists('kle
 <html class="no-js" <?php language_attributes(); ?>>
 <!--<![endif]-->
 <head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="mobile-web-app-capable" content="yes">
-	<title><?php wp_title( '|', true, 'right' ); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	
@@ -55,9 +55,7 @@ if ( defined('WP_INSTALLING') && WP_INSTALLING == true && ! function_exists('kle
 	<![endif]-->
 	
 	<?php if(function_exists('bp_is_active')) { bp_head(); } ?>	
-<script>
-    document.cookie='resolution='+Math.max(screen.width,screen.height)+("devicePixelRatio" in window ? ","+devicePixelRatio : ",1")+'; path=/';
-</script>	
+	
 	<?php wp_head(); ?>
 </head>
 
@@ -70,29 +68,18 @@ $site_style = sq_option('site_style', 'wide') == 'boxed' ? ' page-boxed' : '';
 $site_style = apply_filters('kleo_site_style', $site_style);
 ?>
 
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> itemscope itemtype="http://schema.org/WebPage">
 	
 	<?php do_action('kleo_after_body');?>
-
-	<!-- HEADER WIDGET ZONE TOP
-	================================================ -->
-	<!---->
-
-	<div id="header-home-sidebar" class="header-sidebar widget-area" role="complementary">
-		<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('header-home-widget') ) : ?>
-		<?php endif; ?>
-	</div>
 	
 	<!-- PAGE LAYOUT
 	================================================ -->
 	<!--Attributes-->
-
 	<div class="kleo-page<?php echo $site_style;?>">
 
 
 	<!-- HEADER SECTION
 	================================================ -->
-	
 	<?php 
 	/**
 	 * Header section

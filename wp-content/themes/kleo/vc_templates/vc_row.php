@@ -42,6 +42,10 @@ extract(shortcode_atts(array(
         'el_id' => ''
 ), $atts));
 
+// wp_enqueue_style( 'js_composer_front' );
+wp_enqueue_script( 'wpb_composer_front_js' );
+// wp_enqueue_style('js_composer_custom_css');
+
 if ( $front_status == 'draft' ) {
   return false;
 }
@@ -85,11 +89,14 @@ switch ($type) {
 		$bg_cover = apply_filters( 'kleo_sanitize_flag', $bg_cover );
 		$bg_attachment = in_array( $bg_attachment, array( 'false', 'fixed', 'true' ) ) ? $bg_attachment : 'false';
 
+        if ( $bg_image && !in_array( $bg_image, array('none') ) ) {
+            $bg_image_path = wp_get_attachment_image_src($bg_image, 'full');
+            if ( $bg_image_path == NULL )  {
+                $bg_image_path[0] = get_template_directory_uri() . "/assets/img/row_bg.jpg";
+            } //' <small>'.__('This is image placeholder, edit your page to replace it.', 'js_composer').'</small>';
 
-		if ( $bg_image && !in_array( $bg_image, array('none') ) ) {
-			$bg_image_path = wp_get_attachment_image_src($bg_image, 'full');
-			$style[] = 'background-image: url(' . esc_url($bg_image_path[0]) . ')';
-		}
+            $style[] = 'background-image: url(' . esc_url($bg_image_path[0]) . ')';
+        }
 
 		$position = array();
 		if ( $bg_position && $bg_position != '') {
@@ -123,7 +130,7 @@ switch ($type) {
 
 			$parallax_speed = floatval($parallax_speed);
 			if ( false == $parallax_speed ) {
-				$parallax_speed = 10;
+				$parallax_speed = 0.05;
 			}
 
 			$section_classes[] = 'bg-parallax';

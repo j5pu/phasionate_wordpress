@@ -393,32 +393,72 @@ class kleo_Meta_Box {
 								echo '</ul>';
 							}
 						break;
-				case 'file':
-					$input_type_url = "hidden";
-					if ( 'url' == $field['allow'] || ( is_array( $field['allow'] ) && in_array( 'url', $field['allow'] ) ) )
-						$input_type_url="text";
-					echo '<input class="cmb_upload_file" type="' . $input_type_url . '" size="45" id="', $field['id'], '" name="', $field['id'], '" value="', $meta, '" />';
-					echo '<input data-label="'.$field['id'].'" data-field="'.$field['id'].'" class="cmb_upload_button button" type="button" value="Upload File" />';
-					echo '<input class="cmb_upload_file_id" type="hidden" id="', $field['id'], '_id" name="', $field['id'], '_id" value="', get_post_meta( $post->ID, $field['id'] . "_id",true), '" />';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
-					echo '<div id="', $field['id'], '_status" class="cmb_media_status">';
-						if ( $meta != '' ) {
-							$check_image = preg_match( '/(^.*\.jpg|jpeg|png|gif|ico*)/i', $meta );
-							if ( $check_image ) {
-								echo '<div class="img_status">';
-								echo '<img src="', $meta, '" alt="" />';
-								echo '<a href="#" class="cmb_remove_file_button" rel="', $field['id'], '">Remove Image</a>';
-								echo '</div>';
-							} else {
-								$parts = explode( '/', $meta );
-								for( $i = 0; $i < count( $parts ); ++$i ) {
-									$title = $parts[$i];
-								}
-								echo 'File: <strong>', $title, '</strong>&nbsp;&nbsp;&nbsp; (<a href="', $meta, '" target="_blank" rel="external">Download</a> / <a href="#" class="cmb_remove_file_button" rel="', $field['id'], '">Remove</a>)';
-							}
-						}
-					echo '</div>';
-				break;
+                case 'file':
+                    $input_type_url = "hidden";
+                    if ( 'url' == $field['allow'] || ( is_array( $field['allow'] ) && in_array( 'url', $field['allow'] ) ) ) {
+                        $input_type_url = "text";
+                    }
+
+                    $image_url = $meta;
+                    if ( isset( $field['bg_options'] ) && $field['bg_options'] == 'yes' ) {
+                        echo '<input class="cmb_upload_file" type="' . $input_type_url . '" size="45" id="' . $field['id'] . '" name="' . $field['id'] . '[url]" value="'. (is_array($meta) && isset($meta['url']) ? $meta['url'] : '') .'" />';
+                        $image_url = $meta['url'];
+                    } else {
+                        echo '<input class="cmb_upload_file" type="' . $input_type_url . '" size="45" id="', $field['id'] . '" name="' . $field['id'] . '" value="' . $meta . '" />';
+                    }
+
+                    echo '<input data-label="' . $field['id'] . '" data-field="' . $field['id'] . '" class="cmb_upload_button button" type="button" value="Upload File" />';
+                    echo '<input class="cmb_upload_file_id" type="hidden" id="' . $field['id'] . '_id" name="' . $field['id'] . '_id" value="' . get_post_meta( $post->ID, $field['id'] . "_id",true) . '" />';
+                    echo '<p class="cmb_metabox_description">' . $field['desc'] . '</p>';
+                    echo '<div id="' . $field['id'] . '_status" class="cmb_media_status">';
+                    if ( $image_url != '' ) {
+                        $check_image = preg_match( '/(^.*\.jpg|jpeg|png|gif|ico*)/i', $image_url );
+                        if ( $check_image ) {
+                            echo '<div class="img_status">';
+                            echo '<img src="', $image_url, '" alt="" />';
+                            echo '<a href="#" class="cmb_remove_file_button" rel="' . $field['id'] . '">Remove Image</a>';
+                            echo '</div>';
+                        } else {
+                            $parts = explode( '/', $image_url );
+                            for( $i = 0; $i < count( $parts ); ++$i ) {
+                                $title = $parts[$i];
+                            }
+                            echo 'File: <strong>' . $title . '</strong>&nbsp;&nbsp;&nbsp; (<a href="' . $image_url . '" target="_blank" rel="external">Download</a> / <a href="#" class="cmb_remove_file_button" rel="' . $field['id'] . '">Remove</a>)';
+                        }
+                    }
+                    echo '</div>';
+
+                    if ( isset( $field['bg_options'] ) && $field['bg_options'] == 'yes' ) {
+                        echo 'Repeat <select name="' . $field['id'] . '[repeat]">' .
+                            '<option value="repeat"' . (is_array($meta) && isset($meta['repeat']) && $meta['repeat'] == 'repeat' ? ' selected="selected"' : '') . '>Repeat All</option>' .
+                            '<option value="repeat-x"' . (is_array($meta) && isset($meta['repeat']) && $meta['repeat'] == 'repeat-x' ? ' selected="selected"' : '') . '>Repeat horizontally</option>' .
+                            '<option value="repeat-y"' . (is_array($meta) && isset($meta['repeat']) && $meta['repeat'] == 'repeat-y' ? ' selected="selected"' : '') . '>Repeat vertically</option>' .
+                            '<option value="no-repeat"' . (is_array($meta) && isset($meta['repeat']) && $meta['repeat'] == 'no-repeat' ? ' selected="selected"' : '') . '>No Repeat</option>' .
+                            '</select>';
+                        echo ' Size <select name="' . $field['id'] . '[size]">' .
+                            '<option value="inherit"' . (is_array($meta) && isset($meta['size']) && $meta['size'] == 'inherit' ? ' selected="selected"' : '') . '>Inherit</option>' .
+                            '<option value="cover"' . (is_array($meta) && isset($meta['size']) && $meta['size'] == 'cover' ? ' selected="selected"' : '') . '>Cover</option>' .
+                            '<option value="contain"' . (is_array($meta) && isset($meta['size']) && $meta['size'] == 'contain' ? ' selected="selected"' : '') . '>Contain</option>' .
+                            '</select>';
+                        echo ' Attachment <select name="' . $field['id'] . '[attachment]">' .
+                            '<option value="scroll"' . (is_array($meta) && isset($meta['attachment']) && $meta['attachment'] == 'scroll' ? ' selected="selected"' : '') . '>Scroll</option>' .
+                            '<option value="fixed"' . (is_array($meta) && isset($meta['attachment']) && $meta['attachment'] == 'fixed' ? ' selected="selected"' : '') . '>Fixed</option>' .
+                            '</select>';
+                        echo ' Position <select name="' . $field['id'] . '[position]">' .
+                            '<option value="left top"' . (is_array($meta) && isset($meta['position']) && $meta['position'] == 'left top' ? ' selected="selected"' : '') . '>Left Top</option>' .
+                            '<option value="left center"' . (is_array($meta) && isset($meta['position']) && $meta['position'] == 'left center' ? ' selected="selected"' : '') . '>Left Center</option>' .
+                            '<option value="left bottom"' . (is_array($meta) && isset($meta['position']) && $meta['position'] == 'left bottom' ? ' selected="selected"' : '') . '>Left Bottom</option>' .
+                            '<option value="right top"' . (is_array($meta) && isset($meta['position']) && $meta['position'] == 'right top' ? ' selected="selected"' : '') . '>Right Top</option>' .
+                            '<option value="right center"' . (is_array($meta) && isset($meta['position']) && $meta['position'] == 'right center' ? ' selected="selected"' : '') . '>Right Center</option>' .
+                            '<option value="right bottom"' . (is_array($meta) && isset($meta['position']) && $meta['position'] == 'right bottom' ? ' selected="selected"' : '') . '>Right Bottom</option>' .
+                            '<option value="center top"' . (is_array($meta) && isset($meta['position']) && $meta['position'] == 'center top' ? ' selected="selected"' : '') . '>Center Top</option>' .
+                            '<option value="center center"' . (is_array($meta) && isset($meta['position']) && $meta['position'] == 'center center' ? ' selected="selected"' : '') . '>Center Center</option>' .
+                            '<option value="center bottom"' . (is_array($meta) && isset($meta['position']) && $meta['position'] == 'center bottom' ? ' selected="selected"' : '') . '>Center Bottom</option>' .
+                            '</select>';
+
+                    }
+
+                    break;
 				case 'oembed':
 					echo '<input class="cmb_oembed" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />','<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					echo '<p class="cmb-spinner spinner"></p>';

@@ -53,8 +53,7 @@
         include_once( dirname( __FILE__ ) . '/inc/class.redux_functions.php' );
 
         include_once( dirname( __FILE__ ) . '/inc/class.redux_filesystem.php' );
-
-
+        
         /**
          * Main ReduxFramework class
          *
@@ -65,7 +64,7 @@
             // ATTENTION DEVS
             // Please update the build number with each push, no matter how small.
             // This will make for easier support when we ask users what version they are using.
-            public static $_version = '3.3.5.1';
+            public static $_version = '3.3.6';
             public static $_dir;
             public static $_url;
             public static $_upload_dir;
@@ -266,7 +265,7 @@
                     //$this->_internationalization();
 
                     // Register extra extensions
-                    //$this->_register_extensions();
+                    $this->_register_extensions();
 
                     // Grab database values
                     $this->get_options();
@@ -277,6 +276,33 @@
                     // Set option with defaults
                     //add_action( 'init', array( &$this, '_set_default_options' ), 101 );
 
+                    //logconsole('post', $_GET['page']);
+
+                    //DOVY!!  HERE!!!
+                    // Getting started page
+//                    if (  is_admin () && $this->args['dev_mode'] ) {
+//                        
+//                        if ( isset($_GET['page']) && ($_GET['page'] == 'redux-about' || $_GET['page'] == 'redux-getting-started' || $_GET['page'] == 'redux-credits' || $_GET['page'] == 'redux-changelog' )) {
+//                            //logconsole('inc');
+//                            include_once( dirname( __FILE__ ) . '/inc/welcome.php' );
+//                        } else {
+//                            //logconsole('compare');
+//                            if (isset($_GET['page']) && $_GET['page'] == $this->args['page_slug']) {
+//                                $saveVer = get_option('redux_version_upgraded_from');
+//                                $curVer = self::$_version;
+//
+//                                if (empty($saveVer)) {
+//                                    //logconsole('redir');
+//                                    wp_safe_redirect ( admin_url ( 'index.php?page=redux-getting-started' ) );
+//                                    exit;                            
+//                                } else if (version_compare($curVer, $saveVer, '>')) {
+//                                    wp_safe_redirect ( admin_url ( 'index.php?page=redux-about' ) );
+//                                    exit;
+//                                }
+//                            }
+//                        }
+//                    }
+                    
                     // Options page
                     add_action( 'admin_menu', array( $this, '_options_page' ) );
 
@@ -318,6 +344,9 @@
                     // Enqueue dynamic CSS and Google fonts
                     add_action( 'wp_enqueue_scripts', array( &$this, '_enqueue_output' ), 150 );
 
+                    add_action( 'wp_print_scripts', array( $this, 'vc_fixes' ), 100 );
+                    add_action( 'admin_enqueue_scripts', array( $this, 'vc_fixes' ), 100 );
+                
                     require_once( self::$_dir . 'inc/import_export.php' );
                     $this->import_export = new Redux_import_export( $this );
 
@@ -367,7 +396,6 @@
                     // menu icon
                     'menu_title'         => '',
                     // menu title/text
-                    'page_icon'          => 'icon-themes',
                     'page_title'         => '',
                     // option page title
                     'page_slug'          => '_options',
@@ -383,10 +411,13 @@
                     // Save defaults to the DB on it if empty
                     'footer_credit'      => '',
                     'async_typography'   => false,
+                    'disable_google_fonts_link'  => false,
                     'class'              => '',
                     // Class that gets appended to all redux-containers
                     'admin_bar'          => true,
                     // Show the panel pages on the admin bar
+                    'admin_bar_icon'     => 'dashicons-admin-generic',
+					// admin bar icon
                     'help_tabs'          => array(),
                     'help_sidebar'       => '',
                     'database'           => '',
@@ -451,6 +482,12 @@
                 );
             }
 
+            // Fix conflicts with Visual Composer.
+            public function vc_fixes() {
+                wp_dequeue_script( 'wpb_ace' );
+                wp_deregister_script( 'wpb_ace' );                
+            }
+            
             public function network_admin_bar( $wp_admin_bar ) {
 
                 $args = array(
@@ -1251,7 +1288,7 @@
                         if ( isset( $menu_item[2] ) && $menu_item[2] === $this->args["page_slug"] ) {
                             $nodeargs = array(
                                 'id'    => $menu_item[2],
-                                'title' => "<span class='ab-icon dashicons-admin-generic'></span>" . $menu_item[0],
+                                'title' => '<span class="ab-icon ' . $this->args['admin_bar_icon'] . '"></span>' . $menu_item[0],
                                 'href'  => admin_url( 'admin.php?page=' . $menu_item[2] ),
                                 'meta'  => array()
                             );
@@ -1386,13 +1423,6 @@
                         }
 
                         ?>
-                        <style>.wf-loading *, .wf-inactive * {
-                                visibility: hidden;
-                            }
-
-                            .wf-active * {
-                                visibility: visible;
-                            }</style>
                         <script>
                             /* You can add more configuration options to webfontloader by previously defining the WebFontConfig with your options */
                             if ( typeof WebFontConfig === "undefined" ) {
@@ -1402,7 +1432,7 @@
 
                             (function() {
                                 var wf = document.createElement( 'script' );
-                                wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.5.0/webfont.js';
+                                wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.5.3/webfont.js';
                                 wf.type = 'text/javascript';
                                 wf.async = 'true';
                                 var s = document.getElementsByTagName( 'script' )[0];
@@ -1410,7 +1440,7 @@
                             })();
                         </script>
                     <?php
-                    } else {
+                    } elseif ( !$this->args['disable_google_fonts_link'] ) {
                         $protocol = ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443 ) ? "https:" : "http:";
 
                         //echo '<link rel="stylesheet" id="options-google-fonts" title="" href="'.$protocol.$typography->makeGoogleWebfontLink( $this->typography ).'&amp;v='.$version.'" type="text/css" media="all" />';
@@ -1591,13 +1621,16 @@
                 ) )
                 ) {
 
-                    wp_register_style(
-                        'color-picker-css',
+                    wp_enqueue_style(
+                        'redux-color-picker-css',
                         self::$_url . 'assets/css/color-picker/color-picker.css',
-                        array(),
+                        array( 'wp-color-picker' ),
                         filemtime( self::$_dir . 'assets/css/color-picker/color-picker.css' ),
                         'all'
                     );
+                    
+                    wp_enqueue_style( 'color-picker-css' );
+
 
                     wp_enqueue_script( 'wp-color-picker' );
                     wp_enqueue_style( 'wp-color-picker' );
@@ -1747,6 +1780,7 @@
                 }
 
                 if ( isset( $this->args['dev_mode'] ) && $this->args['dev_mode'] == true ) {
+
                     $base = ReduxFramework::$_url.'inc/p.php?url=';
                     $url = $base.urlencode('http://ads.reduxframework.com/api/index.php?js&g&1&v=2').'&proxy='.urlencode($base);
                     $this->localize_data['rAds'] = '<span data-id="1" class="mgv1_1"><script type="text/javascript">(function(){if (mysa_mgv1_1) return; var ma = document.createElement("script"); ma.type = "text/javascript"; ma.async = true; ma.src = "'.$url.'"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ma, s) })();var mysa_mgv1_1=true;</script></span>';
@@ -2043,23 +2077,8 @@
                     } else if ( ! empty( $field['options'][ $field['default'] ] ) ) {
                         $default_output .= $field['options'][ $field['default'] ] . ", ";
                     } else if ( ! empty( $field['default'] ) ) {
-                        if ( $field['type'] == 'switch' ) {
-
-                            //Label ON
-                            if ( ! isset( $field['on'] ) ) {
-                                $on = __( 'On', 'redux-framework' );
-                            } else {
-                                $on = $field['on'];
-                            }
-
-                            //Label OFF
-                            if ( ! isset( $field['off'] ) ) {
-                                $off = __( 'Off', 'redux-framework' );
-                            } else {
-                                $off = $field['off'];
-                            }
-
-                            $default_output .= ( isset($field['default']) && $field['default'] == 1 ? $on : $off ) . ', ';
+                        if ( $field['type'] == 'switch' && isset( $field['on'] ) && isset( $field['off'] ) ) {
+                            $default_output .= ( $field['default'] == 1 ? $field['on'] : $field['off'] ) . ', ';
                         } else {
                             $default_output .= $field['default'] . ', ';
                         }
@@ -2127,7 +2146,7 @@
                             $hint_color = isset( $this->args['hints']['icon_color'] ) ? $this->args['hints']['icon_color'] : '#d3d3d3';
 
                             // Set hint html with appropriate position css
-                            $hint = '<div class="redux-hint-qtip" style="float:' . $this->args['hints']['icon_position'] . '; font-size: ' . $size . '; color:' . $hint_color . '; cursor: ' . $pointer . ';" qtip-title="' . $titleParam . '" qtip-content="' . $contentParam . '"><i class="el-icon-question-sign"></i>&nbsp&nbsp</div>';
+                            $hint = '<div class="redux-hint-qtip" style="float:' . $this->args['hints']['icon_position'] . '; font-size: ' . $size . '; color:' . $hint_color . '; cursor: ' . $pointer . ';" qtip-title="' . $titleParam . '" qtip-content="' . $contentParam . '"><i class="el-' . $this->args['hints']['icon'] . '"></i>&nbsp&nbsp</div>';
                         }
                     }
 
@@ -2551,32 +2570,30 @@
 
                     $extension_class = 'ReduxFramework_Extension_' . $folder;
 
-                    if ( ! class_exists( $extension_class ) ) {
-                        /**
-                         * filter 'redux-extensionclass-load'
-                         *
-                         * @deprecated
-                         *
-                         * @param        string                    extension class file path
-                         * @param string $extension_class          extension class name
-                         */
-                        $class_file = apply_filters( "redux-extensionclass-load", "$path/$folder/extension_{$folder}.php", $extension_class ); // REMOVE LATER
+                    /**
+                     * filter 'redux-extensionclass-load'
+                     *
+                     * @deprecated
+                     *
+                     * @param        string                    extension class file path
+                     * @param string $extension_class          extension class name
+                     */
+                    $class_file = apply_filters( "redux-extensionclass-load", "$path/$folder/extension_{$folder}.php", $extension_class ); // REMOVE LATER
 
-                        /**
-                         * filter 'redux/extension/{opt_name}/{folder}'
-                         *
-                         * @param        string                    extension class file path
-                         * @param string $extension_class          extension class name
-                         */
-                        $class_file = apply_filters( "redux/extension/{$this->args['opt_name']}/$folder", "$path/$folder/extension_{$folder}.php", $class_file );
+                    /**
+                     * filter 'redux/extension/{opt_name}/{folder}'
+                     *
+                     * @param        string                    extension class file path
+                     * @param string $extension_class          extension class name
+                     */
+                    $class_file = apply_filters( "redux/extension/{$this->args['opt_name']}/$folder", "$path/$folder/extension_{$folder}.php", $class_file );
 
-                        if ( $class_file ) {
-                            if ( file_exists( $class_file ) ) {
-                                require_once( $class_file );
-                            }
-
-                            $this->extensions[ $folder ] = new $extension_class( $this );
+                    if ( $class_file ) {
+                        if ( file_exists( $class_file ) ) {
+                            require_once( $class_file );
                         }
+
+                        $this->extensions[ $folder ] = new $extension_class( $this );
                     }
 
                 }
@@ -3189,10 +3206,6 @@
 
                     echo '</div>';
                 }
-
-                // Page icon
-                // DOVY!
-                echo '<div id="' . $this->args['page_icon'] . '" class="icon32"></div>';
 
                 echo '<div class="clear"></div>';
                 echo '</div>';

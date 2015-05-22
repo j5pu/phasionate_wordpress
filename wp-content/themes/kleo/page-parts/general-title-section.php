@@ -10,7 +10,11 @@
 $title_arr = array();
 
 $title_arr['title'] = kleo_title();
-	
+
+if ( is_singular() && get_cfield( 'custom_title' ) && get_cfield( 'custom_title' ) != ''  ) {
+    $title_arr['title'] = get_cfield( 'custom_title' );
+}
+
 //hide title?
 $title_arr['show_title'] = true;
 if( is_singular() && get_cfield( 'title_checkbox' ) == 1 ) {

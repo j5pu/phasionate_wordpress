@@ -585,8 +585,9 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 							if ( version_compare( $installed_plugins[$plugin['file_path']]['Version'], $plugin['version'], '<' ) ) {
 								if ( current_user_can( 'install_plugins' ) )
 									$message['notice_ask_to_update'][] = $plugin['name'];
-								else
-									$message['notice_cannot_update'][] = $plugin['name'];
+								else {
+                                    /*$message['notice_cannot_update'][] = $plugin['name'];*/
+                                }
 							}
 						}
 						/** Can't find the plugin, so iterate to the next condition */
@@ -613,7 +614,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 					}
 					/** Need higher privileges to install the plugin */
 					else {
-						$message['notice_cannot_install'][] = $plugin['name'];
+						/*$message['notice_cannot_install'][] = $plugin['name'];*/
 					}
 				}
 				/** Installed but not active */
@@ -630,7 +631,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 					}
 					/** Need higher privileges to activate the plugin */
 					else {
-						$message['notice_cannot_activate'][] = $plugin['name'];
+						/*$message['notice_cannot_activate'][] = $plugin['name'];*/
 					}
 				}
 			}

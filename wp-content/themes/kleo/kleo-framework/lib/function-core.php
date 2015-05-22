@@ -81,38 +81,39 @@ function kleo_style_options()
 
 
 /*
- * Retrive custom field
+ * Retrieve custom field
  */
-if( !function_exists( 'get_cfield' ) ):
+if( !function_exists( 'get_cfield' ) ) :
 	
-	function get_cfield($meta = NULL, $id = NULL) {
-		if($meta === NULL) {
+	function get_cfield( $meta = NULL, $id = NULL ) {
+		if( $meta === NULL ) {
 			return false;
 		}
 
-		if ($id === NULL) {
+		if ( $id === NULL ) {
 			$id = get_the_ID();
 		}
 
-		return get_post_meta( $id, '_kleo_'.$meta, true );
+        if ( ! $id && is_home() && get_option( 'page_for_posts' ) ) {
+            $id = get_option( 'page_for_posts' );
+        }
+
+        if ( ! $id ) {
+            return false;
+        }
+
+		return get_post_meta( $id, '_kleo_' . $meta, true );
 	}
 endif;
 
 /*
  * Echo the custom field
  */
-if(!function_exists('the_cfield')):
-	function the_cfield($meta=NULL, $id=NULL) 
-	{
-		if($meta === NULL)
-				echo '';
-
-		if ($id === NULL)
-				$id = get_the_ID();
-
-		echo get_post_meta( $id, '_kleo_'.$meta, true );
+if( ! function_exists('the_cfield')) {
+    function the_cfield( $meta = NULL, $id = NULL ) {
+        echo get_cfield( $meta, $id );
 	}
-endif;
+}
 
 /*
  * Get POST value
@@ -291,19 +292,10 @@ function kleo_pagination( $pages = '', $echo = true ) {
 	}
 
 	$pagenum_link = remove_query_arg( array_keys( $query_args ), $pagenum_link );
-
-	if ( is_search() ) {
-		//Pongo esto aquí porque en el search formaba mal la url
-		$pagenum = explode( '/', $pagenum_link);
-		$pagenum_link = 'http://'.$pagenum[2].'/';
-	}
-
 	$pagenum_link = trailingslashit( $pagenum_link ) . '%_%';
 
 	$format  = $GLOBALS['wp_rewrite']->using_index_permalinks() && ! strpos( $pagenum_link, 'index.php' ) ? 'index.php/' : '';
-	//$format .= $GLOBALS['wp_rewrite']->using_permalinks() ? user_trailingslashit( 'page/%#%', 'paged' ) : '?paged=%#%';
-	$format .= $GLOBALS['wp_rewrite']->using_permalinks() ? user_trailingslashit( '%#%', 'paged' ) : '?paged=%#%';
-
+	$format .= $GLOBALS['wp_rewrite']->using_permalinks() ? user_trailingslashit( 'page/%#%', 'paged' ) : '?paged=%#%';
 
 	// Set up paginated links.
 	$links = paginate_links( array(
@@ -311,7 +303,7 @@ function kleo_pagination( $pages = '', $echo = true ) {
 		'format'   => $format,
 		'total'    => $pages,
 		'current'  => $paged,
-		'mid_size' => 1,
+		'mid_size' => 2,
 		'add_args' => array_map( 'urlencode', $query_args ),
 		'prev_text' => __( '&laquo;', 'kleo_framework' ),
 		'next_text' => __( '&raquo;', 'kleo_framework' ),
@@ -603,7 +595,10 @@ function kleo_full_url()
 /**
  * Get the Featured image HTML of a post
  * @global object $post
+ * @param integer $post_id
  * @param string $size
+ * @param string|array $attr
+ * @param bool $archive_only
  * @return string
  */
 function kleo_get_post_thumbnail( $post_id = null, $size = 'post-thumbnail', $attr = '', $archive_only = true ) {
@@ -619,15 +614,13 @@ function kleo_get_post_thumbnail( $post_id = null, $size = 'post-thumbnail', $at
         if ( is_single() && $archive_only === true ) {
             return '';
         }
+        global $post;
 
         if ( sq_option( 'blog_get_image', 1 ) == 1 ) {
-            global $post;
-            ob_start();
-            ob_end_clean();
             $output = preg_match_all('|<img.*?src=[\'"](.*?)[\'"].*?>|i', $post->post_content, $matches);
 
             if( isset( $matches[1][0] ) ) {
-                return '<img src="' . $matches[1][0] . '">';
+                return '<img src="' . $matches[1][0] . '" alt="' . $post->post_title . '">';
             }
         }
 
@@ -637,7 +630,7 @@ function kleo_get_post_thumbnail( $post_id = null, $size = 'post-thumbnail', $at
         if ( $image_url == '' ) {
             return '';
         } else {
-            return '<img src="' . $image_url . '">';
+            return '<img src="' . $image_url . '" alt="' . $post->post_title . '">';
         }
 	}
 }
@@ -645,30 +638,34 @@ function kleo_get_post_thumbnail( $post_id = null, $size = 'post-thumbnail', $at
 /**
  * Get the Featured image URL of a post
  * @global object $post
- * @param string $size
+ * @param int $post_id
  * @return string
  */
-function kleo_get_post_thumbnail_url() {
-	$image_url = '';
-	
-	$thumb = get_post_thumbnail_id();
-  //all good. we have a featured image
-  $featured_image_url = wp_get_attachment_url( $thumb );
-  if ( $featured_image_url ) {
-    $image_url = $featured_image_url;
-  }
-	elseif ( sq_option( 'blog_get_image', 1 ) == 1 ) {
-		global $post;
-		ob_start();
-		ob_end_clean();
-		$output = preg_match_all('|<img.*?src=[\'"](.*?)[\'"].*?>|i', $post->post_content, $matches);
-		$image_url = isset( $matches[1][0] ) ? $matches[1][0] : null;
-	}
-	
-	//Defines a default image
-	if ( empty( $image_url ) ) {
-		$image_url = sq_option_url( 'blog_default_image', '' );
-	}
-	
-	return $image_url;
+function kleo_get_post_thumbnail_url( $post_id = null ) {
+    $image_url = '';
+
+    $thumb = get_post_thumbnail_id( $post_id );
+    //all good. we have a featured image
+    $featured_image_url = wp_get_attachment_url( $thumb );
+    if ( $featured_image_url ) {
+        $image_url = $featured_image_url;
+    } elseif ( sq_option( 'blog_get_image', 1 ) == 1 ) {
+        global $post;
+        if (! is_object($post) && $post_id != NULL  ) {
+            $post = setup_postdata( get_post($post_id) );
+        }
+        ob_start();
+        ob_end_clean();
+        if (isset($post->post_content)) {
+            $output = preg_match_all('|<img.*?src=[\'"](.*?)[\'"].*?>|i', $post->post_content, $matches);
+            $image_url = isset($matches[1][0]) ? $matches[1][0] : null;
+        }
+    }
+
+    //Defines a default image
+    if ( empty( $image_url ) )  {
+        $image_url = sq_option_url('blog_default_image', '');
+    }
+
+    return $image_url;
 }

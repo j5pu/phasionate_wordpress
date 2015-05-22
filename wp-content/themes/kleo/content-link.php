@@ -9,12 +9,12 @@
 ?>
 
 <?php
-$postclass = '';
-if( is_single() && get_cfield('centered_text') == 1) { $postclass = 'text-center'; } 
+$post_class = 'clearfix';
+if( is_single() && get_cfield( 'centered_text' ) == 1 ) { $post_class .= ' text-center'; }
 ?>
 
 <!-- Begin Article -->
-<article id="post-<?php the_ID(); ?>" <?php post_class(array($postclass)); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(array( $post_class )); ?>>
 
 	<?php if(kleo_postmeta_enabled()): ?>
 		<div class="article-meta">

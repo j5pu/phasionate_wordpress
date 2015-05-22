@@ -15,6 +15,23 @@ global $kleo_config;
 	<?php 
 	$kleo_post_format = get_post_format();
 
+    /* For portfolio post type */
+    if ( get_post_type() == 'portfolio' ) {
+        if ( get_cfield( 'media_type' ) && get_cfield( 'media_type' ) != '' ) {
+            $media_type = get_cfield( 'media_type' );
+            switch ( $media_type ) {
+                case 'slider':
+                    $kleo_post_format = 'gallery';
+                    break;
+
+                case 'video':
+                case 'hosted_video':
+                    $kleo_post_format = 'video';
+                    break;
+            }
+        }
+    }
+
 	switch ($kleo_post_format) {
 
 		case 'video':
@@ -39,7 +56,7 @@ global $kleo_config;
 						'preload="0"'
 				);
 
-				$k_video .= sprintf( '<div class="kleo-video-wrap"><video %s controls="controls" class="kleo-video">', join( ' ', $attr_strings ) );
+				$k_video .= '<div class="kleo-video-wrap"><video ' . join( ' ', $attr_strings ) . ' controls="controls" class="kleo-video" style="width: 100%; height: 100%;">';
 
 				$source = '<source type="%s" src="%s" />';
 				foreach ( $bg_video_args as $video_type=>$video_src ) {
@@ -54,7 +71,9 @@ global $kleo_config;
 			// oEmbed
 			elseif (!empty($video)) {
 				global $wp_embed;
-				echo apply_filters('kleo_oembed_video', $video); 
+                echo '<div class="kleo-video-embed">';
+				echo apply_filters('kleo_oembed_video', $video);
+                echo '</div>';
 			}
 			break;
 
@@ -86,7 +105,7 @@ global $kleo_config;
 						if( $image ) {
 							echo '<article>
 								<a href="'. $slide .'" data-rel="prettyPhoto[inner-gallery]">
-									<img src="'.$image.'" alt="">'
+									<img src="'.$image.'" alt="'. get_the_title() .'">'
 									.kleo_get_img_overlay()
 								.'</a>
 							</article>';
@@ -112,7 +131,7 @@ global $kleo_config;
 				$image = aq_resize( $img_url, $kleo_config['post_gallery_img_width'], $kleo_config['post_gallery_img_height'], true, true, true );
 				if( $image ) {
 					echo '<a href="'. get_permalink() .'" class="element-wrap">'
-						. '<img src="'.$image.'">'
+						. '<img src="'.$image.'" alt="'. get_the_title() .'">'
 						. kleo_get_img_overlay()
 						. '</a>';	
 				}
@@ -124,14 +143,11 @@ global $kleo_config;
 	?>
 
 		<div class="entry-content">
-			<?php $category = get_the_category();?>
-			<div class="hr-title hr-long">
-				<abbr>
-				<a href="<?php echo get_category_link($category[0]->term_id );?>">
-					<?php echo $category[0]->cat_name ?>
-				</a>
-			</div>
-			<h4 class="post-title"><a href="<?php the_permalink();?>"><?php the_title();?></a></h4>
+			<h4 class="post-title entry-title"><a href="<?php the_permalink();?>"><?php the_title();?></a></h4>
+
+            <span class="post-meta hidden hide">
+                <?php kleo_entry_meta();?>
+            </span>
 
 			<?php if (kleo_excerpt() != '<p></p>') : ?>
 				<hr>

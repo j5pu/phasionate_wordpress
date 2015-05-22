@@ -65,6 +65,7 @@ function kleo_setup() {
 	/* This theme uses wp_nav_menu() in two locations. */
 	register_nav_menu( 'primary', __( 'Primary Menu', 'kleo_framework' ) );
 	register_nav_menu( 'top', __( 'Top Menu', 'kleo_framework' ) );
+	register_nav_menu( 'side', __( 'Side Menu', 'kleo_framework' ) );
 
 	/* This theme uses a custom image size for featured images, displayed on "standard" posts. */
 	add_theme_support( 'post-thumbnails' );
@@ -94,10 +95,21 @@ function kleo_setup() {
 	/* Third-party plugins */
 	add_theme_support( 'bbpress' );
 	add_theme_support( 'woocommerce' );
+
+    add_theme_support( 'title-tag' );
 	
 }
 add_action( 'after_setup_theme', 'kleo_setup' );
 
+
+if ( ! function_exists( '_wp_render_title_tag' ) ) {
+    function kleo_slug_render_title() {
+        ?>
+        <title><?php wp_title( '|', true, 'right' ); ?></title>
+        <?php
+    }
+    add_action( 'wp_head', 'kleo_slug_render_title' );
+}
 
 
 
@@ -112,7 +124,7 @@ if (!function_exists('kleo_wp_title')):
 	 * @param string $sep Optional separator.
 	 * @return string Filtered title.
 	 */
-	function kleo_wp_title( $title, $sep ) 
+	function kleo_wp_title( $title, $sep )
 	{
 			global $paged, $page;
 
@@ -131,10 +143,12 @@ if (!function_exists('kleo_wp_title')):
 			if ( $paged >= 2 || $page >= 2 ) {
 					$title = "$title $sep " . sprintf( __( 'Page %s', 'kleo_framework' ), max( $paged, $page ) );
 			}
-			
+
 			return $title;
 	}
-	add_filter( 'wp_title', 'kleo_wp_title', 10, 2 );
+    if ( ! function_exists( '_wp_render_title_tag' ) ) {
+        add_filter('wp_title', 'kleo_wp_title', 10, 2);
+    }
 endif;
 
 
@@ -159,7 +173,7 @@ if ( ! class_exists( 'kleo_walker_nav_menu' ) ):
 		 */
 		public function start_lvl( &$output, $depth = 0, $args = array() ) {
 			$indent = str_repeat( "\t", $depth );
-			$output .= "\n$indent<ul role=\"menu\" class=\"dropdown-menu".($depth ===0?" pull-left":"")."\">\n";
+			$output .= "\n$indent<ul role=\"menu\" class=\"dropdown-menu sub-menu".($depth ===0?" pull-left":"")."\">\n";
 		}
 
 		/**
@@ -228,7 +242,7 @@ if ( ! class_exists( 'kleo_walker_nav_menu' ) ):
 				if (strpos($item->attr_title,'class=') !== false) {
 					$atts['class'] = (isset($atts['class']) ? $atts['class']." " : '') . str_replace('class=', '', $item->attr_title);
 				}else {
-					$atts['title'] = ! empty( $item->attr_title ) ? $item->attr_title : ( ! empty( $item->title ) ? esc_attr($item->title) : '' );
+					$atts['title'] = ! empty( $item->attr_title ) ? $item->attr_title : ( ! empty( $item->title ) ? esc_attr(wp_strip_all_tags($item->title)) : '' );
 				}
 				$atts['target'] = ! empty( $item->target )        ? $item->target        : '';
 				$atts['rel'] = ! empty( $item->xfn )                ? $item->xfn        : '';
@@ -257,6 +271,9 @@ if ( ! class_exists( 'kleo_walker_nav_menu' ) ):
 
 				$item_output = $args->before;
 				$item_output .= '<a'. $attributes .'>';
+
+                /* allow shortcodes in item title */
+                $item->title = do_shortcode( $item->title );
 
                 /* Menu icons */
                 if (isset( $item->icon ) && $item->icon != '') {
@@ -332,7 +349,7 @@ if ( ! class_exists( 'kleo_walker_nav_menu' ) ):
 		 * Menu Fallback
 		 * =============
 		 * If this function is assigned to the wp_nav_menu's fallback_cb variable
-		 * and a manu has not been assigned to the theme location in the WordPress
+		 * and a menu has not been assigned to the theme location in the WordPress
 		 * menu manager the function with display nothing to a non-logged in user,
 		 * and will add a link to the WordPress menu manager if logged in as an admin.
 		 *
@@ -497,30 +514,10 @@ if (!function_exists('kleo_widgets_init')):
 			'before_title' => '<h4 class="widget-title">',
 			'after_title' => '</h4>',
      ));
-	
-	 register_sidebar(array(
-			'name' => 'Header Home Widget Zone',
-			'id' => 'header-home-widget',
-			'description'   => '',
-			'before_widget' => '<div class="widget-home-header">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h2>',
-			'after_title'   => '</h2>'
-     ));
-		 register_sidebar(array(
-			'name' => 'Before Shooping Widget Zone',
-			'id' => 'before-shopping-widget',
-			'description'   => '',
-			'before_widget' => '<div class="widget-before-shooping">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h2>',
-			'after_title'   => '</h2>'
-     ));
 
 	}
 endif;
 add_action( 'widgets_init', 'kleo_widgets_init' );
-
 
 
 
@@ -531,38 +528,103 @@ if ( ! function_exists( 'kleo_entry_meta' ) ) :
 	 * @since 1.0
 	 */
 	function kleo_entry_meta($echo=true, $att=array()) {
-	
+
+        global $kleo_config;
 		$meta_list = array();
+        $author_links = '';
+        $meta_elements =  sq_option( 'blog_meta_elements', $kleo_config['blog_meta_defaults'] );
 		
 		// Translators: used between list items, there is a space after the comma.
-		$categories_list = get_the_category_list( __( ', ', 'kleo_framework' ) );
+		if ( in_array( 'categories', $meta_elements ) ) {
+			$categories_list = get_the_category_list(__(', ', 'kleo_framework'));
+		}
 
 		// Translators: used between list items, there is a space after the comma.
-		$tag_list = get_the_tag_list( '', __( ', ', 'kleo_framework' ) );
+		if ( in_array('tags', $meta_elements ) ) {
+			$tag_list = get_the_tag_list('', __(', ', 'kleo_framework'));
+		}
 
-		$date = sprintf( '<a href="%1$s" title="%2$s" rel="bookmark" class="post-time"><time class="entry-date" datetime="%3$s">%4$s</time></a>',
+		$date = sprintf( '<a href="%1$s" rel="bookmark" class="post-time">' .
+            '<time class="entry-date" datetime="%2$s">%3$s</time>' .
+            '<time class="modify-date hide hidden updated" datetime="%4$s">%5$s</time>' .
+            '</a>',
 			esc_url( get_permalink() ),
-			esc_attr( get_the_time() ),
 			esc_attr( get_the_date( 'c' ) ),
-			esc_html( get_the_date() )
+			esc_html( get_the_date() ),
+            esc_html( get_the_modified_date( 'c' ) ),
+            esc_html( get_the_modified_date() )
 		);
 
-		$author = sprintf( '<a href="%1$s" title="%2$s" rel="author">%3$s</a>',
-			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-			esc_attr( sprintf( __( 'View all posts by %s', 'kleo_framework' ), get_the_author() ) ),
+        /* If buddypress is active then create a link to Buddypress profile instead */
+        if (function_exists( 'bp_is_active' ) ) {
+            $author_link = esc_url( bp_core_get_userlink( get_the_author_meta( 'ID' ), $no_anchor = false, $just_link = true ) );
+			$author_title = esc_attr( sprintf( __( 'View %s\'s profile', 'kleo_framework' ), get_the_author() ) );
+        } else {
+            $author_link = esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) );
+			$author_title = esc_attr( sprintf( __( 'View all POSTS by %s', 'kleo_framework' ), get_the_author() ) );
+        }
+
+		$author = sprintf( '<a class="url fn n" href="%1$s" title="%2$s" rel="author">%3$s <span class="author-name">%4$s</span></a>',
+            $author_link,
+			$author_title,
+            ( is_array( $meta_elements ) && !empty( $meta_elements ) && in_array( 'avatar', $meta_elements ) ) ? get_avatar( get_the_author_meta( 'ID' ), 50) : '',
 			get_the_author()
 		);
 
-		$meta_list[] = '<small class="meta-author">'.$author.'</small>';
-		$meta_list[] = '<small>'.$date.'</small>';
-		
+        if ( is_array( $meta_elements ) && !empty( $meta_elements ) ) {
+
+            if ( in_array( 'author_link', $meta_elements ) ) {
+                $meta_list[] = '<small class="meta-author author vcard">' . $author . '</small>';
+            }
+
+            if ( function_exists( 'bp_is_active' ) ) {
+                if ( in_array( 'profile', $meta_elements ) ) {
+                    $author_links .= '<a href="' . bp_core_get_userlink( get_the_author_meta( 'ID' ), $no_anchor = false, $just_link = true ) . '">' .
+                        '<i class="icon-user-1 hover-tip" ' .
+                        'data-original-title="' . esc_attr(sprintf(__('View profile', 'kleo_framework'), get_the_author())) . '"' .
+                        'data-toggle="tooltip"' .
+                        'data-placement="top"></i>' .
+                        '</a>';
+                }
+
+                if ( bp_is_active( 'messages' ) ) {
+                    if ( in_array( 'message', $meta_elements ) ) {
+                        $author_links .= '<a href="' . wp_nonce_url( bp_loggedin_user_domain() . bp_get_messages_slug() . '/compose/?r=' . bp_core_get_username( get_the_author_meta( 'ID' ) ) ) . '">' .
+                            '<i class="icon-mail hover-tip" ' .
+                            'data-original-title="' . esc_attr(sprintf(__('Contact %s', 'kleo_framework'), get_the_author())) . '" ' .
+                            'data-toggle="tooltip" ' .
+                            'data-placement="top"></i>' .
+                            '</a>';
+                    }
+                }
+            }
+
+            if ( in_array( 'archive', $meta_elements ) ) {
+                $author_links .= '<a href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '">' .
+                    '<i class="icon-docs hover-tip" ' .
+                    'data-original-title="' . esc_attr(sprintf(__('View all posts by %s', 'kleo_framework'), get_the_author())) . '" ' .
+                    'data-toggle="tooltip" ' .
+                    'data-placement="top"></i>' .
+                    '</a>';
+            }
+
+        }
+
+        if ( $author_links != '' ) {
+            $meta_list[] = '<small class="meta-links">' . $author_links . '</small>';
+        }
+
+		if (in_array( 'date', $meta_elements ) ) {
+			$meta_list[] = '<small>' . $date . '</small>';
+		}
+
 		$cat_tag = array();
 		
-		if ( $categories_list ) {
+		if ( isset( $categories_list ) && $categories_list ) {
 			$cat_tag[] = $categories_list;
 		}
 		
-		if ($tag_list) {
+		if ( isset( $tag_list ) && $tag_list ) {
 			$cat_tag[] = $tag_list;
 		}
 		if (!empty($cat_tag)) {
@@ -570,19 +632,24 @@ if ( ! function_exists( 'kleo_entry_meta' ) ) :
 		}
 		
 		//comments
-		if (!isset($att['comments']) || (isset($att['comments']) && $att['comments'] !== false)) {
-		$meta_list[] = '<small class="meta-comment-count"><a href="'. get_permalink().'#comments">'.get_comments_number().' <i class="icon-chat-1 hover-tip" 
-			data-original-title="'.sprintf( _n( 'This article has one comment', 'This article has %1$s comments', get_comments_number(), 'kleo_framework' ),number_format_i18n( get_comments_number() ) ).'" 
-			data-toggle="tooltip" 
-			data-placement="top"></i></a></small>';
+		if ((!isset($att['comments']) || (isset($att['comments']) && $att['comments'] !== false)) && in_array( 'comments', $meta_elements )) {
+		$meta_list[] = '<small class="meta-comment-count"><a href="'. get_permalink().'#comments">'.get_comments_number() .
+            ' <i class="icon-chat-1 hover-tip" ' .
+            'data-original-title="'.sprintf( _n( 'This article has one comment', 'This article has %1$s comments', get_comments_number(), 'kleo_framework' ),number_format_i18n( get_comments_number() ) ).'" ' .
+            'data-toggle="tooltip" ' .
+            'data-placement="top"></i>' .
+            '</a></small>';
 		}
+
+
 		
 		if ($echo) {
 			echo implode(", ", $meta_list);
 		}
 		else {
-			return implode(", ", $meta_list);
+			RETURN implode(", ", $meta_list);
 		}
+
 		
 	}
 endif;
@@ -814,9 +881,10 @@ if (!function_exists('kleo_switch_layout')) {
 				remove_action('kleo_after_content', 'kleo_extra_sidebar');
 				add_filter('kleo_main_template_classes', create_function('$cols', '$cols = "col-sm-' . $main_width_2cols . ' col-sm-push-' . $sidebar_width_2cols . ' tpl-left"; return $cols;'), $priority);
 				add_filter('kleo_sidebar_classes', create_function('$cols', '$cols = "col-sm-' . $sidebar_width_2cols . ' sidebar-left col-sm-pull-' . $main_width_2cols . '"; return $cols;'), $priority);
-				break;
+                remove_filter( 'kleo_main_container_class', 'kleo_ret_full_container', $priority );
+                break;
 
-			case 'no':		//full width
+			case 'no':	//full width
 				remove_action( 'kleo_after_content', 'kleo_sidebar' );
 				remove_action('kleo_after_content', 'kleo_extra_sidebar' );
 				add_filter('kleo_main_template_classes', create_function('$cols', '$cols = "col-sm-12 tpl-no"; return $cols;'), $priority );
@@ -833,7 +901,8 @@ if (!function_exists('kleo_switch_layout')) {
 				add_filter('kleo_main_template_classes', create_function('$cols', '$cols = "col-sm-' . $main_width_3cols . ' col-sm-push-' . ( $sidebar_width_3cols * 2 ) . ' tpl-3ll"; return $cols;'), $priority);
 				add_filter('kleo_sidebar_classes', create_function('$cols', '$cols = "col-sm-' . $sidebar_width_3cols . ' col-sm-pull-' . $main_width_3cols . ' sidebar-3ll"; return $cols;'), $priority);
 				add_filter('kleo_extra_sidebar_classes', create_function('$cols', '$cols = "col-sm-' . $sidebar_width_3cols . ' col-sm-pull-' . $main_width_3cols . ' sidebar-3ll"; return $cols;'), $priority);
-				break;
+                remove_filter( 'kleo_main_container_class', 'kleo_ret_full_container', $priority );
+                break;
 
 			case '3lr':
 				add_action('kleo_after_content', 'kleo_sidebar', $priority);
@@ -841,7 +910,8 @@ if (!function_exists('kleo_switch_layout')) {
 				add_filter('kleo_main_template_classes', create_function('$cols', '$cols = "col-sm-' . $main_width_3cols . ' col-sm-push-' . $sidebar_width_3cols . ' tpl-3lr"; return $cols;'), $priority);
 				add_filter('kleo_sidebar_classes', create_function('$cols', '$cols = "col-sm-' . $sidebar_width_3cols . ' col-sm-pull-' . $main_width_3cols . ' sidebar-3lr"; return $cols;'), $priority);
 				add_filter('kleo_extra_sidebar_classes', create_function('$cols', '$cols = "col-sm-' . $sidebar_width_3cols .  ' sidebar-3lr"; return $cols;'), $priority);
-				break;
+                remove_filter( 'kleo_main_container_class', 'kleo_ret_full_container', $priority );
+                break;
 
 			case '3rr':
 				add_action('kleo_after_content', 'kleo_sidebar', $priority);
@@ -849,7 +919,8 @@ if (!function_exists('kleo_switch_layout')) {
 				add_filter('kleo_main_template_classes', create_function('$cols', '$cols = "col-sm-' . $main_width_3cols . ' tpl-3rr"; return $cols;'), $priority);
 				add_filter('kleo_sidebar_classes', create_function('$cols', '$cols = "col-sm-' . $sidebar_width_3cols . ' sidebar-3rr"; return $cols;'), $priority);
 				add_filter('kleo_extra_sidebar_classes', create_function('$cols', '$cols = "col-sm-' . $sidebar_width_3cols . ' sidebar-3rr"; return $cols;'), $priority);
-				break;
+                remove_filter( 'kleo_main_container_class', 'kleo_ret_full_container', $priority );
+                break;
 
 			case 'right':
 			default:
@@ -857,7 +928,8 @@ if (!function_exists('kleo_switch_layout')) {
 				remove_action('kleo_after_content', 'kleo_extra_sidebar');
 				add_filter('kleo_main_template_classes', create_function('$cols', '$cols = "col-sm-' . $main_width_2cols . ' tpl-right"; return $cols;'), $priority);
 				add_filter('kleo_sidebar_classes', create_function('$cols', '$cols = "col-sm-' . $sidebar_width_2cols . ' sidebar-right"; return $cols;'), $priority);
-				break;
+                remove_filter( 'kleo_main_container_class', 'kleo_ret_full_container', $priority );
+                break;
 		}
 	}
 }
@@ -878,24 +950,28 @@ if ( !function_exists( 'kleo_prepare_layout' ) ) {
 		elseif (is_archive()) {
 			$layout = sq_option('cat_layout', 'right');
 		}
-		elseif( is_singular( array('post', 'portfolio') )
-                && get_cfield('post_layout') && get_cfield('post_layout') != 'default' ) {
-			$layout = get_cfield('post_layout');
+		elseif( is_single() ) {
+            if ( get_cfield('post_layout') && get_cfield('post_layout') != 'default' ) {
+                $layout = get_cfield('post_layout');
+            } elseif( sq_option('blog_post_layout', 'default') != 'default' ) {
+                $layout = sq_option('blog_post_layout', 'right');
+            }
+
 		}
 
-		$layout = apply_filters('kleo_page_layout', $layout);
+		$layout = apply_filters( 'kleo_page_layout', $layout );
 		kleo_switch_layout( $layout );
 
 		/* Single post of any post type */
-		if( is_singular() )
+		if( is_singular() || is_home() )
 		{
-			$topbar_status = get_cfield('topbar_status');
+			$topbar_status = get_cfield( 'topbar_status' );
 			//Top bar
 			if ( isset($topbar_status) ) {
 				if ( $topbar_status === '1' ) {
-					add_filter('kleo_show_top_bar', create_function('', 'return 1;'));
+					add_filter('kleo_show_top_bar', create_function( '', 'return 1;' ));
 				} elseif ( $topbar_status === '0' ) {
-					add_filter('kleo_show_top_bar', create_function('', 'return 0;'));
+					add_filter('kleo_show_top_bar', create_function( '', 'return 0;' ));
 				}
 			}
 
@@ -927,12 +1003,38 @@ if ( !function_exists( 'kleo_prepare_layout' ) ) {
                 remove_filter('wp_nav_menu_items', 'kleo_search_menu_item', 10);
             }
 
+            //title section css
+            global $kleo_theme;
+            if (get_cfield('title_top_padding') && get_cfield('title_top_padding') != '' ) {
+                $kleo_theme->add_css('.main-title {padding-top: ' . get_cfield('title_top_padding') . 'px;}');
+            }
+            if (get_cfield('title_bottom_padding') && get_cfield('title_bottom_padding') != '' ) {
+                $kleo_theme->add_css('.main-title {padding-bottom: ' . get_cfield('title_bottom_padding') . 'px;}');
+            }
+            if (get_cfield('title_color') && get_cfield('title_color') != '#' && get_cfield('title_color') != '') {
+                $kleo_theme->add_css('.main-title, .main-title h1, .main-title a, .main-title span, .breadcrumb > li + li:before {color: ' . get_cfield('title_color') . ' !important;}');
+            }
+            if (get_cfield('title_bg_color') && get_cfield('title_bg_color') != '#' && get_cfield('title_bg_color') != '') {
+                $kleo_theme->add_css('.main-title {background-color: ' . get_cfield('title_bg_color') . ' !important;}');
+            }
+            if (get_cfield('title_bg') && is_array(get_cfield('title_bg'))) {
+                $title_bg = get_cfield('title_bg');
+                if (isset($title_bg['url']) && $title_bg['url'] != '') {
+                    $kleo_theme->add_css('.main-title {' .
+                        'background-image: url("' . $title_bg['url'] . '");' .
+                        'background-repeat: ' . $title_bg['repeat'] . ';' .
+                        'background-size: ' . $title_bg['size'] . ';' .
+                        'background-attachment: ' . $title_bg['attachment'] . ';' .
+                        'background-position: ' . $title_bg['position'] . ';' .
+                        '}');
+
+                }
+            }
+
 		}
 
 		//Show title in main content - if set from Theme options
-		if(!is_category() && !is_author()){
-			add_action('kleo_before_main_content', 'kleo_title_main_content');
-		}
+		add_action('kleo_before_main_content', 'kleo_title_main_content');
 	}
 }
 
@@ -948,7 +1050,7 @@ if (!function_exists('kleo_sidebar')):
 endif;
 
 //get the extra sidebar
-if (!function_exists('kleo_extra_sidebar')):
+if ( ! function_exists( 'kleo_extra_sidebar' ) ) :
 	function kleo_extra_sidebar()
 	{
 		$classes = apply_filters('kleo_extra_sidebar_classes', '');
@@ -981,7 +1083,7 @@ if ( ! function_exists( 'kleo_title_main_content' ) ) {
 
 			if ( $title_status ) {
 				echo '<div class="container">';
-				echo '<h1 class="entry-title page-title">' . kleo_title() . '</h1>';
+				echo '<h1 class="page-title">' . kleo_title() . '</h1>';
 				echo '</div>';
 			}
 			
@@ -1033,11 +1135,18 @@ function kleo_body_classes($classes = '') {
 		}		
 	}
 	
-	if (sq_option('transparent_logo',1) == 1
-					|| ((is_single() || is_page()) && get_cfield('transparent_menu'))
-					) {
+	if ( sq_option( 'transparent_logo', 1 ) == 1 || ( is_singular() && get_cfield( 'transparent_menu' )) ) {
 		$classes[] = 'navbar-transparent';
 	}
+
+    if ( is_singular() && get_cfield( 'transparent_menu' ) ) {
+        $classes[] = 'navbar-transparent';
+        if ( get_cfield('transparent_menu_color') === 'black' ) {
+            $classes[] = 'on-light-bg';
+        } else {
+            $classes[] = 'on-dark-bg';
+        }
+    }
 
 	return $classes;
 }
@@ -1088,23 +1197,26 @@ if (!function_exists('kleo_frontend_files')):
 	// Register some javascript files
 	function kleo_frontend_files() 
 	{
+        $min = sq_option( 'dev_mode', 0 ) == 1 ? '' : '.min';
+
 		//head scripts
 		wp_register_script( 'kleo-init', get_template_directory_uri() . '/assets/js/init.js', array(),KLEO_THEME_VERSION, false );
 		wp_register_script( 'modernizr', get_template_directory_uri() . '/assets/js/modernizr.custom.46504.js', array(),KLEO_THEME_VERSION, false );
 
 		/* Footer scripts */
-		wp_register_script( 'bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array('jquery'),KLEO_THEME_VERSION, true );
+		wp_register_script( 'bootstrap', get_template_directory_uri() . '/assets/js/bootstrap' . $min . '.js', array('jquery'),KLEO_THEME_VERSION, true );
 		wp_register_script( 'waypoints', get_template_directory_uri() . '/assets/js/plugins/waypoints.min.js', array('jquery'),KLEO_THEME_VERSION, true );
 		wp_register_script( 'magnific-popup', get_template_directory_uri() . '/assets/js/plugins/magnific-popup/magnific.min.js', array('jquery'),KLEO_THEME_VERSION, true );
 		wp_register_script( 'caroufredsel', get_template_directory_uri() . '/assets/js/plugins/carouFredSel/jquery.carouFredSel-6.2.0-packed.js', array('jquery'),KLEO_THEME_VERSION, true );
 		wp_register_script( 'jquery-mousewheel', get_template_directory_uri() . '/assets/js/plugins/carouFredSel/helper-plugins/jquery.mousewheel.min.js', array('jquery', 'caroufredsel'),KLEO_THEME_VERSION, true );
 		wp_register_script( 'jquery-touchswipe', get_template_directory_uri() . '/assets/js/plugins/carouFredSel/helper-plugins/jquery.touchSwipe.min.js', array('jquery', 'caroufredsel'),KLEO_THEME_VERSION, true );
 		wp_register_script( 'isotope', get_template_directory_uri() . '/assets/js/plugins/jquery.isotope.min.js', array('jquery'),KLEO_THEME_VERSION, true );
-		wp_register_script( 'kleo-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'),KLEO_THEME_VERSION, true );
-		wp_register_script( 'kleo-shortcodes', get_template_directory_uri() . '/assets/js/shortcodes.min.js', array('jquery'),KLEO_THEME_VERSION, true );
-		wp_register_script( 'app', get_template_directory_uri() . '/assets/js/app.min.js', array('jquery'),KLEO_THEME_VERSION, true );
+		wp_register_script( 'app', get_template_directory_uri() . '/assets/js/app' . $min . '.js', array('jquery'),KLEO_THEME_VERSION, true );
 
-		//enque them
+        wp_register_script( 'three-canvas', get_template_directory_uri() . '/assets/js/plugins/snow/ThreeCanvas.js', array('app'), KLEO_THEME_VERSION, true );
+        wp_register_script( 'snow', get_template_directory_uri() . '/assets/js/plugins/snow/Snow.js', array('three-canvas'), KLEO_THEME_VERSION, true );
+
+        //enque them
 		wp_enqueue_script('kleo-init');
 		wp_enqueue_script('modernizr');
 		wp_enqueue_script('bootstrap');
@@ -1113,24 +1225,27 @@ if (!function_exists('kleo_frontend_files')):
 		wp_enqueue_script('caroufredsel');
 		wp_enqueue_script('jquery-touchswipe');
 		wp_enqueue_script('mediaelement');
-		wp_enqueue_script('isotope');	
-		wp_enqueue_script('kleo-scripts');
-		wp_enqueue_script('kleo-shortcodes');
+		wp_enqueue_script('isotope');
 		wp_enqueue_script('app');
 
 		$retina_logo = sq_option_url('logo_retina') != '' ? sq_option_url('logo_retina') : "";
 		if (is_singular() && get_cfield('logo_retina') ) {
 			$retina_logo = get_cfield('logo_retina');
 		}
+        $header_height = sq_option( 'menu_height', 88 );
+
 		$obj_array = array(
-				'ajaxurl' =>  home_url().'/wp-admin/admin-ajax.php',
-				'goTop' => sq_option('go_top', 1),
-				'ajaxSearch' => sq_option('ajax_search', 1),
-				'alreadyLiked' => sq_option('likes_already', 'You already like this'),
-				'retinaLogo' => $retina_logo,
-        'loadingmessage' => '<i class="icon icon-spin5 animate-spin"></i> '.__('Sending info, please wait...', 'kleo_framework')
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'themeUrl' => get_template_directory_uri(),
+            'goTop' => sq_option('go_top', 1),
+            'ajaxSearch' => sq_option('ajax_search', 1),
+            'alreadyLiked' => sq_option('likes_already', 'You already like this'),
+            'logo' => sq_option_url( 'logo', '' ),
+            'retinaLogo' => $retina_logo,
+            'headerHeight' => $header_height,
+            'loadingmessage' => '<i class="icon icon-spin5 animate-spin"></i> '.__('Sending info, please wait...', 'kleo_framework')
 		);
-    $obj_array = apply_filters( 'kleo_localize_app', $obj_array );
+        $obj_array = apply_filters( 'kleo_localize_app', $obj_array );
     
 		wp_localize_script( 'app', 'kleoFramework', $obj_array );
 
@@ -1140,17 +1255,16 @@ if (!function_exists('kleo_frontend_files')):
 		
 		
 		// Register the styles
-		wp_register_style( 'bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.min.css', array(), KLEO_THEME_VERSION, 'all' );  
-		wp_register_style( 'kleo-app', get_template_directory_uri() . '/assets/css/app.min.css', array(), KLEO_THEME_VERSION, 'all' );
-		wp_register_style( 'kleo-shortcodes', get_template_directory_uri() . '/assets/css/shortcodes.min.css', array(), KLEO_THEME_VERSION, 'all' );
+		wp_register_style( 'bootstrap', get_template_directory_uri() . '/assets/css/bootstrap' . $min . '.css', array(), KLEO_THEME_VERSION, 'all' );
+		wp_register_style( 'kleo-app', get_template_directory_uri() . '/assets/css/app' . $min . '.css', array(), KLEO_THEME_VERSION, 'all' );
 		wp_register_style( 'magnific-popup', get_template_directory_uri() . '/assets/js/plugins/magnific-popup/magnific.css', array(), KLEO_THEME_VERSION, 'all' );
 		wp_register_style( 'kleo-fonts', get_template_directory_uri() . '/assets/css/fontello.css', array(), KLEO_THEME_VERSION, 'all' );
 		wp_register_style( 'kleo-style', CHILD_THEME_URI . '/style.css', array(), KLEO_THEME_VERSION, 'all' );
+		wp_register_style( 'kleo-rtl', get_template_directory_uri() . '/rtl.css', array(), KLEO_THEME_VERSION, 'all' );
 
-		//enque required styles
+		//enqueue required styles
 		wp_enqueue_style( 'bootstrap' );
 		wp_enqueue_style( 'kleo-app' );
-		wp_enqueue_style( 'kleo-shortcodes' );   
 		wp_enqueue_style( 'magnific-popup' );
 		wp_enqueue_style( 'kleo-fonts' );
 		wp_enqueue_style( 'mediaelement' );
@@ -1164,17 +1278,24 @@ add_action( 'wp_enqueue_scripts', 'kleo_load_files_plugin_compat', 1000 );
 
 function kleo_load_files_plugin_compat()
 {
-	wp_register_style( 'kleo-plugins', get_template_directory_uri() . '/assets/css/plugins.min.css', array(), KLEO_THEME_VERSION, 'all' );
+    $min = sq_option( 'dev_mode', 0 ) == 0 ? '.min' : '';
+
+	wp_register_style( 'kleo-plugins', get_template_directory_uri() . '/assets/css/plugins' . $min . '.css', array(), KLEO_THEME_VERSION, 'all' );
 	wp_enqueue_style( 'kleo-plugins' );
 	wp_enqueue_style( 'mediaelement-skin' );
+
+    do_action('kleo_late_styles');
 	
-	//enque child theme style only if activated
+	//enqueue child theme style only if activated
 	if (is_child_theme()) {
+        if (is_rtl()) {
+            wp_enqueue_style( 'kleo-rtl' );
+        }
 		wp_enqueue_style( 'kleo-style' );
 	}
 
     //Visual composer file
-    wp_dequeue_style( 'js_composer_front' );
+    //wp_dequeue_style( 'js_composer_front' );
 	
 	
 } // kleo_load_css_files_plugin_compat()
@@ -1235,7 +1356,7 @@ add_filter('login_headertitle', 'kleo_new_wp_login_title');
 :: Load Fonts and Quick CSS
 ***************************************************/
 $kleo_theme->add_google_fonts_link();
-add_action('wp_head',array($kleo_theme, 'render_css'));
+add_action( 'wp_head', array($kleo_theme, 'render_css'), 15 );
 
 
 
@@ -1318,23 +1439,52 @@ if (!function_exists('kleo_ajax_login')){
 		// Check the nonce, if it fails the function will break
 		check_ajax_referer( 'kleo-ajax-login-nonce', 'security' );
 
-		// Nonce is checked, get the POST data and sign in user
-		$info = array();
-		$info['user_login'] = $_POST['log'];
-		$info['user_password'] = $_POST['pwd'];
-		$info['remember'] = (isset( $_POST['remember'] ) && $_POST['remember'] === true) ? true : false ;
+		// Nonce is checked, continue
+        $secure_cookie = '';
 
-		$info = apply_filters('kleo_ajaxlogin_atts', $info);
-		
-		$user_signon = wp_signon( $info, false );
-		if ( is_wp_error($user_signon) ){
-			echo json_encode(array( 'loggedin' => false, 'message' => '<span class="wrong-response"><i class="icon icon-attention"></i> ' . __( 'Wrong username or password. Please try again.', 'kleo_framework' ) . '</span>' ));
-		} else {
+        // If the user wants ssl but the session is not ssl, force a secure cookie.
+        if ( !empty($_POST['log']) && !force_ssl_admin() ) {
+            $user_name = sanitize_user($_POST['log']);
+            if ( $user = get_user_by('login', $user_name) ) {
+                if ( get_user_option('use_ssl', $user->ID) ) {
+                    $secure_cookie = true;
+                    force_ssl_admin(true);
+                }
+            }
+        }
+
+        if ( isset( $_REQUEST['redirect_to'] ) ) {
+            $redirect_to = $_REQUEST['redirect_to'];
+            // Redirect to https if user wants ssl
+            if ( $secure_cookie && false !== strpos($redirect_to, 'wp-admin') )
+                $redirect_to = preg_replace('|^http://|', 'https://', $redirect_to);
+        } else {
+            $redirect_to = '';
+        }
+
+
+		$user_signon = wp_signon( '', $secure_cookie );
+		if ( is_wp_error( $user_signon ) ){
+            $error_msg = $user_signon->get_error_message();
+			echo json_encode(array( 'loggedin' => false, 'message' => '<span class="wrong-response"><i class="icon icon-attention"></i> ' . $error_msg . '</span>' ));
+            //echo json_encode(array( 'loggedin' => false, 'message' => '<span class="wrong-response"><i class="icon icon-attention"></i> ' . __( 'Wrong username or password. Please try again.', 'kleo_framework' ) . '</span>' ));
+        } else {
             if ( sq_option( 'login_redirect' , 'default' ) == 'reload' ) {
                 $redirecturl = NULL;
             }
             else {
-                $redirecturl = apply_filters( 'login_redirect', '', '', $user_signon );
+                $requested_redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
+                /**
+                 * Filter the login redirect URL.
+                 *
+                 * @since 3.0.0
+                 *
+                 * @param string           $redirect_to           The redirect destination URL.
+                 * @param string           $requested_redirect_to The requested redirect destination URL passed as a parameter.
+                 * @param WP_User|WP_Error $user                  WP_User object if login was successful, WP_Error object otherwise.
+                 */
+                $redirecturl = apply_filters( 'login_redirect', $redirect_to, $requested_redirect_to, $user_signon );
+
             }
 
 			echo json_encode(array('loggedin'=>true, 'redirecturl' => $redirecturl, 'message'=> '<span class="good-response"><i class="icon icon-ok-circled"></i> ' . __( 'Login successful, redirecting...','kleo_framework' ) . '</span>' ));
@@ -1358,94 +1508,150 @@ if (!function_exists('kleo_ajax_login_priv')) {
 if (!function_exists('kleo_lost_password_ajax')) {
 function kleo_lost_password_ajax()
 {
-    global $wpdb;
-    $errors = array();
+    global $wpdb, $wp_hasher;
+
+    $errors = new WP_Error();
+
     if ( isset($_POST) ) {
 
-      if ( empty( $_POST['email'] ) )
-      {
-         _e( '<strong>ERROR</strong>: The e-mail field is empty.', 'kleo_framework' );
-         die();
-      }
-      else {
-          do_action('lostpassword_post');
-          // redefining user_login ensures we return the right case in the email
-          $user_data = get_user_by( 'email', trim( $_POST['email'] ) );
+        if ( empty( $_POST['user_login'] ) ) {
+            $errors->add('empty_username', __('<strong>ERROR</strong>: Enter a username or e-mail address.'));
+        } else if ( strpos( $_POST['user_login'], '@' ) ) {
+            $user_data = get_user_by( 'email', trim( $_POST['user_login'] ) );
+            if ( empty( $user_data ) )
+                $errors->add('invalid_email', __('<strong>ERROR</strong>: There is no user registered with that email address.'));
+        } else {
+            $login = trim($_POST['user_login']);
+            $user_data = get_user_by('login', $login);
+        }
 
-          if ( ! isset( $user_data->user_email ) || strtolower( $user_data->user_email ) != strtolower( $_POST['email'] ) ) {
-            echo '<span class="wrong-response">' . __('<strong>ERROR</strong>: Invalid  e-mail.', 'kleo_framework') . '</span>';
+        /**
+         * Fires before errors are returned from a password reset request.
+         *
+         * @since 2.1.0
+         */
+        do_action( 'lostpassword_post' );
+
+        if ( $errors->get_error_code() ) {
+            echo '<span class="wrong-response">' . $errors->get_error_message() . '</span>';
             die();
-          } else {
-              $user_login = $user_data->user_login;
-              $user_email = $user_data->user_email;
+        }
 
-              do_action('retrieve_password', $user_login);
+        if ( !$user_data ) {
+            $errors->add('invalidcombo', __('<strong>ERROR</strong>: Invalid username or e-mail.'));
+            echo '<span class="wrong-response">' . $errors->get_error_message() . '</span>';
+            die();
+        }
 
-              $allow = apply_filters( 'allow_password_reset', true, $user_data->ID );
+        // Redefining user_login ensures we return the right case in the email.
+        $user_login = $user_data->user_login;
+        $user_email = $user_data->user_email;
 
-              if ( ! $allow )
-                echo new WP_Error('no_password_reset', __('Password reset is not allowed for this user'));
-              else if ( is_wp_error($allow) )
-                echo $allow;
+        /**
+         * Fires before a new password is retrieved.
+         *
+         * @since 1.5.0
+         * @deprecated 1.5.1 Misspelled. Use 'retrieve_password' hook instead.
+         *
+         * @param string $user_login The user login name.
+         */
+        do_action( 'retreive_password', $user_login );
 
-              // Generate something random for a password reset key.
-              $key = wp_generate_password( 20, false );
+        /**
+         * Fires before a new password is retrieved.
+         *
+         * @since 1.5.1
+         *
+         * @param string $user_login The user login name.
+         */
+        do_action( 'retrieve_password', $user_login );
 
-              do_action( 'retrieve_password_key', $user_login, $key );
+        /**
+         * Filter whether to allow a password to be reset.
+         *
+         * @since 2.7.0
+         *
+         * @param bool true           Whether to allow the password to be reset. Default true.
+         * @param int  $user_data->ID The ID of the user attempting to reset a password.
+         */
+        $allow = apply_filters( 'allow_password_reset', true, $user_data->ID );
 
-              // Now insert the key, hashed, into the DB.
-              if ( empty( $wp_hasher ) ) {
-                require_once ABSPATH . 'wp-includes/class-phpass.php';
-                $wp_hasher = new PasswordHash( 8, true );
-              }
-              $hashed = $wp_hasher->HashPassword( $key );
-              $wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user_login ) );
+        if ( ! $allow ) {
+            echo '<span class="wrong-response">' . __('Password reset is not allowed for this user') . '</span>';
+            die();
+        }
+        else if ( is_wp_error($allow) ) {
+            echo '<span class="wrong-response">' . $allow->get_error_message() . '</span>';
+            die();
+        }
 
-              $message = __('Someone requested that the password be reset for the following account:') . "\r\n\r\n";
-              $message .= network_home_url( '/' ) . "\r\n\r\n";
-              $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
-              $message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
-              $message .= __('To reset your password, visit the following address:') . "\r\n\r\n";
-              $message .= '<' . network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . ">\r\n";
+        // Generate something random for a password reset key.
+        $key = wp_generate_password( 20, false );
 
-              if ( is_multisite() )
-                $blogname = $GLOBALS['current_site']->site_name;
-              else
-                // The blogname option is escaped with esc_html on the way into the database in sanitize_option
-                // we want to reverse this for the plain text arena of emails.
-                $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
+        /**
+         * Fires when a password reset key is generated.
+         *
+         * @since 2.5.0
+         *
+         * @param string $user_login The username for the user.
+         * @param string $key        The generated password reset key.
+         */
+        do_action( 'retrieve_password_key', $user_login, $key );
 
-              $title = sprintf( __('[%s] Password Reset'), $blogname );
+        // Now insert the key, hashed, into the DB.
+        if ( empty( $wp_hasher ) ) {
+            require_once ABSPATH . WPINC . '/class-phpass.php';
+            $wp_hasher = new PasswordHash( 8, true );
+        }
+        $hashed = $wp_hasher->HashPassword( $key );
+        $wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user_login ) );
 
-              /**
-               * Filter the subject of the password reset email.
-               *
-               * @since 2.8.0
-               *
-               * @param string $title Default email title.
-               */
-              $title = apply_filters( 'retrieve_password_title', $title );
-              /**
-               * Filter the message body of the password reset mail.
-               *
-               * @since 2.8.0
-               *
-               * @param string $message Default mail message.
-               * @param string $key     The activation key.
-               */
-              $message = apply_filters( 'retrieve_password_message', $message, $key, $user_login );
+        $message = __('Someone requested that the password be reset for the following account:') . "\r\n\r\n";
+        $message .= network_home_url( '/' ) . "\r\n\r\n";
+        $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
+        $message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
+        $message .= __('To reset your password, visit the following address:') . "\r\n\r\n";
+        $message .= '<' . network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . ">\r\n";
 
-              if ( $message && !wp_mail($user_email, $title, $message) ) {
-                echo '<span class="wrong-response">' . __("Failure!", 'kleo_framework');
-                echo __("The e-mail could not be sent.", 'kleo_framework');
-                echo "</span>";
-                die();
-              } else {
-                echo '<span class="good-response">' . __("Email successfully sent!", 'kleo_framework')."</span>";
-                die();
-              }
-          }
-      }
+        if ( is_multisite() )
+            $blogname = $GLOBALS['current_site']->site_name;
+        else
+            /*
+             * The blogname option is escaped with esc_html on the way into the database
+             * in sanitize_option we want to reverse this for the plain text arena of emails.
+             */
+            $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
+
+        $title = sprintf( __('[%s] Password Reset'), $blogname );
+
+        /**
+         * Filter the subject of the password reset email.
+         *
+         * @since 2.8.0
+         *
+         * @param string $title Default email title.
+         */
+        $title = apply_filters( 'retrieve_password_title', $title );
+        /**
+         * Filter the message body of the password reset mail.
+         *
+         * @since 2.8.0
+         *
+         * @param string $message Default mail message.
+         * @param string $key     The activation key.
+         */
+        $message = apply_filters( 'retrieve_password_message', $message, $key );
+
+
+        if ( $message && !wp_mail( $user_email, wp_specialchars_decode( $title ), $message ) ) {
+            echo '<span class="wrong-response">' . __("Failure!", 'kleo_framework');
+            echo __('The e-mail could not be sent.');
+            echo "</span>";
+            die();
+        } else {
+            echo '<span class="good-response">' . __("Email successfully sent!", 'kleo_framework')."</span>";
+            die();
+        }
     }
     die();
 }

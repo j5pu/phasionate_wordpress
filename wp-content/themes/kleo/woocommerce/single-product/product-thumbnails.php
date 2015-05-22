@@ -4,10 +4,12 @@
  *
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     2.0.3
+ * @version     2.3.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
 
 global $post, $product, $woocommerce;
 
@@ -44,6 +46,8 @@ if ( $attachment_ids  ) {
 		$classes = array( 'zoom' );
 
 		$image_link = wp_get_attachment_url( $attachment_id );
+        $image_src = wp_get_attachment_image_src( $attachment_id, 'shop_single' );
+        $image_link = $image_src[0];
 
 		if ( ! $image_link )
 			continue;

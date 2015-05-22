@@ -160,7 +160,8 @@ function kleo_pmpro_restrict_rules()
 		}
 
 		/* Add other restrictions for own profile */
-		do_action('kleo_pmro_extra_restriction_before_my_profile',$restrict_options);
+		do_action('kleo_pmro_extra_restriction_before_my_profile',$restrict_options); /* Deprecated */
+		do_action('kleo_pmpro_extra_restriction_before_my_profile',$restrict_options);
 
 		//allow me to view other parts of my profile
 		if (bp_is_my_profile())
@@ -169,7 +170,7 @@ function kleo_pmpro_restrict_rules()
 		}
 	}
     
-	//loop trought remaining restrictions
+	//loop trough remaining restrictions
 	foreach($final as $rk => $rv)
 	{
 		if(preg_match($rk, $uri))
@@ -178,7 +179,8 @@ function kleo_pmpro_restrict_rules()
 		}
 	}
 
-	do_action('kleo_pmro_extra_restriction_rules',$restrict_options);
+	do_action( 'kleo_pmro_extra_restriction_rules', $restrict_options ); /* Deprecated */
+	do_action( 'kleo_pmpro_extra_restriction_rules', $restrict_options );
 }
 endif;
 
@@ -486,3 +488,60 @@ function pmpro_data_set($field, $value) {
 
 	echo '</table>';
 }
+
+
+
+/* Restrict email messages content to non paying members */
+if ( ! function_exists( 'kleo_pmpro_restrict_pm_email_content' ) ) {
+    function kleo_pmpro_restrict_pm_email_content($email_content, $sender_name, $subject, $content, $message_link, $settings_link, $ud)
+    {
+
+        $restrict_message = false;
+        $restrict_options = kleo_memberships();
+        $area = 'pm';
+
+        if (pmpro_getMembershipLevelForUser($ud->ID)) {
+            $current_level_obj = pmpro_getMembershipLevelForUser($ud->ID);
+            $current_level = $current_level_obj->ID;
+
+            //if restrict my level
+            if ($restrict_options[$area]['type'] == 2 && isset($restrict_options[$area]['levels']) && is_array($restrict_options[$area]['levels']) && !empty($restrict_options[$area]['levels']) && in_array($current_level, $restrict_options[$area]['levels'])) {
+                $restrict_message = true;
+            }
+
+
+        } else { /* not a member */
+            if ($restrict_options[$area]['type'] == 2 && isset($restrict_options[$area]['not_member']) && $restrict_options[$area]['not_member'] == 1) {
+                $restrict_message = true;
+            }
+        }
+
+        if ($restrict_message) {
+
+            $content = 'Your current membership does not allow private messages access.';
+            $email_content = sprintf(__(
+                '%1$s sent you a new message:
+
+Subject: %2$s
+
+"%3$s"
+
+To view and read your messages please log in and visit: %4$s
+
+---------------------
+', 'buddypress'), $sender_name, $subject, $content, $message_link);
+
+            // Only show the disable notifications line if the settings component is enabled
+            if (bp_is_active('settings')) {
+                $email_content .= sprintf(__('To disable these notifications, please log in and go to: %s', 'buddypress'), $settings_link);
+            }
+
+            return $email_content;
+        }
+
+        return $email_content;
+
+    }
+}
+add_filter( 'messages_notification_new_message_message', 'kleo_pmpro_restrict_pm_email_content', 11, 7 );
+

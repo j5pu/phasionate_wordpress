@@ -29,12 +29,20 @@
 		 */
 		do_action('kleo_after_footer');
 		?>
-		
+
 	</div><!-- #page -->
-	
+
+    <?php
+    /**
+     * After page hook
+     * @hooked kleo_show_side_menu 10
+     */
+    do_action('kleo_after_page');
+    ?>
+
 	<!-- Analytics -->
 	<?php echo sq_option('analytics', ''); ?>
-	
+
 	<?php wp_footer(); ?>
 
 </body>

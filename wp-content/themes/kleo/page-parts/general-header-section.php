@@ -32,9 +32,10 @@ $primary_menu = wp_nav_menu( array(
         'theme_location'    => 'primary',
         'depth'             => 3,
         'container'         => 'div',
-        'container_class'   => 'collapse navbar-collapse nav-collapse pull-right',
+        'container_class'   => 'collapse navbar-collapse nav-collapse',
         'menu_class'        => 'nav navbar-nav',
-        'fallback_cb'       => 'kleo_walker_nav_menu::fallback',
+        //'fallback_cb'       => 'kleo_walker_nav_menu::fallback',
+        'fallback_cb'       => '',
         'walker'            => new kleo_walker_nav_menu(),
         'echo'              => false
     )
@@ -69,17 +70,38 @@ $primary_menu = wp_nav_menu( array(
 		
 			<?php } //end top bar condition ?>
 
-			<div class="kleo-main-header">
+            <?php
+            $header_style = sq_option( 'header_layout', 'normal' );
+            if ( $header_style == 'right_logo' ) {
+                $header_class = ' logo-to-right';
+            } elseif ( $header_style == 'center_logo' ) {
+                $header_class = ' header-centered';
+            } elseif ( $header_style == 'left_logo' ) {
+                $header_class = ' header-left';
+            } else {
+                $header_class = ' header-normal';
+            }
+            ?>
+            <div class="kleo-main-header<?php echo $header_class;?>">
 				<div class="container">   
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<div class="navbar-header">
 						<div class="kleo-mobile-switch">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-								<span class="sr-only"><?php _e("Toggle navigation",'kleo_framework');?></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
+
+                            <?php
+                            $mobile_menu_atts = 'class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse"';
+                            /* open the Side menu instead of the normal menu */
+                            if ( sq_option('side_menu', 0) == 1 && sq_option( 'side_menu_mobile', 0 ) == 1 ) {
+                                $mobile_menu_atts = 'class="navbar-toggle open-sidebar"';
+                            }
+                            ?>
+                            <button type="button" <?php echo $mobile_menu_atts;?>>
+                                <span class="sr-only"><?php _e("Toggle navigation",'kleo_framework');?></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+
 						</div>
 						
 						<div class="kleo-mobile-icons">
@@ -97,9 +119,9 @@ $primary_menu = wp_nav_menu( array(
 						</div>
 						
 						<strong class="logo">
-							<a href="<?php echo home_url();?>">PHASIONÂTE
+							<a href="<?php echo home_url();?>">
 								
-								<?php /*COMENTADO if ($logo_path != '') { ?>
+								<?php if ($logo_path != '') { ?>
 								
 									<img id="logo_img" title="<?php bloginfo('name'); ?>" src="<?php echo $logo_path; ?>" alt="<?php bloginfo('name'); ?>">
 									
@@ -107,11 +129,17 @@ $primary_menu = wp_nav_menu( array(
 									
 									<?php bloginfo('name'); ?>
 									
-								<?php }*/ ?>
+								<?php } ?>
 									
 							</a>
 						</strong>
 					</div>
+
+                    <?php if ($header_style == 'left_logo') : ?>
+                    <div class="header-banner">
+                        <?php echo do_shortcode( sq_option( 'header_banner', '' ) );?>
+                    </div>
+                    <?php endif; ?>
 
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<?php

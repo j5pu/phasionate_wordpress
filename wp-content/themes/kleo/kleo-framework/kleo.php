@@ -7,9 +7,9 @@ class Kleo {
      */
     public $args;
 		
-		private $custom_css;
+    private $custom_css;
 		
-		private $tgm_plugins;
+    private $tgm_plugins;
     
 	/**
 	 * Constructor method for the Kleo class. It controls the load order of the required files for running 
@@ -43,7 +43,7 @@ class Kleo {
 	function constants() {
 
 		/* Sets the framework version number. */
-		define( 'KLEO_VERSION', '2.0' );
+		define( 'KLEO_VERSION', '2.3' );
         
 		/* Sets the framework domain */
 		define( 'KLEO_DOMAIN', str_replace(" ","_",strtolower(wp_get_theme())) );
@@ -71,6 +71,12 @@ class Kleo {
 		
 		/* Sets the url to the theme library folder. */
 		define( 'KLEO_LIB_URI', trailingslashit( THEME_URI ) . 'lib' );
+
+        /* Sets the path to the theme framework folder. */
+        define( 'KLEO_FW_DIR', trailingslashit( THEME_DIR ) . 'kleo-framework' );
+
+        /* Sets the url to the theme framework folder. */
+        define( 'KLEO_FW_URI', trailingslashit( THEME_URI ) . 'kleo-framework' );
 		
 
 		/* If is a AJAX request */
@@ -195,19 +201,19 @@ class Kleo {
     
     public function add_css($data)
     {
-			$this->custom_css .= $data;
+        $this->custom_css .= $data;
     }
     
     public function render_css() {
 
-			echo "\n<style>\n";
-			echo $this->custom_css;
+        echo "\n<style>\n";
+        echo $this->custom_css;
 
-			if(sq_option('quick_css'))
-			{
-				echo sq_option('quick_css')."\n";
-			}
-			echo "\n</style>\n";
+        if(sq_option('quick_css'))
+        {
+            echo sq_option('quick_css')."\n";
+        }
+        echo "\n</style>\n";
     }
     
      
@@ -387,7 +393,7 @@ class Kleo {
                     $output .= '.lead p, p.lead, article .article-meta .entry-date, .single-attachment .post-time, #buddypress #groups-list .item-title, .popover-title, .nav-tabs > li > a, .nav-pills > li > a, .panel-kleo .panel-title {font-family:'.$font['font-family'].';}';
                     $output .= '#rtm-gallery-title-container .rtm-gallery-title, #item-body .rtmedia-container h2 {font-family:' . $font['font-family'] . ' !important;}';
                 } elseif( $section == 'body' ) {
-                    $output .= 'li.bbp-forum-info .bbp-forum-title, .box-style .feature-item .feature-title, .woocommerce #accordion-woo .panel-title, .woocommerce ul.products li.product h3, .woocommerce-page ul.products li.product h3, .woocommerce .kleo-cart-totals .shipping-calculator-button {font-family:'.$font['font-family'].';}';
+                    $output .= 'li.bbp-forum-info .bbp-forum-title, .woocommerce #accordion-woo .panel-title, .woocommerce ul.products li.product h3, .woocommerce-page ul.products li.product h3, .woocommerce .kleo-cart-totals .shipping-calculator-button {font-family:'.$font['font-family'].';}';
                 }
 				//size
 				if (isset($font['font-size']) && !empty($font['font-size'])) {

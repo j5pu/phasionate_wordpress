@@ -25,7 +25,8 @@ class Kleo_Recent_Posts_widget extends WP_Widget {
 		$title = apply_filters( 'widget_title', $instance['title'] );
 		$limit = $instance['limit'];
 		$length = (int)( $instance['length'] );
-		$thumb = $instance['thumb'];
+		$thumb = isset($instance['thumb']) ? $instance['thumb'] : '';
+		$excerpt = $instance['excerpt'];
 		$cat = $instance['cat'];
 		$post_type = $instance['post_type'];
 
@@ -37,12 +38,13 @@ class Kleo_Recent_Posts_widget extends WP_Widget {
 		}
 
 		$args = array(
-				'numberposts' => $limit,
-				'cat' => $cat,
-				'post_type' => $post_type
+            'numberposts' => $limit,
+            'cat' => $cat,
+            'post_type' => $post_type
 		);
 
 		$kleo_recent_posts = get_posts( $args );
+        
 		?>
 
 		<div>
@@ -55,13 +57,17 @@ class Kleo_Recent_Posts_widget extends WP_Widget {
 							<?php if( $thumb == 1 ) : /* Display author image */ ?>
 
 								<span class="news-thumb"><?php echo get_avatar( get_the_author_meta('ID'), 40 ); ?></span>
-								<span class="news-headline"><?php the_title(); ?><small class="news-time"><?php the_date();?></small></span>
+								<span class="news-headline"><?php the_title(); ?><small class="news-time"><?php echo get_the_date();?></small></span>
+
+                                <?php if ( $excerpt == 1 ) { ?>
+                                    <span class="news-excerpt"><?php echo kleo_excerpt( $length, false ); ?></span>
+                                <?php } ?>
 
                             <?php elseif ( $thumb == 2 ) : /* Display post thumbnail */ ?>
                                 <?php
                                 $img_url = kleo_get_post_thumbnail_url();
                                 if ( $img_url != '' ) {
-                                    $image = aq_resize( $img_url, 40, null, true, true, true );
+                                    $image = aq_resize( $img_url, 44, 44, true, true, true );
                                     if( ! $image ) {
                                         $image = $img_url;
                                     }
@@ -73,11 +79,19 @@ class Kleo_Recent_Posts_widget extends WP_Widget {
 
                                 ?>
                                 <span class="news-thumb"><?php echo $html_img; ?></span>
-                                <span class="news-headline"><?php the_title(); ?><small class="news-time"><?php the_date();?></small></span>
+                                <span class="news-headline"><?php the_title(); ?><small class="news-time"><?php echo get_the_date();?></small></span>
+
+                                <?php if ( $excerpt == 1 ) { ?>
+                                    <span class="news-excerpt"><?php echo kleo_excerpt( $length, false ); ?></span>
+                                <?php } ?>
 
                             <?php else : ?>
 
-								<span><?php the_title(); ?><small class="news-time"><?php the_date();?></small></span>
+								<span><?php the_title(); ?><small class="news-time"><?php echo get_the_date();?></small></span>
+
+                                <?php if ( $excerpt == 1 ) { ?>
+                                    <span class="news-excerpt"><?php echo kleo_excerpt( $length, false ); ?></span>
+                                <?php } ?>
 
 							<?php endif; ?>
 							
@@ -106,6 +120,7 @@ class Kleo_Recent_Posts_widget extends WP_Widget {
 		$instance['limit'] = $new_instance['limit'];
 		$instance['length'] = (int)( $new_instance['length'] );
 		$instance['thumb'] = $new_instance['thumb'];
+		$instance['excerpt'] = $new_instance['excerpt'];
 		$instance['cat'] = $new_instance['cat'];
 		$instance['post_type'] = $new_instance['post_type'];
 
@@ -122,8 +137,9 @@ class Kleo_Recent_Posts_widget extends WP_Widget {
         $defaults = array(
             'title' => '',
             'limit' => 5,
-            'length' => 10,
+            'length' => 100,
             'thumb' => true,
+            'excerpt' => '',
             'cat' => '',
             'post_type' => '',
             'date' => true,
@@ -134,6 +150,7 @@ class Kleo_Recent_Posts_widget extends WP_Widget {
 		$limit = $instance['limit'];
 		$length = (int)($instance['length']);
 		$thumb = $instance['thumb'];
+		$excerpt = $instance['excerpt'];
 		$cat = $instance['cat'];
 		$post_type = $instance['post_type'];
 
@@ -151,8 +168,15 @@ class Kleo_Recent_Posts_widget extends WP_Widget {
 				<?php } ?>
 			</select>
 		</p>
+        <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'excerpt' ) ); ?>"><?php _e( 'Display excerpt?', 'kleo_framework' ); ?></label>
+            <select id="<?php echo $this->get_field_id( 'excerpt' ); ?>" name="<?php echo $this->get_field_name( 'excerpt' ); ?>">
+                <option value="">No</option>
+                <option <?php selected( '1', $excerpt ); ?> value="1">Yes</option>
+            </select>&nbsp;
+        </p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'length' ) ); ?>"><?php _e( 'Excerpt length:', 'kleo_framework' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'length' ) ); ?>"><?php _e( 'Excerpt length(characters):', 'kleo_framework' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'length' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'length' ) ); ?>" type="text" value="<?php echo $length; ?>" />
 		</p>
 

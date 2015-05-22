@@ -1,9 +1,428 @@
+/**
+ * Javascript logic
+ *
+ * SCRIPTS
+ * SHORTCODES
+ * THEME LOGIC
+ */
 
-// EDIT BELOW THIS LINE FOR CUSTOM EFFECTS, TWEAKS AND INITS
+
 
 /*--------------------------------------------------
 
-Custom overwiev:
+ LOADING SCRIPTS
+ ---------------------------------------------------*/
+
+/* matchmedia*/
+window.matchMedia=window.matchMedia||function(a){"use strict";var c,d=a.documentElement,e=d.firstElementChild||d.firstChild,f=a.createElement("body"),g=a.createElement("div");return g.id="mq-test-1",g.style.cssText="position:absolute;top:-100em",f.style.background="none",f.appendChild(g),function(a){return g.innerHTML='&shy;<style media="'+a+'"> #mq-test-1 { width: 42px; }</style>',d.insertBefore(f,e),c=42===g.offsetWidth,d.removeChild(f),{matches:c,media:a}}}(document);
+
+
+
+/* Respond.js v1.1.0: min/max-width media query polyfill. (c) Scott Jehl. MIT/GPLv2 Lic. j.mp/respondjs  */
+(function(a){"use strict";function x(){u(!0)}var b={};if(a.respond=b,b.update=function(){},b.mediaQueriesSupported=a.matchMedia&&a.matchMedia("only all").matches,!b.mediaQueriesSupported){var q,r,t,c=a.document,d=c.documentElement,e=[],f=[],g=[],h={},i=30,j=c.getElementsByTagName("head")[0]||d,k=c.getElementsByTagName("base")[0],l=j.getElementsByTagName("link"),m=[],n=function(){for(var b=0;l.length>b;b++){var c=l[b],d=c.href,e=c.media,f=c.rel&&"stylesheet"===c.rel.toLowerCase();d&&f&&!h[d]&&(c.styleSheet&&c.styleSheet.rawCssText?(p(c.styleSheet.rawCssText,d,e),h[d]=!0):(!/^([a-zA-Z:]*\/\/)/.test(d)&&!k||d.replace(RegExp.$1,"").split("/")[0]===a.location.host)&&m.push({href:d,media:e}))}o()},o=function(){if(m.length){var b=m.shift();v(b.href,function(c){p(c,b.href,b.media),h[b.href]=!0,a.setTimeout(function(){o()},0)})}},p=function(a,b,c){var d=a.match(/@media[^\{]+\{([^\{\}]*\{[^\}\{]*\})+/gi),g=d&&d.length||0;b=b.substring(0,b.lastIndexOf("/"));var h=function(a){return a.replace(/(url\()['"]?([^\/\)'"][^:\)'"]+)['"]?(\))/g,"$1"+b+"$2$3")},i=!g&&c;b.length&&(b+="/"),i&&(g=1);for(var j=0;g>j;j++){var k,l,m,n;i?(k=c,f.push(h(a))):(k=d[j].match(/@media *([^\{]+)\{([\S\s]+?)$/)&&RegExp.$1,f.push(RegExp.$2&&h(RegExp.$2))),m=k.split(","),n=m.length;for(var o=0;n>o;o++)l=m[o],e.push({media:l.split("(")[0].match(/(only\s+)?([a-zA-Z]+)\s?/)&&RegExp.$2||"all",rules:f.length-1,hasquery:l.indexOf("(")>-1,minw:l.match(/\(\s*min\-width\s*:\s*(\s*[0-9\.]+)(px|em)\s*\)/)&&parseFloat(RegExp.$1)+(RegExp.$2||""),maxw:l.match(/\(\s*max\-width\s*:\s*(\s*[0-9\.]+)(px|em)\s*\)/)&&parseFloat(RegExp.$1)+(RegExp.$2||"")})}u()},s=function(){var a,b=c.createElement("div"),e=c.body,f=!1;return b.style.cssText="position:absolute;font-size:1em;width:1em",e||(e=f=c.createElement("body"),e.style.background="none"),e.appendChild(b),d.insertBefore(e,d.firstChild),a=b.offsetWidth,f?d.removeChild(e):e.removeChild(b),a=t=parseFloat(a)},u=function(b){var h="clientWidth",k=d[h],m="CSS1Compat"===c.compatMode&&k||c.body[h]||k,n={},o=l[l.length-1],p=(new Date).getTime();if(b&&q&&i>p-q)return a.clearTimeout(r),r=a.setTimeout(u,i),void 0;q=p;for(var v in e)if(e.hasOwnProperty(v)){var w=e[v],x=w.minw,y=w.maxw,z=null===x,A=null===y,B="em";x&&(x=parseFloat(x)*(x.indexOf(B)>-1?t||s():1)),y&&(y=parseFloat(y)*(y.indexOf(B)>-1?t||s():1)),w.hasquery&&(z&&A||!(z||m>=x)||!(A||y>=m))||(n[w.media]||(n[w.media]=[]),n[w.media].push(f[w.rules]))}for(var C in g)g.hasOwnProperty(C)&&g[C]&&g[C].parentNode===j&&j.removeChild(g[C]);for(var D in n)if(n.hasOwnProperty(D)){var E=c.createElement("style"),F=n[D].join("\n");E.type="text/css",E.media=D,j.insertBefore(E,o.nextSibling),E.styleSheet?E.styleSheet.cssText=F:E.appendChild(c.createTextNode(F)),g.push(E)}},v=function(a,b){var c=w();c&&(c.open("GET",a,!0),c.onreadystatechange=function(){4!==c.readyState||200!==c.status&&304!==c.status||b(c.responseText)},4!==c.readyState&&c.send(null))},w=function(){var b=!1;try{b=new a.XMLHttpRequest}catch(c){b=new a.ActiveXObject("Microsoft.XMLHTTP")}return function(){return b}}();n(),b.update=n,a.addEventListener?a.addEventListener("resize",x,!1):a.attachEvent&&a.attachEvent("onresize",x)}})(this);
+
+
+
+/*
+ * Project: Twitter Bootstrap Hover Dropdown
+ * Author: Cameron Spear
+ * Contributors: Mattia Larentis
+ * Dependencies: Twitter Bootstrap's Dropdown plugin
+ * A simple plugin to enable twitter bootstrap dropdowns to active on hover and provide a nice user experience.
+ * No license, do what you want. I'd love credit or a shoutout, though.
+ * http://cameronspear.com/blog/twitter-bootstrap-dropdown-on-hover-plugin/
+ */
+(function(b,a,c){var d=b();b.fn.dropdownHover=function(e){d=d.add(this.parent());return this.each(function(){var k=b(this),j=k.parent(),i={delay:200,instantlyCloseOthers:true},h={delay:b(this).data("delay"),instantlyCloseOthers:b(this).data("close-others")},f=b.extend(true,{},i,e,h),g;j.hover(function(l){if(!j.hasClass("open")&&!k.is(l.target)){return true}if(f.instantlyCloseOthers===true){d.removeClass("open")}a.clearTimeout(g);j.addClass("open")},function(){g=a.setTimeout(function(){j.removeClass("open")},f.delay)});k.hover(function(){if(f.instantlyCloseOthers===true){d.removeClass("open")}a.clearTimeout(g);j.addClass("open")});j.find(".dropdown-submenu").each(function(){var m=b(this);var l;m.hover(function(){a.clearTimeout(l);m.children(".dropdown-menu").show();m.siblings().children(".dropdown-menu").hide()},function(){var n=m.children(".dropdown-menu");l=a.setTimeout(function(){n.hide()},f.delay)})})})};})(jQuery,this);
+
+
+
+/* =========================================================
+ * bootstrap-tabdrop.js
+ * http://www.eyecon.ro/bootstrap-tabdrop
+ * =========================================================
+ * Copyright 2012 Stefan Petre
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================= */
+
+!function(c){var b=(function(){var h=[];var d=false;var g;var e=function(i){clearTimeout(g);g=setTimeout(f,100)};var f=function(){for(var k=0,j=h.length;k<j;k++){h[k].apply()}};return{register:function(i){h.push(i);if(d===false){c(window).bind("resize",e);d=true}},unregister:function(l){for(var k=0,j=h.length;k<j;k++){if(h[k]==l){delete h[k];break}}}}}());var a=function(e,d){this.element=c(e);this.dropdown=c('<li class="dropdown hide pull-right tabdrop"><a class="dropdown-toggle" data-toggle="dropdown" href="#">'+d.text+'</a><ul class="dropdown-menu"></ul></li>').prependTo(this.element);if(this.element.parent().is(".tabs-below")){this.dropdown.addClass("dropup")}b.register(c.proxy(this.layout,this));this.layout()};a.prototype={constructor:a,layout:function(){var d=[];this.dropdown.removeClass("hide");this.element.append(this.dropdown.find("li")).find(">li").not(".tabdrop").each(function(){if(this.offsetTop>0){d.push(this)}});if(d.length>0){d=c(d);this.dropdown.find("ul").empty().append(d);if(this.dropdown.find(".active").length==1){this.dropdown.addClass("active")}else{this.dropdown.removeClass("active")}}else{this.dropdown.addClass("hide")}}};c.fn.tabdrop=function(d){return this.each(function(){var g=c(this),f=g.data("tabdrop"),e=typeof d==="object"&&d;if(!f){g.data("tabdrop",(f=new a(this,c.extend({},c.fn.tabdrop.defaults,e))))}if(typeof d=="string"){f[d]()}})};c.fn.tabdrop.defaults={text:"&nbsp;"};c.fn.tabdrop.Constructor=a}(window.jQuery);
+
+
+
+/* ======================= Sticky Plugin =============================== */
+// // // Sticky Plugin v1.0.0 for jQuery
+// =============
+// Author: Anthony Garand
+// Improvements by German M. Bravo (Kronuz) and Ruud Kamphuis (ruudk)
+// Improvements by Leonardo C. Daronco (daronco)
+// Created: 2/14/2011
+// Date: 2/12/2012
+// Website: http://labs.anthonygarand.com/sticky
+// Description: Makes an element on the page stick on the screen as you scroll
+//       It will only set the 'top' and 'position' of your element, you
+//       might need to adjust the width in some cases.
+(function(f){var e={topSpacing:0,bottomSpacing:0,className:"is-sticky",wrapperClassName:"sticky-wrapper",center:false,getWidthFrom:""},b=f(window),d=f(document),i=[],a=b.height(),g=function(){var j=b.scrollTop(),q=d.height(),p=q-a,l=(j>p)?p-j:0;for(var m=0;m<i.length;m++){var r=i[m],k=r.stickyWrapper.offset().top,n=k-r.topSpacing-l;if(j<=n){if(r.currentTop!==null){r.stickyElement.css("position","").css("top","");r.stickyElement.parent().removeClass(r.className);r.currentTop=null}}else{var o=q-r.stickyElement.outerHeight()-r.topSpacing-r.bottomSpacing-j-l;if(o<0){o=o+r.topSpacing}else{o=r.topSpacing}if(r.currentTop!=o){r.stickyElement.css("position","fixed").css("top",o);if(typeof r.getWidthFrom!=="undefined"){r.stickyElement.css("width",f(r.getWidthFrom).width())}r.stickyElement.parent().addClass(r.className);r.currentTop=o}}}},h=function(){a=b.height()},c={init:function(j){var k=f.extend(e,j);return this.each(function(){var l=f(this);var m=l.attr("id");var o=f("<div></div>").attr("id",m+"-sticky-wrapper").addClass(k.wrapperClassName);l.wrapAll(o);if(k.center){l.parent().css({width:l.outerWidth(),marginLeft:"auto",marginRight:"auto"})}if(l.css("float")=="right"){l.css({"float":"none"}).parent().css({"float":"right"})}var n=l.parent();n.css("height",l.outerHeight());i.push({topSpacing:k.topSpacing,bottomSpacing:k.bottomSpacing,stickyElement:l,currentTop:null,stickyWrapper:n,className:k.className,getWidthFrom:k.getWidthFrom})})},update:g};if(window.addEventListener){window.addEventListener("scroll",g,false);window.addEventListener("resize",h,false)}else{if(window.attachEvent){window.attachEvent("onscroll",g);window.attachEvent("onresize",h)}}f.fn.sticky=function(j){if(c[j]){return c[j].apply(this,Array.prototype.slice.call(arguments,1))}else{if(typeof j==="object"||!j){return c.init.apply(this,arguments)}else{f.error("Method "+j+" does not exist on jQuery.sticky")}}};f(function(){setTimeout(g,0)})})(jQuery);
+
+
+
+/* ======================= fitVids Plugin =============================== */
+/**
+ * FitVids 1.0.3
+ *
+ * Copyright 2013, Chris Coyier - http://css-tricks.com + Dave Rupert - http://daverupert.com
+ * Credit to Thierry Koblentz - http://www.alistapart.com/articles/creating-intrinsic-ratios-for-video/
+ * Released under the WTFPL license - http://sam.zoy.org/wtfpl/
+ */
+(function(a){a.fn.fitVids=function(b){var c={customSelector:null};if(!document.getElementById("fit-vids-style")){var f=document.createElement("div"),d=document.getElementsByTagName("base")[0]||document.getElementsByTagName("script")[0],e="&shy;<style>.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style>";f.className="fit-vids-style";f.id="fit-vids-style";f.style.display="none";f.innerHTML=e;d.parentNode.insertBefore(f,d)}if(b){a.extend(c,b)}return this.each(function(){var g=["iframe[src*='player.vimeo.com']","iframe[src*='youtube.com']","iframe[src*='youtube-nocookie.com']","iframe[src*='kickstarter.com'][src*='video.html']","iframe[src*='embed.spotify.com']","object","embed:not(.mejs-shim)"];if(c.customSelector){g.push(c.customSelector)}var h=a(this).find(g.join(","));h=h.not("object object");h.each(function(){var m=a(this);if(this.tagName.toLowerCase()==="embed"&&m.parent("object").length||m.parent(".fluid-width-video-wrapper").length){return}var i=(this.tagName.toLowerCase()==="object"||(m.attr("height")&&!isNaN(parseInt(m.attr("height"),10))))?parseInt(m.attr("height"),10):m.height(),j=!isNaN(parseInt(m.attr("width"),10))?parseInt(m.attr("width"),10):m.width(),k=i/j;if(!m.attr("id")){var l="fitvid"+Math.floor(Math.random()*999999);m.attr("id",l)}m.wrap('<div class="fluid-width-video-wrapper"></div>').parent(".fluid-width-video-wrapper").css("padding-top",(k*100)+"%");m.removeAttr("height").removeAttr("width")})})}})(window.jQuery);
+
+
+
+/* ======================= jQuery Easing Plugin =============================== */
+/* jQuery Easing Plugin, v1.3 - http://gsgd.co.uk/sandbox/jquery/easing/ */
+jQuery.easing.jswing=jQuery.easing.swing;jQuery.extend(jQuery.easing,{def:"easeOutQuad",swing:function(e,f,a,h,g){return jQuery.easing[jQuery.easing.def](e,f,a,h,g)},easeInQuad:function(e,f,a,h,g){return h*(f/=g)*f+a},easeOutQuad:function(e,f,a,h,g){return -h*(f/=g)*(f-2)+a},easeInOutQuad:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f+a}return -h/2*((--f)*(f-2)-1)+a},easeInCubic:function(e,f,a,h,g){return h*(f/=g)*f*f+a},easeOutCubic:function(e,f,a,h,g){return h*((f=f/g-1)*f*f+1)+a},easeInOutCubic:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f*f+a}return h/2*((f-=2)*f*f+2)+a},easeInQuart:function(e,f,a,h,g){return h*(f/=g)*f*f*f+a},easeOutQuart:function(e,f,a,h,g){return -h*((f=f/g-1)*f*f*f-1)+a},easeInOutQuart:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f*f*f+a}return -h/2*((f-=2)*f*f*f-2)+a},easeInQuint:function(e,f,a,h,g){return h*(f/=g)*f*f*f*f+a},easeOutQuint:function(e,f,a,h,g){return h*((f=f/g-1)*f*f*f*f+1)+a},easeInOutQuint:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f*f*f*f+a}return h/2*((f-=2)*f*f*f*f+2)+a},easeInSine:function(e,f,a,h,g){return -h*Math.cos(f/g*(Math.PI/2))+h+a},easeOutSine:function(e,f,a,h,g){return h*Math.sin(f/g*(Math.PI/2))+a},easeInOutSine:function(e,f,a,h,g){return -h/2*(Math.cos(Math.PI*f/g)-1)+a},easeInExpo:function(e,f,a,h,g){return(f==0)?a:h*Math.pow(2,10*(f/g-1))+a},easeOutExpo:function(e,f,a,h,g){return(f==g)?a+h:h*(-Math.pow(2,-10*f/g)+1)+a},easeInOutExpo:function(e,f,a,h,g){if(f==0){return a}if(f==g){return a+h}if((f/=g/2)<1){return h/2*Math.pow(2,10*(f-1))+a}return h/2*(-Math.pow(2,-10*--f)+2)+a},easeInCirc:function(e,f,a,h,g){return -h*(Math.sqrt(1-(f/=g)*f)-1)+a},easeOutCirc:function(e,f,a,h,g){return h*Math.sqrt(1-(f=f/g-1)*f)+a},easeInOutCirc:function(e,f,a,h,g){if((f/=g/2)<1){return -h/2*(Math.sqrt(1-f*f)-1)+a}return h/2*(Math.sqrt(1-(f-=2)*f)+1)+a},easeInElastic:function(f,h,e,l,k){var i=1.70158;var j=0;var g=l;if(h==0){return e}if((h/=k)==1){return e+l}if(!j){j=k*0.3}if(g<Math.abs(l)){g=l;var i=j/4}else{var i=j/(2*Math.PI)*Math.asin(l/g)}return -(g*Math.pow(2,10*(h-=1))*Math.sin((h*k-i)*(2*Math.PI)/j))+e},easeOutElastic:function(f,h,e,l,k){var i=1.70158;var j=0;var g=l;if(h==0){return e}if((h/=k)==1){return e+l}if(!j){j=k*0.3}if(g<Math.abs(l)){g=l;var i=j/4}else{var i=j/(2*Math.PI)*Math.asin(l/g)}return g*Math.pow(2,-10*h)*Math.sin((h*k-i)*(2*Math.PI)/j)+l+e},easeInOutElastic:function(f,h,e,l,k){var i=1.70158;var j=0;var g=l;if(h==0){return e}if((h/=k/2)==2){return e+l}if(!j){j=k*(0.3*1.5)}if(g<Math.abs(l)){g=l;var i=j/4}else{var i=j/(2*Math.PI)*Math.asin(l/g)}if(h<1){return -0.5*(g*Math.pow(2,10*(h-=1))*Math.sin((h*k-i)*(2*Math.PI)/j))+e}return g*Math.pow(2,-10*(h-=1))*Math.sin((h*k-i)*(2*Math.PI)/j)*0.5+l+e},easeInBack:function(e,f,a,i,h,g){if(g==undefined){g=1.70158}return i*(f/=h)*f*((g+1)*f-g)+a},easeOutBack:function(e,f,a,i,h,g){if(g==undefined){g=1.70158}return i*((f=f/h-1)*f*((g+1)*f+g)+1)+a},easeInOutBack:function(e,f,a,i,h,g){if(g==undefined){g=1.70158}if((f/=h/2)<1){return i/2*(f*f*(((g*=(1.525))+1)*f-g))+a}return i/2*((f-=2)*f*(((g*=(1.525))+1)*f+g)+2)+a},easeInBounce:function(e,f,a,h,g){return h-jQuery.easing.easeOutBounce(e,g-f,0,h,g)+a},easeOutBounce:function(e,f,a,h,g){if((f/=g)<(1/2.75)){return h*(7.5625*f*f)+a}else{if(f<(2/2.75)){return h*(7.5625*(f-=(1.5/2.75))*f+0.75)+a}else{if(f<(2.5/2.75)){return h*(7.5625*(f-=(2.25/2.75))*f+0.9375)+a}else{return h*(7.5625*(f-=(2.625/2.75))*f+0.984375)+a}}}},easeInOutBounce:function(e,f,a,h,g){if(f<g/2){return jQuery.easing.easeInBounce(e,f*2,0,h,g)*0.5+a}return jQuery.easing.easeOutBounce(e,f*2-g,0,h,g)*0.5+h*0.5+a}});
+
+
+
+/* ======================= debouncedresize Plugin =============================== */
+/*
+ * debouncedresize: special jQuery event that happens once after a window resize
+ *
+ * latest version and complete README available on Github:
+ * https://github.com/louisremi/jquery-smartresize/blob/master/jquery.debouncedresize.js
+ *
+ * Copyright 2011 @louis_remi
+ * Licensed under the MIT license.
+ */
+(function(d){var b=d.event,a,c;a=b.special.debouncedresize={setup:function(){d(this).on("resize",a.handler)},teardown:function(){d(this).off("resize",a.handler)},handler:function(i,e){var h=this,g=arguments,f=function(){i.type="debouncedresize";b.dispatch.apply(h,g)};if(c){clearTimeout(c)}e?f():c=setTimeout(f,a.threshold)},threshold:150}})(jQuery);
+
+
+
+/* ======================= imagesLoaded Plugin =============================== */
+/**
+ * imagesLoaded PACKAGED v3.1.8
+ * JavaScript is all like "You images are done yet or what?"
+ * MIT License
+ */
+
+(function(){function e(){}function t(e,t){for(var n=e.length;n--;)if(e[n].listener===t)return n;return-1}function n(e){return function(){return this[e].apply(this,arguments)}}var i=e.prototype,r=this,o=r.EventEmitter;i.getListeners=function(e){var t,n,i=this._getEvents();if("object"==typeof e){t={};for(n in i)i.hasOwnProperty(n)&&e.test(n)&&(t[n]=i[n])}else t=i[e]||(i[e]=[]);return t},i.flattenListeners=function(e){var t,n=[];for(t=0;e.length>t;t+=1)n.push(e[t].listener);return n},i.getListenersAsObject=function(e){var t,n=this.getListeners(e);return n instanceof Array&&(t={},t[e]=n),t||n},i.addListener=function(e,n){var i,r=this.getListenersAsObject(e),o="object"==typeof n;for(i in r)r.hasOwnProperty(i)&&-1===t(r[i],n)&&r[i].push(o?n:{listener:n,once:!1});return this},i.on=n("addListener"),i.addOnceListener=function(e,t){return this.addListener(e,{listener:t,once:!0})},i.once=n("addOnceListener"),i.defineEvent=function(e){return this.getListeners(e),this},i.defineEvents=function(e){for(var t=0;e.length>t;t+=1)this.defineEvent(e[t]);return this},i.removeListener=function(e,n){var i,r,o=this.getListenersAsObject(e);for(r in o)o.hasOwnProperty(r)&&(i=t(o[r],n),-1!==i&&o[r].splice(i,1));return this},i.off=n("removeListener"),i.addListeners=function(e,t){return this.manipulateListeners(!1,e,t)},i.removeListeners=function(e,t){return this.manipulateListeners(!0,e,t)},i.manipulateListeners=function(e,t,n){var i,r,o=e?this.removeListener:this.addListener,s=e?this.removeListeners:this.addListeners;if("object"!=typeof t||t instanceof RegExp)for(i=n.length;i--;)o.call(this,t,n[i]);else for(i in t)t.hasOwnProperty(i)&&(r=t[i])&&("function"==typeof r?o.call(this,i,r):s.call(this,i,r));return this},i.removeEvent=function(e){var t,n=typeof e,i=this._getEvents();if("string"===n)delete i[e];else if("object"===n)for(t in i)i.hasOwnProperty(t)&&e.test(t)&&delete i[t];else delete this._events;return this},i.removeAllListeners=n("removeEvent"),i.emitEvent=function(e,t){var n,i,r,o,s=this.getListenersAsObject(e);for(r in s)if(s.hasOwnProperty(r))for(i=s[r].length;i--;)n=s[r][i],n.once===!0&&this.removeListener(e,n.listener),o=n.listener.apply(this,t||[]),o===this._getOnceReturnValue()&&this.removeListener(e,n.listener);return this},i.trigger=n("emitEvent"),i.emit=function(e){var t=Array.prototype.slice.call(arguments,1);return this.emitEvent(e,t)},i.setOnceReturnValue=function(e){return this._onceReturnValue=e,this},i._getOnceReturnValue=function(){return this.hasOwnProperty("_onceReturnValue")?this._onceReturnValue:!0},i._getEvents=function(){return this._events||(this._events={})},e.noConflict=function(){return r.EventEmitter=o,e},"function"==typeof define&&define.amd?define("eventEmitter/EventEmitter",[],function(){return e}):"object"==typeof module&&module.exports?module.exports=e:this.EventEmitter=e}).call(this),function(e){function t(t){var n=e.event;return n.target=n.target||n.srcElement||t,n}var n=document.documentElement,i=function(){};n.addEventListener?i=function(e,t,n){e.addEventListener(t,n,!1)}:n.attachEvent&&(i=function(e,n,i){e[n+i]=i.handleEvent?function(){var n=t(e);i.handleEvent.call(i,n)}:function(){var n=t(e);i.call(e,n)},e.attachEvent("on"+n,e[n+i])});var r=function(){};n.removeEventListener?r=function(e,t,n){e.removeEventListener(t,n,!1)}:n.detachEvent&&(r=function(e,t,n){e.detachEvent("on"+t,e[t+n]);try{delete e[t+n]}catch(i){e[t+n]=void 0}});var o={bind:i,unbind:r};"function"==typeof define&&define.amd?define("eventie/eventie",o):e.eventie=o}(this),function(e,t){"function"==typeof define&&define.amd?define(["eventEmitter/EventEmitter","eventie/eventie"],function(n,i){return t(e,n,i)}):"object"==typeof exports?module.exports=t(e,require("wolfy87-eventemitter"),require("eventie")):e.imagesLoaded=t(e,e.EventEmitter,e.eventie)}(window,function(e,t,n){function i(e,t){for(var n in t)e[n]=t[n];return e}function r(e){return"[object Array]"===d.call(e)}function o(e){var t=[];if(r(e))t=e;else if("number"==typeof e.length)for(var n=0,i=e.length;i>n;n++)t.push(e[n]);else t.push(e);return t}function s(e,t,n){if(!(this instanceof s))return new s(e,t);"string"==typeof e&&(e=document.querySelectorAll(e)),this.elements=o(e),this.options=i({},this.options),"function"==typeof t?n=t:i(this.options,t),n&&this.on("always",n),this.getImages(),a&&(this.jqDeferred=new a.Deferred);var r=this;setTimeout(function(){r.check()})}function f(e){this.img=e}function c(e){this.src=e,v[e]=this}var a=e.jQuery,u=e.console,h=u!==void 0,d=Object.prototype.toString;s.prototype=new t,s.prototype.options={},s.prototype.getImages=function(){this.images=[];for(var e=0,t=this.elements.length;t>e;e++){var n=this.elements[e];"IMG"===n.nodeName&&this.addImage(n);var i=n.nodeType;if(i&&(1===i||9===i||11===i))for(var r=n.querySelectorAll("img"),o=0,s=r.length;s>o;o++){var f=r[o];this.addImage(f)}}},s.prototype.addImage=function(e){var t=new f(e);this.images.push(t)},s.prototype.check=function(){function e(e,r){return t.options.debug&&h&&u.log("confirm",e,r),t.progress(e),n++,n===i&&t.complete(),!0}var t=this,n=0,i=this.images.length;if(this.hasAnyBroken=!1,!i)return this.complete(),void 0;for(var r=0;i>r;r++){var o=this.images[r];o.on("confirm",e),o.check()}},s.prototype.progress=function(e){this.hasAnyBroken=this.hasAnyBroken||!e.isLoaded;var t=this;setTimeout(function(){t.emit("progress",t,e),t.jqDeferred&&t.jqDeferred.notify&&t.jqDeferred.notify(t,e)})},s.prototype.complete=function(){var e=this.hasAnyBroken?"fail":"done";this.isComplete=!0;var t=this;setTimeout(function(){if(t.emit(e,t),t.emit("always",t),t.jqDeferred){var n=t.hasAnyBroken?"reject":"resolve";t.jqDeferred[n](t)}})},a&&(a.fn.imagesLoaded=function(e,t){var n=new s(this,e,t);return n.jqDeferred.promise(a(this))}),f.prototype=new t,f.prototype.check=function(){var e=v[this.img.src]||new c(this.img.src);if(e.isConfirmed)return this.confirm(e.isLoaded,"cached was confirmed"),void 0;if(this.img.complete&&void 0!==this.img.naturalWidth)return this.confirm(0!==this.img.naturalWidth,"naturalWidth"),void 0;var t=this;e.on("confirm",function(e,n){return t.confirm(e.isLoaded,n),!0}),e.check()},f.prototype.confirm=function(e,t){this.isLoaded=e,this.emit("confirm",this,t)};var v={};return c.prototype=new t,c.prototype.check=function(){if(!this.isChecked){var e=new Image;n.bind(e,"load",this),n.bind(e,"error",this),e.src=this.src,this.isChecked=!0}},c.prototype.handleEvent=function(e){var t="on"+e.type;this[t]&&this[t](e)},c.prototype.onload=function(e){this.confirm(!0,"onload"),this.unbindProxyEvents(e)},c.prototype.onerror=function(e){this.confirm(!1,"onerror"),this.unbindProxyEvents(e)},c.prototype.confirm=function(e,t){this.isConfirmed=!0,this.isLoaded=e,this.emit("confirm",this,t)},c.prototype.unbindProxyEvents=function(e){n.unbind(e.target,"load",this),n.unbind(e.target,"error",this)},s});
+
+
+/* ======================= imgpreload Plugin =============================== */
+/**
+ * jquery.imgpreload 1.6.2 <https://github.com/farinspace/jquery.imgpreload>
+ * Copyright 2009-2014 Dimas Begunoff <http://farinspace.com>
+ * License MIT <http://opensource.org/licenses/MIT>
+ */
+"undefined"!=typeof jQuery&&!function(a){"use strict";a.imgpreload=function(b,c){c=a.extend({},a.fn.imgpreload.defaults,c instanceof Function?{all:c}:c),"string"==typeof b&&(b=[b]);var d=[];a.each(b,function(e,f){var g=new Image,h=f,i=g;"string"!=typeof f&&(h=a(f).attr("src")||a(f).css("background-image").replace(/^url\((?:"|')?(.*)(?:'|")?\)$/gm,"$1"),i=f),a(g).bind("load error",function(e){d.push(i),a.data(i,"loaded","error"==e.type?!1:!0),c.each instanceof Function&&c.each.call(i,d.slice(0)),d.length>=b.length&&c.all instanceof Function&&c.all.call(d),a(this).unbind("load error")}),g.src=h})},a.fn.imgpreload=function(b){return a.imgpreload(this,b),this},a.fn.imgpreload.defaults={each:null,all:null}}(jQuery);
+
+
+/**
+ * Variations Plugin
+ */(function(e,t,n,r){e.fn.wc_variation_form=function(){e.fn.wc_variation_form.find_matching_variations=function(t,n){var r=[];for(var i=0;i<t.length;i++){var s=t[i],o=s.variation_id;e.fn.wc_variation_form.variations_match(s.attributes,n)&&r.push(s)}return r};e.fn.wc_variation_form.variations_match=function(e,t){var n=!0;for(attr_name in e){var i=e[attr_name],s=t[attr_name];i!==r&&s!==r&&i.length!=0&&s.length!=0&&i!=s&&(n=!1)}return n};this.unbind("check_variations update_variation_values found_variation");this.find(".reset_variations").unbind("click");this.find(".variations select").unbind("change focusin");$form=this.on("click",".reset_variations",function(t){e(this).closest(".variations_form").find(".variations select").val("").change();var n=e(this).closest(".product").find(".sku"),r=e(this).closest(".product").find(".product_weight"),i=e(this).closest(".product").find(".product_dimensions");n.attr("data-o_sku")&&n.text(n.attr("data-o_sku"));r.attr("data-o_weight")&&r.text(r.attr("data-o_weight"));i.attr("data-o_dimensions")&&i.text(i.attr("data-o_dimensions"));return!1}).on("change",".variations select",function(t){$variation_form=e(this).closest(".variations_form");$variation_form.find("input[name=variation_id]").val("").change();$variation_form.trigger("woocommerce_variation_select_change").trigger("check_variations",["",!1]);e(this).blur();e().uniform&&e.isFunction(e.uniform.update)&&e.uniform.update()}).on("focusin touchstart",".variations select",function(t){$variation_form=e(this).closest(".variations_form");$variation_form.trigger("woocommerce_variation_select_focusin").trigger("check_variations",[e(this).attr("name"),!0])}).on("check_variations",function(n,r,i){var s=!0,o=!1,u=!1,a={},f=e(this),l=f.find(".reset_variations");f.find(".variations select").each(function(){e(this).val().length==0?s=!1:o=!0;if(r&&e(this).attr("name")==r){s=!1;a[e(this).attr("name")]=""}else{value=e(this).val();a[e(this).attr("name")]=value}});var c=parseInt(f.data("product_id")),h=f.data("product_variations");h||(h=t.product_variations[c]);h||(h=t.product_variations);h||(h=t["product_variations_"+c]);var p=e.fn.wc_variation_form.find_matching_variations(h,a);if(s){var d=p.shift();if(d){f.find("input[name=variation_id]").val(d.variation_id).change();f.trigger("found_variation",[d])}else{f.find(".variations select").val("");i||f.trigger("reset_image");alert(woocommerce_params.i18n_no_matching_variations_text)}}else{f.trigger("update_variation_values",[p]);i||f.trigger("reset_image");r||f.find(".single_variation_wrap").slideUp("200")}o?l.css("visibility")=="hidden"&&l.css("visibility","visible").hide().fadeIn():l.css("visibility","hidden")}).on("reset_image",function(t){var n=e(this).closest(".product"),i=n.find("div.images img:eq(0)"),s=n.find("div.images a.zoom:eq(0)"),o=i.attr("data-o_src"),u=i.attr("data-o_title"),a=i.attr("data-o_alt"),f=s.attr("data-o_href");o!=r&&i.attr("src",o);f!=r&&s.attr("href",f);if(u!=r){i.attr("title",u);s.attr("title",u)}a!=r&&i.attr("alt",a)}).on("update_variation_values",function(t,n){$variation_form=e(this).closest(".variations_form");$variation_form.find(".variations select").each(function(t,r){current_attr_select=e(r);current_attr_select.data("attribute_options")||current_attr_select.data("attribute_options",current_attr_select.find("option:gt(0)").get());current_attr_select.find("option:gt(0)").remove();current_attr_select.append(current_attr_select.data("attribute_options"));current_attr_select.find("option:gt(0)").removeClass("active");var i=current_attr_select.attr("name");for(num in n)if(typeof n[num]!="undefined"){var s=n[num].attributes;for(attr_name in s){var o=s[attr_name];if(attr_name==i)if(o){o=e("<div/>").html(o).text();o=o.replace(/'/g,"\\'");o=o.replace(/"/g,'\\"');current_attr_select.find('option[value="'+o+'"]').addClass("active")}else current_attr_select.find("option:gt(0)").addClass("active")}}current_attr_select.find("option:gt(0):not(.active)").remove()});$variation_form.trigger("woocommerce_update_variation_values")}).on("found_variation",function(t,n){var i=e(this),s=e(this).closest(".product"),o=s.find("div.images img:eq(0)"),u=s.find("div.images a.zoom:eq(0)"),a=o.attr("data-o_src"),f=o.attr("data-o_title"),l=o.attr("data-o_alt"),c=u.attr("data-o_href"),h=n.image_src,p=n.image_link,d=n.image_title,v=n.image_alt;i.find(".variations_button").show();i.find(".single_variation").html(n.price_html+n.availability_html);if(a==r){a=o.attr("src")?o.attr("src"):"";o.attr("data-o_src",a)}if(c==r){c=u.attr("href")?u.attr("href"):"";u.attr("data-o_href",c)}if(f==r){f=o.attr("title")?o.attr("title"):"";o.attr("data-o_title",f)}if(l==r){l=o.attr("alt")?o.attr("alt"):"";o.attr("data-o_alt",l)}if(h&&h.length>1){o.attr("src",h).attr("alt",v).attr("title",d);u.attr("href",p).attr("title",d)}else{o.attr("src",a).attr("alt",l).attr("title",f);u.attr("href",c).attr("title",f)}var m=i.find(".single_variation_wrap"),g=s.find(".product_meta").find(".sku"),y=s.find(".product_weight"),b=s.find(".product_dimensions");g.attr("data-o_sku")||g.attr("data-o_sku",g.text());y.attr("data-o_weight")||y.attr("data-o_weight",y.text());b.attr("data-o_dimensions")||b.attr("data-o_dimensions",b.text());n.sku?g.text(n.sku):g.text(g.attr("data-o_sku"));n.weight?y.text(n.weight):y.text(y.attr("data-o_weight"));n.dimensions?b.text(n.dimensions):b.text(b.attr("data-o_dimensions"));m.find(".quantity").show();!n.is_in_stock&&!n.backorders_allowed&&i.find(".variations_button").hide();n.min_qty?m.find("input[name=quantity]").attr("min",n.min_qty).val(n.min_qty):m.find("input[name=quantity]").removeAttr("min");n.max_qty?m.find("input[name=quantity]").attr("max",n.max_qty):m.find("input[name=quantity]").removeAttr("max");if(n.is_sold_individually=="yes"){m.find("input[name=quantity]").val("1");m.find(".quantity").hide()}m.slideDown("200").trigger("show_variation",[n])});$form.trigger("wc_variation_form");return $form};e(function(){e(".variations_form").wc_variation_form();e(".variations_form .variations select").change()})})(jQuery,window,document);
+
+
+
+/*--------------------------------------------------
+
+ SHORTCODES
+
+ Animations
+ Shortcodes
+ ---------------------------------------------------*/
+
+
+function activate_waypoints(container)
+{
+    //activates simple css animations of the content once the user scrolls to an elements
+    if(jQuery.fn.kleo_waypoints)
+    {
+        if(typeof container == 'undefined'){ container = 'body';};
+
+        jQuery('.animate-when-visible', container).kleo_waypoints();
+        jQuery('.animate-when-almost-visible', container).kleo_waypoints({ offset: '90%'});
+    }
+}
+
+
+function activate_shortcode_scripts(container)
+{
+    if(typeof container == 'undefined'){ container = 'body';};
+
+//activates behavior and animation for gallery
+    if(jQuery.fn.kleo_sc_gallery)
+    {
+        jQuery('.kleo-gallery', container).kleo_sc_gallery();
+    }
+
+//activates behavior and animation for one by one general
+    if(jQuery.fn.kleo_general_onebyone)
+    {
+        jQuery('.one-by-one-general', container).kleo_general_onebyone();
+    }
+
+    if(jQuery.fn.kleo_animate_number)
+    {
+        jQuery('.kleo-animate-number', container).kleo_animate_number();
+    }
+
+//activates animation for elements
+    if(jQuery.fn.one_by_one_animated)
+    {
+        jQuery('.one-by-one-animated', container).one_by_one_animated();
+    }
+
+//activates animation for progress bar
+    if(jQuery.fn.kleo_sc_progressbar)
+    {
+        jQuery('.progress-bar-container', container).kleo_sc_progressbar();
+    }
+
+//activates animation for testimonial
+    if(jQuery.fn.kleo_sc_testimonial)
+    {
+        jQuery('.kleo-testimonial-wrapper', container).kleo_sc_testimonial();
+    }
+
+}
+
+
+(function($){
+
+    "use strict";
+
+// -------------------------------------------------------------------------------------------
+// testimonial shortcode javascript
+// -------------------------------------------------------------------------------------------
+
+    $.fn.kleo_sc_testimonial = function(options)
+    {
+        return this.each(function()
+        {
+            var container = $(this), elements = container.find('.kleo-testimonial');
+
+
+            //trigger displaying of thumbnails
+            container.on('kleo-start-animation', function()
+            {
+                elements.each(function(i)
+                {
+                    var element = $(this);
+                    setTimeout(function(){ element.addClass('kleo-start-animation') }, (i * 150));
+                });
+            });
+        });
+    }
+
+
+
+// -------------------------------------------------------------------------------------------
+// Progress bar shortcode javascript
+// -------------------------------------------------------------------------------------------
+
+    $.fn.kleo_sc_progressbar = function(options)
+    {
+        return this.each(function()
+        {
+            var container = $(this), elements = container.find('.progress');
+
+
+            //trigger displaying of thumbnails
+            container.on('start-animation', function()
+            {
+                elements.each(function(i)
+                {
+                    var element = $(this);
+                    setTimeout(function(){
+                        $('.bar strong').css('opacity', 1);
+                        //$('.bar strong').css('left', -30 + 'px');
+                        element.addClass('start-animation') }, (i * 250));
+                });
+            });
+        });
+    }
+
+
+
+// -------------------------------------------------------------------------------------------
+// Iconlist shortcode javascript
+// -------------------------------------------------------------------------------------------
+
+    $.fn.one_by_one_animated = function(options)
+    {
+        return this.each(function()
+        {
+            var listicons = $(this), elements = listicons.find('.list-el-animated');
+
+            listicons.on('start-animation', function()
+            {
+                elements.each(function(i)
+                {
+                    var element = $(this);
+                    setTimeout(function(){ element.addClass('start-animation') }, (i * 350));
+                });
+            });
+        });
+    }
+
+
+// -------------------------------------------------------------------------------------------
+// Big Number animation shortcode javascript
+// -------------------------------------------------------------------------------------------
+
+//http://codetheory.in/controlling-the-frame-rate-with-requestanimationframe/ (improve it with framerate in the future?)
+
+    $.fn.kleo_animate_number = function(options)
+    {
+        var start_count = function(element, countTo, increment, current)
+        {
+
+            //calculate the new number
+            var newCount = current + increment;
+
+            //if the number is bigger than our final number set the number and finish
+            if(newCount >= countTo)
+            {
+                element.text(countTo);
+                //exit
+            }
+            else
+            {
+                var prepend = "", addZeros = countTo.toString().length - newCount.toString().length
+
+                //if the number has less digits than the final number some zeros where omitted. add them to the front
+                for(var i = addZeros; i > 0; i--){ prepend += "0"; }
+
+                element.text(prepend + newCount);
+                window.kleoAnimFrame(function(){ start_count(element, countTo, increment, newCount) });
+            }
+        };
+
+        $(this).each(function(i)
+        {
+            //prepare elements
+            var element = $(this), text = element.text();
+            element.text( text.replace(/./g, "0"));
+
+            var countTimer = element.data('timer') || 3000;
+
+            //trigger number animation
+            element.addClass('number_prepared').on('start-animation', function()
+            {
+                var element = $(this), countTo = element.data('number'), current = parseInt(element.text(),10), increment = Math.round( countTo * 30 / countTimer);
+                if(increment == 0 || increment % 10 == 0) increment += 1;
+
+                setTimeout(function(){ start_count(element, countTo, increment, current);}, 300);
+            });
+
+        });
+
+    }
+
+    window.kleoAnimFrame = (function(){
+        return  window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function( callback ){ window.setTimeout(callback, 1000 / 60); };
+    })();
+
+
+
+// -------------------------------------------------------------------------------------------
+// Gallery shortcode javascript
+// -------------------------------------------------------------------------------------------
+
+    $.fn.kleo_sc_gallery = function(options)
+    {
+        return this.each(function()
+        {
+            var gallery = $(this), images = gallery.find('img'), big_prev = gallery.find('.kleo-gallery-big');
+
+
+            //trigger displaying of thumbnails
+            gallery.on('start-animation', function()
+            {
+                images.each(function(i)
+                {
+                    var image = $(this);
+                    setTimeout(function(){ image.addClass('start-animation') }, (i * 150));
+                    //alert('test');
+                });
+            });
+
+
+
+
+        });
+    }
+
+
+// -------------------------------------------------------------------------------------------
+// One by one general shortcode javascript
+// -------------------------------------------------------------------------------------------
+
+    $.fn.kleo_general_onebyone = function(options)
+    {
+        return this.each(function()
+        {
+            var container = $(this), items = container.children();
+
+            //trigger displaying of items
+            container.on('start-animation', function()
+            {
+                items.each(function(i)
+                {
+                    var item = $(this);
+                    setTimeout(function(){ item.addClass('start-animation') }, (i * 150));
+                });
+            });
+        });
+    }
+
+
+
+// -------------------------------------------------------------------------------------------
+// HELPER FUNCTIONS
+// -------------------------------------------------------------------------------------------
+
+
+//waipoint script when something comes into viewport
+    $.fn.kleo_waypoints = function(options_passed)
+    {
+        if(! $('html').is('.kleo-transform')) return;
+
+        var defaults = { offset: 'bottom-in-view' , triggerOnce: true},
+            options  = $.extend({}, defaults, options_passed);
+
+        return this.each(function()
+        {
+            var element = $(this);
+
+            setTimeout(function()
+            {
+                element.waypoint(function(direction)
+                {
+                    $(this).addClass('start-animation').trigger('start-animation');
+
+                }, options );
+
+            },100)
+        });
+    };
+
+})( jQuery );
+
+
+
+/*--------------------------------------------------
+
+THEME LOGIC
 
 Page scripts
 Header scripts
@@ -50,12 +469,12 @@ var kleoPage = {
         kleoPage.kleoAjaxLostPass();
 		
 		//Fit videos
-		$(".post-content, .activity-inner, .article-media, article, .kleo-video-embed, .wpb_video_widget").fitVids();
+		$(".post-content, .activity-inner, .article-media, .kleo-video-embed, .wpb_video_widget").fitVids();
 
 		// Sidebar menu toggle
-		if (!isMobile || kleoIsotope.viewport().width > 992) {
+		//if (!isMobile || kleoIsotope.viewport().width > 992) {
 			kleoPage.kleoMenuWidget();
-		}
+		//}
 
 		//Accordion/toggle icons
 		$('.panel-collapse').on('show.bs.collapse', function () {
@@ -70,17 +489,11 @@ var kleoPage = {
 				
 		//Tabs and accordions triggers
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function () {
-			//carousels
-			$('.kleo-carousel').trigger('updateSizes');
-
-			//masonry
-			kleoIsotope.init();
+            var contentEl = $(this).attr("href");
+            kleoPage.refreshContentTabs(contentEl);
 		});
 		$('.panel-collapse').on('shown.bs.collapse', function () {
-			//carousels
-			$('.kleo-carousel').trigger('updateSizes');
-			//masonry
-			kleoIsotope.init();
+			kleoPage.refreshContentTabs(this);
 		});
         //tours
         if ($('.wpb_tour').length) {
@@ -145,13 +558,15 @@ var kleoPage = {
             return false;
         });
 
+
         /* Portfolio */
-        if (($(".porto-video").length || $(".porto-hosted_video").length) && ($(".porto-thumb").length || $(".porto-slider").length)) {
+        if (($(".porto-video").length || $(".porto-hosted_video").length)) {
             $(".portfolio-items").imagesLoaded(function() {
                 kleoPage.portfolioVideo();
             });
             $window.on("debouncedresize", kleoPage.portfolioVideo);
         }
+        /* remove embed video titles */
         if ($(".porto-video").length) {
             $('iframe').each(function() {
                 var video = $(this);
@@ -172,18 +587,36 @@ var kleoPage = {
             });
         }
 	},
+    refreshContentTabs: function(el) {
+        //carousels
+        $('.kleo-carousel').trigger('updateSizes');
+        //masonry
+        kleoIsotope.init();
+        //google maps
+        var $google_maps = $(el).find(".wpb_gmaps_widget");
+        if ($google_maps.length && !$google_maps.is('.map_ready')) {
+            var $google_maps_frame = $google_maps.find('iframe');
+            $google_maps_frame.attr('src', $google_maps_frame.attr('src'));
+            $google_maps.addClass('map_ready');
+        }
+    },
 
     portfolioVideo: function() {
-        $(".porto-video .kleo-video-embed, .porto-hosted_video .mejs-inner").height( function() {
+        var elements  = $(".porto-video .kleo-video-embed");
+        elements.height(function () {
             var image = $(this).closest(".portfolio-items").find('.portfolio-image img, .kleo-banner-slider img').eq(0);
-            return image.length && image.height() > 0 ? image.height() : "auto";
-        } );
+            return image.length && image.height() > 0 ? image.height() : "160";
+        });
     },
 	
 	notReadyInit: function() {
 		//Preload logo
-		$("#logo_img").imgpreload();
-		
+		//$("#logo_img").imgpreload();
+        if (kleoHeader.isLogo && ! kleoHeader.logoImg) {
+            kleoHeader.logoImg = new Image();
+            kleoHeader.logoImg.src = kleoFramework.logo;
+        }
+
 		$('.responsive-tabs, .nav-pills, .top-menu > ul, #top-social > ul').tabdrop();
 		
 	},
@@ -237,7 +670,12 @@ var kleoPage = {
 			var thisSliderItems = $(this).find('.kleo-banner-items');
 			var $prev = $(this).find(".kleo-banner-prev");
 			var $next = $(this).find(".kleo-banner-next");
-			
+            var $duration = 2000;
+
+            if (thisSliderItems.data("speed") ) {
+                $duration = parseInt(thisSliderItems.data("speed"));
+            }
+
 			thisSliderItems.imagesLoaded(function() {
 				thisSliderItems.carouFredSel({
 						//auto: false,
@@ -247,7 +685,7 @@ var kleoPage = {
 						auto: {
 							play : true,
 							pauseDuration: 0,
-							duration: 2000
+							duration: $duration
 						},
 						scroll: {
 							items: 1,
@@ -264,6 +702,18 @@ var kleoPage = {
 							visible: 1
 						}
 				});
+                thisSliderItems.swipe({
+                    excludedElements: "",
+                    swipeLeft: function() {
+                        thisSliderItems.trigger('next', 1);
+                    },
+                    swipeRight: function() {
+                        thisSliderItems.trigger('prev', 1);
+                    },
+                    tap: function(event, target) {
+                        $(target).trigger('click');
+                    }
+                });
 			});
 		});
 
@@ -325,9 +775,6 @@ var kleoPage = {
 							play : $auto_play,
 							pauseOnHover: $auto_pauseOnHover
 						},
-						swipe: {
-							onTouch: true
-						},
 						scroll: {
 							items: 1,
 							duration: 600,
@@ -342,6 +789,18 @@ var kleoPage = {
 							visible: $visible
 						}
 				}).visible();
+                $currentCrsl.swipe({
+                    excludedElements: "",
+                    swipeLeft: function() {
+                        $currentCrsl.trigger('next', 1);
+                    },
+                    swipeRight: function() {
+                        $currentCrsl.trigger('prev', 1);
+                    },
+                    tap: function(event, target) {
+                        $(target).trigger('click');
+                    }
+                });
 			});
 		});
 
@@ -377,20 +836,27 @@ var kleoPage = {
 								return $(this).parents('.kleo-gallery').find('.kleo-thumbs-next');
 							}
 						},
-						swipe: {
-							onMouse: true,
-							onTouch: true
-						},
 						scroll: {
 							items: 1
 						},
 						items: {
 							height: 'auto',
-							visible: $thumbsVisible,
+							visible: $thumbsVisible
 						}
 					});
+                    $thumbsCarousel.swipe({
+                        excludedElements: "",
+                        swipeLeft: function() {
+                            $thumbsCarousel.trigger('next', 1);
+                        },
+                        swipeRight: function() {
+                            $thumbsCarousel.trigger('prev', 1);
+                        },
+                        tap: function(event, target) {
+                            $(target).trigger('click');
+                        }
+                    });
 				});
-				
 			});
 		}
 
@@ -402,19 +868,33 @@ var kleoPage = {
 		});
 
 		if($(".kleo-gallery-image").length) {
-			$('.kleo-gallery-image').carouFredSel({
-					responsive: true,
-					circular: false,
-					auto: false,
-					items: {
-					height: 'variable',
-					visible: 1
-					},
-					scroll: {
-						items: 1,
-						fx: 'crossfade'
-					}
-			});
+            $('.kleo-gallery-image').imagesLoaded( function() {
+                $('.kleo-gallery-image').carouFredSel({
+                    responsive: true,
+                    circular: false,
+                    auto: false,
+                    items: {
+                        height: 'variable',
+                        visible: 1
+                    },
+                    scroll: {
+                        items: 1,
+                        fx: 'crossfade'
+                    }
+                });
+                $('.kleo-gallery-image').swipe({
+                    excludedElements: "",
+                    swipeLeft: function() {
+                        $('.kleo-gallery-image').trigger('next', 1);
+                    },
+                    swipeRight: function() {
+                        $('.kleo-gallery-image').trigger('prev', 1);
+                    },
+                    tap: function(event, target) {
+                        $(target).trigger('click');
+                    }
+                });
+            });
 		}
 		
 	},
@@ -445,9 +925,6 @@ var kleoPage = {
 							easing: "easeInOutExpo",
 							wipe: true
 						},
-						swipe: {
-							onTouch: true
-						},
 						//padding: 0,
 						prev: $prev,
 						next: $next,
@@ -459,6 +936,18 @@ var kleoPage = {
 								}
 						}
 				});
+                thisSliderItems.swipe({
+                    excludedElements: "",
+                    swipeLeft: function() {
+                        thisSliderItems.trigger('next', 1);
+                    },
+                    swipeRight: function() {
+                        thisSliderItems.trigger('prev', 1);
+                    },
+                    tap: function(event, target) {
+                        $(target).trigger('click');
+                    }
+                });
 			});
 		});
 
@@ -501,7 +990,7 @@ var kleoPage = {
 
 		$('.kleo-go-top, .divider-go-top').click(function () {
 				$("html, body").animate({
-						scrollTop: 1
+						scrollTop: 0
 				}, 800);
 				return false;
 		});
@@ -551,6 +1040,25 @@ var kleoPage = {
 	magnificPopup: function() {
 
         /* Login modal */
+
+        /* On specific URL*/
+        if(window.location.hash) {
+            var myHash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
+            if (myHash == 'show-login' && ! $("body").hasClass('logged-in')) {
+                $.magnificPopup.open({
+                    items: {
+                        src: '#kleo-login-modal',
+                        type: 'inline',
+                        focus: '#username'
+                    },
+                    preloader: false,
+                    mainClass: 'kleo-mfp-zoom'
+
+                });
+            }
+        }
+
+
         $('.kleo-show-login, .bp-menu.bp-login-nav a, .must-log-in > a').magnificPopup({
           items: {
             src: '#kleo-login-modal',
@@ -560,7 +1068,7 @@ var kleoPage = {
           preloader: false,
           mainClass: 'kleo-mfp-zoom',
 
-          // When elemened is focused, some mobile browsers in some cases zoom in
+          // When element is focused, some mobile browsers in some cases zoom in
           // It looks not nice, so we disable it:
           callbacks: {
             beforeOpen: function() {
@@ -618,29 +1126,48 @@ var kleoPage = {
 			}
 		});
 	},
-	
+
+    doingLikesRequest: false,
 	likes: function() {
-		$('.item-likes').live('click',
-			function() {
-				var link = $(this);
-				if(link.hasClass('liked')) return false;
+		$('.item-likes').on('click', function() {
+            var link = $(this);
 
-				var id = $(this).attr('id'),
-					postfix = link.find('.item-likes-postfix').text();
+            if(link.hasClass('liked') || kleoPage.doingLikesRequest === true)  {
+                return false;
+            }
 
-				$.post(kleoFramework.ajaxurl, { action:'item-likes', likes_id:id, postfix:postfix }, function(data){
-					link.html(data).addClass('liked').attr('title',kleoFramework.alreadyLiked);
-				});
+            var id = $(this).attr('id'),
+                postfix = link.find('.item-likes-postfix').text();
 
-				return false;
-			});
+            $.ajax({
+                type: 'POST',
+                url: kleoFramework.ajaxurl,
+                data: {
+                    action:'item-likes',
+                    likes_id:id,
+                    postfix:postfix
+                },
+                beforeSend: function()
+                {
+                    kleoPage.doingLikesRequest = true;
+                },
+                success: function (data) {
+                    link.html(data).addClass('liked').attr('title',kleoFramework.alreadyLiked);
+                },
+                complete: function() {
+                    kleoPage.doingLikesRequest = false;
+                }
+            });
 
-			if( $('body.ajax-item-likes').length ) {
-				$('.item-likes').each(function(){
-				var id = $(this).attr('id');
-				$(this).load(kleoFramework.ajaxurl, { action:'item-likes', post_id:id });
-			});
-		}
+            return false;
+        });
+
+        if( $('body.ajax-item-likes').length ) {
+            $('.item-likes').each(function(){
+                var id = $(this).attr('id');
+                $(this).load(kleoFramework.ajaxurl, { action:'item-likes', post_id:id });
+            });
+        }
 	},
 	getURLParameters: function(url) {
 
@@ -656,82 +1183,82 @@ var kleoPage = {
     }
     return result;
 	},
-  
-  /* Progress bar */
-  progressBar: function() {
 
-    if (typeof jQuery.fn.waypoint !== 'undefined') {
-      $('.vc_progress_bar').waypoint(function () {
-        $(this).find('.vc_single_bar').each(function (index) {
-          var $this = $(this),
-            bar = $this.find('.vc_bar'),
-            val = bar.data('percentage-value');
+    /* Progress bar */
+    progressBar: function () {
 
-          setTimeout(function () {
-            bar.css({"width":val + '%'});
-          }, index * 200);
-        });
-      }, { offset:'85%' });
-    }
-  },
-  kleoAjaxLogin: function() {
-    $('form#login_form').on('submit', function(e){
-      $('#kleo-login-result').show().html(kleoFramework.loadingmessage);
-      $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: kleoFramework.ajaxurl,
-        data: {
-          action: 'kleoajaxlogin',
-          log: $('form#login_form #username').val(), 
-          pwd: $('form#login_form #password').val(),
-          remember: ($('form#login_form #rememberme').is(':checked') ? true : false),
-          security: $('form#login_form #security').val() 
-        },
-        success: function(data){
-          $('#kleo-login-result').html(data.message);
-          if (data.loggedin == true) {
-            if (data.redirecturl == null) {
-              document.location.reload();
-            }
-            else {
-              document.location.href = data.redirecturl;
-            }
-          }
-        },
-        complete: function() {
+        if (typeof jQuery.fn.waypoint !== 'undefined') {
+            $('.vc_progress_bar').waypoint(function () {
+                $(this).find('.vc_single_bar').each(function (index) {
+                    var $this = $(this),
+                        bar = $this.find('.vc_bar'),
+                        val = bar.data('percentage-value');
 
-        },
-        error: function() {
-          $('form#login_form', '#login_panel').off('submit');
-          $("#login_form").submit();
-        }			
-      });
-      e.preventDefault();
-    });
-  },
-
-  kleoAjaxLostPass: function() {
-    $("#forgot_form").on("submit",function(){
-      $('#kleo-lost-result').show().html(kleoFramework.loadingmessage);
-      $.ajax({
-        url: kleoFramework.ajaxurl,
-        type: 'POST',
-        data: {
-          action: 'kleo_lost_password',
-          email: $("#forgot-email").val(),
-        },
-        success: function(data){
-          $('#kleo-lost-result').html(data);
-        },
-        error: function() {
-          $('#kleo-lost-result').html('Sorry, an error occurred.').css('color', 'red');
+                    setTimeout(function () {
+                        bar.css({"width": val + '%'});
+                    }, index * 200);
+                });
+            }, {offset: '85%'});
         }
+    },
+    kleoAjaxLogin: function () {
+        $('form#login_form').on('submit', function (e) {
+            $('#kleo-login-result').show().html(kleoFramework.loadingmessage);
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: kleoFramework.ajaxurl,
+                data: {
+                    action: 'kleoajaxlogin',
+                    log: $('form#login_form #username').val(),
+                    pwd: $('form#login_form #password').val(),
+                    remember: ($('form#login_form #rememberme').is(':checked') ? true : false),
+                    security: $('form#login_form #security').val()
+                },
+                success: function (data) {
+                    $('#kleo-login-result').html(data.message);
+                    if (data.loggedin == true) {
+                        if (data.redirecturl == null) {
+                            document.location.reload();
+                        }
+                        else {
+                            document.location.href = data.redirecturl;
+                        }
+                    }
+                },
+                complete: function () {
 
-      });
-      return false;
-    });  
-  }  
+                },
+                error: function () {
+                    $('form#login_form', '#login_panel').off('submit');
+                    $("#login_form").submit();
+                }
+            });
+            e.preventDefault();
+        });
+    },
+
+    kleoAjaxLostPass: function () {
+        $("#forgot_form").on("submit", function () {
+            $('#kleo-lost-result').show().html(kleoFramework.loadingmessage);
+            $.ajax({
+                url: kleoFramework.ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'kleo_lost_password',
+                    user_login: $("#forgot-email").val()
+                },
+                success: function (data) {
+                    $('#kleo-lost-result').html(data);
+                },
+                error: function () {
+                    $('#kleo-lost-result').html('Sorry, an error occurred.').css('color', 'red');
+                }
+
+            });
+            return false;
+        });
+    }
   
 
 };
@@ -1125,9 +1652,11 @@ var kleoIsotope = {
 				$isoAtts = {};
 			}
 
-			$isoItem.imagesLoaded( function(){
-				$isoItem.isotope($isoAtts);
-			});
+            if (kleoIsotope.elContainer.length > 0 && kleoIsotope.viewport().width >= 480) {
+                $isoItem.imagesLoaded(function () {
+                    $isoItem.isotope($isoAtts);
+                });
+            }
 
             $(window).on("debouncedresize", function() {
                 // reinit isotope
@@ -1208,25 +1737,105 @@ var kleoIsotope = {
 var kleoHeader = {
 	spacing: 0,
 	initialPos:				($('.kleo-main-header').length && ! $("body").hasClass('navbar-transparent')) ? $('.kleo-main-header').offset().top : 0,
-	initialSize:			($('.kleo-main-header #logo_img').length && $('.kleo-main-header #logo_img').height() > 10) ? $('.kleo-main-header #logo_img').height() : 88,
+	initialSize:			88,
+    isLogo:                 kleoFramework.logo == '' ? false : true,
+    logoSize:               88,
+    logoImg:                null,
     header:				    $('.kleo-main-header'),
-	logo:					$('.navbar-header .logo img, .navbar-header .logo a'),
-	elements:				$('.navbar-header, .kleo-main-header .navbar-collapse > ul > li > a'),
+	logo:					$('.navbar-header .logo img'),
+	elements:				$('.navbar-header, .kleo-main-header .navbar-collapse > ul > li > a, .header-banner'),
 	
 	init: function() {
-		
+
+        //set logo size
+        if (kleoHeader.isLogo) {
+            if (! kleoHeader.logoImg) {
+                kleoHeader.logoImg = new Image();
+                kleoHeader.logoImg.src = kleoFramework.logo;
+            }
+
+            kleoHeader.logoImg.addEventListener('load', function () {
+                kleoHeader.updateLogoSize(kleoHeader.logoImg.height);
+            }, false);
+        }
+
+
+        if ($('#wpadminbar').length > 0 && parseInt($window.width()) > 584) {
+            kleoHeader.spacing = $('#wpadminbar').height();
+        }
+
+        //check for custom header size set
+        if ( ! kleoFramework.headerHeight ) {
+
+            //init based on logo
+            //kleoHeader.initialSize = kleoHeader.elements.filter(':first').height();
+            kleoHeader.initialSize = ($('.kleo-main-header #logo_img').length && $('.kleo-main-header #logo_img').height() > 10) ? $('.kleo-main-header #logo_img').height() : 88;
+
+        } else {
+            kleoHeader.initialSize = kleoFramework.headerHeight;
+        }
+
+        //continue only if the header element exists in the page
 		if( kleoHeader.header.length ) {
+
 			/* Activate logo resizing */
-			if ($("body.kleo-navbar-fixed.navbar-resize").length) {
-				kleoHeader.resizeLogo();
-			} else {
+			if ($("body.kleo-navbar-fixed.navbar-resize").length && ! kleoHeader.header.hasClass("header-left")) {
+
+                if (kleoHeader.isLogo) {
+                    kleoHeader.logoImg.addEventListener('load', function () {
+                        kleoHeader.resizeLogo();
+                    }, false);
+                } else {
+                    kleoHeader.resizeLogo();
+                }
+
+                $window.scroll(kleoHeader.resizeLogo);
+                $(window).on("debouncedresize", kleoHeader.resizeLogo);
+
+			} else if (kleoHeader.header.hasClass("header-left")) {
+
+                /* Set initial line height */
+                kleoHeader.initialLineHeight();
+
+                if ($("body.kleo-navbar-fixed").length) {
+
+                    if ($("body.navbar-resize").length) {
+                        $(window).on("debouncedresize", kleoHeader.resizeLogo);
+
+                        var st = $window.scrollTop();
+                        if (st > 200) {
+                            kleoHeader.resizeLogo(100);
+                            if (! $("body").hasClass("navbar-transparent")) {
+                                kleoHeader.header.css({top: kleoHeader.spacing, position: 'fixed'});
+                            }
+                        }
+                    }
+
+                    $window.scroll(function () {
+                        var st = $window.scrollTop();
+                        if (st > 200) {
+                            if ($("body.navbar-resize").length) {
+                                kleoHeader.resizeLogo(100);
+                            }
+                            if (! $("body").hasClass("navbar-transparent")) {
+                                kleoHeader.header.css({top: kleoHeader.spacing, position: 'fixed'});
+                            }
+                        } else {
+                            kleoHeader.header.css({top: 'auto', position: 'static'});
+                            kleoHeader.resizeLogo(200);
+                        }
+                    });
+                }
+
+            } else {
                 /* Set initial line height */
 				kleoHeader.initialLineHeight();
 
                 /* Apply background to non-resizing sticky menu when transparent */
                 if ($("body.kleo-navbar-fixed.navbar-transparent").length) {
                     var st = $window.scrollTop();
-                    if (st > 40) {
+
+                    if (st > 50) {
                         kleoHeader.header.addClass('header-scrolled');
                     } else {
                         kleoHeader.header.removeClass('header-scrolled');
@@ -1234,7 +1843,7 @@ var kleoHeader = {
 
                     $window.scroll(function() {
                         var st = $window.scrollTop();
-                        if (st > 40) {
+                        if (st > 50) {
                             kleoHeader.header.addClass('header-scrolled');
                         } else {
                             kleoHeader.header.removeClass('header-scrolled');
@@ -1245,7 +1854,7 @@ var kleoHeader = {
 		}
     
 		//activate sticky main menu
-		if (body.hasClass("kleo-navbar-fixed")) {
+		if (body.hasClass("kleo-navbar-fixed") && ! kleoHeader.header.hasClass("header-left")) {
 			kleoHeader.enable_sticky();
 		}
 
@@ -1281,11 +1890,31 @@ var kleoHeader = {
         kleoHeader.dropdownToggle();
 
         kleoHeader.scrollTo();
+
+        kleoHeader.sideMenu();
 		
 	},
 
+    sideMenu: function() {
+        $('.open-sidebar').on('click', function() {
+            $('body').toggleClass('offcanvas-open');
+            $('.offcanvas-sidebar').toggleClass('is-open');
+            return false;
+        });
+
+        $(".kleo-page").on('click', function(e) {
+
+            if ($(e.target).hasClass("open-sidebar") || $(e.target).closest(".open-sidebar").length > 0 ) {
+                return;
+            }
+
+            $('body').removeClass('offcanvas-open');
+            $('.offcanvas-sidebar').removeClass('is-open');
+        });
+    },
+
     scrollTo: function() {
-        $('a[href^="#"]').on('click', function(event) {
+        $('.kleo-main-header .nav > li a[href^="#"], a.kleo-scroll-to[href^="#"]').on('click', function(event) {
             var target = kleoHeader.getRelatedContent(this);
 
             var topHeight = 0;
@@ -1341,96 +1970,108 @@ var kleoHeader = {
 		kleoHeader.elements.css({
 			'lineHeight': kleoHeader.initialSize + 'px'
 		});
-        kleoHeader.logo.css({'maxHeight': kleoHeader.initialSize + 'px'})
+        kleoHeader.elements.filter(':first').css({'height' :  kleoHeader.initialSize + 'px'});
+
+        if (kleoFramework.retinaLogo != '') {
+            kleoHeader.logo.css({'maxHeight': kleoHeader.logoSize + 'px'});
+        }
 	},
 
 	/* Decreases header size when user scrolls down */
-	resizeLogo: function() {
-		
-		var el_height = kleoHeader.elements.filter(':first').height(),
+	resizeLogo: function(scrollPoint) {
 
-			set_height      = function()
-			{
-				if (kleoIsotope.viewport().width < 992) {
-					kleoHeader.initialLineHeight();
-					return;
-				}
-				kleoHeader.elements = $('.navbar-header, .kleo-main-header .navbar-collapse > ul > li > a');
-				var st = $window.scrollTop(), newH = 0, minHeight = kleoHeader.initialSize /2;
-				
-				if(st > (kleoHeader.initialPos )) {
-					
-					if(st < (kleoHeader.initialPos + el_height/2))
-					{
-						newH = el_height - st + kleoHeader.initialPos;
-						kleoHeader.header.removeClass('header-scrolled'); 
-						$('.btn-buy').removeClass('btn-default');
-					}
-					else
-					{ 
-							newH = (el_height)/2;
-							kleoHeader.header.addClass('header-scrolled');
-							$('.btn-buy').addClass('btn-default');
-					}
-					if (newH < minHeight) { 
-						newH = minHeight;
-					}
+        if (kleoIsotope.viewport().width < 992) {
+            kleoHeader.initialLineHeight();
+            return;
+        }
 
-					kleoHeader.elements.css({
-						'lineHeight': newH + 'px'
-					});
-					kleoHeader.logo.css({'maxHeight': newH + 'px'});
-					
-				} else {
-					
-					newH = kleoHeader.initialSize;
-					kleoHeader.logo.css({'maxHeight': newH + 'px'})
-					
-					kleoHeader.elements.css({
-						'lineHeight': newH + 'px'
-					});
-					$('.btn-buy').removeClass('btn-default');
-                    kleoHeader.header.removeClass('header-scrolled');
+        if (typeof scrollPoint === 'undefined' || typeof scrollPoint === 'object') {
+            scrollPoint = parseInt(kleoHeader.initialPos);
+        }
 
-				}
+        kleoHeader.elements = $('.navbar-header, .kleo-main-header .navbar-collapse > ul > li > a, .header-banner');
+        var st = $window.scrollTop(), newH = 0, minHeight = kleoHeader.initialSize /2;
+        if(st > scrollPoint) {
 
-			}
+            if(st < (scrollPoint + kleoHeader.initialSize /2))
+            {
+                newH = kleoHeader.initialSize - st + scrollPoint;
+                kleoHeader.header.removeClass('header-scrolled');
+                $('.btn-buy').removeClass('btn-default');
+            }
+            else
+            {
+                newH = kleoHeader.initialSize /2;
+                kleoHeader.header.addClass('header-scrolled');
+                $('.btn-buy').addClass('btn-default');
+            }
+            if (newH < minHeight) {
+                newH = minHeight;
+            }
 
-		$window.scroll(set_height);
-        $(window).on("debouncedresize", set_height);
-        set_height();
+            kleoHeader.elements.css({
+                'lineHeight': newH + 'px'
+            });
+            kleoHeader.elements.filter(':first').css({'height' :  newH + 'px'});
+
+            if (kleoFramework.retinaLogo != '') {
+                kleoHeader.logo.css({'maxHeight': (newH / kleoHeader.initialSize * kleoHeader.logoSize) + 'px'});
+            }
+
+        } else {
+
+            newH = kleoHeader.initialSize;
+            kleoHeader.elements.filter(':first').css({'height' :  newH + 'px'});
+
+            if (kleoFramework.retinaLogo != '') {
+                kleoHeader.logo.css({'maxHeight': kleoHeader.logoSize + 'px'});
+            }
+
+            kleoHeader.elements.css({
+                'lineHeight': newH + 'px'
+            });
+            $('.btn-buy').removeClass('btn-default');
+            kleoHeader.header.removeClass('header-scrolled');
+
+        }
 	},
 	
 	enable_sticky: function() {
-	
-		if ($('#wpadminbar').length > 0 && parseInt($window.width()) > 584) {
-			kleoHeader.spacing = $('#wpadminbar').height();
-		}
 		$(".kleo-main-header").sticky({topSpacing:kleoHeader.spacing});
 	},
+
+    updateLogoSize: function(size) {
+        if (size < kleoHeader.initialSize) {
+            kleoHeader.logoSize = size;
+        } else {
+            kleoHeader.logoSize = kleoHeader.initialSize;
+        }
+    },
 	
 	enableRetinaLogo: function() {
 		if (window.devicePixelRatio > 1 && kleoFramework.retinaLogo != '') {
             var image = $("#logo_img"),
                 imageName = kleoFramework.retinaLogo,
-                imageHeight = 88;
+                imageHeight;
 
-            if (image.height() > 0) {
-                imageHeight = image.height();
-            }
+            kleoHeader.logoImg.addEventListener('load', function() {
 
-            if ($(".sticky-wrapper").hasClass("is-sticky")) {
-                imageHeight = imageHeight / 2;
-            }
+                //kleoHeader.updateLogoSize(kleoHeader.logoImg.height);
 
-            //set image height
-            //image.css({"max-height": imageHeight + "px"});
+                //rename image
+                image.attr('src', imageName);
 
-            //rename image
-            image.attr('src', imageName);
+                imageHeight = kleoHeader.logoSize;
 
-            //add specific class
-            image.closest('.logo').addClass('retina-logo');
+                if ($(".kleo-main-header").hasClass("header-scrolled")) {
+                    imageHeight = imageHeight / 2;
+                }
+
+                image.css({"max-height": imageHeight + "px"});
+
+                //add specific class
+                image.closest('.logo').addClass('retina-logo');
+            }, false);
 
 		}
 	},
@@ -1526,6 +2167,10 @@ var kleoHeader = {
                 values      = form.serialize();
 
             values += "&action=kleo_ajax_search";
+
+            if ( form.data('context') ) {
+                values += "&context="+form.data('context');
+            }
 
             //if it is not ajax search, bail out
             if ( ! results.length ) {
@@ -1683,52 +2328,54 @@ var parallax = {
  Quick Contact Form
 ***************************************************/
 $(".kleo-quick-contact-wrapper").click(function (event) {
-		if (event.stopPropagation) {
-				event.stopPropagation();
-		}
-		else if (window.event) {
-				window.event.cancelBubble = true;
-		}
+    if (event.stopPropagation) {
+        event.stopPropagation();
+    }
+    else if (window.event) {
+        window.event.cancelBubble = true;
+    }
 });
-$("html").click(function () {
-		$(this).find("#kleo-quick-contact").fadeOut(300);
-		$('.kleo-quick-contact-link').removeClass('quick-contact-active');
-});
+    $("html").click(function () {
+        $(this).find("#kleo-quick-contact").fadeOut(300);
+        $('.kleo-quick-contact-link').removeClass('quick-contact-active');
+    });
 
-$('.kleo-quick-contact-link').on('click', function () {
-	if(!$(this).hasClass('quick-contact-active')) {
-			$('#kleo-quick-contact').fadeIn(300);
-			$(this).addClass('quick-contact-active');
-	} else {
-			 $('#kleo-quick-contact').fadeOut(300);
-			 $(this).removeClass('quick-contact-active');
-	}
-	return false;
-});
+    $('.kleo-quick-contact-link').on('click', function () {
+        if (!$(this).hasClass('quick-contact-active')) {
+            $('#kleo-quick-contact').fadeIn(300);
+            $(this).addClass('quick-contact-active');
+        } else {
+            $('#kleo-quick-contact').fadeOut(300);
+            $(this).removeClass('quick-contact-active');
+        }
+        return false;
+    });
 
-$('.kleo-contact-form').submit(ajaxSubmit);
-function ajaxSubmit()
-{
-	var thiss = $(this);
-	var customerForm = thiss.serialize();
-	thiss.find(".kleo-contact-success").html('');
-	thiss.find(".kleo-contact-loading").show();
+    $('.kleo-contact-form').submit(ajaxSubmit);
+    function ajaxSubmit() {
+        var thiss = $(this);
+        var customerForm = thiss.serialize();
+        thiss.find(".kleo-contact-success").html('');
+        thiss.find(".kleo-contact-loading").show();
 
-	$.ajax({
-		type:"POST",
-		url: kleoFramework.ajaxurl,
-		data: customerForm,
-		success:function(data){
-			thiss.find(".kleo-contact-loading").hide();
-			thiss.find(".kleo-contact-success").html(data);
-		},
-		error: function(errorThrown){
-			alert(errorThrown);
-		}
-	});
- return false;
+        $.ajax({
+            type: "POST",
+            url: kleoFramework.ajaxurl,
+            data: customerForm,
+            success: function (data) {
+                thiss.find(".kleo-contact-loading").hide();
+                thiss.find(".kleo-contact-success").html(data);
+                if (thiss.find(".mail-success").length) {
+                    thiss.find("input[type=text], input[type=email], textarea").val('');
+                }
+            },
+            error: function (errorThrown) {
+                alert(errorThrown);
+            }
+        });
+        return false;
 
-}
+    }
 
 
 $.fn.kleo_enable_media = function(options) {
@@ -1780,7 +2427,20 @@ $.fn.kleo_enable_media = function(options) {
 			// array of keyboard commands
 			keyActions: [],
 			/*mode: 'shim'*/
-		});
+            success: function (mediaElement, domObject) {
+
+                // add event listener
+                mediaElement.addEventListener('loadedmetadata', function(e) {
+
+                    if ($(domObject).closest(".kleo-masonry").length) {
+                        kleoIsotope.applyGridIsotpe(kleoIsotope.container);
+                    }
+                }, false);
+
+            }
+
+
+        });
 	});
 }
 
@@ -1851,3 +2511,13 @@ $.fn.visibilityToggle = function() {
 	jQuery(window).load(onLoad.init);
 	
 })( jQuery );
+
+function kleoSetCookie(cname, cvalue, path, exdays) {
+    if (typeof path === 'undefined') {
+        path = '/';
+    }
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires + "; path=" + path;
+}

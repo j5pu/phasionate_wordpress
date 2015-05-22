@@ -25,51 +25,6 @@ function kleo_metaboxes( array $meta_boxes ) {
 		'show_names' => true, // Show field names on the left
 		'fields'     => array(
 			array(
-				'name' => 'Media',
-				'desc' => '',
-				'id'   => 'kleomedia',
-				'type' => 'tab'
-			),
-			array(
-				'name' => 'Slider',
-				'desc' => 'Used when you select the Gallery format. Upload an image or enter an URL.',
-				'id'   => $prefix . 'slider',
-				'type' => 'file_repeat',
-				'allow' => 'url'
-			),
-			array(
-				'name' => 'Video oEmbed URL',
-				'desc' => 'Used when you select Video format. Enter a Youtube, Vimeo, Soundcloud, etc URL. See supported services at <a target="_blank" href="http://codex.wordpress.org/Embeds">http://codex.wordpress.org/Embeds</a>.',
-				'id'   => $prefix . 'embed',
-				'type' => 'oembed',
-			),
-				
-			array(
-				'name' => 'Video Self hosted(mp4)',
-				'desc' => 'Used when you select Video format. Upload your MP4 video file. Setting a self hosted video will ignore Video oEmbed above.',
-				'id'   => $prefix . 'video_mp4',
-				'type' => 'file',
-			),
-			array(
-				'name' => 'Video Self hosted(ogv)',
-				'desc' => 'Used when you select Video format. Upload your OGV video file.',
-				'id'   => $prefix . 'video_ogv',
-				'type' => 'file',
-			),
-			array(
-				'name' => 'Video Self hosted(webm)',
-				'desc' => 'Used when you select Video format. Upload your WEBM video file.',
-				'id'   => $prefix . 'video_webm',
-				'type' => 'file',
-			),
-				
-			array(
-				'name' => 'Audio',
-				'desc' => 'Used when you select Audio format. Upload your audio file',
-				'id'   => $prefix . 'audio',
-				'type' => 'file',
-			),
-			array(
 				'name' => 'Display settings',
 				'desc' => '',
 				'id'   => 'kleodisplay',
@@ -134,6 +89,29 @@ function kleo_metaboxes( array $meta_boxes ) {
 				'type' => 'checkbox',
 				'value' => '1'
 			),
+            array(
+                'name' => 'Transparent Main menu color',
+                'desc' => '',
+                'id'   => $prefix . 'transparent_menu_color',
+                'type' => 'select',
+                'options' => array(
+                    array('value' => 'white', 'name' => 'White'),
+                    array('value' => 'black', 'name' => 'Black')
+                ),
+                'value' => 'white'
+            ),
+            array(
+                'name' => 'Social share',
+                'desc' => 'Display social share at bottom of the single page.',
+                'id'   => $prefix . 'blog_social_share',
+                'type' => 'select',
+                'options' => array(
+                    array('value' => '', 'name' => 'Default'),
+                    array('value' => '1', 'name' => 'Visible'),
+                    array('value' => '0', 'name' => 'Hidden')
+                ),
+                'value' => ''
+            ),
 				
 				
 			array(
@@ -142,6 +120,25 @@ function kleo_metaboxes( array $meta_boxes ) {
 				'id'   => 'kleoheader',
 				'type' => 'tab'
 			),
+            array(
+                'name' => 'Section Layout',
+                'desc' => '',
+                'id'   => $prefix . 'title_layout',
+                'type' => 'select',
+                'options' => array(
+                    array('value' => '', 'name' => 'Default'),
+                    array('value' => 'regular', 'name' => 'Regular'),
+                    array('value' => 'center', 'name' => 'Centered'),
+                    array('value' => 'right_breadcrumb', 'name' => 'Right Breadcrumb')
+                ),
+                'value' => ''
+            ),
+            array(
+                'name' => 'Custom page title',
+                'desc' => 'Set a custom page title here if you need.',
+                'id'   => $prefix . 'custom_title',
+                'type' => 'text',
+            ),
 			array(
 				'name' => 'Hide the title',
 				'desc' => 'Check to hide the title when displaying the post/page',
@@ -161,14 +158,110 @@ function kleo_metaboxes( array $meta_boxes ) {
 					),
 				'value' => ''
 			),
-				
-			array(
-				'name' => 'Hide information',
-				'desc' => 'Check to hide contact info in title section',
-				'id'   => $prefix . 'hide_info',
-				'type' => 'checkbox',
-				'value' => '1'
-			)
+            array(
+                'name' => 'Hide information',
+                'desc' => 'Check to hide contact info in title section',
+                'id'   => $prefix . 'hide_info',
+                'type' => 'checkbox',
+                'value' => '1'
+            ),
+            array(
+                'name' => 'Top Padding',
+                'desc' => 'Put a value without px. Example: 20<br>Default value is taken from Theme options - Header - Title/Breadcrumb section',
+                'id'   => $prefix . 'title_top_padding',
+                'type' => 'text',
+            ),
+            array(
+                'name' => 'Bottom Padding',
+                'desc' => 'Put a value without px. Example: 20<br>Default value is taken from Theme options - Header - Title/Breadcrumb section',
+                'id'   => $prefix . 'title_bottom_padding',
+                'type' => 'text',
+            ),
+            array(
+                'name' => 'Text Color',
+                'desc' => 'Override the default text color as set in Theme options - Styling options - Title',
+                'id'   => $prefix . 'title_color',
+                'type' => 'colorpicker',
+                'value' => ''
+            ),
+            array(
+                'name' => 'Background Image',
+                'desc' => 'Choose a background image for the section.',
+                'id'   => $prefix . 'title_bg',
+                'type' => 'file',
+                'bg_options' => 'yes'
+            ),
+            array(
+                'name' => 'Background Color',
+                'desc' => 'If an image is not set the color will be used',
+                'id'   => $prefix . 'title_bg_color',
+                'type' => 'colorpicker',
+                'value' => ''
+            ),
+
+            array(
+                'name' => 'Media',
+                'desc' => '',
+                'id'   => 'kleomedia',
+                'type' => 'tab'
+            ),
+            array(
+                'name' => 'Show media on post page',
+                'desc' => 'If you want to show image/gallery/video/audio before the post on single page',
+                'id'   => $prefix . 'post_media_status',
+                'type' => 'select',
+                'options' => array(
+                    array('value' => '', 'name' => 'Default'),
+                    array('value' => '1', 'name' => 'Yes'),
+                    array('value' => '0', 'name' => 'No')
+                ),
+                'value' => ''
+            ),
+            array(
+                'name' => 'Slider',
+                'desc' => 'Used when you select the Gallery format. Upload an image or enter an URL.',
+                'id'   => $prefix . 'slider',
+                'type' => 'file_repeat',
+                'allow' => 'url'
+            ),
+            array(
+                'name' => 'Video oEmbed URL',
+                'desc' => 'Used when you select Video format. Enter a Youtube, Vimeo, Soundcloud, etc URL. See supported services at <a target="_blank" href="http://codex.wordpress.org/Embeds">http://codex.wordpress.org/Embeds</a>.',
+                'id'   => $prefix . 'embed',
+                'type' => 'oembed',
+            ),
+
+            array(
+                'name' => 'Video Self hosted(mp4)',
+                'desc' => 'Used when you select Video format. Upload your MP4 video file. Setting a self hosted video will ignore Video oEmbed above.',
+                'id'   => $prefix . 'video_mp4',
+                'type' => 'file',
+            ),
+            array(
+                'name' => 'Video Self hosted(ogv)',
+                'desc' => 'Used when you select Video format. Upload your OGV video file.',
+                'id'   => $prefix . 'video_ogv',
+                'type' => 'file',
+            ),
+            array(
+                'name' => 'Video Self hosted(webm)',
+                'desc' => 'Used when you select Video format. Upload your WEBM video file.',
+                'id'   => $prefix . 'video_webm',
+                'type' => 'file',
+            ),
+            array(
+                'name' => 'Video Self hosted Poster',
+                'desc' => 'Used to show before the video loads',
+                'id'   => $prefix . 'video_poster',
+                'type' => 'file',
+            ),
+
+            array(
+                'name' => 'Audio',
+                'desc' => 'Used when you select Audio format. Upload your audio file',
+                'id'   => $prefix . 'audio',
+                'type' => 'file',
+            )
 		)
 	);
 
@@ -197,30 +290,6 @@ function kleo_metaboxes( array $meta_boxes ) {
 						array('value' => '', 'name' => 'Default'),
 						array('value' => '1', 'name' => 'Visible'),
 						array('value' => '0', 'name' => 'Hidden')
-					),
-				'value' => ''
-			),
-			array(
-				'name' => 'Social share',
-				'desc' => 'Display social share at bottom of the single post display',
-				'id'   => $prefix . 'blog_social_share',
-				'type' => 'select',
-				'options' => array(
-						array('value' => '', 'name' => 'Default'),
-						array('value' => '1', 'name' => 'Visible'),
-						array('value' => '0', 'name' => 'Hidden')
-					),
-				'value' => ''
-			),
-			array(
-				'name' => 'Show media on post page',
-				'desc' => 'If you want to show image/gallery/video/audio before the post on single page',
-				'id'   => $prefix . 'post_media_status',
-				'type' => 'select',
-				'options' => array(
-						array('value' => '', 'name' => 'Default'),
-						array('value' => '1', 'name' => 'Yes'),
-						array('value' => '0', 'name' => 'No')
 					),
 				'value' => ''
 			),
@@ -342,7 +411,7 @@ function kleo_metaboxes( array $meta_boxes ) {
     $meta_boxes[] = array(
         'id'         => 'page_menu',
         'title'      => 'Main menu options',
-        'pages'      => array( 'page'), // Post type
+        'pages'      => array( 'page', 'post' ), // Post type
         'context'    => 'side',
         'priority'   => 'default',
         'show_names' => true, // Show field names on the left

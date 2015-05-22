@@ -28,13 +28,10 @@ $container = apply_filters('kleo_main_container_class','container');
 			?>
 			<div <?php echo $section_id;?>class="template-page <?php echo $main_tpl_classes; ?>">
 				<div class="wrap-content">
-			
+					
 				<?php
 				/**
 				 * Before main content - action
-				 * Cambiado para que salga el oops si no ha posts en el resultado de bisqueda
 				 */
-				if ( is_search() && have_posts() || is_archive() || is_singular() ) :
-					do_action('kleo_before_main_content');
-				endif;
+				do_action('kleo_before_main_content');
 				?>

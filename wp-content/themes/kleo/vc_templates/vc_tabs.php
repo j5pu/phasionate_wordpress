@@ -5,6 +5,7 @@ extract(shortcode_atts(array(
 		'type' => 'tab',
 		'active_tab' => '1',
 		'style' => 'default',
+        'style_pills' => 'square',
 		'align' => '',
 		'margin_top' => '',
         'interval' => 0,
@@ -21,15 +22,16 @@ if ( 'vc_tour' == $this->shortcode ) {
     $element = 'wpb_tour';
 }
 
-$align = $align != "" ? " tabs-".$align : "";
+$align = $align != "" ? " tabs-" . $align : "";
 
 
-if ($type == 'pills') {
-	$style = 'square';
+if ( $type == 'pills' ) {
+	$style = $style_pills;
 }
+
 $style_att = '';
-if ($margin_top != '') {
-	$style_att .= ' style="margin-top:'.(int)$margin_top.'px"';
+if ( $margin_top != '' ) {
+	$style_att .= ' style="margin-top:' . (int)$margin_top . 'px"';
 }
 
 // Extract tab titles
@@ -47,7 +49,7 @@ $active_tab = (int)$active_tab != 0 ? $active_tab : 1;
 
 if ( isset($matches[0]) ) { $tab_titles = $matches[0]; }
 $tabs_nav = '';
-$tabs_nav .= '<ul class="nav nav-'.$type.' responsive-'.$type.' '.$type.'-style-'.$style.$align.'">';
+$tabs_nav .= '<ul class="nav nav-' . $type . ' responsive-' . $type . ' ' . $type . '-style-' . $style . $align . '">';
 foreach ( $tab_titles as $tab ) {
     preg_match('/vc_tab title="([^\"]+)"(\stab_id\=\"([^\"]+)\"){0,1}(\sicon\=\"([^\"]+)\")*/i', $tab[0], $tab_matches, PREG_OFFSET_CAPTURE );
     if(isset($tab_matches[1][0])) {
@@ -69,9 +71,9 @@ if ( $position != '' ) {
 
 $output .= "\n\t".'<div class="' . $css_class . '"' . $style_att . ' data-interval="' . $interval . '">';
 //$output .= wpb_widget_title(array('title' => $title, 'extraclass' => $element.'_heading'));
-$output .= "\n\t\t\t".$tabs_nav;
+$output .= "\n\t\t\t" . $tabs_nav;
 $output .= '<div class="tab-content">';
-$output .= "\n\t\t\t".wpb_js_remove_wpautop($content);
+$output .= "\n\t\t\t" . wpb_js_remove_wpautop( $content );
 if ( 'vc_tour' == $this->shortcode ) {
     $output .= "\n\t\t\t" . '<div class="wpb_tour_next_prev_nav clearfix"><small><span class="tour_prev_slide"><a href="#" title="' . __( 'Previous section', 'kleo_framework' ) . '">' .  __( 'Previous section', 'kleo_framework' ) . '</a></span> | <span class="tour_next_slide"><a href="#" title="' . __( 'Next section', 'kleo_framework' ) . '">' . __( 'Next section', 'kleo_framework' ) . '</a></span></small></div>';
 }

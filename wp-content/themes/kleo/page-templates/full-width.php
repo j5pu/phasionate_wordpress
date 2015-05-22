@@ -17,7 +17,7 @@ get_header(); ?>
 kleo_switch_layout('no');
 ?>
 
-<?php /*get_template_part('page-parts/general-title-section'); */?>
+<?php get_template_part('page-parts/general-title-section'); ?>
 
 <?php get_template_part('page-parts/general-before-wrap'); ?>
 
@@ -32,8 +32,19 @@ if ( have_posts() ) :
 		 * (where ___ is the post format) and that will be used instead.
 		 */
 		get_template_part( 'content', 'page' );
+        ?>
 
-	endwhile;
+        <?php get_template_part( 'page-parts/posts-social-share' ); ?>
+
+        <?php if ( sq_option( 'page_comments', 0 ) == 1 ): ?>
+
+            <!-- Begin Comments -->
+            <?php comments_template( '', true ); ?>
+            <!-- End Comments -->
+
+        <?php endif; ?>
+
+	<?php endwhile;
 
 endif;
 ?>

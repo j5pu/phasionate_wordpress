@@ -181,14 +181,18 @@ if($pmpro_msg)
       <?php } ?>
 			
       <ul class="list-group list-group-flush">
-      <?php 
-      global $kleo_pay_settings;
-      foreach ($kleo_pay_settings as $set) {      
-        if ($restrict_options[$set['name']]['showfield'] != 2) { ?>
-        <li class="list-group-item <?php if($restrict_options[$set['name']]['type'] == 1 || ($restrict_options[$set['name']]['type'] == 2 && isset($restrict_options[$set['name']]['levels']) && is_array($restrict_options[$set['name']]['levels']) && in_array($level->id,$restrict_options[$set['name']]['levels'])) ) { _e("unavailable",'pmpro');}?>"><?php echo $set['front'];?></li>
-        <?php 
-        }
-      } 
+      <?php
+      if ( function_exists('bp_is_active') ) {
+          global $kleo_pay_settings;
+          foreach ($kleo_pay_settings as $set) {
+              if ($restrict_options[$set['name']]['showfield'] != 2) { ?>
+                  <li class="list-group-item <?php if ($restrict_options[$set['name']]['type'] == 1 || ($restrict_options[$set['name']]['type'] == 2 && isset($restrict_options[$set['name']]['levels']) && is_array($restrict_options[$set['name']]['levels']) && in_array($level->id, $restrict_options[$set['name']]['levels']))) {
+                      _e("unavailable", 'pmpro');
+                  } ?>"><?php echo $set['front']; ?></li>
+              <?php
+              }
+          }
+      }
       do_action('kleo_pmpro_after_membership_table_items', $level);
       ?>
       </ul>

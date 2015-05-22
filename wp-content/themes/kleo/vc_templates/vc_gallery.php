@@ -47,37 +47,35 @@ if ( $type == 'thumbs' ) {
 	
 	$elem_id = kleo_vc_elem_increment();
 	foreach ( $images as $attach_id ) {
-			$i++;
-			if ($attach_id > 0) {
-					$post_thumbnail = wpb_getImageBySize(array( 'attach_id' => $attach_id, 'thumb_size' => $img_size));
-			}
-			else {
-					$different_kitten = 400 + $i;
-					$post_thumbnail = array();
-					$post_thumbnail['thumbnail'] = '<img src="http://placekitten.com/g/'.$different_kitten.'/300" />';
-					$post_thumbnail['p_img_large'][0] = 'http://placekitten.com/g/1024/768';
-			}
+        $i++;
+        if ( $attach_id > 0 ) {
+            $post_thumbnail = wpb_getImageBySize( array( 'attach_id' => $attach_id, 'thumb_size' => $img_size ) );
+        } else {
+            $post_thumbnail = array();
+            $post_thumbnail['thumbnail'] = '<img src="' . vc_asset_url( 'vc/no_image.png' ) . '" />';
+            $post_thumbnail['p_img_large'][0] = vc_asset_url( 'vc/no_image.png' );
+        }
 
-			$thumbnail = $post_thumbnail['thumbnail'];
-			$p_img_large = $post_thumbnail['p_img_large'];
-			$link_start = $link_end = '';
-			
-			$link_start .= '<div id="gall_'.$elem_id.'_'.$i.'">';
+        $thumbnail = $post_thumbnail['thumbnail'];
+        $p_img_large = $post_thumbnail['p_img_large'];
+        $link_start = $link_end = '';
 
-			if ( $onclick == 'link_image' ) {
-					$link_start .= '<a class="prettyphoto" href="'.$p_img_large[0].'"'.$pretty_rel_random.'>';
-					$link_end .= '</a>';
-			}
-			else if ( $onclick == 'custom_link' && isset( $custom_links[$i] ) && $custom_links[$i] != '' ) {
-					$link_start .= '<a href="'.$custom_links[$i].'"' . (!empty($custom_links_target) ? ' target="'.$custom_links_target.'"' : '') . '>';
-					$link_end .= '</a>';
-			}
-			
-			$link_end .= '</div>';
-			
-			$gal_images .= $link_start . '<img src="'.$p_img_large[0].'">' . $link_end;
-			
-			$gal_images_thumb .= '<a href="#gall_' . $elem_id . '_' . $i . '">' . $thumbnail . kleo_get_img_overlay() . '</a>';
+        $link_start .= '<div id="gall_'.$elem_id.'_'.$i.'">';
+
+        if ( $onclick == 'link_image' ) {
+                $link_start .= '<a class="prettyphoto" href="'.$p_img_large[0].'"'.$pretty_rel_random.'>';
+                $link_end .= '</a>';
+        }
+        else if ( $onclick == 'custom_link' && isset( $custom_links[$i] ) && $custom_links[$i] != '' ) {
+                $link_start .= '<a href="'.$custom_links[$i].'"' . (!empty($custom_links_target) ? ' target="'.$custom_links_target.'"' : '') . '>';
+                $link_end .= '</a>';
+        }
+
+        $link_end .= '</div>';
+
+        $gal_images .= $link_start . '<img src="'.$p_img_large[0].'">' . $link_end;
+
+        $gal_images_thumb .= '<a href="#gall_' . $elem_id . '_' . $i . '">' . $thumbnail . kleo_get_img_overlay() . '</a>';
 	}
 	$gal_images_thumb .= '</div>
 									<a class="kleo-thumbs-prev" href="#"><i class="icon-angle-left"></i></a>
@@ -88,31 +86,33 @@ if ( $type == 'thumbs' ) {
 else if ( $type == 'grid' )
 {
 	foreach ( $images as $attach_id ) {
-			$i++;
-			if ($attach_id > 0) {
-					$post_thumbnail = wpb_getImageBySize(array( 'attach_id' => $attach_id, 'thumb_size' => $img_size ));
-			}
-			else {
-					$different_kitten = 400 + $i;
-					$post_thumbnail = array();
-					$post_thumbnail['thumbnail'] = '<img src="http://placekitten.com/g/'.$different_kitten.'/300" />';
-					$post_thumbnail['p_img_large'][0] = 'http://placekitten.com/g/1024/768';
-			}
+        $i++;
 
-			$thumbnail = $post_thumbnail['thumbnail'];
-			$p_img_large = $post_thumbnail['p_img_large'];
-			$link_start = '<li class="el-zero-fade"><div class="kleo-gallery-inner">';
-			$link_end = '</div></li>';
+        //set defaults
+        $post_thumbnail = array();
+        $post_thumbnail['thumbnail'] = '<img src="' . vc_asset_url( 'vc/no_image.png' ) . '" />';
+        $post_thumbnail['p_img_large'][0] = vc_asset_url( 'vc/no_image.png' );
+        if ( $attach_id > 0 ) {
+            $img_path = wp_get_attachment_image_src($attach_id, 'full');
+            if ($img_path != NULL) {
+                $post_thumbnail = wpb_getImageBySize(array('attach_id' => $attach_id, 'thumb_size' => $img_size));
+            }
+        }
 
-			if ( $onclick == 'link_image' ) {
-					$link_start .= '<a class="prettyphoto" href="' . $p_img_large[0] . '"' . $pretty_rel_random.'>' . kleo_get_img_overlay();
-					$link_end .= '</a>';
-			}
-			else if ( $onclick == 'custom_link' && isset( $custom_links[$i] ) && $custom_links[$i] != '' ) {
-					$link_start .= '<a href="' . $custom_links[$i] . '"' . (!empty($custom_links_target) ? ' target="' . $custom_links_target.'"' : '') . '>' . kleo_get_img_overlay();
-					$link_end .= '</a>';
-			}
-			$gal_images .= $link_start . $thumbnail . $link_end;
+        $thumbnail = $post_thumbnail['thumbnail'];
+        $p_img_large = $post_thumbnail['p_img_large'];
+        $link_start = '<li class="el-zero-fade"><div class="kleo-gallery-inner">';
+        $link_end = '</div></li>';
+
+        if ( $onclick == 'link_image' ) {
+                $link_start .= '<a class="prettyphoto" href="' . $p_img_large[0] . '"' . $pretty_rel_random.'>' . kleo_get_img_overlay();
+                $link_end .= '</a>';
+        }
+        else if ( $onclick == 'custom_link' && isset( $custom_links[$i] ) && $custom_links[$i] != '' ) {
+                $link_start .= '<a href="' . $custom_links[$i] . '"' . (!empty($custom_links_target) ? ' target="' . $custom_links_target.'"' : '') . '>' . kleo_get_img_overlay();
+                $link_end .= '</a>';
+        }
+        $gal_images .= $link_start . $thumbnail . $link_end;
 	}
 }
 

@@ -43,10 +43,16 @@ if( sq_option('bp_breadcrumb_status', 1) == 0 ) {
 	$title_arr['show_breadcrumb'] = false;
 }
 
-if ( sq_option('bp_title_info', '') == '' ) {
+if ( sq_option('bp_custom_info', 0) == 1 ) {
+    $extra_info = sq_option('bp_title_info', '');
+} else {
+    $extra_info = sq_option('title_info', '');
+}
+
+if ( $extra_info == '') {
     $title_arr['extra'] = '';
 } else {
-    $title_arr['extra'] = '<p class="page-info">'.sq_option('bp_title_info', '').'</p>';
+    $title_arr['extra'] = '<p class="page-info">' . $extra_info . '</p>';
 }
 
 
@@ -75,6 +81,13 @@ if ( $current_page_id ) {
     }
 }
 
+/* disable Profile page breadcrumb option */
+if (bp_is_user() && sq_option( 'bp_profile_breadcrumb_disable', 0 ) == 1 ) {
+    $title_arr['show_breadcrumb'] = false;
+    $title_arr['show_title'] = false;
+    $title_arr['extra'] = '';
+}
+
 if(  isset ( $title_arr['show_breadcrumb'] ) && $title_arr['show_breadcrumb'] == false
         && isset( $title_arr['show_title'] )
         && $title_arr['extra'] == ''
@@ -87,6 +100,19 @@ else
 	echo kleo_title_section( $title_arr );
 }
 ?>
+
+<?php if( sq_option( 'bp_full_profile', 0 ) == 1 && bp_is_user() ): ?>
+
+    <section class="alternate-color bp-full-width-profile">
+        <div id="item-header" role="complementary">
+
+            <?php bp_get_template_part('members/single/member-header') ?>
+
+        </div>
+        <!-- #item-header -->
+    </section>
+
+<?php endif; ?>
 
 <?php get_template_part('page-parts/general-before-wrap'); ?>
 

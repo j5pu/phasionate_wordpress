@@ -18,20 +18,15 @@ class ItemLikes {
 		add_action('widgets_init', create_function('', 'register_widget("ItemLikes_Widget");'));
 	}
 
-		
 	function show_likes()
 	{
-		$ids = str_replace(' ', '', trim(strip_tags(sq_option('likes_exclude'))));
-		$ids = explode(',', $ids);
-		if(in_array(get_the_ID(), $ids)) return;
+		//$post_types = array( 'post', 'attachment' );
+		//$post_types = apply_filters( 'kleo_likes_post_types', $post_types );
+		//$current_post_type = get_post_type();
 		
-		$post_types = array( 'post', 'attachment' );
-		$post_types = apply_filters( 'kleo_likes_post_types', $post_types );
-		$current_post_type = get_post_type();
-		
-		if( in_array( $current_post_type, $post_types ) ) {
+		//if( in_array( $current_post_type, $post_types ) ) {
 			echo $this->do_likes();
-		}
+		//}
 	}
 	
 	function setup_likes( $post_id ) 
@@ -61,7 +56,14 @@ class ItemLikes {
 		if(!is_numeric($post_id)) return;
 		$zero_postfix = strip_tags($zero_postfix);
 		$one_postfix = strip_tags($one_postfix);
-		$more_postfix = strip_tags($more_postfix);		
+		$more_postfix = strip_tags($more_postfix);
+
+        if ( function_exists('icl_object_id') ) {
+            global $sitepress;
+            if (is_object($sitepress)) {
+                $post_id = icl_object_id($post_id, 'post', true, $sitepress->get_default_language());
+            }
+        }
 		
 		switch($action) {
 		
@@ -105,28 +107,35 @@ class ItemLikes {
 		return $this->do_likes();
 	}
 	
-	function do_likes()
+	function do_likes( $post_id = null )
 	{
-		global $post;
+        if ( ! $post_id ) {
+            global $post;
+            $post_id = $post->ID;
+        }
 
+        if ( function_exists('icl_object_id') ) {
+            global $sitepress;
+            $post_id = icl_object_id( $post_id, 'post', true, $sitepress->get_default_language() );
+        }
 		
-		$output = $this->like_this($post->ID, sq_option('likes_zero_text', ''), sq_option('likes_one_text', ''), sq_option('likes_more_text', ''));
+		$output = $this->like_this($post_id, sq_option('likes_zero_text', ''), sq_option('likes_one_text', ''), sq_option('likes_more_text', ''));
   
   		$class = 'item-likes';
   		$title = sq_option('like_this_text', 'Like this');
-		if( isset($_COOKIE['item_likes_'. $post->ID]) ){
+		if( isset($_COOKIE['item_likes_'. $post_id]) ){
 			$class = 'item-likes liked';
 			$title = sq_option('likes_already', 'You already like this');
 		}
 		
-		return '<a href="#" class="'. $class .'" id="item-likes-'. $post->ID .'" title="'. $title .'">'. $output .'</a>';
+		return '<a href="#" class="'. $class .'" id="item-likes-'. $post_id .'" title="'. $title .'">'. $output .'</a>';
 	}
 	
     function body_class($classes) {
         
-			if( sq_option('likes_ajax', 0) == 1 ) {
-					$classes[] = 'ajax-item-likes';
-			}
+        if( sq_option('likes_ajax', 0) == 1 ) {
+            $classes[] = 'ajax-item-likes';
+        }
 			
     	return $classes;
     }
@@ -138,10 +147,14 @@ $kleo_item_likes = new ItemLikes();
 /**
  * Template Tag
  */
-function kleo_item_likes()
+function kleo_item_likes( $post_id = null, $return = false )
 {
 	global $kleo_item_likes;
-    echo $kleo_item_likes->do_likes(); 
+    if ( $return === true ) {
+        return $kleo_item_likes->do_likes($post_id);
+    } else {
+        echo $kleo_item_likes->do_likes($post_id);
+    }
 }
 
 /**

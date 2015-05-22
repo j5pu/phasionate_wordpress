@@ -23,8 +23,18 @@ $style = ( $style != '' ) ? $style : '';
 $border_color = ( $border_color != '' ) ? ' vc_box_border_' . $border_color : '';
 
 $img_id = preg_replace( '/[^\d]/', '', $image );
-$img = wpb_getImageBySize( array( 'attach_id' => $img_id, 'thumb_size' => $img_size, 'class' => $style . $border_color ) );
-if ( $img == NULL ) $img['thumbnail'] = '<img class="' . $style . $border_color . '" src="' . vc_asset_url( 'vc/no_image.png' ) . '" />'; //' <small>'.__('This is image placeholder, edit your page to replace it.', 'js_composer').'</small>';
+
+$img_path = wp_get_attachment_image_src($img_id, 'full');
+if ($img_path != NULL) {
+    $img = wpb_getImageBySize(array('attach_id' => $img_id, 'thumb_size' => $img_size, 'class' => $style . $border_color));
+} else {
+    $img = NULL;
+}
+
+if ( $img == NULL || (isset( $img['p_img_large'] ) && $img['p_img_large'] == FALSE  ) ) {
+    $img['thumbnail'] = '<img class="' . $style . $border_color . '" src="' . vc_asset_url( 'vc/no_image.png' ) . '" />';
+} //' <small>'.__('This is image placeholder, edit your page to replace it.', 'js_composer').'</small>';
+
 
 $el_class = $this->getExtraClass( $el_class );
 

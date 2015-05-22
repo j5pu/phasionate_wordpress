@@ -56,7 +56,11 @@ if (! get_cfield('post_layout') || get_cfield('post_layout') == 'default') {
                         'preload="0"'
                     );
 
-                    $k_video .= '<div class="bg-full-video kleo-video-wrap"><video ' . join( ' ', $attr_strings ) . ' controls="controls" class="kleo-video" style="height: 100%; width: 100%;">';
+                    if (get_cfield( 'video_poster' ) ) {
+                        $attr_strings[] = 'poster="' . get_cfield( 'video_poster' ) . '"';
+                    }
+
+                    $k_video .= '<div class="kleo-video-wrap"><video ' . join( ' ', $attr_strings ) . ' controls="controls" class="kleo-video" style="height: 100%; width: 100%;">';
 
                     $source = '<source type="%s" src="%s" />';
                     foreach ( $bg_video_args as $video_type => $video_src ) {
@@ -92,17 +96,18 @@ if (! get_cfield('post_layout') || get_cfield('post_layout') == 'default') {
                 if ( $slides ) {
                     foreach( $slides as $slide ) {
                         if ( $slide ) {
-                            $image = aq_resize( $slide, $kleo_config['post_gallery_img_width'], $kleo_config['post_gallery_img_height'], true, true, true );
+
+                            $image = aq_resize( $slide, $kleo_config['post_single_img_width'], null, true, true, true );
                             //small hack for non-hosted images
                             if (! $image ) {
                                 $image = $slide;
                             }
-                            echo '<article>
-                                        <a href="'. $slide .'" data-rel="prettyPhoto[inner-gallery]">
-                                            <img src="'.$image.'" alt="">'
-                                . kleo_get_img_overlay()
+                            echo '<article>'
+                                . '<a href="'. $slide .'" data-rel="prettyPhoto[inner-gallery]">'
+                                    . ' <img src="'.$image.'" alt="">'
+                                    . kleo_get_img_overlay()
                                 . '</a>
-                                    </article>';
+                                </article>';
                         }
                     }
                 }
@@ -120,7 +125,7 @@ if (! get_cfield('post_layout') || get_cfield('post_layout') == 'default') {
                     echo '<div class="portfolio-image">';
 
                     $img_url = kleo_get_post_thumbnail_url();
-                    $image = aq_resize( $img_url, $kleo_config['post_gallery_img_width'], $kleo_config['post_gallery_img_height'], true, true, true );
+                    $image = aq_resize( $img_url, $kleo_config['post_single_img_width'], null, true, true, true );
                     if( ! $image ) {
                         $image = $img_url;
                     }
@@ -136,16 +141,30 @@ if (! get_cfield('post_layout') || get_cfield('post_layout') == 'default') {
 
     <?php the_content();?>
 
+    <?php get_template_part( 'page-parts/posts-social-share' ); ?>
+
     <?php
     // Previous/next post navigation.
     kleo_post_nav();
     ?>
+
+    <?php if ( sq_option( 'portfolio_comments', 0 ) == 1 ) : ?>
+
+        <!-- Begin Comments -->
+        <?php comments_template( '', true ); ?>
+        <!-- End Comments -->
+
+    <?php endif; ?>
 
 
 <?php endwhile; ?>
 
 <?php get_template_part('page-parts/general-after-wrap');?>
 
-<section class="footer-color text-center portfolio-back"><a title="<?php _e("Back to Portfolio", "kleo_framework" );?>" href="<?php echo get_archive_link( 'portfolio' );?>"><i class="icon-th icon-2x"></i></a></section>
+<?php if ( sq_option( 'portfolio_back_to', 1) == 1 ) : ?>
+
+    <section class="footer-color text-center portfolio-back"><a title="<?php printf( __("Back to %s", "kleo_framework" ), sq_option( 'portfolio_name', 'Portfolio' ) );?>" href="<?php echo get_archive_link( 'portfolio' );?>"><i class="icon-th icon-2x"></i></a></section>
+
+<?php endif; ?>
 
 <?php get_footer(); ?>

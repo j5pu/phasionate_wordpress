@@ -92,16 +92,24 @@
                 // Grab the selected attachment.
                 var attachment = frame.state().get( 'selection' ).first();
                 frame.close();
-                if ( typeof redux.media === 'undefined' ) {
-                    redux.media = {};
-                }
-                if ( typeof redux.media[$( selector ).attr( 'data-id' )] === 'undefined' ) {
-                    redux.media[$( selector ).attr( 'data-id' )] = {};
-                    redux.media[$( selector ).attr( 'data-id' )].mode = "image";
+
+                var data = $( selector ).find('.data').data();
+
+                if ( typeof redux.field_objects.media === 'undefined' || typeof redux.field_objects.media === undefined ) {
+                    redux.field_objects.media = {};
                 }
 
-                if ( redux.media[$( selector ).attr( 'data-id' )].mode !== false && attachment.attributes.type !== redux.media[jQuery( selector ).attr( 'data-id' )].mode ) {
-                    return;
+                if ( data === undefined || data.mode === 'undefined' ) {
+                    data = {};
+                    data.mode = "image";
+                }
+
+                if (data.mode === 0) {
+                    
+                } else {
+                    if ( data.mode !== false && attachment.attributes.type !== data.mode ) {
+                        return;
+                    }
                 }
 
                 selector.find( '.upload' ).val( attachment.attributes.url );

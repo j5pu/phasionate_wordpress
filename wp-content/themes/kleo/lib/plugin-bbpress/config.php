@@ -10,7 +10,9 @@
 
 
 //register our own css file
-if(!is_admin()){ add_action('bbp_enqueue_scripts', 'kleo_bbpress_register_style',15); }
+if( ! is_admin() ) {
+    add_action('bbp_enqueue_scripts', 'kleo_bbpress_register_style',15);
+}
 
 
 function kleo_bbpress_register_style()
@@ -19,8 +21,16 @@ function kleo_bbpress_register_style()
 
 	wp_dequeue_style( 'bbp-default-bbpress' );
 	wp_dequeue_style( 'bbp-default' );
+	wp_dequeue_style( 'bbp-default-rtl' );
 	wp_enqueue_style( 'kleo-bbpress', THEME_URI.'/bbpress/css/bbpress.css');
 
+    if ( is_rtl() ) {
+        add_action('kleo_late_styles', 'kleo_bbp_rtl_style');
+    }
+}
+
+function kleo_bbp_rtl_style() {
+    wp_enqueue_style( 'kleo-bbpress-rtl', THEME_URI.'/bbpress/css/bbpress-rtl.css');
 }
 
 
@@ -52,7 +62,7 @@ function kleo_bbpress_change_layout($layout) {
 function my_bbp_filter_search_results( $r ){
 
     //Get the submitted forum ID (from the hidden field added in step 2)
-    $forum_id = sanitize_title_for_query( $_GET['bbp_search_forum_id'] );
+    $forum_id = isset( $_GET['bbp_search_forum_id'] ) ? sanitize_title_for_query( $_GET['bbp_search_forum_id'] ) : false;
 
     //If the forum ID exits, filter the query
     if( $forum_id && is_numeric( $forum_id ) ){
@@ -82,3 +92,31 @@ function my_bbp_search_form(){
 <?php
 }
 add_action( 'bbp_template_before_single_forum', 'my_bbp_search_form' );
+
+/* Add class for author role */
+function kleo_bbp_add_role_class( $author_role, $r ) {
+
+    $reply_id    = bbp_get_reply_id( $r['reply_id'] );
+    $role        = strtolower( esc_attr( bbp_get_user_display_role( bbp_get_reply_author_id( $reply_id ) ) ) );
+
+    $author_role = str_replace('class="','class="role-' . $role . ' ', $author_role);
+
+    return $author_role;
+
+}
+add_filter( 'bbp_get_reply_author_role' , 'kleo_bbp_add_role_class', 10, 2 );
+
+
+/* Fix for user favorites not showing */
+if ( ! function_exists( 'kleo_bbpress_favorites_fix' ) ) {
+    function kleo_bbpress_favorites_fix($r)
+    {
+        if ( bbp_is_favorites() || bbp_is_subscriptions() ) {
+            $r['post_author'] = 0;
+            $r['author'] = 0;
+        }
+
+        return $r;
+    }
+    add_filter('bbp_after_has_topics_parse_args', 'kleo_bbpress_favorites_fix', 999);
+}

@@ -3,23 +3,28 @@ $output = $el_class = $css_animation = '';
 
 extract(shortcode_atts(array(
     'el_class' => '',
-		'lead' => false,
-		'font_size' => '',
-		'font_weight' => '',
-		'animation' => '',
-    'css_animation' => ''
+    'lead' => false,
+    'font_size' => '',
+    'font_weight' => '',
+    'animation' => '',
+    'css_animation' => '',
+    'css' => ''
 ), $atts));
 
 $el_class = $this->getExtraClass($el_class);
 
-$css_class = apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG,'kleo_text_column wpb_content_element '.$el_class, $this->settings['base']);
+if ( version_compare(WPB_VC_VERSION, '4.4' ) >= 0) {
+    $css_class = apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'kleo_text_column wpb_content_element ' . $el_class . vc_shortcode_custom_css_class($css, ' '), $this->settings['base'], $atts);
+} else {
+    $css_class = apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'kleo_text_column wpb_content_element ' . $el_class, $this->settings['base']);
+}
 
 if ( $animation != '' ) {
 	wp_enqueue_script( 'waypoints' );
 	$css_class .= " animated {$animation} {$css_animation}";
 }
 
-if($lead) {
+if( $lead ) {
 	$css_class .= ' lead';
 }
 

@@ -9,15 +9,15 @@
 ?>
 
 <?php
-$postclass = '';
-if( is_single() && get_cfield('centered_text') == 1) { $postclass = 'text-center'; } 
+$post_class = 'clearfix';
+if( is_single() && get_cfield( 'centered_text' ) == 1 ) { $post_class .= ' text-center'; }
 ?>
 
 <!-- Begin Article -->
-<article id="post-<?php the_ID(); ?>" <?php post_class(array($postclass)); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( array( $post_class ) ); ?>>
 
 	<?php if ( !is_single() ) : ?>
-	<h2 class="article-title">
+	<h2 class="article-title entry-title">
 		<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'kleo_framework' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
 	</h2>
 	<?php endif; // is_single() ?>
@@ -56,8 +56,11 @@ if( is_single() && get_cfield('centered_text') == 1) { $postclass = 'text-center
 			$attr_strings = array(
 					'preload="0"'
 			);
+            if (get_cfield( 'video_poster' ) ) {
+                $attr_strings[] = 'poster="' . get_cfield( 'video_poster' ) . '"';
+            }
 
-			$k_video .= sprintf( '<div class="kleo-video-wrap"><video %s controls="controls" class="kleo-video">', join( ' ', $attr_strings ) );
+			$k_video .= '<div class="kleo-video-wrap"><video ' . join( ' ', $attr_strings ) . ' controls="controls" class="kleo-video" style="height: 100%; width: 100%;">';
 
 			$source = '<source type="%s" src="%s" />';
 			foreach ( $bg_video_args as $video_type => $video_src ) {

@@ -35,7 +35,7 @@ $section["bg_color_rgb"] = kleo_hex_to_rgb($section['bg']);
 $section["link_color_rgb"] = kleo_hex_to_rgb($section['link']);
 
 /* Use like this
- * 
+ *
  * .<?php echo $name; ?>-color .rgb-element {
  *	background-color: rgba(<?php echo $section['high_bg_rgb']['r']; ?>,<?php echo $section['high_bg_rgb']['g']; ?>,<?php echo $section['high_bg_rgb']['b']; ?>,0.4);
  * }
@@ -87,10 +87,13 @@ border-top-color: <?php echo $section['border']; ?>;
     }
 
     .kleo-main-header .nav > li.active > a {
-        box-shadow: inset 0px 2px 0px 0px <?php echo $section['high_bg']; ?>;
+        box-shadow: inset 0px <?php if ( sq_option('header_layout') == 'center_logo' ) { echo '-'; } ?>2px 0px 0px <?php echo $section['high_bg']; ?>;
     }
     .kleo-main-header .nav > li > a:hover {
-        box-shadow: inset 0px 2px 0px 0px <?php echo $section['border']; ?>;
+        box-shadow: inset 0px <?php if ( sq_option('header_layout') == 'center_logo' ) { echo '-'; } ?>2px 0px 0px <?php echo $section['border']; ?>;
+    }
+    .header-centered .dropdown > .dropdown-menu.sub-menu {
+        box-shadow: 0px -2px 0px 0px <?php echo $section['border']; ?>;
     }
     .kleo-main-header .nav > li.kleo-toggle-menu a,
     .kleo-main-header .nav > li.kleo-search-nav a,
@@ -101,7 +104,7 @@ border-top-color: <?php echo $section['border']; ?>;
 
     <?php
     if ( $section['border'] == 'transparent' ) { ?>
-        .kleo-main-header { box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.22); }
+        .kleo-main-header.header-scrolled { box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.22); }
     <?php } ?>
 
 <?php } ?>
@@ -164,6 +167,7 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #buddypress input[type=reset],
 .<?php echo $name; ?>-color #buddypress ul.button-nav li a,
 .<?php echo $name; ?>-color #buddypress div.generic-button a,
+    .<?php echo $name; ?>-color.bp-full-width-profile div.generic-button a,
     .<?php echo $name; ?>-color #buddypress .portfolio-filter-tabs li a,
 
 /* bbPress */
@@ -196,6 +200,7 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .dropdown-menu > .active > a:hover,
 .<?php echo $name; ?>-color .dropdown-menu > .active > a:focus,
 .<?php echo $name; ?>-color .form-control:focus,
+    .<?php echo $name; ?>-color .wrap-canvas-menu .widget_nav_menu .offcanvas-menu .dropdown-menu > li > a,
 
 /*Buddypress*/
 .<?php echo $name; ?>-color #buddypress a.button.unfav,
@@ -238,6 +243,8 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .top-menu li > a:hover,
 .<?php echo $name; ?>-color .navbar-nav .dropdown-menu li a:hover,
 .<?php echo $name; ?>-color .sidebar ul li a:hover,
+    .<?php echo $name; ?>-color .wrap-canvas-menu .widget_nav_menu .offcanvas-menu .dropdown-menu > li > a:hover,
+    .<?php echo $name; ?>-color .wrap-canvas-menu .widget_nav_menu .offcanvas-menu .dropdown-menu > li > a:focus,
 
 /* Buddypress */
 .<?php echo $name; ?>-color #buddypress .activity-list li.load-more a:hover,
@@ -275,10 +282,11 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .form-control,
 .<?php echo $name; ?>-color .pricing-table li.list-group-item,
 .<?php echo $name; ?>-color .btn-see-through:hover,
-.<?php echo $name; ?>-color .box-style .feature-item.default-icons-size .feature-icon,
 .<?php echo $name; ?>-color #ajax_search_container,
 .<?php echo $name; ?>-color #ajax_search_container:before,
 .<?php echo $name; ?>-color .kleo-toggle-menu .kleo-toggle-submenu:before,
+    .<?php echo $name; ?>-color .box-style .feature-item.default-icons-size .feature-icon,
+    .<?php echo $name; ?>-color .box-style .feature-item.big-icons-size .feature-icon,
 
 /*Buddypress*/
 .<?php echo $name; ?>-color #buddypress .activity-read-more a,
@@ -326,24 +334,25 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #buddypress div.rtmedia-activity-container .rtmedia-editor-main dl.tabs dd > a,
 
 /* WooCommerce */
-.<?php echo $name; ?>-color .kleo-toggle-menu .kleo-toggle-submenu,
+.<?php echo $name; ?>-color .kleo-toggle-menu .kleo-toggle-submenu {
 
-/* Social Article plugin */
-.<?php echo $name; ?>-color .article-content {
 	background-color: <?php echo $section['bg']; ?>;
 }
 
 .<?php echo $name; ?>-color .btn-primary,
 .<?php echo $name; ?>-color .btn-primary:hover,
 .<?php echo $name; ?>-color .btn-see-through,
+    .<?php echo $name; ?>-color .bordered-icons .feature-item:hover .feature-icon,
+    .<?php echo $name; ?>-color .colored-icons.bordered-icons .feature-item:hover .feature-icon,
 
 /*Buddypress*/
-.<?php echo $name; ?>-color #buddypress #item-header-avatar {
+.buddypress .<?php echo $name; ?>-color #item-header-avatar {
 	color: <?php echo $section['bg']; ?>;
 }
 
 .<?php echo $name; ?>-color .post-header:before,
-.<?php echo $name; ?>-color .box-style .feature-item.default-icons-size .feature-icon,
+    .<?php echo $name; ?>-color .bordered-icons .feature-item:hover .feature-icon,
+    .<?php echo $name; ?>-color .colored-icons.bordered-icons .feature-item:hover .feature-icon,
 
 /*Buddypress*/
 .<?php echo $name; ?>-color #buddypress #groups-list .item-avatar .member-count,
@@ -390,6 +399,9 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .list-divider li,
 .<?php echo $name; ?>-color #ajax_search_container,
 .<?php echo $name; ?>-color .form-control,
+    .<?php echo $name; ?>-color .feature-item:hover .feature-icon,
+    .<?php echo $name; ?>-color .bordered-icons .feature-item.default-icons-size .feature-icon,
+    .<?php echo $name; ?>-color .bordered-icons .feature-item.big-icons-size .feature-icon,
 
 .<?php echo $name; ?>-color input[type="text"],
 .<?php echo $name; ?>-color input[type="password"],
@@ -410,12 +422,14 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .activity-timeline,
 .<?php echo $name; ?>-color #buddypress div.item-list-tabs ul li a span,
 .<?php echo $name; ?>-color #buddypress button,
+.buddypress .<?php echo $name; ?>-color a.button,
 .<?php echo $name; ?>-color #buddypress a.button,
 .<?php echo $name; ?>-color #buddypress input[type=submit],
 .<?php echo $name; ?>-color #buddypress input[type=button],
 .<?php echo $name; ?>-color #buddypress input[type=reset],
 .<?php echo $name; ?>-color #buddypress ul.button-nav li a,
 .<?php echo $name; ?>-color #buddypress div.generic-button a,
+    .<?php echo $name; ?>-color.bp-full-width-profile div.generic-button a,
 .<?php echo $name; ?>-color #buddypress .comment-reply-link,
 .<?php echo $name; ?>-color #buddypress #whats-new,
 .<?php echo $name; ?>-color #buddypress div.message-search,
@@ -532,10 +546,6 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #buddypress div.activity-comments ul li,
 .<?php echo $name; ?>-color #buddypress #item-body #pag-bottom,
 
-/* bbPress */
-.<?php echo $name; ?>-color div.bbp-forum-header,
-.<?php echo $name; ?>-color div.bbp-topic-header,
-.<?php echo $name; ?>-color div.bbp-reply-header,
 
 /* WooCommerce */
 .woocommerce .<?php echo $name; ?>-color table.shop_table td,
@@ -582,10 +592,6 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #buddypress ul.mesage-item,
 .<?php echo $name; ?>-color #buddypress div.messages .pagination,
 
-/* bbPress */
-.<?php echo $name; ?>-color div.bbp-forum-header,
-.<?php echo $name; ?>-color div.bbp-topic-header,
-.<?php echo $name; ?>-color div.bbp-reply-header,
 
 /* WooCommerce */
 .<?php echo $name; ?>-color .kleo-toggle-menu .minicart-header,
@@ -640,7 +646,6 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .pricing-table .extra-description,
 .<?php echo $name; ?>-color .mejs-container .mejs-controls,
 .<?php echo $name; ?>-color .box-style .feature-item,
-.<?php echo $name; ?>-color .kleo_ajax_entry:hover,
 
 .<?php echo $name; ?>-color input[type="text"][disabled],
 .<?php echo $name; ?>-color input[type="password"][disabled],
@@ -682,6 +687,7 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #buddypress ul.button-nav li a:hover,
 .<?php echo $name; ?>-color #buddypress ul.button-nav li.current a,
 .<?php echo $name; ?>-color #buddypress div.generic-button a:hover,
+    .<?php echo $name; ?>-color.bp-full-width-profile div.generic-button a:hover,
 .<?php echo $name; ?>-color #buddypress .comment-reply-link:hover,
 
 /* bbPress */
@@ -691,6 +697,8 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .bbp-submit-wrapper button.button,
 .<?php echo $name; ?>-color #bbpress-forums .bbp-form input[type="text"]:focus,
 .<?php echo $name; ?>-color .wp-editor-area:focus,
+.<?php echo $name; ?>-color .bbp-row-actions #favorite-toggle a,
+.<?php echo $name; ?>-color .bbp-row-actions #subscription-toggle a,
 
 /* rtMedia */
 .<?php echo $name; ?>-color .rtmedia-container .drag-drop,
@@ -735,7 +743,7 @@ border-top-color: <?php echo $section['border']; ?>;
 
 /* Buddypress */
 .<?php echo $name; ?>-color .bbp_widget_login .bbp-logged-in .user-submit,
-.<?php echo $name; ?>-color #buddypress #item-header-avatar,
+.buddypress .<?php echo $name; ?>-color #item-header-avatar,
 .<?php echo $name; ?>-color #buddypress .activity-list .activity-avatar,
 .<?php echo $name; ?>-color .bp-login-widget-user-avatar,
 .<?php echo $name; ?>-color #buddypress #friend-list li div.item-avatar,
@@ -746,12 +754,7 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #buddypress .kleo-online-status,
 .<?php echo $name; ?>-color .kleo-members-carousel .kleo-online-status,
 .<?php echo $name; ?>-color #buddypress form.standard-form div#invite-list div.item-avatar,
-.<?php echo $name; ?>-color #buddypress div.messages .thread-avatar,
-
-/* bbPress */
-.<?php echo $name; ?>-color #bbpress-forums div.bbp-forum-author img.avatar,
-.<?php echo $name; ?>-color #bbpress-forums div.bbp-topic-author img.avatar,
-.<?php echo $name; ?>-color #bbpress-forums div.bbp-reply-author img.avatar {
+.<?php echo $name; ?>-color #buddypress div.messages .thread-avatar {
 	border-color: <?php echo $section['alt_bg']; ?>;
 }
 
@@ -877,9 +880,11 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #buddypress li span.unread-count,
 .<?php echo $name; ?>-color #buddypress #groups-list .item-avatar .member-count,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.add,
+    .<?php echo $name; ?>-color.bp-full-width-profile div.generic-button a.add,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.accept,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.join-group,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.add:hover,
+    .<?php echo $name; ?>-color.bp-full-width-profile div.generic-button a.add:hover,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.accept:hover,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.join-group:hover,
 .<?php echo $name; ?>-color #footer .widget-title,
@@ -928,11 +933,14 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .kleo-mobile-icons .cart-items span,
 .<?php echo $name; ?>-color .ordered-list.colored-icons li:before,
 .<?php echo $name; ?>-color .masonry-listing .format-quote .post-content,
+.<?php echo $name; ?>-color .bordered-icons .feature-item:hover .feature-icon,
+.<?php echo $name; ?>-color .colored-icons.bordered-icons .feature-item:hover .feature-icon,
 
 /* Buddypress */
 .<?php echo $name; ?>-color input[type="radio"]:checked + .radiobox-mark span,
-.<?php echo $name; ?>-color #buddypress .kleo-online-status.high-bg,
+.buddypress .<?php echo $name; ?>-color .kleo-online-status.high-bg,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.add,
+    .<?php echo $name; ?>-color.bp-full-width-profile div.generic-button a.add,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.accept,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.join-group,
 
@@ -961,9 +969,14 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .colored-icons i,
 .<?php echo $name; ?>-color .standard-list.colored-icons li:before,
 .<?php echo $name; ?>-color .panel-kleo .icon-closed,
-.<?php echo $name; ?>-color .colored-icons .feature-item.default-icons-size .feature-icon,
+.<?php echo $name; ?>-color .colored-icons .feature-item .feature-icon,
+
+/* BuddyPress */
+.<?php echo $name; ?>-color #buddypress div#subnav.item-list-tabs ul li a.group-create,
 
 /*bbPress*/
+.<?php echo $name; ?>-color a.favorite-toggle:before,
+.<?php echo $name; ?>-color a.subscription-toggle:before,
 .<?php echo $name; ?>-color .bbp-topics-front ul.super-sticky:after,
 .<?php echo $name; ?>-color .bbp-topics ul.super-sticky:after,
 .<?php echo $name; ?>-color #bbpress-forums li.bbp-body ul.super-sticky {
@@ -972,6 +985,10 @@ border-top-color: <?php echo $section['border']; ?>;
 
 .<?php echo $name; ?>-color .btn-highlight,
 .<?php echo $name; ?>-color .kleo-pin-poi,
+.<?php echo $name; ?>-color .bordered-icons .feature-item:hover .feature-icon,
+.<?php echo $name; ?>-color .colored-icons .feature-item:hover .feature-icon,
+.<?php echo $name; ?>-color .box-style .bordered-icons .feature-item:hover .feature-icon,
+.<?php echo $name; ?>-color .box-style .colored-icons.bordered-icons .feature-item:hover .feature-icon,
 
 /* WooCommerce */
 .woocommerce .<?php echo $name; ?>-color #content input.button.alt,
@@ -987,9 +1004,11 @@ border-top-color: <?php echo $section['border']; ?>;
 
 /* Buddypress */
 .<?php echo $name; ?>-color #buddypress div.generic-button a.add,
+    .<?php echo $name; ?>-color.bp-full-width-profile div.generic-button a.add,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.accept,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.join-group,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.add:hover,
+    .<?php echo $name; ?>-color.bp-full-width-profile div.generic-button a.add:hover,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.accept:hover,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.join-group:hover,
 
@@ -1050,6 +1069,7 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #buddypress ul.button-nav li a:hover,
 .<?php echo $name; ?>-color #buddypress ul.button-nav li.current a,
 .<?php echo $name; ?>-color #buddypress div.generic-button a:hover,
+    .<?php echo $name; ?>-color.bp-full-width-profile div.generic-button a:hover,
 .<?php echo $name; ?>-color #buddypress .comment-reply-link:hover,
 .<?php echo $name; ?>-color #buddypress div.item-list-tabs#subnav ul li.selected a,
 .<?php echo $name; ?>-color #buddypress div.item-list-tabs#subnav ul li a:hover,
@@ -1080,6 +1100,8 @@ border-top-color: <?php echo $section['border']; ?>;
 /* bbPress */
 .<?php echo $name; ?>-color li.bbp-forum-info .bbp-forum-title,
 .<?php echo $name; ?>-color ul.topic.sticky .bbp-topic-permalink,
+.<?php echo $name; ?>-color a.favorite-toggle,
+.<?php echo $name; ?>-color a.subscription-toggle,
 .<?php echo $name; ?>-color #bbpress-forums div.bbp-forum-author a.bbp-author-name,
 .<?php echo $name; ?>-color #bbpress-forums div.bbp-topic-author a.bbp-author-name,
 .<?php echo $name; ?>-color #bbpress-forums div.bbp-reply-author a.bbp-author-name,
@@ -1195,13 +1217,20 @@ border-top-color: <?php echo $section['border']; ?>;
 	outline-color: <?php echo $section['lighter']; ?>;
 }
 /* Buddypress */
-.<?php echo $name; ?>-color #buddypress .kleo-online-status,
+.buddypress .<?php echo $name; ?>-color .kleo-online-status,
 .<?php echo $name; ?>-color .kleo-members-carousel .kleo-online-status {
 	background-color: <?php echo $section['lighter']; ?>;
 }
 
 
-
+    .<?php echo $name; ?>-color *::-moz-selection {
+    background-color: <?php echo $section['high_bg']; ?>;
+    color: <?php echo $section['high_color']; ?>;
+    }
+    .<?php echo $name; ?>-color ::selection {
+    background-color: <?php echo $section['high_bg']; ?>;
+    color: <?php echo $section['high_color']; ?>;
+    }
 
 
 /*** TRANSPARENCY ***/
@@ -1212,6 +1241,7 @@ border-top-color: <?php echo $section['border']; ?>;
 }
 .<?php echo $name; ?>-color .btn-highlight:hover,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.add:hover,
+    .<?php echo $name; ?>-color.bp-full-width-profile div.generic-button a.add:hover,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.accept:hover,
 .<?php echo $name; ?>-color #buddypress div.generic-button a.join-group:hover,
 
@@ -1365,12 +1395,20 @@ foreach( $style_sets as $set ) {
 }
 
 if ( sq_option( 'menu_size', '' ) != '' ) {
-  echo '.kleo-main-header .navbar-nav > li > a { font-size: ' . sq_option( 'menu_size', '' ) . 'px; }'; 
+  echo '.kleo-main-header .navbar-nav > li > a { font-size: ' . sq_option( 'menu_size', '' ) . 'px; }';
 }
 
 if ( sq_option( 'boxed_size', '1440' ) != '1440' ) {
     echo '.page-boxed, .kleo-navbar-fixed .page-boxed .kleo-main-header, .kleo-navbar-fixed.navbar-transparent .page-boxed #header { max-width: ' . sq_option( 'boxed_size' ) . 'px; }';
 }
+
+//title padding
+$title_padding = sq_option('title_padding');
+echo '.main-title {padding-top: ' . $title_padding['padding-top'] . '; padding-bottom: ' . $title_padding['padding-bottom'] . ';}';
+
+//header height
+echo '.navbar-header, .kleo-main-header .navbar-collapse > ul > li > a, .header-banner{line-height: ' . sq_option( 'menu_height', 88 ) . 'px;}';
+echo '.navbar-header {height: ' . sq_option( 'menu_height', 88 ) . 'px;}';
 
 //here you can apply other styles
 $extra_output = apply_filters( 'kleo_add_dynamic_style', '' );

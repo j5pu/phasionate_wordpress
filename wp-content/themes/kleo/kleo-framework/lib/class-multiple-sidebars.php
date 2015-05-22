@@ -59,8 +59,8 @@ class sidebar_generator {
 					'name'=>$sidebar,
                                         'before_widget' => '<div id="%1$s" class="widgets clearfix %2$s">',
                                         'after_widget' => '</div>',
-                                        'before_title' => '<h4 class="widget-title">',
-                                        'after_title' => '</h4>',
+                                        'before_title' => '<h5>',
+                                        'after_title' => '</h5>',
 		    	));
 			}
 		}
@@ -250,7 +250,7 @@ class sidebar_generator {
 		}		
 	}
 	
-	function edit_form(){
+	public static function edit_form(){
 	    global $post;
 	    $post_id = $post;
 	    if (is_object($post_id)) {
@@ -332,18 +332,22 @@ class sidebar_generator {
 	 * called by the action get_sidebar. this is what places this into the theme
 	*/
 	public static function get_sidebar($name="0"){
-		if( ! is_singular() && ! is_home() ){
+		if( ! is_singular() ){
 			if($name != "0"){
 				dynamic_sidebar($name);
 			}else{
 				dynamic_sidebar();
 			}
 			
-			return;//dont do anything
+			return;//do not do anything
 		}
 		
 		global $wp_query;
 		$post = $wp_query->get_queried_object();
+        if ( ! $post ) {
+            dynamic_sidebar();
+            return;
+        }
 
         $post_id = $post->ID;
 

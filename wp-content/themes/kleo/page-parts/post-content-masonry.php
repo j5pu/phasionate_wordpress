@@ -1,11 +1,36 @@
+<?php
+/**
+ * The template Masonry blog item
+ *
+ * @package WordPress
+ * @subpackage Kleo
+ * @since Kleo 1.0
+ */
+?>
 
-
-	<article id="post-<?php the_ID(); ?>" <?php post_class(array("post-item", "kleo-masonry-item")); ?>>
+	<article id="post-<?php the_ID(); ?>" <?php post_class(array("post-item")); ?>>
 	<div class="post-content animated animate-when-almost-visible el-appear">
 		
 		<?php
 		global $kleo_config;
 		$kleo_post_format = get_post_format();
+
+        /* For portfolio post type */
+        if ( get_post_type() == 'portfolio' ) {
+            if ( get_cfield( 'media_type' ) && get_cfield( 'media_type' ) != '' ) {
+                $media_type = get_cfield( 'media_type' );
+                switch ( $media_type ) {
+                    case 'slider':
+                        $kleo_post_format = 'gallery';
+                        break;
+
+                    case 'video':
+                    case 'hosted_video':
+                        $kleo_post_format = 'video';
+                        break;
+                }
+            }
+        }
 		
 		switch ($kleo_post_format) {
 			
@@ -32,7 +57,11 @@
 							'preload="0"'
 					);
 
-					$k_video .= sprintf( '<div class="kleo-video-wrap"><video %s controls="controls" class="kleo-video">', join( ' ', $attr_strings ) );
+                    if (get_cfield( 'video_poster' ) ) {
+                        $attr_strings[] = 'poster="' . get_cfield( 'video_poster' ) . '"';
+                    }
+
+					$k_video .= '<div class="kleo-video-wrap"><video ' . join( ' ', $attr_strings ) . ' controls="controls" class="kleo-video" style="width: 100%; height: 100%;">';
 
 					$source = '<source type="%s" src="%s" />';
 					foreach ( $bg_video_args as $video_type => $video_src ) {
@@ -67,7 +96,7 @@
 			
 				$slides = get_cfield('slider');
 				echo '<div class="kleo-banner-slider">'
-					.'<div class="kleo-banner-items" >';
+					.'<div class="kleo-banner-items" data-speed="2000">';
 				if ( $slides ) {
 					foreach( $slides as $slide ) {
 						if ( $slide ) {
@@ -78,7 +107,7 @@
 							}
 							echo '<article>
 								<a href="'. $slide .'" data-rel="prettyPhoto[inner-gallery]">
-									<img src="'.$image.'" alt="">'
+									<img src="'.$image.'" alt="'. get_the_title() .'">'
 									. kleo_get_img_overlay()
 								. '</a>
 							</article>';
@@ -120,7 +149,7 @@
                         $image = $img_url;
                     }
                     echo '<a href="'. get_permalink() .'" class="element-wrap">'
-                        . '<img src="' . $image . '">'
+                        . '<img src="' . $image . '" alt="'. get_the_title() .'">'
                         . kleo_get_img_overlay()
                         . '</a>';
 					
@@ -136,17 +165,16 @@
 		<div class="post-header">
 			
 			<?php if ($kleo_post_format != 'status'): ?>
-			<h3 class="post-title"><a href="<?php the_permalink();?>"><?php the_title();?></a></h3>
+			<h3 class="post-title entry-title"><a href="<?php the_permalink();?>"><?php the_title();?></a></h3>
 			<?php endif; ?>
-			
-			<span class="post-meta">
-				
-				<?php kleo_entry_meta();?>
-				
-			</span>
+
+                <span class="post-meta">
+                    <?php kleo_entry_meta();?>
+                </span>
+
 		</div><!--end post-header-->
 		
-		<?php if ($kleo_post_format != 'status'): ?>
+		<?php if ( $kleo_post_format != 'status' ): ?>
 		
 			<?php if (kleo_excerpt() != '<p></p>') : ?>
 			<div class="post-info">

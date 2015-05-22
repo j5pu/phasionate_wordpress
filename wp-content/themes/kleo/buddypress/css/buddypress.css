@@ -159,12 +159,22 @@ body.no-js #buddypress form#whats-new-form textarea {
 	height: 0;
 	overflow: hidden;
 }
+@media (max-width: 480px) {
+	#buddypress #whats-new-options {
+		height: 100px !important;
+		overflow: visible !important;
+	}
+	#buddypress #whats-new-post-in-box {
+		clear: left;
+	}
+}
 #buddypress #whats-new-options > div {
 	padding-top: 5px;
 }
 
 #buddypress #whats-new-form .rtmedia-container {
 	height: 0;
+    clear: both;
 	overflow: hidden;
 }
 #buddypress #whats-new {
@@ -179,11 +189,10 @@ body.no-js #buddypress form#whats-new-form textarea {
 	border-width: 2px;
 }
 
-#rtmedia-whts-new-upload-container {
+body[class*="rtm-3.7"] #rtmedia-whts-new-upload-container {
 	padding-top: 10px;
 }
-#buddypress #rtmedia-upload-container {}
-#buddypress #rtm-drop-files-title {}
+
 #buddypress #rtm-upload-start-notice > span {
 	color: #777;
 	font-size: 11px;
@@ -328,6 +337,7 @@ body.activity-permalink #buddypress .activity-list > li:first-child {
 }
 body.activity-permalink #buddypress .activity-list > li.activity-item:first-child {
 	padding-top: 10px;
+    overflow: visible;
 }
 #buddypress .activity-list li .activity-content {
 	position: relative;
@@ -1003,7 +1013,7 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 #buddypress #members-list div.item,
 #buddypress #member-list div.item {}
 
-#buddypress #item-header-avatar {
+.buddypress #item-header-avatar {
 	display: inline-block;
 	position: relative;
 	border-radius: 4px;
@@ -1014,13 +1024,13 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 	transition: all 0.5s ease-in-out 0s;
 	z-index: 10;
 }
-#buddypress #item-header-avatar img.avatar {
+.buddypress #item-header-avatar img.avatar {
 	width: 100%;
 }
-#buddypress #item-header-avatar.rounded img.avatar {
+.buddypress #item-header-avatar.rounded img.avatar {
 	border-radius: 100%;
 }
-#buddypress .kleo-online-status,
+.buddypress .kleo-online-status,
 .kleo-members-carousel .kleo-online-status {
 	position: absolute;
 	z-index: 20;
@@ -1032,7 +1042,7 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 	border-width: 3px;
 	transition: all 0.5s ease-in-out 0s;
 }
-#buddypress .kleo-online-status {
+.buddypress .kleo-online-status {
 	right: 0;
 	bottom: 20px;
 }
@@ -1041,7 +1051,8 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 	bottom: 7%;
 }
 
-#buddypress .rounded {
+#buddypress .rounded,
+.buddypress .rounded{
 	border-radius: 100% !important;
 }
 #buddypress .rounded .hover-element,
@@ -1095,32 +1106,53 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 /*--------------------------------------------------------------
 3.4 - Errors / Success Messages
 --------------------------------------------------------------*/
-#buddypress div#message {
+.buddypress div#message {
 	margin: 30px 0;
 	position: relative;
 	width: 100%;
 	z-index: 20;
 }
 
-#buddypress #message.info {
+.buddypress #message.info {
 	margin-bottom: 0;
 }
-#buddypress div#message.updated {
+.buddypress div#message.updated {
 	clear: both;
 }
-#buddypress div#message p,
+.buddypress div#message p,
 #sitewide-notice p {
 	font-size: 90%;
 	display: block;
 	padding: 10px 15px;
 }
-#buddypress div#message.error p {
+#sitewide-notice #message {
+    right: 0;
+    left: 0;
+    top: 30% !important;
+    position: fixed;
+    margin: 0px auto;
+    width: 60%;
+    border: rgba(0,0,0, 0.1) solid 1px;
+    z-index: 999;
+    box-shadow: 0 0 50px rgba(0,0,0, 0.3);
+}
+#sitewide-notice #message #close-notice {
+    display: block;
+    float: right;
+    margin-top: 0px;
+    background-color: #efefef;
+    padding: 2px 10px;
+    color: #000;
+    text-transform: uppercase;
+}
+#sitewide-notice p { margin: 0; }
+.buddypress div#message.error p {
 	background-color: #fcefef;
 	border-left: 3px solid #EBCCD1;
 	clear: left;
 	color: #A94442;
 }
-#buddypress div#message.updated p {
+.buddypress div#message.updated p {
 	background-color: #f3ffdb;
 	border-left: 3px solid #81c839;
 	color: #250;
@@ -1337,12 +1369,14 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 	border: 1px solid #e5e5e5;
 }
 #buddypress button,
+.buddypress a.button,
 #buddypress a.button,
 #buddypress input[type=submit],
 #buddypress input[type=button],
 #buddypress input[type=reset],
 #buddypress ul.button-nav li a,
 #buddypress div.generic-button a,
+.buddypress div.generic-button a,
 #buddypress .comment-reply-link {
 	background-color: transparent;
 	border-style: solid;
@@ -1357,40 +1391,34 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 	line-height: 30px;
 	transition: all 0.4s ease-in-out 0s;
 }
-/*a.bp-title-button {
-	border-radius: 20px;
-	padding: 6px 10px;
-	transition: all 0.4s ease-in-out 0s;
-	font: 11px 'Open Sans', sans-serif;
+#buddypress #subnav a.group-create {
 	vertical-align: middle;
 }
-a.bp-title-button:hover {
-}
-a.bp-title-button:before {
+#buddypress #subnav a.group-create:before {
 	font: 120% "fontello";
 	content: "\e982";
 	text-align: center;
 	line-height: inherit;
 	line-height: 10px;
 	margin-right: 5px;
-}*/
-.page-title a.button {
-	border-radius: 20px;
-	padding: 6px 10px;
-	transition: all 0.4s ease-in-out 0s;
-	font-size: 11px;
-	vertical-align: middle;
 }
-.page-title a.button:hover {
+.page-title a.button {
+    border-radius: 20px;
+    padding: 6px 10px;
+    margin-left: 10px;
+    transition: all 0.4s ease-in-out 0s;
+    font-size: 11px;
+    vertical-align: middle;
 }
 .page-title a.button:before {
-	font: 120% "fontello";
-	content: "\e982";
-	text-align: center;
-	line-height: inherit;
-	line-height: 10px;
-	margin-right: 5px;
+    font: 120% "fontello";
+    content: "\e982";
+    text-align: center;
+    line-height: inherit;
+    line-height: 10px;
+    margin-right: 5px;
 }
+
 #buddypress button:hover,
 #buddypress a.button:hover,
 #buddypress a.button:focus,
@@ -1400,6 +1428,7 @@ a.bp-title-button:before {
 #buddypress ul.button-nav li a:hover,
 #buddypress ul.button-nav li.current a,
 #buddypress div.generic-button a:hover,
+.buddypress div.generic-button a:hover,
 #buddypress .comment-reply-link:hover {
 	border-style: solid;
 	border-width: 1px;
@@ -1782,6 +1811,9 @@ a.bp-title-button:before {
 	text-transform: uppercase;
 	color: #bbb;
 }
+#buddypress .notifications-options-nav {
+    margin-bottom: 20px;
+}
 
 #buddypress table.forum {
 	margin: 0;
@@ -1870,7 +1902,7 @@ a.bp-title-button:before {
 	font-size: 120%;
 	font-weight: bold;
 }
-#buddypress div#message p,
+.buddypress div#message p,
 #sitewide-notice p {
 	font-weight: normal;
 	margin-top: 3px;
@@ -1880,74 +1912,109 @@ a.bp-title-button:before {
 	border-left: 3px solid #FAEBCC;
 	
 }
-#buddypress div#item-header {
-	background: url(../../assets/img/heading.png) repeat-x 0 75px;
+.buddypress div#item-header {
+	background: url(../../assets/img/heading.png) repeat-x 0 115px;
 	text-align: center;
 	transition: all 0.5s ease-in-out 0s;
 	position: relative;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	display: inline-block;
+	width: 100%;
 }
-#buddypress div#item-header .toggle-header {
+.buddypress div#item-header .toggle-header {
 	display: inline-block;
 	position: absolute;
 	cursor: pointer;
 	padding-left: 10px;
-	right: 0;
-	top: 66px;
+	right: 5px;
+	/*top: 66px;*/
+	top: 10px;
 	color: #bbb;
 	text-align: center;
 	transition: all 0.5s ease-in-out 0s;
+	background: none !important;
 }
 
-#buddypress div#item-header div#item-header-content {
-	margin-bottom: 40px;
+.buddypress div#item-header .toggle-header .bp-toggle-less,
+.buddypress div#item-header .toggle-header .bp-toggle-more {
+	padding: 5px 10px;
+	border-radius: 3px;
+	transition: all 0.5s ease-in-out 0s;
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	text-transform: uppercase;
+	font-size: 12px;
 }
-#buddypress div#item-header div#item-header-content h4 {
+.buddypress div#item-header .toggle-header .bp-toggle-less:hover,
+.buddypress div#item-header .toggle-header .bp-toggle-more:hover {
+	background-color: #f7f7f7;
+}
+.buddypress.bp-header-small div#item-header .toggle-header .bp-toggle-less,
+.buddypress.bp-header-small div#item-header .toggle-header .bp-toggle-more {
+	border: none;
+}
+body.buddypress.is-user-profile div#item-header .toggle-header .bp-toggle-less,
+body.buddypress.is-user-profile div#item-header .toggle-header .bp-toggle-more {
+	border: 1px solid rgba(102,102,102,0.4);
+}
+body.is-user-profile div#item-header .toggle-header .bp-toggle-less:hover,
+body.is-user-profile div#item-header .toggle-header .bp-toggle-more:hover {
+	background-color: rgba(255,255,255,0.2) !important;
+}
+.buddypress div#item-header .toggle-header .bp-toggle-more {}
+body.is-user-profile .toggle-header .bp-toggle-less,
+body.is-user-profile .toggle-header .bp-toggle-more {
+	background: none !important;
+}
+
+.buddypress div#item-header div#item-header-content {}
+.buddypress div#item-header div#item-header-content h4 {
 	display: inline-block;
 }
-#buddypress div#item-header div#item-header-content span.activity {
+.buddypress div#item-header div#item-header-content span.activity {
 	margin-left: 10px;
 }
-#buddypress div#item-header div#item-header-content #latest-update,
-#buddypress div#item-header div#item-header-content p:first-child {
-	margin-bottom: 20px;
-}
-#buddypress div#item-header div#item-header-content #item-buttons {
+.buddypress div#item-header div#item-header-content #latest-update,
+.buddypress div#item-header div#item-header-content p:first-child {}
+.buddypress div#item-header div#item-header-content #item-buttons {
 	text-align: center;
 	font-style: normal;
 }
 
-#buddypress .bp-header-small #item-header img.avatar {width : 80px; margin-left:0; background: #fff;}
-#buddypress .bp-header-small #item-header-avatar {border: 5px solid #f7f7f7;}
-#buddypress .bp-header-small #item-header {background-position: 0 45px;}
-#buddypress .bp-header-small #item-header .toggle-header { top : 36px;}
-#buddypress .bp-header-small #item-header-avatar .kleo-online-status {width : 14px;height : 14px;bottom : 10px;}
-#buddypress .bp-header-small .bp-toggle-less {display: none;}
-#buddypress .bp-toggle-more {display: none;}
-#buddypress .bp-header-small .bp-toggle-more {display: block;}
+.buddypress.bp-header-small #item-header img.avatar {width : 80px; margin-left:0; background: #fff;}
+.buddypress.bp-header-small #item-header-avatar {border: 5px solid #f7f7f7;}
+.buddypress.bp-header-small #item-header {background-position: 0 80px;}
+.buddypress.bp-header-small #item-header .toggle-header { top : 67px;}
+body.is-user-profile.bp-header-small #item-header .toggle-header { top : 67px;}
+.buddypress.bp-header-small #item-header-avatar .kleo-online-status {width : 14px;height : 14px;bottom : 10px;}
+.buddypress.bp-header-small .bp-toggle-less {display: none;}
+.buddypress .bp-toggle-more {display: none;}
+.buddypress.bp-header-small .bp-toggle-more {display: block;}
 
-#buddypress div#item-header h2 {
+.buddypress div#item-header h2 {
 	line-height: 120%;
 	margin: 0 0 15px 0;
 }
-#buddypress div#item-header h2 a {
+.buddypress div#item-header h2 a {
 	color: #777;
 	text-decoration: none;
 }
-#buddypress div#item-header img.avatar {
+.buddypress div#item-header img.avatar {
 	width: 130px;
 	transition: all 0.5s ease-in-out 0s;
 }
-#buddypress div#item-header h2 {
+.buddypress div#item-header h2 {
 	margin-bottom: 5px;
 }
-#buddypress div#item-header h2 span.highlight {
+.buddypress div#item-header h2 span.highlight {
 	font-size: 60%;
 	font-weight: normal;
 	line-height: 170%;
 	vertical-align: middle;
 	display: inline-block;
 }
-#buddypress div#item-header h2 span.highlight span {
+.buddypress div#item-header h2 span.highlight span {
 	background: #a1dcfa;
 	color: #fff;
 	cursor: pointer;
@@ -1960,16 +2027,16 @@ a.bp-title-button:before {
 	top: -2px;
 	vertical-align: middle;
 }
-#buddypress div#item-header div#item-meta {
+.buddypress div#item-header div#item-meta {
 	overflow: hidden;
-	margin: 15px 0 5px 0;
-	padding-bottom: 10px;
+	/*margin: 15px 0 5px 0;*/
+	/*padding-bottom: 10px;*/
 	font-size: 14px;
-  line-height: 30px;
+  /*line-height: 30px;*/
 }
-#buddypress div#item-header div#item-actions {
+.buddypress div#item-header div#item-actions {
 }
-#buddypress div#item-header div#item-actions h3 {
+.buddypress div#item-header div#item-actions h3 {
 	margin: 0 0 5px 0;
 	font-size: 11px;
 	color: #bbb;
@@ -2037,18 +2104,19 @@ a.bp-title-button:before {
 	width: 30px !important;
 	border-radius: 100%;
 }
-#buddypress div#item-header div.generic-button,
-#buddypress div#item-header a.button {
+.buddypress div#item-header div.generic-button,
+.buddypress div#item-header a.button {
 	display: inline-block;
 	margin: 0 3px 5px;
 }
 
-#buddypress div.generic-button a {
+#buddypress div.generic-button a,
+.buddypress div.generic-button a{
 	display: inline-block;
 	font-size: 11px;
-  text-transform: uppercase;
+    text-transform: uppercase;
 }
-#buddypress div#item-header div#message.info {
+.buddypress div#item-header div#message.info {
 	line-height: 80%;
 }
 #buddypress ul.item-list {
@@ -2193,6 +2261,9 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 }
 #buddypress div#item-nav ul #location-personal-li a:before {
 	content: "\e99f";
+}
+#buddypress div#item-nav ul #orders-personal-li a::before {
+	content: "\e87e";
 }
 
 
@@ -2665,6 +2736,9 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 #buddypress div.dir-search input[type=submit]:hover {
 	background-position: -24px 0;
 }
+.buddypress div.message-search label {
+    display: none;
+}
 
 
 /*--------------------------------------------------------------
@@ -3069,6 +3143,7 @@ User avatar in menu
 	#rtm-gallery-title-container #rtm-media-options > span {
 		padding: 0 10% !important;
 	}
+    .buddypress #item-header-avatar { box-shadow: 0 0 0 5px;}
 }
 
 /*--------------------------------------------------------------

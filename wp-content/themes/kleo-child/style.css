@@ -3323,6 +3323,12 @@ body.forum.bbpress #main .template-page .container h1{
 	margin-top: 0px;
 	margin-bottom:0px;
 }
+.bbp-topic-meta{
+	display: none !important;
+}
+li.bbp-forum-topic-count, li.bbp-topic-voice-count, li.bbp-forum-reply-count, li.bbp-topic-reply-count, li.bbp-forum-freshness, li.bbp-topic-freshness{
+	vertical-align: initial;
+}
 /*bbpress Widget*/
 #main .sidebar .widget_display_forums ul li:nth-child(2n+1), #main .sidebar .widget_display_topics ul li:nth-child(2n+1){
 	background-color: #f8f8f8;

@@ -12,8 +12,8 @@
 $before_featured = '';
 $after_featured = '';
 if('grid' == sq_option( 'featured_content_layout', 'carousel' )) {
-	$before_featured = '<div class="row"><div class="grid-posts kleo-isotope masonry">';
-	$after_featured = '</div></div>';
+	$before_featured = '<div class="row responsive-cols kleo-masonry per-row-' . sq_option( 'featured_grid_columns', 3 ) .'">';
+	$after_featured = '</div>';
 } 
 else 
 {

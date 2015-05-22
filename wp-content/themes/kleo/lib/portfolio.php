@@ -227,6 +227,12 @@ function kleo_portfolio_meta($meta_boxes) {
                 'type' => 'file',
             ),
             array(
+                'name' => 'Video Self hosted Poster',
+                'desc' => 'Used to show before the video loads',
+                'id'   => $prefix . 'video_poster',
+                'type' => 'file',
+            ),
+            array(
                 'name' => 'Top bar status',
                 'desc' => 'Enable/disable site top bar',
                 'id'   => $prefix . 'topbar_status',
@@ -310,4 +316,3 @@ function kleo_portfolio_meta($meta_boxes) {
     );
     return $meta_boxes;
 }
-

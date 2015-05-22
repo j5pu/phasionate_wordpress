@@ -53,7 +53,7 @@ if ( ! function_exists( 'kleo_menu_user_avatar' ) ) {
             $attr_title = strip_tags( $item->attr_title );
 
             $output .= '<a title="' . bp_get_loggedin_user_fullname() . '" class="kleo-bp-user-avatar' . ( $args->has_children && in_array($depth, array(0,1)) ? ' js-activated' : '' ) . '" href="' . $url . '" title="' . $attr_title .'">'
-                .  '<img src="' . bp_get_loggedin_user_avatar(array('width' => 25, 'height' => 25, 'html' => false)) . '" class="kleo-rounded" alt="">';
+                .  '<img src="' . bp_get_loggedin_user_avatar(array('width' => 25, 'height' => 25, 'html' => false)) . '" class="kleo-rounded" alt="">' . ($item->attr_title != '' ? ' ' . $item->attr_title : '');
 
             $output .= ( $args->has_children && in_array($depth, array(0,1))) ? ' <span class="caret"></span></a>' : '</a>';
 
@@ -72,4 +72,17 @@ function kleo_menu_user_avatar_li( $item_output, $item, $depth, $args ) {
         $output = $item_output;
     }
     return $output;
+}
+
+
+
+/* Fix for members search form placeholder */
+add_filter( 'bp_directory_members_search_form', 'kleo_bp_fix_members_placeholder' );
+
+function kleo_bp_fix_members_placeholder( $html ) {
+    if ( isset($_GET['s']) && $_GET['s'] != '' ) {
+        $html = str_replace('placeholder', 'value', $html);
+    }
+
+    return $html;
 }

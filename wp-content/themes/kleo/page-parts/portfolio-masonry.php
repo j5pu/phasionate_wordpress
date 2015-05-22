@@ -43,6 +43,10 @@ $kleo_post_format = get_cfield( 'media_type' ) ? get_cfield( 'media_type' ) : 't
                             'preload="0"'
                         );
 
+                        if (get_cfield( 'video_poster' ) ) {
+                            $attr_strings[] = 'poster="' . get_cfield( 'video_poster' ) . '"';
+                        }
+
                         $k_video .= '<div class="kleo-video-wrap"><video '. join( ' ', $attr_strings ) .' controls="controls" class="kleo-video" style="width: 100%; height: 100%;">';
 
                         $source = '<source type="%s" src="%s" />';

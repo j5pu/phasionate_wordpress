@@ -32,10 +32,27 @@ function kleo_admin_do_wp_nav_menu_meta_box() {
 	$post_type_name = 'kleo';
 
 	$tabs = array();
+
+    $menu_items = array();
+
+    $menu_items[] = array(
+        'name' => __( 'Login', 'kleo_framework' ),
+        'slug' => 'login',
+        'link' => '#'
+    );
+    $menu_items[] = array(
+        'name' => __( 'Logout', 'kleo_framework' ),
+        'slug' => 'logout',
+        'link' => "#"
+    );
+    $menu_items[] = array(
+        'name' => __( 'Register', 'kleo_framework' ),
+        'slug' => 'register',
+        'link' => "#"
+    );
+
   
-  $menu_items = array();
-  
-  $menu_items = apply_filters( 'kleo_nav_menu_items', $menu_items );
+    $menu_items = apply_filters( 'kleo_nav_menu_items', $menu_items );
 
 	$page_args = array();
   if (!empty($menu_items)) {
@@ -77,6 +94,8 @@ function kleo_admin_do_wp_nav_menu_meta_box() {
 				<?php echo walk_nav_menu_tree( array_map( 'wp_setup_nav_menu_item', $tabs['pages'] ), 0, (object) $args );?>
 			</ul>
 		</div>
+        <p>With BuddyPress/bbPress installed you can add a link to your profile with ##profile_link## in the URL input from <strong>Links</strong> section bellow. Example: ##profile_link##/messages</p>
+		<p>You can also include the members username next to the My Account avatar with ##member_name## in the Title Attribute field.</p>
 
 		<p class="button-controls">
 			<span class="add-to-menu">
@@ -244,20 +263,57 @@ function kleo_setup_nav_menu_item( $menu_item ) {
 
 	// We use information stored in the CSS class to determine what kind of
 	// menu item this is, and how it should be treated
-	$css_target = preg_match( '/\skleo-(.*)-nav/', implode( ' ', $menu_item->classes), $matches );
+	if ( ! isset( $menu_item->classes ) || ! is_array( $menu_item->classes ) ) {
+		return $menu_item;
+	}
+	$css_target = preg_match('/\skleo-(.*)-nav/', implode(' ', $menu_item->classes), $matches);
+
 
 	// If this isn't a KLEO menu item, we can stop here
 	if ( empty( $matches[1] ) ) {
 		return $menu_item;
 	}
 
-  $menu_item = apply_filters('kleo_setup_nav_item_' . $matches[1], $menu_item );
-	
-	// If component is deactivated, make sure menu item doesn't render
-	if ( empty( $menu_item->url ) ) {
-		$menu_item->_invalid = true;
+    switch ( $matches[1] ) {
+        case 'login' :
+            if ( is_user_logged_in() ) {
+                $menu_item->_invalid = true;
+            } else {
+                $menu_item->url = wp_login_url();
+                $menu_item->classes = "kleo-show-login";
+            }
 
-  }
+            break;
+
+        case 'logout' :
+            if ( ! is_user_logged_in() ) {
+                $menu_item->_invalid = true;
+            } else {
+                $menu_item->url = wp_logout_url( kleo_get_requested_url() );
+            }
+
+            break;
+
+        // Don't show the Register link to logged-in users
+        case 'register' :
+            if ( is_user_logged_in() ) {
+                $menu_item->_invalid = true;
+            } else {
+                $menu_item->url = wp_registration_url();
+            }
+
+            break;
+
+        default:
+            break;
+    }
+
+    $menu_item = apply_filters('kleo_setup_nav_item_' . $matches[1], $menu_item );
+
+    // If component is deactivated, make sure menu item doesn't render
+    if ( empty( $menu_item->url ) ) {
+        $menu_item->_invalid = true;
+    }
 
 	return $menu_item;
 }

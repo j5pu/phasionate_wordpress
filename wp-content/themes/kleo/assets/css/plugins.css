@@ -48,6 +48,9 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 13. Visual composer
 14. MailChimp
 15. Mediaelement
+16. Mycred
+17. TS Visual composer extend
+18. BuddyPress Group Email Subscription
 */
 
 
@@ -132,7 +135,6 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 #buddypress .rtmedia-activity-container .rtmedia-list .rtmedia-list-item a h4,
 #buddypress div.rtmedia-activity-container .rtmedia-list .rtmedia-list-item a h4 {
 	font-size: inherit;
-	/*color: #bbb;*/
 }
 #buddypress .rtmedia-container .rtmedia-list .rtmedia-list-item.masonry-brick a h4,
 #buddypress .rtmedia-activity-container .rtmedia-list .rtmedia-list-item.masonry-brick a h4,
@@ -140,12 +142,7 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
     font-size: inherit;
     color: #fff;
 }
-/*#buddypress .rtmedia-container .rtmedia-item-title h4,
-#buddypress .rtmedia-activity-container .rtmedia-item-title h4,
-#buddypress div.rtmedia-activity-container .rtmedia-item-title h4 {
-	font-size: inherit;
-	color: #bbb;
-}*/
+
 #buddypress .rtmedia-container .rtmedia-item-title a {
 	color: #bbb;
 }
@@ -253,6 +250,11 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 	color: #fff;
 	font-weight: bold;
 }
+.mfp-content #buddypress .rtm-lightbox-container #rtmedia-single-media-container .rtm-ltb-title-container,
+.mfp-content #buddypress .rtm-lightbox-container #rtmedia-single-media-container .rtm-ltb-action-container {
+	padding: 0 10px 16px;
+	position: absolute;
+}
 #buddypress .rtmedia-like-info {
 	background-color: #151515;
 	color: #777;
@@ -293,6 +295,9 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 #buddypress #rt_media_comment_form {
 	background-color: #151515;
 }
+.mfp-content #buddypress .rtm-lightbox-container .rtmedia-single-meta .rtm-single-meta-contents {
+	padding: 10px 20px 0 10px;
+}
 .mfp-content #buddypress .rtm-lightbox-container .rtmedia-single-meta .rtm-media-single-comments {
 	background-color: #151515 !important;
 }
@@ -323,7 +328,6 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 
 /*Static page*/
 #buddypress #item-body .rtmedia-item-comments .rt_media_comment_form textarea {
-	/*border: 1px solid #e5e5e5;*/
 	border-style: solid;
 	border-width: 1px;
 	background-color: transparent;
@@ -332,7 +336,6 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 }
 #item-body .rtmedia-container ul#rtmedia_comment_ul li,
 #item-body .rtmedia-activity-container ul#rtmedia_comment_ul li {
-	/*background-color: #f7f7f7 !important;*/
 	color: #777;
 }
 #buddypress #item-body #rt_media_comment_form {
@@ -353,7 +356,6 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 	color: #777 !important;
 }
 /*End Static page*/
-
 #buddypress .mejs-controls button, 
 .rtmedia-container .mejs-controls button, 
 .rtmedia-activity-container .mejs-controls button, 
@@ -395,7 +397,6 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 }
 #rtm-gallery-title-container .rtm-gallery-title,
 #item-body .rtmedia-container h2 {
-	/*font-family: 'Roboto Condensed', sans-serif !important;*/
 	font-weight: 300 !important;
 }
 
@@ -433,7 +434,7 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 #rtm-media-options .primary {}
 #rtm-media-options-list.click-nav {}
 
-#rtm-gallery-title-container #rtm-media-options {
+body[class*="rtm-3.7"] #rtm-gallery-title-container #rtm-media-options {
 	border-style: solid;
 	border-width: 1px;
 	display: inline-block;
@@ -442,18 +443,18 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 	float: right;
 	border-radius: 30px;
 }
-#rtm-gallery-title-container #rtm-media-options > span {
+body[class*="rtm-3.7"] #rtm-gallery-title-container #rtm-media-options > span {
 	border-right: 1px solid #e5e5e5;
 	padding-right: 10px;
 	margin-right: 10px;
 }
-#rtm-gallery-title-container #rtm-media-options span {
+body[class*="rtm-3.7"] #rtm-gallery-title-container #rtm-media-options span {
 	transition: all 0.2s ease-in-out 0s;
 }
-#rtm-gallery-title-container #rtm-media-options span:hover {
+body[class*="rtm-3.7"] #rtm-gallery-title-container #rtm-media-options span:hover {
 	color: #777 !important;
 }
-#rtm-gallery-title-container #rtm-media-options > span:last-child {
+body[class*="rtm-3.7"] #rtm-gallery-title-container #rtm-media-options > span:last-child {
 	border-right: none;
 	padding-right: 0;
 	margin-right: 0;
@@ -543,16 +544,16 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 	max-width: 150px;
 	z-index: 10;
 }
-#rtm-gallery-title-container #rtm-media-options {
+body[class*="rtm-3.7"] #rtm-gallery-title-container #rtm-media-options {
 	visibility: hidden;
 }
 .logged-in #rtm-gallery-title-container #rtm-media-options {
-	visibility: visible;
+	visibility: visible !important;
 }
-#rtm-gallery-title-container #rtm-media-options .click-nav .rtm-options li a:hover,
-#rtm-gallery-title-container #rtm-media-options .click-nav .rtm-options li span:hover,
-#rtm-gallery-title-container #rtm-media-options .click-nav .rtm-options li button:hover,
-#rtm-gallery-title-container #rtm-media-options .click-nav .rtm-options li input:hover {
+body[class*="rtm-3.7"] #rtm-gallery-title-container #rtm-media-options .click-nav .rtm-options li a:hover,
+body[class*="rtm-3.7"] #rtm-gallery-title-container #rtm-media-options .click-nav .rtm-options li span:hover,
+body[class*="rtm-3.7"] #rtm-gallery-title-container #rtm-media-options .click-nav .rtm-options li button:hover,
+body[class*="rtm-3.7"] #rtm-gallery-title-container #rtm-media-options .click-nav .rtm-options li input:hover {
 	color: #777 !important;
 }
 .rtmedia_next_prev {
@@ -636,15 +637,10 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 	border-radius: 0 !important;	
 }
 
-.rtmedia-container .imgedit-wrap div.imgedit-settings {
-	/*width: 50%;
-	float: right;*/
-}
+.rtmedia-container .imgedit-wrap div.imgedit-settings {}
 .rtmedia-container .imgedit-wrap div.imgedit-panel-content {
 	min-width: 400px;
 	max-width: 400px;
-	/*width: 50%;
-	float: left;*/
 }
 .rtmedia-container .imgedit-wrap div.imgedit-settings .imgedit-group {
 	display: inline-block;
@@ -724,12 +720,9 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 .rtmedia-container .rtmedia-editor-main dl.tabs dd > a,
 .rtmedia-activity-container .rtmedia-editor-main dl.tabs dd > a,
 #buddypress div.rtmedia-activity-container .rtmedia-editor-main dl.tabs dd > a {
-	/*border: 1px solid #e5e5e5;
-	background: #fff;*/
 	border-radius: 2px;
 	border-style: solid;
 	border-width: 1px;
-	/*color: #bbb;*/
 	font-size: 13px;
 }
 .rtmedia-container .rtmedia-editor-main dl.tabs dd.active > a,
@@ -740,11 +733,7 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 }
 .rtmedia-container .rtmedia-editor-main dl.tabs dd > a:hover,
 .rtmedia-activity-container .rtmedia-editor-main dl.tabs dd > a:hover,
-#buddypress div.rtmedia-activity-container .rtmedia-editor-main dl.tabs dd > a:hover {
-	/*border: 1px solid #e5e5e5;
-	background: #f7f7f7;
-	color: #777;*/
-}
+#buddypress div.rtmedia-activity-container .rtmedia-editor-main dl.tabs dd > a:hover {}
 .rtmedia-container .rtmedia-pro-url-upload .rtm-upload-url #rtmedia_url_upload_input {
     width: 100%;
 }
@@ -1103,6 +1092,7 @@ form.pmpro_form textarea,
 #articles-dir-list article.article-container:nth-of-type(2n+1) {
 	clear: left;
 }
+
 @media (max-width: 991px) {
 	#articles-dir-list article.article-container {
 		margin: 1% 0;
@@ -1117,6 +1107,7 @@ form.pmpro_form textarea,
 	float: none;
 	width: auto;
 	border: none;
+    background: transparent;
 }
 .article-content .article-image {
 	height: auto;
@@ -1124,9 +1115,12 @@ form.pmpro_form textarea,
 	margin-left: 0;
 	margin-top: 0;
 	float: left;
+
+    margin: 0 20px 20px 0;
 }
-.article-content .article-image img {
-	margin: 0 20px 30px 0;
+.article-content .article-image:empty {
+    display: none;
+    margin: 0 !important;
 }
 
 .article-content .article-data {
@@ -1142,19 +1136,25 @@ form.pmpro_form textarea,
 }
 .article-content .article-metadata {
 	padding-right: 0;
-	border-top-style: solid;
-	border-top-width: 1px;
+	/*border-top-style: solid;
+	border-top-width: 1px;*/
 	min-width: 0;
 	height: auto;
-	width: 50%;
+	/*width: 50%;*/
+    width: 100%;
 	display: inline-block;
 	clear: left;
+}
+.article-content .article-metadata .author-options {
+    position: absolute;
+    right: 0;
+    top: 10px;
 }
 .article-content .article-categories {
 	padding-left: 0;
 	width: 50%;
-	border-top-style: solid;
-	border-top-width: 1px;
+	/*border-top-style: solid;
+	border-top-width: 1px;*/
 	line-height: 30px;
 }
 
@@ -1392,7 +1392,8 @@ form.pmpro_form textarea,
     background: #f7f7f7;
     border-radius: 0;
     display: block;
-    font: italic 12px;
+    font-style: italic;
+	font-size: 12px;
     padding: 10px;
 }
 .article-content .messages-container {
@@ -1494,6 +1495,12 @@ form.pmpro_form textarea,
     min-width: 0 !important;
     padding: 0 !important;
 		font-weight: bold;
+}
+
+.notifications .sa-notification {
+    height: auto;
+    margin-top: 0 !important;
+    padding-left: 0 !important;
 }
 
 /* --------------------------------------------------
@@ -1667,6 +1674,93 @@ form.pmpro_form textarea,
 	text-transform: uppercase;
 	/*font-family: 'Open Sans', sans-serif;*/
 }
+#ass-email-subscriptions-options-page form input{
+    margin:10px;
+}
+
+#ass-email-subscriptions-options-page form label{
+    margin-bottom: 0px;
+}
+
+.ass-email-type .ass-email-explain {
+    margin-left: 33px !important;
+    margin-bottom: 6px !important;
+    color: #777 !important;
+    font-size: 12px !important;
+}
+
+
+#buddypress #groups-list li div.action {
+
+    position: initial;
+
+}
+
+
+#groups-list .group-subscription-options {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    margin: 10px 10px !important;
+    width: auto;
+    background-color: #fff;
+    padding: 9px;
+    text-align: center;
+    font-size: 9px;
+    border: 1px solid #efefef;
+    border-bottom: 0;
+    z-index: 10;
+}
+
+#groups-list .group-subscription-options a {
+    min-width:130px;
+}
+
+#groups-list .group-subscription-options a.group-sub {
+    background-color:#fafafa;
+    margin-bottom:2px;
+    display: block;
+}
+
+#groups-list .group-subscription-options a.group-subscription-close {
+
+    background-color: #fafafa;
+}
+
+#groups-list #gsubclose-1 {
+    background-color: #fafafa;
+}
+#buddypress #groups-list li div.action div.group-subscription-options {
+    display:none;
+}
+
+#gsubopt-1.generic-button.group-subscription-options {
+
+    background-color: #fff;
+    border: 1px solid #efefef;
+    font-size: 9px;
+    margin: 0 auto !important;
+    padding: 2% 25%;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 99;
+
+}
+
+#gsubopt-1.generic-button.group-subscription-options a.group-sub {
+    background-color:#fafafa;
+    margin-bottom:2px;
+    display: block;
+
+}
+
+@media (max-width: 640px) {
+    #gsubopt-1.generic-button.group-subscription-options {
+        padding: 2% 15%;
+    }
+}
 
 /* --------------------------------------------------
 		11 - Ultimate Addons for Visual Composer
@@ -1706,6 +1800,14 @@ body.compose-mode .vc-element.vc-hold-hover .row > .vc-element:before {
 }
 body.compose-mode .vc-element .row {margin-left: 0; margin-right: 0;}
 
+i.icon {
+    height: auto;
+    line-height: inherit;
+    margin-left: 0;
+    vertical-align: baseline;
+    width: 1em;
+}
+
 
 
 /* --------------------------------------------------
@@ -1731,11 +1833,20 @@ body.compose-mode .vc-element .row {margin-left: 0; margin-right: 0;}
 /* --------------------------------------------------
 		15 - Mediaelement
 ----------------------------------------------------- */
-
+/*.mejs-container {
+	clear: none;
+	width: 100% !important;
+	max-width: 100% !important;
+}*/
 .mejs-container.mejs-video {}
 .mejs-container.mejs-audio {
     /*height: 30px !important;*/
 }
+.kleo-video-wrap *,
+.post-audio * {
+    outline: none !important;
+}
+
 .mejs-overlay, .mejs-poster {}
 .mejs-mediaelement video {}
 .mejs-postroll-layer {}
@@ -1760,9 +1871,11 @@ body.compose-mode .vc-element .row {margin-left: 0; margin-right: 0;}
 /* Start: LAYERS */
 .mejs-background {}
 .mejs-mediaelement {}
-.mejs-poster {}
+.mejs-poster { background-size: cover; }
 .mejs-poster img {}
-.mejs-overlay {}
+.mejs-overlay {
+	width: 100% !important;
+}
 .mejs-overlay-play {}
 .mejs-overlay-button {
     background: rgba(0,0,0, 0.5);
@@ -1873,6 +1986,9 @@ body.compose-mode .vc-element .row {margin-left: 0; margin-right: 0;}
 
 /* Start: Progress bar */
 .mejs-controls div.mejs-time-rail {}
+.mejs-controls .mejs-time-rail a {
+    height: 4px;
+}
 .mejs-controls .mejs-time-rail span {
     border-radius: 0;
     height: 6px;
@@ -1881,6 +1997,10 @@ body.compose-mode .vc-element .row {margin-left: 0; margin-right: 0;}
     background: #fff;
     margin: 6px 5px;
 }
+.mejs-controls .mejs-time-rail .mejs-time-total .mejs-offscreen {
+    display: none;
+}
+
 /* rtMedia compatibility */
 .rtm-lightbox-container .mejs-time-rail .mejs-time-total {
     background: rgba(255,255,255, 0.5);
@@ -1940,6 +2060,7 @@ body.compose-mode .vc-element .row {margin-left: 0; margin-right: 0;}
 
 
 /* horizontal version */
+.mejs-controls a.mejs-horizontal-volume-slider,
 .mejs-controls div.mejs-horizontal-volume-slider {
     float: right;
 }
@@ -2054,7 +2175,6 @@ body.compose-mode .vc-element .row {margin-left: 0; margin-right: 0;}
 /* End: Postroll */
 
 
-
 /* --------------------------------------------------
 	16.	Events manager
 ----------------------------------------------------- */
@@ -2067,4 +2187,137 @@ div.css-search.has-search-geo.has-search-term input.em-search-geo
 }
 div.css-search input, div.css-search select {
     display: inline-block;
+}
+
+/* --------------------------------------------------
+	17.	MyCred
+----------------------------------------------------- */
+#mycred-users-badges img.mycred-badge {
+	width: 30px;
+	margin:	5px;
+}
+
+
+/* --------------------------------------------------
+	17.	TS Visual composer extend
+----------------------------------------------------- */
+.ts-icon-title-text {
+    background: none repeat scroll 0 0 #fff;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+
+/* --------------------------------------------------
+	18.	BuddyPress Cover photo
+----------------------------------------------------- */
+
+.profile-cover-action {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    z-index: 4;
+	transition: all 0.5s ease-in-out 0s;
+}
+.profile-cover-action a.button {
+	color: #bbb !important;
+    display: inline-block;
+	padding: 6px 10px !important;
+	height: auto !important;
+	line-height: normal !important;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+.profile-cover-action a.button:hover {
+	background-color: #f7f7f7 !important;
+}
+
+.buddypress.bp-header-small .profile-cover-action {
+	top: 67px;
+}
+.buddypress.bp-header-small .profile-cover-action a.button,
+.bp-header-small:not(.is-user-profile) #buddypress a.button{
+	border: none !important;
+	background: #fff;
+}
+body.is-user-profile.bp-header-small .profile-cover-action {
+	top: 67px;
+}
+body.is-user-profile.bp-header-small .profile-cover-action a.button {
+	background-color: transparent;
+}
+body.buddypress.is-user-profile .profile-cover-action a.button {
+	border: 1px solid rgba(102,102,102,0.4) !important;
+}
+body.is-user-profile .profile-cover-action a.button:hover {
+	background-color: rgba(255,255,255,0.2) !important;
+}
+body.is-user-profile div#item-header div#item-header-content {
+    z-index: 2;
+    position: relative;
+}
+body.is-user-profile div#item-header div#item-meta {
+    margin-top: 5px;
+}
+body.is-user-profile #item-header-avatar{
+    box-shadow:none;
+}
+body.bp-header-small .bp-full-width-profile div#item-header {
+	padding-bottom: 40px;
+}
+
+body.is-user-profile .bp-full-width-profile div#item-header {
+	padding: 80px 10px;
+	margin-top: 0;
+}
+body.is-user-profile.bp-header-small .bp-full-width-profile div#item-header {
+	padding-bottom: 40px;
+	padding-top: 40px;
+}
+body.is-user-profile div#message {
+	position: absolute;
+}
+.bp-full-width-profile #item-header-avatar{
+    box-shadow:none;
+}
+body.is-user-profile.bp-header-small #item-header-avatar {
+    box-shadow:none;
+}
+
+body.is-user-profile div#item-header .toggle-header {
+    z-index: 5;
+}
+
+.is-user-profile div#item-header div#item-header-content h4,
+.is-user-profile div#item-header div#item-header-content a,
+.is-user-profile div#item-header div#item-header-content .label,
+.is-user-profile div#item-header div#item-header-content span.activity,
+.is-user-profile div#item-header div#item-meta {
+    color: #fff !important;
+}
+.is-user-profile div#item-header div#item-header-content .generic-button a:hover {
+	color: #444 !important;
+}
+
+body.is-user-profile #item-header-avatar {border-width: 6px;}
+body.is-user-profile .profile-cover-inner {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:1;
+
+	background: -moz-linear-gradient(top,  rgba(0,0,0,0) 50%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(50%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.65) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.65) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.65) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.65) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+
+
+}
+body.is-user-profile.bp-header-small .profile-cover-inner {
+    background: none;
 }

@@ -36,6 +36,10 @@ if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] )
 	$classes[] = 'last';
 
 /* Kleo*/
+if (sq_option('woo_product_animate', 1) == 1 ) {
+    $classes[] = 'animated animate-when-almost-visible el-appear';
+}
+
 if (kleo_woo_get_first_image() == '') {
 	$product_transition = 'single';
 }
