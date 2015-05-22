@@ -3323,7 +3323,7 @@ body.forum.bbpress #main .template-page .container h1{
 	margin-top: 0px;
 	margin-bottom:0px;
 }
-.bbp-topic-meta{
+.bbp-topic-meta, .bbp-topic-reply-link, .bbp-reply-to-link{
 	display: none !important;
 }
 li.bbp-forum-topic-count, li.bbp-topic-voice-count, li.bbp-forum-reply-count, li.bbp-topic-reply-count, li.bbp-forum-freshness, li.bbp-topic-freshness{
@@ -3373,16 +3373,6 @@ li.bbp-forum-topic-count, li.bbp-forum-reply-count, li.bbp-forum-freshness{
 	display:block;
 	text-align: center;
 	display:block;
-}
-li.bbp-body div.type-topic.hentry, li.bbp-body div.bbp-reply-header, li.bbp-body div.type-reply.hentry{
-	border-left: #ddd 1px solid;
-	border-right: #ddd 1px solid;
-}
-li.bbp-body div.type-topic.hentry, li.bbp-body div.type-reply.hentry{
-	border-bottom: #ddd 1px solid;
-}
-li.bbp-body div.type-reply.hentry, li.bbp-body div.type-topic.hentry{
-	margin-bottom: 10px;
 }
 span.bbp-admin-links{
 	display: inline-block;
@@ -4368,4 +4358,9 @@ div.um .um-form div.um-reviews-post .um-reviews-content textarea {
 }
 #text-41{
 	padding: 0px 20px;
+}
+
+/* Eliminar Share de Home tras actualizacion del tema */
+body.home #main .wrap-content > section.container-wrap{
+	display: none;
 }

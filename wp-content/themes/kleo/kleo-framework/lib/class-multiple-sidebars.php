@@ -53,15 +53,18 @@ class sidebar_generator {
 	    
 
 	    if(is_array($sidebars)){
+			$i = 1;
 			foreach($sidebars as $sidebar){
 				$sidebar_class = sidebar_generator::name_to_class($sidebar);
 				register_sidebar(array(
 					'name'=>$sidebar,
+										'id' => 'sidebar-'.$i,
                                         'before_widget' => '<div id="%1$s" class="widgets clearfix %2$s">',
                                         'after_widget' => '</div>',
                                         'before_title' => '<h5>',
                                         'after_title' => '</h5>',
 		    	));
+		    	$i++;
 			}
 		}
 	}
