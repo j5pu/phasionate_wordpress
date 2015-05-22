@@ -4360,7 +4360,12 @@ div.um .um-form div.um-reviews-post .um-reviews-content textarea {
 	padding: 0px 20px;
 }
 
-/* Eliminar Share de Home tras actualizacion del tema */
-body.home #main .wrap-content > section.container-wrap{
+/* Eliminar Share de Home, pagina Phasionistas y pagina Concurso tras actualizacion del tema */
+body.home #main .wrap-content > section.container-wrap, body.page-id-15993 #main .wrap-content > section.container-wrap, body.page-id-15817 #main .wrap-content > section.container-wrap{
+	display: none;
+}
+
+/* Elimiar titulo categorias */
+body.category #main div.template-page>.wrap-content>.container{
 	display: none;
 }
