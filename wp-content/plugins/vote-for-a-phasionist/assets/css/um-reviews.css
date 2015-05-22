@@ -326,7 +326,7 @@ span.um-reviews-filter {
 
 
 /* Boton votame en perfil*/
-.um-profile .review-form, .um-profile #mostrar-pop-up-registro{
+/*.um-profile .review-form, .um-profile #mostrar-pop-up-registro{
     position: absolute;
     left: 82%;
     bottom: 52%;
@@ -371,6 +371,7 @@ span.um-reviews-filter {
 	    bottom: 65%;
 	}
 }
+*/
 
 /* Ya votado */
 
@@ -378,4 +379,15 @@ span.um-reviews-filter {
 	float: none !important;
 	clear: none !important;
 	text-align: center;
+
+}
+
+@media screen and (max-width: 557px){
+	.ya-votado{
+		width: 100px;
+	}
+}
+
+div.uimob500 .um-header .um-meta span{
+	display: inline-block !important;
 }

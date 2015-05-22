@@ -522,7 +522,7 @@ console.log(navigator.userAgent);
 	}
 	if($('#mostrar-pop-up-registro').length>0){
 		$('#mostrar-pop-up-registro').bind('click', false);
-		$('#mostrar-pop-up-registro').click(function () { showPopUpLogin(); return false;});
+		$('#mostrar-pop-up-registro').click(function () { showPopUpRegister(); return false;});
 	}
 	function showPopUpRegister(){
 		$('#text-57').css('display','inline-block');

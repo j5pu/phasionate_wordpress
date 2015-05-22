@@ -3717,7 +3717,7 @@ body.page.page-id-15897 .page-title {
 .um-single-image-preview a.cancel, .um-single-file-preview a.cancel, .um-profile-edit{
 	z-index: 22;
 }
-div.um-profile-edit.um-profile-headericon > a {
+.um-profile-headericon {
         font-size: 15px;
 }
 

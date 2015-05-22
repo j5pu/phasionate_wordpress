@@ -27,14 +27,14 @@
 	/***
 	***	@show rating
 	***/
-	add_filter('um_profile_field_filter_hook__user_rating', 'um_reviews_show_rating', 10);
+	add_filter('um_pre_header_editprofile', 'um_reviews_show_rating', 10);
 	function um_reviews_show_rating() {
 		global $um_reviews;
 		$user_id = ( $user_id ) ? $user_id : um_profile_id();
 		
-		
+		?><div class="um-profile-edit um-profile-headericon"><?php
 		if ( $um_reviews->api->is_a_player($user_id)){
-			?><span class="um-reviews-avg" style="display: inline-block !important;" data-number="1" data-score="<?php echo $um_reviews->api->get_rating() ;?>"><span id="phasionate-score<?php echo $user_id ;?>" class="phasionate-score"><?php echo intval($um_reviews->api->get_rating()) ;?></span></span><?php
+			/*?><span class="um-reviews-avg" style="display: inline-block !important;" data-number="1" data-score="<?php echo $um_reviews->api->get_rating() ;?>"><span id="phasionate-score<?php echo $user_id ;?>" class="phasionate-score"><?php echo intval($um_reviews->api->get_rating()) ;?></span></span><?php*/
 			
 			if (!$um_reviews->api->already_reviewed($user_id)){
 			?>
@@ -60,7 +60,7 @@
 					</span>
 				</form>
 			</div>
-			<div id="ya-votado-<?php echo $user_id ;?>" class="ya-votado" style="display: none;"><span>¡Vuelve a votarle mañana!</span></div>
+			<div id="ya-votado-<?php echo $user_id ;?>" class="ya-votado" style="display: none;"><span>¡Vótale mañana!</span></div>
 			<div id="spinner-place-<?php echo $user_id ?>" class="spinner-place"></div>
 			<?php
 			}elseif ($user_id == get_current_user_id()){
@@ -70,14 +70,15 @@
 						<input type="submit" value="<?php _e('¡Vótame!','um-reviews'); ?>" class="um-button" />
 					</span><?php
 			}else{
-				?><div id="ya-votado-<?php echo $user_id ;?>"><span>¡Vuelve a votarle mañana!</span></div><?php
+				?><div id="ya-votado-<?php echo $user_id ;?>" class="ya-votado"><span>¡Vótale mañana!</span></div><?php
 			}
 		}
+	?></div><?php
 	}
 	/***
 	***	@Show votame button
 	***/
-	//add_filter('um_profile_field_filter_hook__user_rating', 'um_reviews_show_votame_button', 100, 2);
+	add_filter('um_profile_field_filter_hook__user_rating', 'um_reviews_show_votame_button', 100, 2);
 	function um_reviews_show_votame_button( $value, $data ) {
 		global $um_reviews;
 		$user_id = ( $user_id ) ? $user_id : um_profile_id();
