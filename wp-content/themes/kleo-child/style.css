@@ -3379,7 +3379,7 @@ li.bbp-body div.type-reply.hentry, li.bbp-body div.type-topic.hentry{
 	margin-bottom: 10px;
 }
 span.bbp-admin-links{
-	display: none;
+	display: inline-block;
 }
 /*bbpress hide html toolbar elements*/
 #qt_bbp_reply_content_link, #qt_bbp_topic_content_link{
