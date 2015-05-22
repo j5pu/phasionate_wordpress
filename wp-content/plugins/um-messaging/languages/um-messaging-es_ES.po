@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Ultimate Member\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-13 16:49+0200\n"
-"PO-Revision-Date: 2015-05-20 11:12+0100\n"
+"PO-Revision-Date: 2015-05-22 12:56+0100\n"
 "Last-Translator: Calum Allison <umplugin@gmail.com>\n"
 "Language-Team: Ultimate Member <umplugin@gmail.com>\n"
 "Language: es_ES\n"
@@ -199,7 +199,7 @@ msgstr "Mensajes"
 
 #: core/um-messaging-api.php:262
 msgid "Block user"
-msgstr "Usuarios bloqueados"
+msgstr "Bloquear usuario"
 
 #: core/um-messaging-api.php:263
 msgid "Delete conversation"
