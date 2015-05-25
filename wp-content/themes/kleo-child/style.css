@@ -4377,11 +4377,23 @@ body.category #main div.template-page>.wrap-content>.container{
 	top: 0px;
 	right: 0px;
 	margin-right: 5px;
-	max-width: 10%;
+	max-width: 1%;
 }
 .profile_share i.icon-facebook::before, .profile_share i.icon-twitter::before, .profile_share i.icon-gplus::before{
 	font-size: 30px;
 }
 .own-ranking .profile_share{
 	max-width: 100%;
+}
+ul.own-ranking li{
+	padding: 30px 0px;
+}
+.um-member-card .profile_share{
+	top: initial;
+	bottom: 5px;
+}
+.um-profile .profile_share{
+	top: initial;
+	right: initial;
+	z-index: 9999999;
 }
