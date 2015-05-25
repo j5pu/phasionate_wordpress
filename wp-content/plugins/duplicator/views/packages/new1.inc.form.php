@@ -44,12 +44,12 @@ META-BOX: STORAGE -->
 						<p class="description">
 							<?php _e("All packages including the archive, installer and SQL script are stored in the location above. ", 'wpduplicator'); ?>
 							<br/>
-						<small>
+						<!--small>
 							<?php _e("Dropbox, FTP and other multiple storage options available in ", 'wpduplicator'); ?>
 							<a href="http://duplicatorpro.com/?from_free_storage" target="_blank">
 								<?php _e("Duplicator Pro", 'wpduplicator'); ?>
 							</a>
-						</small>
+						</small-->
 						</p>
 					</td>
 				</tr>
@@ -186,6 +186,10 @@ META-BOX: STORAGE -->
             <tr>
                 <td style="width:130px"><?php _e("Host", 'wpduplicator') ?></td>
                 <td><input type="text" name="dbhost" id="dbhost" value="<?php echo $Package->Installer->OptsDBHost ?>"  maxlength="200" placeholder="localhost"/></td>
+            </tr>
+			<tr>
+                <td style="width:130px"><?php _e("Host Port", 'wpduplicator') ?></td>
+                <td><input type="text" name="dbport" id="dbport" value="<?php echo $Package->Installer->OptsDBPort ?>"  maxlength="200" placeholder="3306"/></td>
             </tr>
             <tr>
                 <td><?php _e("Database", 'wpduplicator') ?></td>
