@@ -3827,6 +3827,7 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 	height: 300px;
 	background-color: #fff6f6;
 	width: 24%;
+	position: relative;
 }
 .top-rated-user li {
 	margin: 0.5% auto;
@@ -4368,4 +4369,19 @@ body.home #main .wrap-content > section.container-wrap, body.page-id-15993 #main
 /* Elimiar titulo categorias */
 body.category #main div.template-page>.wrap-content>.container{
 	display: none;
+}
+
+/* Profile share */
+.profile_share{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	margin-right: 5px;
+	max-width: 10%;
+}
+.profile_share i.icon-facebook::before, .profile_share i.icon-twitter::before, .profile_share i.icon-gplus::before{
+	font-size: 30px;
+}
+.own-ranking .profile_share{
+	max-width: 100%;
 }

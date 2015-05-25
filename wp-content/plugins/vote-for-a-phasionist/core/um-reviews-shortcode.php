@@ -69,7 +69,23 @@ class UM_Reviews_Shortcode {
 							<div class="um-reviews-widget-name"><a href="<?php echo um_user_profile_url(); ?>"><?php echo um_user('display_name'); ?></a></div>
 							<div class="um-reviews-widget-rating"><span class="um-reviews-avg" data-number="1" data-score="<?php echo $count; ?>"><span><?php if($count==1){ echo "LLevas ".$count." voto."; }else{ echo "LLevas ".$count." votos."; }; ?></span></div>
 					
-						</div><div class="um-clear"></div>
+						</div>
+						
+						<div class='profile_share'>
+							<a onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;" href="http://www.facebook.com/sharer.php?u=<?php echo um_user_profile_url(); ?>" class="post_share_facebook">
+								<i class="icon-facebook"></i>
+							</a>
+							<a href="https://twitter.com/share?url=<?php echo um_user_profile_url(); ?>" class="post_share_twitter" onclick="javascript:window.open(this.href,
+							'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;">
+								<i class="icon-twitter"></i>
+							</a>
+							<a href="https://plus.google.com/share?url=<?php echo um_user_profile_url(); ?>" onclick="javascript:window.open(this.href,
+							'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+								<i class="icon-gplus"></i>
+							</a>
+						</div>
+
+						<div class="um-clear"></div>
 					</li>
 				</ul>
 		<?php
@@ -218,7 +234,23 @@ class UM_Reviews_Shortcode {
 								?><div id="ya-votado-<?php echo $user_id ;?>" class="ya-votado"><span>¡Vuelve a votarle mañana!</span></div><?php
 							}?>
 
-						</div><div class="um-clear"></div>
+						</div>
+
+						<div class='profile_share'>
+							<a onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;" href="http://www.facebook.com/sharer.php?u=<?php echo um_user_profile_url(); ?>" class="post_share_facebook">
+								<i class="icon-facebook"></i>
+							</a>
+							<a href="https://twitter.com/share?url=<?php echo um_user_profile_url(); ?>" class="post_share_twitter" onclick="javascript:window.open(this.href,
+							'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;">
+								<i class="icon-twitter"></i>
+							</a>
+							<a href="https://plus.google.com/share?url=<?php echo um_user_profile_url(); ?>" onclick="javascript:window.open(this.href,
+							'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+								<i class="icon-gplus"></i>
+							</a>
+						</div>
+
+						<div class="um-clear"></div>
 						
 					</li>
 			
