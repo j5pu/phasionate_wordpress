@@ -803,6 +803,9 @@ function um_profile_share_header( $user_id ){
 		})(jQuery);
 	}
 	</script>
+	<meta itemprop="name" content="My Phasion - <?php echo um_user('display_name'); ?>">
+	<meta itemprop="description" content="Coincidiendo con su 60 aniversario, queremos hacer un repaso de los mejores estilismos que ayudaron a hacerse con el primer puesto y que quedarán para el recuerdo tras su paso por el festival">
+	<meta itemprop="image" content="<?php echo bloginfo('wpurl').'/wp-content/uploads/ultimatemember/'.um_profile_id().'/cover_photo.jpg'; ?>">
 	<div class='profile_share'>
 		<a onclick="javascript:document.getElementById('og_image').setAttribute('content','<?php echo bloginfo('wpurl').'/wp-content/uploads/ultimatemember/'.um_profile_id().'/cover_photo.jpg'; ?>');document.getElementById('og_title').setAttribute('content','My Phasion - <?php echo um_user('display_name'); ?>');window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;" href="http://www.facebook.com/sharer.php?u=<?php echo um_user_profile_url(); ?>" class="post_share_facebook">
 			<i class="icon-facebook"></i>
