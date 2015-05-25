@@ -4492,3 +4492,20 @@ ul.own-ranking li{
 	right: initial;
 	z-index: 9999999;
 }
+
+/*Pegar slider al header Portada tienda*/
+#post-13615 > div > section.container-wrap.main-color.revSliderFw.border-bottom.text-center{
+	padding-top: 0px !important;
+}
+
+#post-13615 #main-container > div{
+	padding-top: 0px !important;
+}
+
+.modelos-slider{
+	margin-top: -24px !important;
+}
+@media (min-width: 100px) and (max-width: 990px) { 
+	.modelos-slider{
+	margin-top: -10px !important;
+}				
