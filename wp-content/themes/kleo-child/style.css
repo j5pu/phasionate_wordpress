@@ -4418,6 +4418,7 @@ body.woocommerce .container-wrap .alternate-color{
 }				
 }
 /*Portada tienda*/
+
 body.woocommerce .page-description > p{
 	margin-bottom: 0px !important;
 	margin-top: 0px !important;
@@ -4435,7 +4436,7 @@ body.woocommerce #main > section.container-wrap.main-title.alternate-color.title
 	padding-bottom: 0px !important;
 }
 body.woocommerce #header > div{
-	height: 202px !important;
+	height: 66px !important;
 
 }
 @media (min-width: 100px) and (max-width: 990px) { 
@@ -4456,6 +4457,7 @@ body.woocommerce #header > div{
 body.woocommerce .container-wrap .alternate-color{
 	background-color: #FFFFFF !important;
 }
+
 /* Eliminar Share de Home, pagina Phasionistas y pagina Concurso tras actualizacion del tema */
 body.home #main .wrap-content > section.container-wrap, body.page-id-15993 #main .wrap-content > section.container-wrap, body.page-id-15817 #main .wrap-content > section.container-wrap{
 	display: none;
@@ -4494,12 +4496,13 @@ ul.own-ranking li{
 	max-width: 1%;
 }
 /*Pegar slider al header Portada tienda*/
-#post-13615 > div > section.container-wrap.main-color.revSliderFw.border-bottom.text-center{
+body.woocommerce .container-wrap.main-color.revSliderFw.border-bottom.text-center{
 	padding-top: 0px !important;
 }
 
-#post-13615 #main-container > div{
+body.woocommerce #main-container > div{
 	padding-top: 0px !important;
+	overflow: visible !important;
 }
 
 .modelos-slider{
@@ -4509,3 +4512,8 @@ ul.own-ranking li{
 	.modelos-slider{
 	margin-top: -10px !important;
 }				
+
+body.woocommerce #header{
+	height: 44px !important;
+}
+
