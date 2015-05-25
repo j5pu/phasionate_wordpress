@@ -4472,7 +4472,7 @@ body.category #main div.template-page>.wrap-content>.container{
 	top: 0px;
 	right: 0px;
 	margin-right: 5px;
-	max-width: 1%;
+	max-width: 10%;
 }
 .profile_share i.icon-facebook::before, .profile_share i.icon-twitter::before, .profile_share i.icon-gplus::before{
 	font-size: 30px;
@@ -4491,8 +4491,8 @@ ul.own-ranking li{
 	top: initial;
 	right: initial;
 	z-index: 9999999;
+	max-width: 1%;
 }
-
 /*Pegar slider al header Portada tienda*/
 #post-13615 > div > section.container-wrap.main-color.revSliderFw.border-bottom.text-center{
 	padding-top: 0px !important;
