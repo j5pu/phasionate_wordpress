@@ -21,7 +21,7 @@ kleo_switch_layout('no');
 
 <?php /*get_template_part('page-parts/general-before-wrap'); */?>
 
-<img style="border-top: 2px solid #F66; border-bottom: 2px solid #F66; width: 100%; position: relative; top: -5px;" src="wp-content/themes/kleo-child/assets/img/portada_login.jpg" alt="portada_login" />
+<img style="border-top: 2px solid #F66; border-bottom: 2px solid #F66; width: 100%; position: relative; top: -5px;" src="/wp-content/themes/kleo-child/assets/img/portada_login.jpg" alt="portada_login" />
 <p style="text-align: center; font-size: 15px; color: #f66; margin-top: 40px; font-family: 'Open Sans', sans-serif;"><strong>¡PHASIONATE SE HACE CONTIGO!</strong></p>
 
 <h2 style="text-align: center; color: #747a7f; margin: 20px 0px 40px; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 40px;">Ábrete al mundo de la moda</h2>

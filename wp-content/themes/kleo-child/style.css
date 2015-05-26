@@ -4134,7 +4134,7 @@ div.um .um-form div.um-reviews-post .um-reviews-content textarea {
 
 /*Modificado pagina acceso*/
 
-.page-id-17144 #main {
+.page-id-17144 #main, .page-id-17815 #main {
 	background: #FFF;
 }
 .login_descripcion {
