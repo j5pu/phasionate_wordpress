@@ -28,9 +28,9 @@ kleo_switch_layout('no');
 <p class="login_descripcion">Llega <strong>My Phasion</strong>, la comunidad más cercana en la que te meterás de lleno en el universo de la moda, la belleza y el <em>lifestyle</em>. Somos la primera revista digital en desarrollar una red social donde los lectores son parte del mundo <strong>Phasionate</strong>. En <strong>My Phasion</strong> encontrarás:</p>
 
 <div class="all_img_login">
-	<a class="login_book" href="#"><span>Tu book en vivo</span></a>
-	<a class="login_concurso" href="#"><span>Concursos y premios</span></a>
-	<a class="login_foros" href="#"><span>Foros, consejos, novedades...</span></a>
+	<a class="login_book" href="/concursos-premios"><span>Tu book en vivo</span></a>
+	<a class="login_concurso" href="/foros-consejos-novedades/"><span>Concursos y premios</span></a>
+	<a class="login_foros" href="/book-vivo"><span>Foros, consejos, novedades...</span></a>
 </div>
 
 <h2 style="text-align: center; color: #747a7f; margin: 40px 0px; padding: 0px 10px; font-family: 'Open Sans', sans-serif; font-weight: 600;">¿A que esperas para convertirte en <em>Phasionista</em>?</h2>

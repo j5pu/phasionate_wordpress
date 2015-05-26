@@ -3929,7 +3929,13 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 	width: 435px; 
 	margin: 0px auto;
 }
-.page-id-16821 .page-title {
+.page-id-16821 .page-title, 
+.page-id-17769 .page-title, 
+.page-id-17772 .page-title, 
+.page-id-17754 .page-title,
+.item-likes-17769,
+.item-likes-17772,
+.item-likes-17754 {
 	display: none;
 }
 .page-id-16821 .um-field-label{
