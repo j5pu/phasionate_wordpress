@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Login
+ * Template Name: Full-With + Img My Phasion
  *
  * Description: Template withour sidebar
  *
