@@ -21,7 +21,7 @@ kleo_switch_layout('no');
 
 <?php /*get_template_part('page-parts/general-before-wrap'); */?>
 
-<img style="border-top: 2px solid #F66; border-bottom: 2px solid #F66; width: 100%; position: relative; top: -5px;" src="wp-content/themes/kleo-child/assets/img/portada_login.jpg" alt="portada_login" />
+<img style="border-top: 2px solid #F66; border-bottom: 2px solid #F66; width: 100%; position: relative; top: -5px;" src="/wp-content/themes/kleo-child/assets/img/portada_login.jpg" alt="portada_login" />
 
 <?php
 if ( have_posts() ) :
