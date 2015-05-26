@@ -864,11 +864,6 @@ class WPSEO_Frontend {
 			$canonical = $this->canonical_no_override;
 		}
 		
-		$place = get_permalink();
-		if ( strpos( $place, 'mi-phasion')){
-			$echo = false;
-		}	
-		
 		if ( $echo === false ) {
 			return $canonical;
 		}
