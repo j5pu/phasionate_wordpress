@@ -4492,7 +4492,7 @@ ul.own-ranking li{
 .um-profile .profile_share{
 	top: initial;
 	right: initial;
-	z-index: 9999999;
+	z-index: 29;
 	max-width: 1%;
 }
 /*Pegar slider al header Portada tienda*/

@@ -71,17 +71,8 @@ class UM_Reviews_Shortcode {
 					
 						</div>
 						
-						<script type="text/javascript">
-						if ('undefined' != typeof jQuery){
-							(function($){
-								$("meta[property='og:title']").attr('id', 'og_title');
-								$("meta[property='og:image']").attr('id', 'og_image');
-								//$("meta[property='og:description']").attr('id', 'og_description');
-							})(jQuery);
-						}
-						</script>
 						<div class='profile_share'>
-							<a onclick="javascript:document.getElementById('og_image').setAttribute('content','<?php echo bloginfo('wpurl').'/wp-content/uploads/ultimatemember/'.um_profile_id().'/cover_photo.jpg'; ?>');document.getElementById('og_title').setAttribute('content','My Phasion - <?php echo um_user('display_name'); ?>');window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;" href="http://www.facebook.com/sharer.php?u=<?php echo um_user_profile_url(); ?>" class="post_share_facebook">
+							<a onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;" href="http://www.facebook.com/sharer.php?u=<?php echo um_user_profile_url(); ?>" class="post_share_facebook">
 								<i class="icon-facebook"></i>
 							</a>
 							<a href="https://twitter.com/share?url=<?php echo um_user_profile_url(); ?>" class="post_share_twitter" onclick="javascript:window.open(this.href,
@@ -245,17 +236,8 @@ class UM_Reviews_Shortcode {
 
 						</div>
 
-						<script type="text/javascript">
-						if ('undefined' != typeof jQuery){
-							(function($){
-								$("meta[property='og:title']").attr('id', 'og_title');
-								$("meta[property='og:image']").attr('id', 'og_image');
-								//$("meta[property='og:description']").attr('id', 'og_description');
-							})(jQuery);
-						}
-						</script>
 						<div class='profile_share'>
-							<a onclick="javascript:document.getElementById('og_image').setAttribute('content','<?php echo bloginfo('wpurl').'/wp-content/uploads/ultimatemember/'.um_profile_id().'/cover_photo.jpg'; ?>');document.getElementById('og_title').setAttribute('content','My Phasion - <?php echo um_user('display_name'); ?>');window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;" href="http://www.facebook.com/sharer.php?u=<?php echo um_user_profile_url(); ?>" class="post_share_facebook">
+							<a onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;" href="http://www.facebook.com/sharer.php?u=<?php echo um_user_profile_url(); ?>" class="post_share_facebook">
 								<i class="icon-facebook"></i>
 							</a>
 							<a href="https://twitter.com/share?url=<?php echo um_user_profile_url(); ?>" class="post_share_twitter" onclick="javascript:window.open(this.href,
