@@ -128,35 +128,77 @@ class UM_Reviews_Shortcode {
 			$total_participants_show = $total_participants_show_basic;
 			$offset_query = ($page_number-1)*$total_participants_show;
 		}
-		
-		$query_args = array(
+
+		if (isset($_GET['ordenado_por'])){
+			$order_set = $_GET['ordenado_por'];
+		}else{
+			$order_set = 'mas_votados';
+		}
+
+		if ( $order_set == 'mas_votados' || $order_set == 'aleatorio' ){
+			$query_args = array(
 			'fields' => 'ID',
 			'number' => $number,
 			'meta_key' => '_reviews_total',
 			'orderby' => 'meta_value',
 			'order' => 'desc',
 			'offset' => $offset_query
-		);
-		$query_args['meta_query'][] = array(
-			'key' => 'role',
-			'value' => 'concursante-portada-mayo-2015',
-			'compare' => '='
-		);
-
+			);
+			$query_args['meta_query'][] = array(
+				'key' => 'role',
+				'value' => 'concursante-portada-mayo-2015',
+				'compare' => '='
+			);
+		}else if ( $order_set == 'mas_recientes' ){
+			$query_args = array(
+			'fields' => 'ID',
+			'number' => $number,
+			'orderby' => 'user_registered',
+			'order' => 'desc',
+			'offset' => $offset_query
+			);
+			$query_args['meta_query'][] = array(
+				'key' => 'role',
+				'value' => 'concursante-portada-mayo-2015',
+				'compare' => '='
+			);
+		}
 
 		$users = new WP_User_Query( $query_args );
 
-		$sorted_users_ids = $um_reviews->api->it4_sort_users_by_meta_key( $users->results, '_reviews_total' );
+		if ( $order_set == 'mas_votados' ){
+			$sorted_users_ids = $um_reviews->api->it4_sort_users_by_meta_key( $users->results, '_reviews_total' );
+		}else if ( $order_set == 'mas_recientes'){
+			$sorted_users_total = $um_reviews->api->it4_sort_users_by_meta_key( $users->results, '_reviews_total' );
+			$sorted_users_ids =  $users->results;
+		}else if ( $order_set == 'aleatorio' ){
+			$sorted_users_total = $um_reviews->api->it4_sort_users_by_meta_key( $users->results, '_reviews_total' );
+			$sorted_users_ids = $users->results;
+			shuffle($sorted_users_ids);
+		}
 
 		$total_participants = count($users->results) + $offset_query;
 		$n_pages = ceil($total_participants/$total_participants_show_basic);
+
 		?>
 
 		<?php
 			global $ultimatemember;
 		?>
 
+		<div class="selectBox selectBoxup">
+			<span> Ordenar por: </span>
+			<select onChange="window.location.href=this.value" class="um-s1" style="width: 300px">
+				<option value="<?php bloginfo('wpurl'); ?>/concurso-portada-de-mayo/?ordenado_por=mas_votados" <?php if($order_set == 'mas_votados'){echo 'selected';}?>>Más votados</option>
+				<option value="<?php bloginfo('wpurl'); ?>/concurso-portada-de-mayo/?ordenado_por=aleatorio" <?php if($order_set == 'aleatorio'){echo 'selected';}?>>Aleatorio</option>
+				<option value="<?php bloginfo('wpurl'); ?>/concurso-portada-de-mayo/?ordenado_por=mas_recientes" <?php if($order_set == 'mas_recientes'){echo 'selected';}?>>Recien llegados</option>
+			</select>
+		</div>
 		
+		<?php
+		if ($order_set != "aleatorio"){
+		?>
+
 		<div class="selectBox selectBoxup">
 			<span> Muestra página: </span>
 			<select onChange="window.location.href=this.value" class="um-s1" style="width: 100px">
@@ -176,6 +218,18 @@ class UM_Reviews_Shortcode {
 			</select>
 		</div>
 
+		<?php
+		}else{
+		?>
+
+		<div class="randomAgainButton"><a href="<?php bloginfo('wpurl'); ?>/concurso-portada-de-mayo/?ordenado_por=aleatorio" title="Nuevos aleatorios">
+		<img src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/dices.png" alt="Nuevos aleatorios"/>
+		</a></div>
+
+		<?php
+		}	
+		?>
+
 		<ul class="um-reviews-widget top-rated top_portada_mayo <?php if($page_number == 1){ echo "first_page_ranking_list"; }?>">
 		
 			<?php 
@@ -193,10 +247,27 @@ class UM_Reviews_Shortcode {
 						</div>
 						
 						<div class="um-reviews-widget-user">
-							<div class="phasionate-position"><?php echo $i?></div>
-							<div class="um-reviews-widget-name"><a href="<?php echo um_user_profile_url(); ?>"><?php echo um_user('display_name'); ?></a></div>
+							<?php
+							if ($order_set != "mas_votados"){
+								$g = 0;
+								foreach( $sorted_users_total as $user_id_look ) {
+									$g += 1;
+									$current_user_id = get_current_user_id();
 
-							
+									if ($user_id_look == $user_id) {
+										$position_user = $g;
+										?>
+										<div class="phasionate-position"><?php echo $position_user?></div>
+										<?php
+									}
+								}
+							}else{
+							?>
+								<div class="phasionate-position"><?php echo $i?></div>
+							<?php
+							}
+							?>
+							<div class="um-reviews-widget-name"><a href="<?php echo um_user_profile_url(); ?>"><?php echo um_user('display_name'); ?></a></div>
 							
 							<div class="um-reviews-widget-rating"><span class="um-reviews-avg" data-number="1" data-score="<?php echo $count; ?>"><span><?php echo "LLeva <span id='phasionate-score".$user_id."'>".$count."</span> "; if($count==1){ echo "voto."; }else{ echo "votos."; } ?></span></span></div>
 					
@@ -262,6 +333,10 @@ class UM_Reviews_Shortcode {
 			
 		</ul>
 		
+		<?php
+		if ($order_set != "aleatorio"){
+		?>
+
 		<div class="selectBox selectBoxdown">
 			<span> Muestra página: </span>
 			<select onChange="window.location.href=this.value" class="um-s1" style="width: 100px">
@@ -280,6 +355,10 @@ class UM_Reviews_Shortcode {
 				?>
 			</select>
 		</div>
+
+		<?php
+		}
+		?>
 
 		<?php
 		

@@ -2892,30 +2892,16 @@ left: auto !important;
 	padding: 3%;
 	background-color: white;
 	z-index: 200;
-/*	box-shadow: 0px -20px 5px -10px #000, 25px -20px 5px -10px #000, -25px -20px 5px -10px #000, 0px 20px 5px -10px #000; */
-/*	box-shadow: 0px 0px 10px 10px #f96d72, 0px 100px 10px 10px #f96d72;*/
+	margin-bottom: 0px;
 }
 .medSection .kleo_text_column{
 	position: absolute;
 	width: 100%;
 	height: 20%;
 	background-color: white;
-/*	box-shadow: 15px 25px 20px 2px red, -15px 25px 20px 2px red; */
 }
 .medSection .wpb_raw_html{
-/*	box-shadow: 0px 0px 10px 10px #f96d72, 0px 100px 10px 10px #f96d72;*/
-}
-.medSection .kleo_text_column, .medSection .wpb_single_image, .medSection .wpb_raw_html{
-	/*
-	box-shadow: 10px 0px 5px 10px red, -10px 0px 5px 10px red;
-	/*
-	-moz-border-image: -moz-linear-gradient(top, #3acfd5 0%, #3a4ed5 100%);  
-    -webkit-border-image: -webkit-linear-gradient(top, #3acfd5 0%, #3a4ed5 100%);  
-    border-image: linear-gradient(to bottombottom, #3acfd5 0%, #3a4ed5 100%);  
-    border-image-slice: 1; 
-	-webkit-border-image: -webkit-gradient(linear, left top, left bottom, from(#00abeb), to(#fff), color-stop(0.5, #fff), color-stop(0.5, #66cc00)) 21 30 30 21 repeat repeat;
-	*/
-	/*border-color: red;*/
+	margin-bottom: 0px;
 }
 .medSection p{
 	background-color: white;
@@ -3559,6 +3545,14 @@ div.col-sm-12 ul.um-reviews-widget .ya-votado{
 }
 .um-members-intro{
 	display: none;
+}
+.randomAgainButton{
+	width: 100%;
+	height: 60px;
+	text-align: center;
+}
+.randomAgainButton img{
+	width: 60px;
 }
 /* Boton Editar Rol */
 body.page.page-id-15817 .um-form .um-cover, body.page.page-id-15817 .um-form .um-header, body.page.page-id-15817 .um-form .um-profile-nav{
@@ -4533,4 +4527,4 @@ body.woocommerce #main-container > div{
 body.woocommerce #header{
 	height: 44px !important;
 }
-
+}
