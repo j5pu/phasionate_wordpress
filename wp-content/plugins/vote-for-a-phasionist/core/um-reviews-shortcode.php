@@ -4,12 +4,12 @@ class UM_Reviews_Shortcode {
 
 	function __construct() {
 	
+		add_shortcode('ultimatemember_bases', array(&$this, 'ultimatemember_bases'), 1);
 		add_shortcode('ultimatemember_top_rated', array(&$this, 'ultimatemember_top_rated'), 1);
 		add_shortcode('ultimatemember_user_position', array(&$this, 'ultimatemember_user_position'), 1);
 		add_shortcode('ultimatemember_top_50', array(&$this, 'ultimatemember_top_50'), 1);
 		add_shortcode('ultimatemember_most_rated', array(&$this, 'ultimatemember_most_rated'), 1);
 		add_shortcode('ultimatemember_lowest_rated', array(&$this, 'ultimatemember_lowest_rated'), 1);
-		
 	}
 	
 
@@ -593,4 +593,23 @@ class UM_Reviews_Shortcode {
 		return $output;
 	}
 
+		/***
+	***	@Shortcode
+	***/
+	function ultimatemember_bases( $args = array() ) {
+		global $um_reviews;
+		
+		$current_user_id = get_current_user_id();
+
+		$role = get_user_meta( $current_user_id, 'role', true );
+
+		if ($role == 'concursante-portada-mayo-2015'){
+			?>
+			<a href="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/Bases del concurso.pdf" target="_blank">Bases del concurso</a>
+			<?php
+		}
+	}
+	
+
 }
+
