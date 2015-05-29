@@ -211,7 +211,7 @@ function ownResize(){
 				$('#medSection'+num).css('opacity','1')
 				$('#medSection'+num).find('.wpb_wrapper').eq(0).find('img').css({'opacity':'1'});
 			//	$('#medSection'+num).find('.col-sm-6').eq(0).find('.wpb_wrapper').eq(1).css('background-color','white');
-			},500);
+			},200);
 
 	//Crear shadow
 			var shadowHeight = $('.medSection').eq(num).find('.kleo_text_column').height();
@@ -320,6 +320,10 @@ function ownResize(){
 				$('.medSection').eq(num).css('top', alturaMedSection+'px');
 				}
 			}
+			//Scroll del menu navegador entre imagenes para centrar la elegida
+			var navImagenesHeight = $('.navImagenes').height();
+			var elemNavImagenesHeight = $('.elemNavImagenes').height()+10;
+			$('.navImagenes').scrollTo(elemNavImagenesHeight * $i - (navImagenesHeight/2 - elemNavImagenesHeight/2));
 		}		
 	}
 /*Final Nueva Galeria*/

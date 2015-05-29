@@ -2950,11 +2950,8 @@ left: auto !important;
 }
 .elemNavImagenes{
 	border: 3px solid white;
-	margin-bottom: 3%;
+	margin-bottom: 4px;
 	border-radius: 4px;
-}
-.elemNavImagenes:hover{
-	border: 3px solid yellow;
 }
 .arrowNav{
 	width: 5%;
