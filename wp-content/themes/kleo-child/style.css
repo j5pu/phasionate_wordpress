@@ -549,7 +549,7 @@ i.icon-instagramm:before {
 
 /*Logo Likes & Tags*/
 	.item-likes:before {
-	content: "D";
+	content: "F";
 	font-family: phasionate;
 	font-size: 40px;
 }
@@ -723,7 +723,7 @@ font-size: 90%;
 .breadcrumb>li+li:before {
 padding: 0 5px;
 color: #aaa;
-content: "D";
+content: "F";
 font-family: phasionate;
 font-size: 30px;
 }
