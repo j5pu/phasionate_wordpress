@@ -4517,7 +4517,7 @@ body.woocommerce #main-container > div{
 }
 
 .modelos-slider{
-	margin-top: -24px !important;
+	margin-top: -64px !important;
 }
 @media (min-width: 100px) and (max-width: 990px) { 
 	.modelos-slider{
@@ -4526,5 +4526,4 @@ body.woocommerce #main-container > div{
 
 body.woocommerce #header{
 	height: 44px !important;
-}
 }
