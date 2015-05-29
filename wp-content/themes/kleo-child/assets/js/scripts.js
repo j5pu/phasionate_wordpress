@@ -416,7 +416,7 @@ function ownResize(){
 						$('.kleo-main-header strong.logo').animate({top:'-160px',height:'0px'});
 						$('#footer-sidebar-2').clone().appendTo('.kleo-main-header').addClass('logoHeader');
 						setTimeout(function(){ 	
-							$('.phasionateHeader').animate({top: '5px'});
+							$('.phasionateHeader').animate({top: '10px'});
 							$('.logoHeader').animate({top: '-5px'});
 						},400);
 					}	
