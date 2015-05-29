@@ -578,7 +578,7 @@ p.tags:before {
 */
 .header-color .logo a, #footer .logo a {
 	font-family: 'phasionate';
-	font-size: 120px;
+	font-size: 150px;
 	line-height: 150px;
 	color:#222;
 }
@@ -3110,7 +3110,7 @@ left: auto !important;
 	width: 300px;
 }
 .phasionateHeader a{
-	font-size: 25px;
+	font-size: 40px;
 	font-family: 'phasionate';
 	font-weight: normal;
 }

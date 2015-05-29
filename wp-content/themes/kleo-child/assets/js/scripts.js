@@ -393,7 +393,7 @@ function ownResize(){
 			$('#undefined-sticky-wrapper').css({height: '38px'});
 			$('.kleo-main-header strong.logo').css({top:'-160px',height:'0px'});
 			$('#footer-sidebar-2').clone().appendTo('.kleo-main-header').addClass('logoHeader');
-				$('.phasionateHeader').css({top: '10px'});
+				$('.phasionateHeader').css({top: '5px'});
 				$('.logoHeader').css({top: '-5px'});
 			$pos = 0;
 		}
@@ -420,7 +420,7 @@ function ownResize(){
 						$('.kleo-main-header strong.logo').animate({top:'-160px',height:'0px'});
 						$('#footer-sidebar-2').clone().appendTo('.kleo-main-header').addClass('logoHeader');
 						setTimeout(function(){ 	
-							$('.phasionateHeader').animate({top: '10px'});
+							$('.phasionateHeader').animate({top: '5px'});
 							$('.logoHeader').animate({top: '-5px'});
 						},400);
 					}	
@@ -437,7 +437,7 @@ function ownResize(){
 			$('#undefined-sticky-wrapper').css({height: '38px'});
 			$('.kleo-main-header strong.logo').css({top:'-160px',height:'0px'});
 			$('#footer-sidebar-2').clone().appendTo('.kleo-main-header').addClass('logoHeader');
-				$('.phasionateHeader').css({top: '10px'});
+				$('.phasionateHeader').css({top: '5px'});
 				$('.logoHeader').css({top: '-5px'});
 			$pos = 0;
 		}
