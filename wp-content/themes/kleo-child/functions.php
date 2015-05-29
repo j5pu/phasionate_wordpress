@@ -472,7 +472,7 @@ function magazine_home_html(){
 			<div class="bg-img"></div>
 			<div style="margin-top: 150px;" class="title fixed-nav">
 				<h1 id="titulogo" style="display:none;" class="fixed-nav-title trigger">
-					<span style="display:none">PHASIONÂTE<span>Passion for Fashion</span></span>
+					<span style="display:none">BOGADIA<span>Mucho más que moda</span></span>
 				</h1>
 			<div>
 				<nav id="navSup" class="codrops-demos">

@@ -257,7 +257,7 @@ function ownResize(){
 				$publiSections = $('.medSection .publiGaleria');
 				$diamond = $('.medSection .publiGaleria').eq(num).prev().find('.kleo_text_column').height();
 				$($publiSections[num]).children().append($('<div>', {class: 'logoGaleria'}).css('height',$diamond+'px')
-					.append($('<img>').attr({'src':'http://www.phasionate.com/wp-content/themes/kleo-child/assets/img/diamante.png'}).css('max-height', $('ins').eq(num).height()*0.15+'px')));
+					.append($('<img>').attr({'src':'https://www.bogadia.com/wp-content/themes/kleo-child/assets/img/diamante.png'}).css('max-height', $('ins').eq(num).height()*0.15+'px')));
 			}else{
 				$('.medSection .publiGaleria').eq(num).find('.logoGaleria img').css('max-height', $('ins').eq(num).height()*0.15+'px');
 			}
@@ -471,7 +471,7 @@ console.log(navigator.userAgent);
 
 	if(revSliderReforce && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && !is_android){
 		$('.wpb_revslider_element').on('tap', '.tp-caption > a', function(){
-		    if ($(this).attr('href').indexOf("phasionate") < 0 ){
+		    if ($(this).attr('href').indexOf("bogadia") < 0 ){
 		    	window.open($(this).attr('href'));
 		    }else{
 		    	self.location = $(this).attr('href');	    	
@@ -529,7 +529,7 @@ console.log(navigator.userAgent);
 		$('body').append($('<div>', {class: 'bigCover'}));
 		$('.bigCover').append($('<div>', {class: 'popUpSection'}));
 		$('.popUpSection').append($('<div>', {class: 'logoPhasionateLogIn'}));
-		$('.logoPhasionateLogIn').text('PHASIONÂTE');
+		$('.logoPhasionateLogIn').text('BOGADIA');
 		$('#text-57').appendTo('.popUpSection');
 		$('.popUpSection').append($('<div>', {class: 'getBackLinkContainer'}));
 		$('.getBackLinkContainer').append($('<div>', {class: 'getBackLink'}));
@@ -564,7 +564,7 @@ console.log(navigator.userAgent);
 		$('body').append($('<div>', {class: 'bigCover'}));
 		$('.bigCover').append($('<div>', {class: 'popUpSection'}));
 		$('.popUpSection').append($('<div>', {class: 'logoPhasionateLogIn'}));
-		$('.logoPhasionateLogIn').text('PHASIONÂTE');
+		$('.logoPhasionateLogIn').text('BOGADIA');
 		$('#text-41').appendTo('.popUpSection');
 		$('.popUpSection').append($('<div>', {class: 'getBackLinkContainer'}));
 		$('.getBackLinkContainer').append($('<div>', {class: 'getBackLink'}));
