@@ -55,6 +55,25 @@ kleo_switch_layout('no');
 		<?php the_author_meta( 'description' ); ?><br/>
 	</div>
 </div>
+
+		<?php
+		$cats = get_the_category();
+		$cat_name = $cats[0]->name;
+		if ($cat_name == "Streetstyle"){
+			$user_david = get_user_by( "email", "david@bizeulabs.com" );
+		?>
+<div id="authorarea" class="vcard author">
+	<a class="author-link photo" href="<?php echo esc_url(get_author_posts_url( $user_david->id)); ?>" rel="author">
+	<?php echo get_avatar( $user_david->id , 150 ); ?></a>
+	<a class="author-link url" href="<?php echo esc_url(get_author_posts_url( $user_david->id)); ?>" rel="photographer">
+	<h2 class="fn"><?php echo $user_david->display_name; ?></h2></a>
+	<div class="authorinfo role">
+		<?php echo $user_david->description; ?><br/>
+	</div>
+</div>
+		<?php
+		}
+		?>
 		<?php
 		// Previous/next post navigation.
 		kleo_post_nav();
