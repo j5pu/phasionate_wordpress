@@ -25,7 +25,7 @@ kleo_switch_layout('no');
 <p style="text-align: center; font-size: 15px; color: #f66; margin-top: 40px; font-family: 'Open Sans', sans-serif;"><strong>¡BOGADIA SE HACE CONTIGO!</strong></p>
 
 <h2 style="text-align: center; color: #747a7f; margin: 20px 0px 40px; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 40px;">Ábrete al mundo de la moda</h2>
-<p class="login_descripcion">Llega <strong>Bogadia</strong>, la comunidad más cercana en la que te meterás de lleno en el universo de la moda, la belleza y el <em>lifestyle</em>. Somos la primera revista digital en desarrollar una red social donde los lectores son parte del mundo de<strong>Bogadia</strong>. En <strong>Bogadia</strong> encontrarás:</p>
+<p class="login_descripcion">Llega <strong>Bogadia</strong>, la comunidad más cercana en la que te meterás de lleno en el universo de la moda, la belleza y el <em>lifestyle</em>. Somos la primera revista digital en desarrollar una red social donde los lectores son parte del mundo de <strong>Bogadia</strong>. En <strong>Bogadia</strong> encontrarás:</p>
 
 <div class="all_img_login">
 	<a class="login_book" href="/book-vivo" target="_blank"><span>Tu book en vivo</span></a>
