@@ -97,7 +97,7 @@ $primary_menu = wp_nav_menu( array(
 						</div>
 						
 						<strong class="logo">
-							<a href="<?php echo home_url();?>">PHASIONÂTE
+							<a href="<?php echo home_url();?>">BOGADIA
 								
 								<?php /*COMENTADO if ($logo_path != '') { ?>
 								
