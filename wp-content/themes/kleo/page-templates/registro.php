@@ -22,10 +22,10 @@ kleo_switch_layout('no');
 <?php /*get_template_part('page-parts/general-before-wrap'); */?>
 
 <img style="border-top: 2px solid #F66; border-bottom: 2px solid #F66; width: 100%; position: relative; top: -5px;" src="/wp-content/themes/kleo-child/assets/img/portada_login.jpg" alt="portada_login" />
-<p style="text-align: center; font-size: 15px; color: #f66; margin-top: 40px; font-family: 'Open Sans', sans-serif;"><strong>¡PHASIONATE SE HACE CONTIGO!</strong></p>
+<p style="text-align: center; font-size: 15px; color: #f66; margin-top: 40px; font-family: 'Open Sans', sans-serif;"><strong>¡BOGADIA SE HACE CONTIGO!</strong></p>
 
 <h2 style="text-align: center; color: #747a7f; margin: 20px 0px 40px; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 40px;">Ábrete al mundo de la moda</h2>
-<p class="login_descripcion">Llega <strong>My Phasion</strong>, la comunidad más cercana en la que te meterás de lleno en el universo de la moda, la belleza y el <em>lifestyle</em>. Somos la primera revista digital en desarrollar una red social donde los lectores son parte del mundo <strong>Phasionate</strong>. En <strong>My Phasion</strong> encontrarás:</p>
+<p class="login_descripcion">Llega <strong>Bogadia</strong>, la comunidad más cercana en la que te meterás de lleno en el universo de la moda, la belleza y el <em>lifestyle</em>. Somos la primera revista digital en desarrollar una red social donde los lectores son parte del mundo de<strong>Bogadia</strong>. En <strong>Bogadia</strong> encontrarás:</p>
 
 <div class="all_img_login">
 	<a class="login_book" href="/book-vivo" target="_blank"><span>Tu book en vivo</span></a>
@@ -33,7 +33,7 @@ kleo_switch_layout('no');
 	<a class="login_foros" href="/foros-consejos-novedades" target="_blank"><span>Foros, consejos, novedades...</span></a>
 </div>
 
-<h2 style="text-align: center; color: #747a7f; margin: 40px 0px; padding: 0px 10px; font-family: 'Open Sans', sans-serif; font-weight: 600;">¿A que esperas para convertirte en <em>Phasionista</em>?</h2>
+<h2 style="text-align: center; color: #747a7f; margin: 40px 0px; padding: 0px 10px; font-family: 'Open Sans', sans-serif; font-weight: 600;">¿A que esperas para entrar en <em>Bogadia</em>?</h2>
 <p class="login_descripcion"><a class="botton_register_main" href="#">Regístrate</a></p>
 <?php
 if ( have_posts() ) :
