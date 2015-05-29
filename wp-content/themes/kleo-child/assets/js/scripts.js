@@ -389,7 +389,7 @@ function ownResize(){
 			$('#undefined-sticky-wrapper').css({height: '38px'});
 			$('.kleo-main-header strong.logo').css({top:'-160px',height:'0px'});
 			$('#footer-sidebar-2').clone().appendTo('.kleo-main-header').addClass('logoHeader');
-				$('.phasionateHeader').css({top: '5px'});
+				$('.phasionateHeader').css({top: '10px'});
 				$('.logoHeader').css({top: '-5px'});
 			$pos = 0;
 		}
@@ -433,7 +433,7 @@ function ownResize(){
 			$('#undefined-sticky-wrapper').css({height: '38px'});
 			$('.kleo-main-header strong.logo').css({top:'-160px',height:'0px'});
 			$('#footer-sidebar-2').clone().appendTo('.kleo-main-header').addClass('logoHeader');
-				$('.phasionateHeader').css({top: '5px'});
+				$('.phasionateHeader').css({top: '10px'});
 				$('.logoHeader').css({top: '-5px'});
 			$pos = 0;
 		}
