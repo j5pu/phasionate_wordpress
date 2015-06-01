@@ -433,7 +433,7 @@
 	/***
 	***	@display the edit profile icon
 	***/
-	//add_action('um_pre_header_editprofile', 'um_add_edit_icon' );
+	add_action('um_pre_header_editprofile', 'um_add_edit_icon' );
 	function um_add_edit_icon( $args ) {
 		global $ultimatemember;
 		$output = '';
@@ -614,7 +614,7 @@
 				?>
 			
 			<div class="um-profile-nav-item um-profile-nav-<?php echo $id; ?> <?php if ( !um_get_option('profile_menu_icons') ) { echo 'without-icon'; } ?> <?php if ( $id == $active_tab ) { echo 'active'; } ?>">
-				<a href="<?php if ($id == 'gallery' && get_current_user_id()==um_profile_id()){echo $nav_link.'&um_action=edit';}else{echo $nav_link;} ?>" title="<?php echo $tab['name']; ?>">
+				<a href="<?php echo $nav_link; ?>" title="<?php echo $tab['name']; ?>">
 
 					<i class="<?php echo $tab['icon']; ?>"></i>
 					
