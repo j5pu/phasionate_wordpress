@@ -4115,7 +4115,7 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 /*My book en vivo, concursos y premios, y foros, consejos, novedades,...*/
 
 .sub_login_img {
-	margin: 4px 4px 20px 10px;
+	margin: 4px 4px 20px 10px !important;
 }
 
 /*Versión móvil de my book en vivo, concursos y premios, y foros, consejos, novedades,...*/
