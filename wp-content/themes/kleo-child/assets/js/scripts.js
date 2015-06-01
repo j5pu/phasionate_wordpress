@@ -371,7 +371,7 @@ function ownResize(){
 /*Final seccion active*/
 
 /*Change header item list*/
-	//$('#menu-item-15568').insertBefore($('#nav-menu-item-search'));
+	$('#nav-menu-item-search').insertBefore($('#menu-item-15589'));
 	$('#nav-menu-item-search').insertBefore($('#menu-item-15568'));
 
 /*Recuperar revolution slider*/

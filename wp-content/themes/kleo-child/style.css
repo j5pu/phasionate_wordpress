@@ -576,6 +576,10 @@ p.tags:before {
 /*Estilos menú
 *
 */
+.navbar-nav > li > a.search-trigger{
+	margin-left: 0px;
+	margin-right: 30px;
+}
 .dropdown-menu{
 	right: 0px !important;
 	left: initial !important;
