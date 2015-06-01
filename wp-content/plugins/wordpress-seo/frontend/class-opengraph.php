@@ -257,6 +257,14 @@ class WPSEO_OpenGraph {
 		 */
 		$url = apply_filters( 'wpseo_opengraph_url', WPSEO_Frontend::get_instance()->canonical( false ) );
 
+		if (um_is_core_page('user') ){
+			global $ultimatemember;
+			um_fetch_user( um_get_requested_user() );
+			$user_id = um_user('ID');
+			$url = um_user_profile_url();
+			um_reset_user(); 
+		}
+		
 		if ( is_string( $url ) && $url !== '' ) {
 			$this->og_tag( 'og:url', esc_url( $url ) );
 
