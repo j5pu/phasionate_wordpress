@@ -576,20 +576,10 @@ p.tags:before {
 /*Estilos menú
 *
 */
-.navbar-nav > li > a.search-trigger{
-	margin-left: 0px;
-	margin-right: 30px;
-}
-.dropdown-menu{
-	right: 0px !important;
-	left: initial !important;
-}
-.navbar-collapse{
-	padding-top:3px;
-}
 .header-color .logo a, #footer .logo a {
 	font-family: 'phasionate';
-	font-size: 44px;
+	font-size: 150px;
+	line-height: 150px;
 	color:#222;
 }
 .header-color .logo a{
@@ -639,11 +629,10 @@ body #footer{
 	height: 14px;
 }
 /*fin FOOTER*/
-.kleo-main-header .navbar-header{
-	height: 50px !important;
-}
+
 .kleo-main-header .navbar-header, .kleo-main-header .logo, .kleo-main-header .navbar-collapse, .kleo-main-header .navbar-collapse > ul {
     text-align: center;
+    width: 100%;
 }
 
 .navbar-header, .kleo-main-header .navbar-collapse>ul>li>a {
@@ -657,9 +646,6 @@ body #footer{
 .kleo-main-header .nav > li.active > a {
 	color: #ff6666;
 	box-shadow: none;
-}
-#header .kleo-main-header .container{
-	max-width: 100%;
 }
 /*fin estilos menú*/
 
@@ -3104,7 +3090,37 @@ left: auto !important;
 	}
 }
 
-
+/*Effect Header Title and RRSS*/
+.logoHeader{
+	display: inline-block;
+	position: absolute;
+	top: -50px;
+	right: 0;
+}
+.logoHeader ul li, .logoHeader2 ul li{
+	list-style-type: none;
+	display: inline;
+}
+.phasionateHeader{
+	display: inline;
+	position: absolute;
+	top: -50px;
+	left: 20px;
+	height: auto;
+	width: 300px;
+}
+.phasionateHeader a{
+	font-size: 40px;
+	font-family: 'phasionate';
+	font-weight: normal;
+}
+#undefined-sticky-wrapper{
+	display: inline-block;    
+}
+.navbar-header{
+	height: auto !important;
+}
+/*Final Effect Header Title and RRSS*/
 
 /*Alineación de redes sociales boton seguir*/
 .redes {
@@ -3156,6 +3172,12 @@ left: auto !important;
 }
 /* Fin Modificaciones Sidebar adaptacion de lo MasVotados -shortcode[MasVotadosSidebar]*/
 
+/* Mejora Hover Cabecera */
+.kleo-main-header .logo a {
+	width: 580px;
+	margin: 0px auto;	
+}
+/*Fin mejora Hover Cabecera*/
 /*Anuncios Tracdelight en portada*/
 .widgetTracdelight{
 	width: 100%;
@@ -4113,14 +4135,13 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 /*My book en vivo, concursos y premios, y foros, consejos, novedades,...*/
 
 .sub_login_img {
-	margin: 4px 0px 20px 10px;
+	margin: 4px 4px 20px 10px;
 }
 
 /*Versión móvil de my book en vivo, concursos y premios, y foros, consejos, novedades,...*/
 
 @media (max-width: 480px){
 	.sub_login_img {
-		margin: 4px 4px 20px 10px; 
 		width: 45%;
 	}
 }
