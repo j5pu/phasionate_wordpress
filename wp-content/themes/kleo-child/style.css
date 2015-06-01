@@ -4109,6 +4109,22 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 		font-size: 12px;
 	}
 }
+
+/*My book en vivo, concursos y premios, y foros, consejos, novedades,...*/
+
+.sub_login_img {
+	margin: 4px 0px 20px 10px;
+}
+
+/*Versión móvil de my book en vivo, concursos y premios, y foros, consejos, novedades,...*/
+
+@media (max-width: 480px){
+	.sub_login_img {
+		margin: 4px 4px 20px 10px; 
+		width: 45%;
+	}
+}
+
 /*Retoques en um-review (Votaciónes de usuarios)*/
 
 div.um .um-form div.um-reviews-post .um-reviews-title input[type="text"],
