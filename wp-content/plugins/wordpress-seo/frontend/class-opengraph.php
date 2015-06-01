@@ -257,20 +257,14 @@ class WPSEO_OpenGraph {
 		 */
 		$url = apply_filters( 'wpseo_opengraph_url', WPSEO_Frontend::get_instance()->canonical( false ) );
 
-		if (um_is_core_page('user') ){
-			global $ultimatemember;
-			um_fetch_user( um_get_requested_user() );
-			$user_id = um_user('ID');
-			$url = um_user_profile_url();
-			um_reset_user(); 
+		if (!um_is_core_page('user') ){
+			if ( is_string( $url ) && $url !== '' ) {
+				$this->og_tag( 'og:url', esc_url( $url ) );
+
+				return true;
+			}
 		}
 		
-		if ( is_string( $url ) && $url !== '' ) {
-			$this->og_tag( 'og:url', esc_url( $url ) );
-
-			return true;
-		}
-
 		return false;
 	}
 
@@ -480,8 +474,10 @@ class WPSEO_OpenGraph {
 	public function image( $image = false ) {
 		$opengraph_images = new WPSEO_OpenGraph_Image( $this->options, $image );
 
-		foreach ( $opengraph_images->get_images() as $img ) {
-			$this->og_tag( 'og:image', esc_url( $img ) );
+		if (!um_is_core_page('user') ){
+			foreach ( $opengraph_images->get_images() as $img ) {
+				$this->og_tag( 'og:image', esc_url( $img ) );
+			}
 		}
 	}
 
