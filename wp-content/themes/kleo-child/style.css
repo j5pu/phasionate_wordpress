@@ -3774,26 +3774,6 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 }
 
 
-/* HEADER MINIMAZADO PARA ZONA COMUNIDAD */
-@media (min-width:992px) {
-	body.page-id-15304 #undefined-sticky-wrapper, body.page-id-15817 #undefined-sticky-wrapper, body.page-id-15314 #undefined-sticky-wrapper, body.page-id-15993 #undefined-sticky-wrapper, 
-	body.page-id-15587 #undefined-sticky-wrapper, body.page-id-15897 #undefined-sticky-wrapper, body.page-id-15306 #undefined-sticky-wrapper, body.page-id-15566 #undefined-sticky-wrapper{
-		height: 38px;
-	}
-	body.page-id-15304 .kleo-main-header strong.logo, body.page-id-15817 .kleo-main-header strong.logo, body.page-id-15314 .kleo-main-header strong.logo, body.page-id-15993 .kleo-main-header strong.logo, 
-	body.page-id-15587 .kleo-main-header strong.logo, body.page-id-15897 .kleo-main-header strong.logo, body.page-id-15306 .kleo-main-header strong.logo, body.page-id-15566 .kleo-main-header strong.logo{
-		top: -160px;
-		height: 0px;
-	}
-	body.page-id-15304 .phasionateHeader, body.page-id-15817 .phasionateHeader, body.page-id-15314 .phasionateHeader, body.page-id-15993 .phasionateHeader, 
-	body.page-id-15587 .phasionateHeader, body.page-id-15897 .phasionateHeader, body.page-id-15306 .phasionateHeader, body.page-id-15566 .phasionateHeader{
-		top: 5px;
-	}
-	body.page-id-15304 .logoHeader, body.page-id-15817 .logoHeader, body.page-id-15314 .logoHeader, body.page-id-15993 .logoHeader, 
-	body.page-id-15587 .logoHeader, body.page-id-15897 .logoHeader, body.page-id-15306 .logoHeader, body.page-id-15566 .logoHeader{
-		top: -5px;
-	}
-}
 /*avatar circular*/
 .um-avatar {
 	border-radius: 30px;
