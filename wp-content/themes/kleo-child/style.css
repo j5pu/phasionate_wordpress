@@ -4313,9 +4313,6 @@ div.um .um-form div.um-reviews-post .um-reviews-content textarea {
 .popUpSection .um.um-register, .popUpSection form>.um-row, .popUpSection .g-recaptcha{
 	margin-bottom: 10px !important;
 }
-.popUpSection iframe{
-	margin-left: -20px;
-}
 .popUpSection .um-form input[type="password"], .popUpSection  .um-form input[type="text"]{
 	height: 30px !important;
 }
