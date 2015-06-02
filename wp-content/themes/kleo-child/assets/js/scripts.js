@@ -450,7 +450,7 @@ function ownResize(){
 	if($('.botton_register_main').length>0){
 		$('.botton_register_main').bind('click', false);
 		$('.botton_register_main').click(function () { showPopUpRegister(); return false;});
-		if($('.um-register .um-notice').length>0 || $('.um-register .um-field-error').length>0 ){
+		if($('.um-register .um-notice').length>0){
 			showPopUpRegister();
 		}
 	}
@@ -492,7 +492,7 @@ function ownResize(){
 	if($('.menu_acceso').length>0){
 		$('.menu_acceso').bind('click', false);
 		$('.menu_acceso').click(function () { showPopUpLogin(); return false;});
-		if($('.um-login .um-notice').length>0 || $('.um-register .um-field-error').length>0 ){
+		if($('.um-login .um-notice').length>0){
 			showPopUpLogin();
 		}
 	}
