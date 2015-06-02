@@ -4504,3 +4504,17 @@ body.woocommerce #main-container > div{
 body.woocommerce #header{
 	height: 44px !important;
 }
+}
+/* Activity Ultimate Member Page */
+.um-activity-ul{
+	list-style: none;
+	border: 3px solid #f99;
+	border-radius: 4px;
+	padding: 5px;
+}
+.um-activity-li{
+	background-color: #eee;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	margin: 4px;
+}

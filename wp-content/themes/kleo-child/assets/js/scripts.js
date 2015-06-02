@@ -258,6 +258,7 @@ function ownResize(){
 				$diamond = $('.medSection .publiGaleria').eq(num).prev().find('.kleo_text_column').height();
 				$($publiSections[num]).children().append($('<div>', {class: 'logoGaleria'}).css('height',$diamond+'px')
 					.append($('<img>').attr({'src':'https://www.bogadia.com/wp-content/themes/kleo-child/assets/img/diamante.png'}).css('max-height', $('ins').eq(num).height()*0.15+'px')));
+
 			}else{
 				$('.medSection .publiGaleria').eq(num).find('.logoGaleria img').css('max-height', $('ins').eq(num).height()*0.15+'px');
 			}
@@ -449,7 +450,7 @@ function ownResize(){
 	if($('.botton_register_main').length>0){
 		$('.botton_register_main').bind('click', false);
 		$('.botton_register_main').click(function () { showPopUpRegister(); return false;});
-		if($('.um-register .um-notice').length>0){
+		if($('.um-register .um-notice').length>0 || $('.um-register .um-field-error').length>0 ){
 			showPopUpRegister();
 		}
 	}
@@ -491,7 +492,7 @@ function ownResize(){
 	if($('.menu_acceso').length>0){
 		$('.menu_acceso').bind('click', false);
 		$('.menu_acceso').click(function () { showPopUpLogin(); return false;});
-		if($('.um-login .um-notice').length>0){
+		if($('.um-login .um-notice').length>0 || $('.um-register .um-field-error').length>0 ){
 			showPopUpLogin();
 		}
 	}
