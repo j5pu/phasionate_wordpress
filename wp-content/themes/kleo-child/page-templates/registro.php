@@ -34,7 +34,10 @@ kleo_switch_layout('no');
 </div>
 
 <h2 style="text-align: center; color: #747a7f; margin: 40px 0px; padding: 0px 10px; font-family: 'Open Sans', sans-serif; font-weight: 600;">¿A que esperas para entrar en <em>Bogadia</em>?</h2>
-<p class="login_descripcion"><a class="botton_register_main" href="#">Regístrate</a></p>
+<p class="login_descripcion">
+	<a class="botton_register_main" href="#">Regístrate</a>
+	<a class="menu_acceso menu_acceder" title="Acceder" href="https://www.bogadia.com/aphasionate-o-unete/" style="line-height: 88px;">Acceder</a>
+</p>
 <?php
 if ( have_posts() ) :
 	// Start the Loop.
