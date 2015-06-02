@@ -12,7 +12,7 @@
 <?php $current_title = bbp_get_forum_title( $parent->ID ) ?>
 <?php $current = bbp_get_forum_permalink( $parent->ID ) ?>
 <div class="rutaForos">
-<a href="https://www.phasionate.com/foros/" title="Ir a Foros">Foros</a>
+<a href="https://www.bogadia.com/foros/" title="Ir a Foros">Foros</a>
 <span>></span>
 <a href=<?php echo "'".$current."'"; ?> title="Ir a <?php echo $current_title; ?>"><?php echo $current_title; ?></a>
 </div>
