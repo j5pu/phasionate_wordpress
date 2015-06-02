@@ -448,7 +448,7 @@ function ownResize(){
 
 /* Pop up Log in Ultimate Member */
 	if($('.botton_register_main').length>0){
-		$('#footer-sidebar-4').append($('<div>').attr('id','text-57').append($('.um-register')));
+		//$('#footer-sidebar-4').append($('<div>').attr('id','text-57').append($('.um-register')));
 		$('.botton_register_main').bind('click', false);
 		$('.botton_register_main').click(function () { showPopUpRegister(); return false;});
 		if($('.um-register .um-field-error').length>0 || $('p.um-notice.err').length>0){
@@ -491,7 +491,7 @@ function ownResize(){
 
 /* Pop up Log in Ultimate Member */
 	if($('.menu_acceso').length>0){
-		$('#footer-sidebar-4').append($('<div>').attr('id','text-41').append($('.um-login')));
+		//$('#footer-sidebar-4').append($('<div>').attr('id','text-41').append($('.um-login')));
 		$('.menu_acceso').bind('click', false);
 		$('.menu_acceso').click(function () { showPopUpLogin(); return false;});
 		if($('.um-login .um-field-error').length>0){

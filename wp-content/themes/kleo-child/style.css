@@ -3919,7 +3919,7 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 	margin: 70px auto 0px !important;
 }
 .um-15301 .um-col-alt {
-	margin-top: 50px;
+	margin-top: 35px;
 }
 .page-id-15817 div.col-sm-12 ul.um-reviews-widget .um-reviews-widget-rating{
 	margin-left: 0px;
@@ -4348,7 +4348,9 @@ div.um .um-form div.um-reviews-post .um-reviews-content textarea {
 #text-41{
 	padding: 0px 20px;
 }
-
+.popUpSection .um-field-error{
+	margin: 4px 0px 0px;
+}
 /*Portada tienda*/
 body.woocommerce .page-description > p{
 	margin-bottom: 0px !important;
