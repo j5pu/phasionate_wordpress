@@ -10,50 +10,9 @@ class UM_Reviews_Shortcode {
 		add_shortcode('ultimatemember_top_50', array(&$this, 'ultimatemember_top_50'), 1);
 		add_shortcode('ultimatemember_most_rated', array(&$this, 'ultimatemember_most_rated'), 1);
 		add_shortcode('ultimatemember_lowest_rated', array(&$this, 'ultimatemember_lowest_rated'), 1);
-		add_shortcode('ultimatemember_activity', array(&$this, 'ultimatemember_activity'), 1);
 	}
 	
 
-	/***
-	***	@Shortcode
-	***/
-	function ultimatemember_activity( $args = array() ) {
-
-		$widget_query = new WP_Query( array(
-			'post_type'           => bbp_get_reply_post_type(),
-			'post_status'         => array( bbp_get_public_status_id(), bbp_get_closed_status_id() ),
-			'posts_per_page'      => 20,
-			'ignore_sticky_posts' => true,
-			'no_found_rows'       => true,
-		) );
-
-		?>
-		<ul class="um-activity-ul">
-
-			<?php while ( $widget_query->have_posts() ) : $widget_query->the_post(); ?>
-
-				<li class="um-activity-li">
-					<a href="<?php echo esc_url( bbp_get_reply_url( $reply_id ) ); ?>">
-					<?php
-
-					// Verify the reply ID
-					$reply_id   = bbp_get_reply_id( $widget_query->post->ID );
-					$reply_link = '<a class="bbp-reply-topic-title" href="' . esc_url( bbp_get_reply_url( $reply_id ) ) . '" title="' . esc_attr( bbp_get_reply_excerpt( $reply_id, 50 ) ) . '">' . bbp_get_reply_topic_title( $reply_id ) . '</a>';
-
-					$author_link = bbp_get_reply_author_link( array( 'post_id' => $reply_id, 'type' => 'both', 'size' => 50 ) );
-
-					printf( _x( '%1$s %2$s %3$s', 'widgets', 'bbpress' ), $author_link, $reply_link, '<div>' . bbp_get_time_since( get_the_time( 'U' ) ) . '</div>' );
-
-					?>
-					</a>
-				</li>
-
-			<?php endwhile; ?>
-
-		</ul>	
-		<?php
-	}
-		
 	/***
 	***	@Shortcode
 	***/
