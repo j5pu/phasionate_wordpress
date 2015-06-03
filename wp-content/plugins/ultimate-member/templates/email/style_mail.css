@@ -1,0 +1,20 @@
+.title_email {
+	background: url('logo_email.jpg') no-repeat; 
+	padding: 10px 0; 
+	width: 250px; 
+	margin: 0px auto; 
+	height: 50px;
+}
+.border_bottom_title_email {
+	clear:both; 
+	border-top: solid 3px #eeeeee;
+}
+
+.bottom_my_account {
+	background: #F66;
+	color: #fff;
+	padding: 12px 30px;
+	text-decoration: none;
+	border-radius: 3px;
+	letter-spacing: 0.3px;
+}
