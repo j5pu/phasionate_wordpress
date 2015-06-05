@@ -281,7 +281,6 @@ function ownResize(){
 					var alturaMedSection = ($(window).height()-$('.medSection').eq(num).height())/2.5;
 					$('.medSection').eq(num).css('top', alturaMedSection+'px');
 					}
-					$('.share-links').css('margin-left',-$('.publiGaleria').eq(num).outerWidth());
 
 					sideArrows(num);
 			    }, 200, "some unique string");
@@ -310,7 +309,10 @@ function ownResize(){
 						.append($('<a>').on('click', function(){ javascript:window.open(this.href,
 						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;}).attr('href', "https://plus.google.com/share?url=" + location_url + img_src_to_share)
 							)));
-				$('.share-links').css('margin-left',-$('.publiGaleria').eq(num).outerWidth());
+
+				if($(window).width()>767){
+					$('.share-links').css('margin-left',-$('.publiGaleria').eq(num).outerWidth());
+				}
 			}
 
 	//Crear menu galeria
