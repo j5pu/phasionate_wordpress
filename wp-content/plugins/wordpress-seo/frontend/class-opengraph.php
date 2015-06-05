@@ -490,8 +490,8 @@ class WPSEO_OpenGraph {
 		if ($category[0]->cat_name == 'Streetstyle'){
 			if (isset($_GET['ph'])){
 				$img = $_GET['ph'];
-				$this->og_tag( 'og:image:width', 600 );
-				$this->og_tag( 'og:image:height', 600 );
+				$this->og_tag( 'og:image:width', 200 );
+				$this->og_tag( 'og:image:height', 200 );
 				$this->og_tag( 'og:image', esc_url( $img ) );
 			}
 			return true;
