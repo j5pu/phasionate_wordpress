@@ -291,10 +291,10 @@ function ownResize(){
 				$publiSections = $('.medSection .publiGaleria');
 				var img_src_to_share = $('.elemGaleria img').eq(num).attr('src');
 				var location_url = window.location.href;
-				if (location_url.search("=")<0){
+				if (location_url.search("ph=")<0){
 					location_url = location_url + '?ph=';
 				}else{
-					location_url = location_url.substring(0, location_url.search('='));
+					location_url = location_url.substring(0, location_url.search('=')+1);
 				}
 				$($publiSections[num]).append($('<div>').attr({class: 'share-links'})
 					.append($('<span>').attr({class: 'kleo-facebook'})
