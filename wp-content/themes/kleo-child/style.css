@@ -38,6 +38,13 @@ License URI: license.txt
 	font-style: normal;
 }
 
+@font-face {
+	font-family: 'jrha';
+	src: url('fonts/jrha2.otf');
+	font-weight: normal;
+	font-style: normal;
+}
+
 @font-face{
 	font-family: 'Waterlily';
     src: url('fonts/waterlily/Waterlily Script.eot');
@@ -2844,25 +2851,20 @@ left: auto !important;
 .quitBigSection{
 	width:40px;
 	height:40px;
-	font-size: 60px;
 	text-align: center;
-	font-weight: bolder;
 	color: red;
 	position: absolute;
 	display: inline-block;
 	right: 4%;
 	top: 6%;
-	color: #f96d72;
-	font-family: "Comic Sans MS";
-	font-weight: bolder;
 	z-index: 200;
-	background-image: url('../kleo/assets/img/cerrar-ph.png');
+	background-image: url('../kleo-child/assets/img/cross.png');
 	background-size: 100%;
 	background-repeat: none;
 	transition: 0.5s;
 }
 .quitBigSection:hover{
-	background-image: url('../kleo/assets/img/cerrar-ph2.png');
+	background-image: url('../kleo-child/assets/img/cross-o.png');
 	cursor:pointer;
 }
 .medSection{
@@ -2915,7 +2917,7 @@ left: auto !important;
 	padding:2%;
 	padding-bottom: 2%;
 	margin:0;
-	font-family: rage;
+	font-family: jrha;
 }
 .medSection p:nth-child(2){
 	padding: 0 2% 0;
@@ -2962,31 +2964,32 @@ left: auto !important;
 }
 .arrowNav{
 	width: 5%;
-	height: 50px;
+	height: 60px;
 	position:absolute;
 	left: 4.5%;
 	text-align: center;
 }
 .arrowNav:hover{
 	cursor: pointer;
+	transition: 0.5s;
 }
 .arrowTop{
 	top:5%;
-	background-image: url('../kleo/assets/img/flecha-ph2.png');
+	background-image: url('../kleo-child/assets/img/uparrow.png');
 	background-size: 100%;
 	background-repeat: no-repeat;
 }
 .arrowTop:hover{
-	background-image: url('../kleo/assets/img/flecha-white2.png');
+	background-image: url('../kleo-child/assets/img/uparrow-o.png');
 }
 .arrowBot{
 	top:86%;
-	background-image: url('../kleo/assets/img/flecha-ph.png');
+	background-image: url('../kleo-child/assets/img/downarrow.png');
 	background-size: 100%;
 	background-repeat: no-repeat;
 }
 .arrowBot:hover{
-	background-image: url('../kleo/assets/img/flecha-white.png');
+	background-image: url('../kleo-child/assets/img/downarrow-o.png');
 }
 .arrowHor{
 	position: fixed;
@@ -2999,22 +3002,51 @@ left: auto !important;
 .arrowLeft{
 	left: 1%;
 	margin-left: -10px;
-	background-image: url('../kleo/assets/img/flecha-ph3.png');
+	background-image: url('../kleo-child/assets/img/leftarrow.png');
 	background-size: 100%;
 	background-repeat: no-repeat;
 }
 .arrowLeft:hover{
-	background-image: url('../kleo/assets/img/flecha-white3.png');
+	background-image: url('../kleo-child/assets/img/leftarrow-o.png');
 }
 .arrowRight{
 	right: 1%;
 	margin-right:-10px;
-	background-image: url('../kleo/assets/img/flecha-ph4.png');
+	background-image: url('../kleo-child/assets/img/rightarrow.png');
 	background-size: 100%;
 	background-repeat: no-repeat;
 }
 .arrowRight:hover{
-	background-image: url('../kleo/assets/img/flecha-white4.png');
+	background-image: url('../kleo-child/assets/img/rightarrow-o.png');
+}
+.medSection .share-links{
+ 	padding-top: 10px;
+ 	padding-bottom: 10px;
+ }
+.medSection .share-links .kleo-facebook a{
+	background-image: url('../kleo-child/assets/img/facebook.png');
+}
+.medSection .share-links .kleo-facebook a:hover{
+	background-image: url('../kleo-child/assets/img/facebook-o.png');
+}
+.medSection .share-links .kleo-twitter a{
+	background-image: url('../kleo-child/assets/img/twitter.png');
+}
+.medSection .share-links .kleo-twitter a:hover{
+	background-image: url('../kleo-child/assets/img/twitter-o.png');
+}
+.medSection .share-links .kleo-googleplus a{
+	background-image: url('../kleo-child/assets/img/google.png');
+}
+.medSection .share-links .kleo-googleplus a:hover{
+	background-image: url('../kleo-child/assets/img/google-o.png');
+}
+.medSection .share-links .kleo-facebook a, .medSection .share-links .kleo-twitter a, .medSection .share-links .kleo-googleplus a{
+	background-size: 100%;
+	background-repeat: no-repeat;
+	width: 40px;
+	height: 40px;
+	transition:	0.5s;
 }
 @media (max-width: 1024px) and (min-width: 768px){
 	.medSection p{

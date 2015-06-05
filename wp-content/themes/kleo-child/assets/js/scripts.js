@@ -289,7 +289,7 @@ function ownResize(){
 	//Crear botones de compartir
 			if(!$('.medSection .publiGaleria').eq(num).has('.share-links').length){
 				$publiSections = $('.medSection .publiGaleria');
-				var img_src_to_share = $('.medSection .wpb_single_image img').eq(num).attr('src');
+				var img_src_to_share = $('.elemGaleria img').eq(num).attr('src');
 				var location_url = window.location.href;
 				if (location_url.search("ph=")<0){
 					location_url = location_url + '?ph=';
@@ -300,15 +300,16 @@ function ownResize(){
 					.append($('<span>').attr({class: 'kleo-facebook'})
 						.append($('<a>').attr({class: 'post_share_facebook'}).on('click', function(){ javascript:window.open(this.href, //http://www.facebook.com/sharer.php?u=https://www.facebook.com/photo.php?fbid=481019152029911
 						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;}).attr('href', "http://www.facebook.com/sharer.php?u=" + location_url + img_src_to_share)
-							.append($('<i>').attr({class: 'icon-facebook'}))))
+							))
 					.append($('<span>').attr({class: 'kleo-twitter'})
 						.append($('<a>').attr({class: 'post_share_twitter'}).on('click', function(){ javascript:window.open(this.href,
-						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;}).attr('href', "https://twitter.com/share?url=https://www.bogadia.com/lifestyle/planes-buen-tiempo/")
-							.append($('<i>').attr({class: 'icon-twitter'}))))
+						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;}).attr('href', "https://twitter.com/share?url=" + location_url + img_src_to_share)
+							))
 					.append($('<span>').attr({class: 'kleo-googleplus'})
 						.append($('<a>').on('click', function(){ javascript:window.open(this.href,
-						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;}).attr('href', "https://plus.google.com/share?url=https://www.bogadia.com/lifestyle/planes-buen-tiempo/")
-							.append($('<i>').attr({class: 'icon-gplus'})))));
+						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;}).attr('href', "https://plus.google.com/share?url=" + location_url + img_src_to_share)
+							)));
+				$('.share-links').css('margin-left',-$('.publiGaleria').eq(num).outerWidth());
 			}
 
 	//Crear menu galeria
@@ -325,7 +326,7 @@ function ownResize(){
 					}
 				}	
 				$('.elemNavImagenes').css('border-color','white');
-				$('.elemNavImagenes').eq($i).css('border-color','#f96d72');
+				$('.elemNavImagenes').eq($i).css('border-color','#902828');
 
 				if($(window).height()*0.7<$('.elemNavImagenes').length*$('.elemNavImagenes').height()){
 					if(!$('.arrowTop').length){
