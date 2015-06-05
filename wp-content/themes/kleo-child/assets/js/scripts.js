@@ -281,6 +281,7 @@ function ownResize(){
 					var alturaMedSection = ($(window).height()-$('.medSection').eq(num).height())/2.5;
 					$('.medSection').eq(num).css('top', alturaMedSection+'px');
 					}
+					$('.share-links').css('margin-left',-$('.publiGaleria').eq(num).outerWidth());
 
 					sideArrows(num);
 			    }, 200, "some unique string");
@@ -303,7 +304,7 @@ function ownResize(){
 							))
 					.append($('<span>').attr({class: 'kleo-twitter'})
 						.append($('<a>').attr({class: 'post_share_twitter'}).on('click', function(){ javascript:window.open(this.href,
-						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;}).attr('href', "https://twitter.com/share?url=" + location_url + img_src_to_share)
+						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;}).attr('href', "https://twitter.com/share?url=" + window.location.href)
 							))
 					.append($('<span>').attr({class: 'kleo-googleplus'})
 						.append($('<a>').on('click', function(){ javascript:window.open(this.href,
