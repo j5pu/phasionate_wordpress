@@ -289,7 +289,7 @@ function ownResize(){
 	//Crear botones de compartir
 			if(!$('.medSection .publiGaleria').eq(num).has('.share-links').length){
 				$publiSections = $('.medSection .publiGaleria');
-				var img_src_to_share = $('.elemGaleria img').eq(num).attr('src');
+				var img_src_to_share = $('.medSection .wpb_single_image img').eq(num).attr('src');
 				var location_url = window.location.href;
 				if (location_url.search("ph=")<0){
 					location_url = location_url + '?ph=';
