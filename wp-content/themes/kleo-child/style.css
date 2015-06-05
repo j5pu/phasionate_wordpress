@@ -3425,20 +3425,20 @@ body.single-forum.postid-15573 h1.page-title, body.single-forum.postid-15576 h1.
 	font-family: Waterlily;
 	text-shadow: 3px 3px white;
 }
-body.single-forum.postid-15573 h1.page-title{
+body.single-forum.postid-15573 h1.page-title, .bbp-for-Belleza{
 	background-image: url("../kleo-child/assets/img/fondoForoBelleza.jpg");
 }
-body.single-forum.postid-15576 h1.page-title{
+body.single-forum.postid-15576 h1.page-title, .bbp-for-Lifestyle{
 	background-image: url("../kleo-child/assets/img/fondoForoLifestyle.jpg");
 }
-body.single-forum.postid-14944 h1.page-title{
+body.single-forum.postid-14944 h1.page-title, .bbp-for-Moda{
 	background-image: url("../kleo-child/assets/img/fondoForoModa.jpg");
 }
-body.single-forum.postid-15752 h1.page-title{
+body.single-forum.postid-15752 h1.page-title, .bbp-for-Reviews{
 	background-image: url("../kleo-child/assets/img/fondoForoReviews.jpg");
 	line-height: 120%;
 }
-body.single-forum.postid-14824 h1.page-title{
+body.single-forum.postid-14824 h1.page-title, .bbp-for-Concurso{
 	background-image: url("../kleo-child/assets/img/fondoForoConcurso.jpg");
 	color: #000 !important;
 	padding-bottom:12%;
@@ -3448,6 +3448,10 @@ body.single-forum.postid-14824 h1.page-title{
 	font-family: Waterlily;
 	text-shadow: 3px 3px white;
 	line-height: 120%;
+}
+.bbp-for{
+	background-size: 10%;
+	display: block;
 }
 /*Ultimate Members*/
 

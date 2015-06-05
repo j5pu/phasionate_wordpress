@@ -258,7 +258,7 @@ function ownResize(){
 				$diamond = $('.medSection .publiGaleria').eq(num).prev().find('.kleo_text_column').height();
 				$($publiSections[num]).children().append($('<div>', {class: 'logoGaleria'}).css('height',$diamond+'px')
 					.append($('<img>').attr({'src':'https://www.bogadia.com/wp-content/themes/kleo-child/assets/img/diamante.png'}).css('max-height', $('ins').eq(num).height()*0.15+'px')));
-
+			
 			}else{
 				$('.medSection .publiGaleria').eq(num).find('.logoGaleria img').css('max-height', $('ins').eq(num).height()*0.15+'px');
 			}
@@ -285,6 +285,31 @@ function ownResize(){
 					sideArrows(num);
 			    }, 200, "some unique string");
 			});
+
+	//Crear botones de compartir
+			if(!$('.medSection .publiGaleria').eq(num).has('.share-links').length){
+				$publiSections = $('.medSection .publiGaleria');
+				var img_src_to_share = $('.elemGaleria img').eq(num).attr('src');
+				var location_url = window.location.href;
+				if (location_url.search("=")<0){
+					location_url = location_url + '?ph=';
+				}else{
+					location_url = location_url.substring(0, location_url.search('='));
+				}
+				$($publiSections[num]).append($('<div>').attr({class: 'share-links'})
+					.append($('<span>').attr({class: 'kleo-facebook'})
+						.append($('<a>').attr({class: 'post_share_facebook'}).on('click', function(){ javascript:window.open(this.href, //http://www.facebook.com/sharer.php?u=https://www.facebook.com/photo.php?fbid=481019152029911
+						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;}).attr('href', "http://www.facebook.com/sharer.php?u=" + location_url + img_src_to_share)
+							.append($('<i>').attr({class: 'icon-facebook'}))))
+					.append($('<span>').attr({class: 'kleo-twitter'})
+						.append($('<a>').attr({class: 'post_share_twitter'}).on('click', function(){ javascript:window.open(this.href,
+						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;}).attr('href', "https://twitter.com/share?url=https://www.bogadia.com/lifestyle/planes-buen-tiempo/")
+							.append($('<i>').attr({class: 'icon-twitter'}))))
+					.append($('<span>').attr({class: 'kleo-googleplus'})
+						.append($('<a>').on('click', function(){ javascript:window.open(this.href,
+						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;}).attr('href', "https://plus.google.com/share?url=https://www.bogadia.com/lifestyle/planes-buen-tiempo/")
+							.append($('<i>').attr({class: 'icon-gplus'})))));
+			}
 
 	//Crear menu galeria
 			if($('.elemGaleria img').length>1){

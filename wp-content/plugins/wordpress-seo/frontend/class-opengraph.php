@@ -476,6 +476,16 @@ class WPSEO_OpenGraph {
 	public function image( $image = false ) {
 		$opengraph_images = new WPSEO_OpenGraph_Image( $this->options, $image );
 
+		$category = get_the_category(); 
+		if ($category[0]->cat_name == 'Streetstyle'){
+			if (isset($_GET['ph'])){
+				$img = $_GET['ph'];
+				//echo $img;
+				$this->og_tag( 'og:image', esc_url( $img ) );
+			}
+			return true;
+		}
+
 		if (!um_is_core_page('user') ){
 			foreach ( $opengraph_images->get_images() as $img ) {
 				$this->og_tag( 'og:image', esc_url( $img ) );

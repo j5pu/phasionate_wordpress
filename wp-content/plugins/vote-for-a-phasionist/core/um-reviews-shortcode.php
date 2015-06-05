@@ -10,9 +10,100 @@ class UM_Reviews_Shortcode {
 		add_shortcode('ultimatemember_top_50', array(&$this, 'ultimatemember_top_50'), 1);
 		add_shortcode('ultimatemember_most_rated', array(&$this, 'ultimatemember_most_rated'), 1);
 		add_shortcode('ultimatemember_lowest_rated', array(&$this, 'ultimatemember_lowest_rated'), 1);
+		add_shortcode('ultimatemember_activity', array(&$this, 'ultimatemember_activity'), 1);
 	}
 	
 
+	/***
+	***	@Shortcode
+	***/
+	function ultimatemember_activity( $args = array() ) {
+
+		$bbp_query = new WP_Query( array(
+			'post_type'           => bbp_get_reply_post_type(),
+			'post_status'         => array( bbp_get_public_status_id(), bbp_get_closed_status_id() ),
+			'posts_per_page'      => 20,
+			'ignore_sticky_posts' => true,
+			'no_found_rows'       => true,
+			'orderby' 		 => 'date',
+			'order'    		 => 'DESC',
+		) );
+
+		$args = array(
+			'post_status'  	 => 'publish',
+			'posts_per_page' => 13,
+			'orderby' 		 => 'date',
+			'order'    		 => 'DESC',
+			'cat'			 => -566
+		);
+		$post_magazine = new WP_Query( array( $args ) );
+
+		$final_exits = array_merge($bbp_query->posts, $post_magazine->posts);
+
+		//ordernar por tiempo
+
+	    $post_order = array();
+	    foreach( $final_exits as $post_exit ) {
+	    	$post_exit_time = get_the_time('U', $post_exit);
+	    	$post_exit_id = $post_exit->ID;
+	        $post_order[$post_exit_id] =  $post_exit_time ;
+	    }
+	    arsort( $post_order );
+	    $final_exits = array_keys( $post_order );
+	    $posts_final = array();
+	    foreach( $final_exits as $post_exit ) {
+	    	$post_final_new = get_post( $post_exit );
+	    	$posts_final[] = $post_final_new;
+	    	$post_final_id = $post_final_new->ID;
+	    }
+
+		$um_role_query = new WP_Query( array(
+			'post_type'           => 'um_review',
+			'post_status'         => 'publish',
+			'posts_per_page'      => 20,
+			'orderby' 			  => 'date',
+			'order'    			  => 'DESC',
+			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 month ago')
+		) );
+
+		//imprimir resultados
+
+		?>
+		<ul class="um-activity-ul">
+
+			
+			<?php
+			foreach( $posts_final as $final_exit ) {
+			?>
+			<li class="um-activity-li">
+					<?php if ( $final_exit->post_type == 'reply' ){ ?><h4>Debate</h4><?php }else{ ?><h4>Post de la revista</h4><?php } ?>
+
+					<?php if(time()-get_the_time( 'U', $final_exit ) > 1500000){ ?>
+						<p><?php echo get_the_time( 'd/m/Y', $final_exit ); ?></p> 
+					<?php }else{ ?>
+						<p><?php echo bbp_get_time_since( get_the_time( 'U', $final_exit ) ); ?></p> 
+					<?php } ?>
+
+					<?php if ( $final_exit->post_type == 'reply' ){ 
+					$reply_id   = bbp_get_reply_id( $final_exit->ID );
+					$post_topic = get_post( $final_exit->post_parent );
+					$post_forum = get_post( $post_topic->post_parent );
+					echo '<a class="bbp-cat" href="'.$post_topic->guid.'">'.$post_topic->post_title.'</a>';
+					echo '<a class="bbp-for bbp-for-'.$post_forum->post_title.'" href="'.$post_forum->guid.'">'.$post_forum->post_title.'</a>';
+					$reply_link = '<a class="bbp-reply-topic-title" href="' . esc_url( bbp_get_reply_url( $reply_id ) ) . '" title="Ir al debate">' . bbp_get_reply_topic_title( $reply_id ) . '</a>';
+
+					$author_link = bbp_get_reply_author_link( array( 'post_id' => $reply_id, 'type' => 'both', 'size' => 50 ) );
+
+					printf( _x( '%1$s %2$s %3$s', 'widgets', 'bbpress' ), $author_link, $reply_link, '<div>' . bbp_get_time_since( get_the_time( 'U' ) ) . '</div>' );
+					} ?>
+
+			</li>
+			<?php }; ?>
+
+		</ul>	
+		<?php
+	}
+		
 	/***
 	***	@Shortcode
 	***/
