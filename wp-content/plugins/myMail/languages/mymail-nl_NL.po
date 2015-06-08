@@ -4231,7 +4231,7 @@ msgstr "wijzig taal"
 
 #: classes/settings.class.php:638
 msgid "Please define a homepage for the newsletter on the frontend tab"
-msgstr ""
+msgstr "Stel een homepage voor de nieuwsbrief in op de FrontEnd tab"
 
 #: views/settings.php:1021
 msgid "load more"
@@ -4272,31 +4272,31 @@ msgstr "Wie hebben niet geopend"
 #: classes/subscriber.class.php:990
 msgctxt "segment of all [recipients] from campaign [campaign]"
 msgid "A segment of all %1$s of %2$s created %3$s"
-msgstr ""
+msgstr "Een segment van alle %1$s van %2$s aangemaakt %3$s "
 
 #: views/subscribers/overview.php:22
 msgid "Search Subscribers"
-msgstr ""
+msgstr "Zoek inschrijvingen"
 
 #: views/newsletter/receivers.php:212
 msgid "create a new list with all"
-msgstr ""
+msgstr "Maak een nieuwe lijst met alle inschrijvingen"
 
 #: views/newsletter/receivers.php:230
 msgid "create list"
-msgstr ""
+msgstr "Lijst aanmaken"
 
 #: classes/ajax.class.php:1876
 msgid "Couldn't create List"
-msgstr ""
+msgstr "Kan lijst niet aanmaken"
 
 #: classes/autoresponder.class.php:740
 msgid "List conditions are ignored in subscriber based autoresponders!"
-msgstr ""
+msgstr "Lijst condities worden genegeerd bij inschrijver gebaseerde autoresponders!"
 
 #: classes/campaigns.class.php:220
 msgid "Receivers"
-msgstr ""
+msgstr "Ontvangers"
 
 #: classes/subscriber.class.php:182
 msgid "%s subscribers have been converted"
@@ -4394,71 +4394,71 @@ msgstr "iPhone promotie"
 #: classes/campaigns.class.php:1071
 msgctxt "common module name"
 msgid "Macbook Promotion"
-msgstr ""
+msgstr "MacBook Promotie"
 
 #: classes/campaigns.class.php:1072
 msgctxt "common module name"
 msgid "Quotation"
-msgstr ""
+msgstr "Offerte"
 
 #: classes/campaigns.class.php:1075
 msgctxt "common module name"
 msgid "Plans"
-msgstr ""
+msgstr "Abonnementen"
 
 #: classes/campaigns.class.php:1076
 #: classes/campaigns.class.php:1078
 #: classes/campaigns.class.php:1080
 msgctxt "common module name"
 msgid "%s Image Full"
-msgstr ""
+msgstr "%s Afbeeldingen Volledig"
 
 #: classes/campaigns.class.php:1077
 #: classes/campaigns.class.php:1079
 #: classes/campaigns.class.php:1081
 msgctxt "common module name"
 msgid "%s Text Invert"
-msgstr ""
+msgstr "%s Tekst omgekeerd"
 
 #: classes/campaigns.class.php:1082
 msgctxt "common module name"
 msgid "Image on the Left"
-msgstr ""
+msgstr "Afbeelding links"
 
 #: classes/campaigns.class.php:1083
 msgctxt "common module name"
 msgid "Image on the Right"
-msgstr ""
+msgstr "Afbeelding rechts"
 
 #: classes/campaigns.class.php:1084
 #: classes/campaigns.class.php:1086
 #: classes/campaigns.class.php:1088
 msgctxt "common module name"
 msgid "%s Image on the Left"
-msgstr ""
+msgstr "%s afbeelding links"
 
 #: classes/campaigns.class.php:1085
 #: classes/campaigns.class.php:1087
 #: classes/campaigns.class.php:1089
 msgctxt "common module name"
 msgid "%s Image on the Right"
-msgstr ""
+msgstr "%s afbeelding rechts"
 
 #: classes/campaigns.class.php:1090
 msgctxt "common module name"
 msgid "%s Floating Image left"
-msgstr ""
+msgstr "%s afbeeldingen links uitgelijnd"
 
 #: classes/campaigns.class.php:1091
 msgctxt "common module name"
 msgid "%s Floating Image right"
-msgstr ""
+msgstr "%s afbeeldingen rechts uitgelijnd"
 
 #: classes/campaigns.class.php:1092
 #: classes/campaigns.class.php:1094
 msgctxt "common module name"
 msgid "%s Image Features left"
-msgstr ""
+msgstr "%s afbeeldingen links eigenschappen"
 
 #: classes/campaigns.class.php:1093
 #: classes/campaigns.class.php:1095
@@ -4564,23 +4564,23 @@ msgstr ""
 
 #: views/newsletter/template.php:131
 msgid "Button Label"
-msgstr ""
+msgstr "Knop tekst"
 
 #: views/newsletter/template.php:131
 msgid "button label"
-msgstr ""
+msgstr "knop tekst"
 
 #: views/newsletter/template.php:325
 msgid "use HighDPI/Retina ready images if available"
-msgstr ""
+msgstr "gebruik HighDPI/Retina afbeeldingen wanneer beschikbaar"
 
 #: views/newsletter/template.php:325
 msgid "HighDPI/Retina ready"
-msgstr ""
+msgstr "HighDPI/Retina gereed"
 
 #: views/newsletter/template.php:334
 msgid "HTML of"
-msgstr ""
+msgstr "HTML van"
 
 #: classes/settings.class.php:628
 msgid "Campaign slug changed! Please re-save your %s"

@@ -30,11 +30,11 @@ class UM_Social_Login_VK {
 	***/
 	function get_auth() {
 		global $um_social_login;
-		
-		$vk = new VK\VK( $this->api_key, $this->api_secret );
-		
+
 		if ( isset($_REQUEST['provider']) && $_REQUEST['provider'] == 'vk' && isset($_REQUEST['code']) ) {
 	
+			$vk = new VK\VK( $this->api_key, $this->api_secret );
+			
 			if ( isset( $_SESSION['vk_token'] ) ) {
 				$access_token = $_SESSION['vk_token'];
 			} else {

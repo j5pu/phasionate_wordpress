@@ -151,11 +151,9 @@ class mymail_frontpage {
 			if(isset($_REQUEST['s'])) $target = (!empty($_REQUEST['s']) ? 'https://' : 'http://' ).$target;
 
 			if(false !== strpos($target, 'unsubscribe='))
-				//$target = add_query_arg(array('unsubscribe' => $hash), $target);
 				$target = untrailingslashit($this->get_link('unsubscribe'));
 			
 			if(false !== strpos($target, 'profile='))
-				//$target = add_query_arg(array('unsubscribe' => $hash), $target);
 				$target = untrailingslashit($this->get_link('profile'));
 
 			$wp->query_vars['_mymail'] = $campaign_id;
@@ -219,7 +217,7 @@ class mymail_frontpage {
 				$form_id = mymail('subscribers')->meta($subscriber->ID, 'form');
 				$form = mymail('form')->get($form_id);
 
-				$target = !empty($form['confirmredirect']) ? $form['confirmredirect'] : $this->get_link('subscribe', $subscriber->hash);
+				$target = !empty($form['confirmredirect']) ? $form['confirmredirect'] : $this->get_link('subscribe', $subscriber->hash, true);
 
 				//subscriber no "pending" anymore
 				if($subscriber->status == 0){
@@ -547,8 +545,12 @@ class mymail_frontpage {
 
 	public function get_page_by_slug($slug) {
 		$slugs = mymail_option('slugs');
+	
+		$return = is_array($slugs) ? array_search($slug, $slugs) : $slug;
+
+		if(empty($return)) $return = isset($slugs[$slug]) ? $slugs[$slug] : $slug;
 		
-		return is_array($slugs) ? array_search($slug, $slugs) : $slug;
+		return $return;
 	}
 
 

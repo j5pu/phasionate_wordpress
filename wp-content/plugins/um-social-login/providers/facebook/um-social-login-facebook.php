@@ -58,8 +58,6 @@ class UM_Social_Login_Facebook {
 
 		$this->login_url		  	= '';
 
-		FacebookSession::setDefaultApplication( $this->app_id, $this->app_secret );
-
 	}
 
 	/***
@@ -69,6 +67,8 @@ class UM_Social_Login_Facebook {
 		global $um_social_login;
 		
 		if ( isset( $_REQUEST['facebook_auth'] ) && $_REQUEST['facebook_auth'] == 'true' ) {
+			
+			FacebookSession::setDefaultApplication( $this->app_id, $this->app_secret );
 			
 			$helper = new FacebookRedirectLoginHelper( $this->redirect_url );
 
@@ -131,6 +131,8 @@ class UM_Social_Login_Facebook {
 	function login_url() {
 		global $ultimatemember;
 
+		FacebookSession::setDefaultApplication( $this->app_id, $this->app_secret );
+		
 		$helper = new FacebookRedirectLoginHelper( $this->redirect_url );
 		
 		$session = $helper->getSessionFromRedirect();

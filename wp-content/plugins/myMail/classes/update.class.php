@@ -281,7 +281,7 @@ class mymail_update {
 	}
 
 	private function do_db_structure(){
-		return mymail()->dbstructure(true, true, false);
+		return mymail()->dbstructure(true, true);
 	}
 		
 
@@ -319,7 +319,7 @@ class mymail_update {
 
 		$limit = ceil(25*$this->performance);
 
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		$count = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->postmeta} AS m LEFT JOIN {$wpdb->posts} AS p ON p.ID = m.post_id LEFT JOIN {$wpdb->postmeta} AS c ON p.ID = c.post_id LEFT JOIN {$wpdb->postmeta} AS b ON b.post_id = p.ID AND b.meta_key = '_mymail_timestamp' WHERE m.meta_key = 'mymail-data' AND c.meta_key = 'mymail-campaign' AND p.post_type = 'newsletter' AND b.meta_key IS NULL");
 
@@ -412,7 +412,7 @@ class mymail_update {
 
 		global $wpdb;
 
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		$limit = ceil(500*$this->performance);
 
@@ -541,7 +541,7 @@ class mymail_update {
 	private function update_customfields($id){
 		global $wpdb;
 
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		$now = time();
 
@@ -590,10 +590,9 @@ class mymail_update {
 
 	private function do_update_customfields(){
 
-
 		global $wpdb;
 
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		$limit = ceil(2500*$this->performance);
 
@@ -651,10 +650,9 @@ class mymail_update {
 
 	private function do_update_actions(){
 
-
 		global $wpdb;
 
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		$limit = ceil(500*$this->performance);
 
@@ -792,7 +790,7 @@ class mymail_update {
 
 		global $wpdb;
 
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		$now = time();
 
@@ -874,7 +872,7 @@ class mymail_update {
 
 		global $wpdb;
 
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		$now = time();
 

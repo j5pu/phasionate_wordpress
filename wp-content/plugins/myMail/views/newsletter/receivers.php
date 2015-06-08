@@ -41,6 +41,7 @@
 				<option value="AND"<?php selected($listdata['operator'], 'AND')?> title="<?php _e('and', 'mymail'); ?>"><?php _e('all of the conditions are true', 'mymail'); ?></option>
 			</select>
 			</p>
+			<div id="mymail_list_conditions" class="operator-is-<?php echo $listdata['operator']?>">
 			<?php 
 				
 				if(!isset($listdata['conditions'])) $listdata['conditions'] = array(
@@ -90,6 +91,11 @@
 					if(!isset($condition['operator'])) $condition['operator'] = '';
 					?>
 			<div class="mymail_list_condition" id="mymail_list_condition_<?php echo $i;?>">
+				<div class="mymail-list-operator">
+					<span class="operator-and"><?php _e('and', 'mymail' ); ?></span>
+					<span class="operator-or"><?php _e('or', 'mymail' ); ?></span>
+				</div>
+				<div><a class="remove-condition" title="<?php _e('remove condition', 'mymail'); ?>">&#10005;</a></div>
 				<select name="mymail_data[list][conditions][<?php echo $i;?>][field]" class="condition-field">
 				<?php foreach( $fields as $value => $name ){
 					echo '<option value="'.$value.'"'.selected($condition['field'], $value, false).'>'.$name.'</option>';
@@ -117,11 +123,11 @@
 				}?>
 				</select><br>
 				<input type="text" class="widefat" name="mymail_data[list][conditions][<?php echo $i;?>][value]" value="<?php echo esc_attr($condition['value']) ?>">
-				<div><a class="remove-condition" title="<?php _e('remove condition', 'mymail'); ?>"><?php _e('remove', 'mymail'); ?></a></div>
 			</div>	
 					<?php
 				}
 			?>
+			</div>
 			 <a class="add-condition" title="<?php _e('add condition', 'mymail'); ?>"><?php _e('add condition', 'mymail'); ?></a>
 	 	</div>
 	</div>

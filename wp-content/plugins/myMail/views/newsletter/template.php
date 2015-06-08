@@ -351,7 +351,7 @@ wp_editor('', 'mymail-editor', array(
 <?php $autoplaintext = !isset($this->post_data['autoplaintext']) || $this->post_data['autoplaintext']?>
 	<p><label><input type="checkbox" id="plaintext" name="mymail_data[autoplaintext]" value="1" <?php checked( $autoplaintext ); ?>> <?php _e('Create the plain text version based on the HTML version of the campaign', 'mymail'); ?></label> <a class="alignright button button-small button-primary"><?php _e('get text from HTML version' , 'mymail'); ?></a></p>
 
-	<textarea id="excerpt" name="excerpt" class="hidden<?php if($autoplaintext) echo ' disabled' ?>" autocomplete="off" <?php disabled($autoplaintext); ?>><?php echo $post->post_excerpt ?></textarea>
+	<textarea id="excerpt" name="excerpt" class="<?php if($autoplaintext) echo ' disabled' ?>" autocomplete="off" <?php disabled($autoplaintext); ?>><?php echo $post->post_excerpt ?></textarea>
 </div>
 <iframe id="mymail_iframe" src="<?php echo admin_url('admin-ajax.php?action=mymail_get_template&id='.$post->ID.'&template='.$this->get_template().'&file='.$this->get_file().'&_wpnonce='.wp_create_nonce('mymail_nonce').'&editorstyle='.($editable).'&nocache='.time())?>" width="100%" height="1000" scrolling="no" frameborder="0"></iframe>
 <div id="mymail_campaign_preview" style="display:none;"><div class="mymail_campaign_preview device-full">

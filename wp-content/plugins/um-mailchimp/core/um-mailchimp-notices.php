@@ -23,13 +23,13 @@ class UM_Mailchimp_Notices {
 		
 		if ( !$key ) {
 			
-			echo '<div class="updated" style="border-color: #3ba1da;"><p>';
+			echo '<div class="updated um-admin-notice"><p>';
 		
 			echo sprintf(__( 'You must add your <strong>MailChimp API</strong> key before connecting your newsletter lists. <a href="%s">Hide this notice</a>','um-mailchimp'), $hide_link);
 			
 			echo '</p>';
 			
-			echo '<p><a href="' . admin_url('admin.php?page=um_options&tab=' . $um_mailchimp->tab_id ) . '" class="button button-secondary">' . __( 'Setup MailChimp API', 'um-mailchimp' ) . '</a></p></div>';
+			echo '<p><a href="' . admin_url('admin.php?page=um_options&tab=' . $um_mailchimp->tab_id ) . '" class="button button-primary">' . __( 'Setup MailChimp API', 'um-mailchimp' ) . '</a></p></div>';
 		
 		}
 	}

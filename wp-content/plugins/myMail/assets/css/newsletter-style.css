@@ -1695,6 +1695,12 @@ a.add-condition, a.remove-condition{
 	display:inline-block;
 	float:right;
 }
+a.remove-condition{
+	display:none;
+}
+.mymail_list_condition:hover a.remove-condition{
+	display:inline-block;
+}
 
 .mymail_sendtest{
 	float:right;
@@ -1857,9 +1863,9 @@ input.deliverytime {
 	border-radius:3px;
 	margin:3px 0;
 	padding:5px;
-	overflow:hidden;
+	position:relative;
 }
-#mymail_list_condition_0 .remove-condition{
+#mymail_list_condition_0 .remove-condition, #mymail_list_condition_0 div.mymail-list-operator{
 	display:none;
 }
 
@@ -1874,7 +1880,7 @@ input.deliverytime {
 
 .mymail_list_condition select{
 	margin:3px 0;
-	width:49%;
+	width:46%;
 }
 .mymail_list_condition input{
 	margin:3px 0;
@@ -1884,6 +1890,28 @@ input.deliverytime {
 .create-new-list-wrap{
 	display:none;
 	border-top:1px solid #DFDFDF;
+}
+
+div.mymail-list-operator{
+	position: absolute;
+	top: -12px;
+	left: 50%;
+}
+div.mymail-list-operator span{
+	transform: translateX(-50%);
+	position: absolute;
+	background-color: #fff;
+	padding: 0 3px;
+	text-transform: uppercase;
+	color: #ccc;
+	font-size: 15px;
+	display: none;
+}
+#mymail_list_conditions.operator-is-OR div.mymail-list-operator span.operator-or{
+	display: block;
+}
+#mymail_list_conditions.operator-is-AND div.mymail-list-operator span.operator-and{
+	display: block;
 }
 
 

@@ -63,6 +63,15 @@
 		</span>
 	</p><div class="um-admin-clear"></div>
 	
+	<p>
+		<label class="um-admin-half"><?php _e('Show only to certain user(s)','um-notices'); ?> <?php $metabox->tooltip( __('A comma seperated list of user IDs or usernames to show this notice for','um-notices') ); ?></label>
+		<span class="um-admin-half">
+			
+			<input type="text" value="<?php echo $ultimatemember->query->get_meta_value('_um_only_users', null, 'na'); ?>" name="_um_only_users" id="_um_only_users" />
+
+		</span>
+	</p><div class="um-admin-clear"></div>
+	
 	<?php if ( class_exists( 'Easy_Digital_Downloads' ) ) { ?>
 	
 	<h4><?php _e('Easy Digital Downloads Integration','um-notices'); ?></h4>

@@ -75,7 +75,7 @@ class MyMail_Lists_Table extends WP_List_Table {
 
 			case 'updated':
 			case 'added':
-				$timestring = date_i18n(get_option('date_format').' '.get_option('time_format'), $item->{ $column_name }+(get_option('gmt_offset')*3600));
+				$timestring = date_i18n(get_option('date_format').' '.get_option('time_format'), $item->{ $column_name }+mymail('helper')->gmt_offset(true));
 				return $timestring;
 
 			case 'subscribers':

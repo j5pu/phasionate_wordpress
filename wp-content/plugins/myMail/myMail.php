@@ -1,15 +1,15 @@
 <?php 
 /*
 Plugin Name: MyMail - Email Newsletter Plugin for WordPress
-Plugin URI: http://mymail.newsletter-plugin.com
+Plugin URI: https://mymail.newsletter-plugin.com
 Plugin Slug: myMail/myMail.php
 Description: advanced Newsletter Plugin for WordPress. Create, Send and Track your Newsletter Campaigns
-Version: 2.0.22
+Version: 2.0.24
 Author: revaxarts.com
-Author URI: http://revaxarts.com
+Author URI: https://revaxarts.com
 Text Domain: mymail
 */
-define('MYMAIL_VERSION', '2.0.22');
+define('MYMAIL_VERSION', '2.0.24');
 define('MYMAIL_DBVERSION', 20140924);
 define('MYMAIL_DIR', plugin_dir_path( __FILE__ ));
 define('MYMAIL_URI', plugin_dir_url( __FILE__ ));

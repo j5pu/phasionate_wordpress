@@ -106,20 +106,6 @@ class mymail {
 			
 			add_filter('install_plugin_complete_actions', array( &$this, 'add_install_plugin_complete_actions'), 10, 3 );
 
-			if(isset($_GET['mymail_create_homepage']) && $_GET['mymail_create_homepage']){
-				
-				include MYMAIL_DIR . 'includes/static.php';
-				
-				if($id = wp_insert_post($mymail_homepage)){
-					mymail_notice(__('Homepage created', 'mymail'), '', true);
-					mymail_update_option('homepage', $id);
-					wp_redirect('post.php?post='.$id.'&action=edit&message=10&mymail_remove_notice=mymail_no-homepage');
-					exit;
-				}
-				
-
-			}
-
 			//frontpage stuff (!is_admin())
 		} else {
 		
@@ -164,7 +150,7 @@ class mymail {
 				$msg = '<div id="mymail-notice-'.$id.'">';
 				
 				if(!$notice['once']){
-					$msg .= '<a href="'.add_query_arg(array('mymail_remove_notice' => $id), $_SERVER['REQUEST_URI']).'" class="rkt-cross mymail-dismiss alignright" title="'.__('dismiss message', 'mymail').'"><span class="mymail-icon icon-mm-delete"></span></a>';
+					$msg .= '<a href="'.add_query_arg(array('mymail_remove_notice' => $id), esc_url($_SERVER['REQUEST_URI'])).'" class="rkt-cross mymail-dismiss alignright" title="'.__('dismiss message', 'mymail').'"><span class="mymail-icon icon-mm-delete"></span></a>';
 				}else{
 					unset($mymail_notices[$id]);
 				}
@@ -190,13 +176,13 @@ class mymail {
 			wp_enqueue_script('mymail-notice', MYMAIL_URI . 'assets/js/notice-script.js', array('jquery'), MYMAIL_VERSION, true);
 			if(!empty($errors)){
 				echo '<div class="mymail-notices error">';
-				if(count($errors) > 1) echo '<a class="mymail-dismiss-all" style="float:right;text-decoration:none;font-size:12px;" href="'.add_query_arg(array('mymail_remove_notice_all' => 'error'), $_SERVER['REQUEST_URI']).'">dismiss all</a><br>';
+				if(count($errors) > 1) echo '<a class="mymail-dismiss-all" style="float:right;text-decoration:none;font-size:12px;" href="'.add_query_arg(array('mymail_remove_notice_all' => 'error'), esc_url($_SERVER['REQUEST_URI'])).'">dismiss all</a><br>';
 				echo implode('', $errors);
 				echo '</div>';
 			}
 			if(!empty($updated)){
 				echo '<div class="mymail-notices updated">';
-				if(count($updated) > 1) echo '<a class="mymail-dismiss-all" style="float:right;text-decoration:none;font-size:12px;" href="'.add_query_arg(array('mymail_remove_notice_all' => 'updated'), $_SERVER['REQUEST_URI']).'">dismiss all</a><br>';
+				if(count($updated) > 1) echo '<a class="mymail-dismiss-all" style="float:right;text-decoration:none;font-size:12px;" href="'.add_query_arg(array('mymail_remove_notice_all' => 'updated'), esc_url($_SERVER['REQUEST_URI'])).'">dismiss all</a><br>';
 				echo implode('', $updated);
 				echo '</div>';
 			}
@@ -376,10 +362,11 @@ class mymail {
 		preg_match('#<body[^>]*>(.*?)<\/body>#is', $content, $matches);
 		if(!empty($matches)) $content = $matches[1];
 
+		$content = str_replace('src="//', 'src="'.(is_ssl() ? 'https' : 'http').'://', $content);
 		$content = str_replace('<module', "\n<module", $content);
 		$content = preg_replace('#<div ?[^>]+?class=\"modulebuttons(.*)<\/div>#i', '', $content);
 		$content = preg_replace('#<script[^>]*?>.*?</script>#si', '', $content);
-		$content = str_replace(array('mymail-highlight','mymail-loading','ui-draggable'), '', $content);
+		$content = str_replace(array('mymail-highlight','mymail-loading','ui-draggable', ' -handle'), '', $content);
 
 		$allowed_tags = apply_filters('mymail_allowed_tags', array('address', 'a', 'big', 'blockquote', 'body', 'br', 'b', 'center', 'cite', 'code', 'dd', 'dfn', 'div', 'dl', 'dt', 'em', 'font', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'hr', 'html', 'img', 'i', 'kbd', 'li', 'meta', 'ol', 'pre', 'p', 'span', 'small', 'strike', 'strong', 'style', 'sub', 'sup', 'table', 'tbody', 'thead', 'tfoot', 'td', 'th', 'title', 'tr', 'tt', 'ul', 'u', 'map', 'area', 'video', 'audio', 'buttons', 'single', 'multi', 'modules', 'module'));
 		
@@ -410,7 +397,7 @@ class mymail {
 		//custom styles
 		global $mymail_mystyles;
 		
-		if($userstyle && $mymail_mystyles){
+		if($userstyle && !empty($mymail_mystyles)){
 			//check for existing styles
 			preg_match_all('#(<style ?[^<]+?>([^<]+)<\/style>)#', $content, $originalstyles);
 			
@@ -594,9 +581,9 @@ class mymail {
 			$isNew = get_option('mymail') == false;
 			
 			if ($isNew){
-				add_action('shutdown', array( &$this, 'send_welcome_mail'), 99 );
-				$this->dbstructure();
 				update_option('mymail_dbversion', MYMAIL_DBVERSION);
+				$this->dbstructure();
+				add_action('shutdown', array( &$this, 'send_welcome_mail'), 100 );
 			}
 			
 			if(function_exists('get_filesystem_method') && 'direct' != get_filesystem_method()){
@@ -641,7 +628,7 @@ class mymail {
 		if($blog_id) switch_to_blog($old_blog);
 	}
 
-	public function dbstructure($output = false, $execute = true, $set_charset = true){
+	public function dbstructure($output = false, $execute = true, $set_charset = false){
 
 		global $wpdb;
 

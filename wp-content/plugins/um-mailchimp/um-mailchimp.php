@@ -2,8 +2,8 @@
 /*
 Plugin Name: Ultimate Member - MailChimp
 Plugin URI: http://ultimatemember.com/
-Description: Integrates Ultimate Member with MailChimp newsletters
-Version: 1.1.1
+Description: Integrates Ultimate Member with MailChimp newsletters.
+Version: 1.1.4
 Author: Ultimate Member
 Author URI: http://ultimatemember.com/
 */
@@ -44,7 +44,7 @@ Author URI: http://ultimatemember.com/
 		$product = 'MailChimp';
 		$license_key = trim( um_get_option( $item_key ) );
 		$edd_updater = new EDD_SL_Plugin_Updater( 'https://ultimatemember.com/', __FILE__, array( 
-				'version' 	=> '1.1.1',
+				'version' 	=> '1.1.4',
 				'license' 	=> $license_key,
 				'item_name' => $product,
 				'author' 	=> 'Ultimate Member'

@@ -149,6 +149,7 @@ class mymail_queue {
 		if(!is_null($subscribers)){
 			if(!is_array($subscribers)) $subscriber = array($subscribers);
 			$subscribers = array_filter($subscribers, 'is_numeric');
+			if(empty($subscribers)) $subscribers = array(-1);
 
 			$sql .= " AND a.subscriber_id NOT IN (".implode(',', $subscribers).")";
 
@@ -158,7 +159,7 @@ class mymail_queue {
 
 	}
 	
-	//clear queue from subscribers who where previously in the queue but no longer assigned to the camapign
+	//clear queue from subscribers who where previously in the queue but no longer assigned to the campaign
 	public function clear($campaign_id = NULL, $subscribers = array()) {
 		
 		global $wpdb;
@@ -260,7 +261,7 @@ class mymail_queue {
 		if(empty($campaigns)) return;
 
 		$now = time();
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		foreach($campaigns as $campaign){
 
@@ -393,12 +394,14 @@ class mymail_queue {
 
 		global $wpdb;
 
+		if(did_action('mymail_autoresponder_timebased') > 1) return;
+
 		$campaigns = empty($campaign_id) ? mymail('campaigns')->get_autoresponder() : array(mymail('campaigns')->get($campaign_id));
 
 		if(empty($campaigns)) return;
 
 		$now = time();
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		foreach($campaigns as $campaign){
 
@@ -469,10 +472,12 @@ class mymail_queue {
 
 		global $wpdb;
 
+		if(did_action('mymail_autoresponder_usertime') > 1) return;
+		
 		$campaigns = empty($campaign_id) ? mymail('campaigns')->get_autoresponder() : array(mymail('campaigns')->get($campaign_id));
 
 		$now = time();
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		foreach($campaigns as $campaign){
 
@@ -547,6 +552,8 @@ class mymail_queue {
 						$timestamps = mymail('subscribers')->get_timeoffset_timestamps($subscriber_ids, $timestamps);
 
 					$this->bulk_add($campaign->ID, $subscriber_ids, $timestamps, 15);
+					
+					do_action('mymail_autoresponder_usertime', $campaign->ID, $subscriber_ids);
 				}
 
 			}
@@ -874,6 +881,7 @@ class mymail_queue {
 	
 
 	public function cron_log() {
+		
 		global $mymail_cron_log, $mymail_cron_log_max_fields;
 		
 		if (!$mymail_cron_log) $mymail_cron_log = array();
@@ -890,8 +898,11 @@ class mymail_queue {
 	}
 	
 	public function show_cron_log() {
+		
 		global $mymail_cron_log, $mymail_cron_log_max_fields;
-		$timeoffset = get_option('gmt_offset')*3600;
+		
+		$timeoffset = mymail('helper')->gmt_offset(true);
+
 		$html = '<table cellpadding="0" cellspacing="0" width="100%">';
 		$i = 1;
 		foreach($mymail_cron_log as $logs){

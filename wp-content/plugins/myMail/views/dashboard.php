@@ -9,7 +9,7 @@ if($camps = mymail_get_finished_campaigns(array( 'posts_per_page' => 10, 'post_s
 
 		$now = time();
 		$timeformat = get_option('date_format').' '.get_option('time_format');
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		$campaign = $camps[0];
 

@@ -1207,7 +1207,7 @@ msgstr "Linki paylaş"
 #: classes/subscribers.class.php:1415
 #: views/dashboard.php:44
 msgid "opens"
-msgstr "açma"
+msgstr "açan"
 
 #: views/dashboard.php:44
 msgctxt "count of"
@@ -1534,7 +1534,7 @@ msgstr "ayrılmış etiketler"
 
 #: views/settings.php:925
 msgid "These are permanent tags which cannot get deleted. The CAN-SPAM tag is required in many countries."
-msgstr ""
+msgstr "Bunlar silinemeyen kalıcı etiketlerdir. SPAM-OLABİLİR etiketi bir çok ülke için gereklidir"
 
 #: classes/campaigns.class.php:1042
 #: views/settings.php:925
@@ -1658,11 +1658,11 @@ msgstr "Hata Mesajı"
 
 #: views/settings.php:1233
 msgid "You can setup an interval as low as one minute, but should consider a reasonable value of 5-15 minutes as well."
-msgstr ""
+msgstr "1 dakikadan az aralıklar ayarlayabilirsiniz, ama 5 ile 15 dakika arasında bir değer ayarlamanız önerilir"
 
 #: views/settings.php:1234
 msgid "If you need help setting up a cron job please refer to the documentation that your provider offers."
-msgstr ""
+msgstr "Eğer cron job kurma konusunda yardıma ihtiyacınız varsa lütfen servis sağlayıcınızın yardım belgelerine başvurun."
 
 #: views/settings.php:1235
 msgid "Anyway, chances are high that either %1$s, %2$s or %3$s  documentation will help you."
@@ -2325,7 +2325,7 @@ msgstr "Önümüzdeki %2$s saat içinde %$1s mail daha gönderebilirsiniz"
 
 #: views/settings.php:1108
 msgid "You can leave a browser window open with following URL"
-msgstr ""
+msgstr "Aşağıdaki adresi bir tarayıcı penceresinde açık bırakın"
 
 #: classes/ajax.class.php:307
 msgid "Unable to save template!"
@@ -2445,7 +2445,7 @@ msgstr ""
 
 #: views/settings.php:728
 msgid "assign new lists automatically to this form"
-msgstr ""
+msgstr "yeni listeleri otomatik olarak bu forma atayın"
 
 #: views/settings.php:904
 msgid "Forward Link"
@@ -2531,7 +2531,7 @@ msgstr "Otomatik Sekme Yakalamayı Etkinleştir"
 
 #: views/settings.php:1324
 msgid "If you would like to enable bouncing you have to setup a separate POP3 mail account"
-msgstr ""
+msgstr "Eğer sekme yakalamayı etkinleştirmek istiyorsanız ayrı bir pop3 mail hesabı kurmalısınız"
 
 #: views/settings.php:1332
 msgid "Use SSL. Default port is 995"
@@ -2567,7 +2567,7 @@ msgstr "TXt kaydı bulunamadı"
 #: views/settings.php:1442
 #: views/settings.php:1525
 msgid "No or wrong record found for %s. Please adjust the namespace records and add these lines:"
-msgstr ""
+msgstr "%s için kayıt yok veya hatalı. Lütfen aşağıdaki satırla bir dns kaydı oluşturun"
 
 #: views/settings.php:1460
 msgid "SPF doesn’t require any configuration on this settings page. This should give you some help to set it up correctly. If this SPF configuration doesn't work or your mails returned as spam you should ask your provider for help or change your delivery method or try %s"
@@ -2612,11 +2612,11 @@ msgstr ""
 
 #: views/settings.php:1571
 msgid "It's recommend to change the keys occasionally"
-msgstr ""
+msgstr "Ara sıra anahtarları değiştirmeniz önerilir"
 
 #: views/settings.php:1572
 msgid "If you change one of the settings above new keys are required"
-msgstr ""
+msgstr "Bu ayarlardan birini değiştirirseniz, yeni anahtarlar gerekecektir."
 
 #: views/settings.php:1573
 msgid "Some providers don't allow TXT records with a specific size. Choose less bits in this case"
@@ -2681,7 +2681,7 @@ msgstr "milisaniye"
 
 #: views/settings.php:1065
 msgid "define a delay between mails in milliseconds if you have problems with sending two many mails at once"
-msgstr ""
+msgstr "Aynı anda birden çok posta gönderme sorunları varsa, milisaniye cinsinden postalar arasında bir gecikme tanımlayın"
 
 #: classes/settings.class.php:820
 msgid "Send limit has been adjusted to %d for Gmail"
@@ -3225,7 +3225,7 @@ msgstr "Listeleri Birleştir"
 
 #: views/settings.php:340
 msgid "keep selected lists on signup"
-msgstr ""
+msgstr "seçili listeleri abone olmuş halde bırak"
 
 #: views/settings.php:341
 msgid "Keep the lists if user has subscribed before. Uncheck to subscribe users only to lists from the form they signed up to"
@@ -3267,55 +3267,55 @@ msgstr "son %s"
 
 #: classes/ajax.class.php:1075
 msgid "second last %s"
-msgstr "ikinci son %s"
+msgstr "sondan ikinci %s"
 
 #: classes/ajax.class.php:1076
 msgid "third last %s"
-msgstr "üçüncü son %s"
+msgstr "sondan üçüncü %s"
 
 #: classes/ajax.class.php:1077
 msgid "fourth last %s"
-msgstr "dördüncü son %s"
+msgstr "sondan dördüncü %s"
 
 #: classes/ajax.class.php:1078
 msgid "fifth last %s"
-msgstr "beşinci son %s"
+msgstr "sondan beşinci %s"
 
 #: classes/ajax.class.php:1079
 msgid "sixth last %s"
-msgstr "altıncı son %s"
+msgstr "sondan altıncı %s"
 
 #: classes/ajax.class.php:1080
 msgid "seventh last %s"
-msgstr "yedinci son %s"
+msgstr "sondan yedinci %s"
 
 #: classes/ajax.class.php:1081
 msgid "eighth last %s"
-msgstr "sekizinci son %s"
+msgstr "sondan sekizinci %s"
 
 #: classes/ajax.class.php:1082
 msgid "ninth last %s"
-msgstr "dokuzuncu son %s"
+msgstr "sondan dokuzuncu %s"
 
 #: classes/ajax.class.php:1083
 msgid "tenth last %s"
-msgstr "onuncu son %s"
+msgstr "sondan onuncu %s"
 
 #: classes/ajax.class.php:1084
 msgid "eleventh last %s"
-msgstr "onbirinci son %s"
+msgstr "sondan onbirinci %s"
 
 #: classes/ajax.class.php:1085
 msgid "twelfth last %s"
-msgstr ""
+msgstr "sondan onikinci"
 
 #: classes/ajax.class.php:1379
 msgid "Current match: %s"
-msgstr ""
+msgstr "Mevcut eşleşme: %s"
 
 #: classes/ajax.class.php:1379
 msgid "Currently no match for your selection!"
-msgstr ""
+msgstr "Seçiminize göre eşleşme bulunamadı!"
 
 #: classes/ajax.class.php:1379
 msgid "create a new one"
@@ -3323,7 +3323,7 @@ msgstr "yeni bir tane oluştur"
 
 #: classes/helper.class.php:293
 msgid "any %s"
-msgstr ""
+msgstr "herhangi %s"
 
 #: classes/ajax.class.php:1604
 #: classes/templates.class.php:242
@@ -3349,7 +3349,7 @@ msgstr "%s doğru bir imaj dosyası içermiyor"
 
 #: includes/autoresponder.php:23
 msgid "something has been published"
-msgstr ""
+msgstr "bir şey yayınlandığında"
 
 #: views/manage.php:191
 msgid "Output Format"
@@ -3378,7 +3378,7 @@ msgstr "bu otomatik yanıtlayıcıyı gönder"
 #: classes/campaigns.class.php:667
 #: views/newsletter/delivery.php:259
 msgid "Next issue: %s"
-msgstr "Sonraki sorun: %s"
+msgstr "%s konu sonra"
 
 #: views/newsletter/delivery.php:264
 msgid "Use the %s tag to display the current issue in the campaign"
@@ -3456,7 +3456,7 @@ msgstr "son"
 
 #: views/newsletter/template.php:254
 msgid "the second latest"
-msgstr ""
+msgstr "en sondan ikinci"
 
 #: views/newsletter/template.php:255
 msgid "the third latest"
@@ -3553,11 +3553,11 @@ msgstr ""
 
 #: views/settings.php:985
 msgid "displays the post title of post ID 23"
-msgstr ""
+msgstr "ID'si 23 olan yazının başlığını gösterir"
 
 #: views/settings.php:986
 msgid "displays the permalink of post ID 15"
-msgstr ""
+msgstr "ID'si 15 olan yazının kalıcı bağlantısını gösterir"
 
 #: views/settings.php:987
 msgid "Instead of \"post_\" and \"page_\" you can use custom post types too"
@@ -3707,7 +3707,7 @@ msgstr "Yeni Yorumlar"
 
 #: views/settings.php:576
 msgid "allow users to signup on the comment form if they are currently not subscribed to any list"
-msgstr ""
+msgstr "Eğer herhangi bir listeye abone değillerse kullanıcıların yorum formunda kayıt olmalarına izin ver"
 
 #: views/settings.php:586
 msgid "sign up only if comment is"
@@ -3735,7 +3735,7 @@ msgstr ""
 
 #: views/settings.php:572
 msgid "send confirmation if double-opt-in is enabled"
-msgstr ""
+msgstr "Eğer double-opt-in etkinse doğrulama gönder"
 
 #: views/settings.php:880
 msgid "Newsletter Sign up"
@@ -3961,11 +3961,11 @@ msgstr "düzenleme moduna geç"
 
 #: views/newsletter/delivery.php:438
 msgid "This campaign is based on an %s"
-msgstr ""
+msgstr "Bu kampanya %s temel almıştır"
 
 #: views/newsletter/delivery.php:438
 msgid "auto responder campaign"
-msgstr "Oto Yanıtlayıcı Kampanyası"
+msgstr "Otomatik Yanıt Kampanyası"
 
 #: views/newsletter/details.php:98
 msgid "Total Sent"
@@ -4231,7 +4231,7 @@ msgstr "dil değiştir"
 
 #: classes/settings.class.php:638
 msgid "Please define a homepage for the newsletter on the frontend tab"
-msgstr ""
+msgstr "Lütfen arayüz tabından bülten için bir ana sayfa tanımlayınız."
 
 #: views/settings.php:1021
 msgid "load more"
@@ -4257,17 +4257,17 @@ msgstr "Liste Oluşturuldu"
 #: classes/campaigns.class.php:2451
 #: views/newsletter/receivers.php:219
 msgid "who have opened"
-msgstr "baktı"
+msgstr "Bakmış kişiler"
 
 #: classes/campaigns.class.php:2452
 #: views/newsletter/receivers.php:220
 msgid "who have opened but not clicked"
-msgstr "baktı ama tıklamadı"
+msgstr "Bakmış ama tıklamamış kişiler"
 
 #: classes/campaigns.class.php:2454
 #: views/newsletter/receivers.php:222
 msgid "who have not opened"
-msgstr "bakmadı"
+msgstr "Bakmamış kişiler"
 
 #: classes/subscriber.class.php:990
 msgctxt "segment of all [recipients] from campaign [campaign]"
@@ -4280,7 +4280,7 @@ msgstr "Abone Ara"
 
 #: views/newsletter/receivers.php:212
 msgid "create a new list with all"
-msgstr ""
+msgstr "Şunlarla yeni bir liste oluştur"
 
 #: views/newsletter/receivers.php:230
 msgid "create list"
@@ -4309,17 +4309,17 @@ msgstr ""
 #: classes/campaigns.class.php:2449
 #: views/newsletter/receivers.php:217
 msgid "who have received"
-msgstr "Kim almış"
+msgstr "Almış Kişiler"
 
 #: classes/campaigns.class.php:2450
 #: views/newsletter/receivers.php:218
 msgid "who have not received"
-msgstr "Kim almamış"
+msgstr "Almamış Kişiler"
 
 #: classes/campaigns.class.php:2453
 #: views/newsletter/receivers.php:221
 msgid "who have opened and clicked"
-msgstr "Kim açmış ve tıklamış"
+msgstr "Açmış ve tıklamış kişiler"
 
 #: classes/notification.class.php:418
 msgid "%s has joined"
@@ -4628,7 +4628,7 @@ msgstr "alıcı yok!"
 
 #: views/settings.php:658
 msgid "Create as many forms you like. Define individual options for each form below."
-msgstr ""
+msgstr "İstediğiniz kadar form oluşturun. Aşağıda her bir form için ayrı ayrı seçenekleri tanımlayın."
 
 #: views/settings.php:843
 msgid "Global Form Settings"
@@ -4922,16 +4922,16 @@ msgstr "%d Liste abonelerle birlikte silindi"
 
 #: classes/lists.class.php:117
 msgid "Subscribers have been subscribed"
-msgstr ""
+msgstr "Üyeler abone edildi"
 
 #: classes/lists.class.php:124
 msgid "Subscribers have been unsubscribed"
-msgstr ""
+msgstr "Üyeler abonelikten çıkarıldı"
 
 #: classes/lists.class.php:167
 #: classes/subscribers.class.php:238
 msgid "%1$s already exists. %2$s"
-msgstr ""
+msgstr "%1$s zaten var. %2$s"
 
 #: classes/lists.class.php:167
 #: classes/subscribers.class.php:238
@@ -5504,7 +5504,7 @@ msgstr ""
 
 #: views/newsletter/delivery.php:366
 msgid "Priority"
-msgstr "Öncellik"
+msgstr "Öncelik"
 
 #: views/newsletter/delivery.php:368
 msgid "High"
@@ -5525,11 +5525,11 @@ msgstr "Kampanyayı sadece 1 kez gönder"
 
 #: views/newsletter/delivery.php:418
 msgid "finished in approx. %s"
-msgstr "Yaklaşık %s saat içinde bitecek"
+msgstr "Yaklaşık %s içinde bitecek."
 
 #: views/newsletter/details.php:67
 msgid "took %s"
-msgstr ""
+msgstr "%s sürdü"
 
 #: views/newsletter/details.php:101
 #: views/newsletter/details.php:108
@@ -5776,13 +5776,13 @@ msgstr ""
 #: views/subscribers/detail.php:241
 #: views/subscribers/detail.php:250
 msgid "from"
-msgstr "den"
+msgstr "nereden"
 
 #: views/subscribers/detail.php:272
 msgid "Campaign sent"
 msgid_plural "Campaings sent"
 msgstr[0] "Kampanya gönderildi"
-msgstr[1] "Kampanyalar gönderildi"
+msgstr[1] "Kampanya gönderildi"
 
 #: views/subscribers/detail.php:293
 msgid "Most popular client"
@@ -5982,7 +5982,7 @@ msgstr ""
 
 #: views/settings.php:1295
 msgid "Reset all capabilities"
-msgstr ""
+msgstr "Tüm yetenekleri sıfırla"
 
 #: views/subscribers/detail.php:373
 msgid "campaign deleted"
@@ -6187,7 +6187,7 @@ msgstr "Daha Fazla İçerik Yükle (Kalan %s)"
 #: classes/subscribers.class.php:109
 #: classes/subscribers.class.php:270
 msgid "There was an error while deleting subscribers: %s"
-msgstr ""
+msgstr "Aboneler silinirken bir hata oluştu: %s"
 
 #: classes/subscribers.class.php:139
 msgid "%d Subscribers have been set to pending"

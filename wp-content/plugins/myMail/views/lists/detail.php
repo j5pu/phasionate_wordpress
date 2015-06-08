@@ -22,13 +22,11 @@
 	}
 
 	$timeformat = get_option('date_format').' '.get_option('time_format');
-	$timeoffset = get_option('gmt_offset')*3600;
+	$timeoffset = mymail('helper')->gmt_offset(true);
 
 	$now = time();
 
 	$tabindex = 1;
-
-
 
 ?>
 <div class="wrap<?php if($is_new) echo ' new'?>">

@@ -1,8 +1,25 @@
 <style>
-.wp-badge{
+.mymail-badge{
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 14px;
+	text-align: center;
+	font-weight: 600;
+	margin: 5px 0 0;
+	padding-top: 120px;
+	height: 40px;
+	display: inline-block;
+	width: 150px;
+	text-rendering: optimizeLegibility;
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2);
+	box-shadow: 0 1px 3px rgba(0,0,0,.2);
 	background: #2BB3E7 url(<?php echo WP_PLUGIN_URL ?>/myMail/assets/img/logo.png) no-repeat 50% 34%;
 	background-size: 50%;
 	color:#fff;
+}
+.feature-section div, .changelog{
+	padding-top: 20px;
 }
 .feature-postponed{
 	font-size:12px;
@@ -18,7 +35,7 @@
 
 	<div class="about-text">Now you can easily create, send and track your Newsletter Campaigns</div>
 	
-	<div class="wp-badge">Version <?php echo MYMAIL_VERSION ?></div>
+	<div class="mymail-badge">Version <?php echo MYMAIL_VERSION ?></div>
 
 	<h2 class="nav-tab-wrapper">
 		<a href="edit.php?post_type=newsletter&page=mymail_welcome" class="nav-tab nav-tab-active">What’s New</a>
@@ -34,51 +51,51 @@
 		<h2 class="about-headline-callout">MyMail is now even better!</h2>
 		<div class="feature-section col three-col">
 			<div class="col-1">
-				<img src="http://data.newsletter-plugin.com/welcome/easy_edit.gif">
+				<img src="https://data.newsletter-plugin.com/welcome/easy_edit.gif">
 				<h4>Improved Editor</h4>
 				<p>The updated editor comes with a cleaned up UI and new, faster content edit system. Simple click on an element you like to edit and change it's content.</p>
 			</div>
 			<div class="col-2">
-				<img src="http://data.newsletter-plugin.com/welcome/dragndrop.gif">
+				<img src="https://data.newsletter-plugin.com/welcome/dragndrop.gif">
 				<h4>Drag 'n Drop</h4>
 				<p>You can now drag 'n drop images from your desktop right into your newsletter. This makes creating campaigns even faster. <br>(requires WordPress 3.9+)</p>
 			</div>
 			<div class="col-3 last-feature">
-				<img src="http://data.newsletter-plugin.com/welcome/imageswap.gif">
+				<img src="https://data.newsletter-plugin.com/welcome/imageswap.gif">
 				<h4>Image Swap</h4>
 				<p>Change the position of your images with a simple drag 'n drop gesture. Hold <kbd>alt</kbd> to copy the image.<br>(requires WordPress 3.9+)</p>
 			</div>
 		</div>
 		<div class="feature-section col three-col">
 			<div class="col-2">
-				<img src="http://data.newsletter-plugin.com/welcome/wordpress_users.gif">
+				<img src="https://data.newsletter-plugin.com/welcome/wordpress_users.gif">
 				<h4>Better WordPress User integration</h4>
 				<p>Subscribers with a WordPress user profile are now better merged together. You can sync certain fields on the <a href="options-general.php?page=newsletter-settings#wordpress-users">settings page</a>.</p>
 			</div>
 			<div class="col-2">
-				<img src="http://data.newsletter-plugin.com/welcome/autoupdate.gif">
+				<img src="https://data.newsletter-plugin.com/welcome/autoupdate.gif">
 				<h4>Auto update stats</h4>
 				<p>All statistics and counts will now updated automatically on the <a href="edit.php?post_type=newsletter">newsletter overview</a>. No need to refresh the page anymore. <br>(requires WordPress 3.5+)</p>
 			</div>
 			<div class="col-3 last-feature">
-				<img src="http://data.newsletter-plugin.com/welcome/import.gif">
+				<img src="https://data.newsletter-plugin.com/welcome/import.gif">
 				<h4>Faster Import</h4>
 				<p>MyMail 2 now imports subscribers up to 5 times faster comparing to it's previous version. Also working with multiple thousand subscribers shouldn't be a problem anymore.</p>
 			</div>
 		</div>
 		<div class="feature-section col three-col">
 			<div class="col-1">
-				<img src="http://data.newsletter-plugin.com/welcome/environment.gif">
+				<img src="https://data.newsletter-plugin.com/welcome/environment.gif">
 				<h4>Environment</h4>
 				<p>See which Client your customers are using, if they open your campaigns on their mobile phones or their Desktop.</p>
 			</div>
 			<div class="col-2">
-				<img src="http://data.newsletter-plugin.com/welcome/stats.gif">
+				<img src="https://data.newsletter-plugin.com/welcome/stats.gif">
 				<h4>Cleaned up Statistics</h4>
 				<p>You get now even better an more accurate statistsics from your sent campaigns. All data fields can get expanded to reveal more details.</p>
 			</div>
 			<div class="col-3 last-feature">
-				<img src="http://data.newsletter-plugin.com/welcome/birthday.gif">
+				<img src="https://data.newsletter-plugin.com/welcome/birthday.gif">
 				<h4>Custom Field Dates</h4>
 				<p>Send your subscribers a birthday message or any other date based transactional email</p>
 			</div>

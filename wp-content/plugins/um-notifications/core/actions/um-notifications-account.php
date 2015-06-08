@@ -26,3 +26,12 @@
 		}
 		
 	}
+	
+	/***
+	***	@When user is removed all notifications should be erased
+	***/
+	add_action('um_delete_user', 'um_notification_delete_user_data');
+	function um_notification_delete_user_data( $user_id ) {
+		global $wpdb;
+		$wpdb->delete( $wpdb->prefix . "um_notifications" , array( 'user' => $user_id ) );
+	}

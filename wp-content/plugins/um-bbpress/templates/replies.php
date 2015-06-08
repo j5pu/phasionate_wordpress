@@ -20,6 +20,6 @@
 		
 <?php } else { ?>
 
-	<?php ( um_is_myprofile() ) ? _e('You have not replied to any topics.','um-bbpress') : _e('This user has not replied to any topics.','um-bbpress'); ?>
-
+	<div class="um-profile-note"><span><?php echo ( um_profile_id() == get_current_user_id() ) ? __('You have not replied to any topics.','um-bbpress') : __('This user has not replied to any topics.','um-bbpress'); ?></span></div>
+	
 <?php } ?>

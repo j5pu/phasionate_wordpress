@@ -86,6 +86,7 @@ class mymail_lists {
 		if ( isset( $_POST['action2'] ) && -1 != $_POST['action2'] )
 			$action = $_POST['action2'];
 
+		$redirect = add_query_arg($_GET);
 
 		switch($action){
 
@@ -95,7 +96,7 @@ class mymail_lists {
 					if($this->remove($_POST['lists']))
 						mymail_notice(sprintf(__('%d Lists have been removed', 'mymail'), count($_POST['lists'])), 'error', true);
 					
-					wp_redirect( add_query_arg($_GET) );
+					wp_redirect( $redirect );
 					exit;
 
 				}
@@ -106,22 +107,26 @@ class mymail_lists {
 					if($this->remove($_POST['lists'], true))
 						mymail_notice(sprintf(__('%d Lists with subscribers have been removed', 'mymail'), count($_POST['lists'])), 'error', true);
 					
-					wp_redirect( add_query_arg($_GET) );
+					wp_redirect( $redirect );
 					exit;
 
 				}
 				break;
 			case 'subscribe':
 				if($count = $this->change_status($_POST['lists'], 1)){
+					
 					mymail_notice(__('Subscribers have been subscribed', 'mymail'), 'error', true);
-					wp_redirect( add_query_arg($_GET) );
+					
+					wp_redirect( $redirect );
 					exit;
 				}
 				break;
 			case 'unsubscribe':
 				if($this->unsubscribe($_POST['lists'])){
+					
 					mymail_notice(__('Subscribers have been unsubscribed', 'mymail'), 'error', true);
-					wp_redirect( add_query_arg($_GET) );
+					
+					wp_redirect( $redirect );
 					exit;
 				}
 				break;

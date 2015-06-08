@@ -465,7 +465,7 @@ class mymail_manage {
 			exit;
 		}
 
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		$bulkdata = wp_parse_args($_POST['options'], get_option( 'mymail_bulk_import' ));
 		$erroremails =  get_option( 'mymail_bulk_import_errors', array() );

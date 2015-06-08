@@ -322,6 +322,20 @@ class mymail_helper {
 		return is_object($wp_rewrite) && $wp_rewrite->using_permalinks();
 	}
 
+	public function gmt_offset($in_seconds = false){
+
+		$offset = get_option('gmt_offset');
+		if($offset == ''){
+			$tzstring = get_option('timezone_string');
+			$current = date_default_timezone_get();
+			date_default_timezone_set($timezone);
+			$offset = date('Z')/3600;
+			date_default_timezone_set($current);
+		}
+
+		return $in_seconds ? $offset*3600 : (int) $offset;
+	}
+
 }
 
 ?>

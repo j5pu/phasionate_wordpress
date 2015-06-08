@@ -23,7 +23,7 @@ class UM_Notifications_Setup {
 		global $wpdb;
 		
 		if ( !current_user_can('manage_options') ) return;
-		if ( get_option('ultimatemember_notification_db') ) return;
+		if ( get_option('ultimatemember_notification_db') == um_notifications_version ) return;
 		
 		$charset_collate = $wpdb->get_charset_collate();
 		$table_name = $wpdb->prefix . "um_notifications";
@@ -33,9 +33,9 @@ class UM_Notifications_Setup {
 		  time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 		  user tinytext NOT NULL,
 		  status tinytext NOT NULL,
-		  photo tinytext NOT NULL,
+		  photo varchar(255) DEFAULT '' NOT NULL,
 		  type tinytext NOT NULL,
-		  url varchar(55) DEFAULT '' NOT NULL,
+		  url varchar(255) DEFAULT '' NOT NULL,
 		  content text NOT NULL,
 		  UNIQUE KEY id (id)
 		) $charset_collate;";
@@ -43,7 +43,7 @@ class UM_Notifications_Setup {
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $sql );
 		
-		update_option('ultimatemember_notification_db', true );
+		update_option('ultimatemember_notification_db', um_notifications_version );
 
 	}
 	
@@ -66,7 +66,8 @@ class UM_Notifications_Setup {
 				'post_title'		=> __('Notifications','um-notifications'),
 				'post_status'		=> 'publish',
 				'post_author'   	=> um_user('ID'),
-				'post_content'		=> '[ultimatemember_notifications]'
+				'post_content'		=> '[ultimatemember_notifications]',
+				'comment_status'	=> 'closed',
 			);
 
 			$post_id = wp_insert_post( $args );

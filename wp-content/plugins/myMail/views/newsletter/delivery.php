@@ -12,7 +12,7 @@
 	$timestamp = (!$this->post_data['active']) ? max($now+(60*mymail_option('send_offset')),$timestamp) : $timestamp;
 	
 	$timeformat = get_option('date_format').' '.get_option('time_format');
-	$timeoffset = get_option('gmt_offset')*3600;
+	$timeoffset = mymail('helper')->gmt_offset(true);
 	
 	$current_user = wp_get_current_user();
 	
@@ -50,7 +50,7 @@
 	<div class="active_overlay"></div>
 	<?php echo sprintf( _x('on %1$s @ %2$s','send campaign "on" (date) "at" (time)', 'mymail'),
 		'<input name="mymail_data[date]" class="datepicker deliverydate inactive" type="text" value="'.date('Y-m-d', $timestamp+$timeoffset).'" maxlength="10" readonly'.(((!$this->post_data['active'] && !$is_autoresponder) || $editable) ? ' disabled' : '').'>',
-		'<input name="mymail_data[time]" maxlength="5" class="deliverytime inactive" type="text" value="'.date('H:i', $timestamp+$timeoffset).'" '.(((!$this->post_data['active'] && !$is_autoresponder) || !$editable) ? ' disabled' : '').'> <span class="utcoffset">'.((get_option('gmt_offset') > 0) ? 'UTC + '.get_option('gmt_offset') : '').'</span>'
+		'<input name="mymail_data[time]" maxlength="5" class="deliverytime inactive" type="text" value="'.date('H:i', $timestamp+$timeoffset).'" '.(((!$this->post_data['active'] && !$is_autoresponder) || !$editable) ? ' disabled' : '').'> <span class="utcoffset">'.(($timeoffset > 0) ? 'UTC + '.($timeoffset/3600) : '').'</span>'
 	);
 	if(mymail_option('trackcities')) :
 	?>

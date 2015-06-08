@@ -31,7 +31,7 @@
 		
 	$templatefiles = mymail('templates')->get_files(mymail_option('default_template'));
 	$timeformat = get_option('date_format').' '.get_option('time_format');
-	$timeoffset = get_option('gmt_offset')*3600;
+	$timeoffset = mymail('helper')->gmt_offset(true);
 
 	if($active) echo '<div class="error inline"><p>'.sprintf(_n('%d campaign is active. You should pause it before you change the settings!', '%d campaigns are active. You should pause them before you change the settings!', $active, 'mymail'), $active).'</p></div>';
 ?>
@@ -251,9 +251,9 @@
 			<p class="description"><?php _e('If you don\'t find your country down below the geo database is missing or corrupt', 'mymail') ?></p>
 			<p>
 			<strong><?php _e('Your IP', 'mymail') ?>:</strong> <?php echo mymail_get_ip()?><br>
-			<strong><?php _e('Your country', 'mymail') ?>:</strong> <?php echo mymail_ip2Country('', 'name')?><br>&nbsp;&nbsp;<strong><?php _e('Last update', 'mymail') ?>: <?php echo date(get_option('date_format').' '.get_option('time_format'), filemtime(mymail_option('countries_db'))+get_option('gmt_offset')*3600)?> </strong><br>
+			<strong><?php _e('Your country', 'mymail') ?>:</strong> <?php echo mymail_ip2Country('', 'name')?><br>&nbsp;&nbsp;<strong><?php _e('Last update', 'mymail') ?>: <?php echo date(get_option('date_format').' '.get_option('time_format'), filemtime(mymail_option('countries_db'))+$timeoffset)?> </strong><br>
 		<?php if($geoipcity && is_file(mymail_option('cities_db'))) : ?>
-			<strong><?php _e('Your city', 'mymail') ?>:</strong> <?php echo mymail_ip2City('', 'city')?><br>&nbsp;&nbsp;<strong><?php _e('Last update', 'mymail') ?>: <?php echo date(get_option('date_format').' '.get_option('time_format'), filemtime(mymail_option('cities_db'))+get_option('gmt_offset')*3600)?></strong>
+			<strong><?php _e('Your city', 'mymail') ?>:</strong> <?php echo mymail_ip2City('', 'city')?><br>&nbsp;&nbsp;<strong><?php _e('Last update', 'mymail') ?>: <?php echo date(get_option('date_format').' '.get_option('time_format'), filemtime(mymail_option('cities_db'))+$timeoffset)?></strong>
 		<?php endif; ?>
 			</p>
 			<p class="description">This product includes GeoLite data created by MaxMind, available from <a href="http://www.maxmind.com">http://www.maxmind.com</a></p>
@@ -1048,7 +1048,7 @@
 					$mails_left = mymail_option('send_limit');
 				}
 			?>
-			<p class="description"><?php echo sprintf(__('You can still send %1$s mails within the next %2$s', 'mymail'), '<strong>'.number_format_i18n($mails_left).'</strong>' , '<strong title="'.date_i18n(get_option('date_format').' '.get_option('time_format'), $next_reset+(get_option('gmt_offset')*3600), true).'">'.human_time_diff($next_reset).'</strong>'); ?> &ndash; <a href="<?php echo add_query_arg('reset-limits', 1) ?>"><?php _e('reset these limits', 'mymail'); ?></a></p>
+			<p class="description"><?php echo sprintf(__('You can still send %1$s mails within the next %2$s', 'mymail'), '<strong>'.number_format_i18n($mails_left).'</strong>' , '<strong title="'.date_i18n(get_option('date_format').' '.get_option('time_format'), $next_reset+$timeoffset, true).'">'.human_time_diff($next_reset).'</strong>'); ?> &ndash; <a href="<?php echo add_query_arg('reset-limits', 1) ?>"><?php _e('reset these limits', 'mymail'); ?></a></p>
 			
 		</tr>
 		<tr valign="top">
@@ -1238,7 +1238,7 @@
 		<tr valign="top">
 			<th scope="row"><?php _e('Last hit' ,'mymail') ?></th>
 			<td>
-				<div class="highlight"><span><?php $lasthit = get_option('mymail_cron_lasthit'); echo ($lasthit) ? ' '.sprintf(__('from %s', 'mymail'), $lasthit['ip']).', '.date(get_option('date_format').' '.get_option('time_format'), $lasthit['timestamp']+(get_option('gmt_offset')*3600)).', '.sprintf(__('%s ago', 'mymail'), human_time_diff($lasthit['timestamp'])).' '.(($interv = round(($lasthit['timestamp']-$lasthit['oldtimestamp'])/60)) ? '('.__('Interval','mymail').': '.$interv.' '._x('min', 'short for minute', 'mymail').' / '.round($lasthit['time'],3).' sec, max '.round($lasthit['timemax'],3).' sec)' : '') : __('never' ,'mymail'); ?></span></div>
+				<div class="highlight"><span><?php $lasthit = get_option('mymail_cron_lasthit'); echo $lasthit ? ' '.sprintf(__('from %s', 'mymail'), $lasthit['ip']).', '.date(get_option('date_format').' '.get_option('time_format'), $lasthit['timestamp']+$timeoffset).', '.sprintf(__('%s ago', 'mymail'), human_time_diff($lasthit['timestamp'])).' '.(($interv = round(($lasthit['timestamp']-$lasthit['oldtimestamp'])/60)) ? '('.__('Interval','mymail').': '.$interv.' '._x('min', 'short for minute', 'mymail').' / '.round($lasthit['time'],3).' sec, max '.round($lasthit['timemax'],3).' sec)' : '') : __('never' ,'mymail'); ?></span></div>
 			</td>
 		</tr>
 	</table>

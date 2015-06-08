@@ -1,9 +1,11 @@
 <?php
 /**
  * Plugin Name: WP No Base Permalink
- * Plugin URI: 
+ * Plugin URI: http://wordpress.org/plugins/wp-no-base-permalink/
  * Description: Removes base from your category and tag in permalinks and remove parents categories in permalinks (optional). WPML and Multisite Compatible.
- * Version: 0.2.2
+ * Version: 0.2.3
+ * Author: Sergio P.A. (23r9i0)
+ * Author URI: http://dsergio.com/
  *
  *
  * Copyright 2013  Sergio P.A. (23r9i0) ( email : 23r9i0@gmail.com )
@@ -43,7 +45,7 @@ class WP_No_Base_Permalink {
 		'old-tag-redirect' => 'tag', 'remove-parents-categories' => 1
 	);
 
-	private static $version = '0.2.1';
+	private static $version = '0.2.3';
 
 	public static function get_instance() {
 		if ( ! isset( self::$instance ) )
@@ -94,10 +96,11 @@ class WP_No_Base_Permalink {
 		add_filter( 'category_rewrite_rules', array( __CLASS__, 'category_rewrite_rules' ), 11 );
 
 		// Remove Parents Categories
-		if ( isset( self::$options['remove-parents-categories'] )  )
+		if ( isset( self::$options['remove-parents-categories'] )  ) {
 			add_filter( 'category_link', array( $this, 'remove_parents_category_link' ), 10, 2 );
-		else
+		} else {
 			remove_filter( 'category_link', array( $this, 'remove_parents_category_link' ), 10, 2 );
+		}
 
 		// Tags
 		if ( isset( self::$options['disabled-tag-base'] )  ) {
@@ -129,6 +132,24 @@ class WP_No_Base_Permalink {
 		// Lang
 		load_plugin_textdomain( 'wpnbplang', false, dirname( plugin_basename( __FILE__ ) ) . '/include/languages/' );
 
+		if ( version_compare( PHP_VERSION, '5.4.0', '<') ) {
+			add_filter( 'site_transient_update_plugins', array( $this, 'delete_plugin_update' ) );
+			add_filter( 'plugin_row_meta', array( $this, 'update_info_plugin' ), 10, 2 );
+		}
+	}
+
+	public function delete_plugin_update( $data ) {
+		unset( $data->response[ plugin_basename( __FILE__ ) ] );
+		return $data;
+	}
+
+	public function update_info_plugin( $plugin_meta, $plugin_file ) {
+		if ( plugin_basename( __FILE__ ) !== $plugin_file )
+			return $plugin_meta;
+
+			$plugin_meta[] = sprintf( '<strong>%s</strong>', __( 'Your PHP Version is not compatible with future updates, Upgrade to 5.4 or later', 'wabelang' ) );
+
+			return $plugin_meta;
 	}
 
 	public function plugin_action_links( $links, $file ) {
@@ -181,8 +202,7 @@ class WP_No_Base_Permalink {
 					}
 				}
 				$category_rewrite[$blog_prefix . '(' . $category_nicename . ')/(?:feed/)?(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
-				//$category_rewrite[$blog_prefix . '(' . $category_nicename . ')/page/?([0-9]{1,})/?$'] = 'index.php?category_name=$matches[1]&paged=$matches[2]';
-				$category_rewrite[$blog_prefix . '(' . $category_nicename . ')/?([0-9]{1,})/?$'] = 'index.php?category_name=$matches[1]&paged=$matches[2]';
+				$category_rewrite[$blog_prefix . '(' . $category_nicename . ')/page/?([0-9]{1,})/?$'] = 'index.php?category_name=$matches[1]&paged=$matches[2]';
 				$category_rewrite[$blog_prefix . '(' . $category_nicename . ')/?$'] = 'index.php?category_name=$matches[1]';
 			}
 		}
@@ -227,8 +247,7 @@ class WP_No_Base_Permalink {
 			}
 			foreach ( (array) $tags as $tag ) {
 	        	$tag_rewrite[$blog_prefix . '(' . $tag->slug . ')/(?:feed/)?(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?tag=$matches[1]&feed=$matches[2]';
-				//$tag_rewrite[$blog_prefix . '(' . $tag->slug . ')/page/?([0-9]{1,})/?$'] = 'index.php?tag=$matches[1]&paged=$matches[2]';
-				$tag_rewrite[$blog_prefix . '(' . $tag->slug . ')/?([0-9]{1,})/?$'] = 'index.php?tag=$matches[1]&paged=$matches[2]';
+				$tag_rewrite[$blog_prefix . '(' . $tag->slug . ')/page/?([0-9]{1,})/?$'] = 'index.php?tag=$matches[1]&paged=$matches[2]';
 				$tag_rewrite[$blog_prefix . '(' . $tag->slug . ')/?$'] = 'index.php?tag=$matches[1]';
 			}
 		}

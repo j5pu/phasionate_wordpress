@@ -33,6 +33,6 @@ $loop = $ultimatemember->query->make( array('post_type' => 'topic', 'post__in' =
 		
 <?php } else { ?>
 
-	<?php ( um_is_myprofile() ) ? _e('You currently have no favorite topics.','um-bbpress') : _e('This user has no favorite topics.','um-bbpress'); ?>
-
+	<div class="um-profile-note"><span><?php echo ( um_profile_id() == get_current_user_id() ) ? __('You currently have no favorite topics.','um-bbpress') : __('This user has no favorite topics.','um-bbpress'); ?></span></div>
+	
 <?php } ?>

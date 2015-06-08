@@ -22,6 +22,20 @@ class mymail_settings {
 				flush_rewrite_rules();
 				mymail_update_option('_flush_rewrite_rules', false);
 			}
+			
+			if(isset($_GET['mymail_create_homepage']) && $_GET['mymail_create_homepage']){
+				
+				include MYMAIL_DIR . 'includes/static.php';
+				
+				if($id = wp_insert_post($mymail_homepage)){
+					mymail_notice(__('Homepage created', 'mymail'), '', true);
+					mymail_update_option('homepage', $id);
+					wp_redirect('post.php?post='.$id.'&action=edit&message=10&mymail_remove_notice=mymail_no-homepage');
+					exit;
+				}
+				
+
+			}
 		}
 	
 	}
@@ -1018,6 +1032,7 @@ class mymail_settings {
 		$mail = mymail('mail');
 		$mail->to = 'deadend@newsletter-plugin.com';
 		$mail->subject = 'test';
+		$mail->debug();
 		
 		if($mail->send_notification( 'Sendtest', 'this test message can get deleted', array('notification' => ''), false )){
 			$send_success = 'OK';

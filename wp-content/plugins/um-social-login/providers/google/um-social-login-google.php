@@ -28,17 +28,17 @@ class UM_Social_Login_Google {
 	***/
 	function get_auth() {
 		global $um_social_login;
-		
-		$client = new Google_Client();
-		$client->setAccessType('offline');
-		$client->setClientId($this->client_id);
-		$client->setClientSecret($this->client_secret);
-		$client->setRedirectUri($this->redirect_uri);
-		$client->addScope("https://www.googleapis.com/auth/userinfo.profile");
-		$client->addScope("https://www.googleapis.com/auth/userinfo.email");
-		$service = new Google_Service_Oauth2($client);
 
 		if ( isset($_GET['code']) && !isset( $_GET['facebook_auth'] ) ) {
+			
+			$client = new Google_Client();
+			$client->setAccessType('offline');
+			$client->setClientId($this->client_id);
+			$client->setClientSecret($this->client_secret);
+			$client->setRedirectUri($this->redirect_uri);
+			$client->addScope("https://www.googleapis.com/auth/userinfo.profile");
+			$client->addScope("https://www.googleapis.com/auth/userinfo.email");
+			$service = new Google_Service_Oauth2($client);
 
 			if (isset($_SESSION['gplus_token']) && $_SESSION['gplus_token']) {
 				

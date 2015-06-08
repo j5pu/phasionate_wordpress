@@ -10,9 +10,9 @@
 require_once('OAuth.php');
 
 /**
- * Twitter OAuth class
+ * OAuth class
  */
-class TwitterOAuth {
+class linkedino {
 
   public $http_code;
   public $url;
@@ -41,7 +41,7 @@ class TwitterOAuth {
   function lastAPICall() { return $this->last_api_call; }
 
   /**
-   * construct TwitterOAuth object
+   * construct object
    */
   function __construct($consumer_key, $consumer_secret, $oauth_token = NULL, $oauth_token_secret = NULL) {
     $this->sha1_method = new OAuthSignatureMethod_HMAC_SHA1();

@@ -102,7 +102,7 @@ class MyMail_Subscribers_Table extends WP_List_Table {
 				return '<span class="nowrap tiny">'.mymail('subscribers')->get_status($item->{ $column_name }, true).'</span>';
 			
 			case 'signup':
-				$timestring = (!$item->{ $column_name }) ? __('unknown', 'mymail') : date_i18n(get_option('date_format').' '.get_option('time_format'), $item->{ $column_name }+(get_option('gmt_offset')*3600));
+				$timestring = (!$item->{ $column_name }) ? __('unknown', 'mymail') : date_i18n(get_option('date_format').' '.get_option('time_format'), $item->{ $column_name }+mymail('helper')->gmt_offset(true));
 				return $timestring;
 
 			

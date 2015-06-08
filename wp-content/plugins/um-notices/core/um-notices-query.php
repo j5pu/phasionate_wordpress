@@ -87,7 +87,7 @@ class UM_Notices_Query {
 					?>
 					
 					<div class="um-notices-cta">
-						<a target="_blank" href="<?php echo $meta['_um_cta_url'][0]; ?>" style="background:<?php echo $cta_bg;?>;color:<?php echo $cta_color;?>;"><?php echo $meta['_um_cta_text'][0]; ?></a>
+						<a href="<?php echo $meta['_um_cta_url'][0]; ?>" style="background:<?php echo $cta_bg;?>;color:<?php echo $cta_color;?>;"><?php echo $meta['_um_cta_text'][0]; ?></a>
 					</div>
 					
 					<?php } ?>
@@ -187,6 +187,24 @@ class UM_Notices_Query {
 					
 				}
 				
+			}
+			
+			if ( isset( $meta['_um_only_users'][0] ) && !empty( $meta['_um_only_users'][0] ) ) {
+				
+				if ( !is_user_logged_in() ) {
+					unset( $user_notices[$k] );
+				} else {
+					
+					global $current_user;
+					$users = explode(',',  $meta['_um_only_users'][0] );
+					foreach( $users as $user ) {
+						$users[] = trim($user);
+					}
+					if (!in_array( $current_user->user_login, $users ) ) {
+						unset( $user_notices[$k] );
+					}
+					
+				}
 			}
 			
 			if ( $this->user_saw_this_notice( $notice_id ) )

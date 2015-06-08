@@ -10,10 +10,14 @@
 		$user_id = $array['user_id'];
 
 		$vars['photo'] = um_get_avatar_url( get_avatar( $user_id, 40 ) );
-		$vars['mycred_points'] = ( $array['amount'] == 1 ) ? sprintf(__('%s point','um-notifications'), number_format( $array['amount'] ) ) : sprintf(__('%s points','um-notifications'), number_format( $array['amount'] ) );
+		$vars['mycred_points'] = ( $array['amount'] == 1 ) ? sprintf(__('%s point','um-notifications'), $array['amount'] ) : sprintf(__('%s points','um-notifications'), $array['amount'] );
 		$vars['mycred_task'] = preg_replace("/%[^%]*%/","",$array['entry']);
 
 		$um_notifications->api->store_notification( $user_id, 'mycred_award', $vars );
+		
+		um_reset_user();
+		
+		return $array;
 		
 	}
 	

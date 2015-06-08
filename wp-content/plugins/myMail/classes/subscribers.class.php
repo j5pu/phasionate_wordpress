@@ -98,7 +98,9 @@ class mymail_subscribers {
 
 		if ( isset( $_POST['action2'] ) && -1 != $_POST['action2'] )
 			$action = $_POST['action2'];
-		
+
+		$redirect = add_query_arg($_GET);
+
 		switch($action){
 
 			case 'delete':
@@ -112,7 +114,7 @@ class mymail_subscribers {
 						mymail_notice(sprintf(__('%d Subscribers have been removed', 'mymail'), count($_POST['subscribers'])), 'error', true);
 					}
 					
-					wp_redirect( add_query_arg($_GET) );
+					wp_redirect( $redirect );
 					exit;
 
 				}
@@ -121,7 +123,7 @@ class mymail_subscribers {
 			case 'subscribe':
 				if($count = $this->change_status($_POST['subscribers'], 1)){
 					mymail_notice(sprintf(__('%d Subscribers have been subscribed', 'mymail'), $count), 'updated', true);
-					wp_redirect( add_query_arg($_GET) );
+					wp_redirect( $redirect );
 					exit;
 				}
 				break;
@@ -129,7 +131,7 @@ class mymail_subscribers {
 			case 'unsubscribe':
 				if($count = $this->change_status($_POST['subscribers'], 2)){
 					mymail_notice(sprintf(__('%d Subscribers have been unsubscribed', 'mymail'), $count), 'error', true);
-					wp_redirect( add_query_arg($_GET) );
+					wp_redirect( $redirect );
 					exit;
 				}
 				break;
@@ -137,7 +139,7 @@ class mymail_subscribers {
 			case 'pending':
 				if($count = $this->change_status($_POST['subscribers'], 0)){
 					mymail_notice(sprintf(__('%d Subscribers have been set to pending', 'mymail'), $count), 'updated', true);
-					wp_redirect( add_query_arg($_GET) );
+					wp_redirect( $redirect );
 					exit;
 				}
 				break;
@@ -156,7 +158,7 @@ class mymail_subscribers {
 
 				if($count = $this->send_confirmations($_POST['subscribers'], true, true)){
 					mymail_notice(sprintf(__('Confirmations sent to %d pending subscribers', 'mymail'), $count), 'error', true);
-					wp_redirect( add_query_arg($_GET) );
+					wp_redirect( $redirect );
 					exit;
 				}
 				break;
@@ -167,14 +169,14 @@ class mymail_subscribers {
 					if($list = mymail('lists')->get($match[1])){
 						$this->assign_lists($_POST['subscribers'], $list->ID);
 						mymail_notice(sprintf(__('%d Subscribers added to list %s', 'mymail'), count($_POST['subscribers']), '"<a href="edit.php?post_type=newsletter&page=mymail_lists&ID='.$list->ID.'">'.$list->name.'</a>"'), 'updated', true);
-						wp_redirect( add_query_arg($_GET) );
+						wp_redirect( $redirect );
 						exit;
 					}
 				}else if(preg_match('#^remove_list_(\d+)#', $action, $match)){
 					if($list = mymail('lists')->get($match[1])){
 						$this->unassign_lists($_POST['subscribers'], $list->ID);
 						mymail_notice(sprintf(__('%d Subscribers removed from list %s', 'mymail'), count($_POST['subscribers']), '"<a href="edit.php?post_type=newsletter&page=mymail_lists&ID='.$list->ID.'">'.$list->name.'</a>"'), 'updated', true);
-						wp_redirect( add_query_arg($_GET) );
+						wp_redirect( $redirect );
 						exit;
 					}
 				}
@@ -487,7 +489,7 @@ class mymail_subscribers {
 
 		$meta = (object) $this->meta($subscriber->ID);
 		$timeformat = get_option('date_format').' '.get_option('time_format');
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		if($meta->referer) : 
 
@@ -815,7 +817,7 @@ class mymail_subscribers {
 
 		$subscriber_ids = !is_array($subscriber_ids) ? array(intval($subscriber_ids)) : array_filter($subscriber_ids, 'is_numeric');
 		if(!is_array($lists)) $lists = array(intval($lists));
-			
+
 		if($remove_old) $this->unassign_lists($subscriber_ids, NULL, $lists);
 
 		return mymail('lists')->assign_subscribers($lists, $subscriber_ids);
@@ -830,11 +832,11 @@ class mymail_subscribers {
 
 		$sql = "DELETE FROM {$wpdb->prefix}mymail_lists_subscribers WHERE subscriber_id IN (".implode(', ', $subscriber_ids).")";
 
-		if(!is_null($lists)){
+		if(!is_null($lists) && !empty($lists)){
 			if(!is_array($lists)) $lists = array($lists);
 			$sql .= " AND list_id IN (".implode(', ', array_filter($lists, 'is_numeric')).")";
 		}
-		if(!is_null($not_list)){
+		if(!is_null($not_list) && !empty($not_list)){
 			if(!is_array($not_list)) $not_list = array($not_list);
 			$sql .= " AND list_id NOT IN (".implode(', ', array_filter($not_list, 'is_numeric')).")";
 		}
@@ -1381,7 +1383,7 @@ class mymail_subscribers {
 		$subscriber = $this->get($id, true);
 
 		$timeformat = get_option('date_format') . ' ' . get_option('time_format');
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		$actions = (object) mymail('actions')->get_campaign_actions($campaign_id, $id, NULL, false);
 
@@ -1819,7 +1821,7 @@ class mymail_subscribers {
 		if(is_null($timestamps)) $timestamps = time();
 
 		$subscriber_ids = array_filter($subscriber_ids, 'is_numeric');
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		if(empty($subscriber_ids)) return array();
 

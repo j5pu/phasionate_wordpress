@@ -105,8 +105,10 @@ class mymail_template {
 		$doc = new DOMDocument();
 		$doc->validateOnParse = true;
 		$doc->formatOutput = true;
+
+		$data = file_get_contents($file);
 		
-		@$doc->loadHTMLFile($file);
+		@$doc->loadHTML($data);
 		
 		$doc = $this->new_template_language($doc);
 		
@@ -739,47 +741,6 @@ class mymail_template {
 	
 	
 
-	/*----------------------------------------------------------------------*/
-	/* Other
-	/*----------------------------------------------------------------------*/
-	
-	
-public function get_screenshot_OLD( $slug, $file = 'index.html', $size = 300 ) {
-	
-		global $wp_filesystem;
-
-		$fileuri = $this->url .'/'.$slug.'/'.$file;
-		$screenshotfile = MYMAIL_UPLOAD_DIR.'/screenshots/'.$slug.'_'.$file.'.jpg';
-		$screenshoturi = MYMAIL_UPLOAD_URI.'/screenshots/'.$slug.'_'.$file.'.jpg';
-		$file = $this->path .'/'.$slug.'/'.$file;
-		
-		//serve saved
-		if(file_exists($screenshotfile) && file_exists($file) && filemtime($file) < filemtime($screenshotfile)){
-			$url = $screenshoturi.'?c='.filemtime($screenshotfile);
-		}else if(!file_exists($file) || substr($_SERVER['REMOTE_ADDR'], 0, 4) == '127.' || $_SERVER['REMOTE_ADDR'] == '::1'){
-			$url = 'http://s.wordpress.com/wp-content/plugins/mshots/default.gif';
-		}else{
-			$url = 'http://s.wordpress.com/mshots/v1/'.(rawurlencode($fileuri.'?c='.md5_file($file))).'?w='.$size;
-			
-			$remote = wp_remote_get($url, array('redirection' => 0));
-			
-			if(wp_remote_retrieve_response_code($remote) == 200){
-
-				$data = wp_remote_retrieve_body($remote);
-
-				mymail_require_filesystem();
-				
-				if(!is_dir( dirname($screenshotfile) )) wp_mkdir_p( dirname($screenshotfile) ) ;
-				
-				$wp_filesystem->put_contents($screenshotfile, wp_remote_retrieve_body($remote), false );
-			}
-			
-		}
-		return $url;
-	}
-	
-	
-	
 	
 	
 	public function copy_templates() {

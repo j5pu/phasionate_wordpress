@@ -3,7 +3,7 @@
 Plugin Name: Ultimate Member - Social Login
 Plugin URI: http://ultimatemember.com/
 Description: Social registration and login for Ultimate Member plugin.
-Version: 1.1.6
+Version: 1.1.9
 Author: Ultimate Member
 Author URI: http://ultimatemember.com/
 */
@@ -44,7 +44,7 @@ Author URI: http://ultimatemember.com/
 		$product = 'Social Login';
 		$license_key = trim( um_get_option( $item_key ) );
 		$edd_updater = new EDD_SL_Plugin_Updater( 'https://ultimatemember.com/', __FILE__, array( 
-				'version' 	=> '1.1.6',
+				'version' 	=> '1.1.9',
 				'license' 	=> $license_key,
 				'item_name' => $product,
 				'author' 	=> 'Ultimate Member'

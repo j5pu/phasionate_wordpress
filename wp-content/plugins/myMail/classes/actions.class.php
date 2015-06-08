@@ -606,7 +606,7 @@ class mymail_actions {
 
 		if(false === ($actions = wp_cache_get( 'chronological_actions_'.$scale.$since.$desc, 'mymail' ))){
 			
-			$timeoffset = get_option('gmt_offset')*3600;
+			$timeoffset = mymail('helper')->gmt_offset(true);
 			$default = array(
 				'sent' => 0,
 				'opens' => 0,

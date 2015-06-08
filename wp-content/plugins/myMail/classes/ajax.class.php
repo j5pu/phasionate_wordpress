@@ -207,7 +207,6 @@ class mymail_ajax {
 		$this->ajax_nonce('not allowed');
 		
 		@error_reporting(0);
-		//
 
 		$id = intval($_GET['id']);
 		$template = $_GET['template'];
@@ -276,9 +275,13 @@ class mymail_ajax {
 			$placeholder->share_service(get_permalink($campaign->ID), $campaign->post_title);
 
 			$html = $placeholder->get_content(false);
-			
 		}
 
+		$replace = apply_filters('mymail_get_template_replace', array(
+			'http://dummy.newsletter-plugin.com' => 'https://dummy.newsletter-plugin.com',
+		));
+
+		$html = strtr($html, $replace);
 		echo $html;
 		
 		exit;
@@ -428,10 +431,18 @@ class mymail_ajax {
 			$to = esc_attr($_POST['to']);
 
 			$n = mymail('notification');
+			$n->debug();
 			$n->to($to);
 			$n->template('test');
 			$n->requeue(false);
+
 			$return['success'] = $n->add();
+			
+			global $mymail_error_log;
+
+			$return['log'] = $mymail_error_log;
+
+
 			
 			//$return['success'] = $mail->sendtest($to);
 			//$return['success'] = mymail('notification')->add('test');
@@ -570,7 +581,7 @@ class mymail_ajax {
 			$mail->close();
 		}
 
-		$return['msg'] = (isset($return['msg'])) ? $return['msg'] : (($return['success']) ? __('Message sent. Check your inbox!', 'mymail') : ($mail->sentlimitreached ? sprintf(__('Sent limit of %1$s reached! You have to wait %2$s before you can send more mails!', 'mymail'), '<strong>'.$mail->send_limit.'</strong>', '<strong>'.human_time_diff(get_option('_transient_timeout__mymail_send_period_timeout')).'</strong>') : __('Couldn\'t send message. Check your settings!', 'mymail').$mail->get_errors('br')));
+		$return['msg'] = (isset($return['msg'])) ? $return['msg'] : (($return['success']) ? __('Message sent. Check your inbox!', 'mymail') : ($mail->sentlimitreached ? sprintf(__('Sent limit of %1$s reached! You have to wait %2$s before you can send more mails!', 'mymail'), '<strong>'.$mail->send_limit.'</strong>', '<strong>'.human_time_diff(get_option('_transient_timeout__mymail_send_period_timeout')).'</strong>') : __('Couldn\'t send message. Check your settings!', 'mymail').'<strong>'.$mail->get_errors('br').'</strong>'.($return['log'] ? '<br>'.__('Check your console for more info.', 'mymail') : '')));
 		
 		@header( 'Content-type: application/json' );
 		echo json_encode($return);
@@ -743,7 +754,7 @@ class mymail_ajax {
 		$this->ajax_nonce(json_encode($return));
 
 		$timeformat = get_option('date_format').' '.get_option('time_format');
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		$campaign_ID = (int) $_POST['id'];
 		
@@ -959,7 +970,8 @@ class mymail_ajax {
 		imagefilledrectangle($im, 0, 0, $width, $height, $bg);
 		
 		if(function_exists( 'imagettftext' )){
-		
+
+
 			$bbox = imagettfbbox($font_size, 0, $font, $text);
 			
 			$center_x = $bbox[0] + (imagesx($im) / 2) - ($bbox[4] / 2);
@@ -1031,16 +1043,20 @@ class mymail_ajax {
 			if($post_type == 'post'){
 				parse_str($_POST['posttypes']);
 				
-				$post_types = isset($post_types) ? $post_types : array('___');
+				$post_types = isset($post_types) ? (array) $post_types : array(-1);
 				
 				$args = wp_parse_args(array(
 					'post_type' => $post_types,
 					'post_status' => array('publish', 'future'),
 				), $defaults);
+
+				$post_counts = 0;
+				foreach ($post_types as $type) {
+					$counts = wp_count_posts($type);
+					$post_counts += $counts->publish+$counts->future;
+				}
 				
-				$post_counts = wp_count_posts($post_type);
-				$post_counts = $post_counts->publish+$post_counts->future;
-				
+		
 			}else{
 			
 				$args = wp_parse_args(array(
@@ -1328,8 +1344,7 @@ class mymail_ajax {
 				$return['content'] = preg_replace(array('/class=".*?"/', '/id=".*?"/', '/style=".*?"/'), '', $return['content']);
 				$return['content'] = str_replace('<img ', '<img editable ', $return['content']);
 				$return['excerpt'] = preg_replace(array('/class=".*?"/', '/id=".*?"/', '/style=".*?"/'), '', $return['excerpt']);
-				
-			
+
 			}
 		}
 
@@ -1792,6 +1807,8 @@ class mymail_ajax {
 	
 	private function get_system_info(){
 		
+		global $mymail_error_log;
+
 		$return['success'] = false;
 		$return['msg'] = 'You have no permission to access the stats';
 		
@@ -1819,6 +1836,7 @@ class mymail_ajax {
 		$output .= "### End System Info ###\n";
 		
 		$return['msg'] = $output;
+		$return['log'] = $mymail_error_log;
 		
 		@header( 'Content-type: application/json' );
 		echo json_encode($return);

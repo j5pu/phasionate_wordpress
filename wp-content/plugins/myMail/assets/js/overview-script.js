@@ -107,38 +107,6 @@ jQuery(document).ready(function ($) {
 	wp.heartbeat.interval( 'fast' );
 	if(wp.heartbeat.connectNow) wp.heartbeat.connectNow();
 
-	function _ajax(action, data, callback, errorCallback){
-
-		if($.isFunction(data)){
-			if($.isFunction(callback)){
-				errorCallback = callback;
-			}
-			callback = data;
-			data = {};
-		}
-		$.ajax({
-			type: 'POST',
-			url: ajaxurl,
-			data: $.extend({action: 'mymail_'+action, _wpnonce:wpnonce}, data),
-			success: function(data, textStatus, jqXHR){
-					callback && callback.call(this, data, textStatus, jqXHR);
-				},
-			error: function(jqXHR, textStatus, errorThrown){
-					if(textStatus == 'error' && !errorThrown) return;
-					if(console) console.error($.trim(jqXHR.responseText));
-					errorCallback && errorCallback.call(this, jqXHR, textStatus, errorThrown);
-				},
-			dataType: "JSON"
-		});
-	}
-
-	function sprintf() {
-		var a = Array.prototype.slice.call(arguments),
-			str = a.shift();
-		while (a.length) str = str.replace('%s', a.shift());
-		return str;
-	}
-
 });
 
 

@@ -4879,7 +4879,7 @@ msgstr ""
 
 #: classes/cron.class.php:171
 msgid "cron settings"
-msgstr ""
+msgstr "Ajustes de Agendamento"
 
 #: classes/form.class.php:391
 msgid "Session expired! Please click the link in your email again!"

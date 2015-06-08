@@ -1,6 +1,6 @@
 <?php
 
-	add_action('um_pre_profile_shortcode', 'um_notification_log_view');
+	add_action('um_before_profile_fields', 'um_notification_log_view', 100);
 	function um_notification_log_view( $args ) {
 		global $um_notifications;
 		

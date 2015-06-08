@@ -9,6 +9,24 @@ if ( !is_object( $phpmailer ) || !is_a( $phpmailer, 'PHPMailer' ) ) {
 	$phpmailer = new PHPMailer( true );
 }
 
+class mymail_SMTP extends SMTP {
+
+	protected function edebug($str) {
+
+		global $mymail_error_log;
+
+		switch ($this->Debugoutput) {
+			case 'mymail':
+		   		$mymail_error_log .= trim($str)."\n";
+				break;
+			default:
+				parent::edebug($str);
+		}
+	}
+
+
+}
+
 //this class extends PHPMailer and offers some fixes
 class mymail_mail_helper extends PHPMailer {
 
@@ -25,6 +43,13 @@ class mymail_mail_helper extends PHPMailer {
 		parent::__construct( $exceptions );
 	}
 	
+	public function getSMTPInstance() {
+		if (!is_object($this->smtp)) {
+			$this->smtp = new mymail_SMTP;
+		}
+		return $this->smtp;
+	}
+
 	public static function ValidateAddress($address, $patternselect = 'auto') {
 		return mymail_is_email($address);
 	}

@@ -46,17 +46,17 @@ class UM_Social_Login_LinkedIn {
 					
 					// get access token
 					$access_token = $_SESSION['li_access_token'];
-					$connection = new TwitterOAuth( $this->api_key, $this->api_secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
+					$connection = new linkedino( $this->api_key, $this->api_secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
 
 				} else {
 					
-					$connection = new TwitterOAuth( $this->api_key, $this->api_secret, $request_token['oauth_token'], $request_token['oauth_token_secret']);
+					$connection = new linkedino( $this->api_key, $this->api_secret, $request_token['oauth_token'], $request_token['oauth_token_secret']);
 					$access_token = $connection->getAccessToken( $_REQUEST['oauth_verifier'] );
 					$_SESSION['li_access_token'] = $access_token;
 					
 					// get access token
 					$access_token = $_SESSION['li_access_token'];
-					$connection = new TwitterOAuth( $this->api_key, $this->api_secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
+					$connection = new linkedino( $this->api_key, $this->api_secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
 
 				}
 				
@@ -106,7 +106,7 @@ class UM_Social_Login_LinkedIn {
 	function login_url() {
 		global $ultimatemember;
 		
-		$connection = new TwitterOAuth( $this->api_key, $this->api_secret );
+		$connection = new linkedino( $this->api_key, $this->api_secret );
 		$request_token = $connection->getRequestToken( $this->oauth_callback );
 		
 		if ( isset( $request_token['oauth_token'] ) ) {

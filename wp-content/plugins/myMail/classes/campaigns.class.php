@@ -12,6 +12,16 @@ class mymail_campaigns {
 		add_action('init', array( &$this, 'register_post_type'));
 		add_action('init', array( &$this, 'register_post_status'));
 
+		if($hooks = get_option('mymail_hooks', array())){
+
+			add_action('mymail_autoresponder_hook', array( &$this, 'autoresponder_hook'), 10, 2);
+			
+			foreach ($hooks as $campaign_id => $hook) {
+				if($hook) add_action( $hook, array( &$this, 'autoresponder_hook_'.$campaign_id ), 10, 5);
+			}
+
+		}
+
 	}
 
 
@@ -71,16 +81,6 @@ class mymail_campaigns {
 			}
 		}
 
-		if($hooks = get_option('mymail_hooks', array())){
-		
-			add_action('mymail_autoresponder_hook', array( &$this, 'autoresponder_hook'), 10, 2);
-			
-			foreach ($hooks as $campaign_id => $hook) {
-				add_action( $hook, array( &$this, 'autoresponder_hook_'.$campaign_id ), 10, 5);
-			}
-
-		}
-
 
 	}
 
@@ -103,7 +103,7 @@ class mymail_campaigns {
 
 		if(!$meta['active'] || $meta['autoresponder']['action'] != 'mymail_autoresponder_hook') return;
 
-		$all_subscribers = $this->get_subscribers($campaign_id, NULL, true, isset($meta['autoresponder']['once']));
+		$all_subscribers = $this->get_subscribers($campaign_id, NULL, true, (bool) $meta['autoresponder']['once']);
 
 		$subscribers = empty($subscriber_ids)
 		 	? $all_subscribers
@@ -113,6 +113,7 @@ class mymail_campaigns {
 
 		$priority = $meta['autoresponder']['priority'];
 
+		//mymail('queue')->remove($campaign_id, $subscribers);
 		mymail('queue')->bulk_add($campaign_id, $subscribers, $timestamp, $priority, false, false, true);
 
 	}
@@ -447,7 +448,7 @@ class mymail_campaigns {
 		switch ($post->post_status) {
 			case 'finished':
 				$timeformat = get_option('date_format') . ' ' . get_option('time_format');
-				$timeoffset = get_option('gmt_offset')*3600;
+				$timeoffset = mymail('helper')->gmt_offset(true);
 				$msg = sprintf(__('This Campaign was sent on %s', 'mymail'), '<span class="nowrap">'.date($timeformat, $this->meta($post->ID, 'finished')+$timeoffset).'</span>');
 				break;
 			case 'queued':
@@ -494,8 +495,6 @@ class mymail_campaigns {
 	}
 
 
-	// COLUMNS
-	
 	public function columns($columns) {
 		
 		global $post;
@@ -590,7 +589,7 @@ class mymail_campaigns {
 		case "status":
 		
 			$timestamp = isset($meta['timestamp']) ? $meta['timestamp'] : $now;
-			$timeoffset = get_option('gmt_offset')*3600;
+			$timeoffset = mymail('helper')->gmt_offset(true);
 
 			if (!in_array($post->post_status, array('pending', 'auto-draft'))) {
 			
@@ -1203,7 +1202,7 @@ class mymail_campaigns {
 			return $post;
 		}
 
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 		$now = time();
 
 		//activate kses filter
@@ -1750,7 +1749,7 @@ class mymail_campaigns {
 		$id = $post->ID;
 
 		$now = time();
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 
 		$lists = $this->get_lists($post->ID, true);
 		$meta = $this->meta($post->ID);
@@ -1784,12 +1783,18 @@ class mymail_campaigns {
 
 		$placeholder->set_content($meta['subject']);
 		$meta['subject'] = $placeholder->get_content(false, array(), true);
+		
+		$placeholder->set_content($meta['preheader']);
+		$meta['preheader'] = $placeholder->get_content(false, array(), true);
+		
+		$placeholder->set_content($meta['from_name']);
+		$meta['from_name'] = $placeholder->get_content(false, array(), true);
 
 		remove_action('save_post', array( &$this, 'save_campaign'), 10, 3);
 		kses_remove_filters();
 		
 		$new_id = wp_insert_post($post);
-		
+	
 		kses_init_filters();
 		add_action('save_post', array( &$this, 'save_campaign'), 10, 3);
 		
@@ -2565,7 +2570,7 @@ class mymail_campaigns {
 		$count = 0;
 		
 		$timeformat = get_option('date_format') . ' ' . get_option('time_format');
-		$timeoffset = get_option('gmt_offset')*3600;
+		$timeoffset = mymail('helper')->gmt_offset(true);
 				
 		$subscribers_count = count($subscribers);
 		
@@ -2992,15 +2997,18 @@ class mymail_campaigns {
 					if(isset($meta['terms'])){
 						
 						$pass = true;
-						
+
 						foreach($meta['terms'] as $taxonomy => $term_ids){
 							//ignore "any taxonomy"
 							if($term_ids[0] == '-1') continue;
 
 							$post_terms = get_the_terms ( $post->ID, $taxonomy );
-							
-							//no post_terms set but required => give up
-							if(!$post_terms) continue;
+
+							//no post_terms set but required => give up (not passed)
+							if(!$post_terms){
+								$pass = false;
+								break;
+							}
 							
 							$pass = $pass && !!count(array_intersect(wp_list_pluck($post_terms, 'term_id'), $term_ids));
 							
@@ -3208,7 +3216,7 @@ class mymail_campaigns {
 		
 		$head = isset($data['head']) ? $data['head'] : NULL;
 	
-		return $this->sanitize_content($content, NULL, NULL, $head);
+		return mymail()->sanitize_content($content, NULL, NULL, $head);
 	}
 
 	public function remove_revisions($post_id) {

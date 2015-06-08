@@ -30,7 +30,7 @@
 /* No shortcode css */
 
 .um-notices-wrap.no-shortcode {
-	padding: 20px;
+	padding: 10px 20px;
 	margin: 0 !important;
 	background: #f1f1f1;
 	color: #666;
@@ -71,11 +71,11 @@
 
 .um-notices-close {
 	position: absolute;
-	right: 1px;
-	top: -10px;
-	color: #666;
+	right: 3px;
+	top: -4px;
+	color: #999;
 	text-decoration: none !important;
-	font-size: 11px;
+	font-size: 10px;
 }
 .um-notices-close:focus {outline: 0 !important}
 
@@ -83,7 +83,7 @@
 
 .um-notices-cta {
 	display: block;
-	margin: 10px 0 0 0;
+	margin: 10px 0 5px 0;
 }
 
 .um-notices-cta a {

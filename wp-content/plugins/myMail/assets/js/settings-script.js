@@ -56,6 +56,9 @@ jQuery(document).ready(function($) {
 		if(hash == '#system_info'){
 			var textarea = $('#system_info_content').val(mymailL10n.loading+'...');
 			_ajax('get_system_info', function(response){
+				
+				if(response.log && console)
+					console.log(response.log);
 				textarea.val(response.msg);
 			});
 		}
@@ -216,6 +219,9 @@ jQuery(document).ready(function($) {
 			to: to
 			
 		}, function(response){
+
+			if(response.log && console)
+				response.success ? console.log(response.log) : console.error(response.log);
 		
 			loader.css({'visibility':'hidden'});
 			$this.prop('disabled', false);

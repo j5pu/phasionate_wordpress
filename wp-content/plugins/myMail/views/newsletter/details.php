@@ -1,13 +1,10 @@
 <?php 
-/*
-	$editable = !in_array($post->post_status, array('active', 'finished', 'autoresponder'));
-	if(empty($this->post_data['active_autoresponder'])) $editable = true;
-*/
+
 	$editable = !in_array($post->post_status, array('active', 'finished'));
 	if(isset($_GET['showstats']) && $_GET['showstats']) $editable = false;
 	
 	$timeformat = get_option('date_format').' '.get_option('time_format');
-	$timeoffset = get_option('gmt_offset')*3600;
+	$timeoffset = mymail('helper')->gmt_offset(true);
 
 ?>
 

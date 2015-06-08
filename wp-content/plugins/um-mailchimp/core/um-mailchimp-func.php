@@ -50,6 +50,12 @@ class UM_Mailchimp_Func {
 				um_fetch_user( $user_id );
 				$email = um_user('user_email');
 				
+				foreach( $merge_vars as $key => $val ) {
+					if ( is_array( $val ) ) {
+						$merge_vars[$key] = implode(', ', $val );
+					}
+				}
+				
 				$api->call('lists/update-member',  array(
 						'id'                => $list_id,
 						'email'             => array( 'email' => $email ),
@@ -97,6 +103,12 @@ class UM_Mailchimp_Func {
 			
 				um_fetch_user( $user_id );
 				$email = um_user('user_email');
+				
+				foreach( $merge_vars as $key => $val ) {
+					if ( is_array( $val ) ) {
+						$merge_vars[$key] = implode(', ', $val );
+					}
+				}
 				
 				$api->call('lists/subscribe',  array(
 						'id'                => $list_id,

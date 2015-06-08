@@ -163,6 +163,15 @@ class mymail_mail {
 	}
 
 
+	public function debug($level = 2, $output = 'mymail') {
+
+		if ($this->mailer && $this->mailer->Mailer == 'smtp') {
+			$this->mailer->SMTPDebug = $level; // 0 = off, 1 = commands, 2 = commands and data
+			$this->mailer->Debugoutput = $output; // Options: "echo", "html" or "error_log";
+		}
+	}
+
+
 	public function __destruct() {
 	
 		$this->close();

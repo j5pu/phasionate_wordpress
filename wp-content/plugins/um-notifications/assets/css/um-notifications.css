@@ -24,6 +24,7 @@
 	display: block;
 	float: left;
 	padding-left: 12px;
+	border-bottom: none !important;
 }
 
 .um-notification-i-close {display: none}
@@ -138,7 +139,7 @@
 }
 
 .um-notification-hide a,
-.um-notification-hide i {text-decoration: none !important}
+.um-notification-hide i {text-decoration: none !important; border-bottom: none !important;}
 
 .um-notification-hide a {color: #ccc}
 .um-notification-hide a:hover {color: #888}

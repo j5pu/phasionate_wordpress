@@ -69,6 +69,7 @@
 		$user_id = um_user('ID');
 		
 		$lists = $um_mailchimp->api->has_lists();
+		$user_lists = get_user_meta( $user_id, '_mylists', true );
 		
 		if ( $lists ) {
 			
@@ -80,8 +81,7 @@
 					}
 					
 				} else {
-					
-					$user_lists = get_user_meta( $user_id, '_mylists', true );
+
 					if ( isset( $user_lists[$list['id']] ) ) { // must be a subscriber to unsubscribe
 						$um_mailchimp->api->unsubscribe( $list['id'] );
 					}
@@ -89,6 +89,13 @@
 				}
 			}
 			
+			$um_mailchimp->api->user_id = $user_id;
+			foreach( $lists as $post_id ) { $list = $um_mailchimp->api->fetch_list($post_id);
+				if ( isset( $user_lists[$list['id']] ) ) {
+					$um_mailchimp->api->update( $list['id'], $list['merge_vars'] );
+				}
+			}
+			
 		}
-		
+
 	}

@@ -335,7 +335,11 @@ if($old_version){
 	case '2.0.18':
 	case '2.0.19':
 	case '2.0.20':
+	case '2.0.21':
+	case '2.0.22':
+	case '2.0.23':
 
+		update_option( 'updatecenter_plugins', array() );
 
 	default:
 

@@ -2,10 +2,10 @@
 Contributors: revaxarts
 Tags: mymail, newsletter, email, revaxarts 
 Requires at least: 3.3
-Tested up to: 4.1
-Stable tag: 2.0.22
+Tested up to: 4.2.2
+Stable tag: 2.0.24
 Author: revaxarts.com
-Author URI: http://revaxarts.com
+Author URI: https://revaxarts.com
 
 == Description ==
 
@@ -167,6 +167,30 @@ https://wordpress.org/plugins/mymail-multi-smtp/
 
 
 == Changelog ==
+
+= Version 2.0.24 =
+
+* improved: visual clarity in receivers condition
+* updated: welcome page
+* fixed: ajax update of plugin in list view (WP 4.2+)
+* fixed: invisible plain text textarea
+* fixed: welcome mail not empty anymore
+* fixed: {issue} tag now works in placeholder and from name
+* fixed: autoresponder with post tags get populated even if no post tags were applied
+* fixed: issue with custom hook autoresponders only get sent once
+* fixed: wrong redirection after bulk action in subscribers and list view
+* fixed: autoresponder are triggered more than once in rare cases
+* fixed: database tables were not created on plugin activation
+* added: debug info for test mails via SMTP
+
+= Version 2.0.23 =
+
+* improved: handling of timezones with names of locations instead of offset
+* fixed: issue with WP 4.2.2
+* fixed: images of RSS feeds now display correctly again
+* fixed: profile update with non selected lists works
+* fixed: removed unwanted classes from images in the editor causing breaking the responsiveness in some third party templates
+* fixed: issue in editor with third party templates
 
 = Version 2.0.22 =
 
@@ -965,4 +989,3 @@ Five month of development brought an even better version of the famous Newslette
 
 * Initial Release
 
-2670

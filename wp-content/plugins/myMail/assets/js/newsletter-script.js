@@ -584,6 +584,11 @@ jQuery(document).ready(function ($) {
 				$('#list-checkboxes').each(function(){
 					(checked) ? $(this).slideUp(200) : $(this).slideDown(200);
 				}).find('input.list').eq(0).trigger('change');
+			
+			}).on('change', '#mymail_list_operator', function () {
+				$('#mymail_list_conditions')
+				.removeClass('operator-is-OR operator-is-AND')
+				.addClass('operator-is-'+$(this).val());
 
 			});
 
@@ -1029,8 +1034,6 @@ jQuery(document).ready(function ($) {
 						if(region.match(/-/)) return false;
 						
 						options['region'] = region;
-
-						console.log(response.unknown_cities, response);
 
 						(response.unknown_cities[region])
 							? $('#mapinfo').show().html('+ '+response.unknown_cities[region]+' unknown locations')
@@ -1845,7 +1848,7 @@ jQuery(document).ready(function ($) {
 					w = current.element.width(),
 					h = Math.round(w/1.6),
 					img = $('<img>', {
-						'src': 'http://dummy.newsletter-plugin.com/'+(w*f)+'x'+(h*f)+'.jpg',
+						'src': 'https://dummy.newsletter-plugin.com/'+(w*f)+'x'+(h*f)+'.jpg',
 						'alt': current.content,
 						'title': current.content,
 						'label': current.content,
@@ -2239,7 +2242,7 @@ jQuery(document).ready(function ($) {
 								var width = imgelement.width();
 								
 								imgelement.removeAttr('height').removeAttr('data-id').attr({
-									'src': dynamicImage(currenttext.image, width),
+									'src': dynamicImage(currenttext.image.src, width),
 									'width': width,
 									'alt' : currenttext.title
 								}).removeData('id');

@@ -3,7 +3,7 @@
 	/***
 	***	@show mailchimp lists in account
 	***/
-	add_filter('um_account_content_hook_notifications', 'um_mailchimp_account_tab');
+	add_filter('um_account_content_hook_notifications', 'um_mailchimp_account_tab', 100 );
 	function um_mailchimp_account_tab( $output ){
 		global $um_mailchimp;
 		

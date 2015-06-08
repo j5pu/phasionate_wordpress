@@ -409,6 +409,9 @@ class mymail_placeholder {
 							case 'linkedin':
 								$replace_to = $this->get_social_service($what, get_permalink($post->ID), get_the_title($post->ID));
 								break;
+							case 'image':
+								$replace_to = '['.(sprintf(__('use the tag %s as url in the editbar', 'mymail'), '"'.$hits[1][$i].'"')).']';
+								break;
 							default:
 								$replace_to = isset($post->{'post_'.$what})
 									? $post->{'post_'.$what}
@@ -506,6 +509,9 @@ class mymail_placeholder {
 						case 'google':
 						case 'linkedin':
 							$replace_to = $this->get_social_service($what, get_permalink($post->ID), get_the_title($post->ID));
+							break;
+						case 'image':
+							$replace_to = '['.(sprintf(__('use the tag %s as url in the editbar', 'mymail'), '"'.$hits[1][$i].'"')).']';
 							break;
 						default:
 							$replace_to = isset($post->{'post_'.$what})
@@ -605,6 +611,9 @@ class mymail_placeholder {
 						case 'google':
 						case 'linkedin':
 							$replace_to = $this->get_social_service($what, get_permalink($post->ID), get_the_title($post->ID));
+							break;
+						case 'image':
+							$replace_to = '['.(sprintf(__('use the tag %s as url in the editbar', 'mymail'), '"'.$hits[1][$i].'"')).']';
 							break;
 						default:
 							$replace_to = isset($post->{'post_'.$what})

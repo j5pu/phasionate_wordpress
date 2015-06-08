@@ -3,7 +3,7 @@
 class UM_Notifications_Main_API {
 
 	function __construct() {
-
+		
 	}
 	
 	function user_enabled( $key, $user_id ) {
@@ -83,6 +83,8 @@ class UM_Notifications_Main_API {
 		);
 		}
 		
+		$array = apply_filters('um_notifications_core_log_types', $array );
+		
 		return $array;
 		
 	}
@@ -99,6 +101,10 @@ class UM_Notifications_Main_API {
 		$output = null;
 		switch( $type ) {
 			
+			default:
+				$output = apply_filters('um_notifications_get_icon', $output, $type );
+				break;
+				
 			case 'user_comment':
 			case 'guest_comment':
 				$output = '<i class="um-faicon-comment" style="color: #DB6CD2"></i>';
@@ -174,6 +180,8 @@ class UM_Notifications_Main_API {
 		
 		global $wpdb;
 		
+		$url = null;
+		
 		// Check if user opted-in
 		if ( !$this->user_enabled( $type, $user_id ) ) return;
 		
@@ -207,7 +215,8 @@ class UM_Notifications_Main_API {
 					$table_name,
 					array(
 						'status' 	=> 'unread',
-						'time' => current_time( 'mysql' ), 
+						'time' 		=> current_time( 'mysql' ),
+						'url'		=> $url
 					),
 					array( 
 						'user' 		=> $user_id,
@@ -219,6 +228,7 @@ class UM_Notifications_Main_API {
 		}
 		
 		if ( isset( $do_not_insert ) ) return;
+
 		$wpdb->insert( 
 			$table_name, 
 			array( 

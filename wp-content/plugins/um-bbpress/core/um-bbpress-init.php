@@ -43,9 +43,9 @@ class UM_bbPress_API {
 	***/
 	function add_notice( $msg ) {
 		
-		if ( !is_admin() ) return;
+		if ( !is_admin() || ( defined('DOING_AJAX') && DOING_AJAX ) ) return;
 		
-		echo '<div class="error"><p>' . $msg . '</p></div>';
+		echo '<div class="error um-admin-notice"><p>' . $msg . '</p></div>';
 		
 	}
 	

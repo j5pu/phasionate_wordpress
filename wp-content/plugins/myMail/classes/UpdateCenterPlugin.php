@@ -13,6 +13,7 @@ class UpdateCenterPlugin {
 		'no_license' => 'Licensecode missing!',
 		'invalid_license' => 'Licensecode invalid!',
 		'license_in_use' => 'Licensecode already in use!',
+		'license_expired' => 'License expired!',
 	);
 	
 	private static $_instance = null;
@@ -76,7 +77,7 @@ class UpdateCenterPlugin {
 		add_filter( 'auto_update_plugin', array( &$this, 'auto_update' ), 10, 2 );
 		
 		add_filter( 'http_request_args', array( &$this, 'http_request_args' ), 100, 2 );
-		
+
 	}
 	
 	public function init() {
@@ -88,13 +89,16 @@ class UpdateCenterPlugin {
 			$wp_header_to_desc[678] = self::$status['no_license'];
 			$wp_header_to_desc[679] = self::$status['invalid_license'];
 			$wp_header_to_desc[680] = self::$status['license_in_use'];
+			$wp_header_to_desc[681] = self::$status['license_expired'];
 		
 			if($pagenow == 'update-core.php'){
 				
 				//force check on the updates page
 				do_action( 'updatecenterplugin_check' );
 				add_filter( 'plugins_api',  array( &$this, 'plugins_api' ), 10, 3);
-	
+
+				do_action('my_trigger_hook');
+
 			}else if($pagenow == 'plugin-install.php'){
 			
 				if(isset($_GET['plugin']) && in_array($_GET['plugin'], array_keys(self::$plugin_data))){
@@ -124,19 +128,34 @@ class UpdateCenterPlugin {
 	}
 	
 	public function admin_notices() {
-		if(current_user_can('update_plugins')){
-			foreach(self::$plugins as $slug => $data){
-				if(empty($data->admin_notice) || version_compare($data->new_version, $data->version, '<=')) continue;
-				$nonce = wp_create_nonce('upgrade-plugin_' . $slug);
-				$notice = str_replace(
+
+		if(!current_user_can('update_plugins')) return;
+
+		foreach(self::$plugins as $slug => $data){
+			
+			$notices = array();
+			
+			if(isset($data->admin_notices)){
+				foreach ($data->admin_notices as $version => $notice) {
+					if(version_compare($version, $data->version, '<=')) continue;
+					$notices[] = stripslashes($notice);
+
+				}
+			}else if(!empty($data->admin_notice) && version_compare($data->version, $data->new_version, '<=')){
+				$notices[] = stripslashes($data->admin_notice);
+			}
+			
+			if(empty($notices)) continue;
+
+			$nonce = wp_create_nonce('upgrade-plugin_' . $slug);
+			foreach ($notices as $notice) {
+				echo '<div class="update-nag">'.str_replace(
 						array('%%updateurl%%'),
 						array(admin_url('update.php?action=upgrade-plugin&plugin='.urlencode( $slug ).'&_wpnonce='.$nonce)),
-						$data->admin_notice
-				);
-				
-				echo '<div class="update-nag">'.$notice.'</div>';
+						$notice.'</div>');
 			}
 		}
+
 	}
 	
 	public function auto_update($update, $item) {
@@ -191,6 +210,7 @@ class UpdateCenterPlugin {
 					$wp_header_to_desc[678] = self::$plugin_data[$slug]->status['no_license'];
 					$wp_header_to_desc[679] = self::$plugin_data[$slug]->status['invalid_license'];
 					$wp_header_to_desc[680] = self::$plugin_data[$slug]->status['license_in_use'];
+					$wp_header_to_desc[681] = self::$plugin_data[$slug]->status['license_expired'];
 				}
 				return $r;
 			}
@@ -245,11 +265,11 @@ class UpdateCenterPlugin {
 	
 		if(did_action('updatecenterplugin_check') > 1) return;
 		
-		//get the actuall version
+		//get the actual version
 		foreach(self::$plugin_data as $slug => $plugin){
 			if(!isset(self::$plugins[ $slug ]))
 				self::$plugins[ $slug ] = (object) array(
-					'slug' => $slug,
+					'slug' => preg_replace('#\.php$#', '', strtolower(basename($slug))),
 					'plugin' => $slug,
 					'package' => NULL,
 					'new_version' => NULL,
@@ -259,6 +279,7 @@ class UpdateCenterPlugin {
 				$plugin_data = get_plugin_data( WP_PLUGIN_DIR .'/'. $slug );
 				self::$plugins[ $slug ]->version = $plugin_data['Version'];
 			}
+
 		}
 		
 		$collection = $this->get_collection();
@@ -268,8 +289,8 @@ class UpdateCenterPlugin {
 			if(empty($plugins)) continue;
 			
 			$result = $this->check_collection( $remote_url, $plugins );
-			
-			if( is_wp_error( $result ) || empty($result)) continue;
+
+			if( is_wp_error( $result ) || empty($result) || !is_array($result)) continue;
 			
 			foreach($result as $slug => $updatecenterinfo){
 				
@@ -289,6 +310,7 @@ class UpdateCenterPlugin {
 					if( isset( $updatecenterinfo->tested ) ) self::$plugins[ $slug ]->tested = $updatecenterinfo->tested;
 					if( isset( $updatecenterinfo->upgrade_notice ) ) self::$plugins[ $slug ]->upgrade_notice = stripslashes($updatecenterinfo->upgrade_notice);
 					if( isset( $updatecenterinfo->admin_notice ) ) self::$plugins[ $slug ]->admin_notice = stripslashes($updatecenterinfo->admin_notice);
+					if( isset( $updatecenterinfo->admin_notices ) ) self::$plugins[ $slug ]->admin_notices = $updatecenterinfo->admin_notices;
 					
 				}
 				

@@ -13,6 +13,7 @@ class mymail_notification {
 	private $attachments;
 	private $replace;
 	private $requeue = true;
+	private $debug = false;
 
 	private static $_instance = null;
 
@@ -56,6 +57,7 @@ class mymail_notification {
 		$this->attachments = array();
 		$this->replace = array();
 		$this->requeue = true;
+		$this->debug = false;
 	}
 
 	public function add($timestamp = NULL, $args = array()) {
@@ -220,6 +222,10 @@ class mymail_notification {
 		$this->requeue = $requeue;
 	}
 
+	public function debug($bool = true) {
+		$this->debug = (bool) $bool;
+	}
+
 	public function send($subscriber_id, $options) {
 
 		$template = $options['template'];
@@ -240,7 +246,7 @@ class mymail_notification {
 		$output = ob_get_contents();
 		
 		ob_end_clean();
-		
+
 		//hook for custom templates
 		ob_start();
 
@@ -303,6 +309,7 @@ class mymail_notification {
 		$mail->prepare_content();
 		$mail->add_tracking_image = false;
 		$mail->embed_images = mymail_option('embed_images');
+		if($this->debug) $mail->debug();
 		
 		$result = $mail->send();
 

@@ -86,9 +86,9 @@ msgstr "Кампании"
 #: views/subscribers/detail.php:327
 msgid "Campaign"
 msgid_plural "Campaigns"
-msgstr[0] "Компания"
-msgstr[1] "Компании"
-msgstr[2] "Компании"
+msgstr[0] "Кампания"
+msgstr[1] "Кампании"
+msgstr[2] "Кампаний"
 
 #: classes/campaigns.class.php:132
 #: classes/campaigns.class.php:135
@@ -620,7 +620,7 @@ msgstr "Имя пользователя"
 
 #: views/settings.php:1206
 msgid "Attempts"
-msgstr ""
+msgstr "Попытки"
 
 #: views/settings.php:1364
 msgid "%s attempts to deliver message until hardbounce"
@@ -677,9 +677,9 @@ msgstr "Нет кликов"
 #: views/subscriber/stats.php:46
 msgid "%d campaign was deleted"
 msgid_plural "%d campaigns where deleted"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d кампания была удалена"
+msgstr[1] "%d кампании были удалены"
+msgstr[2] "%d кампаний было удалено"
 
 #: classes/form.class.php:643
 #: views/settings.php:877
@@ -700,7 +700,7 @@ msgstr "Загрузить шаблон в .zip формате"
 
 #: views/templates.php:181
 msgid "Please upload the whole zip file here."
-msgstr ""
+msgstr "Пожалуйста загрузите zip архив сюда"
 
 #: classes/campaigns.class.php:896
 msgid "Statistics"
@@ -756,15 +756,15 @@ msgstr "Дата"
 
 #: classes/campaigns.class.php:477
 msgid "Campaign updated. %s"
-msgstr ""
+msgstr "Кампания обновлена. %s "
 
 #: classes/campaigns.class.php:482
 msgid "Campaign published. %s"
-msgstr ""
+msgstr "Кампания опубликована. %s "
 
 #: classes/campaigns.class.php:484
 msgid "Campaign submitted. %s"
-msgstr ""
+msgstr "Кампания изменена. %s "
 
 #: classes/campaigns.class.php:484
 msgid "Preview Newsletter"
@@ -1078,7 +1078,7 @@ msgstr ""
 
 #: classes/frontpage.class.php:422
 msgid "There is no content for this newsletter."
-msgstr ""
+msgstr "В этой рассылке пусто."
 
 #: classes/frontpage.class.php:422
 msgid "Add content"
@@ -1087,7 +1087,7 @@ msgstr "Добавить контент"
 #: classes/campaigns.class.php:453
 #: views/dashboard.php:62
 msgid "This Campaign is currently progressing"
-msgstr ""
+msgstr "Кампания выполняется"
 
 #: classes/ajax.class.php:1429
 msgid "%s is forwarding an email to you!"
@@ -1096,7 +1096,7 @@ msgstr ""
 #: classes/campaigns.class.php:187
 #: classes/campaigns.class.php:189
 msgid "Queued"
-msgstr ""
+msgstr "В очереди"
 
 #: classes/widget.class.php:119
 #: classes/widget.class.php:162
@@ -1131,7 +1131,7 @@ msgstr "создать новую кампанию"
 
 #: views/dashboard.php:33
 msgid "Recent Campaign"
-msgstr ""
+msgstr "Свежие кампании"
 
 #: classes/subscribers.class.php:1411
 #: views/dashboard.php:33
@@ -1142,8 +1142,8 @@ msgstr "редактировать"
 #: views/newsletter/details.php:77
 msgid "receiver"
 msgid_plural "receivers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "получатель"
+msgstr[1] "получатели"
 msgstr[2] ""
 
 #: classes/ajax.class.php:782
@@ -1203,7 +1203,7 @@ msgstr "Ваш email"
 
 #: views/single-newsletter.php:69
 msgid "Your friend's email address"
-msgstr ""
+msgstr "Email ваших друзей"
 
 #: views/single-newsletter.php:72
 msgid "A personal note to your friend"
@@ -1377,7 +1377,7 @@ msgstr ""
 
 #: views/single-newsletter.php:35
 msgid "Share"
-msgstr ""
+msgstr "Поделиться"
 
 #: classes/campaigns.class.php:893
 msgid "Duplicate Campaign %s"
@@ -1387,7 +1387,7 @@ msgstr ""
 #: views/newsletter/details.php:32
 #: views/newsletter/details.php:36
 msgid "restore default"
-msgstr ""
+msgstr "восстановить умолчание"
 
 #: classes/settings.class.php:611
 msgid "%s is not a valid email address"
@@ -1507,7 +1507,7 @@ msgstr "Формы"
 
 #: views/settings.php:671
 msgid "Name your form"
-msgstr ""
+msgstr "Имя формы"
 
 #: views/settings.php:669
 msgid "remove this form"
@@ -1557,7 +1557,7 @@ msgstr ""
 #: classes/campaigns.class.php:1042
 #: views/settings.php:925
 msgid "Read more"
-msgstr ""
+msgstr "Подробнее"
 
 #: views/settings.php:940
 msgid "Add your custom tags here. They work like permanent tags"
@@ -1660,7 +1660,7 @@ msgstr ""
 
 #: views/settings.php:762
 msgid "Text"
-msgstr ""
+msgstr "Текст"
 
 #: views/settings.php:874
 msgid "Confirmation"
@@ -1885,7 +1885,7 @@ msgstr ""
 #: classes/settings.class.php:252
 #: views/settings.php:432
 msgid "Tag"
-msgstr ""
+msgstr "Тег"
 
 #: classes/settings.class.php:253
 #: views/settings.php:433
@@ -1980,7 +1980,7 @@ msgstr ""
 
 #: views/settings.php:900
 msgid "Mail"
-msgstr ""
+msgstr "Почта"
 
 #: views/settings.php:900
 msgid "Define texts for the mails"
@@ -5498,7 +5498,7 @@ msgstr ""
 
 #: views/newsletter/delivery.php:34
 msgid "Server time: %s %s"
-msgstr ""
+msgstr "Время сервера: %s %s"
 
 #: views/newsletter/delivery.php:57
 #: views/newsletter/delivery.php:171
@@ -5512,7 +5512,7 @@ msgstr ""
 #: views/newsletter/delivery.php:220
 #: views/newsletter/delivery.php:320
 msgid "Use Subscribers timezone"
-msgstr ""
+msgstr "Использовать часовой пояс получателя"
 
 #: views/newsletter/delivery.php:140
 msgctxt "send campaign \"on\" (date) \"at\" (time)"

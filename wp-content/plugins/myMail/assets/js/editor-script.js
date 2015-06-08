@@ -84,7 +84,7 @@
 	}
 
 	function _draggable(){
-		
+
 		if(images.data('draggable')) images.draggable('destroy');
 		if(images.data('droppable')) images.droppable('destroy');
 				
@@ -96,6 +96,9 @@
 			opacity: 0.3,
 			zIndex:1000,
 			addClasses: false,
+			create: function(event, ui){
+				$(event.target).removeClass('ui-draggable-handle');
+			},
 			start: function(){
 				body.addClass('ui-dragging');
 			},
