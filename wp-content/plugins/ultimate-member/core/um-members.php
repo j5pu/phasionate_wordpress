@@ -152,6 +152,20 @@ class UM_Members {
 			$profiles_per_page = $profiles_per_page_mobile;
 		
 		$array['users'] = $users->results;
+
+		// añadido para ampliar la busqueda de nombre a nick
+		if( $query_args['meta_query'][1]['key'] == 'first_name' ){
+
+			$query_args['meta_query'][1]['key'] = 'nickname';
+
+			$users = new WP_User_Query( $query_args );
+
+			if ($users->total_users != 0){
+				$add_array = $users->results;
+				$array['users'] = array_merge($array['users'], $add_array);
+				$array['users'] = array_unique($array['users']);
+			}
+		}
 		
 		$array['total_users'] = (isset( $max_users ) && $max_users && $max_users <= $users->total_users ) ? $max_users : $users->total_users;
 
