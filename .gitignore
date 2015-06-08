@@ -15,5 +15,5 @@ wp-content/upgrade/
 wp-content/uploads/
 wp-content/wfcache/
 wp-content/wp-cache-config.php
-wp-content/plugins/wordfence/tmp/configCache.php
+wp-content/plugins/wordfence/tmp/
 wp-content/plugins/um-social-login/providers/vk/api/VK.php
