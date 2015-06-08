@@ -230,6 +230,15 @@ class WPSEO_OpenGraph {
 		 */
 		$title = trim( apply_filters( 'wpseo_opengraph_title', $title ) );
 
+		$category = get_the_category(); 
+		if ($category[0]->cat_name == 'Streetstyle'){
+			if (isset($_GET['nm_st'])){
+				$name = $_GET['nm_st'];
+				$this->og_tag( 'og:title', $name.' en '.$title );
+			}
+			return true;
+		}
+
 		if ( is_string( $title ) && $title !== '' ) {
 			if ( $echo !== false ) {
 				$this->og_tag( 'og:title', $title );
@@ -489,7 +498,7 @@ class WPSEO_OpenGraph {
 		$category = get_the_category(); 
 		if ($category[0]->cat_name == 'Streetstyle'){
 			if (isset($_GET['ph'])){
-				$img = $_GET['ph'];
+				$img = get_site_url().'/wp-content/uploads/'.$_GET['ph'];
 				$this->og_tag( 'og:image:width', 200 );
 				$this->og_tag( 'og:image:height', 200 );
 				$this->og_tag( 'og:image', esc_url( $img ) );
