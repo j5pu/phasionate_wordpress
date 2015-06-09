@@ -94,6 +94,7 @@ class UM_Reviews_Shortcode {
 	    $post_order = array();
 	    foreach( $final_exits as $post_exit ) {
 	    	$post_exit_time = get_the_time('U', $post_exit);
+	    	echo $post_exit_time." -/ ";
 	    	if ($post_exit_time == ""){ echo $post_exit->time." - ".strtotime($post_exit->time)."</br>"; }else{ echo $post_exit_time."</br>";  }; /////////
 	    	if ($post_exit_time == ""){ $post_exit_time=strtotime($post_exit->time); };
 	    	$post_exit_id = $post_exit->ID; 
