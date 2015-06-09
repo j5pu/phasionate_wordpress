@@ -532,7 +532,7 @@ function ownResize(){
 		$('.popUpSection').append($('<div>', {class: 'logoPhasionateLogIn'}));
 		$('.logoPhasionateLogIn').text('BOGADIA');
 		$('#text-41').appendTo('.popUpSection');
-		$('#text-41').append($('<div>', {class: 'registerLink'}).text('¿Aun no tienes cuenta?'));
+		$('#text-41').append($('<div>', {class: 'registerLink'}).text('¿Aun no tienes cuenta?').append($('<span>').text(' Registrate')));
 		$('.registerLink').click(function () { closePopUpLogin(); showPopUpRegister(); });
 		$('.popUpSection').append($('<div>', {class: 'getBackLinkContainer'}));
 		$('.getBackLinkContainer').append($('<div>', {class: 'getBackLink'}));

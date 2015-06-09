@@ -4395,10 +4395,14 @@ div.um .um-form div.um-reviews-post .um-reviews-content textarea {
 	text-align: center;
 	margin-top: -15px;
 	color: #888;
+	font-size: 15px;
 }
 .registerLink:hover{
 	text-decoration: underline;
 	cursor: pointer;
+}
+.registerLink span{
+	color: #55b;
 }
 /*Portada tienda*/
 body.woocommerce .page-description > p{
