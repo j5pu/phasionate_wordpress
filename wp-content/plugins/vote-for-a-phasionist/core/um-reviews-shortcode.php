@@ -101,6 +101,7 @@ class UM_Reviews_Shortcode {
 	        $post_order[$post_exit_id] =  $post_exit_time ;
 	    }
 	    arsort( $post_order );
+	    print_r($post_order);
 	    $final_exits = array_keys( $post_order );
 	    $posts_final = array();
 	    foreach( $final_exits as $post_exit ) {
@@ -190,7 +191,7 @@ class UM_Reviews_Shortcode {
 					<?php if ( $final_exit->type == 'upgrade_role' ){ um_fetch_user($final_exit->user); ?>
 						<div class="activity-content-upgrade_role">
 							<div class="um-reviews-widget-pic">
-								<a href="<?php echo um_user_profile_url(); ?>"><?php echo get_avatar( um_user('id'), 70 ); ?></a>
+								<a href="<?php echo um_user_profile_url(); ?>"><?php echo get_avatar( um_user('id'), 50 ); ?></a>
 							</div>
 							<a href="<?php echo um_user_profile_url();?>"><?php echo um_user('display_name'); ?></a></span>
 							<span> se apunto al <a href="https://www.bogadia.com/concurso/" title="Ir al Ranking">Concurso</a></span>
@@ -198,15 +199,15 @@ class UM_Reviews_Shortcode {
 					<?php um_reset_user(); } ?>
 
 
-					<?php if ( $final_exit->user_id1 == $current_user ){ um_fetch_user($final_exit->user_id2); ?>
+					<?php if ( $final_exit->user_id1 == $current_user && $current_user != 0 ){ um_fetch_user($final_exit->user_id2); ?>
 						<div class="um-reviews-widget-pic">
-							<a href="<?php echo um_user_profile_url(); ?>"><?php echo get_avatar( $final_exit->user_id2, 70 ); ?></a>
+							<a href="<?php echo um_user_profile_url(); ?>"><?php echo get_avatar( $final_exit->user_id2, 50 ); ?></a>
 						</div>
 						<div class="activity-following-mes"><a href="<?php echo um_user_profile_url();?>"><?php echo um_user('display_name'); ?></a><span> esta siguiendote.</span></div><?php
 					um_reset_user(); } ?>
 
 					<!--Fecha-->
-					<?php if( $final_exit->type == 'upgrade_role' || $final_exit->user_id1 == $current_user ){ ?>
+					<?php if( $final_exit->type == 'upgrade_role' || ($final_exit->user_id1 == $current_user && $current_user != 0) ){ ?>
 						<span class="date-activity"><?php echo bbp_get_time_since( $final_exit->time ); echo " - ".$final_exit->time." - ".strtotime($final_exit->time); ?></span> 
 					<?php
 					}else{
