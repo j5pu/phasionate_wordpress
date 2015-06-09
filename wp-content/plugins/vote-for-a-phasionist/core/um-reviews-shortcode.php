@@ -96,8 +96,8 @@ class UM_Reviews_Shortcode {
 	    	$post_exit_time = get_the_time('U', $post_exit);
 	    	if (!$post_exit_time){ $post_exit_time=strtotime($post_exit->time); };
 	    	$post_exit_id = $post_exit->ID; 
-	    	if ( $post_exit_id == 0 ){ $post_exit_id = $post_exit->id*1000000; }; //otorga id unico a los post de notificaciones apuntados al concurso
-	    	if ( $post_exit->user_id1 != 0){ $post_exit_id = $post_exit->id-1000000; }; //otorga id unico a los post de seguidores
+	    	if ( $post_exit_id == 0 ){ $post_exit_id = $post_exit->id*100000; }; //otorga id unico a los post de notificaciones apuntados al concurso
+	    	if ( $post_exit->user_id1 != 0){ $post_exit_id = $post_exit->id-100000; }; //otorga id unico a los post de seguidores
 	        $post_order[$post_exit_id] =  $post_exit_time ;
 	    }
 	    arsort( $post_order );
@@ -105,13 +105,13 @@ class UM_Reviews_Shortcode {
 	    $posts_final = array();
 	    foreach( $final_exits as $post_exit ) {
 	    	if ( $post_exit<0){
-	    		$post_exit = $post_exit+1000000;
+	    		$post_exit = $post_exit+100000;
 				$follower = $wpdb->get_results(
 					"SELECT * FROM wp_um_followers WHERE user_id1=$current_user and id=$post_exit"
 				);
 	    		$post_final_new = $follower[0];
-	    	}else if ( $post_exit>1000000 ){ 
-	    		$post_exit = $post_exit/1000000;
+	    	}else if ( $post_exit>100000 ){ 
+	    		$post_exit = $post_exit/100000;
 				$role_change = $wpdb->get_results(
 					"SELECT * FROM wp_um_notifications WHERE type='upgrade_role' and id=$post_exit"
 				);
