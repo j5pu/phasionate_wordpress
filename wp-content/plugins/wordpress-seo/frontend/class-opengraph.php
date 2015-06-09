@@ -272,7 +272,12 @@ class WPSEO_OpenGraph {
 		if ($category[0]->cat_name == 'Streetstyle'){
 			if (isset($_GET['ph'])){
 				$img = $_GET['ph'];
-				$final_url = $url.'?ph='.$img;
+				if (isset($_GET['nm_st'])){
+					$nm_st = $_GET['nm_st'];
+				}else{
+					$nm_st = "Quien esta";
+				}
+				$final_url = $url.'?ph='.$img.'&nm_st='.$nm_st;
 				$this->og_tag( 'og:url', esc_url( $final_url ) );
 			}
 			return true;

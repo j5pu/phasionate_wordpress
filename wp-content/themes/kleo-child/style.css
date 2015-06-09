@@ -4627,9 +4627,13 @@ li.activity-li-review{
 }
 .activity-content-reply{
 	display: block;
-	padding: 0px 10px;
-	width: 70%;
+	padding: 10px 10px;
+	width: 80%;
 	margin: 0 auto;
+	font-size: 90%;
+	background-color: rgba(255,255,255,0.7);
+	border: 1px solid #333;
+	border-radius: 4px;
 }
 li.activity-li-reply::after{
 	  content: "";
@@ -4654,7 +4658,7 @@ li.activity-li-reply.bbp-for-Reviews::after{
 }
 /* Post de la revista - Activity Ultimate Member Page */
 li.activity-li-post{
-	background: rgba(160, 30, 30, 0.5);
+	background: rgba(150, 10, 10, 0.7);
 }
 li.activity-li-post>span:not(.date-activity){
 	margin-bottom: 10px;

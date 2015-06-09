@@ -50,7 +50,7 @@ class UM_Reviews_Shortcode {
 
 		$args = array(
 			'post_status'  	 => 'publish',
-			'posts_per_page' => 13,
+			'posts_per_page' => 20,
 			'orderby' 		 => 'date',
 			'order'    		 => 'DESC',
 			'cat'			 => -566
@@ -211,9 +211,9 @@ class UM_Reviews_Shortcode {
 					<?php
 					}else{
 						if(time()-get_the_time( 'U', $final_exit ) > 1500000){ ?>
-							<span class="date-activity"><?php echo get_the_time( 'd/m/Y', $final_exit ); ?></span> 
+							<span class="date-activity"><?php echo get_the_time( 'd/m/Y', $final_exit ); echo " - ".get_the_time( 'U', $final_exit ); ?></span> 
 						<?php }else{ ?>
-							<span class="date-activity"><?php echo bbp_get_time_since( get_the_time( 'U', $final_exit ) ); ?></span> 
+							<span class="date-activity"><?php echo bbp_get_time_since( get_the_time( 'U', $final_exit ) ); echo " - ".get_the_time( 'U', $final_exit ); ?></span> 
 					<?php } 
 					}
 					?>
