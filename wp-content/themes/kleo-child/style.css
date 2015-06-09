@@ -3465,20 +3465,20 @@ body.single-forum.postid-15573 h1.page-title, body.single-forum.postid-15576 h1.
 	font-family: Waterlily;
 	text-shadow: 3px 3px white;
 }
-body.single-forum.postid-15573 h1.page-title, .bbp-for-Belleza{
+body.single-forum.postid-15573 h1.page-title{
 	background-image: url("../kleo-child/assets/img/fondoForoBelleza.jpg");
 }
-body.single-forum.postid-15576 h1.page-title, .bbp-for-Lifestyle{
+body.single-forum.postid-15576 h1.page-title{
 	background-image: url("../kleo-child/assets/img/fondoForoLifestyle.jpg");
 }
-body.single-forum.postid-14944 h1.page-title, .bbp-for-Moda{
+body.single-forum.postid-14944 h1.page-title{
 	background-image: url("../kleo-child/assets/img/fondoForoModa.jpg");
 }
-body.single-forum.postid-15752 h1.page-title, .bbp-for-Reviews{
+body.single-forum.postid-15752 h1.page-title{
 	background-image: url("../kleo-child/assets/img/fondoForoReviews.jpg");
 	line-height: 120%;
 }
-body.single-forum.postid-14824 h1.page-title, .bbp-for-Concurso{
+body.single-forum.postid-14824 h1.page-title{
 	background-image: url("../kleo-child/assets/img/fondoForoConcurso.jpg");
 	color: #000 !important;
 	padding-bottom:12%;
@@ -3488,10 +3488,6 @@ body.single-forum.postid-14824 h1.page-title, .bbp-for-Concurso{
 	font-family: Waterlily;
 	text-shadow: 3px 3px white;
 	line-height: 120%;
-}
-.bbp-for{
-	background-size: 10%;
-	display: block;
 }
 /*Ultimate Members*/
 
@@ -3565,7 +3561,7 @@ div.col-sm-12 ul.um-reviews-widget .ya-votado{
 	width: 60px;
 }
 /* Boton Editar Rol */
-body.page.page-id-15817 .um-form .um-cover, body.page.page-id-15817 .um-form .um-header, body.page.page-id-15817 .um-form .um-profile-nav{
+body.page.page-id-15817 .um-form .um-cover, body.page.page-id-15817 .um-form .um-header, body.page.page-id-15817 .um-form .um-profile-nav, body.page.page-id-15817 .um-form .profile_share,  body.page.page-id-15817 .um-form .um-followers-bar{
 	display:none;
 }
 body.page.page-id-15817 .um-form .um-profile-body .um-row .um-field-role_radio{
@@ -4554,7 +4550,6 @@ body.woocommerce #header{
 /* Activity Ultimate Member Page */
 .um-activity-ul{
 	list-style: none;
-	border: 3px solid #f99;
 	border-radius: 4px;
 	padding: 5px;
 }
@@ -4563,8 +4558,107 @@ body.woocommerce #header{
 	border: 2px solid #ccc;
 	border-radius: 4px;
 	margin: 4px;
+	display: inline-block;
+	width: 100%;
+	position: relative;
+	padding: 0 10px;
+	padding-bottom: 5px;
 }
-
+.date-activity{
+	float: right;
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+}
+.um-activity-li .um-reviews-widget-pic img{
+	border-radius: 100%;
+}
+/* Votos - Activity Ultimate Member Page */
+li.activity-li-review{
+	background-color: rgba(255, 240, 20, 0.3);
+}
+.activity-content-review{
+	display: inline-block;
+	padding: 10px 0px;
+}
+.activity-content-review .um-reviews-widget-pic{
+	float:none;
+	display: inline;
+	margin-left: 10px;
+}
+.um-activity-li .star-on-png{
+	font-size: 250%;
+	width: auto;
+	vertical-align: -10px;
+	margin-left: 10px;
+}
+/* Apuntados al concurso - Activity Ultimate Member Page */
+.activity-content-upgrade_role {
+	padding: 10px 0px;
+}
+.activity-content-upgrade_role .um-reviews-widget-pic{
+	float:none;
+	display: inline;
+	margin-left: 10px;
+}
+/* Respuestas en los foros - Activity Ultimate Member Page */
+.activity-li-reply{
+	background:none;
+}
+.activity-li-reply *{
+	position: relative;
+	z-index: 1;
+}
+.activity-li-reply h5 span{
+	float: right;
+}
+.activity-content-reply{
+	display: block;
+	padding: 0px 10px;
+	width: 70%;
+	margin: 0 auto;
+}
+li.activity-li-reply::after{
+	  content: "";
+	  opacity: 0.15;
+	  top: 0;
+	  left: 0;
+	  bottom: 0;
+	  right: 0;
+	  position: absolute;
+}
+li.activity-li-reply.bbp-for-Belleza::after{
+	background: url("../kleo-child/assets/img/fondoForoBelleza.jpg") repeat scroll 50% 50% / 110% auto;
+}
+li.activity-li-reply.bbp-for-Lifestyle::after{
+	background: url("../kleo-child/assets/img/fondoForoLifestyle.jpg") repeat scroll 50% 50% / 110% auto;
+}
+li.activity-li-reply.bbp-for-Moda::after{
+	background: url("../kleo-child/assets/img/fondoForoModa.jpg") repeat scroll 50% 50% / 110% auto;
+}
+li.activity-li-reply.bbp-for-Reviews::after{
+	background: url("../kleo-child/assets/img/fondoForoReviews.jpg") repeat scroll 50% 50% / 110% auto;
+}
+/* Post de la revista - Activity Ultimate Member Page */
+li.activity-li-post{
+	background: rgba(160, 30, 30, 0.5);
+}
+li.activity-li-post>span:not(.date-activity){
+	margin-bottom: 10px;
+	display: block;
+	text-align: center;
+}
+li.activity-li-post img{
+	box-shadow: 0px 0px 5px #f66;
+}
+.activity-post-title{
+	text-align: center;
+	margin-bottom: 0px;
+}
+/* Seguidores - Activity Ultimate Member Page */
+.activity-following-mes{
+	margin-top: 10px;
+}
 /*Personalización de Avisos de Ultimate Member*/
 
 .um-notices-cta a {

@@ -19,6 +19,23 @@ class UM_Reviews_Shortcode {
 	***/
 	function ultimatemember_activity( $args = array() ) {
 
+		global $um_review;
+		global $wpdb;
+	    $current_user = get_current_user_id();
+
+		//Creaccion de topics
+		$bbp_topic_query = new WP_Query( array(
+			'post_type'           => 'topic',
+			'post_status'         => array( bbp_get_public_status_id(), bbp_get_closed_status_id() ),
+			'posts_per_page'      => 20,
+			'ignore_sticky_posts' => true,
+			'no_found_rows'       => true,
+			'orderby' 		 => 'date',
+			'order'    		 => 'DESC',
+		) );
+
+		//Respuestas a topics
+
 		$bbp_query = new WP_Query( array(
 			'post_type'           => bbp_get_reply_post_type(),
 			'post_status'         => array( bbp_get_public_status_id(), bbp_get_closed_status_id() ),
@@ -29,6 +46,8 @@ class UM_Reviews_Shortcode {
 			'order'    		 => 'DESC',
 		) );
 
+		// Posts de la revista
+
 		$args = array(
 			'post_status'  	 => 'publish',
 			'posts_per_page' => 13,
@@ -38,67 +57,171 @@ class UM_Reviews_Shortcode {
 		);
 		$post_magazine = new WP_Query( array( $args ) );
 
-		$final_exits = array_merge($bbp_query->posts, $post_magazine->posts);
+		// Votos del current user
+
+	    if($current_user){
+			$um_reviews_current_user = new WP_Query( array(
+				'post_type'           => 'um_review',
+				'post_status'         => 'publish',
+				'author'		  	  => $current_user
+			) );
+			$array_aux = get_user_meta( $current_user, '_reviews')[0];
+			$array_aux_um_reviews = array_reverse(array_keys( $array_aux));
+	    }
+
+	    // Seguidores
+
+	    if($current_user){
+			$followers = $wpdb->get_results(
+				"SELECT * FROM wp_um_followers WHERE user_id1=$current_user"
+			);
+	    }
+
+		// Notificaciones Apuntados al concurso
+
+		$roles_change = $wpdb->get_results(
+			"SELECT * FROM wp_um_notifications WHERE type='upgrade_role' and content like concat('%','a<strong>Concursante-Portada-Mayo-2015','%')"
+		);
 
 		//ordernar por tiempo
+
+		$final_exits = array_merge($bbp_query->posts, $post_magazine->posts);
+		$final_exits = array_merge($final_exits, $bbp_topic_query->posts);
+		if ($current_user) { $final_exits = array_merge($final_exits, $um_reviews_current_user->posts); }
+		if ($current_user) { $final_exits = array_merge($final_exits, $followers); }
+		$final_exits = array_merge($final_exits, $roles_change);
 
 	    $post_order = array();
 	    foreach( $final_exits as $post_exit ) {
 	    	$post_exit_time = get_the_time('U', $post_exit);
-	    	$post_exit_id = $post_exit->ID;
+	    	if (!$post_exit_time){ $post_exit_time=strtotime($post_exit->time); };
+	    	$post_exit_id = $post_exit->ID; 
+	    	if ( $post_exit_id == 0 ){ $post_exit_id = $post_exit->id*1000000; }; //otorga id unico a los post de notificaciones apuntados al concurso
+	    	if ( $post_exit->user_id1 != 0){ $post_exit_id = $post_exit->id-1000000; }; //otorga id unico a los post de seguidores
 	        $post_order[$post_exit_id] =  $post_exit_time ;
 	    }
 	    arsort( $post_order );
 	    $final_exits = array_keys( $post_order );
 	    $posts_final = array();
 	    foreach( $final_exits as $post_exit ) {
+	    	if ( $post_exit<0){
+	    		$post_exit = $post_exit+1000000;
+				$follower = $wpdb->get_results(
+					"SELECT * FROM wp_um_followers WHERE user_id1=$current_user and id=$post_exit"
+				);
+	    		$post_final_new = $follower[0];
+	    	}else if ( $post_exit>1000000 ){ 
+	    		$post_exit = $post_exit/1000000;
+				$role_change = $wpdb->get_results(
+					"SELECT * FROM wp_um_notifications WHERE type='upgrade_role' and id=$post_exit"
+				);
+	    		$post_final_new = $role_change[0];
+	    	}else{
 	    	$post_final_new = get_post( $post_exit );
+	    	}
 	    	$posts_final[] = $post_final_new;
 	    	$post_final_id = $post_final_new->ID;
 	    }
 
-		$um_role_query = new WP_Query( array(
-			'post_type'           => 'um_review',
-			'post_status'         => 'publish',
-			'posts_per_page'      => 20,
-			'orderby' 			  => 'date',
-			'order'    			  => 'DESC',
-			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 month ago')
-		) );
-
 		//imprimir resultados
-
 		?>
 		<ul class="um-activity-ul">
 
 			
 			<?php
+			$ind_um_rev = 0;
 			foreach( $posts_final as $final_exit ) {
 			?>
-			<li class="um-activity-li">
-					<?php if ( $final_exit->post_type == 'reply' ){ ?><h4>Debate</h4><?php }else{ ?><h4>Post de la revista</h4><?php } ?>
-
-					<?php if(time()-get_the_time( 'U', $final_exit ) > 1500000){ ?>
-						<p><?php echo get_the_time( 'd/m/Y', $final_exit ); ?></p> 
-					<?php }else{ ?>
-						<p><?php echo bbp_get_time_since( get_the_time( 'U', $final_exit ) ); ?></p> 
-					<?php } ?>
-
-					<?php if ( $final_exit->post_type == 'reply' ){ 
+			<?php 
+				if ( $final_exit->post_type == 'reply' ){ 
 					$reply_id   = bbp_get_reply_id( $final_exit->ID );
 					$post_topic = get_post( $final_exit->post_parent );
 					$post_forum = get_post( $post_topic->post_parent );
-					echo '<a class="bbp-cat" href="'.$post_topic->guid.'">'.$post_topic->post_title.'</a>';
-					echo '<a class="bbp-for bbp-for-'.$post_forum->post_title.'" href="'.$post_forum->guid.'">'.$post_forum->post_title.'</a>';
+				}
+				if ( $final_exit->post_type == 'topic'){
+					$reply_id   = bbp_get_reply_id( $final_exit->ID );
+					$post_topic = $final_exit;
+					$post_forum = get_post( $post_topic->post_parent );
+				}
+			?>
+			<li class="um-activity-li 
+				<?php   if ( $final_exit->post_type == 'reply' || $final_exit->post_type == 'topic'){ echo 'activity-li-reply bbp-for-'.$post_forum->post_title; }; 
+						if ( $final_exit->post_type == 'post' ){ echo 'activity-li-post'; }
+						if ( $final_exit->post_type == 'um_review'){ echo 'activity-li-review'; }
+				?>">
+					<!--Title-->
+					<?php if ( $final_exit->post_type == 'reply' ){ 
+						echo '<h5>Nueva respuesta en <a class="bbp-cat" href="'.$post_topic->guid.'">'.$post_topic->post_title.'</a><span>Foro: <a class="bbp-for" href="'.$post_forum->guid.'">'.$post_forum->post_title.'</a></span></h5>';
+						}?>
+					<?php if ( $final_exit->post_type == 'topic' ){ 
+						echo '<h5>Nuevo debate: <a class="bbp-cat" href="'.$post_topic->guid.'">'.$post_topic->post_title.'</a><span>Foro: <a class="bbp-for" href="'.$post_forum->guid.'">'.$post_forum->post_title.'</a></span></h5>';
+						}?>
+					<?php if ( $final_exit->post_type == 'post' ){ echo '<h4 class="activity-post-title"><a href="'.get_permalink($final_exit->ID).'">'.get_the_title($final_exit->ID).'</a></h4>'; } ?>
+					<?php if ( $final_exit->post_type == 'um_review' ){ ?><a href="https://www.bogadia.com/concurso/" title="Ir al Ranking"><i class="star-on-png">+1</i></a><?php } ?>
+					<?php if ( $final_exit->type == 'upgrade_role' ){ ?><?php } ?>
+
+					<!-- Content -->
+					<?php if ( $final_exit->post_type == 'reply' || $final_exit->post_type == 'topic'){ 
 					$reply_link = '<a class="bbp-reply-topic-title" href="' . esc_url( bbp_get_reply_url( $reply_id ) ) . '" title="Ir al debate">' . bbp_get_reply_topic_title( $reply_id ) . '</a>';
 
 					$author_link = bbp_get_reply_author_link( array( 'post_id' => $reply_id, 'type' => 'both', 'size' => 50 ) );
 
-					printf( _x( '%1$s %2$s %3$s', 'widgets', 'bbpress' ), $author_link, $reply_link, '<div>' . bbp_get_time_since( get_the_time( 'U' ) ) . '</div>' );
+					printf( _x( '%1$s', 'widgets', 'bbpress' ), $author_link, $reply_link, '<div>' . bbp_get_time_since( get_the_time( 'U' ) ) . '</div>' );
+					
+					?><div class="activity-content-reply"><?php echo $final_exit->post_content ?></div><?php
+					}?>
+
+					<?php if ( $final_exit->post_type == 'post' ){ 
+						$category = get_the_category($final_exit->ID);
+						$link = get_permalink($final_exit->ID);
+						$title = get_the_title($final_exit->ID);		
+						echo '<span>'.$final_exit->post_excerpt.'</span>';
+						echo '<a href="'.$link.'">'.get_the_post_thumbnail( $final_exit->ID, 'large' ).'</a>'.'<div><abbr><a href="'.get_category_link($category[0]->term_id ).'">'.$category[0]->cat_name.'</a></div>';
 					} ?>
 
+					<?php if ( $final_exit->post_type == 'um_review'){ um_fetch_user($array_aux_um_reviews[$ind_um_rev]);
+						?>
+						<div class="activity-content-review"><span>Has recibido un voto de <a href="<?php echo um_user_profile_url();?>"><?php echo um_user('display_name'); ?></a></span>
+						<div class="um-reviews-widget-pic">
+							<a href="<?php echo um_user_profile_url(); ?>"><?php echo get_avatar( $array_aux_um_reviews[$ind_um_rev], 50 ); ?></a>
+						</div>
+					<?php um_reset_user(); } ?>
+
+					<?php if ( $final_exit->type == 'upgrade_role' ){ um_fetch_user($final_exit->user); ?>
+						<div class="activity-content-upgrade_role">
+							<div class="um-reviews-widget-pic">
+								<a href="<?php echo um_user_profile_url(); ?>"><?php echo get_avatar( um_user('id'), 70 ); ?></a>
+							</div>
+							<a href="<?php echo um_user_profile_url();?>"><?php echo um_user('display_name'); ?></a></span>
+							<span> se apunto al <a href="https://www.bogadia.com/concurso/" title="Ir al Ranking">Concurso</a></span>
+						</div>
+					<?php um_reset_user(); } ?>
+
+
+					<?php if ( $final_exit->user_id1 == $current_user ){ um_fetch_user($final_exit->user_id2); ?>
+						<div class="um-reviews-widget-pic">
+							<a href="<?php echo um_user_profile_url(); ?>"><?php echo get_avatar( $final_exit->user_id2, 70 ); ?></a>
+						</div>
+						<div class="activity-following-mes"><a href="<?php echo um_user_profile_url();?>"><?php echo um_user('display_name'); ?></a><span> esta siguiendote.</span></div><?php
+					um_reset_user(); } ?>
+
+					<!--Fecha-->
+					<?php if( $final_exit->type == 'upgrade_role'){ ?>
+						<span class="date-activity"><?php echo bbp_get_time_since( $final_exit->time ); ?></span> 
+					<?php
+					}else{
+						if(time()-get_the_time( 'U', $final_exit ) > 1500000){ ?>
+							<span class="date-activity"><?php echo get_the_time( 'd/m/Y', $final_exit ); ?></span> 
+						<?php }else{ ?>
+							<span class="date-activity"><?php echo bbp_get_time_since( get_the_time( 'U', $final_exit ) ); ?></span> 
+					<?php } 
+					}
+					?>
 			</li>
-			<?php }; ?>
+
+			<?php 
+			$ind_um_rev = $ind_um_rev + 1;
+			}; ?>
 
 		</ul>	
 		<?php
@@ -696,7 +819,7 @@ class UM_Reviews_Shortcode {
 
 		if ($role == 'concursante-portada-mayo-2015'){
 			?>
-			<a href="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/Bases del concurso.pdf" target="_blank">Bases del concurso</a>
+			<a href="<?php bloginfo('wpurl'); ?>/wp-content/uploads/pdf/bases_legales_concurso_bogadia.pdf" target="_blank">Bases del concurso</a>
 			<?php
 		}
 	}
