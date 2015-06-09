@@ -499,15 +499,11 @@ function ownResize(){
 		$('#text-57').appendTo('.popUpSection');
 		$('.popUpSection').append($('<div>', {class: 'getBackLinkContainer'}));
 		$('.getBackLinkContainer').append($('<div>', {class: 'getBackLink'}));
-		//$urlPrincipal = $('.logo a').attr('href');
-		//$('.getBackLink').attr('href',$urlPrincipal+'/login');
 		$('.getBackLink').click(function () { closePopUpRegister(); });
 		$('.getBackLink').text('Cerrar');
 
 		$('.bigCover').css('display','inline-block');
 		$('.popUpSection').css('margin-top',($(window).height()-$('.popUpSection').height())/2);
-		//var marginleftIframeGoogle=(($('.popUpSection').width()-$('.popUpSection iframe').width())/2+20)*-1;
-		//$('.popUpSection iframe').css('margin-left', marginleftIframeGoogle);
 		setTimeout(function(){$('.popUpSection').slideDown("slow")},2000);
 	}
 	function closePopUpRegister(){
@@ -536,10 +532,10 @@ function ownResize(){
 		$('.popUpSection').append($('<div>', {class: 'logoPhasionateLogIn'}));
 		$('.logoPhasionateLogIn').text('BOGADIA');
 		$('#text-41').appendTo('.popUpSection');
+		$('#text-41').append($('<div>', {class: 'registerLink'}).text('¿Aun no tienes cuenta?'));
+		$('.registerLink').click(function () { closePopUpLogin(); showPopUpRegister(); });
 		$('.popUpSection').append($('<div>', {class: 'getBackLinkContainer'}));
 		$('.getBackLinkContainer').append($('<div>', {class: 'getBackLink'}));
-		//$urlPrincipal = $('.logo a').attr('href');
-		//$('.getBackLink').attr('href',$urlPrincipal+'/login');
 		$('.getBackLink').click(function () { closePopUpLogin(); });
 		$('.getBackLink').text('Cerrar');
 
@@ -555,6 +551,7 @@ function ownResize(){
 		$('.bigCover').remove();
 		$('.popUpSection').remove();
 		$('.logoPhasionateLogIn').remove();
+		$('.registerLink').remove();
 		$('.getBackLinkContainer').remove();
 	}
 /* Fin Pop up Log in Ultimate Member */
