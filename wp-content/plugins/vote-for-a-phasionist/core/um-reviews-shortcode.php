@@ -94,16 +94,15 @@ class UM_Reviews_Shortcode {
 	    $post_order = array();
 	    foreach( $final_exits as $post_exit ) {
 	    	$post_exit_time = get_the_time('U', $post_exit);
-	    	echo $post_exit_time." -/ ";
-	    	if ($post_exit_time == ""){ echo $post_exit->time." - ".strtotime($post_exit->time)."</br>"; }else{ echo $post_exit_time."</br>";  }; /////////
-	    	if ($post_exit_time == ""){ $post_exit_time=strtotime($post_exit->time); };
+	    	//echo $post_exit_time." -/ ";
+	    	//if ($post_exit_time<1){ echo $post_exit->time." - ".strtotime($post_exit->time)."</br>"; }else{ echo $post_exit_time."</br>";  }; /////////
+	    	if ($post_exit_time<1){ $post_exit_time=strtotime($post_exit->time); };
 	    	$post_exit_id = $post_exit->ID; 
 	    	if ( $post_exit_id == 0 ){ $post_exit_id = $post_exit->id*100000; }; //otorga id unico a los post de notificaciones apuntados al concurso
 	    	if ( $post_exit->user_id1 != 0){ $post_exit_id = $post_exit->id-100000; }; //otorga id unico a los post de seguidores
 	        $post_order[$post_exit_id] =  $post_exit_time ;
 	    }
 	    arsort( $post_order );
-	    print_r($post_order); /////////////////////////////
 	    $final_exits = array_keys( $post_order );
 	    $posts_final = array();
 	    foreach( $final_exits as $post_exit ) {
