@@ -94,6 +94,7 @@ class UM_Reviews_Shortcode {
 	    $post_order = array();
 	    foreach( $final_exits as $post_exit ) {
 	    	$post_exit_time = get_the_time('U', $post_exit);
+	    	if (!$post_exit_time){ echo $post_exit->time." - ".strtotime($post_exit->time)."</br>"; }else{ echo $post_exit_time."</br>";  }; /////////
 	    	if (!$post_exit_time){ $post_exit_time=strtotime($post_exit->time); };
 	    	$post_exit_id = $post_exit->ID; 
 	    	if ( $post_exit_id == 0 ){ $post_exit_id = $post_exit->id*100000; }; //otorga id unico a los post de notificaciones apuntados al concurso
@@ -101,7 +102,7 @@ class UM_Reviews_Shortcode {
 	        $post_order[$post_exit_id] =  $post_exit_time ;
 	    }
 	    arsort( $post_order );
-	    print_r($post_order);
+	    print_r($post_order); /////////////////////////////
 	    $final_exits = array_keys( $post_order );
 	    $posts_final = array();
 	    foreach( $final_exits as $post_exit ) {
@@ -208,7 +209,7 @@ class UM_Reviews_Shortcode {
 
 					<!--Fecha-->
 					<?php if( $final_exit->type == 'upgrade_role' || ($final_exit->user_id1 == $current_user && $current_user != 0) ){ ?>
-						<span class="date-activity"><?php echo bbp_get_time_since( $final_exit->time ); echo " - ".$final_exit->time." - ".strtotime($final_exit->time); ?></span> 
+						<span class="date-activity"><?php echo bbp_get_time_since( $final_exit->time ); echo "Esta usa strtotime - ".$final_exit->time." - ".strtotime($final_exit->time); ?></span> 
 					<?php
 					}else{
 						if(time()-get_the_time( 'U', $final_exit ) > 1500000){ ?>
