@@ -53,6 +53,13 @@ License URI: license.txt
 	font-style: normal;
 }
 
+@font-face {
+	font-family: 'valentina';
+	src: url('fonts/Valentina-Regular.otf');
+	font-weight: normal;
+	font-style: normal;
+}
+
 /*
 Estilos portada ovejas
 */
@@ -629,14 +636,15 @@ body #footer{
 }
 
 #footer .logo>a>span {
-	font-family: Times New Roman;
-	font-size: 14px;
+	font-family: 'valentina';
+	font-size: 10px;
 	font-style: italic;
 	position: absolute;
 	left: 0;
 	right: 0;
 	bottom: 20px;
 	height: 14px;
+	text-transform: uppercase;
 }
 /*fin FOOTER*/
 .kleo-main-header .navbar-header{
@@ -3919,7 +3927,7 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 .page-id-16821 .page-title, 
 .page-id-17769 .page-title, 
 .page-id-17772 .page-title, 
-.page-id-17754 .page-title,
+.page-id-17754 .page-title,z
 #item-likes-17769,
 #item-likes-17772,
 #item-likes-17754 {
