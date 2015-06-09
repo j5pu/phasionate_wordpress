@@ -206,8 +206,8 @@ class UM_Reviews_Shortcode {
 					um_reset_user(); } ?>
 
 					<!--Fecha-->
-					<?php if( $final_exit->type == 'upgrade_role'){ ?>
-						<span class="date-activity"><?php echo bbp_get_time_since( $final_exit->time ); ?></span> 
+					<?php if( $final_exit->type == 'upgrade_role' || $final_exit->user_id1 == $current_user ){ ?>
+						<span class="date-activity"><?php echo bbp_get_time_since( $final_exit->time ); echo " - ".$final_exit->time." - ".strtotime($final_exit->time); ?></span> 
 					<?php
 					}else{
 						if(time()-get_the_time( 'U', $final_exit ) > 1500000){ ?>
