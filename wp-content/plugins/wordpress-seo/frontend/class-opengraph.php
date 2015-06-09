@@ -275,7 +275,7 @@ class WPSEO_OpenGraph {
 				if (isset($_GET['nm_st'])){
 					$nm_st = $_GET['nm_st'];
 				}else{
-					$nm_st = "Quien esta";
+					$nm_st = "";
 				}
 				$final_url = $url.'?ph='.$img.'&nm_st='.$nm_st;
 				$this->og_tag( 'og:url', esc_url( $final_url ) );
