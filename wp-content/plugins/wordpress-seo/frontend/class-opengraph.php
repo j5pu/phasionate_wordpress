@@ -19,7 +19,7 @@ class WPSEO_OpenGraph {
 	public function __construct() {
 		$this->options = WPSEO_Options::get_all();
 
-		if ( isset( $GLOBALS['fb_ver'] ) || class_exists( 'Facebook_Loader' ) ) {
+		if ( isset( $GLOBALS['fb_ver'] ) || class_exists( 'Facebook_Loader', false ) ) {
 			add_filter( 'fb_meta_tags', array( $this, 'facebook_filter' ), 10, 1 );
 		}
 		else {
@@ -155,14 +155,12 @@ class WPSEO_OpenGraph {
 	 */
 	public function website_facebook() {
 
-		if (!um_is_core_page('user') ){
-			if ( isset( $this->options['facebook_site'] ) && $this->options['facebook_site'] !== '' ) {
-				$this->og_tag( 'article:publisher', $this->options['facebook_site'] );
+		if ( isset( $this->options['facebook_site'] ) && $this->options['facebook_site'] !== '' ) {
+			$this->og_tag( 'article:publisher', $this->options['facebook_site'] );
 
-				return true;
-			}
+			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -206,21 +204,29 @@ class WPSEO_OpenGraph {
 	 * @return string|boolean
 	 */
 	public function og_title( $echo = true ) {
-		if ( is_singular() ) {
-			$title = WPSEO_Meta::get_value( 'opengraph-title' );
+
+		$frontend      = WPSEO_Frontend::get_instance();
+		$is_posts_page = $frontend->is_posts_page();
+
+		if ( is_singular() || $is_posts_page ) {
+
+			$post_id = ( $is_posts_page ) ? get_option( 'page_for_posts' ) : get_the_ID();
+			$post    = get_post( $post_id );
+			$title   = WPSEO_Meta::get_value( 'opengraph-title', $post_id );
+
 			if ( $title === '' ) {
-				$title = WPSEO_Frontend::get_instance()->title( '' );
+				$title = $frontend->title( '' );
 			}
 			else {
 				// Replace WP SEO Variables
-				$title = wpseo_replace_vars( $title, get_post() );
+				$title = wpseo_replace_vars( $title, $post );
 			}
 		}
 		else if ( is_front_page() ) {
-			$title = ( isset( $this->options['og_frontpage_title'] ) && $this->options['og_frontpage_title'] !== '' ) ? $this->options['og_frontpage_title'] : WPSEO_Frontend::get_instance()->title( '' );
+			$title = ( isset( $this->options['og_frontpage_title'] ) && $this->options['og_frontpage_title'] !== '' ) ? $this->options['og_frontpage_title'] : $frontend->title( '' );
 		}
 		else {
-			$title = WPSEO_Frontend::get_instance()->title( '' );
+			$title = $frontend->title( '' );
 		}
 
 		/**
@@ -229,15 +235,6 @@ class WPSEO_OpenGraph {
 		 * @api string $unsigned The title string
 		 */
 		$title = trim( apply_filters( 'wpseo_opengraph_title', $title ) );
-
-		$category = get_the_category(); 
-		if ($category[0]->cat_name == 'Streetstyle'){
-			if (isset($_GET['nm_st'])){
-				$name = $_GET['nm_st'];
-				$this->og_tag( 'og:title', $name.' en '.$title );
-			}
-			return true;
-		}
 
 		if ( is_string( $title ) && $title !== '' ) {
 			if ( $echo !== false ) {
@@ -268,29 +265,12 @@ class WPSEO_OpenGraph {
 		 */
 		$url = apply_filters( 'wpseo_opengraph_url', WPSEO_Frontend::get_instance()->canonical( false ) );
 
-		$category = get_the_category(); 
-		if ($category[0]->cat_name == 'Streetstyle'){
-			if (isset($_GET['ph'])){
-				$img = $_GET['ph'];
-				if (isset($_GET['nm_st'])){
-					$nm_st = $_GET['nm_st'];
-				}else{
-					$nm_st = "";
-				}
-				$final_url = $url.'?ph='.$img.'&nm_st='.$nm_st;
-				$this->og_tag( 'og:url', esc_url( $final_url ) );
-			}
+		if ( is_string( $url ) && $url !== '' ) {
+			$this->og_tag( 'og:url', esc_url( $url ) );
+
 			return true;
 		}
 
-		if (!um_is_core_page('user') ){
-			if ( is_string( $url ) && $url !== '' ) {
-				$this->og_tag( 'og:url', esc_url( $url ) );
-
-				return true;
-			}
-		}
-		
 		return false;
 	}
 
@@ -500,21 +480,8 @@ class WPSEO_OpenGraph {
 	public function image( $image = false ) {
 		$opengraph_images = new WPSEO_OpenGraph_Image( $this->options, $image );
 
-		$category = get_the_category(); 
-		if ($category[0]->cat_name == 'Streetstyle'){
-			if (isset($_GET['ph'])){
-				$img = get_site_url().'/wp-content/uploads/'.$_GET['ph'];
-				$this->og_tag( 'og:image:width', 200 );
-				$this->og_tag( 'og:image:height', 200 );
-				$this->og_tag( 'og:image', esc_url( $img ) );
-			}
-			return true;
-		}
-
-		if (!um_is_core_page('user') ){
-			foreach ( $opengraph_images->get_images() as $img ) {
-				$this->og_tag( 'og:image', esc_url( $img ) );
-			}
+		foreach ( $opengraph_images->get_images() as $img ) {
+			$this->og_tag( 'og:image', esc_url( $img ) );
 		}
 	}
 
@@ -535,26 +502,31 @@ class WPSEO_OpenGraph {
 	 * @return string $ogdesc
 	 */
 	public function description( $echo = true ) {
-		$ogdesc = '';
+		$ogdesc   = '';
+		$frontend = WPSEO_Frontend::get_instance();
 
 		if ( is_front_page() ) {
 			if ( isset( $this->options['og_frontpage_desc'] ) && $this->options['og_frontpage_desc'] !== '' ) {
 				$ogdesc = wpseo_replace_vars( $this->options['og_frontpage_desc'], null );
 			}
 			else {
-				$ogdesc = WPSEO_Frontend::get_instance()->metadesc( false );
+				$ogdesc = $frontend->metadesc( false );
 			}
 		}
 
-		if ( is_singular() ) {
-			$ogdesc = WPSEO_Meta::get_value( 'opengraph-description' );
+		$is_posts_page = $frontend->is_posts_page();
+
+		if ( is_singular() || $is_posts_page ) {
+			$post_id = ( $is_posts_page ) ? get_option( 'page_for_posts' ) : get_the_ID();
+			$post    = get_post( $post_id );
+			$ogdesc  = WPSEO_Meta::get_value( 'opengraph-description', $post_id );
 
 			// Replace WP SEO Variables
-			$ogdesc = wpseo_replace_vars( $ogdesc, get_post() );
+			$ogdesc = wpseo_replace_vars( $ogdesc, $post );
 
 			// Use metadesc if $ogdesc is empty
 			if ( $ogdesc === '' ) {
-				$ogdesc = WPSEO_Frontend::get_instance()->metadesc( false );
+				$ogdesc = $frontend->metadesc( false );
 			}
 
 			// og:description is still blank so grab it from get_the_excerpt()
@@ -565,7 +537,7 @@ class WPSEO_OpenGraph {
 
 		if ( is_category() || is_tag() || is_tax() ) {
 
-			$ogdesc = WPSEO_Frontend::get_instance()->metadesc( false );
+			$ogdesc = $frontend->metadesc( false );
 
 			if ( '' == $ogdesc ) {
 				$ogdesc = trim( strip_tags( term_description() ) );
@@ -625,12 +597,9 @@ class WPSEO_OpenGraph {
 		$tags = get_the_tags();
 		if ( ! is_wp_error( $tags ) && ( is_array( $tags ) && $tags !== array() ) ) {
 
-			$tags_out = '';
 			foreach ( $tags as $tag ) {
-				$tags_out .= $tag->name . ',';
+				$this->og_tag( 'article:tag', $tag->name );
 			}
-			$tags_out = rtrim( $tags_out, ',' );
-			$this->og_tag( 'article:tag', $tags_out );
 
 			return true;
 		}
@@ -646,7 +615,7 @@ class WPSEO_OpenGraph {
 	 */
 	public function category() {
 
-		if ( ! is_singular() || um_is_core_page('user') ) {
+		if ( ! is_singular() ) {
 			return false;
 		}
 
