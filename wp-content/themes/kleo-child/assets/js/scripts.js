@@ -291,7 +291,7 @@ function ownResize(){
 				$publiSections = $('.medSection .publiGaleria');
 				var img_src_to_share = $('.elemGaleria img').eq(num).attr('src');
 				img_src_to_share = img_src_to_share.split("uploads/").pop();
-				img_src_to_share = img_src_to_share.replace('/','%2F');
+				//img_src_to_share = img_src_to_share.replace('/','%2F');
 				var name_st = $('.medSection p').eq(num).html();
 				name_st = name_st.replace(' ', '_');
 
