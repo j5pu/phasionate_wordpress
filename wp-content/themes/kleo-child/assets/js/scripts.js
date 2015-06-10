@@ -305,7 +305,7 @@ function ownResize(){
 				$($publiSections[num]).append($('<div>').attr({class: 'share-links'})
 					.append($('<span>').attr({class: 'kleo-facebook'})
 						.append($('<a>').attr({class: 'post_share_facebook'}).on('click', function(){ javascript:window.open(this.href, //http://www.facebook.com/sharer.php?u=https://www.facebook.com/photo.php?fbid=481019152029911
-						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;}).attr('href', "http://www.facebook.com/sharer.php?u=" + location_url + img_src_to_share + "&nm_st=" + name_st)
+						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;}).attr('href', "http://www.facebook.com/sharer.php?u=" + location_url + img_src_to_share + "%26nm_st%3d" + name_st)
 							))
 					.append($('<span>').attr({class: 'kleo-twitter'})
 						.append($('<a>').attr({class: 'post_share_twitter'}).on('click', function(){ javascript:window.open(this.href,
@@ -313,7 +313,7 @@ function ownResize(){
 							))
 					.append($('<span>').attr({class: 'kleo-googleplus'})
 						.append($('<a>').on('click', function(){ javascript:window.open(this.href,
-						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;}).attr('href', "https://plus.google.com/share?url=" + location_url + img_src_to_share + "&nm_st=" + name_st)
+						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;}).attr('href', "https://plus.google.com/share?url=" + location_url + img_src_to_share + "%26nm_st%3d" + name_st)
 							)));
 
 				if($(window).width()>767){
