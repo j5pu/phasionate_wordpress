@@ -234,6 +234,7 @@ class WPSEO_OpenGraph {
 		if ($category[0]->cat_name == 'Streetstyle'){
 			if (isset($_GET['nm_st'])){
 				$name = $_GET['nm_st'];
+				$name = str_replace("_"," ",$name);
 				$this->og_tag( 'og:title', $name.' en '.$title );
 			}
 			return true;
