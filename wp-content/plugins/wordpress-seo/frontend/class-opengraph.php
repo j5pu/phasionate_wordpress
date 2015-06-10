@@ -265,10 +265,26 @@ class WPSEO_OpenGraph {
 		 */
 		$url = apply_filters( 'wpseo_opengraph_url', WPSEO_Frontend::get_instance()->canonical( false ) );
 
+<<<<<<< HEAD
 		if ( is_string( $url ) && $url !== '' ) {
 			$this->og_tag( 'og:url', esc_url( $url ) );
 
 			return true;
+=======
+		$category = get_the_category(); 
+		if ($category[0]->cat_name == 'Streetstyle'){
+			if (isset($_GET['ph'])){
+				$img = $_GET['ph'];
+				if (isset($_GET['nm_st'])){
+					$nm_st = $_GET['nm_st'];
+				}else{
+					$nm_st = "";
+				}
+				$final_url = $url.'?ph='.$img.'&nm_st='.$nm_st;
+				$this->og_tag( 'og:url', esc_url( $final_url ) );
+				return true;
+			}
+>>>>>>> streetstyle share
 		}
 
 		return false;
