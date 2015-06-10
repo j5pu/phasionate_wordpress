@@ -291,6 +291,7 @@ function ownResize(){
 				$publiSections = $('.medSection .publiGaleria');
 				var img_src_to_share = $('.elemGaleria img').eq(num).attr('src');
 				img_src_to_share = img_src_to_share.split("uploads/").pop();
+				img_src_to_share = img_src_to_share.replace('/','%2F');
 				var name_st = $('.medSection p').eq(num).html();
 				name_st = name_st.replace(' ', '%20');
 
@@ -300,10 +301,11 @@ function ownResize(){
 				}else{
 					location_url = location_url.substring(0, location_url.search('=')+1);
 				}
+					location_url = location_url.replace('https','http');
 				$($publiSections[num]).append($('<div>').attr({class: 'share-links'})
 					.append($('<span>').attr({class: 'kleo-facebook'})
 						.append($('<a>').attr({class: 'post_share_facebook'}).on('click', function(){ javascript:window.open(this.href, //http://www.facebook.com/sharer.php?u=https://www.facebook.com/photo.php?fbid=481019152029911
-						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;}).attr('href', "http://www.facebook.com/sharer.php?u=" + location_url + img_src_to_share + "%26nm_st%3d" + name_st)
+						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;}).attr('href', "http://www.facebook.com/sharer.php?u=" + location_url + img_src_to_share + "&nm_st=" + name_st)
 							))
 					.append($('<span>').attr({class: 'kleo-twitter'})
 						.append($('<a>').attr({class: 'post_share_twitter'}).on('click', function(){ javascript:window.open(this.href,
@@ -311,7 +313,7 @@ function ownResize(){
 							))
 					.append($('<span>').attr({class: 'kleo-googleplus'})
 						.append($('<a>').on('click', function(){ javascript:window.open(this.href,
-						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;}).attr('href', "https://plus.google.com/share?url=" + location_url + img_src_to_share + "%26nm_st%3d" + name_st)
+						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;}).attr('href', "https://plus.google.com/share?url=" + location_url + img_src_to_share + "&nm_st=" + name_st)
 							)));
 
 				if($(window).width()>767){

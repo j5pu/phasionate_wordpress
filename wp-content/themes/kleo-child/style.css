@@ -3649,14 +3649,16 @@ body.page.page-id-15897 .page-title {
 		background-color: #fff;
 	}
 }
-/* Personalizar perfil - Eliminar apellido y email - Cambiar color navegador */
+/* Personalizar perfil - Eliminar apellido y email - Cambiar color navegador - Boton Votame reducido*/
 .um-profile .um-header .um-meta>span:last-child, .um-profile .um-header .um-meta>span:first-child{
 	display:none;
 }
 .um-profile-nav{
 	background-color: #ccc;
 }
-
+.um-profile .um-reviews-send .um-button{
+	padding: 8px 10px !important;
+}
 /* Ultimate Members Profile Editar Galeria */
 .um-field-foto_concurso .um-field-area, .um-field-foto_2_concurso .um-field-area, .um-field-foto_3_concurso .um-field-area,
  .um-field-foto_4_concurso .um-field-area, .um-field-foto_5_concurso .um-field-area{
