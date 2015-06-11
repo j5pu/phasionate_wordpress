@@ -3701,8 +3701,13 @@ body.page.page-id-15897 .page-title {
 .formGallery .um-field:not(.um-field-foto_concurso):not(.um-field-foto_2_concurso):not(.um-field-foto_3_concurso):not(.um-field-foto_4_concurso):not(.um-field-foto_5_concurso){
 	display:none;
 }
-.um-field div.um-photo img{
-	width: 100%;
+/* Mensajes Ultimate Member */
+.um-message-textarea textarea{
+	overflow-y:	scroll !important;
+	max-height: 200px;
+}
+.um-message-emo{
+	margin-right: 10px;
 }
 
 /* Corregir sobreposicion de algunos elementos sobre el menu-navegador*/
