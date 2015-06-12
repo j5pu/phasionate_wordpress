@@ -73,6 +73,7 @@ each: null // callback invoked when each image in a group loads
 //Nueva Galeria
 /*Scrool Move*/
 //Scroll Limit
+/*
 window.onload = function() {
 	
 
@@ -118,7 +119,7 @@ window.onload = function() {
 		}
 	};
 }
-
+*/
 $.fn.scrollTo = function( target, options, callback ){
   if(typeof options == 'function' && arguments.length == 2){ callback = options; options = target; }
   var settings = $.extend({
@@ -278,8 +279,13 @@ function ownResize(){
 
 				    //Determinar altura
 				    if($(window).width()>767){
-					var alturaMedSection = ($(window).height()-$('.medSection').eq(num).height())/2.5;
-					$('.medSection').eq(num).css('top', alturaMedSection+'px');
+						var alturaMedSection = ($(window).height()-$('.medSection').eq(num).height())/2.5;
+						$('.medSection').eq(num).css('top', alturaMedSection+'px');
+
+						if($('.arrowTop').length){
+							$('.arrowTop').css('height',$('.arrowTop').width());
+							$('.arrowBot').css('height',$('.arrowBot').width());
+						}
 					}
 
 					sideArrows(num);
@@ -305,7 +311,7 @@ function ownResize(){
 				$($publiSections[num]).append($('<div>').attr({class: 'share-links'})
 					.append($('<span>').attr({class: 'kleo-facebook'})
 						.append($('<a>').attr({class: 'post_share_facebook'}).on('click', function(){ javascript:window.open(this.href, //http://www.facebook.com/sharer.php?u=https://www.facebook.com/photo.php?fbid=481019152029911
-						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;}).attr('href', "http://www.facebook.com/sharer.php?u=" + location_url + img_src_to_share + "%26nm_st%3d" + name_st)
+						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;}).attr('href', "http://www.facebook.com/sharer.php?u=" + location_url + img_src_to_share + "&nm_st=" + name_st)
 							))
 					.append($('<span>').attr({class: 'kleo-twitter'})
 						.append($('<a>').attr({class: 'post_share_twitter'}).on('click', function(){ javascript:window.open(this.href,
@@ -313,7 +319,7 @@ function ownResize(){
 							))
 					.append($('<span>').attr({class: 'kleo-googleplus'})
 						.append($('<a>').on('click', function(){ javascript:window.open(this.href,
-						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;}).attr('href', "https://plus.google.com/share?url=" + location_url + img_src_to_share + "%26nm_st%3d" + name_st)
+						'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;}).attr('href', "https://plus.google.com/share?url=" + location_url + img_src_to_share + "&nm_st=" + name_st)
 							)));
 
 				if($(window).width()>767){
@@ -340,15 +346,26 @@ function ownResize(){
 				if($(window).height()*0.7<$('.elemNavImagenes').length*$('.elemNavImagenes').height()){
 					if(!$('.arrowTop').length){
 						$('.bigSection').prepend($('<div>', {class: 'arrowTop arrowNav'}));
+						$('.arrowTop').css('height',$('.arrowTop').width());
 						$('.bigSection').prepend($('<div>', {class: 'arrowBot arrowNav'}));
-					}	
-					$('.arrowTop').on('mousedown',function(){
-						$('.navImagenes').scrollTo($('.navImagenes').scrollTop()-300);
-					});
+						$('.arrowBot').css('height',$('.arrowBot').width());
 
-					$('.arrowBot').on('mousedown',function(){
-						$('.navImagenes').scrollTo($('.navImagenes').scrollTop()+300);
-					});
+						var navImagenesHeight = $('.navImagenes').height();
+						var elemNavImagenesHeight = $('.elemNavImagenes').height()+10;
+						var maxScroll = $('.elemNavImagenes').length * elemNavImagenesHeight - navImagenesHeight - 5;
+
+						$('.arrowTop').on('mousedown',function(){
+							var _goToScrollPos = $('.navImagenes').scrollTop()-300;
+							$('.navImagenes').scrollTo(_goToScrollPos);
+							displayArrowsScrolled( _goToScrollPos, 0, maxScroll);
+						});
+
+						$('.arrowBot').on('mousedown',function(){
+							var _goToScrollPos = $('.navImagenes').scrollTop()+300;
+							$('.navImagenes').scrollTo(_goToScrollPos);
+							displayArrowsScrolled( _goToScrollPos, 0, maxScroll);
+						});
+					}	
 				}
 			    //Determinar altura
 				if($(window).width()>767){
@@ -359,15 +376,29 @@ function ownResize(){
 			//Scroll del menu navegador entre imagenes para centrar la elegida
 			var navImagenesHeight = $('.navImagenes').height();
 			var elemNavImagenesHeight = $('.elemNavImagenes').height()+10;
-			$('.navImagenes').scrollTo(elemNavImagenesHeight * $i - (navImagenesHeight/2 - elemNavImagenesHeight/2));
+			var maxScroll = $('.elemNavImagenes').length * elemNavImagenesHeight - navImagenesHeight - 5;
+			var _goToScrollPos = elemNavImagenesHeight * $i - (navImagenesHeight/2 - elemNavImagenesHeight/2);
+			$('.navImagenes').scrollTo(_goToScrollPos);
+			displayArrowsScrolled( _goToScrollPos, 0, maxScroll);
 		}		
+	}
+	function displayArrowsScrolled (scrollPosition, limitDown, limitUp){
+		if ( scrollPosition < limitDown ){
+			$('.arrowTop').css('display','none');
+		}else{
+			$('.arrowTop').css('display','inline-block');
+		}
+		if ( scrollPosition > limitUp ){
+			$('.arrowBot').css('display','none');
+		}else{
+			$('.arrowBot').css('display','inline-block');
+		}
 	}
 /*Final Nueva Galeria*/
 
 
 /*Seccion active (Se pinta la categoría del menú correspondiente al post visualizado*/
 	$category=$("meta[property='article:section']").attr('content');
-	console.log($category);
 	switch($category){
 		case "Cara y Cuerpo":
 		case "Salud y Dietas":
@@ -399,10 +430,7 @@ function ownResize(){
 	if($('.checkout-steps').length>0 || $('p.cart-empty').length>0){
 		$('.cart-contents').find('i').css('color','#F66 !important');
 		document.styleSheets[0].addRule('.icon-basket-full-alt:before','color:#f66');
-		console.log(document.styleSheets[0]);
 	}
-	console.log($('.product').length);
-	console.log($category);
 	$('.navbar-nav').find("li a[title="+$category+"]").css('color','#F66');
 /*Final seccion active*/
 

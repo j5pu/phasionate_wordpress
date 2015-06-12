@@ -234,11 +234,10 @@ class WPSEO_OpenGraph {
 		if ($category[0]->cat_name == 'Streetstyle'){
 			if (isset($_GET['nm_st'])){
 				$name = $_GET['nm_st'];
-				$name_white = strpos($name, ' ');
-				if($name_white !== false){
-					$name = str_replace("_"," ",$name);
-				}
+				$name = str_replace("_"," ",$name);
 				$this->og_tag( 'og:title', $name.' en '.$title );
+			}else{
+				$this->og_tag( 'og:title', $title );
 			}
 			return true;
 		}
@@ -277,9 +276,12 @@ class WPSEO_OpenGraph {
 			if (isset($_GET['ph'])){
 				$img = $_GET['ph'];
 					$nm_st = $_GET['nm_st'];
-					$final_url = $url.'?ph='.$img;
+					$final_url = $url.'?ph='.$img.'&nm_st='.$nm_st;
 					$this->og_tag( 'og:url', esc_url( $final_url ) );
 					return true;
+			}else{
+				$this->og_tag( 'og:url', esc_url( $url ) );
+				return true;
 			}
 		}
 
@@ -504,13 +506,11 @@ class WPSEO_OpenGraph {
 		if ($category[0]->cat_name == 'Streetstyle'){
 			if (isset($_GET['ph'])){
 				$img = get_site_url().'/wp-content/uploads/'.$_GET['ph'];
-				$strposimg = strpos($img,"&nm_st");
-				$img = substr($img, 0, $strposimg);
 				$this->og_tag( 'og:image:width', 200 );
 				$this->og_tag( 'og:image:height', 200 );
 				$this->og_tag( 'og:image', esc_url( $img ) );
+				return true;
 			}
-			return true;
 		}
 
 		if (!um_is_core_page('user') ){
