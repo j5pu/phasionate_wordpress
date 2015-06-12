@@ -324,7 +324,7 @@ function ownResize(){
 							)));
 
 				if($(window).width()>767){
-					$('.share-links').css('margin-left',-$('.publiGaleria').eq(num).outerWidth());
+					$('.medSection .share-links').css('margin-left',-$('.publiGaleria').eq(num).outerWidth());
 				}
 			}
 
