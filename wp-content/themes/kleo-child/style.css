@@ -4556,7 +4556,7 @@ body.woocommerce #main-container > div{
 }
 
 .modelos-slider{
-	margin-top: -64px !important;
+	margin-top: -25px !important;
 }
 @media (min-width: 100px) and (max-width: 990px) { 
 	.modelos-slider{
@@ -4703,3 +4703,11 @@ li.activity-li-post img{
 	transition: all 0.3s ease-in-out 0s;
 }
 
+/* Continuación tienda */
+/*body.woocommerce .page-title{
+	display: none;
+}*/
+
+.woocommerce-result-count{
+	display: none;
+}
