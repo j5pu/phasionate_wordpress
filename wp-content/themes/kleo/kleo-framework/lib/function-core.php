@@ -283,6 +283,7 @@ function kleo_pagination( $pages = '', $echo = true ) {
 	}
 
 	$paged        = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
+	echo $paged;
 	$pagenum_link = html_entity_decode( get_pagenum_link() );
 	$query_args   = array();
 	$url_parts    = explode( '?', $pagenum_link );
@@ -292,29 +293,47 @@ function kleo_pagination( $pages = '', $echo = true ) {
 	}
 
 	$pagenum_link = remove_query_arg( array_keys( $query_args ), $pagenum_link );
+
+    if ( is_search() ) {
+        //Pongo esto aqu� porque en el search formaba mal la url
+        $pagenum = explode( '/', $pagenum_link);
+        $pagenum_link = 'http://'.$pagenum[2].'/';
+    }
+
 	$pagenum_link = trailingslashit( $pagenum_link ) . '%_%';
 
 	$format  = $GLOBALS['wp_rewrite']->using_index_permalinks() && ! strpos( $pagenum_link, 'index.php' ) ? 'index.php/' : '';
-	$format .= $GLOBALS['wp_rewrite']->using_permalinks() ? user_trailingslashit( 'page/%#%', 'paged' ) : '?paged=%#%';
+	//$format .= $GLOBALS['wp_rewrite']->using_permalinks() ? user_trailingslashit( 'page/%#%', 'paged' ) : '?paged=%#%';
+    $format .= $GLOBALS['wp_rewrite']->using_permalinks() ? user_trailingslashit( '%#%', 'paged' ) : '?paged=%#%';
 
-	// Set up paginated links.
+		// Set up paginated links.
 	$links = paginate_links( array(
 		'base'     => $pagenum_link,
 		'format'   => $format,
 		'total'    => $pages,
 		'current'  => $paged,
-		'mid_size' => 2,
+		'mid_size' => 1,
 		'add_args' => array_map( 'urlencode', $query_args ),
 		'prev_text' => __( '&laquo;', 'kleo_framework' ),
 		'next_text' => __( '&raquo;', 'kleo_framework' ),
 		'type' => 'array'
 	) );
-
+	if ($paged > 1){
+		$links[1] = "<a class='page-numbers' href='".get_category_link( get_query_var('cat'))."'>1</a>";
+		if ($paged == 2){
+			$links[0] = "<a class='prev page-numbers' href='".get_category_link( get_query_var('cat'))."'>&laquo;</a>";
+		}
+	}
 	if ( $links ) {
         $output .= '<nav class="pagination-nav clear" role="navigation">'
             . '<ul class="pagination">';
 
+        $category = get_category_link(get_query_var('cat'));
+
         foreach ($links as $link) {
+        	if ($paged==1){
+        		$link = str_replace( $category, $category."page/",  $link);
+        	}
             $output .= '<li>' . $link . '</li>';
         }
 
