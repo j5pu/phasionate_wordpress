@@ -175,7 +175,7 @@ function ownResize(){
 }
 
 /*Nueva Galeria*/
-	if(!$('.portada_posts').length && $('.menuGaleria').length){
+	if($('.menuGaleria').length){
 		createStreetGallery();
 	}
 	function createStreetGallery(){

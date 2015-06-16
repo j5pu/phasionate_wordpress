@@ -416,6 +416,43 @@ add_shortcode( 'MasVotados', 'losmasvotados' );
 * Shortcode para sacar en los mas, los post mas votados en la sidebar
 *
 */
+function losmaspoupularessidebar(){
+	//Sql para la obtencion delos posts:
+	global $not_post_in;
+	$likes_posts_args = array(
+			'numberposts' => 4,
+			'orderby' => 'meta_value_num',
+			'order' => 'DESC',
+			'meta_key' => 'views',
+			'post_type' => 'post',
+			'post_status' => 'publish', 
+			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 month ago') // Muestra los post más leidos solo del último mes.	
+		);	
+	$likes_posts = get_posts($likes_posts_args);
+		foreach( $likes_posts as $likes_post ) {
+			$count_output = '';
+			if( $display_count ) {
+				$count = get_post_meta( $likes_post->ID, '_item_likes', true);
+				$count_output = " <span class='item-likes-count'>($count)</span>";
+			}			
+			$category = get_the_category($likes_post->ID);
+			echo '<div class="portada_posts">';
+			$link = get_permalink($likes_post->ID);
+			$title = get_the_title($likes_post->ID);			
+			echo '<a href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'<h5><a href="'.$link.'">'.$title.'</a></h5>'.'</a>';
+			echo '</div>';
+			wp_reset_query();
+		}
+
+}
+add_shortcode( 'MasPopularesSidebar', 'losmaspoupularessidebar' );
+
+
+/* 
+*
+* Shortcode para sacar en los mas, los post mas votados en la sidebar
+*
+*/
 function losmasvotadossidebar(){
 	//Sql para la obtencion delos posts:
 	global $not_post_in;
@@ -425,7 +462,8 @@ function losmasvotadossidebar(){
 			'order' => 'DESC',
 			'meta_key' => '_item_likes',
 			'post_type' => 'post',
-			'post_status' => 'publish'			
+			'post_status' => 'publish',			
+			'date_query' => array('column' => 'post_date_gmt', 'after' => '3 months ago') // Muestra los post más leidos solo del último mes.	
 		);	
 	$likes_posts = get_posts($likes_posts_args);
 		foreach( $likes_posts as $likes_post ) {
