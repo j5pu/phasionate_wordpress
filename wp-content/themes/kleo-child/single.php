@@ -26,7 +26,7 @@ if(get_cfield( 'related_posts') != '' ) {
 <?php
 //create full width template
 
-kleo_switch_layout('no');
+kleo_switch_layout('right');
 
 ?>
 
