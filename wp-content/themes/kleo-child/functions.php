@@ -839,13 +839,6 @@ function um_profile_share_header( $user_id ){
 	<?php
 }
 
-
-//Eliminar párrafos automáticos por defecto
-
-remove_filter('the_content', 'wpautop');
-remove_filter( 'the_excerpt', 'wpautop' );
-remove_filter ('comment_text', 'wpautop');
-
 /**
 
 -----BORRA ESTE COMENTARIO UNA VEZ HECHOS ESTOS PASOS
