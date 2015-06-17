@@ -46,6 +46,21 @@ kleo_switch_layout('right');
 		}
 		?>
 
+		<?php
+		global $not_post_in;
+		$author_posts_args = array(
+			'numberposts' => 3,
+			'orderby' => 'meta_value_num',
+			'order' => 'DESC',
+			'meta_key' => 'views',
+			'post_type' => 'post',
+			'post_status' => 'publish', 
+			'author' => get_the_author_meta( 'ID' ),
+			'date_query' => array('column' => 'post_date_gmt', 'before' => '1 month ago') // Muestra los post más leidos solo del último mes.	
+		);	
+		$author_posts = get_posts($author_posts_args);
+		?>
+
 <div id="authorarea" class="vcard author">
 	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author">
 	<?php echo get_avatar( get_the_author_meta( 'user_email' ), 150 ); ?></a>
@@ -53,6 +68,19 @@ kleo_switch_layout('right');
 	<h2 class="fn"><?php echo (get_the_author( )) ; ?></h2></a>
 	<div class="authorinfo role">
 		<?php the_author_meta( 'description' ); ?><br/>
+	</div>
+	<div class="postAuthor">
+		<h5>Otros de sus articulos:</h5>
+		<?php
+		foreach( $author_posts as $author_post ) {
+			echo '<div class="portada_posts">';
+			$link = get_permalink($author_post->ID);
+			$title = get_the_title($author_post->ID);			
+			echo '<a href="'.$link.'">'.get_the_post_thumbnail( $author_post->ID, 'medium' ).'<h5><a href="'.$link.'">'.$title.'</a></h5>'.'</a>';
+			echo '</div>';
+			wp_reset_query();
+		}
+		?>
 	</div>
 </div>
 

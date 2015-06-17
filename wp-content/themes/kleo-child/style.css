@@ -118,7 +118,7 @@ body.home .portada_posts:nth-child(1)
 	display: inline-block;
 	vertical-align: top;
 	border: 1px solid #ffe0e0;
-	margin: 2% 2% 0%;
+	margin: 1% 2% 1%;
 	padding-bottom: 0px;
 	height: 360px;
 }
@@ -3176,7 +3176,6 @@ left: auto !important;
 .widgets-container .portada_posts h5{
 	font-size: 1.7rem;
 	text-align: left;
-	margin: 10px 0px 0px 0px;
 }
 .widgets-container .portada_posts h5 a{
 	margin-left: 2px;
@@ -3184,6 +3183,7 @@ left: auto !important;
 .widgets-container .portada_posts img{
 	float: left;
 	width: 80px !important;
+	margin-right: 8px; 
 }
 /* Fin Modificaciones Sidebar adaptacion de lo MasVotados -shortcode[MasVotadosSidebar]*/
 
@@ -4710,4 +4710,26 @@ body.woocommerce .page-title{
 
 .woocommerce-result-count{
 	display: none;
+}
+
+
+/* Post Single - Articulos - Modificaciones de tarjeta de autor */
+.postAuthor{
+	margin-top: 3%;
+}
+.postAuthor>h5{
+	text-align: center;
+	color: #333 !important;
+}
+.postAuthor .portada_posts{
+	height: initial;
+	border:none;
+	width: 29%;
+}
+.postAuthor .portada_posts h5{
+	font-size:	90%;
+}
+#authorarea .postAuthor .portada_posts img{
+	height: auto;
+	width: 100%;
 }
