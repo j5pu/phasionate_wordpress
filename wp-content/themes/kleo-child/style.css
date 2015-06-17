@@ -4733,3 +4733,35 @@ body.woocommerce .page-title{
 	height: auto;
 	width: 100%;
 }
+
+
+@media (max-width: 767px){
+
+	/* Author Area */
+	#authorarea{
+		margin:0px;
+		padding:10px;
+	}
+
+	#authorarea .author-link{
+		display: inline-block;
+		width: 100%;
+		text-align: center;
+	}
+	#authorarea .author-link img{
+		float:none;
+	}
+	#authorarea .author-link h2, #authorarea .authorinfo.role{
+		margin-left: 0 !important;
+	}
+
+	#authorarea .postAuthor .portada_posts{
+		width: 100%;
+	}
+
+	/* Widgets de Post relacionados */
+
+	.sidebar .portada_posts h5 a{
+		font-size: 85%;
+	}
+} 
