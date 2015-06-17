@@ -3183,7 +3183,6 @@ left: auto !important;
 .widgets-container .portada_posts img{
 	float: left;
 	width: 80px !important;
-	margin-right: 8px; 
 }
 /* Fin Modificaciones Sidebar adaptacion de lo MasVotados -shortcode[MasVotadosSidebar]*/
 
@@ -4734,6 +4733,17 @@ body.woocommerce .page-title{
 	width: 100%;
 }
 
+/* Widgets de Post relacionados */
+.sidebar .hover-element > i::before {
+	font-size: 30px;
+}
+.sidebar .portada_posts .element-wrap{
+	width: auto;
+}
+.sidebar .portada_posts h5{
+	margin-left: 80px;
+	margin-top: -45px;
+}
 
 @media (max-width: 767px){
 

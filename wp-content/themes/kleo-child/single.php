@@ -76,7 +76,7 @@ kleo_switch_layout('right');
 			echo '<div class="portada_posts">';
 			$link = get_permalink($author_post->ID);
 			$title = get_the_title($author_post->ID);			
-			echo '<a href="'.$link.'">'.get_the_post_thumbnail( $author_post->ID, 'medium' ).'<h5><a href="'.$link.'">'.$title.'</a></h5>'.'</a>';
+			echo '<a class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $author_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '</div>';
 			wp_reset_query();
 		}

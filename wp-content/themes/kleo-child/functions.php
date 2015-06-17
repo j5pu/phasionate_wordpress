@@ -441,7 +441,7 @@ function losmaspoupularessidebar(){
 			echo '<div class="portada_posts">';
 			$link = get_permalink($likes_post->ID);
 			$title = get_the_title($likes_post->ID);			
-			echo '<a href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'<h5><a href="'.$link.'">'.$title.'</a></h5>'.'</a>';
+			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '</div>';
 			wp_reset_query();
 		}
@@ -480,7 +480,7 @@ function losmasvotadossidebar(){
 			echo '<div class="portada_posts">';
 			$link = get_permalink($likes_post->ID);
 			$title = get_the_title($likes_post->ID);			
-			echo '<a href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'<h5><a href="'.$link.'">'.$title.'</a></h5>'.'</a>';
+			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '</div>';
 			wp_reset_query();
 		}
@@ -517,7 +517,7 @@ function losultimossidebar(){
 			echo '<div class="portada_posts">';
 			$link = get_permalink($likes_post->ID);
 			$title = get_the_title($likes_post->ID);			
-			echo '<a href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'<h5><a href="'.$link.'">'.$title.'</a></h5>'.'</a>';
+			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '</div>';
 			wp_reset_query();
 		}
