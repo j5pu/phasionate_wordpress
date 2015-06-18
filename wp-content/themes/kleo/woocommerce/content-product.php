@@ -80,8 +80,16 @@ else {
 			<?php
 				$size = sizeof( get_the_terms( $post->ID, 'product_cat' ) );
 				echo $product->get_categories( ', ', '<span class="posted_in">' . _n( '', '', $size, 'woocommerce' ) . ' ', '</span>' );
-			?>
+				?>			
 			<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+			<p class="YOURS"><?php
+				$subheadingvalues = get_the_terms( $product->id, 'pa_disenadora');
+				      foreach ( $subheadingvalues as $subheadingvalue ) {
+				       echo '<i>Por <a href="">' . $subheadingvalue->name . '</a></i>';
+				        }
+				?>
+			</p>
+			
 		</div>
 
 		<?php
