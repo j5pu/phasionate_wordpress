@@ -83,11 +83,13 @@ else {
 				?>			
 			<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 			<p class="por_disenador"><?php
-				$subheadingvalues = get_the_terms( $product->id, 'pa_disenadora');
-				      foreach ( $subheadingvalues as $subheadingvalue ) {
-				       echo '<i>Por <a href="">' . $subheadingvalue->name . '</a></i>';
-				        }
-				?>
+			$subheadingvalues = get_the_terms( $product->id, 'pa_disenadora');
+
+			if ( $subheadingvalues && ! is_wp_error( $subheadingvalues ) ) {
+	      		foreach ( $subheadingvalues as $subheadingvalue ) {
+	       			echo '<i>Por <a href="https://www.bogadia.com/tienda/disenadores/' . $subheadingvalue->slug . '">' . $subheadingvalue->name . '</a></i>';
+		        }		
+			}?>
 			</p>
 			
 		</div>
