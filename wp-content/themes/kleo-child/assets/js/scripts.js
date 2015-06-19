@@ -194,7 +194,7 @@ function ownResize(){
 		}));
 
 //Ocultar las secciones dentro de contenedores(medSection)
-		$sections = $('section').has('p').has('img').not(':has(section)').has('ins'); //.has('.publiGaleria');
+		$sections = $('section').has('p').has('img').not(':has(section)').has('.publiGaleria'); //.has('.publiGaleria');
 		for ($i=0; $i<$sections.length; $i++){
 			$('.bigSection').append($('<div>', {class: 'medSection', id: 'medSection'+$i}).css({'display':'none'}));
 			$($sections[$i]).addClass('sec'+$i);	
@@ -238,14 +238,26 @@ function ownResize(){
 		sideArrows(num);
 
 	//Crear icono debajo de la publi
-		if(!$('.medSection .publiGaleria').eq(num).has('.logoGaleria').length){
-			$publiSections = $('.medSection .publiGaleria');
-			$diamond = $('.medSection .publiGaleria').eq(num).prev().find('.kleo_text_column').height();
-			$($publiSections[num]).children().append($('<div>', {class: 'logoGaleria'}).css('height',$diamond+'px')
-			.append($('<img>').attr({'src':'https://www.bogadia.com/wp-content/themes/kleo-child/assets/img/diamante.png'}).css('max-height', $('ins').eq(num).height()*0.15+'px')));
-			
+		if( !$('.medSection .publiGaleria').eq(num).has('.descriptionStreetStyle').length ){
+
+			if(!$('.medSection .publiGaleria').eq(num).has('.logoGaleria').length){
+				$publiSections = $('.medSection .publiGaleria');
+				$diamond = $('.medSection .publiGaleria').eq(num).prev().find('.kleo_text_column').height();
+				$($publiSections[num]).children().append($('<div>', {class: 'logoGaleria'}).css('height',$diamond+'px')
+				.append($('<img>').attr({'src':'https://www.bogadia.com/wp-content/themes/kleo-child/assets/img/diamante.png'}).css('max-height', $('ins').eq(num).height()*0.15+'px')));
+				
+			}else{
+				$('.medSection .publiGaleria').eq(num).find('.logoGaleria img').css('max-height', $('ins').eq(num).height()*0.15+'px');
+			}
+
 		}else{
-			$('.medSection .publiGaleria').eq(num).find('.logoGaleria img').css('max-height', $('ins').eq(num).height()*0.15+'px');
+
+			$('.descriptionStreetStyle').css('max-height', $('.medSection .col-sm-6.wpb_column:not(.publiGaleria)').eq(num).height());
+			if(!$('.medSection .publiGaleria').eq(num).has('.logoGaleria').length){
+				$publiSections = $('.medSection .publiGaleria');
+				$diamond = $('.medSection .publiGaleria').eq(num).prev().find('.kleo_text_column').height();
+				$($publiSections[num]).children().append($('<div>', {class: 'logoGaleria'}).css('height',$diamond+'px'));
+			}
 		}
 		$diamond = $('.medSection .publiGaleria').eq(num).prev().find('.kleo_text_column').height();
 		$('.medSection .publiGaleria').find('.logoGaleria').css('height',$diamond+'px');
@@ -255,8 +267,13 @@ function ownResize(){
 		    waitForFinalEvent(function(){
 				$diamond = $('.medSection .publiGaleria').eq(num).prev().find('.kleo_text_column').height();
 				$($publiSections[num]).find('.logoGaleria').css('height',$diamond+'px');
-				$($publiSections[num]).find('.logoGaleria').find('img').css('max-height',$('ins').eq(num).height()*0.15+'px');
 
+				if( !$('.medSection .publiGaleria').eq(num).has('.descriptionStreetStyle').length ){
+					$($publiSections[num]).find('.logoGaleria').find('img').css('max-height',$('ins').eq(num).height()*0.15+'px');
+				}else{
+					$('.descriptionStreetStyle').css('max-height', $('.medSection .col-sm-6.wpb_column:not(.publiGaleria)').eq(num).height());
+				}
+				
 				var shadowHeight = $('.medSection').eq(num).find('.kleo_text_column').height();
 				$('.medSection').eq(num).find('.wpb_single_image').css('box-shadow','0px 0px 20px #000, 0px ' + shadowHeight + 'px 20px #000');
 				$('.medSection').eq(num).find('.wpb_raw_html').css('box-shadow','0px 0px 20px #000, 0px ' + shadowHeight + 'px 20px #000');
@@ -424,10 +441,11 @@ function ownResize(){
 		case "Cómo ir":
 			$category="Moda";
 			break;
+		case "Streetstyle":
 		case "Pasarelas":
 		case "Ficha el Look de":
 		case "Cómo lo llevan":
-			$category="Streetstyle";
+			$category="Street style";
 			break;
 		case "Gourmet":
 		case "Escapadas":
@@ -444,7 +462,7 @@ function ownResize(){
 		$('.cart-contents').find('i').css('color','#F66 !important');
 		document.styleSheets[0].addRule('.icon-basket-full-alt:before','color:#f66');
 	}
-	$('.navbar-nav').find("li a[title="+$category+"]").css('color','#F66');
+	$('.navbar-nav').find("li a[title='"+$category+"']").css('color','#F66');
 /*Final seccion active*/
 
 /*Change header item list*/

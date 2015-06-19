@@ -1216,7 +1216,16 @@ strong.logo {
 .kleo-carousel-container:hover .carousel-arrow .carousel-next,.kleo-carousel-container:hover .carousel-arrow .carousel-prev,.pagination-sticky #newer-nav, .pagination-sticky #older-nav, .kleo-go-top  {
 	right: 20px;
 	color: #fff;
+	background: black !important;
+}
+.kleo-carousel-container:hover .carousel-arrow .carousel-next, .kleo-carousel-container:hover .carousel-arrow .carousel-prev{
 	background: rgba(255, 102, 102, 0.5)!important;
+}
+.kleo-carousel-container .carousel-arrow .carousel-next:hover, .kleo-carousel-container .carousel-arrow .carousel-prev:hover{
+	background: rgba(255, 102, 102, 0.75)!important;
+}
+.kleo-carousel-container .carousel-arrow .carousel-next, .kleo-carousel-container .carousel-arrow .carousel-prev{
+	background: rgba(255, 102, 102, 0.25)!important;
 }
 
 .icon-up-open-big:before {
@@ -1403,11 +1412,14 @@ a._self.pt-cv-readmore.btn.btn-success.btn-sm {
 
 
 .sidebar-main h4.widget-title {
-	color: #F66 !important;
+	color: white !important;
 	padding: 1% 2%;
 	text-align: left;
-	background: #e5e5e5;
+	background: black;
 	font-size: 18px;
+	text-align: center;
+	text-transform: uppercase;
+	border-radius: 2px;
 }
 
 #main .sidebar-main .widget {
@@ -2955,6 +2967,14 @@ left: auto !important;
 	position: relative;
 	padding-bottom: 1%;
 	width:auto;
+}
+.descriptionStreetStyle{
+	max-width: 600px;
+	height: 600px;
+	background-color: white;
+}
+.descriptionStreetStyle ins{
+	display: block;
 }
 	/*Añadidos para nav Imagenes*/
 .navImagenes{
@@ -4714,7 +4734,7 @@ body.woocommerce .page-title{
 
 /* Post Single - Articulos - Modificaciones de tarjeta de autor */
 .postAuthor{
-	margin-top: 3%;
+	margin-top: 6%;
 }
 .postAuthor>h5{
 	text-align: center;
@@ -4738,12 +4758,28 @@ body.woocommerce .page-title{
 	text-align: center;
 	padding-bottom: 10px;
 }
-.newTitleAuthor{
+.newTitleAuthor, .titleLinksToStreet{
 	font-size: 115%;
+	color: white !important;
+	background-color: black;
+	padding: 15px 0px;
+	border-radius:2px;
 }
+.newAuthorPhoto{
+	margin-top: -37px;
+	margin-left: -20px;
+	float: left;
+} 
 .newAuthorPhoto img{
-	width: 80px;
-	border-radius: 50px;
+	width: 110px;
+	border-radius: 80px;
+	border: 10px solid white;
+}
+.newTitleAuthor span{
+	margin-left: 15px;
+}
+.titleLinksToStreet{
+	padding-left: 25px;
 }
 
 /* Widgets de Post relacionados */

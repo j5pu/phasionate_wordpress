@@ -45,7 +45,7 @@ kleo_switch_layout('right');
 		if ($cat_name == "Streetstyle"){
 		if( $related == 1 ) {
 			?>
-			<h4>Más de <a href="<?php echo get_category_link( $cats[0]->id );?>">Street Style</a></h4>
+			<h4 class="titleLinksToStreet">Más de <a href="<?php echo get_category_link( $cats[0]->id );?>">Street Style</a></h4>
 			<?php
 			get_template_part( 'page-parts/posts-related' );
 		}
@@ -72,12 +72,13 @@ kleo_switch_layout('right');
 		if ($cat_name != "Streetstyle"){
 ?>
 <div>
-	<h2 class="newTitleAuthor"> Más artículos de 
-	<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author">
-		<?php echo (get_the_author( )) ; ?>
-	</a>
+	<h2 class="newTitleAuthor">
 	<a class="author-link photo newAuthorPhoto" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author"> 
 		<?php echo get_avatar( get_the_author_meta( 'user_email' ), 100 ); ?>
+	</a>
+	<span>Más artículos de </span>
+	<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author">
+		<?php echo (get_the_author( )) ; ?>
 	</a>
 	</h2>
 	<div class="postAuthor">
@@ -105,12 +106,13 @@ kleo_switch_layout('right');
 			$user_david = get_user_by( "email", "david@bizeulabs.com" );
 		?>
 <div>
-	<h2 class="newTitleAuthor"> Fotografías de 
-	<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author">
-		<?php echo $user_david->display_name ; ?>
-	</a>
+	<h2 class="newTitleAuthor">
 	<a class="author-link photo newAuthorPhoto" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author"> 
 		<?php echo get_avatar( $user_david -> id, 100 ); ?>
+	</a>
+	<span>Fotografías de </span>
+	<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author">
+		<?php echo $user_david->display_name ; ?>
 	</a>
 	</h2>
 </div>
