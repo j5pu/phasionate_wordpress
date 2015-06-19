@@ -551,7 +551,7 @@ function relatedpostsidebar(){
 		);
 		$related_posts = get_posts( $args );
 		if (!empty( $related_posts )){
-			echo '<h4 class="widget-title">Tambien te gustará</h4>';
+			echo '<h4 class="widget-title">También te gustará</h4>';
 		
 			foreach( $related_posts as $related_post ) {
 				$count_output = '';
