@@ -546,7 +546,8 @@ function relatedpostsidebar(){
 		    'post__not_in' => array($post->ID),
 		    'numberposts' => 4, // Number of related posts to display.
 			'post_type' => 'post',
-			'post_status' => 'publish'		
+			'post_status' => 'publish',		
+			'date_query' => array('column' => 'post_date_gmt', 'after' => '3 months ago') // Muestra los post más leidos solo del último mes.	
 		);
 		$related_posts = get_posts( $args );
 		if (!empty( $related_posts )){
