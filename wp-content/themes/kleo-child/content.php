@@ -20,6 +20,22 @@ if( is_single() && get_cfield('centered_text') == 1) { $postclass = 'text-center
 		<?php echo get_the_excerpt(); ?>
 	</h3>
 	<span class="date updated" style="display:none"><?php the_time(); ?></span>
+	<hr/>
+	<?php
+		$cats = get_the_category();
+		$cat_name = $cats[0]->name;
+		if ($cat_name != "Streetstyle"){
+	?>
+	<div class="infoPost_beforeTitle">
+		<span class="datePosted"><?php echo get_post_time('d/m/Y', true); ?></span>
+		<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author"><?php echo (get_the_author( )) ; ?></a>
+	</div>
+	<?php }else{ ?>
+	<div class="infoPost_beforeTitle">
+		<span class="datePosted"><?php echo get_post_time('d/m/Y', true); ?></span>
+		<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author">Redacción</a>
+	</div>
+	<?php } ?>
 <?php endif;?>
 			<?php if(!is_single()):?><div class="content_posts portada_posts"><?php endif;?>				
 				<?php if ( kleo_postmedia_enabled() && kleo_get_post_thumbnail() != '' ) : ?>

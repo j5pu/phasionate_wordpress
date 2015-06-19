@@ -283,7 +283,6 @@ function kleo_pagination( $pages = '', $echo = true ) {
 	}
 
 	$paged        = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
-	echo $paged;
 	$pagenum_link = html_entity_decode( get_pagenum_link() );
 	$query_args   = array();
 	$url_parts    = explode( '?', $pagenum_link );

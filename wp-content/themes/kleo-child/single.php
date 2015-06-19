@@ -35,14 +35,20 @@ kleo_switch_layout('right');
 <?php /* Start the Loop */ ?>
 <?php while ( have_posts() ) : the_post(); ?>
 
-
     <?php get_template_part( 'content', get_post_format() ); ?>
 
 		<?php get_template_part( 'page-parts/posts-social-share' ); ?>
 
 		<?php 
+		$cats = get_the_category();
+		$cat_name = $cats[0]->name;
+		if ($cat_name == "Streetstyle"){
 		if( $related == 1 ) {
+			?>
+			<h4>Más de <a href="<?php echo get_category_link( $cats[0]->id );?>">Street Style</a></h4>
+			<?php
 			get_template_part( 'page-parts/posts-related' );
+		}
 		}
 		?>
 
@@ -50,7 +56,7 @@ kleo_switch_layout('right');
 		global $not_post_in;
 		$author_posts_args = array(
 			'numberposts' => 3,
-			'orderby' => 'meta_value_num',
+			'orderby' => 'post_date',
 			'order' => 'DESC',
 			'meta_key' => 'views',
 			'post_type' => 'post',
@@ -60,17 +66,21 @@ kleo_switch_layout('right');
 		);	
 		$author_posts = get_posts($author_posts_args);
 		?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author">
-	<?php echo get_avatar( get_the_author_meta( 'user_email' ), 150 ); ?></a>
-	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author">
-	<h2 class="fn"><?php echo (get_the_author( )) ; ?></h2></a>
-	<div class="authorinfo role">
-		<?php the_author_meta( 'description' ); ?><br/>
-	</div>
+<?php
+		$cats = get_the_category();
+		$cat_name = $cats[0]->name;
+		if ($cat_name != "Streetstyle"){
+?>
+<div>
+	<h2 class="newTitleAuthor"> Más artículos de 
+	<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author">
+		<?php echo (get_the_author( )) ; ?>
+	</a>
+	<a class="author-link photo newAuthorPhoto" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author"> 
+		<?php echo get_avatar( get_the_author_meta( 'user_email' ), 100 ); ?>
+	</a>
+	</h2>
 	<div class="postAuthor">
-		<h5>Otros de sus articulos:</h5>
 		<?php
 		foreach( $author_posts as $author_post ) {
 			echo '<div class="portada_posts">';
@@ -84,20 +94,25 @@ kleo_switch_layout('right');
 	</div>
 </div>
 
+<?php
+}
+?>
+
 		<?php
 		$cats = get_the_category();
 		$cat_name = $cats[0]->name;
 		if ($cat_name == "Streetstyle"){
 			$user_david = get_user_by( "email", "david@bizeulabs.com" );
 		?>
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo esc_url(get_author_posts_url( $user_david->id)); ?>" rel="author">
-	<?php echo get_avatar( $user_david->id , 150 ); ?></a>
-	<a class="author-link url" href="<?php echo esc_url(get_author_posts_url( $user_david->id)); ?>" rel="photographer">
-	<h2 class="fn"><?php echo $user_david->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_david->description; ?><br/>
-	</div>
+<div>
+	<h2 class="newTitleAuthor"> Fotografías de 
+	<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author">
+		<?php echo $user_david->display_name ; ?>
+	</a>
+	<a class="author-link photo newAuthorPhoto" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author"> 
+		<?php echo get_avatar( $user_david -> id, 100 ); ?>
+	</a>
+	</h2>
 </div>
 		<?php
 		}
