@@ -266,8 +266,10 @@ function ownResize(){
 			var desc_ins_He = $('.descriptionStreetStyle ins').eq(num).outerHeight();
 			var desc_p_Le = $('.descriptionStreetStyle').eq(num).find('p').length;
 			var desc_p_He = $('.descriptionStreetStyle').eq(num).find('p').outerHeight();
+			var mult_mgnBtn = 1/(desc_p_Le-2)+1;
 			var desc_p_mgnBtn = ( desc_MaxHe*1.1 - desc_ins_He - ( desc_p_Le * desc_p_He ) ) / desc_p_Le;
-			$('.descriptionStreetStyle').eq(num).find('p:odd').css('margin-bottom', desc_p_mgnBtn*2 );
+			$('.descriptionStreetStyle').eq(num).find('p:odd').css('margin-bottom', desc_p_mgnBtn*mult_mgnBtn );
+			$('.descriptionStreetStyle').eq(num).find('p').last().css('margin-bottom', desc_p_mgnBtn );
 		}
 		$diamond = $('.medSection .publiGaleria').eq(num).prev().find('.kleo_text_column').height();
 		$('.medSection .publiGaleria').find('.logoGaleria').css('height',$diamond+'px');
