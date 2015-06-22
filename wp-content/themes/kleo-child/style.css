@@ -2969,9 +2969,14 @@ left: auto !important;
 	width:auto;
 }
 .descriptionStreetStyle{
-	max-width: 600px;
 	height: 600px;
 	background-color: white;
+	padding: 3%;
+	padding-top: 9%;
+}
+.descriptionStreetStyle p{
+	font-size: 150%;
+	margin-top: 0 !important;
 }
 .descriptionStreetStyle ins{
 	display: block;

@@ -251,13 +251,21 @@ function ownResize(){
 			}
 
 		}else{
-
-			$('.descriptionStreetStyle').css('max-height', $('.medSection .col-sm-6.wpb_column:not(.publiGaleria)').eq(num).height());
+			//crea y da tamaño al cajon inferior de la segunda foto(descripcion+publi)
 			if(!$('.medSection .publiGaleria').eq(num).has('.logoGaleria').length){
 				$publiSections = $('.medSection .publiGaleria');
 				$diamond = $('.medSection .publiGaleria').eq(num).prev().find('.kleo_text_column').height();
 				$($publiSections[num]).children().append($('<div>', {class: 'logoGaleria'}).css('height',$diamond+'px'));
 			}
+			//tamaño del cajon de descripcion-publi
+			var desc_MaxHe = $('.medSection .col-sm-6.wpb_column:not(.publiGaleria)').eq(num).height();
+			$('.descriptionStreetStyle').eq(num).css('max-height', desc_MaxHe);
+			//separacion entre descripciones
+			var desc_ins_He = $('.descriptionStreetStyle ins').eq(num).outerHeight();
+			var desc_p_Le = $('.descriptionStreetStyle').eq(num).find('p').length;
+			var desc_p_He = $('.descriptionStreetStyle').eq(num).find('p').outerHeight();
+			var desc_p_mgnBtn = ( desc_MaxHe*1.1 - desc_ins_He - ( desc_p_Le * desc_p_He ) ) / desc_p_Le;
+			$('.descriptionStreetStyle').eq(num).find('p').css('margin-bottom', desc_p_mgnBtn );
 		}
 		$diamond = $('.medSection .publiGaleria').eq(num).prev().find('.kleo_text_column').height();
 		$('.medSection .publiGaleria').find('.logoGaleria').css('height',$diamond+'px');
@@ -271,7 +279,7 @@ function ownResize(){
 				if( !$('.medSection .publiGaleria').eq(num).has('.descriptionStreetStyle').length ){
 					$($publiSections[num]).find('.logoGaleria').find('img').css('max-height',$('ins').eq(num).height()*0.15+'px');
 				}else{
-					$('.descriptionStreetStyle').css('max-height', $('.medSection .col-sm-6.wpb_column:not(.publiGaleria)').eq(num).height());
+					$('.descriptionStreetStyle').eq(num).css('max-height', $('.medSection .col-sm-6.wpb_column:not(.publiGaleria)').eq(num).height());
 				}
 				
 				var shadowHeight = $('.medSection').eq(num).find('.kleo_text_column').height();
