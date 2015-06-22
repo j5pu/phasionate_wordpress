@@ -2971,11 +2971,10 @@ left: auto !important;
 .descriptionStreetStyle{
 	height: 600px;
 	background-color: white;
-	padding: 3%;
-	padding-top: 9%;
+	padding: 10% 7% 3%;
 }
 .descriptionStreetStyle p{
-	font-size: 150%;
+	font-size: 170%;
 	margin-top: 0 !important;
 	text-align: left;
 }
