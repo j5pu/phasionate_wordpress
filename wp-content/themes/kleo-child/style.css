@@ -2977,9 +2977,16 @@ left: auto !important;
 .descriptionStreetStyle p{
 	font-size: 150%;
 	margin-top: 0 !important;
+	text-align: left;
+}
+.descriptionStreetStyle p:nth-child(odd){
+	color: #902828;
+	font-weight: bolder;
 }
 .descriptionStreetStyle ins{
 	display: block;
+	box-shadow: -2px -2px 5px -1px black;
+	margin:	0 5%;
 }
 	/*Añadidos para nav Imagenes*/
 .navImagenes{
