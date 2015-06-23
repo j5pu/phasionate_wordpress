@@ -256,7 +256,7 @@ function ownResize(){
 				$publiSections = $('.medSection .publiGaleria');
 				$diamond = $('.medSection .publiGaleria').eq(num).prev().find('.kleo_text_column').height();
 				$($publiSections[num]).children().append($('<div>', {class: 'logoGaleria'}).css('height',$diamond+'px')
-				.append($('<img>').attr({'src':'https://www.bogadia.com/wp-content/themes/kleo-child/assets/img/clip.png'}).css({'width':'22%', 'margin-left':'-83%','margin-top':'-22%'})));
+				.append($('<img>').attr({'src':'https://www.bogadia.com/wp-content/themes/kleo-child/assets/img/clip.png'}).css({'width':'22%', 'margin-left':'-83%','margin-top':'-27%'})));
 
 			}
 			//tamaño del cajon de descripcion-publi
