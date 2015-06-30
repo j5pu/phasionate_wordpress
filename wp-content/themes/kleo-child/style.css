@@ -4868,3 +4868,14 @@ body.woocommerce .page-title{
 .jssora12r:hover { background-position: -195px -37px; }
 .jssora12l.jssora12ldn { background-position: -256px -37px; }
 .jssora12r.jssora12rdn { background-position: -315px -37px; }
+
+/*Img de aviso de publicidad en sidebar*/
+.publi_bogadia_sidebar {
+  padding: 11px 0;
+  border: solid #ebebeb;
+  border-width: 1px 0;
+  margin: 0 auto;
+  background-image: url(/wp-content/uploads/publi/publicidad_sidebar.png);
+  background-position: center 3px;
+  background-repeat: no-repeat;
+}
