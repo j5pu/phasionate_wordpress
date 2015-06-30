@@ -4960,5 +4960,4 @@ h1#designersTitle, h1#collectionsTitle{
 }
 .boxCollection:nth-child(odd) img, .boxCollection:nth-child(odd) .descriptionCollection{
 	float:left;
->>>>>>> Tienda -> Paginas-plantilla ( diseñadores, colecciones, lucrecia), submenu, imagenes para pruebas
 }
