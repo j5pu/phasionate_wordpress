@@ -311,7 +311,7 @@ function ownResize(){
 			var img_src_to_share = $('.elemGaleria img').eq(num).attr('src');
 			img_src_to_share = img_src_to_share.split("uploads/").pop();
 			//img_src_to_share = img_src_to_share.replace('/','%2F');
-			var name_st = $('.medSection').not('.publiGaleria').find('p').eq(num).html();
+			var name_st = $('.medSection .col-sm-6.wpb_column.column_container:not(.publiGaleria) p').eq(num).html();
 			name_st = name_st.replace(' ', '_');
 
 			var location_url = window.location.href;
