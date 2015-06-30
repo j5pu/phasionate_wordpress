@@ -120,7 +120,19 @@ $primary_menu = wp_nav_menu( array(
 					?>
 				</div><!--end container-->
 			</div>
-			
+			<?php
+			if ( in_array('woocommerce-page', get_body_class() ) ){
+			?>
+			<div class="submenu-shop">
+				<ul>
+					<li><a href="<?php bloginfo('wpurl'); ?>/disenadores-bogadia">diseñadores</a></li>
+					<li><a href="<?php bloginfo('wpurl'); ?>/colecciones-bogadia">colecciones</a></li>
+					<li><a href="#">ropa</a></li>
+				</ul>
+			</div>
+			<?php
+			}
+			?>
 	</div>
 
 </div><!--end header-->

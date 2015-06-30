@@ -4458,10 +4458,7 @@ body.woocommerce .page-description > section.revSliderFw{
 body.woocommerce #main > section.container-wrap.main-title.alternate-color.title-single.border-bottom{
 	padding-bottom: 0px !important;
 }
-body.woocommerce #header > div{
-	height: 202px !important;
 
-}
 @media (min-width: 100px) and (max-width: 990px) { 
 	body.woocommerce #header > div {
 		height: 100px !important;
@@ -4515,10 +4512,7 @@ body.woocommerce .page-description > section.revSliderFw{
 body.woocommerce #main > section.container-wrap.main-title.alternate-color.title-single.border-bottom{
 	padding-bottom: 0px !important;
 }
-body.woocommerce #header > div{
-	height: 66px !important;
 
-}
 @media (min-width: 100px) and (max-width: 990px) { 
 	body.woocommerce #header > div {
 		height: 100px !important;
@@ -4878,4 +4872,93 @@ body.woocommerce .page-title{
   background-image: url(/wp-content/uploads/publi/publicidad_sidebar.png);
   background-position: center 3px;
   background-repeat: no-repeat;
+}
+
+/* Submenu Tienda */
+
+.submenu-shop{
+	background-color: black;
+	padding: 7px 0px 1px;
+	position: fixed;
+	width: 100%;
+	box-shadow: 0px 3px 5px black;
+}
+.submenu-shop ul{
+	list-style-type: none;
+	text-align: center;
+	text-transform: uppercase;
+}
+.submenu-shop li{
+	margin: 0 15px;
+	display: inline;
+}
+.submenu-shop li a{
+	color: white;
+}
+
+/* Woocommerce Style */
+/* Woocommerce - Prendas */
+.woocommerce ul.products li.product .posted_in, .woocommerce ul.products li.product .posted_in a{
+	display:none;
+}
+/* Woocommerce - Submenu */
+body.woocommerce-page #main{
+	margin-top: 40px;
+}
+/* Woocommerce - Pagina diseñadores , Pagina colecciones */
+h1#designersTitle, h1#collectionsTitle{
+	text-align: center;
+	margin:	3% 0;
+}
+.boxContDesigners{
+	margin: 20px 0px;
+}
+.boxDesigner{
+	margin:1.5%;
+	width: 29%;
+	box-shadow: 0px 0px 3px gray;
+	display: inline-block;
+}
+.boxDesigner:hover{
+	box-shadow: 0px 0px 10px #902828;
+	cursor: pointer;
+}
+.boxDesigner p{
+	margin-left: 3px;
+}
+.boxCollections{
+	margin: 10px 0px;
+}
+.boxCollection{
+	margin: 10px 0px;
+	display:inline-block;
+}
+.boxCollection h2{
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+.boxCollection img{
+	float: right;
+	width: 50%;
+}
+.boxCollection .woocommerce{
+	float: left;
+	width: 42%;
+	margin:	0 4%;
+}
+.boxCollection .woocommerce ul{
+	margin-bottom: 0px;
+}
+.boxCollection .descriptionCollection{
+	width: 48%;
+	float: right;
+	margin: 0 1%;
+}
+.boxCollection:nth-child(odd) h2, .boxCollection:nth-child(odd) .woocommerce{
+	float:right;
+}
+.boxCollection:nth-child(odd) img, .boxCollection:nth-child(odd) .descriptionCollection{
+	float:left;
+>>>>>>> Tienda -> Paginas-plantilla ( diseñadores, colecciones, lucrecia), submenu, imagenes para pruebas
 }
