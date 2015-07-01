@@ -24,35 +24,35 @@ function content_designers(){
     <div class="boxContDesigners">
 
     <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/lucrecia/">
+        <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia/">
             <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/lucrecia-foto-bio-1024x683.jpg" alt="lucrecia pq" width="1024" height="683">
             <p>Lucrecia<span id="lucreciaTextDesign" class="descripTextDesign"></span></p>
         </a>
     </div>
 
     <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/lucrecia/">
+        <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia/">
             <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/guimmet.jpg" alt="guimmet pq" width="1024" height="683">
             <p>Guimmet<span id="guimmetTextDesign" class="descripTextDesign"></span></p>
         </a>
     </div>
 
     <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/lucrecia/">
+        <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia/">
             <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/sartoria.jpg" alt="sartoria pq" width="1024" height="683">
             <p>Sartoria</p>
         </a>
     </div>
 
     <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/lucrecia/">
+        <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia/">
             <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/mario.jpg" alt="mario pq" width="1024" height="683">
             <p>Mario</p>
         </a>
     </div>
 
     <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/lucrecia/">
+        <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia/">
             <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/blondies.jpg" alt="blondies pq" width="1024" height="683">
             <p>Blondies</p>
         </a>
