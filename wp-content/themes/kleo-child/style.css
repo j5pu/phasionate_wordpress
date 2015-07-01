@@ -4895,6 +4895,14 @@ body.woocommerce .page-title{
 .submenu-shop li a{
 	color: white;
 }
+@media (max-width: 991px){
+	body.woocommerce-page #main{
+		margin-top: 0px;
+	}
+	.submenu-shop{
+		display: none
+	}
+}
 
 /* Woocommerce Style */
 /* Woocommerce - Prendas */
@@ -4960,4 +4968,76 @@ h1#designersTitle, h1#collectionsTitle{
 }
 .boxCollection:nth-child(odd) img, .boxCollection:nth-child(odd) .descriptionCollection{
 	float:left;
+}
+@media (max-width: 991px){
+	.boxCollection .woocommerce ul li:nth-child(4){
+		display:none;
+	}
+	.boxDesigner img{
+		margin: 0;
+	}
+}
+@media (max-width: 480px){
+	.boxCollection .woocommerce ul li:nth-child(3){
+		display:none;
+	}
+	.boxCollection .woocommerce ul li:nth-child(2){
+		display:none;
+	}
+	.boxContDesigners{
+		padding-left: 3%;
+	}
+	.boxDesigner{
+		width: 46%;
+	}
+}
+@media (max-width: 360px){
+	h1#designersTitle{
+		font-size: 	28px;
+	}
+	.boxDesigner{
+		width: 96%;
+		margin-bottom: 3%;
+	}
+}
+/* Woocommerce - Pagina coleccion */
+.otherCollecContent{
+	width: 100%;
+	padding: 1%;
+}
+.otherCollec{
+	display: inline-block;
+	width: 31%;
+	margin: 0 1%;
+}
+.otherCollec .hr-title.hr-center{
+	margin-bottom: 1%;
+}
+.otherCollec .hr-title.hr-center abbr{
+	font-size: 125%;
+}
+.otherCollec ul.products li{
+	margin: 0 7%;
+}
+.collectionBioContent{
+	width: 100%;
+	padding: 1%;
+	display: inline-block;
+}
+.collectionBioContent .descAuthotContent, .collectionBioContent .descCollecContent{
+	width: 46%;
+	margin: 0 1%;
+	display: inline-block;
+	float: left;
+}
+.collectionBioContent h4{
+	text-align: center;
+}
+@media (max-width: 991px){
+	.otherCollec{
+		width: 47%;
+	}
+	.otherCollec:nth-child(2){
+		display: none;
+	}
 }

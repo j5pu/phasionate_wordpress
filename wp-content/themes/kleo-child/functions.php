@@ -676,7 +676,7 @@ function slider_shop(){
                 </div>
             </div>
             <div>
-                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/003.jpg" />
+                <a href="<?php bloginfo('wpurl'); ?>/phetnia"><img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/003.jpg" /></a>
                 <div u="thumb">
                     <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/thumb-003.jpg" /><div class="t">Phetnia</div>
                     <div class="c">Bolsos inspirados en África</div>
