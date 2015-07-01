@@ -54,7 +54,9 @@ kleo_switch_layout('right');
 
 		<?php
 		global $not_post_in;
+		$current_post = get_the_ID();
 		$author_posts_args = array(
+			'post__not_in' => array($current_post),
 			'numberposts' => 3,
 			'orderby' => 'post_date',
 			'order' => 'DESC',
@@ -62,7 +64,7 @@ kleo_switch_layout('right');
 			'post_type' => 'post',
 			'post_status' => 'publish', 
 			'author' => get_the_author_meta( 'ID' ),
-			'date_query' => array('column' => 'post_date_gmt', 'before' => '1 month ago') // Muestra los post más leidos solo del último mes.	
+			'date_query' => array('column' => 'post_date_gmt', 'before' => '1 week ago') // Muestra los post más leidos solo del último mes.	
 		);	
 		$author_posts = get_posts($author_posts_args);
 		?>
