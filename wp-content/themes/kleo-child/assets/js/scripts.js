@@ -475,13 +475,13 @@ function ownResize(){
 		document.styleSheets[0].addRule('.icon-basket-full-alt:before','color:#f66');
 	}
 	if(window.location.href.search("disenadores-bogadia")>0){
-		$('#enlace-disenadores-bogadia').css('color','#902828');
+		$('#enlace-disenadores-bogadia').css('color','#f66');
 	}
 	if(window.location.href.search("colecciones-bogadia")>0){
-		$('#enlace-colecciones-bogadia').css('color','#902828');
+		$('#enlace-colecciones-bogadia').css('color','#f66');
 	}
 	if(window.location.href.search("ropa-bogadia")>0){
-		$('#enlace-ropa-bogadia').css('color','#902828');
+		$('#enlace-ropa-bogadia').css('color','#f66');
 	}
 	$('.navbar-nav').find("li a[title='"+$category+"']").css('color','#F66');
 /*Final seccion active*/

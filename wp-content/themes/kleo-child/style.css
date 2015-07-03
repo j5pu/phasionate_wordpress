@@ -5068,6 +5068,7 @@ h1#designersTitle, h1#collectionsTitle{
 div#contenidoRopa h1{
 	text-align: center;
 	text-transform: uppercase;
+	margin-bottom: 40px;
 }
 div#contenidoRopa{
 	padding-right: 20px;

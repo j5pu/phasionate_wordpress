@@ -13,7 +13,7 @@
 
 						<figcaption>
 				<div class="shop-actions clearfix">
-				<a href="/phasionate_wordpress/ropa-bogadia/?add-to-cart=19134" rel="nofollow" data-product_id="19134" data-product_sku="11" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div title="" data-original-title="" class="quick-view hover-tip" data-prod="19134">Vista rápida</div>				</div>
+				<a href="https://www.bogadia.com/ropa-bogadia/?add-to-cart=19134" rel="nofollow" data-product_id="19134" data-product_sku="11" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div title="" data-original-title="" class="quick-view hover-tip" data-prod="19134">Vista rápida</div>				</div>
 			</figcaption>
 					</figure>
 
@@ -42,7 +42,7 @@
 
 						<figcaption>
 				<div class="shop-actions clearfix">
-				<a href="/phasionate_wordpress/ropa-bogadia/?add-to-cart=19126" rel="nofollow" data-product_id="19126" data-product_sku="8" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div title="" data-original-title="" class="quick-view hover-tip" data-prod="19126">Vista rápida</div>				</div>
+				<a href="https://www.bogadia.com/ropa-bogadia/?add-to-cart=19126" rel="nofollow" data-product_id="19126" data-product_sku="8" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div title="" data-original-title="" class="quick-view hover-tip" data-prod="19126">Vista rápida</div>				</div>
 			</figcaption>
 					</figure>
 
@@ -71,7 +71,7 @@
 
 						<figcaption>
 				<div class="shop-actions clearfix">
-				<a href="/phasionate_wordpress/ropa-bogadia/?add-to-cart=19118" rel="nofollow" data-product_id="19118" data-product_sku="7" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div title="" data-original-title="" class="quick-view hover-tip" data-prod="19118">Vista rápida</div>				</div>
+				<a href="https://www.bogadia.com/ropa-bogadia/?add-to-cart=19118" rel="nofollow" data-product_id="19118" data-product_sku="7" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div title="" data-original-title="" class="quick-view hover-tip" data-prod="19118">Vista rápida</div>				</div>
 			</figcaption>
 					</figure>
 
@@ -100,7 +100,7 @@
 
 						<figcaption>
 				<div class="shop-actions clearfix">
-				<a href="/phasionate_wordpress/ropa-bogadia/?add-to-cart=19128" rel="nofollow" data-product_id="19128" data-product_sku="9" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div title="" data-original-title="" class="quick-view hover-tip" data-prod="19128">Vista rápida</div>				</div>
+				<a href="https://www.bogadia.com/ropa-bogadia/?add-to-cart=19128" rel="nofollow" data-product_id="19128" data-product_sku="9" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div title="" data-original-title="" class="quick-view hover-tip" data-prod="19128">Vista rápida</div>				</div>
 			</figcaption>
 					</figure>
 

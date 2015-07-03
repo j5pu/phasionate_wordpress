@@ -14,7 +14,7 @@
 
 						<figcaption>
 				<div class="shop-actions clearfix">
-				<a href="/categoria-producto/bolsos/?add-to-cart=18064" rel="nofollow" data-product_id="18064" data-product_sku="6" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div class="quick-view hover-tip" data-prod="18064" data-original-title="" title="">Vista rápida</div>				</div>
+				<a href="https://www.bogadia.com/ropa-bogadia/?add-to-cart=18064" rel="nofollow" data-product_id="18064" data-product_sku="6" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div class="quick-view hover-tip" data-prod="18064" data-original-title="" title="">Vista rápida</div>				</div>
 			</figcaption>
 					</figure>
 
@@ -43,7 +43,7 @@
 
 						<figcaption>
 				<div class="shop-actions clearfix">
-				<a href="/categoria-producto/bolsos/?add-to-cart=18063" rel="nofollow" data-product_id="18063" data-product_sku="5" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div class="quick-view hover-tip" data-prod="18063" data-original-title="" title="">Vista rápida</div>				</div>
+				<a href="https://www.bogadia.com/ropa-bogadia/?add-to-cart=18063" rel="nofollow" data-product_id="18063" data-product_sku="5" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div class="quick-view hover-tip" data-prod="18063" data-original-title="" title="">Vista rápida</div>				</div>
 			</figcaption>
 					</figure>
 
@@ -72,7 +72,7 @@
 
 						<figcaption>
 				<div class="shop-actions clearfix">
-				<a href="/categoria-producto/bolsos/?add-to-cart=18061" rel="nofollow" data-product_id="18061" data-product_sku="" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div class="quick-view hover-tip" data-prod="18061" data-original-title="" title="">Vista rápida</div>				</div>
+				<a href="https://www.bogadia.com/ropa-bogadia/?add-to-cart=18061" rel="nofollow" data-product_id="18061" data-product_sku="" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div class="quick-view hover-tip" data-prod="18061" data-original-title="" title="">Vista rápida</div>				</div>
 			</figcaption>
 					</figure>
 
@@ -101,7 +101,7 @@
 
 						<figcaption>
 				<div class="shop-actions clearfix">
-				<a href="/categoria-producto/bolsos/?add-to-cart=18035" rel="nofollow" data-product_id="18035" data-product_sku="" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div class="quick-view hover-tip" data-prod="18035" data-original-title="" title="">Vista rápida</div>				</div>
+				<a href="https://www.bogadia.com/ropa-bogadia/?add-to-cart=18035" rel="nofollow" data-product_id="18035" data-product_sku="" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div class="quick-view hover-tip" data-prod="18035" data-original-title="" title="">Vista rápida</div>				</div>
 			</figcaption>
 					</figure>
 
@@ -130,7 +130,7 @@
 
 						<figcaption>
 				<div class="shop-actions clearfix">
-				<a href="/categoria-producto/bolsos/?add-to-cart=18005" rel="nofollow" data-product_id="18005" data-product_sku="2" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div class="quick-view hover-tip" data-prod="18005" data-original-title="" title="">Vista rápida</div>				</div>
+				<a href="https://www.bogadia.com/ropa-bogadia/?add-to-cart=18005" rel="nofollow" data-product_id="18005" data-product_sku="2" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div class="quick-view hover-tip" data-prod="18005" data-original-title="" title="">Vista rápida</div>				</div>
 			</figcaption>
 					</figure>
 
@@ -159,7 +159,7 @@
 
 						<figcaption>
 				<div class="shop-actions clearfix">
-				<a href="/categoria-producto/bolsos/?add-to-cart=17784" rel="nofollow" data-product_id="17784" data-product_sku="5555" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div class="quick-view hover-tip" data-prod="17784" data-original-title="" title="">Vista rápida</div>				</div>
+				<a href="https://www.bogadia.com/ropa-bogadia/?add-to-cart=17784" rel="nofollow" data-product_id="17784" data-product_sku="5555" data-quantity="1" class="button add_to_cart_button product_type_simple">Añadir al carrito</a><div class="quick-view hover-tip" data-prod="17784" data-original-title="" title="">Vista rápida</div>				</div>
 			</figcaption>
 					</figure>
 
