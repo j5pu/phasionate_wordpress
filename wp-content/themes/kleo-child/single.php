@@ -125,10 +125,22 @@ kleo_switch_layout('right');
 		// Previous/next post navigation.
 		kleo_post_nav();
 		?>
+
+<!-- Banner Google Adsense -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Banner Botton Autor -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:468px;height:60px"
+     data-ad-client="ca-pub-9006336585437783"
+     data-ad-slot="4657360559"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- Banner Google Adsense -->		
     <!-- Begin Comments -->
     <?php comments_template( '', true ); ?>
     <!-- End Comments -->
-    
+ 
 <?php endwhile; ?>
 
 <?php get_template_part('page-parts/general-after-wrap');?>
