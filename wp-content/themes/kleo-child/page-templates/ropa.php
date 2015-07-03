@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Designers
+ * Template Name: Ropa
  *
  * Description: Template withour sidebar
  *
@@ -11,6 +11,57 @@
  */
 
 add_filter('body_class','woocommerce_body_class');
+
+/*
+*
+* Shortcode para la pagina de colecciones de la tienda
+*
+*/
+function content_ropa(){
+?>
+    <div id="contenidoRopa">
+        <h1>Tienda</h1>
+        <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/phetnia1-1000x500.jpg" />
+    </div>
+<?php
+}
+add_shortcode( 'contentRopa', 'content_ropa' );
+
+
+/*
+*
+* Shortcode para la pagina de colecciones de la tienda
+*
+*/
+function menu_ropa(){
+?>
+    <script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/menuRopa.js"></script>
+    <ul class="menuRopa">
+
+        <h2>Categoria</h2>
+        <li slug="bolsos">Bolsos</li>
+        <li slug="faldas">Faldas</li>
+
+        <h2>Diseñador</h2>
+        <?php
+
+            $terms = get_terms("pa_disenadora");
+            foreach ( $terms as $term ) {
+            echo "<li slug='".$term->slug."'>" . $term->name . "</li>";
+            }
+
+        ?>
+        <h2>Colección</h2>
+        <?php
+            $terms = get_terms("pa_coleccion");
+            foreach ( $terms as $term ) {
+            echo "<li slug='".$term->slug."'>" . $term->name . "</li>";
+            }
+        ?>
+    </ul>
+<?php
+}
+add_shortcode( 'menuRopa', 'menu_ropa' );
 
 get_header(); ?>
 

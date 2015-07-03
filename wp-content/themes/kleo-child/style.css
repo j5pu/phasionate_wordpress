@@ -2967,6 +2967,7 @@ left: auto !important;
 	position: relative;
 	padding-bottom: 1%;
 	width:auto;
+	max-height: 80px;
 }
 .descriptionStreetStyle{
 	height: 600px;
@@ -3245,9 +3246,11 @@ div.checkout-steps{
 div.product div.images{
 	float: left;
 }
+/*
 div.product div.images img.attachment-shop_single{
 	width:70%;
 }
+*/
 body.woocommerce-page div.container>h1.entry-title.page-title{
 	display:none;
 }
@@ -4876,6 +4879,10 @@ body.woocommerce .page-title{
 
 /* Submenu Tienda */
 
+body.woocommerce-page #main{
+	margin-top: 40px;
+}
+/* Woocommerce - Submenu */
 .submenu-shop{
 	background-color: black;
 	padding: 7px 0px 1px;
@@ -4909,9 +4916,20 @@ body.woocommerce .page-title{
 .woocommerce ul.products li.product .posted_in, .woocommerce ul.products li.product .posted_in a{
 	display:none;
 }
-/* Woocommerce - Submenu */
-body.woocommerce-page #main{
+.woocommerce ul.products li.product p.por_disenador{
+	margin: 0px;
+}
+/* Woocommerce - Categorias */
+body.tax-product_cat.woocommerce-page #main .template-page > .wrap-content{
 	margin-top: 40px;
+}
+form.woocommerce-ordering{
+	width: 100%;
+	text-align: center;
+}
+form.woocommerce-ordering select{
+	width: 280px;
+	padding: 0px !important;
 }
 /* Woocommerce - Pagina diseñadores , Pagina colecciones */
 h1#designersTitle, h1#collectionsTitle{
@@ -5040,4 +5058,31 @@ h1#designersTitle, h1#collectionsTitle{
 	.otherCollec:nth-child(2){
 		display: none;
 	}
+}
+/*Pagina Ropa*/
+div#contenidoRopa h1{
+	text-align: center;
+	text-transform: uppercase;
+}
+div#contenidoRopa{
+	padding-right: 20px;
+	border-right: 1px solid #555;
+}
+div#contenidoRopa > img{
+	margin-bottom: 30px;
+}
+ul.menuRopa{
+    list-style-type: none;
+	text-transform: uppercase;
+}
+ul.menuRopa h2{
+	margin-top: 40px;
+	margin-left: 0;
+}
+ul.menuRopa li{
+	margin: 10px 20px;
+	cursor:pointer;
+}
+ul.menuRopa li:hover{
+	color: #f99;
 }
