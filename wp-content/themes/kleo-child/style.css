@@ -4868,13 +4868,18 @@ body.woocommerce .page-title{
 
 /*Img de aviso de publicidad en sidebar*/
 .publi_bogadia_sidebar {
-  padding: 11px 0;
+  padding: 8px 0;
   border: solid #ebebeb;
-  border-width: 1px 0;
+  border-width: 0 0 1px 0;
   margin: 0 auto;
   background-image: url(/wp-content/uploads/publi/publicidad_sidebar.png);
   background-position: center 3px;
   background-repeat: no-repeat;
+}
+
+/*Banner Google Adsence: quitar sombra de fondo en polaroid derecha de street style*/
+.descriptionStreetStyle ins {
+      box-shadow: none;
 }
 
 /* Submenu Tienda */
