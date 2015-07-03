@@ -128,11 +128,12 @@ kleo_switch_layout('right');
 
 <!-- Banner Google Adsense -->
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Banner Botton Autor -->
+<!-- Banner Street Style MadrEat (Guia) -->
 <ins class="adsbygoogle"
-     style="display:inline-block;width:468px;height:60px"
+     style="display:block"
      data-ad-client="ca-pub-9006336585437783"
-     data-ad-slot="4657360559"></ins>
+     data-ad-slot="2807354150"
+     data-ad-format="auto"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
