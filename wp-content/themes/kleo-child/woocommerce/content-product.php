@@ -76,12 +76,17 @@ else {
 			<?php } ?>
 		</figure>
 
-		<div class="product-details">
+		<?php global $product;
+		$units_sold = get_post_meta( $product->id, 'total_sales', true );
+		?>
+
+		<div class="product-details" data-pop="<?php echo $units_sold; ?>">
 			<?php
 				$size = sizeof( get_the_terms( $post->ID, 'product_cat' ) );
 				echo $product->get_categories( ', ', '<span class="posted_in">' . _n( '', '', $size, 'woocommerce' ) . ' ', '</span>' );
 				?>			
 			<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+
 			<p class="por_disenador"><?php
 			$subheadingvalues = get_the_terms( $product->id, 'pa_disenadora');
 

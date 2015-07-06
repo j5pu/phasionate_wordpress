@@ -1,4 +1,10 @@
 <h1>Faldas</h1>
+<p>Ordernar por:</p>
+<ul class="orderProducts">
+	<li slug='precioBajo'>precio Bajo</li>
+	<li slug='precioAlto'>precio Alto</li>
+	<li slug='novedades'>Novedades</li>
+</ul>
 <div class="woocommerce columns-4">
 	<ul class="products">
 				

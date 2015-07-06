@@ -6,16 +6,37 @@ jQuery(document).ready(function ($) {
 		}
 		$('#contenidoRopa').load(location_url+'wp-content/themes/kleo-child/page-parts/products/'+$(this).attr('slug')+'.php');
 		$('ul.menuRopa li').css('color','#000');
-		$(this).css('color','#f66')
+		$(this).css('color','#f66');
+		setTimeout(function( ){ checkOrderProducts(); },1000);
 	});
 	$('ul.menuRopa li').on('mouseover',function(){
 		$(this).css('color','#f66')
 	});
 	$('ul.menuRopa li').on('mouseout',function(){
-		console.log("$('#contenidoRopa h1').text(): " + $('#contenidoRopa h1').text());
-		console.log("$(this): " + $(this).text());
 		if ($('#contenidoRopa h1').text() != $(this).text()){
 			$(this).css('color','#000')
 		}
 	});
+	function checkOrderProducts(){
+		$('#contenidoRopa ul.orderProducts li').on('click', function(){
+			alert($(this).attr('slug'));
+			orderProducts($(this).attr('slug'));
+		});
+	}
+	function orderProducts(like){
+		switch (like){
+			case 'precioBajo':
+				alert('bajo');
+				alert( $(' ul.products li').length );
+				$.each( $(' ul.products li') , function( i , val){
+					alert( $(val).find('.amount').text() );
+				} );
+				break;
+			case 'precioAlto':
+				alert('alto');
+				break;
+			case 'novedades':
+				alert('novedad')
+		}
+	}
 });

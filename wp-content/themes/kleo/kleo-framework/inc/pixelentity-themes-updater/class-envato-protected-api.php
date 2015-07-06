@@ -104,7 +104,7 @@ class Envato_Protected_API {
       $set_data = ":$set_data";
     }
       
-    $url = "http://marketplace.envato.com/api/edge/$user_name/$this->api_key/$set$set_data.json";
+    $url = "https://marketplace.envato.com/api/edge/$user_name/$this->api_key/$set$set_data.json";
     
     /* set transient ID for later */
     $transient = $user_name . '_' . $set . $set_data;
@@ -340,6 +340,11 @@ class Envato_Protected_API {
     }
 
     $request = wp_remote_request( $url );
+
+    if( is_wp_error( $request ) ) {
+      $this->set_error( 'api_error', $request->get_error_code() );
+      return false;
+    }
 
     $data = json_decode( $request['body'] );
     
