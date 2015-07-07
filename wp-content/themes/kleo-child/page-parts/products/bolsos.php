@@ -182,6 +182,6 @@
 	<span class="price"><span class="amount">49,95&nbsp;€</span> <small class="woocommerce-price-suffix">IVA no incluido</small></span>
 	</div>
 </li>
-				
+
 			</ul>
 </div>

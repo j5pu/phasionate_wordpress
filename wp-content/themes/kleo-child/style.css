@@ -5053,7 +5053,7 @@ h1#designersTitle, h1#collectionsTitle{
 	display: inline-block;
 	float: left;
 }
-.collectionBioContent h4{
+.collectionBioContent h4, .collectionBioContent .descAuthotContent p{
 	text-align: center;
 }
 @media (max-width: 991px){
@@ -5067,9 +5067,10 @@ h1#designersTitle, h1#collectionsTitle{
 /*Pagina Ropa*/
 div#contenidoRopa{
 	text-align: center;
-	padding-right: 20px;
-	border-right: 1px solid #555;
-	margin-top: -10px;
+	padding-left: 20px;
+	border-left: 1px solid #555;
+	margin-top: -20px;
+	padding-top: 20px;
 }
 div#contenidoRopa h1{
 	text-align: center;
@@ -5129,4 +5130,8 @@ ul.orderProducts li span{
     -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
     transform: rotate(-90deg);
     margin-left: 5px;
+}
+/* Woocommerce - Single Product Page */
+body.single-product nav.pagination-sticky.product-navigation{
+	display:none;
 }

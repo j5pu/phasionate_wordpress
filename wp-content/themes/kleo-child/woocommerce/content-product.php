@@ -97,7 +97,7 @@ else {
 			if ( $subheadingvalues && ! is_wp_error( $subheadingvalues ) ) {
 	      		foreach ( $subheadingvalues as $subheadingvalue ) {
 	      			?>
-	      			<i>Por <a href="<?php bloginfo('wpurl'); ?>/disenadores/<?php echo $subheadingvalue->slug ?>"><?php echo $subheadingvalue->name ?></a></i>
+	      			<i><a href="<?php bloginfo('wpurl'); ?>/disenadores/<?php echo $subheadingvalue->slug ?>"><?php echo $subheadingvalue->name ?></a></i>
 	       			<?php
 		        }		
 			}?>

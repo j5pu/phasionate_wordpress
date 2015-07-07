@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Ropa
+ * Template Name: Woocommerce Full Width
  *
  * Description: Template withour sidebar
  *
@@ -11,56 +11,6 @@
  */
 
 add_filter('body_class','woocommerce_body_class');
-
-/*
-*
-* Shortcode para la pagina de colecciones de la tienda
-*
-*/
-function content_ropa(){
-?>
-    <div id="contenidoRopa">
-        <?php echo do_shortcode( '[recent_products orderby="rand" per_page="24" columns="4"]' ); ?>
-    </div>
-<?php
-}
-add_shortcode( 'contentRopa', 'content_ropa' );
-
-
-/*
-*
-* Shortcode para la pagina de colecciones de la tienda
-*
-*/
-function menu_ropa(){
-?>
-    <script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/menuRopa.js"></script>
-    <ul class="menuRopa">
-
-        <h2>Categoria</h2>
-        <li slug="bolsos">Bolsos</li>
-        <li slug="faldas">Faldas</li>
-
-        <h2>Diseñador</h2>
-        <?php
-
-            $terms = get_terms("pa_disenadora");
-            foreach ( $terms as $term ) {
-            echo "<li slug='".$term->slug."'>" . $term->name . "</li>";
-            }
-
-        ?>
-        <h2>Colección</h2>
-        <?php
-            $terms = get_terms("pa_coleccion");
-            foreach ( $terms as $term ) {
-            echo "<li slug='".$term->slug."'>" . $term->name . "</li>";
-            }
-        ?>
-    </ul>
-<?php
-}
-add_shortcode( 'menuRopa', 'menu_ropa' );
 
 get_header(); ?>
 
@@ -104,6 +54,7 @@ function add_my_scriptDesigners() {
 }
 add_action('wp_footer', 'add_my_scriptDesigners');
 */
+
 ?>
 
 <?php get_footer(); ?>

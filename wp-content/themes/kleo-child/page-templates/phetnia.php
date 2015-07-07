@@ -269,31 +269,31 @@ function other_collections(){
 ?>
     <div class="otherCollecContent">
         <div class="otherCollec">
-            <a href="#">
-                <div class="hr-title hr-full hr-center">
-                    <abbr>Late West</abbr>
-                </div>    
-                <img src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/004.jpg" />
-            </a>
-            <?php echo do_shortcode( '[product_attribute attribute="coleccion" filter="Phetnia" per_page="2" columns="3"]' ); ?>
+            <div class="hr-title hr-full hr-center">
+                <a href="#"><abbr>La Patiño</abbr></a>
+            </div>    
+            <div class="hr-title hr-full hr-center">
+                <a href="#"><abbr>Late West</abbr></a>
+            </div>    
+            <a href="#"><img src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/004.jpg" /></a>
         </div>
         <div class="otherCollec">
-            <a href="#">
-                <div class="hr-title hr-full hr-center">
-                    <abbr>Azalia</abbr>
-                </div>
-                <img src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/005.jpg" />
-            </a>
-            <?php echo do_shortcode( '[product_attribute attribute="coleccion" filter="Guimmet" per_page="2" columns="3"]' ); ?>
+            <div class="hr-title hr-full hr-center">
+                <a href="#"><abbr>Lucrecia</abbr></a>
+            </div>
+            <div class="hr-title hr-full hr-center">
+                <a href="#"><abbr>Azalia</abbr></a>
+            </div>
+            <a href="#"><img src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/005.jpg" /></a>
         </div>
         <div class="otherCollec">
-            <a href="#">
-                <div class="hr-title hr-full hr-center">
-                    <abbr>Nejliu</abbr>
-                </div>
-                <img src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/006.jpg" />
-            </a>
-            <?php echo do_shortcode( '[product_attribute attribute="coleccion" filter="Phetnia" per_page="2" columns="3"]' ); ?>
+            <div class="hr-title hr-full hr-center">
+                <a href="#"><abbr>La Patiño</abbr></a>
+            </div>
+            <div class="hr-title hr-full hr-center">
+                <a href="#"><abbr>Nejliu</abbr></a>
+            </div>
+            <a href="#"><img src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/006.jpg" /></a>
         </div>
     </div>
 <?php
@@ -304,16 +304,20 @@ function phetnia_bio(){
 ?>
     <div class="collectionBioContent">
         <div class="descAuthotContent">
-            <img src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/lucrecia-foto-bio.jpg"/>
-            <h4>Lucrecia Pérez Sáez</h4>
-            <p>Lucrecia Pérez Sáez, conocida artísticamente como Lucrecia (La Habana, Cuba) es una cantante cubana afincada en la ciudad de Barcelona (España).</p>
-            <p>Supo desde niña que su vida estaba marcada por el sonido de su tierra. Comenzó sus estudios de piano y se acabó licenciando en música en la especialidad de piano en el Instituto Superior de Arte de Cuba. Recibió clases de canto con la compositora del bolero “Dos gardenias” Isolina Carrillo, bolero popularizado en España por el también cubano Antonio Machín y que le acompaña en su carrera musical.</p>
+            <img src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaJosa2.jpg"/>
+            <p>Una colección de <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia">Lucrecia</a></p>
         </div>
         <div class="descCollecContent">
             <h4>Phetnia</h4>
-            <p>Esta colección es así.Esta colección es así.Esta colección es así.Esta colección es así.Esta colección es así.Esta colección es así.Esta colección es así.</p>
-            <p>Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.Y así es.</p>
-            <p>Lorem fistrum no te digo trigo por no llamarte Rodrigor ese pedazo de al ataquerl. Te va a hasé pupitaa qué dise usteer te va a hasé pupitaa papaar papaar se calle ustée está la cosa muy malar a wan ahorarr. Al ataquerl va usté muy cargadoo mamaar te voy a borrar el cerito diodeno papaar papaar. Se calle ustée jarl papaar papaar sexuarl mamaar se calle ustée te voy a borrar el cerito hasta luego Lucas por la gloria de mi madre. Llevame al sircoo a peich benemeritaar jarl ese que llega mamaar sexuarl ahorarr hasta luego Lucas.</p>
+            <p>Inspirada en la pasión étnica, Phetnia es la colección que Lucrecia PQ
+            ha creado en exclusiva para BOGADIA. Con las hiladas de esta joven
+            diseñadora nos llenamos del color y la luz del sol de tierras lejanas
+            llenas de color que nos inspira con diseños puros y llenos de viveza y
+            exotismo. Fiel reflejo de una mujer fuerte, con carácter, que sabe
+            mostrar su sensualidad y no duda en elegir una prenda original que le
+            acompañe e irradie el magnetismo de su belleza.</p>
+            <p>Pinceladas de otros mundos llenos de misterio y convertidos en diseños
+            propios, inspirados en diferentes culturas pero con una misma pasión.</p>
         </div>
     </div>
 <?php
