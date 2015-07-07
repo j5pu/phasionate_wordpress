@@ -80,7 +80,11 @@ else {
 		$units_sold = get_post_meta( $product->id, 'total_sales', true );
 		?>
 
-		<div class="product-details" data-pop="<?php echo $units_sold; ?>">
+		<?php global $product;
+		$product_release = get_the_time('U');
+		?>
+
+		<div class="product-details" data-pop="<?php echo $units_sold; ?>" data-release="<?php echo $product_release; ?>">
 			<?php
 				$size = sizeof( get_the_terms( $post->ID, 'product_cat' ) );
 				echo $product->get_categories( ', ', '<span class="posted_in">' . _n( '', '', $size, 'woocommerce' ) . ' ', '</span>' );

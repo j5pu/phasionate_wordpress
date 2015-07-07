@@ -5065,14 +5065,20 @@ h1#designersTitle, h1#collectionsTitle{
 	}
 }
 /*Pagina Ropa*/
+div#contenidoRopa{
+	text-align: center;
+	padding-right: 20px;
+	border-right: 1px solid #555;
+	margin-top: -10px;
+}
 div#contenidoRopa h1{
 	text-align: center;
 	text-transform: uppercase;
 	margin-bottom: 40px;
+	padding-top: 25px;
 }
-div#contenidoRopa{
-	padding-right: 20px;
-	border-right: 1px solid #555;
+div#contenidoRopa > div.woocommerce{
+	margin-top: 30px;
 }
 div#contenidoRopa > img{
 	margin-bottom: 30px;
@@ -5091,4 +5097,36 @@ ul.menuRopa li{
 }
 ul.menuRopa li:hover{
 	color: #f99;
+}
+ul.orderProducts{
+	list-style-type: none;
+	text-align: center;
+	width: 100%;
+	padding-left: 0px;
+}
+ul.orderProducts, ul.orderProducts li{
+	display:inline-block;
+}
+ul.orderProducts li{
+	cursor: pointer;
+	text-align: center !important;
+	margin: 0 1%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	width: 22%;
+	background-color: white;
+	border: 2px solid black;
+	border-radius: 2px;
+}
+ul.orderProducts li:hover{
+	box-shadow: 0px 0px 2px black;
+}
+
+ul.orderProducts li span{
+	display:inline-block;
+	font-weight: bolder;
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+    transform: rotate(-90deg);
+    margin-left: 5px;
 }

@@ -101,31 +101,31 @@ function phetnia_slider(){
                 </div>
             </div>
             <div>
-                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/1924333_405669549582605_8558251574712934406_n-400x400.jpg" />
+                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPrema1.jpg" />
                 <div u="thumb">
-                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/1924333_405669549582605_8558251574712934406_n-400x400.jpg" /><div class="t">Prema</div>
-                    <div class="c">Bolsos azul de flecos</div>
+                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPrema1.jpg" /><div class="t">Prema</div>
+                    <div class="c">Bolso perlado para brillar</div>
                 </div>
             </div>
             <div>
-                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/64276_407759982706895_5086998257539180685_n-400x400.jpg" />
+                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaAbega1.jpg" />
                 <div u="thumb">
-                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/64276_407759982706895_5086998257539180685_n-400x400.jpg" /><div class="t">Abega</div>
-                    <div class="c">Bolso redondo. ¡Mu flamenco!</div>
+                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaAbega1.jpg" /><div class="t">Abega</div>
+                    <div class="c">Bolso con borlas. ¡Mu flamenco!</div>
                 </div>
             </div>
             <div>
-                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/10413416_408576772625216_2049085514777740177_n-400x400.jpg" />
+                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPyasan1.jpg" />
                 <div u="thumb">
-                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/10413416_408576772625216_2049085514777740177_n-400x400.jpg" /><div class="t">Pyasan</div>
-                    <div class="c">Bolso rojo pasión</div>
+                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPyasan1.jpg" /><div class="t">Pyasan</div>
+                    <div class="c">Bolso redondo para las mejores</div>
                 </div>
             </div>
             <div>
-                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/1503321_408122239337336_1661342671311810098_n-400x400.jpg" />
+                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaAvada1.jpg" />
                 <div u="thumb">
-                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/1503321_408122239337336_1661342671311810098_n-400x400.jpg" /><div class="t">Avada</div>
-                    <div class="c">Bolso elegante de tonos grises</div>
+                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaAvada1.jpg" /><div class="t">Avada</div>
+                    <div class="c">Bolso happy multicolor.</div>
                 </div>
             </div>
         </div>

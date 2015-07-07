@@ -19,24 +19,56 @@ jQuery(document).ready(function ($) {
 	});
 	function checkOrderProducts(){
 		$('#contenidoRopa ul.orderProducts li').on('click', function(){
-			alert($(this).attr('slug'));
+			$('#contenidoRopa ul.orderProducts li').css({'border-color':'#000','background-color':'#fff','color':'#000'});
+			$(this).css({'border-color':'#bbb','background-color':'#000','color':'#f66'})
 			orderProducts($(this).attr('slug'));
 		});
 	}
 	function orderProducts(like){
 		switch (like){
 			case 'precioBajo':
-				alert('bajo');
-				alert( $(' ul.products li').length );
+				$orden = [];
 				$.each( $(' ul.products li') , function( i , val){
-					alert( $(val).find('.amount').text() );
+					$orden.push( $(val).find('.amount').text() );
+					$orden.sort();
 				} );
+				$.each( $orden, function( i, val){
+					$('ul.products li:contains('+ val + ')').appendTo($('ul.products'));
+				});
 				break;
 			case 'precioAlto':
-				alert('alto');
+				$orden = [];
+				$.each( $(' ul.products li') , function( i , val){
+					$valor = $(val).find('.amount').text().replace("€","");
+					$orden.push( parseFloat($valor) );
+					$orden.sort(function(a, b){ return b-a});
+				} );
+				$.each( $orden, function( i, val){
+					$('ul.products li:contains('+ val + ')').appendTo($('ul.products'));
+				});
 				break;
 			case 'novedades':
-				alert('novedad')
+				$orden = [];
+				$.each( $(' ul.products li') , function( i , val){
+					$valor = $(val).find('.product-details').attr('data-release');
+					$orden.push( $valor );
+					$orden.sort(function(a, b){ return b-a});
+				} );
+				$.each( $orden, function( i, val){
+					$('ul.products li:has(.product-details[data-release='+val+'])').appendTo($('ul.products'));
+				});
+				break;
+			case 'populares':
+				$orden = [];
+				$.each( $(' ul.products li') , function( i , val){
+					$valor = $(val).find('.product-details').attr('data-pop');
+					$orden.push( $valor );
+					$orden.sort(function(a, b){ return b-a});
+				} );
+				$.each( $orden, function( i, val){
+					$('ul.products li:has(.product-details[data-pop='+val+'])').appendTo($('ul.products'));
+				});
+				break;
 		}
 	}
 });

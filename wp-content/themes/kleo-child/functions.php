@@ -683,23 +683,23 @@ function slider_shop(){
                 </div>
             </div>
             <div>
-                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/004.jpg" />
+                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPaessana1.jpg" />
                 <div u="thumb">
-                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/thumb-004.jpg" /><div class="t">Late West</div>
+                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPaessana1.jpg" /><div class="t">Late West</div>
                     <div class="c">Ropa futurista del medio oeste</div>
                 </div>
             </div>
             <div>
-                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/005.jpg" />
+                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaJosa2.jpg" />
                 <div u="thumb">
-                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/thumb-005.jpg" /><div class="t">Azalia</div>
+                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaJosa2.jpg" /><div class="t">Azalia</div>
                     <div class="c">Relojes de la polinesia</div>
                 </div>
             </div>
             <div>
-                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/006.jpg" />
+                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPyasan1.jpg" />
                 <div u="thumb">
-                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/thumb-006.jpg" /><div class="t">Nejliu</div>
+                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPyasan1.jpg" /><div class="t">Nejliu</div>
                     <div class="c">Bolsos para cada estación</div>
                 </div>
             </div>

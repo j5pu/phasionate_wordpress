@@ -1,4 +1,10 @@
 <h1>Bolsos</h1>
+<ul class="orderProducts">
+	<li slug='precioBajo'>precio <span>&lt;</span></li>
+	<li slug='precioAlto'>precio <span>&gt;</span></li>
+	<li slug='novedades'>Novedades</li>
+	<li slug='populares'>Populares</li>
+</ul>
 <div class="woocommerce columns-4">
 <ul class="products">
 				
@@ -18,7 +24,7 @@
 			</figcaption>
 					</figure>
 
-		<div class="product-details">
+		<div class="product-details" data-pop="2" data-release="1432901470">
 			<span class="posted_in"> <a href="https://www.bogadia.com/categoria-producto/bolsos/" rel="tag">Bolsos</a></span>			
 			<h3><a href="https://www.bogadia.com/producto/bolso-paesana/">Bolso Paesana</a></h3>
 			<p class="por_disenador">	      			<i>Por <a href="https://www.bogadia.com/disenadores/lucrecia">Lucrecia</a></i>
@@ -47,7 +53,7 @@
 			</figcaption>
 					</figure>
 
-		<div class="product-details">
+		<div class="product-details" data-pop="2" data-release="1432834269">
 			<span class="posted_in"> <a href="https://www.bogadia.com/categoria-producto/bolsos/" rel="tag">Bolsos</a></span>			
 			<h3><a href="https://www.bogadia.com/producto/bolso-prema/">Bolso Prema</a></h3>
 			<p class="por_disenador">	      			<i>Por <a href="https://www.bogadia.com/disenadores/lucrecia">Lucrecia</a></i>
@@ -76,7 +82,7 @@
 			</figcaption>
 					</figure>
 
-		<div class="product-details">
+		<div class="product-details" data-pop="0" data-release="1432576496">
 			<span class="posted_in"> <a href="https://www.bogadia.com/categoria-producto/bolsos/" rel="tag">Bolsos</a></span>			
 			<h3><a href="https://www.bogadia.com/tienda/bolsos/abega">Bolso Abega</a></h3>
 			<p class="por_disenador">	      			<i>Por <a href="https://www.bogadia.com/disenadores/lucrecia">Lucrecia</a></i>
@@ -105,7 +111,7 @@
 			</figcaption>
 					</figure>
 
-		<div class="product-details">
+		<div class="product-details" data-pop="4" data-release="1432901625">
 			<span class="posted_in"> <a href="https://www.bogadia.com/categoria-producto/bolsos/" rel="tag">Bolsos</a></span>			
 			<h3><a href="https://www.bogadia.com/tienda/bolsos/pyasan">Bolso Pyasan</a></h3>
 			<p class="por_disenador">	      			<i>Por <a href="https://www.bogadia.com/disenadores/lucrecia">Lucrecia</a></i>
@@ -134,7 +140,7 @@
 			</figcaption>
 					</figure>
 
-		<div class="product-details">
+		<div class="product-details" data-pop="3" data-release="1432901562">
 			<span class="posted_in"> <a href="https://www.bogadia.com/categoria-producto/bolsos/" rel="tag">Bolsos</a></span>			
 			<h3><a href="https://www.bogadia.com/bolsos/bolso-avada/">Bolso Avada</a></h3>
 			<p class="por_disenador">	      			<i>Por <a href="https://www.bogadia.com/disenadores/lucrecia">Lucrecia</a></i>
@@ -163,7 +169,7 @@
 			</figcaption>
 					</figure>
 
-		<div class="product-details">
+		<div class="product-details" data-pop="0" data-release="1432901070">
 			<span class="posted_in"> <a href="https://www.bogadia.com/categoria-producto/bolsos/" rel="tag">Bolsos</a></span>			
 			<h3><a href="https://www.bogadia.com/bolsos/bolso-josa/">Bolso Josa</a></h3>
 			<p class="por_disenador">	      			<i>Por <a href="https://www.bogadia.com/disenadores/lucrecia">Lucrecia</a></i>

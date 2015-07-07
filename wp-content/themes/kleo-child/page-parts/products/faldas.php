@@ -1,9 +1,9 @@
 <h1>Faldas</h1>
-<p>Ordernar por:</p>
 <ul class="orderProducts">
-	<li slug='precioBajo'>precio Bajo</li>
-	<li slug='precioAlto'>precio Alto</li>
+	<li slug='precioBajo'>precio <span>&lt;</span></li>
+	<li slug='precioAlto'>precio <span>&gt;</span></li>
 	<li slug='novedades'>Novedades</li>
+	<li slug='populares'>Populares</li>
 </ul>
 <div class="woocommerce columns-4">
 	<ul class="products">
@@ -24,7 +24,7 @@
 			</figcaption>
 					</figure>
 
-		<div class="product-details">
+		<div class="product-details" data-pop="0">
 			<span class="posted_in"> <a href="https://www.bogadia.com/categoria-producto/faldas/" rel="tag">Faldas</a></span>			
 			<h3><a href="https://www.bogadia.com/producto/platino/">Platino</a></h3>
 			<p class="por_disenador">	      			<i>Por <a href="https://www.bogadia.com/disenadores/la_patino">La Patiño</a></i>
@@ -53,7 +53,7 @@
 			</figcaption>
 					</figure>
 
-		<div class="product-details">
+		<div class="product-details" data-pop="0">
 			<span class="posted_in"> <a href="https://www.bogadia.com/categoria-producto/faldas/" rel="tag">Faldas</a></span>			
 			<h3><a href="https://www.bogadia.com/producto/ski/">Ski</a></h3>
 			<p class="por_disenador">	      			<i>Por <a href="https://www.bogadia.com/disenadores/la_patino">La Patiño</a></i>
@@ -82,7 +82,7 @@
 			</figcaption>
 					</figure>
 
-		<div class="product-details">
+		<div class="product-details" data-pop="0">
 			<span class="posted_in"> <a href="https://www.bogadia.com/categoria-producto/faldas/" rel="tag">Faldas</a></span>			
 			<h3><a href="https://www.bogadia.com/producto/wind/">Wind</a></h3>
 			<p class="por_disenador">	      			<i>Por <a href="https://www.bogadia.com/disenadores/la_patino">La Patiño</a></i>
@@ -111,7 +111,7 @@
 			</figcaption>
 					</figure>
 
-		<div class="product-details">
+		<div class="product-details" data-pop="0">
 			<span class="posted_in"> <a href="https://www.bogadia.com/categoria-producto/faldas/" rel="tag">Faldas</a></span>			
 			<h3><a href="https://www.bogadia.com/producto/oeste/">Oeste</a></h3>
 			<p class="por_disenador">	      			<i>Por <a href="https://www.bogadia.com/disenadores/la_patino">La Patiño</a></i>
@@ -140,7 +140,7 @@
 			</figcaption>
 					</figure>
 
-		<div class="product-details">
+		<div class="product-details" data-pop="0">
 			<span class="posted_in"> <a href="https://www.bogadia.com/categoria-producto/faldas/" rel="tag">Faldas</a></span>			
 			<h3><a href="https://www.bogadia.com/producto/laser/">Laser</a></h3>
 			<p class="por_disenador">	      			<i>Por <a href="https://www.bogadia.com/disenadores/la_patino">La Patiño</a></i>
