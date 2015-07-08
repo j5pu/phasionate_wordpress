@@ -5056,10 +5056,16 @@ h1#designersTitle, h1#collectionsTitle{
 	display: inline-block;
 	float: left;
 }
+.descCollecContent p{
+	margin: 0;
+}
 .collectionBioContent h4, .collectionBioContent .descAuthotContent p{
 	text-align: center;
 }
 @media (max-width: 991px){
+	.descCollecContent p{
+		margin-top: 25px;
+	}
 	.otherCollec{
 		width: 47%;
 	}

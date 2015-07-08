@@ -303,12 +303,12 @@ add_shortcode('otherCollections', 'other_collections');
 function phetnia_bio(){
 ?>
     <div class="collectionBioContent">
+        <h4>Phetnia</h4>
         <div class="descAuthotContent">
             <img src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaJosa2.jpg"/>
             <p>Una colección de <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia">Lucrecia</a></p>
         </div>
         <div class="descCollecContent">
-            <h4>Phetnia</h4>
             <p>Inspirada en la pasión étnica, Phetnia es la colección que Lucrecia PQ
             ha creado en exclusiva para BOGADIA. Con las hiladas de esta joven
             diseñadora nos llenamos del color y la luz del sol de tierras lejanas

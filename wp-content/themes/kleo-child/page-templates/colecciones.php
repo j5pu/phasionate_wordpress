@@ -23,11 +23,11 @@ function content_collections(){
     <div class="boxContCollections">
         <div class="boxCollection">
             <h2><a href="<?php bloginfo('wpurl'); ?>/colecciones/phetnia">Phetnia</a></h2>
-            <a href="<?php bloginfo('wpurl'); ?>/colecciones/phetnia"><img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/003.jpg" /></a>
+            <a href="<?php bloginfo('wpurl'); ?>/colecciones/phetnia"><img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPyasan2.jpg" /></a>
             <?php echo do_shortcode('[product_attribute attribute="disenadora" filter="lucrecia" columns="4" per_page="4"]'); ?>
             <div class="descriptionCollection">
-                <p>Bolsos inspirados en las etnías centroafricanas. Coloridos, salvajes y elegantes. Descubre el safari que Lucrecia ha preparado en excluvidad para Bogadia.</p>
-                <p>Bolsos inspirados en las etnías centroafricanas. Coloridos, salvajes y elegantes. Descubre el safari que Lucrecia ha preparado en excluvidad para Bogadia.</p>
+            <p>Pinceladas de otros mundos llenos de misterio y convertidos en diseños
+            propios, inspirados en diferentes culturas pero con una misma pasión.</p>
             </div>
         </div>
         <div class="boxCollection">
