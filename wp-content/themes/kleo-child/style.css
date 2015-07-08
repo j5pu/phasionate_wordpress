@@ -4921,8 +4921,11 @@ body.woocommerce-page #main{
 .woocommerce ul.products li.product .posted_in, .woocommerce ul.products li.product .posted_in a{
 	display:none;
 }
-.woocommerce ul.products li.product p.por_disenador{
+.woocommerce ul.products li.product p.por_disenador, .woocommerce ul.products li.product p.por_coleccion{
 	margin: 0px;
+}
+.woocommerce ul.products li.product p.por_coleccion{
+	font-size: 80%;
 }
 /* Woocommerce - Categorias */
 body.tax-product_cat.woocommerce-page #main .template-page > .wrap-content{

@@ -85,6 +85,18 @@ else {
 		?>
 
 		<div class="product-details" data-pop="<?php echo $units_sold; ?>" data-release="<?php echo $product_release; ?>">
+			<p class="por_coleccion"><?php
+			$subheadingvalues = get_the_terms( $product->id, 'pa_coleccion');
+
+			if ( $subheadingvalues && ! is_wp_error( $subheadingvalues ) ) {
+	      		foreach ( $subheadingvalues as $subheadingvalue ) {
+	      			?>
+	      			<i><a href="<?php bloginfo('wpurl'); ?>/colecciones/<?php echo $subheadingvalue->slug ?>"><?php echo $subheadingvalue->name ?></a></i>
+	       			<?php
+		        }		
+			}?>
+			</p>
+
 			<?php
 				$size = sizeof( get_the_terms( $post->ID, 'product_cat' ) );
 				echo $product->get_categories( ', ', '<span class="posted_in">' . _n( '', '', $size, 'woocommerce' ) . ' ', '</span>' );
