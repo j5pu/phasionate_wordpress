@@ -156,7 +156,7 @@ endif;
 	</div>
 </div>        
 
-<?php $user_info = get_userdata(209); ?>
+<?php $user_info = get_userdata(211); ?>
 
 <div id="authorarea" class="vcard author">
 	<a class="author-link photo" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '127' ) ); ?>" rel="author">
