@@ -105,16 +105,19 @@ kleo_switch_layout('right');
 		$cats = get_the_category();
 		$cat_name = $cats[0]->name;
 		if ($cat_name == "Streetstyle"){
-			$user_david = get_user_by( "email", "david@bizeulabs.com" );
+			$user_photographer = get_user_by( "email", "david@bizeulabs.com" );
+			if ($post->ID == 20106){
+				$user_photographer = get_user_by( "email", "gemmabou@bogadia.com" );
+			} 
 		?>
 <div>
 	<h2 class="newTitleAuthor">
 	<a class="author-link photo newAuthorPhoto" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author"> 
-		<?php echo get_avatar( $user_david -> id, 100 ); ?>
+		<?php echo get_avatar( $user_photographer -> id, 100 ); ?>
 	</a>
 	<span>Fotografías de </span>
 	<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author">
-		<?php echo $user_david->display_name ; ?>
+		<?php echo $user_photographer->display_name ; ?>
 	</a>
 	</h2>
 </div>
