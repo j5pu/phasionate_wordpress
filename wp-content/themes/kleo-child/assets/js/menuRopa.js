@@ -4,19 +4,37 @@ jQuery(document).ready(function ($) {
 		if (location_url.search("productos-bogadia")>0){
 			location_url = location_url.substring(0, location_url.search('productos-bogadia'));
 		}
-		$('#contenidoRopa').load(location_url+'wp-content/themes/kleo-child/page-parts/products/'+$(this).attr('slug')+'.php');
+		var title_selected = $(this).text();
+		var slug_selected = $(this).attr('slug');
 		$('ul.menuRopa li').css('color','#000');
-		$(this).css('color','#f66');
-		setTimeout(function( ){ checkOrderProducts(); },1000);
+		$('ul.menuRopa li[slug='+slug_selected+']').css('color','#f66');
+		$('#contenidoRopa').children().fadeOut('slow');
+		$('<img>').addClass('loadingContenidoRopa').attr('src', location_url+'wp-content/themes/kleo-child/assets/img/loadingProductos.gif').appendTo($('#contenidoRopa')).fadeIn();
+		$('#contenidoRopa').load(location_url+'wp-content/themes/kleo-child/page-parts/products.php?slug='
+				+ $(this).attr('slug')
+				+ '&type_attr=' + $(this).attr('attr'),
+			function(){
+				$('ul.products li').addClass("start-animation");		
+				$('<h1>').text(title_selected).prependTo($('#contenidoRopa'));
+				/*var aCopy = $('#contenidoRopa').clone();
+				$('#contenidoRopa').remove();
+				$('#contenidoRopa').prepend(aCopy);*/
+				setTimeout(function( ){ checkOrderProducts(); },500);
+				mouseoverEffectActive();
+				$('ul.menuRopa li').css('color','#000');
+				$('ul.menuRopa li[slug='+slug_selected+']').css('color','#f66');
+			});
 	});
-	$('ul.menuRopa li').on('mouseover',function(){
-		$(this).css('color','#f66')
-	});
-	$('ul.menuRopa li').on('mouseout',function(){
-		if ($('#contenidoRopa h1').text() != $(this).text()){
-			$(this).css('color','#000')
-		}
-	});
+	function mouseoverEffectActive(){	
+		$('ul.menuRopa li').on('mouseover',function(){
+			$(this).css('color','#f66')
+		});
+		$('ul.menuRopa li').on('mouseout',function(){
+			if ($('#contenidoRopa h1').text() != $(this).text()){
+				$(this).css('color','#000')
+			}
+		});
+	}
 	function checkOrderProducts(){
 		$('#contenidoRopa ul.orderProducts li').on('click', function(){
 			$('#contenidoRopa ul.orderProducts li').css({'border-color':'#000','background-color':'#fff','color':'#000'});
@@ -25,6 +43,7 @@ jQuery(document).ready(function ($) {
 		});
 	}
 	function orderProducts(like){
+
 		switch (like){
 			case 'precioBajo':
 				$orden = [];

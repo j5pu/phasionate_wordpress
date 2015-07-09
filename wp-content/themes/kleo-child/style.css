@@ -5140,6 +5140,16 @@ ul.orderProducts li span{
     transform: rotate(-90deg);
     margin-left: 5px;
 }
+img.loadingContenidoRopa{
+	width: 80%;
+	padding: 10%;
+}
+
+@media (max-width: 768px) {
+	ul.menuRopa, ul.menuRopa li, ul.menuRopa h2{
+		display: inline-block;
+	}
+}
 /* Woocommerce - Single Product Page */
 body.single-product nav.pagination-sticky.product-navigation{
 	display:none;

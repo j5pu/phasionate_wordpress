@@ -160,7 +160,7 @@ endif;
 
 <div id="authorarea" class="vcard author">
 	<a class="author-link photo" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '127' ) ); ?>" rel="author">
-	<?php echo get_avatar( '127', 150 ); ?></a>
+	<?php echo get_avatar( '211', 150 ); ?></a>
 	<a class="author-link url" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '127') ); ?>" rel="author">
 	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 	<div class="authorinfo role">

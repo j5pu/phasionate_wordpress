@@ -5,6 +5,18 @@
 	<li slug='novedades'>Novedades</li>
 	<li slug='populares'>Populares</li>
 </ul>
+<?php 
+
+	require("../../../../../wp-config.php");
+
+	echo DB_NAME;
+
+	$classes[] = 'start-animation';
+
+	echo do_shortcode('[recent_products orderby="rand" per_page="24" columns="4"]');
+
+?>
+
 <div class="woocommerce columns-4">
 <ul class="products">
 				

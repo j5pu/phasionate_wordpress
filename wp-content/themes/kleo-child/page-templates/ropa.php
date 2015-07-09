@@ -46,7 +46,7 @@ function menu_ropa(){
 
             $terms = get_terms("pa_disenadora");
             foreach ( $terms as $term ) {
-            echo "<li slug='".$term->slug."'>" . $term->name . "</li>";
+            echo "<li attr='pa_disenadora' slug='".$term->slug."'>" . $term->name . "</li>";
             }
 
         ?>
@@ -54,7 +54,7 @@ function menu_ropa(){
         <?php
             $terms = get_terms("pa_coleccion");
             foreach ( $terms as $term ) {
-            echo "<li slug='".$term->slug."'>" . $term->name . "</li>";
+            echo "<li attr='pa_coleccion' slug='".$term->slug."'>" . $term->name . "</li>";
             }
         ?>
     </ul>
