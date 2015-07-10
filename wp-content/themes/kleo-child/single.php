@@ -107,7 +107,7 @@ kleo_switch_layout('right');
 		if ($cat_name == "Streetstyle"){
 			$user_photographer = get_user_by( "email", "david@bizeulabs.com" );
 			if ($post->ID == 20106){
-				$user_photographer = get_user_by( "email", "gemmabou@bogadia.com" );
+				$user_photographer = get_user_by( "email", "gemma@bogadia.com" );
 			} 
 		?>
 <div>
