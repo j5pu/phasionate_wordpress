@@ -5143,6 +5143,7 @@ ul.orderProducts li span{
 img.loadingContenidoRopa{
 	width: 80%;
 	padding: 10%;
+	padding-bottom: 40%;
 }
 
 @media (max-width: 768px) {
