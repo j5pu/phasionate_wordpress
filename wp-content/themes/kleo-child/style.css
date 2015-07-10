@@ -4893,6 +4893,7 @@ body.woocommerce-page #main{
 	position: fixed;
 	width: 100%;
 	box-shadow: 0px 3px 5px black;
+	z-index: -1;
 }
 .submenu-shop ul{
 	list-style-type: none;
