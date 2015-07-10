@@ -47,14 +47,4 @@ endif;
 
 <?php get_template_part('page-parts/general-after-wrap'); ?>
 
-<?php
-/*
-function add_my_scriptDesigners() {
-    ?><script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/scriptDesigners.js"></script><?php
-}
-add_action('wp_footer', 'add_my_scriptDesigners');
-*/
-
-?>
-
 <?php get_footer(); ?>
