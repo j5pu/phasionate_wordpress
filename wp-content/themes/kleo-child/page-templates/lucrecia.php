@@ -261,36 +261,6 @@ function lucrecia_content(){
         <a style="display: none" href="http://www.jssor.com">Bootstrap Slider</a>
 	</div>
 
-<section class="container-wrap main-color  text-center" style="padding-bottom: 20px;min-height: 0px"><div class="section-container container"><div class="row">
-	<div class="col-sm-8 wpb_column column_container">
-		<div class="wpb_wrapper">
-			
-	<div class="wpb_single_image wpb_content_element imagen-ficha-diseñadora animated animate-when-visible right-to-left element-center text-center start-animation">
-		<div class="wpb_wrapper">
-			
-			<span class="vc_box_shadow_3d_wrap"><img src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/lucrecia-foto-bio-1024x683.jpg" class="vc_box_shadow_3d vc_box_border_grey attachment-large" alt="lucrecia pq" width="1024" height="683"></span>
-		</div> 
-	</div> 
-		</div> 
-	</div> 
-
-	<div class="col-sm-4 wpb_column column_container">
-		<div class="wpb_wrapper">
-			
-	<div class="kleo_text_column wpb_content_element ">
-		<div class="wpb_wrapper">
-			<p style="text-align: center; font-size: 30px;"><strong>Lucrecia Pérez Sáez</strong></p>
-<p>Lucrecia Pérez Sáez, conocida artísticamente como Lucrecia (La Habana, Cuba) es una cantante cubana afincada en la ciudad de Barcelona (España).</p>
-<p>Supo desde niña que su vida estaba marcada por el sonido de su tierra. Comenzó sus estudios de piano y se acabó licenciando en música en la especialidad de piano en el Instituto Superior de Arte de Cuba. Recibió clases de canto con la compositora del bolero “Dos gardenias” Isolina Carrillo, bolero popularizado en España por el también cubano Antonio Machín y que le acompaña en su carrera musical.</p>
-
-		</div> 
-	</div> 
-		</div> 
-	</div> 
-</div></div></section>
-
-	<?php echo do_shortcode( '[product_attribute attribute="disenadora" filter="lucrecia" per_page="6" columns="3"]' ); ?>
-
 	<?php
 }
 add_shortcode( 'lucreciaContent', 'lucrecia_content' );
