@@ -741,9 +741,9 @@ function content_designers(){
     </div>
 
     <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia/">
-            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/guimmet.jpg" alt="guimmet pq" width="1024" height="683">
-            <p>Guimmet<span id="guimmetTextDesign" class="descripTextDesign"></span></p>
+        <a href="<?php bloginfo('wpurl'); ?>/disenadores/maria-cidfuentes/">
+            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/maria-foto-bio2.jpg" alt="maria-foto-bio pq" width="750" height="500">
+            <p>María Cidfuentes<span id="guimmetTextDesign" class="descripTextDesign"></span></p>
         </a>
     </div>
 
