@@ -26,7 +26,7 @@
                     position: absolute;
                     width: 200px;
                     height: 88px;
-                    background: #181818;
+                    /*background: #181818;*/
                 }
 
                 .jssort11 .tp {
@@ -43,9 +43,9 @@
                     position: absolute;
                     top: 3px;
                     left: 3px;
-                    width: 60px;
-                    height: 30px;
-                    border: white 1px dashed;
+                    width: 150px;
+                    height: 75px;
+                    border: black 1px dashed;
                 }
 
                 * html .jssort11 .i {
@@ -54,7 +54,7 @@
                 }
 
                 .jssort11 .pav .i {
-                    border: white 1px solid;
+                    border: black 1px solid;
                 }
 
                 .jssort11 .t, .jssort11 .pav:hover .t {
@@ -70,6 +70,7 @@
                     font-weight: 700;
                     font-family: Playfair Display;
                     text-transform: uppercase;
+                    display:none;
                 }
 
                 .jssort11 .pav .t, .jssort11 .p:hover .t {
@@ -87,10 +88,11 @@
                     font-size: 12px;
                     font-weight: 400;
                     overflow: hidden;
+                    display:none;
                 }
 
                 .jssort11 .pav .c, .jssort11 .p:hover .c {
-                    color: #fc9835;
+                    /*color: #fc9835;*/
                 }
 
                 .jssort11 .t, .jssort11 .c {
@@ -107,10 +109,13 @@
                     -o-transition: none;
                 }
 
+                .jssort11 .i:hover, .jssort11 .pav .i:hover {
+                    border-color: #902828;
+                }
                 .jssort11 .p:hover, .jssort11 .pav:hover {
-                    background: #333;
+                    /*background: #333;*/
                 }
 
                 .jssort11 .pav, .jssort11 .p.pdn {
-                    background: #462300;
+                    /*background: #462300;*/
                 }

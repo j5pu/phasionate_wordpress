@@ -649,11 +649,13 @@ add_shortcode( 'ImagesStreetstyleSidebar', 'imagesstreetstylesidebar' );
 * Shortcode para la home de la tienda
 *
 */
-function slider_shop(){
+function slider_shop( $atts ){
+	$images = explode( ', ', $atts['images']);
+	$links = explode(', ', $atts['links']);
 	?>
 	<script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/jssor.slider.mini.js"></script>
 	<script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/sliderShop.js"></script>
-    <div id="sliderShop_container" style="position: relative; top: 0px; left: 0px; width: 964px; height: 377px; background: #000; overflow: hidden; ">
+    <div id="sliderShop_container" style="position: relative; top: 0px; left: 0px; width: 964px; height: 377px; background: #fff; overflow: hidden; ">
 		
         <!-- Loading Screen -->
         <div u="loading" style="position: absolute; top: 0px; left: 0px;">
@@ -668,41 +670,24 @@ function slider_shop(){
 		<!-- Slides Container -->
         <div u="slides" style="cursor: pointer; position: absolute; left: 0px; top: 0px; width: 754px; height: 377px;
             overflow: hidden;">
+
+        <?php
+        $i =0;
+        foreach ($images as $image){
+        ?>
+
             <div>
-                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/002.jpg" />
+                <a href="<?php if (isset($links[$i])){ bloginfo('wpurl'); echo $links[$i]; }else{ ?>#<?php } ?>"><img u="image" src="<?php bloginfo('wpurl'); ?><?php echo $image; ?>" /></a>
                 <div u="thumb">
-                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/thumb-002.jpg" /><div class="t">B Tienda</div>
-                    <div class="c">Colecciones exclusivos, productos únicos</div>
+                    <img class="i" src="<?php bloginfo('wpurl'); ?><?php echo $image; ?>" />
                 </div>
             </div>
-            <div>
-                <a href="<?php bloginfo('wpurl'); ?>/phetnia"><img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/phetnia1-1000x500.jpg" /></a>
-                <div u="thumb">
-                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/thumb-003.jpg" /><div class="t">Phetnia</div>
-                    <div class="c">Bolsos inspirados en África</div>
-                </div>
-            </div>
-            <div>
-                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPaessana1.jpg" />
-                <div u="thumb">
-                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPaessana1.jpg" /><div class="t">Late West</div>
-                    <div class="c">Ropa futurista del medio oeste</div>
-                </div>
-            </div>
-            <div>
-                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaJosa2.jpg" />
-                <div u="thumb">
-                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaJosa2.jpg" /><div class="t">Azalia</div>
-                    <div class="c">Relojes de la polinesia</div>
-                </div>
-            </div>
-            <div>
-                <img u="image" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPyasan1.jpg" />
-                <div u="thumb">
-                    <img class="i" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/portadaPyasan1.jpg" /><div class="t">Nejliu</div>
-                    <div class="c">Bolsos para cada estación</div>
-                </div>
-            </div>
+
+        <?php
+        $i++;
+    	}
+        ?>
+
         </div>
  		<!--#region ThumbnailNavigator Skin Begin -->
  		<link href="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/css/sliderShop.css" rel="stylesheet" type="text/css">
@@ -721,6 +706,46 @@ function slider_shop(){
 	<?php
 }
 add_shortcode( 'sliderShop', 'slider_shop' );
+
+/*
+*
+* Shortcode para las paginas individuales de colecciones de la tienda
+*
+*/
+function other_collections(){
+?>
+    <div class="otherCollecContent">
+        <div class="otherCollec">
+            <div class="hr-title hr-full hr-center">
+                <a href="#"><abbr>La Patiño</abbr></a>
+            </div>    
+            <div class="hr-title hr-full hr-center">
+                <a href="#"><abbr>Late West</abbr></a>
+            </div>    
+            <a href="#"><img src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/004.jpg" /></a>
+        </div>
+        <div class="otherCollec">
+            <div class="hr-title hr-full hr-center">
+                <a href="#"><abbr>Lucrecia</abbr></a>
+            </div>
+            <div class="hr-title hr-full hr-center">
+                <a href="#"><abbr>Azalia</abbr></a>
+            </div>
+            <a href="#"><img src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/005.jpg" /></a>
+        </div>
+        <div class="otherCollec">
+            <div class="hr-title hr-full hr-center">
+                <a href="#"><abbr>La Patiño</abbr></a>
+            </div>
+            <div class="hr-title hr-full hr-center">
+                <a href="#"><abbr>Nejliu</abbr></a>
+            </div>
+            <a href="#"><img src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/006.jpg" /></a>
+        </div>
+    </div>
+<?php
+}
+add_shortcode('otherCollections', 'other_collections');
 
 /*
 *
