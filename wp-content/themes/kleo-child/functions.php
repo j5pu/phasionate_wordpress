@@ -825,6 +825,23 @@ add_shortcode( 'photoBox', 'photographer_box');
 
 /*
 *
+* Shortcode para promocionar un post en la sidebard
+*
+*/
+function promo_post( $atts ){
+	global $post;
+	$current_url = get_permalink( $post->ID );
+	if ( $current_url != $atts['post_url'] ){
+		echo $atts['title_widget'];
+		?>
+		<a href="<?php echo $atts['post_url']; ?>" ><img src="<?php echo $atts['img_src']; ?>" alt="Sorteo Ipanema"/></a>
+		<?php
+	}
+}
+add_shortcode( 'promoPost', 'promo_post');
+
+/*
+*
 * Shortcode para la portada de revista
 *
 */

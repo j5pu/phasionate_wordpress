@@ -39,7 +39,6 @@ function menu_ropa(){
 
         <h2>Categoria</h2>
         <li slug="bolsos">Bolsos</li>
-        <li slug="faldas">Faldas</li>
 
         <h2>Diseñador</h2>
         <?php

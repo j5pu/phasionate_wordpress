@@ -504,6 +504,13 @@ i.icon-facebook:before {
 	content: 'f';
 	font-size: 40px;
 }
+.widget-title i.icon-facebook{
+	float:right;
+}
+.widget-title i.icon-facebook:before {
+	font-size: 25px;
+	background-color: #339;
+}
 
 i.icon-twitter:before {
 	font-family: phasionate;

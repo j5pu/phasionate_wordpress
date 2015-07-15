@@ -98,29 +98,6 @@ kleo_switch_layout('right');
 
 	<?php
 	}
-	/*
-	if ($cat_name == "Streetstyle"){
-		$user_photographer = get_user_by( "email", "david@bizeulabs.com" );
-		if ($post->ID == 20106){
-			$user_photographer = get_user_by( "email", "gemma@bogadia.com" );
-		} 
-	?>
-
-	<div>
-		<h2 class="newTitleAuthor">
-		<a class="author-link photo newAuthorPhoto" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author"> 
-			<?php echo get_avatar( $user_photographer -> id, 100 ); ?>
-		</a>
-		<span>Fotografías de </span>
-		<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author">
-			<?php echo $user_photographer->display_name ; ?>
-		</a>
-		</h2>
-	</div>
-
-	<?php
-	}
-	*/
 
 	// Previous/next post navigation.
 	// kleo_post_nav();
