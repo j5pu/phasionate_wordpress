@@ -4788,6 +4788,9 @@ body.woocommerce .page-title{
 .titleLinksToStreet{
 	padding-left: 25px;
 }
+.photographer-box{
+	margin-top:20px;
+}
 
 /* Widgets de Post relacionados */
 .sidebar .hover-element > i::before {

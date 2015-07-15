@@ -800,6 +800,31 @@ add_shortcode( 'designersContent', 'content_designers' );
 
 /*
 *
+* Shortcode para sacar fotografo
+*
+*/
+function photographer_box( $atts ){
+	$user_photographer = get_user_by( "email", $atts['email'] );
+	?>
+
+	<div class="photographer-box">
+		<h2 class="newTitleAuthor">
+		<a class="author-link photo newAuthorPhoto" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author"> 
+			<?php echo get_avatar( $user_photographer -> id, 100 ); ?>
+		</a>
+		<span>Fotografías de </span>
+		<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author">
+			<?php echo $user_photographer->display_name ; ?>
+		</a>
+		</h2>
+	</div>
+
+	<?php
+}
+add_shortcode( 'photoBox', 'photographer_box');
+
+/*
+*
 * Shortcode para la portada de revista
 *
 */
