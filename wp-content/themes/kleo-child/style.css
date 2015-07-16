@@ -3263,10 +3263,10 @@ body.woocommerce-page div.container>h1.entry-title.page-title{
 .icon-angle-right::before, .icon-angle-left::before{
 	font-size:20px;
 }
-/*cargando carrito*/
+/*cargando carrito
 body:not(.woocommerce-page) li.shop-drop:not(.has-productos){
 	display: none;
-}
+}*/
 body:not(.woocommerce-page) a.cart-contents span.cart-items:not(.has-products){
 	display: none;
 }
