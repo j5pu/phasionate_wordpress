@@ -155,14 +155,17 @@ class WPSEO_OpenGraph {
 	 */
 	public function website_facebook() {
 
+		/*
 		if (!um_is_core_page('user') ){
-			if ( isset( $this->options['facebook_site'] ) && $this->options['facebook_site'] !== '' ) {
-				$this->og_tag( 'article:publisher', $this->options['facebook_site'] );
+		*/
+		if ( isset( $this->options['facebook_site'] ) && $this->options['facebook_site'] !== '' ) {
+			$this->og_tag( 'article:publisher', $this->options['facebook_site'] );
 
-				return true;
-			}
+			return true;
 		}
-		
+		/*
+		}
+		*/
 		return false;
 	}
 
@@ -285,14 +288,18 @@ class WPSEO_OpenGraph {
 			}
 		}
 
+		/*
 		if (!um_is_core_page('user') ){
-			if ( is_string( $url ) && $url !== '' ) {
-				$this->og_tag( 'og:url', esc_url( $url ) );
+		*/
+		if ( is_string( $url ) && $url !== '' ) {
+			$this->og_tag( 'og:url', esc_url( $url ) );
 
-				return true;
-			}
+			return true;
 		}
-		
+		/*
+		}
+		*/
+
 		return false;
 	}
 
@@ -514,11 +521,15 @@ class WPSEO_OpenGraph {
 			}
 		}
 
+		/*
 		if (!um_is_core_page('user') ){
-			foreach ( $opengraph_images->get_images() as $img ) {
-				$this->og_tag( 'og:image', esc_url( $img ) );
-			}
+		*/
+		foreach ( $opengraph_images->get_images() as $img ) {
+			$this->og_tag( 'og:image', esc_url( $img ) );
 		}
+		/*
+		}
+		*/
 	}
 
 	/**
@@ -649,7 +660,8 @@ class WPSEO_OpenGraph {
 	 */
 	public function category() {
 
-		if ( ! is_singular() || um_is_core_page('user') ) {
+		//if ( ! is_singular() || um_is_core_page('user') ) {
+		if ( ! is_singular() ) {
 			return false;
 		}
 
