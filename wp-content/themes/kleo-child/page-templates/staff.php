@@ -59,9 +59,9 @@ endif;
 <?php $user_info = get_userdata(11); ?>
 
 <div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo "#"; //echo esc_url( get_author_posts_url( '11' ) ); ?>" rel="author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '11' ) ); ?>" rel="author">
 	<?php echo get_avatar( '11', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '11') ); ?>" rel="author">
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '11') ); ?>" rel="author">
 	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 	<div class="authorinfo role">
 		<?php echo $user_info->description; ?><br/>
@@ -73,9 +73,9 @@ endif;
 <?php $user_info = get_userdata(71); ?>
 
 <div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '71' ) ); ?>" rel="author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '71' ) ); ?>" rel="author">
 	<?php echo get_avatar( '71', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '71') ); ?>" rel="author">
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '71') ); ?>" rel="author">
 	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 	<div class="authorinfo role">
 		<?php echo $user_info->description; ?><br/>
@@ -85,9 +85,9 @@ endif;
 <?php $user_info = get_userdata(70); ?>
 
 <div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '70' ) ); ?>" rel="author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '70' ) ); ?>" rel="author">
 	<?php echo get_avatar( '70', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '70') ); ?>" rel="author">
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '70') ); ?>" rel="author">
 	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 	<div class="authorinfo role">
 		<?php echo $user_info->description; ?><br/>
@@ -97,9 +97,9 @@ endif;
 <?php $user_info = get_userdata(35); ?>
 
 <div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '35' ) ); ?>" rel="author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '35' ) ); ?>" rel="author">
 	<?php echo get_avatar( '35', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '35') ); ?>" rel="author">
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '35') ); ?>" rel="author">
 	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 	<div class="authorinfo role">
 		<?php echo $user_info->description; ?><br/>
@@ -109,9 +109,9 @@ endif;
 <?php $user_info = get_userdata(206); ?>
 
 <div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '35' ) ); ?>" rel="author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '206' ) ); ?>" rel="author">
 	<?php echo get_avatar( '206', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '35') ); ?>" rel="author">
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '206') ); ?>" rel="author">
 	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 	<div class="authorinfo role">
 		<?php echo $user_info->description; ?><br/>
@@ -121,9 +121,9 @@ endif;
 <?php $user_info = get_userdata(208); ?>
 
 <div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo "#"; //.esc_url( get_author_posts_url( '208' ) ); ?>" rel="author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '208' ) ); ?>" rel="author">
 	<?php echo get_avatar( '208', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo "#"; //.esc_url( get_author_posts_url( '208') ); ?>" rel="author">
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '208') ); ?>" rel="author">
 	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 	<div class="authorinfo role">
 		<?php echo $user_info->description; ?><br/>
@@ -133,9 +133,9 @@ endif;
 <?php $user_info = get_userdata(207); ?>
 
 <div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '35' ) ); ?>" rel="author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '207' ) ); ?>" rel="author">
 	<?php echo get_avatar( '207', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '35') ); ?>" rel="author">
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '207') ); ?>" rel="author">
 	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 	<div class="authorinfo role">
 		<?php echo $user_info->description; ?><br/>
@@ -147,9 +147,9 @@ endif;
 <?php $user_info = get_userdata(127); ?>
 
 <div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '127' ) ); ?>" rel="author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '127' ) ); ?>" rel="author">
 	<?php echo get_avatar( '127', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '127') ); ?>" rel="author">
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '127') ); ?>" rel="author">
 	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 	<div class="authorinfo role">
 		<?php echo $user_info->description; ?><br/>
@@ -159,9 +159,9 @@ endif;
 <?php $user_info = get_userdata(211); ?>
 
 <div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '127' ) ); ?>" rel="author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '211' ) ); ?>" rel="author">
 	<?php echo get_avatar( '211', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '127') ); ?>" rel="author">
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '211') ); ?>" rel="author">
 	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 	<div class="authorinfo role">
 		<?php echo $user_info->description; ?><br/>
@@ -171,9 +171,9 @@ endif;
 <?php $user_info = get_userdata(213); ?>
 
 <div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '127' ) ); ?>" rel="author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '213' ) ); ?>" rel="author">
 	<?php echo get_avatar( '213', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo "#"; // echo esc_url( get_author_posts_url( '127') ); ?>" rel="author">
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '213') ); ?>" rel="author">
 	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 	<div class="authorinfo role">
 		<?php echo $user_info->description; ?><br/>

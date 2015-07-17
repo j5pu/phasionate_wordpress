@@ -19,13 +19,13 @@ License URI: license.txt
 */
 @font-face {
     font-family: 'phasionate';
-    src: url('fonts/phasionate/phasionate13.eot');
-    src: url('fonts/phasionate/phasionate13.eot?#iefix') format('embedded-opentype'),
-         url('fonts/phasionate/phasionate13.woff2') format('woff2'),
-         url('fonts/phasionate/phasionate13.woff') format('woff'),
-         url('fonts/phasionate/phasionate13.ttf') format('truetype'),
-         url('fonts/phasionate/phasionate13.otf') format('opentype'),
-         url('fonts/phasionate/phasionate13.svg#phasionateregular') format('svg');
+    src: url('fonts/phasionate/phasionate15.eot');
+    src: url('fonts/phasionate/phasionate15.eot?#iefix') format('embedded-opentype'),
+         url('fonts/phasionate/phasionate15.woff2') format('woff2'),
+         url('fonts/phasionate/phasionate15.woff') format('woff'),
+         url('fonts/phasionate/phasionate15.ttf') format('truetype'),
+         url('fonts/phasionate/phasionate15.otf') format('opentype'),
+         url('fonts/phasionate/phasionate15.svg#phasionateregular') format('svg');
 
     font-weight: normal;
     font-style: normal;
@@ -811,6 +811,13 @@ color:#333;
 margin-left:140px;
 color:#444;
 } 
+
+body.author h1.page-title{
+	display:none;
+}
+body.author div.template-page{
+	padding-top: 0px;
+}
 /*Fin author*/
 
 
@@ -3488,9 +3495,6 @@ a.bbp-forum-title:hover{
 	margin: 2px 2px !important;
 }
 /* Paginacion de los foros */
-a.next.page-numbers::before, a.prev.page-numbers::before{
-	color: #ccc !important;
-}
 a.next.page-numbers::before{
 	margin-right: 4px;
 }	

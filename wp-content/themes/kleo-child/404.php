@@ -26,7 +26,7 @@ if (sq_option('title_location', 'breadcrumb') == 'main') {
 
 <div class="row">
 	<div class="col-sm-12">
-			<img src="<?php echo get_template_directory_uri();?>/assets/img/logo_phasionate.jpg"><br>
+			<img src="<?php echo get_stylesheet_directory_uri();?>/assets/img/b-300inv.jpg"><br>
 			<h2 class="article-title"><?php _e( 'This is somewhat embarrassing, isn&rsquo;t it?', 'kleo_framework' ); ?></h2>
 
 			<p><?php _e( 'It looks like nothing was found at this location. Maybe try a search?', 'kleo_framework' ); ?></p>
