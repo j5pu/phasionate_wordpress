@@ -570,15 +570,15 @@ i.icon-instagramm:before {
 
 /*Logo Likes & Tags*/
 	.item-likes:before {
-	content: "F";
+	content: "X";
 	font-family: phasionate;
-	font-size: 40px;
+	font-size: 60px;
 }
 
 .item-likes:hover:before,.item-likes.liked:before {
-	content: "C";
+	content: "Z";
 	font-family: phasionate;
-	font-size: 40px;
+	font-size: 60px;
 }
 
 p.tags{

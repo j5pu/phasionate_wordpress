@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
 <metadata>
-Created by FontForge 20150318 at Fri Jul 17 14:34:06 2015
+Created by FontForge 20150318 at Fri Jul 17 16:33:19 2015
  By uniteet7
 Typeface (c) (your company). 2014. All Rights Reserved
 </metadata>
@@ -137,11 +137,15 @@ d="M544 0h-331v4l27 2q52 2 64 32q14 36 14 169v484q0 137 -8 169q-10 32 -54 32h-35
     <glyph glyph-name="W" unicode="W" horiz-adv-x="2030" 
  />
     <glyph glyph-name="X" unicode="X" horiz-adv-x="1350" 
- />
+d="M130 764q-71 -74 -71 -179q0 -165 213 -361q98 -89 204 -157q24 -15 46 -1q108 69 206 158q212 196 212 361q0 105 -70 179q-71 74 -171 74q-105 0 -177 -80l-22 -25l-22 25q-72 80 -178 80q-99 0 -170 -74zM445 16q-112 72 -213 164q-232 214 -232 405q0 129 88 221
+q88 91 212 91q114 0 200 -77q85 77 199 77q125 0 213 -91q88 -92 88 -221q0 -191 -232 -405q-102 -92 -212 -163q-27 -17 -56 -17q-30 0 -55 16zM560 303q16 20 16 60q0 39 -15 58q-22 29 -80 28q-1 4 -1 8q0 2 1 9q43 3 59 27q11 16 11 51q0 42 -23 62q-16 15 -40 15
+q-20 0 -35 -4v-330q0 -10 2 -12q2 -3 10 -3q70 0 95 31zM600 427q28 -25 28 -61q0 -45 -30 -71q-36 -30 -107 -30h-120v7l28 4q3 0 3 3q1 1 1 8v320q0 7 -1 8q0 2 -3 2l-28 4v7l113 4q54 1 85 -16q39 -21 39 -69q0 -43 -26 -67q-14 -14 -42 -23q37 -11 60 -30z" />
     <glyph glyph-name="Y" unicode="Y" horiz-adv-x="1233" 
  />
     <glyph glyph-name="Z" unicode="Z" horiz-adv-x="1124" 
- />
+d="M504 802q-86 96 -214 96q-120 0 -205 -88q-85 -89 -85 -214q0 -191 238 -411q106 -96 225 -173q19 -12 41 -12t42 12q127 85 224 173q239 220 239 411q0 125 -85 214q-85 88 -206 88q-127 0 -214 -96zM569 293q17 21 17 65q0 41 -16 62q-24 30 -86 30q-1 6 -1 9q0 4 1 9
+q46 3 63 29q12 17 12 54q0 46 -24 67q-18 16 -44 16q-21 0 -37 -4v-353q0 -12 2 -14q2 -3 11 -3q75 0 102 33zM611 426q31 -26 31 -65q0 -48 -33 -77q-38 -31 -114 -31h-128v7l29 4q3 0 3 3q1 1 1 9v343q0 7 -1 8q0 3 -3 3l-29 4v8l121 4q57 1 90 -17q42 -22 42 -74
+q0 -46 -27 -72q-16 -15 -46 -25q40 -11 64 -32z" />
     <glyph glyph-name="bracketleft" unicode="[" horiz-adv-x="758" 
  />
     <glyph glyph-name="backslash" unicode="\" horiz-adv-x="569" 
