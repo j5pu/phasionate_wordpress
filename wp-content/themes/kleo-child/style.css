@@ -4950,16 +4950,18 @@ form.woocommerce-ordering select{
 	padding: 0px !important;
 }
 /* Woocommerce - Pagina diseñadores , Pagina colecciones */
-h1#designersTitle, h1#collectionsTitle{
+h2#designersTitle, h1#collectionsTitle{
 	text-align: center;
-	margin:	3% 0;
+	margin:	3% 0 0;
+	font-family: Valentina;
 }
 .boxContDesigners{
-	margin: 20px 0px;
+	margin: 10px 0px;
+	border-top:	2px solid #000;
 }
 .boxDesigner{
 	margin:1.5%;
-	width: 29%;
+	width: 30%;
 	box-shadow: 0px 0px 3px gray;
 	display: inline-block;
 }
@@ -5022,6 +5024,7 @@ h1#designersTitle, h1#collectionsTitle{
 	}
 	.boxContDesigners{
 		padding-left: 3%;
+		padding-top: 3%;
 	}
 	.boxDesigner{
 		width: 46%;

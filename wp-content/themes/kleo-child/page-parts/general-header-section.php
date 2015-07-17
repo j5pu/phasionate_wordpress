@@ -128,7 +128,7 @@ $primary_menu = wp_nav_menu( array(
 					<li><a id="enlace-disenadores-bogadia" href="<?php bloginfo('wpurl'); ?>/disenadores-bogadia">diseñadores</a></li>
 					<li><a id="enlace-colecciones-bogadia" href="<?php bloginfo('wpurl'); ?>/colecciones-bogadia">colecciones</a></li>
 					<li><a id="enlace-productos-bogadia" href="<?php bloginfo('wpurl'); ?>/productos-bogadia">productos</a></li>
-					<li><a id="enlace-por-que-bogadia" href="<?php bloginfo('wpurl'); ?>/por-que-bogadia">¿Por qué Bogadia?</a></li>
+					<li><a id="enlace-por-que-bogadia" href="<?php bloginfo('wpurl'); ?>/por-que-bogadia">¿ Por qué Bogadia Shop ?</a></li>
 				</ul>
 			</div>
 			<?php

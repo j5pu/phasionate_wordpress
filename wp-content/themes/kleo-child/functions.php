@@ -754,7 +754,7 @@ add_shortcode('otherCollections', 'other_collections');
 */
 function content_designers(){
 ?>
-    <h1 id="designersTitle"><span style="font-family:impact">D</span><span style="font-family:Comic Sans MS">I</span><span style="font-family:Arial">S</span><span style="font-family:Luicda Sans Unicode, Lucida Grande">E</span><span style="font-family:Tahoma">Ñ</span><span style="font-family:Trebuchet MS">A</span><span style="font-family:impact">D</span><span style="font-family:Verdana">O</span><span style="font-family:Comic Sans MS">R</span><span style="font-family:Arial">E</span><span style="font-family:impact">S</span></h1>
+    <h2 id="designersTitle">DISEÑADORES</h2>
 
     <div class="boxContDesigners">
 
