@@ -37,10 +37,10 @@ function menu_ropa(){
     <script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/menuRopa.js"></script>
     <ul class="menuRopa">
 
-        <h2>Categoria</h2>
+        <h3>Categoria</h3>
         <li slug="bolsos">Bolsos</li>
 
-        <h2>Diseñador</h2>
+        <h3>Diseñador</h3>
         <?php
 
             $terms = get_terms("pa_disenadora");
@@ -49,7 +49,7 @@ function menu_ropa(){
             }
 
         ?>
-        <h2>Colección</h2>
+        <h3>Colección</h3>
         <?php
             $terms = get_terms("pa_coleccion");
             foreach ( $terms as $term ) {

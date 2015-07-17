@@ -5097,7 +5097,7 @@ div#contenidoRopa{
 div#contenidoRopa h1{
 	text-align: center;
 	text-transform: uppercase;
-	margin-bottom: 40px;
+	margin-bottom: 15px;
 	padding-top: 25px;
 }
 div#contenidoRopa > div.woocommerce{
@@ -5106,62 +5106,52 @@ div#contenidoRopa > div.woocommerce{
 div#contenidoRopa > img{
 	margin-bottom: 30px;
 }
+div#contenidoRopa .cover{
+	background-color: rgba(255,255,255,0.8);
+	position: absolute;
+	width: 120%;
+	height: 100%;
+	top: 0;
+	margin-left: -20px;
+	display: none;
+}
 ul.menuRopa{
     list-style-type: none;
 	text-transform: uppercase;
-}
-ul.menuRopa h2{
 	margin-top: 40px;
+}
+div.menu-column{
+	padding-right: 0;
+	margin-right: -15px;
+}
+ul.menuRopa h3{
+	padding-top: 10px;
 	margin-left: 0;
+	margin-bottom: 5px;
+	border-bottom: 1px solid black;
 }
 ul.menuRopa li{
-	margin: 10px 20px;
+	margin-left: 20px;
 	cursor:pointer;
+	font-size: 90%;
 }
 ul.menuRopa li:hover{
 	color: #f99;
 }
-ul.orderProducts{
-	list-style-type: none;
-	text-align: center;
-	width: 100%;
-	padding-left: 0px;
+select.orderProducts{
+	width: 200px;
+	height: 35px;
 }
-ul.orderProducts, ul.orderProducts li{
-	display:inline-block;
-}
-ul.orderProducts li{
-	cursor: pointer;
-	text-align: center !important;
-	margin: 0 1%;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	width: 22%;
-	background-color: white;
-	border: 2px solid black;
-	border-radius: 2px;
-}
-ul.orderProducts li:hover{
-	box-shadow: 0px 0px 2px black;
-}
-
-ul.orderProducts li span{
-	display:inline-block;
-	font-weight: bolder;
-    -ms-transform: rotate(-90deg); /* IE 9 */
-    -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
-    transform: rotate(-90deg);
-    margin-left: 5px;
-}
-img.loadingContenidoRopa{
-	width: 80%;
-	padding: 10%;
-	padding-bottom: 60%;
+select.orderProducts option{
+	width: 170px;
 }
 
 @media (max-width: 768px) {
-	ul.menuRopa, ul.menuRopa li, ul.menuRopa h2{
+	ul.menuRopa{
 		display: inline-block;
+	}
+	div#contenidoRopa{
+		margin-top: 0;
 	}
 }
 /* Pagina Cesta - Carro de compras */

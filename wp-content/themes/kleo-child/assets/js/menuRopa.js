@@ -8,17 +8,15 @@ jQuery(document).ready(function ($) {
 		var slug_selected = $(this).attr('slug');
 		$('ul.menuRopa li').css('color','#000');
 		$('ul.menuRopa li[slug='+slug_selected+']').css('color','#f66');
-		$('#contenidoRopa').children().fadeOut('slow');
-		$('<img>').addClass('loadingContenidoRopa').attr('src', location_url+'wp-content/themes/kleo-child/assets/img/loadingProductos.gif').appendTo($('#contenidoRopa')).fadeIn();
+		$('#contenidoRopa').append('<div class="cover">');
+		$('#contenidoRopa .cover').fadeIn("slow");
+		//$('#contenidoRopa').children().fadeOut('slow');
 		$('#contenidoRopa').load(location_url+'wp-content/themes/kleo-child/page-parts/products.php?slug='
 				+ $(this).attr('slug')
 				+ '&type_attr=' + $(this).attr('attr'),
 			function(){
 				$('ul.products li').addClass("start-animation");		
 				$('<h1>').text(title_selected).prependTo($('#contenidoRopa'));
-				/*var aCopy = $('#contenidoRopa').clone();
-				$('#contenidoRopa').remove();
-				$('#contenidoRopa').prepend(aCopy);*/
 				setTimeout(function( ){ checkOrderProducts(); },500);
 				mouseoverEffectActive();
 				$('ul.menuRopa li').css('color','#000');
@@ -36,10 +34,8 @@ jQuery(document).ready(function ($) {
 		});
 	}
 	function checkOrderProducts(){
-		$('#contenidoRopa ul.orderProducts li').on('click', function(){
-			$('#contenidoRopa ul.orderProducts li').css({'border-color':'#000','background-color':'#fff','color':'#000'});
-			$(this).css({'border-color':'#bbb','background-color':'#000','color':'#f66'})
-			orderProducts($(this).attr('slug'));
+		$('#contenidoRopa select.orderProducts').on('change', function(){
+			orderProducts($(this).find(":selected").attr('slug'));
 		});
 	}
 	function orderProducts(like){

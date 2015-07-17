@@ -1,10 +1,13 @@
 
-<ul class="orderProducts">
-	<li slug='precioBajo'>precio <span>&lt;</span></li>
-	<li slug='precioAlto'>precio <span>&gt;</span></li>
-	<li slug='novedades'>Novedades</li>
-	<li slug='populares'>Populares</li>
-</ul>
+<select class="orderProducts">
+    <option selected disabled>Ordenar por:</option>
+	<option slug='precioBajo'>Precio Menor</option>
+	<option slug='precioAlto'>Precio Mayor</option>
+	<option slug='novedades'>Novedades</option>
+	<option slug='populares'>Populares</option>
+</select>
+
+<hr/>
 
 <?php
 	
