@@ -123,6 +123,8 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 			<?php do_action( 'woocommerce_cart_collaterals' ); ?>
 
+            <input type="submit" class="button" name="update_cart" value="<?php _e( 'Update Cart', 'woocommerce' ); ?>" />
+
 		</div>
 
 	</div>
@@ -133,8 +135,6 @@ do_action( 'woocommerce_before_cart' ); ?>
             <div class="totals-wrap">
 
                 <?php woocommerce_cart_totals(); ?>
-
-                <input type="submit" class="button" name="update_cart" value="<?php _e( 'Update Cart', 'woocommerce' ); ?>" />
 
                 <?php if ( version_compare( WOOCOMMERCE_VERSION, 2.3, '<' ) ) : ?>
                     <input type="submit" class="checkout-button button alt wc-forward" name="proceed" value="<?php _e( 'Proceed to Checkout', 'woocommerce' ); ?>" />

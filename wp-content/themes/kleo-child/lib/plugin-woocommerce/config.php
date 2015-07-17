@@ -872,7 +872,7 @@ if (!function_exists('kleo_woo_get_mini_cart')) {
 
 			$cart_output .= '</div>';
 			
-			$cart_output .= '<div class="minicart-total-checkout">' . __( 'Cart Subtotal', 'woocommerce' ) . ' ' . $cart_total . '</div>';
+			$cart_output .= '<div class="minicart-total-checkout">' . 'Precio Total' . ' ' . $cart_total . '</div>';
 
 			$cart_output .= '<div class="minicart-buttons">';
 

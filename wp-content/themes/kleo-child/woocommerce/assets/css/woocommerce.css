@@ -815,7 +815,8 @@ p.demo_store {
 
 .woocommerce .woocommerce-message,
 .woocommerce-page .woocommerce-message {
-	border-left: 3px solid #7FC379;
+	border-left: 10px solid #7FC379;
+	margin-top: 20px !important;
 }
 
 .woocommerce .woocommerce-message:before,
@@ -834,7 +835,8 @@ p.demo_store {
 }
 
 .woocommerce .woocommerce-error,.woocommerce-page .woocommerce-error {
-	border-left: 3px solid #b81c23;
+	border-left: 10px solid #b81c23;
+	margin-top: 20px !important;
 }
 
 .woocommerce .woocommerce-error:before,.woocommerce-page .woocommerce-error:before {

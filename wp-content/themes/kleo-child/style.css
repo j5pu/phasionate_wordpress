@@ -4796,7 +4796,7 @@ body.woocommerce .page-title{
 	padding-left: 25px;
 }
 .photographer-box{
-	margin-top:20px;
+	margin-top:40px;
 }
 
 /* Widgets de Post relacionados */
@@ -5160,6 +5160,34 @@ img.loadingContenidoRopa{
 	ul.menuRopa, ul.menuRopa li, ul.menuRopa h2{
 		display: inline-block;
 	}
+}
+/* Pagina Cesta - Carro de compras */
+	/* Boton Actualizar Carrito */
+.cart-collaterals input.button{
+	float:right;
+	margin-bottom: 10px;
+}
+	/* Mensajes de error, notificaciones e info */
+.woocommerce .woocommerce-message,
+.woocommerce-page .woocommerce-message {
+	border-left: 10px solid #7FC379;
+	margin-top: 20px !important;
+	font-size: 16px;
+}
+.woocommerce .woocommerce-error,.woocommerce-page .woocommerce-error {
+	display: none;
+}
+.woocommerce .woocommerce-info,.woocommerce-page .woocommerce-info {
+	border-left: 10px solid #1e85be;
+	margin-top: 20px !important;
+	font-size: 16px;
+}
+
+@media (max-width: 768px){
+.woocommerce .woocommerce-info,.woocommerce-page .woocommerce-info, .woocommerce .woocommerce-error,.woocommerce-page .woocommerce-error, .woocommerce .woocommerce-message,
+.woocommerce-page .woocommerce-message{
+	font-size: 12px;
+	}	
 }
 /* Woocommerce - Single Product Page */
 body.single-product nav.pagination-sticky.product-navigation{
