@@ -28,7 +28,7 @@ if( is_single() && get_cfield('centered_text') == 1) { $postclass = 'text-center
 	?>
 	<div class="infoPost_beforeTitle">
 		<span class="datePosted"><?php echo get_post_time('d/m/Y', true); ?></span>
-		<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author"><?php echo (get_the_author( )) ; ?></a>
+		<a class="author-link url" href="<?php  echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) )  ?>" rel="author"><?php echo (get_the_author( )) ; ?></a>
 	</div>
 	<?php }else{ ?>
 	<div class="infoPost_beforeTitle">

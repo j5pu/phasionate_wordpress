@@ -74,11 +74,11 @@ kleo_switch_layout('right');
 
 	<div>
 		<h2 class="newTitleAuthor">
-		<a class="author-link photo newAuthorPhoto" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author"> 
+		<a class="author-link photo newAuthorPhoto" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) ?>" rel="author"> 
 			<?php echo get_avatar( get_the_author_meta( 'user_email' ), 100 ); ?>
 		</a>
 		<span>Más artículos de </span>
-		<a class="author-link url" href="<?php bloginfo('wpurl'); ?>/equipo" rel="author">
+		<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) ?>" rel="author">
 			<?php echo (get_the_author( )) ; ?>
 		</a>
 		</h2>
