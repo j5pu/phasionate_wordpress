@@ -5135,7 +5135,9 @@ ul.menuRopa h3{
 	border-bottom: 1px solid black;
 }
 ul.menuRopa li{
-	margin-left: 20px;
+	margin-left: 10px;
+	margin-top: 10px;
+	line-height: 16px;
 	cursor:pointer;
 	font-size: 90%;
 }
