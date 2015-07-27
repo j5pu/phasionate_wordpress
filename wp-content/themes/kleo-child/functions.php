@@ -767,8 +767,15 @@ function content_designers(){
 
     <div class="boxDesigner">
         <a href="<?php bloginfo('wpurl'); ?>/disenadores/maria-cidfuentes/">
-            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/maria-foto-bio2.jpg" alt="maria-foto-bio pq" width="750" height="500">
+            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/maria-foto-bio2.jpg" alt="maria-cidfuentes" width="750" height="500">
             <p>María Cidfuentes<span id="guimmetTextDesign" class="descripTextDesign"></span></p>
+        </a>
+    </div>
+
+    <div class="boxDesigner">
+        <a href="<?php bloginfo('wpurl'); ?>/disenadores/franc/">
+            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/FrancPortada2.jpg" alt="franc" width="750" height="500">
+            <p>Franc</p>
         </a>
     </div>
 
