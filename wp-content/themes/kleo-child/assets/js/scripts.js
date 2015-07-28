@@ -480,7 +480,7 @@ function ownResize(){
 	if(window.location.href.search("colecciones")>0 && $('body.woocommerce-page').length>0){
 		$('#enlace-colecciones-bogadia').css('color','#f66');
 	}
-	if(window.location.href.search("productos-bogadia")>0){
+	if(window.location.href.search("productos-bogadia")>0 || $('body.single-product').length>0){
 		$('#enlace-productos-bogadia').css('color','#f66');
 	}
 	if(window.location.href.search("por-que-bogadia")>0){

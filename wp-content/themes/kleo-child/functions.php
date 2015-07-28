@@ -279,6 +279,7 @@ add_action( 'init', 'custom_pagination_base', 1 );
 */
 
 function posts_home(){
+	$id_noticias = get_cat_ID( 'noticias' );
 	global $not_post_in;
 	// The Query
 	$args = array(
@@ -286,7 +287,7 @@ function posts_home(){
 		'posts_per_page' => 13,
 		'orderby' => 'date',
 		'order'    => 'DESC',
-		'cat'	=> -566
+		'cat'	=> '-566, -'.$id_noticias
 	);
 	query_posts( $args );
 	

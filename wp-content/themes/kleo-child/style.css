@@ -4922,25 +4922,11 @@ body.woocommerce-page #main{
 	color: white;
 }
 .adSendFree{
-	color:white;
-	background-color: #902828;
-	width: 139px;
-	height: 39px;
-	margin-top: -6px !important;
-	position: absolute;
-	left: 4%;
-	padding: 0px 5px;
-}
-.adSendFree span:first-child{
-	display: inline-block;
-	line-height: 11px;
-	font-size: 10px;
-	vertical-align: 3px;
+	color: #bbb;
+	float: right;
 }
 .adSendFree span:last-child{
-	display: inline-block;
-	margin-top: -8px;
-	vertical-align: 8px;
+	color: #c00;
 }
 @media (max-width: 991px){
 	body.woocommerce-page #main{
