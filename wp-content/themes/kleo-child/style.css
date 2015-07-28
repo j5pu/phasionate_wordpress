@@ -4927,7 +4927,8 @@ body.woocommerce-page #main{
 	width: 139px;
 	height: 39px;
 	margin-top: -6px !important;
-	float: left;
+	position: absolute;
+	left: 4%;
 	padding: 0px 5px;
 }
 .adSendFree span:first-child{
@@ -4994,7 +4995,7 @@ h2#designersTitle, h1#collectionsTitle{
 	cursor: pointer;
 }
 .boxDesigner p{
-	margin-left: 3px;
+	text-align: center;
 }
 .boxCollections{
 	margin: 10px 0px;

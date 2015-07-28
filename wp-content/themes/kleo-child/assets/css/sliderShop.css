@@ -41,10 +41,10 @@
 
                 .jssort11 .i, .jssort11 .pav:hover .i {
                     position: absolute;
-                    top: 3px;
-                    left: 3px;
-                    width: 150px;
-                    height: 75px;
+                    top: 0px;
+                    left: 4px;
+                    width: 176px;
+                    height: 88px;
                     border: black 1px dashed;
                 }
 

@@ -674,7 +674,7 @@ function slider_shop( $atts ){
         </div>
 
 		<!-- Slides Container -->
-        <div u="slides" style="cursor: pointer; position: absolute; left: 0px; top: 0px; width: 754px; height: 377px;
+        <div u="slides" style="cursor: pointer; position: absolute; left: 0px; top: 0px; width: 760px; height: 380px;
             overflow: hidden;">
 
         <?php
@@ -779,9 +779,9 @@ function content_designers(){
     </div>
 
     <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/disenadores/franc/">
+        <a href="<?php bloginfo('wpurl'); ?>/disenadores/franchi/">
             <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/FrancPortada2.jpg" alt="franc" width="750" height="500">
-            <p>Franc</p>
+            <p>Franchi</p>
         </a>
     </div>
 
