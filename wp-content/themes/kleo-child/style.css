@@ -3225,6 +3225,7 @@ left: auto !important;
 }
 .widgets-container .portada_posts h5 a{
 	margin-left: 2px;
+	font-size: 90%;
 }
 .widgets-container .portada_posts img{
 	float: left;
