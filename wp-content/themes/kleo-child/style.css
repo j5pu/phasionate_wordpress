@@ -899,8 +899,12 @@ margin-bottom: 0;
 }
 .posts-listing.standard-listing .type-post {
 display: inline-block;
-width: 44%;
-margin-bottom: 30px;
+width: 48%;
+margin-bottom: 8% !important;
+}
+.posts-listing.standard-listing .type-post .content_posts{
+height: 300px;
+border:none;
 }
 
 body:not(.single-post) h1.page-title {
