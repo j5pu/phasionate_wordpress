@@ -442,7 +442,7 @@ function losmaspoupularessidebar(){
 			echo '<div class="portada_posts">';
 			$link = get_permalink($likes_post->ID);
 			$title = get_the_title($likes_post->ID);			
-			if( strlen( $title ) > 30 ){ $classTitle = "lessFontSize"; }else{ $classTitle = ""; };
+			$classTitle = "lessFontSize";
 			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
 			echo '</div>';
 			wp_reset_query();
@@ -482,7 +482,7 @@ function losmasvotadossidebar(){
 			echo '<div class="portada_posts">';
 			$link = get_permalink($likes_post->ID);
 			$title = get_the_title($likes_post->ID);		
-			if( strlen( $title ) > 30 ){ $classTitle = "lessFontSize"; }else{ $classTitle = ""; };
+			$classTitle = "lessFontSize";
 			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
 			echo '</div>';
 			wp_reset_query();
@@ -519,7 +519,7 @@ function losultimossidebar(){
 			echo '<div class="portada_posts">';
 			$link = get_permalink($last_post->ID);
 			$title = get_the_title($last_post->ID);		
-			if ( strlen ( $title ) > 30 ){ $classTitle = "lessFontSize"; }else{ $classTitle = ""; };
+			$classTitle = "lessFontSize";
 			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
 			echo '</div>';
 			wp_reset_query();
@@ -564,7 +564,7 @@ function relatedpostsidebar(){
 				echo '<div class="portada_posts">';
 				$link = get_permalink($related_post->ID);
 				$title = get_the_title($related_post->ID);		
-				if( strlen( $title ) > 30 ){ $classTitle = "lessFontSize"; }else{ $classTitle = ""; };
+				$classTitle = "lessFontSize";
 				echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $related_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
 				echo '</div>';
 				wp_reset_query();
@@ -580,9 +580,8 @@ add_shortcode( 'RelatedPostSidebar', 'relatedpostsidebar' );
 * Shortcode para sacar en los mas, los ultimos post en la sidebar de una categoria en concreto
 *
 */
-function populares_Categoria( $atts ){
+function populares_Categoria_Sidebar( $atts ){
 	$id_cat = get_cat_ID( $atts['cat'] );
-	echo $id_cat;
 	//Sql para la obtencion delos posts:
 	global $not_post_in;
 	$current_post = get_the_ID();
@@ -611,21 +610,21 @@ function populares_Categoria( $atts ){
 			echo '<div class="portada_posts">';
 			$link = get_permalink($last_post->ID);
 			$title = get_the_title($last_post->ID);		
-			if ( strlen ( $title ) > 30 ){ $classTitle = "lessFontSize"; }else{ $classTitle = ""; };
+			$classTitle = "lessFontSize";
 			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
 			echo '</div>';
 			wp_reset_query();
 		}
 
 }
-add_shortcode( 'popularesCategoria', 'populares_Categoria' );
+add_shortcode( 'popularesCategoria', 'populares_Categoria_Sidebar' );
 
 /* 
 *
 * Shortcode para sacar en los mas, los ultimos post en la sidebar
 *
 */
-function lasultimasnoticias(){
+function lasUltimasNoticiasSidebar(){
 	$id_noticias = get_cat_ID( 'noticias' );
 	//Sql para la obtencion delos posts:
 	global $not_post_in;
@@ -653,14 +652,14 @@ function lasultimasnoticias(){
 			echo '<div class="portada_posts">';
 			$link = get_permalink($last_post->ID);
 			$title = get_the_title($last_post->ID);		
-			if ( strlen ( $title ) > 30 ){ $classTitle = "lessFontSize"; }else{ $classTitle = ""; };
+			$classTitle = "lessFontSize";
 			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
 			echo '</div>';
 			wp_reset_query();
 		}
 
 }
-add_shortcode( 'UltimasNoticias', 'lasultimasnoticias' );
+add_shortcode( 'UltimasNoticias', 'lasUltimasNoticiasSidebar' );
 
 /* 
 *
