@@ -3211,7 +3211,7 @@ left: auto !important;
 /* Modificaciones Sidebar adaptacion de lo MasVotados -shortcode[MasVotadosSidebar]*/
 .widgets-container .portada_posts{
 	width: 100% !important;
-	height: 65px;
+	height: 80px;
 	margin:	0;
 	border:none;
 }
@@ -3228,7 +3228,7 @@ left: auto !important;
 }
 .widgets-container .portada_posts img{
 	float: left;
-	width: 80px !important;
+	width: 100px !important;
 }
 /* Fin Modificaciones Sidebar adaptacion de lo MasVotados -shortcode[MasVotadosSidebar]*/
 
@@ -4811,12 +4811,12 @@ body.woocommerce .page-title{
 	width: auto;
 }
 .sidebar .portada_posts h5{
-	margin-left: 80px;
-	margin-top: -45px;
+	margin-left: 100px;
+	margin-top: -63px;
 }
-.lessFontSize{
+/*.lessFontSize{
 	font-size: 75%;
-}
+}*/
 @media (max-width: 767px){
 
 	/* Author Area */
@@ -4840,9 +4840,9 @@ body.woocommerce .page-title{
 	#authorarea .postAuthor .portada_posts{
 		width: 100%;
 	}
-
+}
 	/* Widgets de Post relacionados */
-
+@media (max-width: 500px){
 	.sidebar .portada_posts h5 a{
 		font-size: 85%;
 	}
