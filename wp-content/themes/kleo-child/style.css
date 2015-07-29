@@ -4805,7 +4805,7 @@ body.woocommerce .page-title{
 	margin-top: -63px;
 }
 .lessFontSize{
-	font-size: 90%;
+	font-size: 90% !important;
 }
 @media (max-width: 767px){
 

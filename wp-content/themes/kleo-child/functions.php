@@ -597,7 +597,7 @@ function populares_Categoria_Sidebar( $atts ){
 			'cat' => $id_cat			
 		);	
 	?>
-	<h4 class="widget-title lessFontSize">Lo mas visto en <?php echo $atts['cat'];?></h4>
+	<h4 class="widget-title lessFontSize">Lo más visto en <?php echo $atts['cat'];?></h4>
 	<?php
 	$lasts_posts = get_posts($lasts_posts_args);
 		foreach( $lasts_posts as $last_post ) {
@@ -640,7 +640,7 @@ function lasUltimasNoticiasSidebar(){
 		);	
 	$lasts_posts = get_posts($lasts_posts_args);
 	?>
-	<h4 class="widget-title">NotiBogadia</h4>
+	<h4 class="widget-title">#NotiBogadia</h4>
 	<?php
 		foreach( $lasts_posts as $last_post ) {
 			$count_output = '';
