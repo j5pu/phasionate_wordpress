@@ -142,6 +142,42 @@ endif;
 	</div>
 </div>   
 
+<?php $user_info = get_userdata(210); ?>
+
+<div id="authorarea" class="vcard author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '210' ) ); ?>" rel="author">
+	<?php echo get_avatar( '210', 150 ); ?></a>
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '210') ); ?>" rel="author">
+	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+	<div class="authorinfo role">
+		<?php echo $user_info->description; ?><br/>
+	</div>
+</div>   
+
+<?php $user_info = get_userdata(169); ?>
+
+<div id="authorarea" class="vcard author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '169' ) ); ?>" rel="author">
+	<?php echo get_avatar( '169', 150 ); ?></a>
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '169') ); ?>" rel="author">
+	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+	<div class="authorinfo role">
+		<?php echo $user_info->description; ?><br/>
+	</div>
+</div>   
+
+<?php $user_info = get_userdata(216); ?>
+
+<div id="authorarea" class="vcard author">
+	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '216' ) ); ?>" rel="author">
+	<?php echo get_avatar( '216', 150 ); ?></a>
+	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '216') ); ?>" rel="author">
+	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+	<div class="authorinfo role">
+		<?php echo $user_info->description; ?><br/>
+	</div>
+</div>   
+
 <h2>FOTOGRAFÍA:</h2>
 
 <?php $user_info = get_userdata(127); ?>
