@@ -216,6 +216,18 @@ endif;
 	</div>
 </div>     
 
+<?php $user_info = get_userdata(221); ?>
+
+<div id="authorarea" class="vcard author">
+	<a class="author-link photo" href="<?php echo '#';// echo esc_url( get_author_posts_url( '221' ) ); ?>" rel="author">
+	<?php echo get_avatar( '221', 150 ); ?></a>
+	<a class="author-link url" href="<?php echo '#';// echo esc_url( get_author_posts_url( '221') ); ?>" rel="author">
+	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+	<div class="authorinfo role">
+		<?php echo $user_info->description; ?><br/>
+	</div>
+</div>     
+
 
 												</div> 
 											</div> 
