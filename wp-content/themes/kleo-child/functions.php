@@ -594,9 +594,12 @@ function populares_Categoria( $atts ){
 			'meta_key' => 'views',
 			'post_type' => 'post',
 			'post_status' => 'publish', 
-			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 month ago') // Muestra los post más leidos solo del último mes.	
-			//'cat' => '19'				
+			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 month ago'), // Muestra los post más leidos solo del último mes.	
+			'cat' => $id_cat			
 		);	
+	?>
+	<h4 class="widget-title">Lo mas visto en <?php echo $atts['cat'];?></h4>
+	<?php
 	$lasts_posts = get_posts($lasts_posts_args);
 		foreach( $lasts_posts as $last_post ) {
 			$count_output = '';
@@ -637,6 +640,9 @@ function lasultimasnoticias(){
 			'cat' => $id_noticias				
 		);	
 	$lasts_posts = get_posts($lasts_posts_args);
+	?>
+	<h4 class="widget-title">NotiBogadia</h4>
+	<?php
 		foreach( $lasts_posts as $last_post ) {
 			$count_output = '';
 			if( $display_count ) {
