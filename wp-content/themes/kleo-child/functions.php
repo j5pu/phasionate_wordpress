@@ -577,7 +577,88 @@ add_shortcode( 'RelatedPostSidebar', 'relatedpostsidebar' );
 
 /* 
 *
-* Shortcode para sacar post por tags relacionados
+* Shortcode para sacar en los mas, los ultimos post en la sidebar de una categoria en concreto
+*
+*/
+function populares_Categoria( $atts ){
+	$id_cat = get_cat_ID( $atts['cat'] );
+	echo $id_cat;
+	//Sql para la obtencion delos posts:
+	global $not_post_in;
+	$current_post = get_the_ID();
+	$lasts_posts_args = array(
+			'post__not_in' => array($current_post),
+			'numberposts' => 4,
+			'orderby' => 'meta_value_num',
+			'order' => 'DESC',
+			'meta_key' => 'views',
+			'post_type' => 'post',
+			'post_status' => 'publish', 
+			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 month ago') // Muestra los post más leidos solo del último mes.	
+			//'cat' => '19'				
+		);	
+	$lasts_posts = get_posts($lasts_posts_args);
+		foreach( $lasts_posts as $last_post ) {
+			$count_output = '';
+			if( $display_count ) {
+				$count = get_post_meta( $last_post->ID, '_item_likes', true);
+				$count_output = " <span class='item-likes-count'>($count)</span>";
+			}			
+			$category = get_the_category($last_post->ID);
+			echo '<div class="portada_posts">';
+			$link = get_permalink($last_post->ID);
+			$title = get_the_title($last_post->ID);		
+			if ( strlen ( $title ) > 30 ){ $classTitle = "lessFontSize"; }else{ $classTitle = ""; };
+			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
+			echo '</div>';
+			wp_reset_query();
+		}
+
+}
+add_shortcode( 'popularesCategoria', 'populares_Categoria' );
+
+/* 
+*
+* Shortcode para sacar en los mas, los ultimos post en la sidebar
+*
+*/
+function lasultimasnoticias(){
+	$id_noticias = get_cat_ID( 'noticias' );
+	//Sql para la obtencion delos posts:
+	global $not_post_in;
+	$current_post = get_the_ID();
+	$lasts_posts_args = array(
+			'post__not_in' => array($current_post),
+			'numberposts' => 4,
+			'orderby' => 'post_date',
+			'order' => 'DESC',
+			'post_type' => 'post',
+			'post_status' => 'publish',
+			'cat' => $id_noticias				
+		);	
+	$lasts_posts = get_posts($lasts_posts_args);
+		foreach( $lasts_posts as $last_post ) {
+			$count_output = '';
+			if( $display_count ) {
+				$count = get_post_meta( $last_post->ID, '_item_likes', true);
+				$count_output = " <span class='item-likes-count'>($count)</span>";
+			}			
+			$category = get_the_category($last_post->ID);
+			echo '<div class="portada_posts">';
+			$link = get_permalink($last_post->ID);
+			$title = get_the_title($last_post->ID);		
+			if ( strlen ( $title ) > 30 ){ $classTitle = "lessFontSize"; }else{ $classTitle = ""; };
+			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
+			echo '</div>';
+			wp_reset_query();
+		}
+
+}
+add_shortcode( 'UltimasNoticias', 'lasultimasnoticias' );
+
+/* 
+*
+* Shortcode para sacar post en galeria de streetstyle
 *
 */
 function imagesstreetstylesidebar(){
