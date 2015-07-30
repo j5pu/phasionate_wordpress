@@ -910,9 +910,10 @@ line-height: 60px;
 padding-bottom: 1%;
 text-transform:uppercase;
 border: none;
-background-image: url('../kleo/assets/img/logo_phasionate.jpg');
+/*background-image: url('../kleo/assets/img/logo_phasionate.jpg');
 background-size: 400%;
-background-position: 50% 50%;
+background-position: 50% 50%;*/
+background-color: #000;
 color: white !important;
 }
 

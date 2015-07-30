@@ -40,6 +40,7 @@ function menu_ropa(){
         <h3>Categoria</h3>
         <li slug="bolsos">Bolsos</li>
         <li slug="tocados">Tocados</li>
+        <li slug="fajines">Fajines</li>
 
         <h3>Diseñador</h3>
         <?php

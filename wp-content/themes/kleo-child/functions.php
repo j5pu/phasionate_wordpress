@@ -854,7 +854,7 @@ function content_designers(){
     <div class="boxDesigner">
         <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia/">
             <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/lucrecia-foto-bio-1024x683.jpg" alt="lucrecia pq" width="1024" height="683">
-            <p>Lucrecia<span id="lucreciaTextDesign" class="descripTextDesign"></span></p>
+            <p>Lucrecia PQ<span id="lucreciaTextDesign" class="descripTextDesign"></span></p>
         </a>
     </div>
 
@@ -867,8 +867,15 @@ function content_designers(){
 
     <div class="boxDesigner">
         <a href="<?php bloginfo('wpurl'); ?>/disenadores/franchi/">
-            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/FrancPortada2.jpg" alt="franc" width="750" height="500">
+            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/FrancPortada2.jpg" alt="franchi" width="750" height="500">
             <p>Franchi</p>
+        </a>
+    </div>
+
+    <div class="boxDesigner">
+        <a href="<?php bloginfo('wpurl'); ?>/disenadores/nuria-hernandez/">
+            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/nuria1.jpg" alt="nuria hernandez" width="750" height="500">
+            <p>Nuria Hernández</p>
         </a>
     </div>
 
@@ -939,6 +946,27 @@ function promo_post( $atts ){
 	}
 }
 add_shortcode( 'promoPost', 'promo_post');
+
+/*
+*
+* Shortcode para promocionar un post en la sidebard
+*
+*/
+function streetstyleAdv(){
+?>
+	<script async src="//"></script>
+	<!-- Banner Street Style MadrEat (Guia) -->
+	<ins class="adsbygoogle"
+	     style="display:block"
+	     data-ad-client="ca-pub-9006336585437783"
+	     data-ad-slot="2807354150"
+	     data-ad-format="auto"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+<?php
+}
+add_shortcode( 'streetstyle_Ad', 'streetstyleAdv');
 
 /*
 *
