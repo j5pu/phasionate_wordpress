@@ -22,6 +22,130 @@ kleo_switch_layout('no');
 <?php /*get_template_part('page-parts/general-before-wrap'); */?>
 
 <?php
+function showStaff(){
+?>
+	<h2>DIRECCIÓN:</h2>
+
+	<?php $user_info = get_userdata(11); ?>
+
+	<div id="authorarea" class="vcard author">
+		<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '11' ) ); ?>" rel="author">
+		<?php echo get_avatar( '11', 150 ); ?></a>
+		<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '11') ); ?>" rel="author">
+		<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+		<div class="authorinfo role">
+			<?php echo $user_info->description; ?><br/>
+		</div>
+	</div>        
+
+	<h2>REDACCIÓN:</h2>
+
+<?php
+
+	$user_query = new WP_User_Query( array( 'role' => 'author' ) );
+
+	// Get the results
+	$authors = $user_query->get_results();
+
+	// Check for results
+	if (!empty($authors)) {
+	    // loop trough each author
+	    foreach ($authors as $author)
+	    {
+	        // get all the user's data
+	        $user_info = get_userdata($author->ID);
+	    ?>
+
+	    <div id="authorarea" class="vcard author">
+			<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( $author->ID ) ); ?>" rel="author">
+			<?php echo get_avatar( $author->ID, 150 ); ?></a>
+			<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( $author->ID ) ); ?>" rel="author">
+			<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+			<div class="authorinfo role">
+			<?php echo $user_info->description; ?><br/>
+			</div>
+		</div>        
+
+	    <?php
+	    }
+	}
+
+?>
+
+	<h2>COLABORADORES:</h2>
+
+<?php
+
+	$user_query = new WP_User_Query( array( 'role' => 'redactor-colaborador' ) );
+
+	// Get the results
+	$authors = $user_query->get_results();
+
+	// Check for results
+	if (!empty($authors)) {
+	    // loop trough each author
+	    foreach ($authors as $author)
+	    {
+	        // get all the user's data
+	        $user_info = get_userdata($author->ID);
+	    ?>
+
+	    <div id="authorarea" class="vcard author">
+			<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( $author->ID ) ); ?>" rel="author">
+			<?php echo get_avatar( $author->ID, 150 ); ?></a>
+			<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( $author->ID ) ); ?>" rel="author">
+			<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+			<div class="authorinfo role">
+			<?php echo $user_info->description; ?><br/>
+			</div>
+		</div>        
+
+	    <?php
+	    }
+	}
+
+?>
+
+	<h2>FOTOGRAFÍA:</h2>
+
+<?php
+
+	$user_query = new WP_User_Query( array( 'role' => 'fotografo' ) );
+
+	// Get the results
+	$authors = $user_query->get_results();
+
+	// Check for results
+	if (!empty($authors)) {
+	    // loop trough each author
+	    foreach ($authors as $author)
+	    {
+	        // get all the user's data
+	        $user_info = get_userdata($author->ID);
+	    ?>
+
+	    <div id="authorarea" class="vcard author">
+			<a class="author-link photo" href="#" rel="author">
+			<?php echo get_avatar( $author->ID, 150 ); ?></a>
+			<a class="author-link url" href="#" rel="author">
+			<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+			<div class="authorinfo role">
+			<?php echo $user_info->description; ?><br/>
+			</div>
+		</div>        
+
+	    <?php
+	    }
+	}
+
+?>
+
+<?php
+}
+add_shortcode( 'staff', 'showStaff');
+?>
+
+<?php
 if ( have_posts() ) :
 	// Start the Loop.
 	while ( have_posts() ) : the_post();
@@ -36,214 +160,7 @@ if ( have_posts() ) :
 	endwhile;
 
 endif;
-?>
 
-<section class="container-wrap main-color">
-	<div id="main-container" class="container-full">
-		<div class="template-page col-sm-12 tpl-no">
-			<div class="wrap-content">			
-				<!-- Begin Article -->
-				<article id="post-5732" class="clearfix post-5732 page type-page status-publish hentry">
-    				<div class="article-content"> 
-						<section class="container-wrap main-color" style="">
-							<div class="section-container container">
-								<div class="row">
-									<div class="col-sm-12 wpb_column column_container">
-										<div class="wpb_wrapper">
-											<div class="kleo_text_column wpb_content_element ">
-												<div class="wpb_wrapper">
-
-
-<h2>DIRECTORA:</h2>
-
-<?php $user_info = get_userdata(11); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '11' ) ); ?>" rel="author">
-	<?php echo get_avatar( '11', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '11') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>        
-
-<h2>REDACCIÓN:</h2>
-
-<?php $user_info = get_userdata(71); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '71' ) ); ?>" rel="author">
-	<?php echo get_avatar( '71', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '71') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>        
-
-<?php $user_info = get_userdata(70); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '70' ) ); ?>" rel="author">
-	<?php echo get_avatar( '70', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '70') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>        
-
-<?php $user_info = get_userdata(35); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '35' ) ); ?>" rel="author">
-	<?php echo get_avatar( '35', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '35') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>        
-
-<?php $user_info = get_userdata(206); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '206' ) ); ?>" rel="author">
-	<?php echo get_avatar( '206', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '206') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>   
-
-<?php $user_info = get_userdata(208); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '208' ) ); ?>" rel="author">
-	<?php echo get_avatar( '208', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '208') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>   
-
-<?php $user_info = get_userdata(207); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '207' ) ); ?>" rel="author">
-	<?php echo get_avatar( '207', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '207') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>   
-
-<?php $user_info = get_userdata(210); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '210' ) ); ?>" rel="author">
-	<?php echo get_avatar( '210', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '210') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>   
-
-<?php $user_info = get_userdata(169); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '169' ) ); ?>" rel="author">
-	<?php echo get_avatar( '169', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '169') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>   
-
-<?php $user_info = get_userdata(216); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '216' ) ); ?>" rel="author">
-	<?php echo get_avatar( '216', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '216') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>   
-
-<h2>FOTOGRAFÍA:</h2>
-
-<?php $user_info = get_userdata(127); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo '#';//echo esc_url( get_author_posts_url( '127' ) ); ?>" rel="author">
-	<?php echo get_avatar( '127', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo '#';// echo esc_url( get_author_posts_url( '127') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>        
-
-<?php $user_info = get_userdata(211); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo '#';// echo esc_url( get_author_posts_url( '211' ) ); ?>" rel="author">
-	<?php echo get_avatar( '211', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo '#';// echo esc_url( get_author_posts_url( '211') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>     
-
-<?php $user_info = get_userdata(213); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo '#';// echo esc_url( get_author_posts_url( '213' ) ); ?>" rel="author">
-	<?php echo get_avatar( '213', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo '#';// echo esc_url( get_author_posts_url( '213') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>     
-
-<?php $user_info = get_userdata(221); ?>
-
-<div id="authorarea" class="vcard author">
-	<a class="author-link photo" href="<?php echo '#';// echo esc_url( get_author_posts_url( '221' ) ); ?>" rel="author">
-	<?php echo get_avatar( '221', 150 ); ?></a>
-	<a class="author-link url" href="<?php echo '#';// echo esc_url( get_author_posts_url( '221') ); ?>" rel="author">
-	<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-	<div class="authorinfo role">
-		<?php echo $user_info->description; ?><br/>
-	</div>
-</div>     
-
-
-												</div> 
-											</div> 
-										</div> 
-									</div> 
-								</div>
-							</div>
-						</section><!-- end section -->
-					</div><!--end article-content-->
-				</article>
-				<!-- End  Article -->
-			</div>
-		</div>
-	</div>
-</section>
-
-<?php get_template_part('page-parts/general-after-wrap'); ?>
+get_template_part('page-parts/general-after-wrap'); ?>
 
 <?php get_footer(); ?>
