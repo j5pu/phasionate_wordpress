@@ -103,10 +103,11 @@ function showStaff(){
 <?php
 
 	$user_query1 = new WP_User_Query( array( 'role' => 'redactor-colaborador' ) );
+	$redactor_colaborador = $user_query1->get_results();
 	$user_query2 = new WP_User_Query( array( 'role' => 'fotografo-colaborador' ) );
-	$user_query = array_merge( $user_query1, $user_query2 );
-	// Get the results
-	$authors = $user_query->get_results();
+	$fotografo_colaborador = $user_query2->get_results();
+
+	$authors = array_merge( $redactor_colaborador, $fotografo_colaborador );
 
 	// Check for results
 	if (!empty($authors)) {
