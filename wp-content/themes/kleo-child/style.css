@@ -5231,9 +5231,14 @@ body.single-product nav.pagination-sticky.product-navigation{
 /*Newsletter*/
 .mymail-form .mymail-form-info.success {
 	background-color: #902828;
+	margin: 0;
+	font-size: 100%;
 }
 .mymail-form .mymail-form-info.success p{
 	color: white;
+}
+.home .textwidget .mymail-email input{
+	margin-bottom: 0.5em;
 }
 .home .textwidget .mymail-submit-wrapper{
 	margin-left: 0px;
