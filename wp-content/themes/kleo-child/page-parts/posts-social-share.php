@@ -50,12 +50,10 @@ if ( $social_share != 1 && $like_status != 1 ) {
 					'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="icon-gplus"></i>
 					</a>
       </span>
-      <!--
       <span class="kleo-pinterest">
-      	<a href="http://pinterest.com/pin/create/button/?url=<?php the_permalink(); ?>&media=<?php if(function_exists('the_post_thumbnail')) echo wp_get_attachment_url(get_post_thumbnail_id()); ?>&description=<?php echo get_the_title(); ?>"><i class="icon-pinterest-circled"></i>
+      	<a href="http://pinterest.com/pin/create/link/?url=<?php the_permalink(); ?>&media=<?php if(function_exists('the_post_thumbnail')) echo wp_get_attachment_url(get_post_thumbnail_id()); ?>&description=<?php echo get_the_title(); ?>"><i class="icon-pinterest-circled"></i>
 					</a>
       </span>
-  		-->
 
 		<?php
 			$img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );

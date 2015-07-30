@@ -5190,9 +5190,11 @@ select.orderProducts option{
 @media (max-width: 768px) {
 	ul.menuRopa{
 		display: inline-block;
+		width: 100%;
 	}
 	div#contenidoRopa{
 		margin-top: 0;
+		padding-left: 0;
 	}
 }
 /* Pagina Cesta - Carro de compras */
