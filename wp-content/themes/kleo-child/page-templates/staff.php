@@ -40,9 +40,35 @@ function showStaff(){
 
 	<h2>REDACCIÓN:</h2>
 
+	<?php $user_info = get_userdata(35); ?>
+
+	<div id="authorarea" class="vcard author">
+		<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '35' ) ); ?>" rel="author">
+		<?php echo get_avatar( '35', 150 ); ?></a>
+		<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '35') ); ?>" rel="author">
+		<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+		<div class="authorinfo role">
+			<?php echo $user_info->description; ?><br/>
+		</div>
+	</div>        
+
+	<?php $user_info = get_userdata(70); ?>
+
+	<div id="authorarea" class="vcard author">
+		<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( '70' ) ); ?>" rel="author">
+		<?php echo get_avatar( '70', 150 ); ?></a>
+		<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '70') ); ?>" rel="author">
+		<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+		<div class="authorinfo role">
+			<?php echo $user_info->description; ?><br/>
+		</div>
+	</div>        
+
+	<h2>FOTOGRAFÍA:</h2>
+
 <?php
 
-	$user_query = new WP_User_Query( array( 'role' => 'author' ) );
+	$user_query = new WP_User_Query( array( 'role' => 'fotografo' ) );
 
 	// Get the results
 	$authors = $user_query->get_results();
@@ -57,9 +83,9 @@ function showStaff(){
 	    ?>
 
 	    <div id="authorarea" class="vcard author">
-			<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( $author->ID ) ); ?>" rel="author">
+			<a class="author-link photo" href="#" rel="author">
 			<?php echo get_avatar( $author->ID, 150 ); ?></a>
-			<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( $author->ID ) ); ?>" rel="author">
+			<a class="author-link url" href="#" rel="author">
 			<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 			<div class="authorinfo role">
 			<?php echo $user_info->description; ?><br/>
@@ -94,40 +120,6 @@ function showStaff(){
 			<a class="author-link photo" href="<?php echo esc_url( get_author_posts_url( $author->ID ) ); ?>" rel="author">
 			<?php echo get_avatar( $author->ID, 150 ); ?></a>
 			<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( $author->ID ) ); ?>" rel="author">
-			<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
-			<div class="authorinfo role">
-			<?php echo $user_info->description; ?><br/>
-			</div>
-		</div>        
-
-	    <?php
-	    }
-	}
-
-?>
-
-	<h2>FOTOGRAFÍA:</h2>
-
-<?php
-
-	$user_query = new WP_User_Query( array( 'role' => 'fotografo' ) );
-
-	// Get the results
-	$authors = $user_query->get_results();
-
-	// Check for results
-	if (!empty($authors)) {
-	    // loop trough each author
-	    foreach ($authors as $author)
-	    {
-	        // get all the user's data
-	        $user_info = get_userdata($author->ID);
-	    ?>
-
-	    <div id="authorarea" class="vcard author">
-			<a class="author-link photo" href="#" rel="author">
-			<?php echo get_avatar( $author->ID, 150 ); ?></a>
-			<a class="author-link url" href="#" rel="author">
 			<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
 			<div class="authorinfo role">
 			<?php echo $user_info->description; ?><br/>
