@@ -755,7 +755,20 @@ add_shortcode( 'ImagesStreetstyleSidebar', 'imagesstreetstylesidebar' );
 function slider_shop( $atts ){
 	$images = explode( ', ', $atts['images']);
 	$links = explode(', ', $atts['links']);
+	$image=$images[0];
 	?>
+	<div class="imageNoSlider">
+        <a href="<?php if (isset($links[$i])){ bloginfo('wpurl'); echo $links[$i]; }else{ ?>#<?php } ?>" class="princiaplLinkNoSlide"><img class="principalImageNoSlide" src="<?php bloginfo('wpurl'); ?><?php echo $image; ?>" /></a>
+    	<?php
+        $i =0;
+        foreach ($images as $image){
+        ?>
+        	<img class="thumbNoSlide <?php if($i==0){echo 'selectedImage';}?>" src="<?php bloginfo('wpurl'); ?><?php echo $image; ?>" linker="<?php if (isset($links[$i])){ bloginfo('wpurl'); echo $links[$i]; }else{ ?>#<?php } ?>" />
+        <?php
+        $i++;
+    	}
+        ?>
+    </div>
 	<script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/jssor.slider.mini.js"></script>
 	<script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/sliderShop.js"></script>
     <div id="sliderShop_container" style="position: relative; top: 0px; left: 0px; width: 964px; height: 377px; background: #fff; overflow: hidden; ">

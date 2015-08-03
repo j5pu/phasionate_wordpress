@@ -4955,12 +4955,23 @@ body.woocommerce-page #main{
 .adSendFree span:last-child{
 	color: #c00;
 }
+ul.dropdown-menu.sub-menu{
+	display: none;
+}
 @media (max-width: 991px){
 	body.woocommerce-page #main{
 		margin-top: 0px;
 	}
 	.submenu-shop{
 		display: none
+	}
+}
+@media (max-width: 768px){
+	ul.dropdown-menu.sub-menu{
+		display: inline-block;
+	}
+	li.menu-item span.caret{
+		display:none;
 	}
 }
 

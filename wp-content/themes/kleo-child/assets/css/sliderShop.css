@@ -119,3 +119,21 @@
                 .jssort11 .pav, .jssort11 .p.pdn {
                     /*background: #462300;*/
                 }
+                @media (max-width: 768px){
+                    #sliderShop_container{
+                        display: none;
+                    }
+                    .imageNoSlider .thumbNoSlide{
+                        width: 31%;
+                        margin: 1%;
+                        float: left;
+                    }
+                    .thumbNoSlide.selectedImage{
+                        box-shadow: 0px 0px 10px black;
+                    }
+                }
+                @media (min-width: 768px){
+                    .imageNoSlider{
+                        display: none;
+                    }
+                }

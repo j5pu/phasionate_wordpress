@@ -58,4 +58,12 @@
             $(window).bind("resize", ScaleSlider);
             $(window).bind("orientationchange", ScaleSlider);
             //responsive code end
+
+            $('.thumbNoSlide').on('click', function(){
+                $('.thumbNoSlide').removeClass('selectedImage');
+                $(this).addClass('selectedImage');
+                $('.principalImageNoSlide').attr('src', $(this).attr('src'));
+                $('.princiaplLinkNoSlide').attr('href', $(this).attr('linker'));
+            })
+
         });
