@@ -1145,7 +1145,7 @@ h1.page-title {
 }
 
 strong.logo {
-//z-index: -1;
+	position: fixed;
 }
 .kleo-mobile-switch {
 	position: fixed;
