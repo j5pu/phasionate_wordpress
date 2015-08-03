@@ -1148,7 +1148,7 @@ strong.logo {
 //z-index: -1;
 }
 .kleo-mobile-switch {
-	position: absolute;
+	position: fixed;
 	right: 0;
 }
 
@@ -2847,7 +2847,7 @@ left: auto !important;
 	z-index:2;
 }
 .kleo-mobile-icons{
-	position:absolute;
+	position:fixed;
 	right:25px;
 	margin-top: -2px;
 	z-index: 2;
