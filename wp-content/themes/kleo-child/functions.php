@@ -299,6 +299,11 @@ function posts_home(){
 		if($c>0){ 
 		//if($c>0){
 			$category = get_the_category();
+			foreach ($category as $struct ) {
+				if ( $struct->cat_name == 'Streetstyle'){
+					$category[0] = $struct;
+				}
+			}
 			echo '<div class="portada_posts">';
 			$link = get_permalink();
 			$title = get_the_title();
@@ -876,27 +881,6 @@ function content_designers(){
         <a href="<?php bloginfo('wpurl'); ?>/disenadores/nuria-hernandez/">
             <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/nuria1.jpg" alt="nuria hernandez" width="750" height="500">
             <p>Nuria Hernández</p>
-        </a>
-    </div>
-
-    <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia/">
-            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/sartoria.jpg" alt="sartoria pq" width="1024" height="683">
-            <p>Sartoria</p>
-        </a>
-    </div>
-
-    <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia/">
-            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/mario.jpg" alt="mario pq" width="1024" height="683">
-            <p>Mario</p>
-        </a>
-    </div>
-
-    <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia/">
-            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/blondies.jpg" alt="blondies pq" width="1024" height="683">
-            <p>Blondies</p>
         </a>
     </div>
 
