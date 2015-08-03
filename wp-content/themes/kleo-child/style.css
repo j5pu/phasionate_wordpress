@@ -4986,6 +4986,9 @@ ul.dropdown-menu.sub-menu{
 .woocommerce ul.products li.product p.por_coleccion{
 	font-size: 80%;
 }
+body.single-product .product .summary.entry-summary{
+	float: left;
+}
 /* Woocommerce - Categorias */
 body.tax-product_cat.woocommerce-page #main .template-page > .wrap-content{
 	margin-top: 40px;
