@@ -361,6 +361,11 @@ function losmaspoupulares(){
 	foreach( $most_viewed as $most_viewed ) {
 						
 			$category = get_the_category($most_viewed->ID);
+			foreach ($category as $struct ) {
+				if ( $struct->cat_name == 'Streetstyle'){
+					$category[0] = $struct;
+				}
+			}
 			echo '<div class="portada_posts">';
 			$link = get_permalink($most_viewed->ID);
 			$title = get_the_title($most_viewed->ID);			
