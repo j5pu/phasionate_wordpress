@@ -884,7 +884,7 @@ function content_designers(){
 
     <div class="boxDesigner">
         <a href="<?php bloginfo('wpurl'); ?>/disenadores/nuria-hernandez/">
-            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/nuria1.jpg" alt="nuria hernandez" width="750" height="500">
+            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/nuria2.jpg" alt="nuria hernandez" width="750" height="500">
             <p>Nuria Hernández</p>
         </a>
     </div>
