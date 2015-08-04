@@ -33,6 +33,12 @@ function showStaff(){
 		<?php echo get_avatar( '11', 150 ); ?></a>
 		<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '11') ); ?>" rel="author">
 		<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+		<?php
+		$address = get_user_meta( 11, 'shipping_city', true );
+		?>
+		<div class="authorinfo city">
+		<?php echo $address; ?>
+		</div>
 		<div class="authorinfo role">
 			<?php echo $user_info->description; ?><br/>
 		</div>
@@ -47,6 +53,12 @@ function showStaff(){
 		<?php echo get_avatar( '35', 150 ); ?></a>
 		<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '35') ); ?>" rel="author">
 		<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+		<?php
+		$address = get_user_meta( 35, 'shipping_city', true );
+		?>
+		<div class="authorinfo city">
+		<?php echo $address; ?>
+		</div>
 		<div class="authorinfo role">
 			<?php echo $user_info->description; ?><br/>
 		</div>
@@ -59,6 +71,12 @@ function showStaff(){
 		<?php echo get_avatar( '70', 150 ); ?></a>
 		<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( '70') ); ?>" rel="author">
 		<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+		<?php
+		$address = get_user_meta( 70, 'shipping_city', true );
+		?>
+		<div class="authorinfo city">
+		<?php echo $address; ?>
+		</div>
 		<div class="authorinfo role">
 			<?php echo $user_info->description; ?><br/>
 		</div>
@@ -87,6 +105,12 @@ function showStaff(){
 			<?php echo get_avatar( $author->ID, 150 ); ?></a>
 			<a class="author-link url" href="#" rel="author">
 			<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+			<?php
+			$address = get_user_meta( $author->ID, 'shipping_city', true );
+			?>
+			<div class="authorinfo city">
+			<?php echo $address; ?>
+			</div>
 			<div class="authorinfo role">
 			<?php echo $user_info->description; ?><br/>
 			</div>
@@ -98,16 +122,12 @@ function showStaff(){
 
 ?>
 
-	<h2>COLABORADORES:</h2>
+	<h2>REDACTORES COLABORADORES:</h2>
 
 <?php
 
 	$user_query1 = new WP_User_Query( array( 'role' => 'redactor-colaborador' ) );
-	$redactor_colaborador = $user_query1->get_results();
-	$user_query2 = new WP_User_Query( array( 'role' => 'fotografo-colaborador' ) );
-	$fotografo_colaborador = $user_query2->get_results();
-
-	$authors = array_merge( $redactor_colaborador, $fotografo_colaborador );
+	$authors = $user_query1->get_results();
 
 	// Check for results
 	if (!empty($authors)) {
@@ -123,6 +143,48 @@ function showStaff(){
 			<?php echo get_avatar( $author->ID, 150 ); ?></a>
 			<a class="author-link url" href="<?php echo esc_url( get_author_posts_url( $author->ID ) ); ?>" rel="author">
 			<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+			<?php
+			$address = get_user_meta( $author->ID, 'shipping_city', true );
+			?>
+			<div class="authorinfo city">
+			<?php echo $address; ?>
+			</div>
+			<div class="authorinfo role">
+			<?php echo $user_info->description; ?><br/>
+			</div>
+		</div>        
+
+	    <?php
+	    }
+	}
+?>
+	<h2>FOTÓGRAFOS COLABORADORES:</h2>
+
+<?php
+
+	$user_query1 = new WP_User_Query( array( 'role' => 'fotografo-colaborador' ) );
+	$authors = $user_query1->get_results();
+
+	// Check for results
+	if (!empty($authors)) {
+	    // loop trough each author
+	    foreach ($authors as $author)
+	    {
+	        // get all the user's data
+	        $user_info = get_userdata($author->ID);
+	    ?>
+
+	    <div id="authorarea" class="vcard author">
+			<a class="author-link photo" href="#" rel="author">
+			<?php echo get_avatar( $author->ID, 150 ); ?></a>
+			<a class="author-link url" href="#" rel="author">
+			<h2 class="fn"><?php echo $user_info->display_name; ?></h2></a>
+			<?php
+			$address = get_user_meta( $author->ID, 'shipping_city', true );
+			?>
+			<div class="authorinfo city">
+			<?php echo $address; ?>
+			</div>
 			<div class="authorinfo role">
 			<?php echo $user_info->description; ?><br/>
 			</div>
