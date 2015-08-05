@@ -104,6 +104,10 @@ kleo_switch_layout('right');
 	<?php
 	}else{
 	?>
+	<style>
+	.sidebar-320x100 { width: 320px; height: 50px; }
+	@media(min-width: 768px) { .sidebar-320x100{ display: none } }
+	</style>
 	<script async src="//"></script>
 	<!-- Banner Definitivo Streetstyle (PC) -->
 	<ins class="adsbygoogle streetStyleAdv"
@@ -115,7 +119,7 @@ kleo_switch_layout('right');
 	</script>
 	<script async src="//"></script>
 	<!-- Banner Definitivo Streetstyle (Móvil) -->
-	<ins class="adsbygoogle streetStyleAdv"
+	<ins class="adsbygoogle streetStyleAdv sidebar-320x100"
 	     style="display:inline-block;width:320px;height:100px"
 	     data-ad-client="ca-pub-9006336585437783"
 	     data-ad-slot="3385556152"></ins>

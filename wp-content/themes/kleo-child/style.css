@@ -3003,6 +3003,9 @@ left: auto !important;
 	margin:0px auto;
 	padding:3%;
 }
+.newStreetStyle .medSection ins{
+	padding: 0;
+}
 .medSection ins img{
 	box-shadow: 0 0 2px black;
 }
