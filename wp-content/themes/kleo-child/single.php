@@ -122,7 +122,7 @@ kleo_switch_layout('right');
 	<script>
 	(adsbygoogle = window.adsbygoogle || []).push({});
 	</script>
-	<script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/streetStyleScript.js"></script>
+	<script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/streetstyleScript.js"></script>
 	<?php	
 	}
 
