@@ -2935,6 +2935,11 @@ left: auto !important;
 	top: 17%;
 	transition: opacity 1s, top 0.5s;
 }
+.newStreetStyle .medSection{
+	transition: opacity 0s, top 0s;
+	left: 0;
+	top: 7%;
+}
 .medSection .wpb_wrapper{
 	text-align: center;
 }
@@ -2970,7 +2975,7 @@ left: auto !important;
 .medSection .wpb_raw_html{
 	margin-bottom: 0px;
 }
-.medSection p{
+.medSection p, .nameStreetStyled{
 	background-color: white;
 	padding:2%;
 	padding-bottom: 2%;
@@ -2984,6 +2989,10 @@ left: auto !important;
 .medSection > section > div > div > div:nth-child(1) > div > div.kleo_text_column.wpb_content_element > div{
 	font-size: 220%;
 	margin-top: 2%;
+}
+.nameStreetStyled{
+	font-size: 110%;
+	text-align: center;
 }
 .medSection > section > div > div > div:nth-child(2) > div > div.kleo_text_column.wpb_content_element > div{
 	text-align: right;
@@ -3035,6 +3044,10 @@ left: auto !important;
 	left: 2%;
 	overflow: hidden;
 }
+.newStreetStyle .navImagenes{
+	right: 10%;
+	left: initial;
+}
 .elemNavImagenes{
 	border: 3px solid white;
 	margin-bottom: 4px;
@@ -3046,6 +3059,10 @@ left: auto !important;
 	position:absolute;
 	left: 4.5%;
 	text-align: center;
+}
+.newStreetStyle .arrowNav{
+	right: 12.5%;
+	left: initial;
 }
 .arrowNav:hover{
 	cursor: pointer;
@@ -3098,8 +3115,8 @@ left: auto !important;
 	background-image: url('../kleo-child/assets/img/rightarrow-o.png');
 }
 .medSection .share-links{
- 	padding-top: 10px;
- 	padding-bottom: 10px;
+ 	padding-top: 10px !important;
+ 	padding-bottom: 10px !important;
  }
 .medSection .share-links .kleo-facebook a{
 	background-image: url('../kleo-child/assets/img/facebook.png');
@@ -3125,6 +3142,19 @@ left: auto !important;
 	width: 40px;
 	height: 40px;
 	transition:	0.5s;
+}
+.newStreetStyle .medSection .share-links a{
+	background-image: none;
+	background-color: black;
+	color: white;
+	border-radius: 30px;
+}
+.newStreetStyle .medSection .share-links a:hover{
+	background-image: none;
+	background-color: #902828;
+}
+.newStreetStyle .medSection .share-links a i{
+	line-height: 2.2;
 }
 @media (max-width: 1024px) and (min-width: 768px){
 	.medSection p{
@@ -3152,6 +3182,10 @@ left: auto !important;
 		left:5%;
 		width: 90%;
 	}	
+	.newStreetStyle .medSection{
+		left: 7%;
+		right: initial;
+	}
 	.medSection p{
 		padding:1% 3%;
 		font-size: 100%;
@@ -3179,6 +3213,13 @@ left: auto !important;
 	.arrowHor{
 		visibility: visible;
 	}
+	.newStreetStyle .medSection .share-links a{
+		width: 35px;
+		height: 35px;
+	}
+	.newStreetStyle .medSection .share-links a i{
+		line-height: 2;
+	}
 }
 @media (max-width:767px) and (min-width:480px){
 
@@ -3199,6 +3240,13 @@ left: auto !important;
 	.quitBigSection{
 		height: 35px;
 		width:35px;
+	}
+	.newStreetStyle .medSection .share-links a{
+		width: 30px;
+		height: 30px;
+	}
+	.newStreetStyle .medSection .share-links a i{
+		line-height: 1.8;
 	}
 }
 @media (max-width:400px){

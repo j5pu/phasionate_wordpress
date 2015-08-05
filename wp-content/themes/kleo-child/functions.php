@@ -943,7 +943,7 @@ function promo_post( $atts ){
 	if ( $current_url != $atts['post_url'] ){
 		echo $atts['title_widget'];
 		?>
-		<a href="<?php echo $atts['post_url']; ?>" ><img src="<?php echo $atts['img_src']; ?>" alt="Sorteo Ipanema"/></a>
+		<a href="<?php echo $atts['post_url']; ?>" ><img src="<?php echo $atts['img_src']; ?>" alt="Post promocionado Bogadia"/></a>
 		<?php
 	}
 }
@@ -958,7 +958,7 @@ function streetstyleAdv(){
 ?>
 	<script async src="//"></script>
 	<!-- Banner Street Style MadrEat (Guia) -->
-	<ins class="adsbygoogle"
+	<ins class="adsbygoogle streetStyleAdv"
 	     style="display:block"
 	     data-ad-client="ca-pub-9006336585437783"
 	     data-ad-slot="2807354150"

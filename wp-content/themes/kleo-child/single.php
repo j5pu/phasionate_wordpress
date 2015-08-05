@@ -42,6 +42,11 @@ kleo_switch_layout('right');
 	<?php 
 	$cats = get_the_category();
 	$cat_name = $cats[0]->name;
+	foreach ($cats as $struct ) {
+		if ( $struct->cat_name == 'Streetstyle'){
+			$cat_name = $struct->cat_name;
+		}
+	}
 	if ($cat_name == "Streetstyle"){
 		if( $related == 1 ) {
 			?>
@@ -97,6 +102,28 @@ kleo_switch_layout('right');
 	</div>
 
 	<?php
+	}else{
+	?>
+	<script async src="//"></script>
+	<!-- Banner Definitivo Streetstyle (PC) -->
+	<ins class="adsbygoogle streetStyleAdv"
+	     style="display:inline-block;width:300px;height:600px"
+	     data-ad-client="ca-pub-9006336585437783"
+	     data-ad-slot="1908822954"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+	<script async src="//"></script>
+	<!-- Banner Definitivo Streetstyle (Móvil) -->
+	<ins class="adsbygoogle streetStyleAdv"
+	     style="display:inline-block;width:320px;height:100px"
+	     data-ad-client="ca-pub-9006336585437783"
+	     data-ad-slot="3385556152"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+	<script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/streetStyleScript.js"></script>
+	<?php	
 	}
 
 	// Previous/next post navigation.
