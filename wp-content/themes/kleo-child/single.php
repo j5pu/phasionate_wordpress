@@ -105,12 +105,12 @@ kleo_switch_layout('right');
 	}else{
 	?>
 	<style>
-	.sidebar-320x100 { width: 320px; height: 50px; }
-	@media(min-width: 768px) { .sidebar-320x100{ display: none } }
+	@media(min-width: 768px) { .adv-320x100{ display: none !important; } }
+	@media(max-width: 768px) { .adv-300x600{ display: none !important; } }
 	</style>
 	<script async src="//"></script>
 	<!-- Banner Definitivo Streetstyle (PC) -->
-	<ins class="adsbygoogle streetStyleAdv"
+	<ins class="adsbygoogle streetStyleAdv adv-300x600"
 	     style="display:inline-block;width:300px;height:600px"
 	     data-ad-client="ca-pub-9006336585437783"
 	     data-ad-slot="1908822954"></ins>
@@ -119,7 +119,7 @@ kleo_switch_layout('right');
 	</script>
 	<script async src="//"></script>
 	<!-- Banner Definitivo Streetstyle (Móvil) -->
-	<ins class="adsbygoogle streetStyleAdv sidebar-320x100"
+	<ins class="adsbygoogle streetStyleAdv adv-320x100"
 	     style="display:inline-block;width:320px;height:100px"
 	     data-ad-client="ca-pub-9006336585437783"
 	     data-ad-slot="3385556152"></ins>
