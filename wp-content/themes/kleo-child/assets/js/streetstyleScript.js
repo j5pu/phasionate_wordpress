@@ -328,7 +328,10 @@ function ownResize(){
 		var _goToScrollPos = elemNavImagenesHeight * $i - (navImagenesHeight/2 - elemNavImagenesHeight/2);
 		$('.navImagenes').scrollTo(_goToScrollPos);
 		displayArrowsScrolled( _goToScrollPos, 0, maxScroll);
-	}		
+	}
+
+/*Nueva Galeria*/
+
 	//Crear flechas window.width<768
 	function sideArrows(num){
 		if($(window).width()<768){
@@ -338,22 +341,14 @@ function ownResize(){
 						.on('click',function(){
 							sideArrowTo(num, -1);
 						}));
-					$('.medSection').on('swipeleft',function(){
-						sideArrowTo(num, -1);
-					})
 					$('.bigSection').append($('<div>', {class: 'arrowRight arrowHor'})
 						.on('click',function(){
 							sideArrowTo(num, 1);
-						}));
-					$('.medSection').on('swiperight',function(){
-						sideArrowTo(num, 1);
-					})				
+						}));	
 				}
 			}
 		}
 	}
-
-/*Nueva Galeria*/
 
 	function sideArrowTo(num, directionN){
 		if (!$('.newStreetStyle').length>0) $('.medSection').css('display','none');
