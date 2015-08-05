@@ -126,6 +126,7 @@ kleo_switch_layout('right');
 	<script>
 	(adsbygoogle = window.adsbygoogle || []).push({});
 	</script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/streetstyleScript.js"></script>
 	<?php	
 	}

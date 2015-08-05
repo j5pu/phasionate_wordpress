@@ -2906,6 +2906,9 @@ left: auto !important;
 	padding-top: 0px;
 	transition: height 0.5s;
 }
+.newStreetStyle {
+	height: 0;
+}
 .quitBigSection{
 	width:40px;
 	height:40px;
@@ -2920,6 +2923,9 @@ left: auto !important;
 	background-size: 100%;
 	background-repeat: none;
 	transition: 0.5s;
+}
+.newStreetStyle .quitBigSection{
+	top: 40px;
 }
 .quitBigSection:hover{
 	background-image: url('../kleo-child/assets/img/cross-o.png');
@@ -3005,6 +3011,7 @@ left: auto !important;
 }
 .newStreetStyle .medSection ins{
 	padding: 0;
+	background-color: none;
 }
 .medSection ins img{
 	box-shadow: 0 0 2px black;

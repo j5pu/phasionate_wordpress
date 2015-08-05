@@ -336,27 +336,32 @@ function ownResize(){
 				if(!$('.arrowLeft').length){
 					$('.bigSection').append($('<div>', {class: 'arrowLeft arrowHor'})
 						.on('click',function(){
-							$('.medSection').css('display','none');
-							$('.medSection').css('opacity','0');
-							$('.arrowHor').remove();
-							$numArrowLeft=(num-1+$l)%$l;
-							console.log("num: " + num + " + 1 + $l: " + $l + " = " + (num+1+$l)%$l + " = " + $numArrowLeft);
-							($('.newStreetStyle').length>0) ? openNewMedsection($numArrowLeft) : openMedsection($numArrowLeft);
-							ownResize();
+							sideArrowTo(num, -1);
 						}));
+					$('.medSection').on('swipeleft',function(){
+						sideArrowTo(num, -1);
+					})
 					$('.bigSection').append($('<div>', {class: 'arrowRight arrowHor'})
 						.on('click',function(){
-							$('.medSection').css('display','none');
-							$('.medSection').css('opacity','0');
-							$('.arrowHor').remove();
-							$numArrowRight=(num+1+$l)%$l;
-							console.log("num: " + num + " + 1 + $l: " + $l + " = " + (num+1+$l)%$l + " = " + $numArrowRight);
-							($('.newStreetStyle').length>0) ? openNewMedsection($numArrowRight) : openMedsection($numArrowRight);
-						ownResize();
+							sideArrowTo(num, 1);
 						}));
+					$('.medSection').on('swiperight',function(){
+						sideArrowTo(num, 1);
+					})				
 				}
 			}
 		}
+	}
+
+/*Nueva Galeria*/
+
+	function sideArrowTo(num, directionN){
+		if (!$('.newStreetStyle').length>0) $('.medSection').css('display','none');
+		if (!$('.newStreetStyle').length>0) $('.medSection').css('opacity','0');
+		$('.arrowHor').remove();
+		$numArrowLeft=(num-directionN+$l)%$l;
+		($('.newStreetStyle').length>0) ? openNewMedsection($numArrowLeft) : openMedsection($numArrowLeft);
+		if (!$('.newStreetStyle').length>0) ownResize();
 	}
 	function displayArrowsScrolled (scrollPosition, limitDown, limitUp){
 		if ( scrollPosition < limitDown ){
@@ -370,26 +375,24 @@ function ownResize(){
 			$('.arrowBot').css('display','inline-block');
 		}
 	}
+
 /*Final Vieja Galeria*/
 	
-/*Nueva Galeria*/
 	if($('.streetGaleria').length){
 		createNewStreetGallery();
+		$(window).resize(function () {
+			sideArrows(0);
+			galleryStylesResponsive();
+		})
 	}
 	function createNewStreetGallery(){
 	//Crear contenedor Galeria
+		$('body').append($('<div>', {class: 'bigCover'}).on('click',function(){ closeStreetGallery(); }));
 		$('body').append($('<div>', {class: 'bigSection'}));
-		$('body').append($('<div>', {class: 'bigCover'}));
 
 	//Crear boton cerrar		
-		$('.bigSection').append($('<div>', {class: 'quitBigSection'}).on('click',function(){
-			$('.medSection').css('display','none');
-			$('.bigSection').css({'height':'0%','display':'none'});
-			$('.bigCover').css('display','none');
-			$('.bigSection').remove('.arrowNav');
-			$('.pagination-sticky').css('visibility','visible');
-			$('.kleo-go-top').css('visibility','visible');
-		}));
+		$('.bigSection').append($('<div>', {class: 'quitBigSection'}).on('click',function(){ closeStreetGallery(); }));
+
 	//Funcionalidad al .menuGaleria
 		$imagenes = $('.streetGaleria').find('li').addClass('elemGaleria').on('click',function(){
 			$l=$($imagenes).length;
@@ -397,7 +400,6 @@ function ownResize(){
 			$('.medSection').css('display','none');
 			$('.medSection').css('opacity','0');
 			$('.bigSection').css('display','inline-block');
-			$('.bigSection').css('height','100%');
 			$('.bigCover').css('display','block');
 			openNewMedsection($i);
 		});
@@ -415,7 +417,8 @@ function ownResize(){
 										.append($('.elemGaleria img').eq(0).clone())))
 								.append($('<div>', { class: 'kleo_text_column wpb_content_element'})
 									.append($('<div>', {class: 'wpb_wrapper'})
-										.append('<p class="nameStreetStyled">'+ $('.elemGaleria img').eq(0).attr('alt') +'</p>' )))))							))));
+										.append('<p class="nameStreetStyled">'+ $('.elemGaleria img').eq(0).attr('alt') +'</p>' )))))
+							))));
 
 		$('ins.adsbygoogle.streetStyleAdv:not(.insideGallery)').remove();
 
@@ -429,6 +432,14 @@ function ownResize(){
 		$('.bigSection #medSection img').attr('height', '600');
 		$('.bigSection #medSection img').removeClass('attachment-thumbnail');
 
+	}
+	function closeStreetGallery(){
+		$('.medSection').css('display','none');
+		$('.bigSection').css({'display':'none'});
+		$('.bigCover').css('display','none');
+		$('.bigSection').remove('.arrowNav');
+		$('.pagination-sticky').css('visibility','visible');
+		$('.kleo-go-top').css('visibility','visible');
 	}
 	function openNewMedsection(num){
 		$i=num;
@@ -446,10 +457,7 @@ function ownResize(){
 		}
 		sideArrows(num);
 
-		//Shadow Effect
-		var shadowHeight = $('.medSection').find('.kleo_text_column').height();
-		$('.medSection').find('.wpb_single_image').css('box-shadow','0px 0px 20px #000, 0px ' + shadowHeight + 'px 20px #000');
-		$('.medSection').find('.wpb_raw_html').css('box-shadow','0px 0px 20px #000, 0px ' + shadowHeight + 'px 20px #000');
+		galleryStylesResponsive();
 	}
 	function changeImage(num){
 		var srcForReplace = $('.elemGaleria img').eq(num).attr('src');
@@ -463,6 +471,21 @@ function ownResize(){
 		location_url = getLocationToShare(num);
 		$('.post_share_facebook').attr('href', "http://www.facebook.com/sharer.php?u=" + encodeURIComponent(location_url) );
 		$('.kleo-googleplus a').attr('href', "https://plus.google.com/share?url=" + encodeURIComponent(location_url) );
+	}
+	function galleryStylesResponsive(){
+		//Shadow Effect
+		var shadowHeight = $('.medSection').find('.kleo_text_column').height();
+		$('.medSection').find('.wpb_single_image').css('box-shadow','0px 0px 20px #000, 0px ' + shadowHeight + 'px 20px #000');
+		$('.medSection').find('.wpb_raw_html').css('box-shadow','0px 0px 20px #000, 0px ' + shadowHeight + 'px 20px #000');
+
+		//Determinar altura
+		if($(window).width()>767){
+			var alturaMedSection = ($(window).height()-$('.medSection').height()-60)/2.5;
+			$('.medSection').css('top', alturaMedSection+'px');
+			$('.navImagenes').css({'height': $(window).height()-150+'px', 'top':'80px'});
+			$('.arrowBot').css('top', $(window).height()-70+'px');
+			$('.arrowTop').css('top', '10px');
+		}
 	}
 	//Crear menu galeria
 	function createMenuGaleria(num){
