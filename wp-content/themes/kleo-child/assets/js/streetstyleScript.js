@@ -482,11 +482,13 @@ function ownResize(){
 
 		//Determinar altura
 		if($(window).width()>767){
-			var alturaMedSection = ($(window).height()-$('.medSection').height()-20)/2.5;
+			var alturaMedSection = ($(window).height()-$('.medSection').height())/2.5;
 			$('.medSection').css('top', alturaMedSection+'px');
 			$('.navImagenes').css({'height': $(window).height()-150+'px', 'top':'80px'});
 			$('.arrowBot').css('top', $(window).height()-70+'px');
+			$('.arrowBot').css('height',$('.arrowBot').width());
 			$('.arrowTop').css('top', '10px');
+			$('.arrowTop').css('height',$('.arrowTop').width());
 		}
 	}
 	//Crear menu galeria

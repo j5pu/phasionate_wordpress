@@ -3169,6 +3169,11 @@ left: auto !important;
 .newStreetStyle .medSection .share-links a i{
 	line-height: 2.2;
 }
+@media (min-width: 768px){
+	.newStreetStyle .photoCol{
+		margin-left: -30px;
+	}
+}
 @media (max-width: 1024px) and (min-width: 768px){
 	.medSection p{
 		font-size: 70%;
