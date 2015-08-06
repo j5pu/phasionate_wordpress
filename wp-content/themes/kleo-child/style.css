@@ -3011,7 +3011,7 @@ left: auto !important;
 }
 .newStreetStyle .medSection ins{
 	padding: 0;
-	background-color: none;
+	background-color: initial;
 }
 .medSection ins img{
 	box-shadow: 0 0 2px black;
@@ -3213,6 +3213,16 @@ left: auto !important;
 	.medSection .col-sm-6{
 		margin-bottom: 30%;
 	}	
+	.newStreetStyle .publiGaleria{
+		position: fixed;
+		left: 0;
+		top: 10px;
+		padding-left: 0;
+		width: 100%;
+	}
+	.newStreetStyle .photoCol{
+		margin-top: 30px;
+	}
 	.quitBigSection{
 		position: fixed;
 		top: 10px;
