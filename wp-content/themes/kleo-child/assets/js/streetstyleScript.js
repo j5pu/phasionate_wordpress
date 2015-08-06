@@ -482,7 +482,7 @@ function ownResize(){
 
 		//Determinar altura
 		if($(window).width()>767){
-			var alturaMedSection = ($(window).height()-$('.medSection').height()-40)/2.5;
+			var alturaMedSection = ($(window).height()-$('.medSection').height()-20)/2.5;
 			$('.medSection').css('top', alturaMedSection+'px');
 			$('.navImagenes').css({'height': $(window).height()-150+'px', 'top':'80px'});
 			$('.arrowBot').css('top', $(window).height()-70+'px');

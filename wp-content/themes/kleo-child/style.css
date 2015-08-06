@@ -3013,6 +3013,9 @@ left: auto !important;
 	padding: 0;
 	background-color: initial;
 }
+.newStreetStyle .medSection iframe{
+	background-color: initial;
+}
 .medSection ins img{
 	box-shadow: 0 0 2px black;
 }
@@ -3221,7 +3224,7 @@ left: auto !important;
 		width: 100%;
 	}
 	.newStreetStyle .photoCol{
-		margin-top: 30px;
+		margin-top: 120px;
 	}
 	.quitBigSection{
 		position: fixed;
