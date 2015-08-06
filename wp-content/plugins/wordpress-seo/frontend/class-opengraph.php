@@ -234,7 +234,13 @@ class WPSEO_OpenGraph {
 		$title = trim( apply_filters( 'wpseo_opengraph_title', $title ) );
 
 		$category = get_the_category(); 
-		if ($category[0]->cat_name == 'Streetstyle'){
+		$cat_name = $cats[0]->name;
+		foreach ($category as $struct ) {
+			if ( $struct->cat_name == 'Streetstyle'){
+				$cat_name = $struct->cat_name;
+			}
+		}
+		if ($cat_name == 'Streetstyle'){
 			if (isset($_GET['nm_st'])){
 				$name = $_GET['nm_st'];
 				$name = str_replace("_"," ",$name);
@@ -275,7 +281,13 @@ class WPSEO_OpenGraph {
 		$url = apply_filters( 'wpseo_opengraph_url', WPSEO_Frontend::get_instance()->canonical( false ) );
 
 		$category = get_the_category(); 
-		if ($category[0]->cat_name == 'Streetstyle'){
+		$cat_name = $cats[0]->name;
+		foreach ($category as $struct ) {
+			if ( $struct->cat_name == 'Streetstyle'){
+				$cat_name = $struct->cat_name;
+			}
+		}
+		if ($cat_name == 'Streetstyle'){
 			if (isset($_GET['ph'])){
 				$img = $_GET['ph'];
 				$nm_st = $_GET['nm_st'];
@@ -510,7 +522,13 @@ class WPSEO_OpenGraph {
 		$opengraph_images = new WPSEO_OpenGraph_Image( $this->options, $image );
 
 		$category = get_the_category(); 
-		if ($category[0]->cat_name == 'Streetstyle'){
+		$cat_name = $cats[0]->name;
+		foreach ($category as $struct ) {
+			if ( $struct->cat_name == 'Streetstyle'){
+				$cat_name = $struct->cat_name;
+			}
+		}
+		if ($cat_name == 'Streetstyle'){
 			if (isset($_GET['ph'])){
 				$img_ruta = $_GET['ph'];
 				$img = get_site_url().'/wp-content/uploads/'.utf8_decode($img_ruta);
