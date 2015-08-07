@@ -42,6 +42,32 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		<div class="summary entry-summary col-sm-6">
 
 			<?php
+				global $product;
+				$subheadingvalues = get_the_terms( $product->id, 'pa_coleccion');
+				?>
+				<p class="por_coleccion"><?php
+				$subheadingvalues = get_the_terms( $product->id, 'pa_coleccion');
+
+				if ( $subheadingvalues && ! is_wp_error( $subheadingvalues ) ) {
+		      		foreach ( $subheadingvalues as $subheadingvalue ) {
+		      			?>
+		      			Colección <a href="<?php bloginfo('wpurl'); ?>/colecciones/<?php echo $subheadingvalue->slug ?>"><?php echo $subheadingvalue->name ?></a>
+		       			<?php
+			        }		
+				}?>
+				</p>
+				<p class="por_disenador"><?php
+				$subheadingvalues = get_the_terms( $product->id, 'pa_disenadora');
+
+				if ( $subheadingvalues && ! is_wp_error( $subheadingvalues ) ) {
+		      		foreach ( $subheadingvalues as $subheadingvalue ) {
+		      			?>
+		      			Diseñador <a href="<?php bloginfo('wpurl'); ?>/disenadores/<?php echo $subheadingvalue->slug ?>"><?php echo $subheadingvalue->name ?></a>
+		       			<?php
+			        }		
+				}?>
+				</p>
+				<?php
 				/**
 				 * woocommerce_single_product_summary hook
 				 *
@@ -53,6 +79,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				 * @hooked woocommerce_template_single_meta - 40
 				 * @hooked woocommerce_template_single_sharing - 50
 				 */
+				remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 				do_action( 'woocommerce_single_product_summary' );
 			?>
 
