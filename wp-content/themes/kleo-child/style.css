@@ -4562,7 +4562,17 @@ body.woocommerce .page-description > section.revSliderFw{
 body.woocommerce #main > section.container-wrap.main-title.alternate-color.title-single.border-bottom{
 	padding-bottom: 0px !important;
 }
-
+.slogan-tienda h3{
+	font-family: 'jrha';
+	font-size: 45px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+.loading-designers{
+	font-family: 'jrha';
+	text-align: center;
+	font-size: 30px;
+}
 @media (min-width: 100px) and (max-width: 990px) { 
 	body.woocommerce #header > div {
 		height: 100px !important;
