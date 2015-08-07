@@ -869,38 +869,37 @@ add_shortcode('otherCollections', 'other_collections');
 *
 */
 function content_designers(){
-?>
+	$user_query = new WP_User_Query( array( 'role' => 'disenador', 'number' => 3, 'offset' => 0 ) );
+
+	// Get the results
+	$designers = $user_query->get_results();
+
+	// Check for results
+	if (!empty($designers)) {
+
+	?>
+	<script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/boxDesigners.js"></script>
     <h2 id="designersTitle">DISEÑADORES</h2>
-
     <div class="boxContDesigners">
+    <?php
 
-    <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/disenadores/lucrecia/">
-            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/05/lucrecia-foto-bio-1024x683.jpg" alt="lucrecia pq" width="1024" height="683">
-            <p>Lucrecia PQ<span id="lucreciaTextDesign" class="descripTextDesign"></span></p>
-        </a>
-    </div>
-
-    <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/disenadores/maria-cidfuentes/">
-            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/maria-foto-bio2.jpg" alt="maria-cidfuentes" width="750" height="500">
-            <p>María Cidfuentes<span id="guimmetTextDesign" class="descripTextDesign"></span></p>
-        </a>
-    </div>
-
-    <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/disenadores/franchi/">
-            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/img/photography/FrancPortada2.jpg" alt="franchi" width="750" height="500">
-            <p>Franchi</p>
-        </a>
-    </div>
-
-    <div class="boxDesigner">
-        <a href="<?php bloginfo('wpurl'); ?>/disenadores/nuria-hernandez/">
-            <img class="imageBoxDesigner" src="<?php bloginfo('wpurl'); ?>/wp-content/uploads/2015/07/nuria2.jpg" alt="nuria hernandez" width="750" height="500">
-            <p>Nuria Hernández</p>
-        </a>
-    </div>
+	    // loop trough each author
+	    foreach ($designers as $designer)
+	    {
+	    	$user_info = get_userdata($designer->ID);
+	    	?>
+		    <div class="boxDesigner">
+		        <a href="<?php bloginfo('wpurl'); ?>/disenadores/<?php echo $user_info->nickname ; ?>/">
+					<?php echo get_avatar( $designer->ID, 512 ); ?>
+		            <p><?php echo $user_info->display_name; ?></p>
+		        </a>
+		    </div>
+		    <?php
+	    }
+	?>
+	<?php
+	}
+?>
 
 </div>
 <?php

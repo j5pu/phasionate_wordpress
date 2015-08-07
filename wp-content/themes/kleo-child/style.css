@@ -5053,13 +5053,8 @@ ul.dropdown-menu.sub-menu{
 
 /* Woocommerce Style */
 /* Woocommerce - Prendas */
-.woocommerce ul.products li.product .posted_in, .woocommerce ul.products li.product .posted_in a{
-	display:none;
-}
 .woocommerce ul.products li.product p.por_disenador, .woocommerce ul.products li.product p.por_coleccion{
 	margin: 0px;
-}
-.woocommerce ul.products li.product p.por_coleccion{
 	font-size: 80%;
 }
 body.single-product .product .summary.entry-summary{
@@ -5235,7 +5230,7 @@ div#contenidoRopa > img{
 	margin-bottom: 30px;
 }
 div#contenidoRopa .cover{
-	background-color: rgba(255,255,255,0.8);
+	background-color: rgba(230,230,230,0.8);
 	position: absolute;
 	width: 120%;
 	height: 100%;

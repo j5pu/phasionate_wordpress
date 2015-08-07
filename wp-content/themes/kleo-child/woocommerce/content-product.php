@@ -35,10 +35,10 @@ if ( 0 == ( $woocommerce_loop['loop'] - 1 ) % $woocommerce_loop['columns'] || 1 
 if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] )
 	$classes[] = 'last';
 
-/* Kleo*/
+/* Kleo*//*
 if (sq_option('woo_product_animate', 1) == 1 ) {
     $classes[] = 'animated animate-when-almost-visible el-appear';
-}
+}*/
 
 if (kleo_woo_get_first_image() == '') {
 	$product_transition = 'single';
@@ -85,17 +85,6 @@ else {
 		?>
 
 		<div class="product-details" data-pop="<?php echo $units_sold; ?>" data-release="<?php echo $product_release; ?>">
-			<p class="por_coleccion"><?php
-			$subheadingvalues = get_the_terms( $product->id, 'pa_coleccion');
-
-			if ( $subheadingvalues && ! is_wp_error( $subheadingvalues ) ) {
-	      		foreach ( $subheadingvalues as $subheadingvalue ) {
-	      			?>
-	      			<i><a href="<?php bloginfo('wpurl'); ?>/colecciones/<?php echo $subheadingvalue->slug ?>"><?php echo $subheadingvalue->name ?></a></i>
-	       			<?php
-		        }		
-			}?>
-			</p>
 
 			<?php
 				$size = sizeof( get_the_terms( $post->ID, 'product_cat' ) );
@@ -103,13 +92,25 @@ else {
 				?>			
 			<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 
+			<p class="por_coleccion"><?php
+			$subheadingvalues = get_the_terms( $product->id, 'pa_coleccion');
+
+			if ( $subheadingvalues && ! is_wp_error( $subheadingvalues ) ) {
+	      		foreach ( $subheadingvalues as $subheadingvalue ) {
+	      			?>
+	      			Colección <a href="<?php bloginfo('wpurl'); ?>/colecciones/<?php echo $subheadingvalue->slug ?>"><?php echo $subheadingvalue->name ?></a>
+	       			<?php
+		        }		
+			}?>
+			</p>
+
 			<p class="por_disenador"><?php
 			$subheadingvalues = get_the_terms( $product->id, 'pa_disenadora');
 
 			if ( $subheadingvalues && ! is_wp_error( $subheadingvalues ) ) {
 	      		foreach ( $subheadingvalues as $subheadingvalue ) {
 	      			?>
-	      			<i><a href="<?php bloginfo('wpurl'); ?>/disenadores/<?php echo $subheadingvalue->slug ?>"><?php echo $subheadingvalue->name ?></a></i>
+	      			by <a href="<?php bloginfo('wpurl'); ?>/disenadores/<?php echo $subheadingvalue->slug ?>"><?php echo $subheadingvalue->name ?></a>
 	       			<?php
 		        }		
 			}?>
