@@ -141,6 +141,7 @@ class mymail_settings {
 						'email'
 					),
 					'double_opt_in' => true,
+					'template' => 'notification.html',
 					'subscription_resend_count' => 2,
 					'subscription_resend_time' => 48,
 					'text' => array(
@@ -1041,18 +1042,22 @@ class mymail_settings {
 		}
 		$request['cmd'] = '_notify-validate';
 
-		$params = array(
+		$response = wp_remote_post( 'https://www.paypal.com/cgi-bin/webscr', array(
 			'sslverify' => true,
-			'timeout'   => 10,
-			'body'      => $request,
-		);
-
-		$response = wp_remote_post( 'https://www.paypal.com/cgi-bin/webscr', $params );
+			'timeout'   => 5,
+			'body'      => array('cmd' => '_notify-validate'),
+		) );
 
 		if ( ! is_wp_error( $response ) && $response['response']['code'] >= 200 && $response['response']['code'] < 300 ) {
-			$wp_remote_post = 'works' . "\n";
+			$wp_remote_post = 'works';
 		} else {
-			$wp_remote_post = 'does not work: ' . $response->get_error_message() . "\n";
+			$wp_remote_post = 'does not work: ' . $response->get_error_message();
+		}
+		$response = wp_remote_post( 'https://update.revaxarts.com/');
+		if ( ! is_wp_error( $response ) && $response['response']['code'] >= 200 && $response['response']['code'] < 300 ) {
+			$update_server = 'works';
+		} else {
+			$update_server = '' . $response->get_error_message() . " - Please allow connection to update.revaxarts.com!";
 		}
 		
 		$lasthit = get_option('mymail_cron_lasthit', array());
@@ -1134,7 +1139,10 @@ class mymail_settings {
 			"FSOCKOPEN" =>             ( function_exists( 'fsockopen' ) ) ? 'Your server supports fsockopen.' : 'Your server does not support fsockopen.',
 			"DOMDocument" =>             ( class_exists( 'DOMDocument' ) ) ? 'DOMDocument extension installed' : 'DOMDocument is missing!',
 			"SUHOSIN Installed" =>       extension_loaded('suhosin') ? "Yes" : "No",
+			'--',
 			"wp_remote_post" =>        $wp_remote_post,
+			"External HTTP Requests" =>	( defined( 'WP_HTTP_BLOCK_EXTERNAL' ) &&  WP_HTTP_BLOCK_EXTERNAL ) ? 'blocked' : 'not blocked',
+			"Update Server Access" =>	$update_server,
 			'--',
 			"TEMPLATES" =>        '',
 			'--',
@@ -1174,7 +1182,7 @@ class mymail_settings {
 			
 		return apply_filters( 'mymail_system_info' , $settings );
 	
-		}
+	}
 	
 }
 ?>

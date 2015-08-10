@@ -21,9 +21,11 @@ class UpdateCenterPlugin {
 
 	public static function add($args = array()){
 
-		if(!isset($args['slug'])){
+		if(isset($args['slug'])) $args['plugin'] = $args['slug'];
+		
+		if(!isset($args['plugin'])){
 			$caller = array_shift(debug_backtrace());
-			$error = sprintf('[UpdateCenter] You have to define a "slug" parameter for your plugin in %s on line %d', $caller['file'], $caller['line'] );
+			$error = sprintf('[UpdateCenter] You have to define a "plugin" parameter for your plugin in %s on line %d', $caller['file'], $caller['line'] );
 
 			return (is_admin())
 				? wp_die( $error )
@@ -32,19 +34,21 @@ class UpdateCenterPlugin {
 		}
 
 		if (!isset(self::$_instance))
-			self::$_instance = new self($args['slug']);
+			self::$_instance = new self($args['plugin']);
 		
 		$plugin_data = (object) wp_parse_args($args, array(
 			'remote_url' => NULL,
 			'slug' => NULL
 		));
-		
+
+		$plugin_data->slug = strtolower(dirname($plugin_data->plugin));
+
 		$plugin_data->remote_url = trailingslashit($plugin_data->remote_url);
 		
 		self::$plugin_data[$plugin_data->slug] = $plugin_data;
-		
-		register_activation_hook($plugin_data->slug, array( 'UpdateCenterPlugin', 'clear_options' ));
-		register_deactivation_hook($plugin_data->slug, array( 'UpdateCenterPlugin', 'clear_options' ));
+
+		register_activation_hook($plugin_data->plugin, array( 'UpdateCenterPlugin', 'clear_options' ));
+		register_deactivation_hook($plugin_data->plugin, array( 'UpdateCenterPlugin', 'clear_options' ));
 
 		return self::$_instance;
 	}
@@ -73,7 +77,6 @@ class UpdateCenterPlugin {
 		add_action( 'updatecenterplugin_check', array( &$this, 'check_periodic_updates' ) );
 		add_filter( 'upgrader_post_install', array( &$this, 'check_periodic_updates' ), 99 );
 		
-		add_filter( 'admin_notices', array( &$this, 'admin_notices' ), 99 );
 		add_filter( 'auto_update_plugin', array( &$this, 'auto_update' ), 10, 2 );
 		
 		add_filter( 'http_request_args', array( &$this, 'http_request_args' ), 100, 2 );
@@ -81,55 +84,58 @@ class UpdateCenterPlugin {
 	}
 	
 	public function init() {
+
+		if(!is_admin()) return;
+		if(!current_user_can('update_plugins')) return;
+
+		global $pagenow, $wp_header_to_desc;
+
+		$wp_header_to_desc[678] = self::$status['no_license'];
+		$wp_header_to_desc[679] = self::$status['invalid_license'];
+		$wp_header_to_desc[680] = self::$status['license_in_use'];
+		$wp_header_to_desc[681] = self::$status['license_expired'];
 	
-		if(is_admin() && current_user_can("update_plugins")){
+		if($pagenow == 'update-core.php'){
 
-			global $pagenow, $wp_header_to_desc;
+			//force check on the updates page
+			do_action( 'updatecenterplugin_check' );
+			add_filter( 'plugins_api',  array( &$this, 'plugins_api' ), 10, 3);
 
-			$wp_header_to_desc[678] = self::$status['no_license'];
-			$wp_header_to_desc[679] = self::$status['invalid_license'];
-			$wp_header_to_desc[680] = self::$status['license_in_use'];
-			$wp_header_to_desc[681] = self::$status['license_expired'];
 		
-			if($pagenow == 'update-core.php'){
-				
-				//force check on the updates page
-				do_action( 'updatecenterplugin_check' );
+		}else if($pagenow == 'plugin-install.php'){
+		
+			if(isset($_GET['plugin']) && in_array($_GET['plugin'], array_keys(self::$plugin_data))){
 				add_filter( 'plugins_api',  array( &$this, 'plugins_api' ), 10, 3);
-
-				do_action('my_trigger_hook');
-
-			}else if($pagenow == 'plugin-install.php'){
-			
-				if(isset($_GET['plugin']) && in_array($_GET['plugin'], array_keys(self::$plugin_data))){
-					add_filter( 'plugins_api',  array( &$this, 'plugins_api' ), 10, 3);
-					add_filter( 'plugins_api_result',  array( &$this, 'plugins_api_result' ), 10, 3);
-				}
-				
+				add_filter( 'plugins_api_result',  array( &$this, 'plugins_api_result' ), 10, 3);
 			}
-		
-			if( is_multisite() && ! is_network_admin() ) {
-				
-				if ( !function_exists( 'is_plugin_active_for_network' ) )
-					require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
-				
-				foreach(self::$plugins as $slug => $plugin){
-					if( !is_plugin_active_for_network( plugin_basename( $slug ) ) && time()-$plugin->last_update > 3600 ){
-						do_action( 'updatecenterplugin_check' );
-						break;
-					}
-				}
-
-			}
-
-			if(empty(self::$plugins) ) do_action( 'updatecenterplugin_check' );
 			
 		}
+	
+		if( is_multisite() && !is_network_admin() ) {
+			
+			if ( !function_exists( 'is_plugin_active_for_network' ) )
+				require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+			
+			foreach(self::$plugins as $slug => $plugin){
+				if( !is_plugin_active_for_network( plugin_basename( $plugin->plugin ) ) && time()-$plugin->last_update > 3600 ){
+					do_action( 'updatecenterplugin_check' );
+					break;
+				}
+			}
+
+		}
+
+		add_filter( 'admin_notices', array( &$this, 'admin_notices' ), 99 );
+
+		if(empty(self::$plugins) ) do_action( 'updatecenterplugin_check' );
+			
 	}
 	
 	public function admin_notices() {
 
-		if(!current_user_can('update_plugins')) return;
+		global $pagenow;
+
+		if(!current_user_can('update_plugins') || $pagenow == 'update.php') return;
 
 		foreach(self::$plugins as $slug => $data){
 			
@@ -147,11 +153,11 @@ class UpdateCenterPlugin {
 			
 			if(empty($notices)) continue;
 
-			$nonce = wp_create_nonce('upgrade-plugin_' . $slug);
+			$nonce = wp_create_nonce('upgrade-plugin_' . $data->plugin);
 			foreach ($notices as $notice) {
 				echo '<div class="update-nag">'.str_replace(
 						array('%%updateurl%%'),
-						array(admin_url('update.php?action=upgrade-plugin&plugin='.urlencode( $slug ).'&_wpnonce='.$nonce)),
+						array(admin_url('update.php?action=upgrade-plugin&plugin='.urlencode( $data->plugin ).'&_wpnonce='.$nonce)),
 						$notice.'</div>');
 			}
 		}
@@ -170,16 +176,33 @@ class UpdateCenterPlugin {
 
 		//if only "minor" updates
 		if(self::$plugin_data[$item->slug]->autoupdate === 'minor'){
-			return version_compare(self::$plugins[$item->slug]->new_version, self::$plugins[$item->slug]->version, '>')
-					&& !version_compare(intval(self::$plugins[$item->slug]->new_version), intval(self::$plugins[$item->slug]->version), '>');
+			return $this->version_compare(self::$plugins[$item->slug]->new_version, self::$plugins[$item->slug]->version, true);
 		}
 
 		return !!(self::$plugin_data[$item->slug]->autoupdate);
 	
 	}
 	
+	public function version_compare($new_version, $old_version, $only_minor = false){
+
+		if($only_minor){
+
+			$new = explode(".", rtrim($new_version, ".0"));
+			$old = explode(".", rtrim($old_version, ".0"));
+
+			$is_major_update = version_compare($new[1], $old[1], '>') || version_compare(intval($new_version), intval($old_version), '>');
+			
+			$is_minor_update = (!$is_major_update && version_compare(strstr($new_version, '.'), strstr($old_version, '.'), '>'));
+			
+			return $is_minor_update;
+		}
+
+		return version_compare($new_version, $old_version, '>');
+
+	}
 	
 	public function http_request_args($r, $url) {
+
 
 
 		if(false !== strpos($url, 'api.wordpress.org/plugins/update-check/1.1')){
@@ -200,7 +223,7 @@ class UpdateCenterPlugin {
 			return $r;
 			
 		}
-		
+
 		foreach(self::$plugins as $slug => $plugin){
 			if($url == $plugin->package){
 				$r['method'] = 'POST';
@@ -222,7 +245,7 @@ class UpdateCenterPlugin {
 	public function plugins_api($res, $action, $args) {
 
 		$slug = $args->slug;
-		
+	
 		if(!isset(self::$plugins[$slug])) return $res;
 		if(!isset(self::$plugin_data[$slug])) return $res;
 		
@@ -251,6 +274,7 @@ class UpdateCenterPlugin {
 	}
 	
 	public function plugins_api_result($res, $action, $args) {
+
 		if(!isset($this->slug)) return $res;
 		
 		if($args->slug == $this->slug){
@@ -264,20 +288,21 @@ class UpdateCenterPlugin {
 	public function check_periodic_updates( ) {
 	
 		if(did_action('updatecenterplugin_check') > 1) return;
-		
+
 		//get the actual version
 		foreach(self::$plugin_data as $slug => $plugin){
-			if(!isset(self::$plugins[ $slug ]))
-				self::$plugins[ $slug ] = (object) array(
-					'slug' => preg_replace('#\.php$#', '', strtolower(basename($slug))),
-					'plugin' => $slug,
+			if(!isset(self::$plugins[ $plugin->slug ]))
+				self::$plugins[ $plugin->slug ] = (object) array(
+					'slug' => $slug,
+					'plugin' => $plugin->plugin,
+					'version' => NULL,
 					'package' => NULL,
 					'new_version' => NULL,
-					'last_update' => time(),
+					'last_update' => 0,
 				);
-			if(is_readable(WP_PLUGIN_DIR .'/'. $slug)){
-				$plugin_data = get_plugin_data( WP_PLUGIN_DIR .'/'. $slug );
-				self::$plugins[ $slug ]->version = $plugin_data['Version'];
+			if(is_readable(WP_PLUGIN_DIR .'/'. $plugin->plugin)){
+				$plugin_data = get_plugin_data( WP_PLUGIN_DIR .'/'. $plugin->plugin );
+				self::$plugins[ $plugin->slug ]->version = $plugin_data['Version'];
 			}
 
 		}
@@ -291,7 +316,7 @@ class UpdateCenterPlugin {
 			$result = $this->check_collection( $remote_url, $plugins );
 
 			if( is_wp_error( $result ) || empty($result) || !is_array($result)) continue;
-			
+
 			foreach($result as $slug => $updatecenterinfo){
 				
 				if ( !is_object($updatecenterinfo) ){
@@ -318,7 +343,7 @@ class UpdateCenterPlugin {
 			}
 			
 		}
-		
+	
 		$this->save_options();
 		
 	}
@@ -333,16 +358,15 @@ class UpdateCenterPlugin {
 				$timeout = 0;
 				break;
 			default:
-				$timeout = 3600;
+				$timeout = 43200;
 		} 
 		
 		$collection = array();
-		
+
 		foreach(self::$plugin_data as $slug => $plugin){
-		
-			$collection[$plugin->remote_url] = isset($collection[$plugin->remote_url]) ? $collection[$plugin->remote_url] : array();
-			
+
 			if(time()-self::$plugins[$slug]->last_update >= $timeout ){
+				$collection[$plugin->remote_url] = isset($collection[$plugin->remote_url]) ? $collection[$plugin->remote_url] : array();
 				$collection[$plugin->remote_url][$slug] = $this->header_infos( $slug );
 			}	
 			
@@ -371,7 +395,7 @@ class UpdateCenterPlugin {
 	}
 	
 	public function check_collection($remote_url, $plugins) {
-	
+
 		$body = http_build_query( array('updatecenter_data' => array_values($plugins)), null, '&' );
 		$post = array( 
 			'headers' => array(
@@ -387,8 +411,7 @@ class UpdateCenterPlugin {
 			'updatecenter_action' => 'versions',
 			'updatecenter_slug' => array_keys($plugins),
 		), $remote_url), $post );
-		
-		
+
 		$response_code = wp_remote_retrieve_response_code( $response );
 		$response_body = trim( wp_remote_retrieve_body( $response ) );
 		
@@ -401,7 +424,6 @@ class UpdateCenterPlugin {
 		if(empty($result)) return array_flip(array_keys($plugins));
 		
 		return is_array($result) ? array_combine( array_keys($plugins), $result ) : array();
-		
 		
 	}
 	
@@ -437,16 +459,17 @@ class UpdateCenterPlugin {
 	}
 	
 	public function update_plugins_filter( $value ) {
-	
+
 		if(empty(self::$plugins)) return $value;
 		
 		foreach(self::$plugins as $slug => $plugin){
 		
 			if( empty($plugin->package) || version_compare( $plugin->version, $plugin->new_version, '>=' ) ) continue;
 		
-			$value->response[ $slug ] = self::$plugins[ $slug ];
+			$value->response[ $plugin->plugin ] = self::$plugins[ $slug ];
 		
 		}
+
 		return $value;
 	}
 	
@@ -466,7 +489,7 @@ class UpdateCenterPlugin {
 			'multisite' => is_multisite(),
 			'auto' => $pagenow == 'wp-cron.php',
 		);
-		
+
 		if(isset(self::$plugin_data[ $slug ]->custom)) $return['custom'] = self::$plugin_data[ $slug ]->custom;
 		
 		return $return;

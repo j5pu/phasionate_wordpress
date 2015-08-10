@@ -5,7 +5,7 @@ Plugin URI: https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=
 Author: Arnan de Gans of AJdG Solutions
 Author URI: http://ajdg.solutions/?pk_campaign=adrotatefree-pluginpage&pk_kwd=authorurl
 Description: Used on over a hundred thousand websites and by even more people! AdRotate is the popular choice for monetizing your website with adverts while keeping things simple.
-Version: 3.11.6
+Version: 3.11.7
 License: GPLv3
 */
 
@@ -20,20 +20,19 @@ License: GPLv3
 ------------------------------------------------------------------------------------ */
 
 /*--- AdRotate values ---------------------------------------*/
-define("ADROTATE_DISPLAY", '3.11.6');
+define("ADROTATE_DISPLAY", '3.11.7');
 define("ADROTATE_VERSION", 379);
 define("ADROTATE_DB_VERSION", 51);
-define("ADROTATE_FOLDER", 'adrotate');
 /*-----------------------------------------------------------*/
 
 /*--- Load Files --------------------------------------------*/
-include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-setup.php');
-include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-manage-publisher.php');
-include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-functions.php');
-include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-statistics.php');
-include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-export.php');
-include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-output.php');
-include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-widget.php');
+include_once(WP_CONTENT_DIR.'/plugins/adrotate/adrotate-setup.php');
+include_once(WP_CONTENT_DIR.'/plugins/adrotate/adrotate-manage-publisher.php');
+include_once(WP_CONTENT_DIR.'/plugins/adrotate/adrotate-functions.php');
+include_once(WP_CONTENT_DIR.'/plugins/adrotate/adrotate-statistics.php');
+include_once(WP_CONTENT_DIR.'/plugins/adrotate/adrotate-export.php');
+include_once(WP_CONTENT_DIR.'/plugins/adrotate/adrotate-output.php');
+include_once(WP_CONTENT_DIR.'/plugins/adrotate/adrotate-widget.php');
 /*-----------------------------------------------------------*/
 
 /*--- Check and Load config ---------------------------------*/
@@ -67,8 +66,7 @@ if(!is_admin()) {
 	add_shortcode('adrotate', 'adrotate_shortcode');
 	add_action("wp_enqueue_scripts", 'adrotate_custom_scripts');
 	add_action('wp_head', 'adrotate_custom_css');
-	add_filter('the_content', 'adrotate_inject_pages');
-	add_filter('the_content', 'adrotate_inject_posts');
+	add_filter('the_content', 'adrotate_inject_posts', 12);
 }
 /*-----------------------------------------------------------*/
 
@@ -103,7 +101,7 @@ function adrotate_dashboard() {
 	global $adrotate_config;
 
 	$adrotate_page = $adrotate_pro = $adrotate_adverts = $adrotate_groups = $adrotate_schedules = $adrotate_media = $adrotate_settings =  '';
-	$adrotate_page = add_menu_page('AdRotate', 'AdRotate', 'adrotate_ad_manage', 'adrotate', 'adrotate_info', plugins_url('/images/icon.png', __FILE__), '25.8');
+	$adrotate_page = add_menu_page('AdRotate', 'AdRotate', 'adrotate_ad_manage', 'adrotate', 'adrotate_info', plugins_url('/images/icon-menu.png', __FILE__), '25.8');
 	$adrotate_page = add_submenu_page('adrotate', 'AdRotate > '.__('General Info', 'adrotate'), __('General Info', 'adrotate'), 'adrotate_ad_manage', 'adrotate', 'adrotate_info');
 	$adrotate_pro = add_submenu_page('adrotate', 'AdRotate > '.__('AdRotate Pro', 'adrotate'), __('AdRotate Pro', 'adrotate'), 'adrotate_ad_manage', 'adrotate-pro', 'adrotate_pro');
 	$adrotate_adverts = add_submenu_page('adrotate', 'AdRotate > '.__('Manage Ads', 'adrotate'), __('Manage Ads', 'adrotate'), 'adrotate_ad_manage', 'adrotate-ads', 'adrotate_manage');
@@ -526,21 +524,22 @@ function adrotate_manage_media() {
 	<div class="wrap">
 		<h2><?php _e('Media Management available in AdRotate Pro', 'adrotate'); ?></h2>
 
-		<p><?php _e('Upload images to the AdRotate Pro banners folder from here. This is especially useful if you use responsive adverts with multiple images.', 'adrotate'); ?><br /><?php _e('Media uploading and management is available in AdRotate Pro.', 'adrotate'); ?> <a href="admin.php?page=adrotate-pro"><?php _e('More information', 'adrotate'); ?></a>.</p>
+		<p><?php _e('Upload images to the AdRotate Pro banners folder from here. This is useful if you use responsive adverts with multiple images or have HTML5 adverts containing multiple files.', 'adrotate'); ?><br /><?php _e('Media uploading and management is available in AdRotate Pro.', 'adrotate'); ?> <a href="admin.php?page=adrotate-pro"><?php _e('More information', 'adrotate'); ?></a>.</p>
 
-		<h3><?php _e('Upload new banner image', 'adrotate'); ?></h3>
-		<label for="adrotate_image"><input tabindex="1" type="file" name="adrotate_image" disabled /><br /><em><strong><?php _e('Accepted files are:', 'adrotate'); ?></strong> jpg, jpeg, gif, png, swf and flv. <?php _e('Maximum size is 512Kb.', 'adrotate'); ?></em><br /><em><strong><?php _e('Important:', 'adrotate'); ?></strong> <?php _e('Make sure your file has no spaces or special characters in the name. Replace spaces with a - or _.', 'adrotate'); ?></em></label>
+		<h3><?php _e('Upload new file', 'adrotate'); ?></h3>
+		<label for="adrotate_image"><input tabindex="1" type="file" name="adrotate_image" disabled /><br /><em><strong><?php _e('Accepted files:', 'adrotate'); ?></strong> jpg, jpeg, gif, png, swf and flv. <?php _e('For HTML5 ads you can also upload html and javascript files.', 'adrotate'); ?> <?php _e('Maximum size is 512Kb.', 'adrotate'); ?></em><br /><em><strong><?php _e('Important:', 'adrotate'); ?></strong> <?php _e('Make sure your file has no spaces or special characters in the name. Replace spaces with a - or _.', 'adrotate'); ?><br /><?php _e('If you remove spaces from filenames for HTML5 adverts also edit the html file so it knows about the changed name. For example for the javascript file.', 'adrotate'); ?></em></label>
+	
 		<?php if(get_option('adrotate_responsive_required') > 0) { ?>
 	        <p><em><?php _e('For responsive adverts make sure the filename is in the following format; "imagename.full.ext". A full set of sized images is strongly recommended.', 'adrotate'); ?></em><br />
 	        <em><?php _e('For smaller size images use ".320", ".480", ".768" or ".1024" in the filename instead of ".full" for the various viewports.', 'adrotate'); ?></em><br />
 	        <em><strong><?php _e('Example:', 'adrotate'); ?></strong> <?php _e('image.full.jpg, image.320.jpg and image.768.jpg will serve the same advert for different viewports.', 'adrotate'); ?></em></p>
-			<?php } ?>
+		<?php } ?>
 	
 		<p class="submit">
-			<input tabindex="2" type="submit" name="adrotate_media_submit" class="button-primary" value="<?php _e('Upload image', 'adrotate'); ?>" disabled />
+			<input tabindex="2" type="submit" name="adrotate_media_submit" class="button-primary" value="<?php _e('Upload file', 'adrotate'); ?>" disabled /> <em><?php _e('Click only once per file!', 'adrotate'); ?></em>
 		</p>
 		
-		<h3><?php _e('Available banner images in', 'adrotate'); ?> '<?php echo $adrotate_config['banner_folder']; ?>'</h3>
+		<h3><?php _e('Available files in', 'adrotate'); ?> '<?php echo $adrotate_config['banner_folder']; ?>'</h3>
 		<table class="widefat" style="margin-top: .5em">
 		
 			<thead>
@@ -554,6 +553,8 @@ function adrotate_manage_media() {
 		    <tr><td>your-awesome-campaign.jpg</td><td><center><?php _e('Delete', 'adrotate'); ?></center></td></tr>
 		    <tr class="alternate"><td>728x90-advert.jpg</td><td><center><?php _e('Delete', 'adrotate'); ?></center></td></tr>
 		    <tr><td>adrotate-468x60.jpg</td><td><center><?php _e('Delete', 'adrotate'); ?></center></td></tr>
+		    <tr class="alternate"><td>html5-468x60-blue_edge.js</td><td><center><?php _e('Delete', 'adrotate'); ?></center></td></tr>
+		    <tr><td>html5-468x60-blue.html</td><td><center><?php _e('Delete', 'adrotate'); ?></center></td></tr>
 		    <tr class="alternate"><td>adrotate-200x200-blue.jpg</td><td><center><?php _e('Delete', 'adrotate'); ?></center></td></tr>
 		    <tr><td>advertising-campaign.jpg</td><td><center><?php _e('Delete', 'adrotate'); ?></center></td></tr>
 			</tbody>
@@ -754,28 +755,13 @@ function adrotate_options() {
 					<th valign="top"><?php _e('Widget padding', 'adrotate'); ?></th>
 					<td><label for="adrotate_widgetpadding"><input type="checkbox" name="adrotate_widgetpadding" <?php if($adrotate_config['widgetpadding'] == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Enable this to remove the padding (blank space) around ads in widgets. (Does not always work!)', 'adrotate'); ?></label></td>
 				</tr>
-	 
-				<?php if($adrotate_config['w3caching'] == "Y" AND !defined('W3TC_DYNAMIC_SECURITY')) { ?>
 				<tr>
 					<th valign="top"><?php _e('NOTICE:', 'adrotate'); ?></th>
 					<td><span style="color:#f00;"><?php _e('You have enabled W3 Total Caching support but not defined the security hash. You need to add the following line to your wp-config.php near the bottom or below line 52 (which defines another hash.) Using the "late init" function needs to be enabled in W3 Total Cache as well too.', 'adrotate'); ?></span><br /><pre>define('W3TC_DYNAMIC_SECURITY', '<?php echo md5(rand(0,999)); ?>');</pre></td>
 				</tr>
-				<?php } ?>
 				<tr>
 					<th valign="top"><?php _e('W3 Total Caching', 'adrotate'); ?></th>
 					<td><label for="adrotate_w3caching"><input type="checkbox" name="adrotate_w3caching" <?php if($adrotate_config['w3caching'] == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Check this box if you use W3 Total Caching on your site.', 'adrotate'); ?></label></td>
-				</tr>
-
-				<?php if($adrotate_config['supercache'] == "Y") { ?>
-				<tr>
-					<th valign="top"><?php _e('NOTICE:', 'adrotate'); ?></th>
-					<td><span style="color:#f00;"><?php _e('You have enabled WP Super Cache support. If you have version 1.4 or newer, this function will not work. WP Super Cache has discontinued support for dynamic content.', 'adrotate'); ?></span></td>
-				</tr>
-				<?php } ?>
-				<tr>
-					<th valign="top"><?php _e('WP Super Cache', 'adrotate'); ?></th>
-					<td><label for="adrotate_supercache"><input type="checkbox" name="adrotate_supercache" <?php if($adrotate_config['supercache'] == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Check this box if you use WP Super Cache on your site.', 'adrotate'); ?></label>
-					</td>
 				</tr>
 				<tr>
 					<th valign="top">&nbsp;</th>

@@ -94,7 +94,7 @@ if($notice){
 				<span class="update-badge"><?php echo $updates[$slug]?></span>
 			<?php }?>
 			<a class="thickbox-preview screenshot" title="<?php echo $data['name'].' '.$data['version']?> <?php _e('by', 'mymail'); ?> <?php echo $data['author']?>" href="<?php echo $t->url .'/' .$slug .'/index.html'?>" data-slug="<?php echo $slug ?>">
-				<img alt="<?php _e('Screenshot', 'mymail'); ?>" src="<?php echo $t->get_screenshot($slug)?>" width="300">
+				<img alt="<?php _e('Screenshot', 'mymail'); ?>" src="<?php echo $t->get_screenshot($slug)?>" width="300" height="225">
 			</a>
 			<h3><?php echo $data['name'] ?> <span class="version"><?php echo $data['version'] ?></span>
 				<?php if($update){ 
@@ -152,7 +152,7 @@ if($notice){
 		?>	
 		<li class="available-template<?php if($data['update'] ) echo ' update'; ?><?php if(!empty($data['is_feature'])) echo ' is-feature'; ?><?php if(!empty($data['is_free'])) echo ' is-free'; ?>" id="mymail_template_<?php echo $i?>" data-id="<?php echo $i++?>">
 			<a class="thickbox-preview screenshot" title="<?php echo $data['name'].' '.$data['version']?> <?php _e('by', 'mymail'); ?> <?php echo $data['author']?>" href="<?php echo $t->url .'/' .$slug .'/index.html'?>" data-slug="<?php echo $slug ?>">
-				<img alt="" src="<?php echo $data['image']?>" width="300">
+				<img alt="" src="<?php echo $data['image']?>" width="300" height="225">
 			</a>
 			<h3><?php echo $data['name'] ?> <span class="version"><?php echo $data['new_version'] ?></span></h3><div> <?php _e('by', 'mymail'); ?> <?php if(!empty($data['author_uri'])) : ?><a href="<?php echo $data['author_uri']?>"><?php echo $data['author']?></a><?php else : ?> <?php echo $data['author']?><?php endif; ?></div>
 			<?php if(isset($data['description'])) : ?><p class="description"><?php echo $data['description']?></p><?php endif; ?>

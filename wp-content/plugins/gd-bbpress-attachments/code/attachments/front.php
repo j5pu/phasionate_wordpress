@@ -174,7 +174,7 @@ class gdbbAtt_Front {
                 $wp_filetype = wp_check_filetype(basename($upload['file']), null );
                 $attachment = array('post_mime_type' => $wp_filetype['type'],
                     'post_title' => preg_replace('/\.[^.]+$/', '', basename($upload['file'])),
-                    'post_content' => basename($upload['file']),'post_status' => 'inherit'
+                    'post_content' => '','post_status' => 'inherit'
                 );
 
                 $attach_id = wp_insert_attachment($attachment, $upload['file'], $post_id);

@@ -27,7 +27,7 @@ $schedules = $wpdb->get_row("SELECT `{$wpdb->prefix}adrotate_schedule`.`id`, `st
 $linkmeta = $wpdb->get_results("SELECT `group` FROM `{$wpdb->prefix}adrotate_linkmeta` WHERE `ad` = '$edit_banner->id' AND `user` = 0 AND `schedule` = 0;");
 
 wp_enqueue_media();
-wp_enqueue_script('uploader-hook', plugins_url().'/'.ADROTATE_FOLDER.'/library/uploader-hook.js', array('jquery'));
+wp_enqueue_script('uploader-hook', plugins_url().'/adrotate/library/uploader-hook.js', array('jquery'));
 
 list($sday, $smonth, $syear, $shour, $sminute) = explode(" ", date("d m Y H i", $schedules->starttime));
 list($eday, $emonth, $eyear, $ehour, $eminute) = explode(" ", date("d m Y H i", $schedules->stoptime));
@@ -46,17 +46,17 @@ if($ad_edit_id) {
 			echo '<div class="error"><p>'. __('The AdCode cannot be empty!', 'adrotate').'</p></div>';
 
 		if(!preg_match("/%image%/i", $edit_banner->bannercode) AND $edit_banner->image != '') 
-			echo '<div class="error"><p>'. __('You did not use %image% in your AdCode but did select an image!', 'adrotate').'</p></div>';
+			echo '<div class="error"><p>'. __('You did not use %image% in your AdCode but did select a file to use!', 'adrotate').'</p></div>';
 
 		if(preg_match("/%image%/i", $edit_banner->bannercode) AND $edit_banner->image == '') 
-			echo '<div class="error"><p>'. __('You did use %image% in your AdCode but did not select an image!', 'adrotate').'</p></div>';
+			echo '<div class="error"><p>'. __('You did use %image% in your AdCode but did not select a file to use!', 'adrotate').'</p></div>';
+		
+		if(!preg_match("/%image%/i", $edit_banner->bannercode) AND $edit_banner->responsive == 'Y') 
+			echo '<div class="error"><p>'. __('You did not use %image% in your AdCode. The responsive checkbox will be ineffective.', 'adrotate').'</p></div>';
 		
 		if((($edit_banner->imagetype != '' AND $edit_banner->image == '') OR ($edit_banner->imagetype == '' AND $edit_banner->image != ''))) 
 			echo '<div class="error"><p>'. __('There is a problem saving the image. Please reset your image and re-save the ad!', 'adrotate').'</p></div>';
 
-		if(!preg_match("/%image%/i", $edit_banner->bannercode) AND $edit_banner->responsive == 'Y') 
-			echo '<div class="error"><p>'. __(' You did not use %image% in your AdCode. The responsive checkbox will be ineffective.', 'adrotate').'</p></div>';
-		
 		if(strlen($edit_banner->image) > 0 AND !preg_match("/full/", $edit_banner->image) AND $edit_banner->responsive == 'Y') 
 			echo '<div class="error"><p>'. __('Responsive is enabled but your banner image has the wrong name.', 'adrotate').'</p></div>';
 
@@ -124,19 +124,19 @@ if($edit_banner->imagetype == "field") {
 	        </td>
 	        <td width="40%">
 		        <p><strong><?php _e('Basic Examples:', 'adrotate'); ?></strong></p>
-		        <p>1. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;https://ajdg.solutions/&quot;&gt;Buy AdRotate Pro here!&lt;/a&gt;');return false;">&lt;a href="https://ajdg.solutions/"&gt;Buy AdRotate Pro here!&lt;/a&gt;</a></em></p>
-				<p>2. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;http://www.floatingcoconut.net&quot;&gt;&lt;img src=&quot;%image%&quot; /&gt;&lt;/a&gt;');return false;">&lt;a href="http://www.floatingcoconut.net"&gt;&lt;img src="%image%" /&gt;&lt;/a&gt;</a></em></p>
-		        <p>3. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;span class=&quot;ad-%id%&quot;&gt;&lt;a href=&quot;http://www.ajdg.net&quot;&gt;Text Link Ad!&lt;/a&gt;&lt;/span&gt;');return false;">&lt;span class="ad-%id%"&gt;&lt;a href="http://www.ajdg.net"&gt;Text Link Ad!&lt;/a&gt;&lt;/span&gt;</a></em></p>
+				<p><em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;http://www.floatingcoconut.net&quot;&gt;&lt;img src=&quot;%image%&quot; /&gt;&lt;/a&gt;');return false;">&lt;a href="http://www.floatingcoconut.net"&gt;&lt;img src="%image%" /&gt;&lt;/a&gt;</a></em></p>
+		        <p><em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;span class=&quot;ad-%id%&quot;&gt;&lt;a href=&quot;http://www.ajdg.net&quot;&gt;Text Link Ad!&lt;/a&gt;&lt;/span&gt;');return false;">&lt;span class="ad-%id%"&gt;&lt;a href="http://www.ajdg.net"&gt;Text Link Ad!&lt;/a&gt;&lt;/span&gt;</a></em></p>
+		        <p><em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;iframe src=&quot;%image%&quot; height=&quot;250&quot; frameborder=&quot;0&quot; style=&quot;border:none;&quot;&gt;&lt;/iframe&gt;');return false;">&lt;iframe src=&quot;%image%&quot; height=&quot;250&quot; frameborder=&quot;0&quot; style=&quot;border:none;&quot;&gt;&lt;/iframe&gt;</a></em></p>
 	        </td>
       	</tr>
       	<tr>
 	        <th valign="top"><?php _e('Useful tags', 'adrotate'); ?></th>
 	        <td colspan="2">
-		        <p><em><a href="#" title="<?php _e('Insert the advert ID Number.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','%id%');return false;">%id%</a>, <a href="#" title="<?php _e('Insert the %image% tag. Required when selecting a image below.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','%image%');return false;">%image%</a>, <a href="#" title="<?php _e('Insert the advert name.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','%title%');return false;">%title%</a>, <a href="#" title="<?php _e('Insert a random seed. Useful for DFP/DoubleClick type adverts.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','%random%');return false;">%random%</a>, <a href="#" title="<?php _e('Add inside the <a> tag to open advert in a new window.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','target=&quot;_blank&quot;');return false;">target="_blank"</a>, <a href="#" title="<?php _e('Add inside the <a> tag to tell crawlers to ignore this link', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','rel=&quot;nofollow&quot;');return false;">rel="nofollow"</a></em><br /><?php _e('Place the cursor in your AdCode where you want to add any of these tags and click to add it.', 'adrotate'); ?></p>
+		        <p><em><a href="#" title="<?php _e('Insert the advert ID Number.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','%id%');return false;">%id%</a>, <a href="#" title="<?php _e('Required when selecting a image below.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','%image%');return false;">%image%</a>, <a href="#" title="<?php _e('Insert the advert name.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','%title%');return false;">%title%</a>, <a href="#" title="<?php _e('Insert a random seed. Useful for DFP/DoubleClick type adverts.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','%random%');return false;">%random%</a>, <a href="#" title="<?php _e('Add inside the <a> tag to open advert in a new window.', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','target=&quot;_blank&quot;');return false;">target="_blank"</a>, <a href="#" title="<?php _e('Add inside the <a> tag to tell crawlers to ignore this link', 'adrotate'); ?>" onclick="textatcursor('adrotate_bannercode','rel=&quot;nofollow&quot;');return false;">rel="nofollow"</a></em><br /><?php _e('Place the cursor in your AdCode where you want to add any of these tags and click to add it.', 'adrotate'); ?></p>
 	        </td>
       	</tr>
 		<tr>
-	        <th valign="top"><?php _e('Banner image', 'adrotate'); ?></th>
+	        <th valign="top"><?php _e('Banner asset', 'adrotate'); ?></th>
 			<td colspan="2">
 				<label for="adrotate_image">
 					<?php _e('WordPress media:', 'adrotate'); ?> <input tabindex="3" id="adrotate_image" type="text" size="50" name="adrotate_image" value="<?php echo $image_field; ?>" /> <input tabindex="4" id="adrotate_image_button" class="button" type="button" value="<?php _e('Select Banner', 'adrotate'); ?>" />
@@ -148,7 +148,7 @@ if($edit_banner->imagetype == "field") {
 						<?php echo adrotate_folder_contents($image_dropdown); ?>
 					</select><br />
 				</label>
-				<em><?php _e('Use %image% in the code. Accepted files are:', 'adrotate'); ?> jpg, jpeg, gif, png, swf <?php _e('and', 'adrotate'); ?> flv. <?php _e('Use either the text field or the dropdown. If the textfield has content that field has priority.', 'adrotate'); ?></em>
+				<em><?php _e('Use %image% in the adcode instead of the file path.', 'adrotate'); ?> <?php _e('Use either the text field or the dropdown. If the textfield has content that field has priority.', 'adrotate'); ?></em>
 			</td>
 		</tr>
 		<?php if($adrotate_config['stats'] > 0) { ?>

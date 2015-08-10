@@ -50,15 +50,11 @@ class adrotate_widgets extends WP_Widget {
 		if($adrotate_config['w3caching'] == 'Y') echo '<!-- mfunc '.W3TC_DYNAMIC_SECURITY.' -->';
 		
 		if($instance['type'] == "single") {
-			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_ad('.$instance['adid'].', true, 0, 0, '.$instance['siteid'].') -->';
 			echo adrotate_ad($instance['adid'], true, 0, 0, 0);
-			if($adrotate_config['supercache'] == "Y") echo '<!--/mfunc-->';
 		}
 
 		if($instance['type'] == "group") {
-			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_group('.$instance['adid'].', 0, 0, '.$instance['siteid'].') -->';
 			echo adrotate_group($instance['adid'], 0, 0, 0);
-			if($adrotate_config['supercache'] == "Y") echo '<!--/mfunc-->';
 		}
 		
 		if($adrotate_config['w3caching'] == 'Y') echo '<!-- /mfunc -->';

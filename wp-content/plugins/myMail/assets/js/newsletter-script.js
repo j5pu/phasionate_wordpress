@@ -758,7 +758,7 @@ jQuery(document).ready(function ($) {
 				});
 			}).on('mouseleave', 'ul.backgrounds a', function () {
 				$('ul.backgrounds a').eq(0).css({
-					'background-image': 'url(' + $('#mymail_background').val() + ')'
+					'background-image': 'url(' + $.trim($('#mymail_background').val()) + ')'
 				});
 			}).on('change', 'input.background-link', function () {
 				var _this = $(this);
@@ -1952,7 +1952,7 @@ jQuery(document).ready(function ($) {
 					console.log('no dynmaic');
 				}
 */
-				return val
+				return $.trim(val);
 			}
 			
 			function isDynamicImage(val) {
@@ -2373,10 +2373,10 @@ jQuery(document).ready(function ($) {
 				imagepreview.attr('src', '').on('load', function () {
 				
 					imagepreview.off('load');
-					
+
 					current.width = imagepreview.width();
 					current.height = imagepreview.height();
-					current.asp = current.width / current.height;
+					current.asp = _this.data('asp') || (current.width / current.height);
 					
 					currentimage.asp = current.asp;
 					
@@ -2802,7 +2802,7 @@ jQuery(document).ready(function ($) {
 					posttypes: posttypes,
 					search: searchstring,
 					offset: offset,
-					url: $('#rss_url').val(),
+					url: $.trim($('#rss_url').val()),
 					itemcount: itemcount
 				}, function (response) {
 					loader(false);

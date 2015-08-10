@@ -17,6 +17,7 @@ class MyMail_Signup_Widget extends WP_Widget {
 		$text_before = apply_filters('widget_text_before', empty($instance['text_before']) ? '' : $instance['text_before'], $instance, $this->id_base);
 		$form = apply_filters('widget_form', empty($instance['form']) ? 0 : $instance['form'], $instance, $this->id_base);
 		$text_after = apply_filters('widget_text_after', empty($instance['text_after']) ? '' : $instance['text_after'], $instance, $this->id_base);
+		$on_homepage = empty($instance['on_homepage']) ? '' : $instance['on_homepage'];
 		
 		$forms = mymail_option('forms');
 		
@@ -38,6 +39,9 @@ class MyMail_Signup_Widget extends WP_Widget {
 		<label for="<?php echo $this->get_field_id( 'text_after' ); ?>"><?php _e( 'Text after the form', 'mymail' ); ?>:</label> 
 		<input class="widefat" id="<?php echo $this->get_field_id( 'text_after' ); ?>" name="<?php echo $this->get_field_name( 'text_after' ); ?>" type="text" value="<?php echo esc_attr( $text_after ); ?>" />
 		</p>
+		<p>
+		<label><input id="<?php echo $this->get_field_id( 'on_homepage' ); ?>" name="<?php echo $this->get_field_name( 'on_homepage' ); ?>" type="checkbox" value="1" <?php checked( $on_homepage ); ?> /> <?php _e( 'Show form on newsletter homepage as well', 'mymail' ); ?></label>
+		</p>
 		<?php
 	}
 
@@ -48,15 +52,17 @@ class MyMail_Signup_Widget extends WP_Widget {
 		$instance['text_before'] = ( $new_instance['text_before'] );
 		$instance['form'] = strip_tags( $new_instance['form'] );
 		$instance['text_after'] = ( $new_instance['text_after'] );
+		$instance['on_homepage'] = ( $new_instance['on_homepage'] );
 
 		return $instance;
 	}
 
 	public function widget( $args, $instance ) {
 		global $post;
-		if($post && mymail_option('homepage') == $post->ID) return false;
 		// outputs the content of the widget
 		extract( $args );
+
+		if($post && mymail_option('homepage') == $post->ID && !$instance['on_homepage']) return false;
 		$title = apply_filters( 'widget_title', $instance['title'] );
 		$text_before = apply_filters( 'widget_text_before', isset($instance['text_before']) ? $instance['text_before'] : false);
 		$form = apply_filters( 'widget_form', $instance['form'] );

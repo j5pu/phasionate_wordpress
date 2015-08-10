@@ -598,7 +598,16 @@
 			$ultimatemember->profile->active_tab = $active_tab;
 			$ultimatemember->profile->active_subnav = null;
 		}
-
+		
+		// Move default tab priority
+		$default_tab = um_get_option('profile_menu_default_tab');
+		$dtab = ( isset( $tabs[$default_tab] ) )? $tabs[$default_tab] : 'main';
+		if ( isset( $tabs[ $default_tab ] ) ) {
+			unset( $tabs[$default_tab] );
+			$dtabs[$default_tab] = $dtab;
+			$tabs = $dtabs + $tabs;
+		}
+		
 		?>
 		
 		<div class="um-profile-nav">
@@ -611,6 +620,9 @@
 				$nav_link = remove_query_arg( 'um_action', $nav_link );
 				$nav_link = remove_query_arg( 'subnav', $nav_link );
 				$nav_link =  add_query_arg('profiletab', $id, $nav_link );
+				
+				$nav_link = apply_filters("um_profile_menu_link_{$id}", $nav_link);
+				
 				?>
 			
 			<div class="um-profile-nav-item um-profile-nav-<?php echo $id; ?> <?php if ( !um_get_option('profile_menu_icons') ) { echo 'without-icon'; } ?> <?php if ( $id == $active_tab ) { echo 'active'; } ?>">

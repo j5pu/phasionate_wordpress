@@ -15,7 +15,15 @@
 			$response_body = wp_remote_retrieve_body( $response );
 			
 			if ( $response_code != 200 || is_wp_error( $response ) ) {
-				wp_die('<div class="error below-h2"><p>There was an error retrieving the list from the server. Please try again later.</p></div>');
+				echo '<div class="error below-h2"><p>There was an error retrieving the list from the server.</p></div>'
+				;
+				switch($response_code){
+					case '403':
+				echo '<div class="error below-h2"><p>Seems your host is blocking <strong>'.dirname($url).'</strong>. Please request to white list this domain </p></div>';
+						break;
+				}
+
+				wp_die();
 			}
 
 			$addons = json_decode($response_body);
@@ -27,7 +35,11 @@
 	<div class="addons-wrap">
 		<?php foreach($addons as $addon) {  if(!empty($addon->hidden)) continue; ?>
 		<div class="mymail-addon <?php if(!empty($addon->is_free)) echo ' is-free' ?><?php if(!empty($addon->is_feature)) echo ' is-feature' ?>">
+			<?php if(isset($addon->image)) : ?>
 			<div class="bgimage" style="background-image:url(<?php echo $addon->image ?>)"></div>
+			<?php else : ?>
+			<div class="bgimage"></div>
+			<?php endif ; ?>
 			<h4><?php echo $addon->name ?></h4>
 			<p class="author">by 
 			<?php

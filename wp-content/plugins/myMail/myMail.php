@@ -4,12 +4,12 @@ Plugin Name: MyMail - Email Newsletter Plugin for WordPress
 Plugin URI: https://mymail.newsletter-plugin.com
 Plugin Slug: myMail/myMail.php
 Description: advanced Newsletter Plugin for WordPress. Create, Send and Track your Newsletter Campaigns
-Version: 2.0.24
+Version: 2.0.26
 Author: revaxarts.com
 Author URI: https://revaxarts.com
 Text Domain: mymail
 */
-define('MYMAIL_VERSION', '2.0.24');
+define('MYMAIL_VERSION', '2.0.26');
 define('MYMAIL_DBVERSION', 20140924);
 define('MYMAIL_DIR', plugin_dir_path( __FILE__ ));
 define('MYMAIL_URI', plugin_dir_url( __FILE__ ));
@@ -49,6 +49,6 @@ if(!class_exists('UpdateCenterPlugin'))
 UpdateCenterPlugin::add(array(
 	'licensecode' => mymail_option('purchasecode'),
 	'remote_url' => 'https://update.revaxarts.com/',
-	'slug' => MYMAIL_SLUG,
-	'autoupdate' => mymail_option('autoupdate', 'minor')
+	'plugin' => MYMAIL_SLUG,
+	'autoupdate' => mymail_option('autoupdate', true)
 ));

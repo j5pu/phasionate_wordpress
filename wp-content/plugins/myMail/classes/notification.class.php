@@ -154,7 +154,7 @@ class mymail_notification {
 			
 			case 'confirmation_file':
 				$form = mymail('form')->get($options['form']);
-				return $form['template'];
+				return isset($form['template']) ? $form['template'] : null;
 			
 			case 'confirmation_headline':
 				$form = mymail('form')->get($options['form']);

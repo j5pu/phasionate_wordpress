@@ -3,7 +3,7 @@ Contributors: revaxarts
 Tags: mymail, newsletter, email, revaxarts 
 Requires at least: 3.3
 Tested up to: 4.2.2
-Stable tag: 2.0.24
+Stable tag: 2.0.26
 Author: revaxarts.com
 Author URI: https://revaxarts.com
 
@@ -167,6 +167,37 @@ https://wordpress.org/plugins/mymail-multi-smtp/
 
 
 == Changelog ==
+
+= Version 2.0.26 =
+
+* fixed: Missing image variable on addons page
+* fixed: optimize tables run on mymail_cron
+* fixed: profile uses correct form on update
+* fixed: custom field data gets deleted on user profile update (#3)
+* fixed: exporting status was missing
+* fixed: sync user meta via `user_meta_update` works now correctly
+* fixed: dashboard widget shows CTR while it should show ACTR (Adjusted Click Through Rate)
+* fixed: curly brackets for tags where urlencoded in used templates which prevents tags in urls from working
+* fixed: issue with some WordPress User meta data in receivers segmentation
+* fixed: empty form array
+* fixed: some PHP notices
+* fixed: list of campaigns in follow up autoresponder now ordered by status
+* added: option to export status code
+* added: new language: Hebrew
+
+= Version 2.0.25 =
+
+* improved: pasted urls get trimmed to prevent trailing or leading whitespace in the editbar
+* update: bounce classes to get rid of some deprecated methods
+* update: update class to represents WordPress like behavior
+* fixed: missing loading spinners in campaign edit screen
+* fixed: php notice in queue class
+* fixed: update didn't show supported versions and other meta data
+* fixed: finishing paused campaigns is now possible as well
+* fixed: missing subscriber meta field names on receivers meta box on finished campaigns
+* fixed: mail headers should always be strings
+* change: aspect ratio is now calculated from the original image
+* change: relative tags (eg `{post_title:-1}`) in finished campaigns get now converted to absolute like in autoresponders
 
 = Version 2.0.24 =
 
@@ -989,3 +1020,4 @@ Five month of development brought an even better version of the famous Newslette
 
 * Initial Release
 
+2670

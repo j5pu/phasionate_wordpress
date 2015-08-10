@@ -20,6 +20,7 @@ class mymail_subscribers {
 		add_action('mymail_cron', array( &$this, 'send_confirmations'));
 		add_action('mymail_subscriber_subscribed', array( &$this, 'remove_pending_confirmations'));
 		add_action('profile_update', array( &$this, 'sync_wp_user'));
+		add_action('update_user_meta', array( &$this, 'sync_wp_user_meta'), 10, 4);
 
 		add_action('user_register' , array( &$this, 'user_register' ) );
 		add_action('register_form' , array( &$this, 'register_form' ) );
@@ -337,8 +338,8 @@ class mymail_subscribers {
 
 	public function sync_subscriber( $subscriber_id ) {
 
-		global $wpdb;
-
+		//Subscriber => WP User
+		
 		if(!mymail_option('sync')) return;
 
 		$synclist = mymail_option('synclist', array());
@@ -363,16 +364,21 @@ class mymail_subscribers {
 			}
 		}
 
+		remove_action('profile_update', array( &$this, 'sync_wp_user'));
+		remove_action('update_user_meta', array( &$this, 'sync_wp_user_meta'), 10, 4);
+		
 		if(!empty($userdata)){
-			remove_action('profile_update', array( &$this, 'sync_wp_user'));
 			wp_update_user( wp_parse_args(array('ID' => $subscriber->wp_id), $userdata) );
-			add_action('profile_update', array( &$this, 'sync_wp_user'));
 		}
 		if(!empty($usermeta)){
 			foreach($usermeta as $key => $value){
 				update_user_meta( $subscriber->wp_id, $key, $value );
 			}
 		}
+
+		add_action('profile_update', array( &$this, 'sync_wp_user'));
+		add_action('update_user_meta', array( &$this, 'sync_wp_user_meta'), 10, 4);
+
 
 		return true;
 
@@ -401,7 +407,7 @@ class mymail_subscribers {
 
 	public function sync_wp_user( $user_id ){
 		
-		global $wpdb;
+		//WP User => Subscriber
 
 		if(!mymail_option('sync')) return;
 
@@ -427,7 +433,27 @@ class mymail_subscribers {
 			}
 		}
 
-		return $this->update( wp_parse_args(array('ID' => $subscriber->ID), $userdata));
+		return $this->update( wp_parse_args(array('ID' => $subscriber->ID), $userdata), true, true);
+
+	}
+
+	public function sync_wp_user_meta( $meta_id, $user_id, $meta_key, $meta_value ){
+
+		if(!mymail_option('sync')) return;
+
+		$synclist = mymail_option('synclist', array());
+
+		if(!in_array($meta_key, $synclist)) return;
+
+		$subscriber = $this->get_by_wpid($user_id);
+		
+		if(!$subscriber) return;
+
+		$key = array_search($meta_key, $synclist);
+
+		if(is_array($meta_value)) $meta_value = end($meta_value);
+
+		$this->add_custom_value($subscriber->ID, $key, (string) $meta_value);
 
 	}
 
@@ -1314,7 +1340,7 @@ class mymail_subscribers {
 
 		$cache[$subscriber->ID] = $subscriber;
 
-		if($custom_fields) wp_cache_set( 'subscribers', $cache, 'mymail' );
+		if($custom_fields) wp_cache_add( 'subscribers', $cache, 'mymail' );
 
 		return $subscriber;
 
@@ -1661,8 +1687,7 @@ class mymail_subscribers {
 
 			$sql = "UPDATE {$wpdb->prefix}mymail_subscribers SET status = %d WHERE {$wpdb->prefix}mymail_subscribers.ID = %d";
 
-			if($wpdb->query($wpdb->prepare($sql, $this->get_status_by_name('hardbounced'), $subscriber_id))){
-
+			if(false !== $wpdb->query($wpdb->prepare($sql, $this->get_status_by_name('hardbounced'), $subscriber_id))){
 				do_action('mymail_bounce', $subscriber->ID, $campaign->ID, true);
 				return true;
 			}

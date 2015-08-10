@@ -25,7 +25,7 @@ class mymail_form {
 	}
 
 	public function get_all($option = NULL) {
-		$forms = mymail_option('forms', array(
+		$forms = mymail_option('forms', array(array(
 			'name' => __('Default Form', 'mymail'),
 			'order' => array(
 				'email', 'firstname', 'lastname',
@@ -33,7 +33,7 @@ class mymail_form {
 			'required' => array(
 				'email'
 			)
-		));
+		)));
 
 		return (is_null($option) ? $forms : wp_list_pluck( $forms, $option ));
 
@@ -67,6 +67,8 @@ class mymail_form {
 
 		$form = $this->get($form_id);
 
+		if(empty($form['lists'])) return;
+
 		if(($key = array_search($list_id, $form['lists'])) !== false) {
 			unset($form['lists'][$key]);
 			$this->set($form_id, 'lists', $form['lists']);
@@ -79,19 +81,21 @@ class mymail_form {
 
 		self::$add_script = true;
 		add_action('wp_footer', array( &$this, 'print_script'));
+		add_action('admin_footer', array( &$this, 'print_script'));
 
-		global $mymail_form_tabstop;
+		global $mymail_form_tabstop, $pagenow;
+
 		$tabindex = $mymail_form_tabstop ? $mymail_form_tabstop : $tabindex;
 		
 		$cache = true;
 		$msg_id = 0;
 		$forms = mymail_option('forms');
-		$backend = is_admin();
+		$is_settings_page = is_admin() && $pagenow == 'options-general.php';
 
 		$form_id = (isset($forms[$form_id])) ? (int) $form_id : 0;
 		$form = $forms[$form_id];
 		
-		if(isset($form['prefill']) && !$backend){
+		if(isset($form['prefill']) && !$is_settings_page){
 			
 			$current_user = wp_get_current_user();
 			if($current_user->ID != 0){
@@ -104,7 +108,7 @@ class mymail_form {
 			}
 		}
 		
-		if(isset($_GET['mymail_error']) && ($_GET['id'] == $form_id || isset($_GET['extern'])) && !$backend){
+		if(isset($_GET['mymail_error']) && ($_GET['id'] == $form_id || isset($_GET['extern'])) && !$is_settings_page){
 		
 			$transient = 'mymail_error_'.esc_attr($_GET['mymail_error']);
 			$data = get_transient($transient);
@@ -118,7 +122,7 @@ class mymail_form {
 			}
 		}
 		
-		if(isset($_GET['mymail_success']) && ($_GET['id'] == $form_id || isset($_GET['extern'])) && !$backend){
+		if(isset($_GET['mymail_success']) && ($_GET['id'] == $form_id || isset($_GET['extern'])) && !$is_settings_page){
 		
 			$msg_id = intval($_GET['mymail_success']);
 			
@@ -141,13 +145,13 @@ class mymail_form {
 		$inline = isset($form['inline']);
 		$asterisk = isset($form['asterisk']);
 
-		$html .= '<form action="'.admin_url('admin-ajax.php', $this->scheme).'" method="post" class="mymail-form mymail-form-submit mymail-form-'.$form_id.' '.(mymail_option('ajax_form') && !$backend ? 'mymail-ajax-form ' : '').''.esc_attr($classes).'">';
+		$html .= '<form action="'.admin_url('admin-ajax.php', $this->scheme).'" method="post" class="mymail-form mymail-form-submit mymail-form-'.$form_id.' '.(mymail_option('ajax_form') && !$is_settings_page ? 'mymail-ajax-form ' : '').''.esc_attr($classes).'">';
 
 		$html .= '<div class="mymail-form-info '.(!empty($this->object['errors']) ? 'error' :'success').'"'.(!empty($this->object['errors']) || !empty($this->message) ? ' style="display:block"' : '').'>';
 		$html .= $this->get_error_html();
 		$html .= $this->message;
 		$html .= '</div>';
-		if(!$backend){
+		if(!$is_settings_page){
 
 			$redirect = remove_query_arg(array('mymail_error', 'mymail_success'), $_SERVER['REQUEST_URI']);
 			global $pagenow;
@@ -821,7 +825,7 @@ class mymail_form {
 
 		$now = time();
 
-		$form_id = 0;
+		$form_id = mymail_option('profile_form', 0);
 		$form = $this->get($form_id);
 		
 		$customfields = mymail()->get_custom_fields();
@@ -954,11 +958,14 @@ class mymail_form {
 		return empty($this->object['errors']);
 	}
 
-
 	static function print_script() {
+
 		if ( !self::$add_script )
 			return;
 		
+		wp_register_script('mymail-form', MYMAIL_URI . 'assets/js/form.js', apply_filters('mymail_no_jquery', array('jquery')), MYMAIL_VERSION, true);
+		wp_register_script('mymail-form-placeholder', MYMAIL_URI . 'assets/js/placeholder-fix.js', apply_filters('mymail_no_jquery', array('jquery')), MYMAIL_VERSION, true);
+
 		global $is_IE;
 		if ( $is_IE ){
 			wp_print_scripts('jquery');

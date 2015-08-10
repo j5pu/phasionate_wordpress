@@ -56,15 +56,15 @@ msgstr "Newsletter"
 
 #: includes/static.php:8
 msgid "Signup for the newsletter"
-msgstr "S'inscrire pour la newsletter"
+msgstr "S'inscrire à newsletter"
 
 #: classes/settings.class.php:145
 msgid "You have received this email because you have subscribed to %s as {email}. If you no longer wish to receive emails please {unsub}"
-msgstr "Vous avez reçu cet email parce que vous vous êtes inscrit à %s via {email}]. Si vous ne voulez plus recevoir d'email merci de vous {unsub}"
+msgstr "Vous avez reçu ce courriel parce que vous vous êtes abonné à %s via {email}]. Si vous ne voulez plus recevoir de courriel merci de vous {unsub}"
 
 #: classes/settings.class.php:146
 msgid "If you received this email by mistake, simply delete it. You won't be subscribed if you don't click the confirmation link"
-msgstr "Si vous recevez cet email par erreur, effacer le tout simplement. Vous ne serez pas inscrit si vous ne cliquez pas sur le lien de confirmation"
+msgstr "Si vous recevez ce courriel par erreur, effacer le tout simplement. Vous ne serez pas abonné si vous ne cliquez pas sur le lien de confirmation"
 
 #: classes/settings.class.php:152
 msgid "Replace Content"
@@ -73,7 +73,7 @@ msgstr "Remplacer par"
 #: classes/settings.class.php:232
 #: views/settings.php:27
 msgid "Newsletter Settings"
-msgstr "Paramêtres de la newsletter"
+msgstr "Paramètres de la newsletter"
 
 #: classes/campaigns.class.php:130
 msgid "Campaigns"
@@ -86,8 +86,8 @@ msgstr "Campagnes"
 #: views/subscribers/detail.php:327
 msgid "Campaign"
 msgid_plural "Campaigns"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Campagne"
+msgstr[1] "Campagnes"
 
 #: classes/campaigns.class.php:132
 #: classes/campaigns.class.php:135
@@ -114,7 +114,7 @@ msgstr "Voir la newsletter"
 
 #: classes/campaigns.class.php:138
 msgid "Search Campaigns"
-msgstr "Chercher campagne"
+msgstr "Rechercher"
 
 #: classes/campaigns.class.php:139
 msgid "No Campaign found"
@@ -151,7 +151,7 @@ msgstr "taux d'ouverture"
 #: views/lists/detail.php:127
 #: views/subscribers/detail.php:280
 msgid "click rate"
-msgstr "taux de clic"
+msgstr "taux de clics"
 
 #: classes/campaigns.class.php:893
 #: views/newsletter/submit.php:48
@@ -200,7 +200,7 @@ msgstr "Sauver"
 
 #: classes/subscriber.class.php:291
 msgid "Enter Email here"
-msgstr "Entre un email ici"
+msgstr "Entrez une adresse de messagerie ici"
 
 #: classes/lists.table.class.php:108
 #: classes/subscribers.class.php:49
@@ -213,14 +213,14 @@ msgstr "Entre un email ici"
 #: views/settings.php:530
 #: views/subscribers/overview.php:3
 msgid "Subscribers"
-msgstr "Inscrits"
+msgstr "Abonnés"
 
 #: classes/dashboard.class.php:63
 #: classes/subscribers.table.class.php:12
 msgid "Subscriber"
 msgid_plural "Subscribers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Abonné"
+msgstr[1] "Abonnés"
 
 #: classes/subscriber.class.php:1088
 msgid "Add New"
@@ -228,27 +228,27 @@ msgstr "Ajouter nouveau"
 
 #: classes/subscriber.class.php:1089
 msgid "Add New Subscriber"
-msgstr "Ajouter nouvel inscrit"
+msgstr "Ajouter nouvel abonné"
 
 #: classes/subscriber.class.php:1090
 msgid "Edit Subscriber"
-msgstr "Editer inscrit"
+msgstr "Editer l'abonné"
 
 #: classes/subscriber.class.php:1091
 msgid "New Subscriber"
-msgstr "Nouvel inscrit"
+msgstr "Nouvel abonné"
 
 #: classes/subscriber.class.php:1093
 msgid "View Subscribers"
-msgstr "Voir les inscrits"
+msgstr "Voir les abonnés"
 
 #: classes/subscriber.class.php:1095
 msgid "No Subscriber found"
-msgstr "Aucun inscrit trouvé"
+msgstr "Aucun abonné trouvé"
 
 #: classes/subscriber.class.php:1096
 msgid "No Subscriber found in Trash"
-msgstr "Aucun inscrit trouvé dans la corbeille"
+msgstr "Aucun abonné trouvé dans la corbeille"
 
 #: classes/subscriber.class.php:1119
 msgctxt "taxonomy general name"
@@ -320,12 +320,12 @@ msgstr "Listes"
 #: classes/subscribers.class.php:79
 #: classes/subscribers.table.class.php:157
 msgid "Subscribed"
-msgstr "Inscrits"
+msgstr "abonné"
 
 #: classes/manage.class.php:342 classes/subscriber.class.php:1169
 #: classes/subscriber.class.php:1173
 msgid "Unsubscribed"
-msgstr "Désinscription"
+msgstr "Désabonné"
 
 #: classes/subscriber.class.php:1177 classes/subscriber.class.php:1181
 msgid "Hardbounced"
@@ -334,7 +334,7 @@ msgstr "Rejet"
 #: classes/subscriber.class.php:1295 classes/subscriber.class.php:1298
 #: classes/subscriber.class.php:1300
 msgid "Subscriber updated."
-msgstr "Inscrit mis à jour"
+msgstr "Abonné mis à jour"
 
 #: classes/subscriber.class.php:1296
 msgid "Custom field updated."
@@ -342,7 +342,7 @@ msgstr "Champ personnalisé mis à jour"
 
 #: classes/subscriber.class.php:1299
 msgid "Subscriber restored to revision from %s"
-msgstr "Abonné restoré à la version %s"
+msgstr "Abonné restauré à la version %s"
 
 #: classes/subscriber.class.php:1302
 msgid "Subscriber submitted."
@@ -483,7 +483,7 @@ msgstr "De (nom)"
 
 #: views/settings.php:90
 msgid "The sender name which is displayed in the from field"
-msgstr "Le nom de l'expediteur qui sera affiché dans le champ"
+msgstr "Le nom de l'expéditeur qui sera affiché dans le champ"
 
 #: views/settings.php:93
 msgid "From Address"
@@ -491,7 +491,7 @@ msgstr "De (adresse)"
 
 #: views/settings.php:94
 msgid "The sender email address. Force your recievers to whitelabel this email address."
-msgstr "L'adresse email de l'expediteur. Forcer vos destinataire a autoriser cette adresse email."
+msgstr "L'adresse de messagerie de l'expéditeur. Forcer vos destinataire a autoriser cette adresse."
 
 #: views/settings.php:97
 msgid "Reply To Address"
@@ -499,7 +499,7 @@ msgstr "Adresse de réponse"
 
 #: views/settings.php:98
 msgid "The address users can reply to"
-msgstr "L'adresse email ou l'utilisateur pourra répondre"
+msgstr "L'adresse de messagerie à laquelle l'utilisateur pourra répondre"
 
 #: views/settings.php:101
 msgid "Default Template"
@@ -512,11 +512,11 @@ msgstr "plus"
 #: views/newsletter/options.php:8
 #: views/settings.php:124
 msgid "Embed Images"
-msgstr "Inclure images"
+msgstr "Inclure les images"
 
 #: views/settings.php:125
 msgid "Embed images in the mail"
-msgstr "Incorporer les images dans l'email"
+msgstr "Incorporer les images dans le courriel"
 
 #: views/settings.php:268
 msgid "can be changed in each campaign"
@@ -537,15 +537,15 @@ msgstr "Double-Opt-In"
 
 #: views/settings.php:736
 msgid "new subscribers must confirm their subscription"
-msgstr "les nouveaux inscrits doivent confirmer leur inscription"
+msgstr "les nouveaux abonnés doivent confirmer leur inscription"
 
 #: views/settings.php:872
 msgid "Subscription Form"
-msgstr "Formulaire d'inscription"
+msgstr "Formulaire d'abonnement"
 
 #: views/settings.php:762
 msgid "The text new subscribers get when Double-Opt-In is selected. Use %s for the link placeholder. Basic HTML is allowed"
-msgstr "Le texte que les nouveaux inscrits recoivent quand l'option Double-Opt-In est activé. Utilisez %s pour mettre un lien. L'HTML de base est autorisé."
+msgstr "Le texte que les nouveaux abonnés recoivent quand l'option Double-Opt-In est activé. Utilisez %s pour mettre un lien. L'HTML de base est autorisé."
 
 #: views/settings.php:938
 msgid "Custom Tags"
@@ -578,11 +578,11 @@ msgstr "recommandé "
 
 #: views/settings.php:1200
 msgid "Interval for sending emails"
-msgstr "Interval pour envoyer les emails"
+msgstr "Interval pour envoyer les courriels"
 
 #: views/settings.php:1201
 msgid "Send emails at most every %1$s minutes"
-msgstr "Envoyer des emails toutes les %1$s minutes"
+msgstr "Envoyer les courriels toutes les %1$s minutes"
 
 #: views/settings.php:1218
 msgid "Cron Settings"
@@ -599,7 +599,7 @@ msgstr "jamais"
 
 #: views/settings.php:1310
 msgid "Bounce Address"
-msgstr "Adresse email de rejet"
+msgstr "Adresse de rebond"
 
 #: views/settings.php:1327
 msgid "Server Address : Port"
@@ -617,7 +617,7 @@ msgstr "Tentatives"
 
 #: views/settings.php:1364
 msgid "%s attempts to deliver message until hardbounce"
-msgstr "%s tentatives de livraison avant de passer le mail en rejet"
+msgstr "%s tentatives de livraison avant le rejet"
 
 #: views/settings.php:1140
 msgid "Secure connection"
@@ -676,7 +676,7 @@ msgstr[1] "%d campagnes a été supprimé"
 #: classes/form.class.php:643
 #: views/settings.php:877
 msgid "Unsubscribe"
-msgstr "Désinscrire"
+msgstr "Désabonner"
 
 #: views/templates.php:29
 msgid "Template uploaded"
@@ -692,7 +692,7 @@ msgstr "Uplaoder une template au format .zip"
 
 #: views/templates.php:181
 msgid "Please upload the whole zip file here."
-msgstr "S'il vous plaît télécharger le fichier zip complet ici."
+msgstr "Veuillez télécharger le fichier zip complet ici."
 
 #: classes/campaigns.class.php:896
 msgid "Statistics"
@@ -778,15 +778,15 @@ msgstr "Sujet"
 #: views/newsletter/details.php:24
 #: views/newsletter/details.php:72
 msgid "Preheader"
-msgstr "Entête"
+msgstr "En-tête de courriel"
 
 #: views/newsletter/details.php:32
 msgid "From Email"
-msgstr "De l'email"
+msgstr "Adresse d'envoi"
 
 #: views/newsletter/details.php:36
 msgid "reply-to email"
-msgstr "Adresse email de réponse"
+msgstr "Adresse de reponse"
 
 #: views/subscriber/stats.php:18
 msgid "unique clicks"
@@ -828,7 +828,7 @@ msgstr "envoyé"
 
 #: classes/mymail.class.php:1481 views/subscriber/stats.php:18
 msgid "first click"
-msgstr "premier click"
+msgstr "premier clic"
 
 #: classes/campaigns.class.php:1025
 msgid "Move module up"
@@ -877,7 +877,7 @@ msgstr "Recharger"
 
 #: views/newsletter/template.php:218
 msgid "Select a post"
-msgstr "Selectionner un post"
+msgstr "Selectionner un article"
 
 #: classes/manage.class.php:1270
 #: classes/templates.class.php:925
@@ -1017,7 +1017,7 @@ msgstr "version web"
 
 #: classes/settings.class.php:132
 msgid "Please confirm your Email Address"
-msgstr "Merci de confirmer votre adresse email"
+msgstr "Merci de confirmer votre adresse de messagerie"
 
 #: classes/subscribers.class.php:1481
 msgid "Wordpress Users"
@@ -1083,7 +1083,7 @@ msgstr "Cette campagne est en cours d'envoi"
 
 #: classes/ajax.class.php:1429
 msgid "%s is forwarding an email to you!"
-msgstr "%s vous envoi un email !"
+msgstr "%s vous fait suivre un courriel !"
 
 #: classes/campaigns.class.php:187
 #: classes/campaigns.class.php:189
@@ -1097,7 +1097,7 @@ msgstr "Dernière newsletter"
 
 #: views/single-newsletter.php:59
 msgid "email"
-msgstr "E-Mail"
+msgstr "courriel"
 
 #: views/dashboard.php:50
 msgid "new"
@@ -1155,8 +1155,8 @@ msgstr[1] "clicks"
 #: includes/updates.php:29
 msgid "unsubscribe"
 msgid_plural "unsubscribes"
-msgstr[0] "désinscription"
-msgstr[1] "désinscriptions"
+msgstr[0] "désabonnement"
+msgstr[1] "désabonnements"
 
 #: views/newsletter/details.php:93
 msgid "bounce"
@@ -1212,7 +1212,7 @@ msgstr "ouvert"
 #: views/dashboard.php:44
 msgctxt "count of"
 msgid "unsubscribes"
-msgstr "désinscriptions"
+msgstr "désabonnements"
 
 #: classes/campaigns.class.php:3129
 msgid "Older: %s"
@@ -1238,7 +1238,7 @@ msgstr "Masquer cet onglet"
 
 #: views/lists/detail.php:130
 msgid "unsubscribe rate"
-msgstr "Taux de désinscription"
+msgstr "Taux de désabonnement"
 
 #: views/lists/detail.php:133
 msgid "bounce rate"
@@ -1336,7 +1336,7 @@ msgstr[1] "Clics"
 #: views/dashboard.php:92
 #: views/dashboard.php:107
 msgid "Unsubscribes"
-msgstr "Désinscriptions"
+msgstr "Désabonnements"
 
 #: classes/campaigns.class.php:506
 #: classes/campaigns.class.php:2489
@@ -1374,7 +1374,7 @@ msgstr "valeur par défaut"
 
 #: classes/settings.class.php:611
 msgid "%s is not a valid email address"
-msgstr "%s n'est pas une adresse email valide"
+msgstr "%s n'est pas une adresse de messagerie valide"
 
 #: classes/settings.class.php:962
 msgid "The provided purchasecode %s is invalid"
@@ -1469,7 +1469,7 @@ msgstr "myMail Test E-Mail"
 
 #: classes/mail.class.php:427
 msgid "Your settings are good"
-msgstr "Vos paramètres sont bon."
+msgstr "Vos paramètres sont bons."
 
 #: classes/form.class.php:28
 #: classes/settings.class.php:116
@@ -1547,7 +1547,7 @@ msgstr "Ajouter des tags personnalisés ici.  Ils fonctionneront comme des tags 
 
 #: views/settings.php:1311
 msgid "Undeliverable emails will return to this address"
-msgstr "Les emails seront retournés à cette adresse"
+msgstr "Les courriels non délivrés seront retournés à cette adresse"
 
 #: views/settings.php:1080
 #: views/settings.php:1376
@@ -1593,7 +1593,7 @@ msgstr "%s est un tag reservé !"
 #: views/newsletter/receivers.php:128
 #: views/newsletter/receivers.php:232
 msgid "Total receivers"
-msgstr "Total destinataires"
+msgstr "Nombre de destinataires"
 
 #: classes/manage.class.php:63
 msgid "Import complete!"
@@ -1614,7 +1614,7 @@ msgstr "Merci de confirmer"
 
 #: classes/settings.class.php:133
 msgid "You'll need to confirm your email address. Please click the link below to confirm. %s"
-msgstr "Vous devez confirmer votre adresse email. Merci de cliquer sur le lien ci-dessous pour la confirmer. %s"
+msgstr "Vous devez confirmer votre adresse de messagerie. Merci de cliquer sur le lien ci-dessous pour la confirmer. %s"
 
 #: classes/settings.class.php:134
 msgid "Click here to confirm"
@@ -1634,7 +1634,7 @@ msgstr "Inscription"
 
 #: views/settings.php:754
 msgid "Headline"
-msgstr "Entête"
+msgstr "En-tête"
 
 #: views/settings.php:758
 msgid "Linktext"
@@ -1718,7 +1718,7 @@ msgstr "Supprimer les messages qui ne contiennent pas de code de suivi (recomman
 
 #: classes/ajax.class.php:1436
 msgid "%1$s is forwarding this mail to you via %2$s"
-msgstr "%1$s vous a envoyé cet email via %2$s"
+msgstr "%1$s vous a fait suivre ce courriel via %2$s"
 
 #: classes/campaigns.class.php:1039
 msgid "An empty link will remove this button! Continue?"
@@ -1748,7 +1748,7 @@ msgstr "editer campagnes"
 
 #: includes/capability.php:10
 msgid "send campaigns"
-msgstr "envoyer campagne"
+msgstr "envoyer la campagne"
 
 #: includes/capability.php:15
 msgid "delete campaigns"
@@ -1857,7 +1857,7 @@ msgstr "Définissez les permissions pour chaque type d'utilisateur. Pour ajouter
 
 #: classes/campaigns.class.php:800
 msgid "%d emails have not been sent"
-msgstr "%d E-Mails non pas été envoyés"
+msgstr "%d de courriels non pas été envoyés"
 
 #: classes/settings.class.php:251
 #: views/settings.php:431
@@ -1962,11 +1962,11 @@ msgstr "Bouton envoyer"
 
 #: views/settings.php:900
 msgid "Mail"
-msgstr "E-Mail"
+msgstr "Courriel"
 
 #: views/settings.php:900
 msgid "Define texts for the mails"
-msgstr "Définissez les textes pour les emails"
+msgstr "Définissez les textes pour les courriels"
 
 #: views/settings.php:902
 msgid "Unsubscribe Link"
@@ -2007,12 +2007,12 @@ msgstr "Couleurs"
 #: classes/campaigns.class.php:235
 msgid "Autoresponder"
 msgid_plural "Autoresponders"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Réponse automatique"
+msgstr[1] "Réponses automatiques"
 
 #: classes/campaigns.class.php:202
 msgid "Autoresponders"
-msgstr "Autoresponder"
+msgstr "Réponses automatiques"
 
 #: classes/autoresponder.class.php:509
 msgid "Sent"
@@ -2038,7 +2038,7 @@ msgstr "après"
 #: views/newsletter/receivers.php:36
 #: views/newsletter/receivers.php:180
 msgid "only if"
-msgstr "seulement si"
+msgstr "Seulement si"
 
 #: classes/campaigns.class.php:740
 #: views/newsletter/receivers.php:196
@@ -2118,15 +2118,15 @@ msgstr "est plus grand que"
 
 #: includes/capability.php:40
 msgid "edit autoresponders"
-msgstr "editer les répondeurs"
+msgstr "editer les réponses automatiques"
 
 #: includes/capability.php:45
 msgid "edit others autoresponders"
-msgstr "editer les autres répondeurs"
+msgstr "editer les autres réponses automatiques"
 
 #: views/newsletter/delivery.php:26
 msgid "Regular Campaign"
-msgstr "Campagne normale"
+msgstr "Campagne"
 
 #: views/newsletter/delivery.php:46
 msgid "send this campaign"
@@ -2182,15 +2182,15 @@ msgstr "Les images d'arrière plan ne sont pas affichées sur tous les clients m
 
 #: views/settings.php:151
 msgid "Use MyMail for system mails"
-msgstr "Utiliser MyMail pour le système d'emails"
+msgstr "Utiliser MyMail pour le système de courriels"
 
 #: classes/mymail.class.php:182
 msgid "dismiss message"
-msgstr "désactiver le message"
+msgstr "cacher le message"
 
 #: classes/autoresponder.class.php:617
 msgid "You are about to delete all upcoming jobs for this auto responder."
-msgstr "Vous êtes sur le point de supprimer toutes tâches à venir pour ce répondeur automatique."
+msgstr "Vous êtes sur le point de supprimer toutes tâches à venir pour cette réponse automatique."
 
 #: views/templates.php:123
 msgid "You are about to delete this template \"%s\""
@@ -2303,24 +2303,24 @@ msgstr "charger plus d'entrées (reste %d)"
 #: classes/campaigns.class.php:2779
 #: classes/mail.class.php:154
 msgid "Sent limit of %1$s reached! You have to wait %2$s before you can send more mails!"
-msgstr "Envoi limite de  %1$s atteind ! Vous devez attendre %2$s avant d'envoyer de nouveaux emails !"
+msgstr "Envoi limite de  %1$s atteint ! Vous devez attendre %2$s avant d'envoyer de nouveaux courriels !"
 
 #: views/settings.php:878
 msgid "Unsubscribe Error"
-msgstr "Erreur de désinscription"
+msgstr "Erreur de désabonnement"
 
 #: classes/cron.class.php:73
 #: views/settings.php:1038
 msgid "Number of mails sent"
-msgstr "Nombre d'email à envoyer"
+msgstr "Nombre de courriels à envoyer"
 
 #: views/settings.php:1039
 msgid "Send max %1$s emails at once and max %2$s within %3$s hours"
-msgstr "Envoyer maximum %1$s e-mails en une fois et maximum %2$s emails en %3$s heures"
+msgstr "Envoyer un maximum de %1$s courriels en une fois et un maximum de %2$s courriels en %3$s heures"
 
 #: views/settings.php:1051
 msgid "You can still send %1$s mails within the next %2$s"
-msgstr "Vous pouvez envoyer %1$s emails dans les prochaines %2$s"
+msgstr "Vous pouvez toujours envoyer %1$s courriels dans les prochaines %2$s"
 
 #: views/settings.php:1108
 msgid "You can leave a browser window open with following URL"
@@ -2340,7 +2340,7 @@ msgstr "Ecrase si existe"
 
 #: classes/manage.class.php:344
 msgid "Do auto responder for all imported emails"
-msgstr "Utilisez le répondeur pour toutes les importations d'emails"
+msgstr "Utilisez la reponse automatique pour toutes les importations de courriels"
 
 #: includes/capability.php:159
 msgid "manage capabilities"
@@ -2398,11 +2398,11 @@ msgstr "Lieux inconnus"
 
 #: views/settings.php:128
 msgid "Post List Count"
-msgstr "Compte la liste de post"
+msgstr "Nombre d'articles"
 
 #: views/settings.php:129
 msgid "Number of posts or images displayed at once in the editbar."
-msgstr "Nombre de posts ou d'images affiché sur une barre d'outil"
+msgstr "Nombre de d'articles ou d'images affichés sur une barre d'outils"
 
 #: views/settings.php:235
 msgid "Track Cities in Campaigns"
@@ -2505,7 +2505,7 @@ msgstr "Dans certains pays il est obligatoire de sauver l'adresse IP et l'heure 
 
 #: views/settings.php:1075
 msgid "Send test email with current settings"
-msgstr "Envoyer un email test avec les paramètres actuels"
+msgstr "Envoyer un courriel de test avec les paramètres actuels"
 
 #: views/settings.php:1097
 msgid "Delivery Method"
@@ -2522,15 +2522,15 @@ msgstr "secondes"
 
 #: views/settings.php:1166
 msgid "Gmail has a limit of 500 mails within 24 hours! Also sending a mail can take up to one second which is quite long. This options is only recommended for few subscribers. DKIM works only if set the from address to your Gmail address."
-msgstr "Gmail a une limite de 500 emails en 24 heures ! Chaque envoi d'email peux prendre plus d'une seconde ce qui est assez long. Cette option n'est recommandée que pour quelques abonnés. DKIM ne fonctionne que si elle est définie depuis votre adresse Gmail."
+msgstr "Gmail a une limite de 500 courriels en 24 heures ! Chaque envoi peux prendre plus d'une seconde ce qui est assez long. Cette option n'est recommandée que pour quelques abonnés. DKIM ne fonctionne que si elle est définie depuis votre adresse Gmail."
 
 #: views/settings.php:1315
 msgid "enable automatic bounce handling"
-msgstr "active l'automatisation des mails de retour"
+msgstr "active l'automatisation des rebonds"
 
 #: views/settings.php:1324
 msgid "If you would like to enable bouncing you have to setup a separate POP3 mail account"
-msgstr "Si vous voulez automatiser le traitement des email de retour vous devez avoir un compte POP3 séparé"
+msgstr "Si vous voulez automatiser le traitement des courriel de retour vous devez avoir un compte POP3 séparé"
 
 #: views/settings.php:1332
 msgid "Use SSL. Default port is 995"
@@ -2570,7 +2570,7 @@ msgstr "Enregistrement non ou mal renseigné pour %s. Merci d'ajuster les param�
 
 #: views/settings.php:1460
 msgid "SPF doesn’t require any configuration on this settings page. This should give you some help to set it up correctly. If this SPF configuration doesn't work or your mails returned as spam you should ask your provider for help or change your delivery method or try %s"
-msgstr "SPF ne nécessite aucune configuration sur cette page des paramètres. Cela devrait vous donner un peu d'aide pour le configurer correctement. Si cette configuration SPF ne fonctionne pas ou vos e-mails sont vu comme spam, vous devriez demander à votre fournisseur de l'aide ou  changer votre mode d'envoi ou essayer  %s"
+msgstr "SPF ne nécessite aucune configuration sur la page des paramètres. Cela devrait vous donner un peu d'aide pour le configurer correctement. Si cette configuration SPF ne fonctionne pas ou vos courriels sont vus comme spam, vous devriez demander à votre fournisseur de l'aide ou  changer votre mode d'envoi ou essayer  %s"
 
 #: views/settings.php:1460
 msgid "this wizard"
@@ -2664,7 +2664,7 @@ msgstr "Confirmé"
 
 #: views/subscriber/meta.php:34
 msgid "no meta data found for this subscriber"
-msgstr "aucune données meta trouvée pour cet abonné"
+msgstr "aucune métadonnée trouvée pour cet abonné"
 
 #: classes/ajax.class.php:573
 msgid "Couldn't send message. Check your settings!"
@@ -2672,7 +2672,7 @@ msgstr "Ne peux pas envoyer le message. Vérifier les paramètres !"
 
 #: views/settings.php:1064
 msgid "Time between mails"
-msgstr "Temps entre les emails"
+msgstr "Temps entre les courriels"
 
 #: views/settings.php:1065
 msgid "milliseconds"
@@ -2680,15 +2680,15 @@ msgstr "millisecondes"
 
 #: views/settings.php:1065
 msgid "define a delay between mails in milliseconds if you have problems with sending two many mails at once"
-msgstr "définissez un délais d'envoi entre chaque mail en millisecondes si vous avez des problèmes d'envoi"
+msgstr "définissez un délais d'envoi entre chaque courriel en millisecondes si vous avez des problèmes d'envoi"
 
 #: classes/settings.class.php:820
 msgid "Send limit has been adjusted to %d for Gmail"
-msgstr "Envoi limite a été ajusté à %d pour Gmail"
+msgstr "La limite d'envoi a été ajustée à %d pour Gmail"
 
 #: views/settings.php:1547
 msgid "The selector is used to identify the keys used to attach a token to the email"
-msgstr "Le sélecteur est utilisé pour identifier les clefs utilisées pour attacher un jeton à l'e-mail"
+msgstr "Le sélecteur est utilisé pour identifier les clefs utilisées pour attacher un jeton au courriel"
 
 #: views/settings.php:1088
 msgid "Simple"
@@ -2726,27 +2726,27 @@ msgstr "Gestionnaire de média"
 
 #: classes/campaigns.class.php:2770
 msgid "wrong post type"
-msgstr "Mauvais type de post"
+msgstr "Mauvais type d'article"
 
 #: classes/campaigns.class.php:2772
 msgid "User has not subscribed"
-msgstr "Utilisateur non inscrit"
+msgstr "Utilisateur non abonné"
 
 #: classes/mymail.class.php:851
 msgid "Invalid email"
-msgstr "Email invalide"
+msgstr "Courriel invalide"
 
 #: classes/ajax.class.php:573
 msgid "Message sent. Check your inbox!"
-msgstr "Email envoyé. Vérifier votre boite de réception !"
+msgstr "Courriel envoyé. Vérifiez votre boîte de réception !"
 
 #: classes/manage.class.php:38
 msgid "Manage Subscribers"
-msgstr "Gérer les inscrits"
+msgstr "Gérer les abonnés"
 
 #: classes/manage.class.php:49
 msgid "Please select at least the column with the email addresses!"
-msgstr "S'il vous plaît sélectionner au moins la colonne avec les adresses e-mail!"
+msgstr "Veuillez au moins sélectionner la colonne avec les adresses de messagerie !"
 
 #: classes/manage.class.php:50
 msgid "preparing data"
@@ -2830,7 +2830,7 @@ msgstr "Importation %d contacts"
 #: classes/manage.class.php:600
 #: classes/subscribers.class.php:585
 msgid "invalid email address"
-msgstr "adresse email invalide"
+msgstr "adresse de messagerie invalide"
 
 #: classes/manage.class.php:479 classes/subscriber.class.php:506
 msgid "user already exists (ID: %d)"
@@ -2850,7 +2850,7 @@ msgstr "Raison"
 
 #: classes/manage.class.php:738
 msgid "no subscribers found"
-msgstr "aucun inscrit trouvé"
+msgstr "aucun abonné trouvé"
 
 #: classes/manage.class.php:821
 #: views/manage.php:256
@@ -2876,7 +2876,7 @@ msgstr "IP confirmation"
 
 #: classes/manage.class.php:947
 msgid "%d subscribers removed"
-msgstr "%d inscrits supprimés"
+msgstr "%d abonnés supprimés"
 
 #: classes/manage.class.php:1188
 #: classes/templates.class.php:841
@@ -2904,7 +2904,7 @@ msgstr "Selectionnez le fichier"
 
 #: classes/manage.class.php:1275
 msgid "Split your lists into max 50.000 subscribers each"
-msgstr "Limitez vos listes à un max de 50 000 inscrits "
+msgstr "Limitez vos listes à un maximum de 50 000 abonnés "
 
 #: classes/manage.class.php:1278
 #: classes/templates.class.php:932
@@ -2913,7 +2913,7 @@ msgstr "Votre navigateur a quelques limitations upload de gros fichiers avec l'o
 
 #: classes/subscriber.class.php:571 classes/subscriber.class.php:633
 msgid "not able to insert subscriber"
-msgstr "impossible d'insérer l'inscrit"
+msgstr "impossible d'insérer l'abonné"
 
 #: classes/widget.class.php:36
 msgid "Text before the form"
@@ -2925,7 +2925,7 @@ msgstr "Texte après le formulaire"
 
 #: includes/capability.php:87
 msgid "manage subscribers"
-msgstr "gérer les inscrits"
+msgstr "gérer les abonnés"
 
 #: includes/static.php:8
 msgid "Do you really want to unsubscribe?"
@@ -2947,7 +2947,7 @@ msgstr "Supprimer"
 
 #: views/manage.php:36
 msgid "upload you subscribers as comma-separated list (CSV)"
-msgstr "envoyez vos inscrits séparé par des virgules (CSV)"
+msgstr "envoyez vos abonné séparé par des virgules (CSV)"
 
 #: views/manage.php:48
 msgid "Paste"
@@ -2965,7 +2965,7 @@ msgstr "qui sont dans une de ces listes"
 #: views/manage.php:157
 #: views/manage.php:321
 msgid "subscribers not assigned to a list"
-msgstr "inscrits non affectés à une liste"
+msgstr "abonnés non affectés à une liste"
 
 #: classes/subscribers.class.php:1798
 msgid "error"
@@ -2977,7 +2977,7 @@ msgstr "corbeille"
 
 #: views/manage.php:169
 msgid "include header"
-msgstr "Inclure l'entête"
+msgstr "Inclure l'en-tête"
 
 #: views/manage.php:172
 msgid "Date Format"
@@ -3017,12 +3017,12 @@ msgstr "Listes"
 
 #: views/manage.php:275
 msgid "Download Subscribers"
-msgstr "Télécharger les inscrits"
+msgstr "Télécharger les abonnés"
 
 #: views/manage.php:286
 #: views/manage.php:344
 msgid "no subscriber found"
-msgstr "aucun inscrit trouvé"
+msgstr "aucun abonné trouvé"
 
 #: views/manage.php:333
 msgid "remove selected lists"
@@ -3054,7 +3054,7 @@ msgstr "Dernières IP connues"
 
 #: classes/mymail.class.php:862
 msgid "frontend settings page"
-msgstr "Paramètres du front-end"
+msgstr "Paramètres de la partie publique"
 
 #: views/manage.php:18
 msgid "Pending"
@@ -3062,7 +3062,7 @@ msgstr "En attente"
 
 #: views/manage.php:276
 msgid "Pending Subscribers"
-msgstr "Inscrits en attente"
+msgstr "abonnés en attente"
 
 #: views/manage.php:369
 msgid "following subscribers didn't confirm there subscription yet"
@@ -3135,7 +3135,7 @@ msgstr "Cliquez et déplacer pour réorganiser les champs. Décocher pour désac
 #: views/settings.php:270
 msgctxt "Translators: put your personal info here to display it on the settings page. Leave blank for no info"
 msgid "translator string"
-msgstr "Elyazalée - Loïc PIQUARD"
+msgstr "SONofDSI"
 
 #: views/settings.php:270
 msgid "This plugin has been translated by %s"
@@ -3368,11 +3368,11 @@ msgstr "Encodage"
 
 #: views/newsletter/delivery.php:27
 msgid "Auto Responder"
-msgstr "Auto répondeur"
+msgstr "Réponse automatique"
 
 #: views/newsletter/delivery.php:100
 msgid "send this auto responder"
-msgstr "envoyer cet auto repondeur"
+msgstr "envoyer cette réponse automatique"
 
 #: classes/campaigns.class.php:667
 #: views/newsletter/delivery.php:259
@@ -3395,7 +3395,7 @@ msgstr "remettre à zéro le compteur"
 
 #: views/newsletter/details.php:98
 msgid "Total Recipients"
-msgstr "Total destinataires"
+msgstr "Nombre de destinataires"
 
 #: views/newsletter/details.php:106
 msgid "Total Errors"
@@ -3516,35 +3516,35 @@ msgstr "Tags dynamiques"
 
 #: views/settings.php:976
 msgid "Dynamic tags let you display your posts or pages in a reverse chronicle order. Some examples:"
-msgstr "Les tags dynamiques vous permettent d'afficher vos posts ou pages dans un ordre anté chronologique. Quelques exemples:"
+msgstr "Les tags dynamiques vous permettent d'afficher vos articles ou pages dans un ordre anté chronologique. Quelques exemples:"
 
 #: views/settings.php:977
 msgid "displays the latest post title"
-msgstr "affiche le titre du dernier post"
+msgstr "affiche le titre du dernier article"
 
 #: views/settings.php:978
 msgid "displays the fourth latest page title"
-msgstr "affiche les titres des 4 derniers posts"
+msgstr "affiche les titres des 4 derniers articles"
 
 #: views/settings.php:979
 msgid "displays the feature image of the latest posts"
-msgstr "affiche les images mise en avant des derniers posts"
+msgstr "affiche les images mises en avant des derniers articles"
 
 #: views/settings.php:980
 msgid "displays the feature image of the fourth latest posts. Uses the image with ID 23 if the post doesn't have a feature image"
-msgstr "affiche les images mises en avant des quatres derniers posts. Utilise l'image avec ID 23 si le post n'a pas d'image mise en avant"
+msgstr "affiche les images mises en avant des quatres derniers articles. Utilise l'image avec ID 23 si le post n'a pas d'image mise en avant"
 
 #: views/settings.php:981
 msgid "displays the latest posts content"
-msgstr "affiche le contenu des derniers posts"
+msgstr "affiche le contenu des derniers articles"
 
 #: views/settings.php:982
 msgid "displays the latest posts excerpt or content if no excerpt is defined"
-msgstr "affiche les extraits des derniers posts ou le contenu si les extraits ne sont pas définis"
+msgstr "affiche les extraits des derniers articles ou le contenu si les extraits ne sont pas définis"
 
 #: views/settings.php:983
 msgid "displays the latest posts date"
-msgstr "affiche les dates des derniers posts"
+msgstr "affiche les dates des derniers articles"
 
 #: views/settings.php:984
 msgid "you can also use absolute values"
@@ -3552,15 +3552,15 @@ msgstr "vous pouvez aussi utiliser des valeurs absolues"
 
 #: views/settings.php:985
 msgid "displays the post title of post ID 23"
-msgstr "affiche le titre du post ID 23"
+msgstr "affiche le titre de l'article d'ID 23"
 
 #: views/settings.php:986
 msgid "displays the permalink of post ID 15"
-msgstr "affiche le lien permanent du post ID 15"
+msgstr "affiche le lien permanent de l'article d'ID 15"
 
 #: views/settings.php:987
 msgid "Instead of \"post_\" and \"page_\" you can use custom post types too"
-msgstr "A la place de \"post\" et de \"page\" vous pouvez utiliser un post personnalisé aussi"
+msgstr "A la place de \"post_\" et de \"page_\" vous pouvez utiliser un post_type personnalisé aussi"
 
 #: views/settings.php:991
 msgid "Image Fallback"
@@ -3632,7 +3632,7 @@ msgstr "seulement si dans %s"
 
 #: views/newsletter/template.php:370
 msgid "Your email may look different on mobile devices"
-msgstr "Votre email peux avoir un affichage différents sur les appareils mobiles"
+msgstr "Votre courriel peux avoir un affichage différent sur les appareils mobiles"
 
 #: views/settings.php:1241
 msgid "from %s"
@@ -3747,11 +3747,11 @@ msgstr "Inscrivez-vous à notre newsletter"
 
 #: classes/subscriber.class.php:1203
 msgid "Emails"
-msgstr "Emails"
+msgstr "Courriels"
 
 #: views/settings.php:793
 msgid "attach vCard to all confirmation mails"
-msgstr "attacher une vCard à tous les emails"
+msgstr "attacher une vCard à tous les courriels"
 
 #: classes/manage.class.php:171
 msgid "display name"
@@ -3896,7 +3896,7 @@ msgstr "utilisé"
 
 #: views/settings.php:152
 msgid "Use the notification template for all outgoing WordPress mails"
-msgstr "Utilisez la notification template pour tous les emails sortant de WordPress"
+msgstr "Utilisez la notification des templates pour tous les courriels sortant de WordPress"
 
 #: classes/manage.class.php:342
 msgid "don't overwrite status if user exists"
@@ -3964,7 +3964,7 @@ msgstr "La campagne est basée sur un %s"
 
 #: views/newsletter/delivery.php:438
 msgid "auto responder campaign"
-msgstr "Campagne auto-répondeur"
+msgstr "Campagne de réponse automatique"
 
 #: views/newsletter/details.php:98
 msgid "Total Sent"
@@ -3985,7 +3985,7 @@ msgstr "Vous pouvez aussi coller le CSS dans le fichier style.css de votre thèm
 
 #: views/settings.php:854
 msgid "embed Form CSS"
-msgstr "Inclure CSS formulaire"
+msgstr "Inclure la CSS du formulaire"
 
 #: views/settings.php:855
 msgid "embed the CSS on the page instead of linking it (faster in most cases)"
@@ -4073,7 +4073,7 @@ msgstr "La nouvelle campagne %s a été créée !"
 
 #: classes/queue.class.php:406
 msgid "Auto responder campaign %s has been finished and is deactivated!"
-msgstr "La campagne auto-répondeur %s est finie et désactivée"
+msgstr "La campagne de réponse automatique %s est finie et désactivée"
 
 #: classes/campaigns.class.php:657
 #: includes/autoresponder.php:9
@@ -4131,8 +4131,8 @@ msgstr[1] "%n inscrits actifs"
 #: views/dashboard.php:96
 msgid "%n Unsubscribed Subscriber"
 msgid_plural "%n Unsubscribed Subscribers"
-msgstr[0] "%n désinscription"
-msgstr[1] "%n désinscriptions"
+msgstr[0] "%n désabonnement"
+msgstr[1] "%n désabonnements"
 
 #: views/dashboard.php:99
 msgid "%n Hardbounced Subscriber"
@@ -4172,7 +4172,7 @@ msgstr "Vous pouvez faire mieux !"
 
 #: classes/campaigns.class.php:1059
 msgid "Many inboxes will refuse this mail!"
-msgstr "De nombreux comptes emails refuse cet email !"
+msgstr "De nombreux comptes de messagerie refuse ce courriel !"
 
 #: classes/campaigns.class.php:1060
 msgid "Not bad at all. Improve it further!"
@@ -4193,7 +4193,7 @@ msgstr "j M Y @ G:i"
 
 #: classes/notification.class.php:129
 msgid "A new user has subscribed to your newsletter!"
-msgstr "A nouveau utilisateur c'est inscrit à votre newsletter !"
+msgstr "A nouveau utilisateur c'est abonné à votre newsletter !"
 
 #: views/newsletter/delivery.php:388
 msgid "check your spam score"
@@ -4201,7 +4201,7 @@ msgstr "vérifier votre score SPAM"
 
 #: views/settings.php:390
 msgid "Send a notification of new subscribers to following receivers (comma separated)"
-msgstr "Envoyer une notification des nouveaux inscrits (séparé par des virgules)"
+msgstr "Envoyer une notification des nouveaux abonnés (séparé par des virgules)"
 
 #: classes/mymail.class.php:129
 msgid "Homepage created"
@@ -4256,26 +4256,26 @@ msgstr "La liste a été créé"
 #: classes/campaigns.class.php:2451
 #: views/newsletter/receivers.php:219
 msgid "who have opened"
-msgstr "Qui l'a ouvert"
+msgstr "qui l'ont ouverte"
 
 #: classes/campaigns.class.php:2452
 #: views/newsletter/receivers.php:220
 msgid "who have opened but not clicked"
-msgstr "Qui l'a ouvert mais n'a pas cliqué"
+msgstr "qui l'ont ouverte mais qui n'ont pas cliqué dessus"
 
 #: classes/campaigns.class.php:2454
 #: views/newsletter/receivers.php:222
 msgid "who have not opened"
-msgstr "Qui ne l'a pas ouvert"
+msgstr "qui ne l'ont pas ouverte"
 
 #: classes/subscriber.class.php:990
 msgctxt "segment of all [recipients] from campaign [campaign]"
 msgid "A segment of all %1$s of %2$s created %3$s"
-msgstr "Un segement de %1$s sur %2$s créé %3$s"
+msgstr "Un segement des abonnés %1$s %2$s créée le %3$s"
 
 #: views/subscribers/overview.php:22
 msgid "Search Subscribers"
-msgstr "Rechercher inscrits"
+msgstr "Rechercher"
 
 #: views/newsletter/receivers.php:212
 msgid "create a new list with all"
@@ -4291,7 +4291,7 @@ msgstr "Impossible de créer la liste"
 
 #: classes/autoresponder.class.php:740
 msgid "List conditions are ignored in subscriber based autoresponders!"
-msgstr "Les conditions de liste sont ignorées dans la base abonnés de répondeurs automatiques!"
+msgstr "Les conditions de liste sont ignorées dans la base abonnés de réponses automatiques !"
 
 #: classes/campaigns.class.php:220
 msgid "Receivers"
@@ -4299,27 +4299,27 @@ msgstr "Destinataire"
 
 #: classes/subscriber.class.php:182
 msgid "%s subscribers have been converted"
-msgstr "%s inscrits convertis"
+msgstr "%s abonnés convertis"
 
 #: classes/subscribers.class.php:561
 msgid "convert all subscribers with error status back to subscribed"
-msgstr "convertir tous les inscrits avec un status erreur en inscrits"
+msgstr "convertir tous les abonnés avec un status erreur à l'inscription"
 
 #: classes/campaigns.class.php:2449
 #: views/newsletter/receivers.php:217
 #, fuzzy
 msgid "who have received"
-msgstr "qui l'a reçu"
+msgstr "qui l'ont reçue"
 
 #: classes/campaigns.class.php:2450
 #: views/newsletter/receivers.php:218
 msgid "who have not received"
-msgstr "qui ne l'a pas reçu"
+msgstr "qui ne l'ont pas reçue"
 
 #: classes/campaigns.class.php:2453
 #: views/newsletter/receivers.php:221
 msgid "who have opened and clicked"
-msgstr "qui l'a ouvert et cliqué"
+msgstr "qui l'ont ouverte et qui ont cliqué dessus"
 
 #: classes/notification.class.php:418
 msgid "%s has joined"
@@ -4327,14 +4327,14 @@ msgstr "%s est inscrit"
 
 #: views/newsletter/receivers.php:15
 msgid "send campaign to these lists"
-msgstr "envoyer campagne à ces listes"
+msgstr "envoyer la campagne à ces listes"
 
 #: views/manage.php:80
 #: views/manage.php:99
 #: views/newsletter/receivers.php:20
 #: views/settings.php:1270
 msgid "toggle all"
-msgstr "tous inversé"
+msgstr "tout sélectionner"
 
 #: views/newsletter/receivers.php:210
 msgid "create new list"
@@ -4543,7 +4543,7 @@ msgstr "Nom du module (cliquer pour éditer)"
 
 #: views/newsletter/template.php:46
 msgid "include modules"
-msgstr "inclure modules"
+msgstr "inclure les modules"
 
 #: views/newsletter/template.php:104
 msgid "convert to link"
@@ -4584,7 +4584,7 @@ msgstr "HTML de"
 
 #: classes/settings.class.php:628
 msgid "Campaign slug changed! Please re-save your %s"
-msgstr "Lien permanent changé ! Merci de re-sauver votre %s"
+msgstr "Identifiant changé ! Merci de sauver votre %s à nouveau"
 
 #: views/settings.php:335
 msgid "Permalink Structure"
@@ -4592,16 +4592,16 @@ msgstr "Structure du lien permanent"
 
 #: views/settings.php:330
 msgid "Campaign slug"
-msgstr "Lien permanent campagne"
+msgstr "Identifiant de la campagne"
 
 #: views/settings.php:333
 msgid "changing the slug may cause broken links in previous sent campaigns!"
-msgstr "changer le lien permanent va casser les liens des précédentes campagnes"
+msgstr "changer l'identifiant risque de briser les liens vers les campagnes envoyées !"
 
 #: views/settings.php:335
 msgctxt "Campaign slug"
 msgid "Define a %s to enable custom slugs"
-msgstr ""
+msgstr "Définir %s pour activer les identifiants personnalisés"
 
 #: classes/manage.class.php:171
 msgid "nickname"
@@ -4609,17 +4609,17 @@ msgstr "pseudonyme"
 
 #: classes/settings.class.php:783
 msgid "sending %s emails at once can cause problems with statistics cause of a server timeout or to much memory usage! You should decrease it if you have problems!"
-msgstr ""
+msgstr "envoyer %s courriels à la fois peut entraîner des problèmes de statistique, en cause : dépassement du délais d'attente du serveur ou utilisation mémoire trop importante ! Si vous rencontrez des problèmes, diminuez cette valeur !"
 
 #. mymail
 #: classes/settings.class.php:834
 #: classes/settings.class.php:858
 msgid "Not able to connected to %1$s via port %2$s! You may not be able to send mails cause of the locked port %3$s. Please contact your host or choose a different delivery method!"
-msgstr ""
+msgstr "Impossible de se connecter à %1$s sur le port %2$s ! Vous ne pourrez pas envoyer de courriel car le port %3$s est bloqué. Veuillez contacter votre hébergeur ou choisir une méthode différente."
 
 #: classes/notification.class.php:187
 msgid "MyMail Test Email"
-msgstr "Email de test"
+msgstr "Courriel de test"
 
 #: classes/campaigns.class.php:607
 #: classes/campaigns.class.php:617
@@ -4628,7 +4628,7 @@ msgstr "Pas de destinataire..."
 
 #: views/settings.php:658
 msgid "Create as many forms you like. Define individual options for each form below."
-msgstr ""
+msgstr "Créez autant de formulaires que vous voulez. Definissez les options individuellement pour chaque formulaire ci-dessous."
 
 #: views/settings.php:843
 msgid "Global Form Settings"
@@ -4648,7 +4648,7 @@ msgstr "Rejet light"
 
 #: views/settings.php:1354
 msgid "Resend soft bounced mails after %s minutes"
-msgstr ""
+msgstr "Renvoyer les courriels refusés temporairement par le serveur cible après %s minutes"
 
 #: views/templates.php:96
 #: views/templates.php:107
@@ -4679,15 +4679,15 @@ msgstr "utiliser archive"
 
 #: views/settings.php:373
 msgid "enable archive function to display your newsletters in a reverse chronological order"
-msgstr ""
+msgstr "activer la fonction d'archivage afin d'afficher les newsletters de la plus récente à la plus ancienne"
 
 #: views/settings.php:373
 msgid "Please make sure none of your pages uses the %s slug"
-msgstr "Merci de vérifier que vos pages n'utilisent pas le lien permanent %s"
+msgstr "Merci de vérifier que vos pages n'utilisent pas l'identifiant %s"
 
 #: views/settings.php:1209
 msgid "WordPress cron is disabled! Uncomment the %s constant in the wp-config.php or use a real cron instead"
-msgstr ""
+msgstr "Le cron WordPress est désactivé ! décommentez la constante %s dans wp-config.php ou utiliser un vrai cron à la place"
 
 #: views/settings.php:1668
 msgid "Do you really like to reset the options? This cannot be undone!"
@@ -4699,15 +4699,15 @@ msgstr "RAZ des paramètres"
 
 #: views/manage.php:98
 msgid "Use following meta values"
-msgstr ""
+msgstr "Utilisez les métadonnées suivantes"
 
 #: views/manage.php:419
 msgid "via form %s"
-msgstr ""
+msgstr "par le formulaire %s"
 
 #: views/settings.php:747
 msgid "Double-opt-in options"
-msgstr ""
+msgstr "Options de confirmation"
 
 #: classes/subscribers.class.php:496
 #: classes/subscribers.class.php:501
@@ -4717,43 +4717,43 @@ msgstr ""
 #: classes/subscribers.class.php:516
 #: classes/subscribers.class.php:519
 msgid "via"
-msgstr ""
+msgstr "par"
 
 #: views/subscriber/meta.php:59
 msgid "User has been imported on"
-msgstr ""
+msgstr "Les utilisateurs ont été importés"
 
 #: views/manage.php:334
 msgid "%s Pending subscribers removed from the list"
-msgstr ""
+msgstr "%s abonnées en attente ont été supprimés de la liste"
 
 #: views/manage.php:357
 msgid "%s confirmations sent"
-msgstr ""
+msgstr "%s confirmations ont été envoyées"
 
 #: views/manage.php:376
 msgid "Bulk Actions"
-msgstr ""
+msgstr "Actions groupées"
 
 #: views/newsletter/options.php:154
 msgid "Background Links"
-msgstr ""
+msgstr "Liens des images d'arrière-plan"
 
 #: views/settings.php:789
 msgid "redirect after confirm"
-msgstr ""
+msgstr "Rediriger après confirmation"
 
 #: classes/settings.class.php:264
 msgid "Loading"
-msgstr ""
+msgstr "Chargement"
 
 #: views/settings.php:57
 msgid "System Info"
-msgstr ""
+msgstr "Informations système"
 
 #: classes/ajax.class.php:724
 msgid "%s unique"
-msgstr ""
+msgstr "%s "
 
 #: classes/ajax.class.php:846
 #: classes/campaigns.class.php:2877
@@ -4765,30 +4765,30 @@ msgstr ""
 #: views/subscribers/detail.php:128
 #: views/subscribers/detail.php:132
 msgid "unknown"
-msgstr ""
+msgstr "inconnu"
 
 #: classes/ajax.class.php:2057
 msgid "Template %s has been uploaded"
-msgstr ""
+msgstr "La template %s a été téléchargée"
 
 #: classes/campaigns.class.php:456
 msgid "This Campaign has been paused"
-msgstr ""
+msgstr "La campagne a été mise en pause"
 
 #: classes/campaigns.class.php:612
 #: classes/campaigns.class.php:627
 msgid "This campaign is based on subscribers timezone and problably will take up to 24 hours"
-msgstr ""
+msgstr "La campagne est basée sur le fuseau horaire des abonnées et prendra probablement plus de 24 heures"
 
 #: classes/campaigns.class.php:659
 #: includes/autoresponder.php:10
 #: views/newsletter/delivery.php:293
 msgid "year(s)"
-msgstr ""
+msgstr "année(s)"
 
 #: classes/campaigns.class.php:691
 msgid "based on the users %1$s value"
-msgstr ""
+msgstr "basé sur la valeur de %1$s des utilisateurs"
 
 #: classes/campaigns.class.php:807
 #: classes/campaigns.class.php:821
@@ -4796,112 +4796,112 @@ msgstr ""
 #: classes/campaigns.class.php:843
 #: classes/campaigns.class.php:850
 msgid "%s of sent"
-msgstr ""
+msgstr "%s des courriels envoyés"
 
 #: classes/campaigns.class.php:824
 #: classes/campaigns.class.php:846
 msgid "%s of opens"
-msgstr ""
+msgstr "%s des courriels ouverts"
 
 #: classes/campaigns.class.php:863
 msgid "%s of totals"
-msgstr ""
+msgstr "%s des courriels totaux"
 
 #: classes/campaigns.class.php:1022
 msgid "loading"
-msgstr ""
+msgstr "Chargement"
 
 #: classes/campaigns.class.php:1033
 msgid "Click to edit %s"
-msgstr ""
+msgstr "Cliquez pour éditer %s"
 
 #: classes/campaigns.class.php:1107
 msgid "The status of this campaign has changed. Please reload the page or %s"
-msgstr ""
+msgstr "Le statut de la campagne a changé. Veuillez recharger la page ou %s"
 
 #: classes/campaigns.class.php:1108
 msgid "click here"
-msgstr ""
+msgstr "cliquez ici"
 
 #: classes/campaigns.class.php:2459
 msgctxt "segment of all [recipients] from campaign [campaign]"
 msgid "A segment of all %1$s of %2$s"
-msgstr ""
+msgstr "Un segement des abonnés %1$s %2$s"
 
 #: classes/campaigns.class.php:2478
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: classes/campaigns.class.php:2483
 msgid "Sent date"
-msgstr ""
+msgstr "Date d'envoi"
 
 #: classes/campaigns.class.php:2484
 msgid "Open date"
-msgstr ""
+msgstr "Date d'ouverture"
 
 #: classes/campaigns.class.php:2485
 msgid "Open Count"
-msgstr ""
+msgstr "Nombre d'ouverture"
 
 #: classes/campaigns.class.php:2487
 msgid "Click Count"
-msgstr ""
+msgstr "Nombre de clics"
 
 #: classes/campaigns.class.php:2519
 msgid "unsubscribes"
-msgstr ""
+msgstr "désabonnements"
 
 #: classes/campaigns.class.php:2521
 msgid "order by"
-msgstr ""
+msgstr "trier par"
 
 #: classes/campaigns.class.php:2527
 msgid "order direction"
-msgstr ""
+msgstr "direction du tri"
 
 #: classes/campaigns.class.php:2546
 msgid "has unsubscribed"
-msgstr ""
+msgstr "s'est désabonné"
 
 #: classes/campaigns.class.php:3070
 msgid "Image files"
-msgstr ""
+msgstr "fichiers image"
 
 #: classes/cron.class.php:143
 msgid "The WordPress Cron is disabled! Please remove the %s constant from your wp-config.php file or switch to a real cron job!"
-msgstr ""
+msgstr "Le cron de WordPress est désactivé ! Veuillez supprimer la constante %s du fichier wp-config.php ou basculer sur un vrai cron !"
 
 #: classes/cron.class.php:171
 msgid "Are your campaigns not sending? You may have to check your %1$s"
-msgstr ""
+msgstr "Vos campagnes ne partent pas ? Vous devriez vérifier votre %1$s"
 
 #: classes/cron.class.php:171
 msgid "cron settings"
-msgstr ""
+msgstr "paramêtres du cron"
 
 #: classes/form.class.php:391
 msgid "Session expired! Please click the link in your email again!"
-msgstr ""
+msgstr "La session expirée ! Veuillez cliquer à nouveau sur le lien dans votre courriel !"
 
 #: classes/form.class.php:576
 #: classes/settings.class.php:92
 #: classes/update.class.php:944
 msgid "Update Profile"
-msgstr ""
+msgstr "Mettre à jour le profil"
 
 #: classes/form.class.php:711
 msgid "You are already registered"
-msgstr ""
+msgstr "Vous êtes déjà enregistré"
 
 #: classes/form.class.php:714
 #: classes/form.class.php:722
 msgid "A new confirmation message has been sent"
-msgstr ""
+msgstr "Un nouveau message de confirmation a été envoyé"
 
 #: classes/lists.class.php:31
 msgid "Edit Lists"
-msgstr ""
+msgstr "Éditer les listes"
 
 #: classes/lists.class.php:81
 #: classes/lists.class.php:148
@@ -4910,480 +4910,480 @@ msgstr ""
 #: classes/subscribers.class.php:265
 #: classes/subscribers.class.php:297
 msgid "Cheatin&#8217; uh?"
-msgstr ""
+msgstr "Cheatin&#8217; uh?"
 
 #: classes/lists.class.php:97
 msgid "%d Lists have been removed"
-msgstr ""
+msgstr "%d listes ont été supprimées"
 
 #: classes/lists.class.php:108
 msgid "%d Lists with subscribers have been removed"
-msgstr ""
+msgstr "%d listes avec demandes d'abonnement ont été supprimées"
 
 #: classes/lists.class.php:117
 msgid "Subscribers have been subscribed"
-msgstr ""
+msgstr "Les demandes d'abonnement ont été validées"
 
 #: classes/lists.class.php:124
 msgid "Subscribers have been unsubscribed"
-msgstr ""
+msgstr "Les demandes d'abonnement ont été rejetées"
 
 #: classes/lists.class.php:167
 #: classes/subscribers.class.php:238
 msgid "%1$s already exists. %2$s"
-msgstr ""
+msgstr "%1$s existe déjà. %2$s "
 
 #: classes/lists.class.php:167
 #: classes/subscribers.class.php:238
 msgid "Edit this user"
-msgstr ""
+msgstr "Éditer cet utilisateur"
 
 #: classes/lists.class.php:179
 msgid "List added"
-msgstr ""
+msgstr "Liste ajoutée"
 
 #: classes/lists.class.php:179
 msgid "List saved"
-msgstr ""
+msgstr "Liste sauvegardée"
 
 #: classes/lists.class.php:192
 msgid "List %s has been removed"
-msgstr ""
+msgstr "La liste %s a été supprimée"
 
 #: classes/lists.class.php:226
 msgid "Segments"
-msgstr ""
+msgstr "Segments"
 
 #: classes/lists.class.php:227
 msgid "contains all segments"
-msgstr ""
+msgstr "Comprend tous les segments"
 
 #: classes/lists.class.php:232
 msgid "Segment #%d"
-msgstr ""
+msgstr "Segment #%d"
 
 #: classes/lists.class.php:240
 msgid "Segment created by %s"
-msgstr ""
+msgstr "Segment créé par %s"
 
 #: classes/lists.table.class.php:12
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
 #: classes/lists.table.class.php:27
 #: classes/subscribers.table.class.php:29
 msgid "All"
-msgstr ""
+msgstr "Tous"
 
 #: classes/lists.table.class.php:33 classes/subscribers.table.class.php:42
 msgid "No subscriber found, mate."
-msgstr ""
+msgstr "Aucun abonné trouvé"
 
 #: classes/lists.table.class.php:107
 #: views/lists/detail.php:83
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: classes/lists.table.class.php:109
 #: classes/manage.class.php:833
 #: views/manage.php:253
 msgid "Updated"
-msgstr ""
+msgstr "Mis à jour"
 
 #: classes/lists.table.class.php:110
 #: classes/manage.class.php:830
 #: views/manage.php:252
 msgid "Added"
-msgstr ""
+msgstr "Ajouté"
 
 #: classes/lists.table.class.php:120
 msgid "Delete with subscribers"
-msgstr ""
+msgstr "Supprimer avec les abonnés"
 
 #: classes/lists.table.class.php:121
 msgid "Subscribe subscribers"
-msgstr ""
+msgstr "Ajouter les demandes d'abonnement"
 
 #: classes/lists.table.class.php:122
 msgid "Unsubscribe subscribers"
-msgstr ""
+msgstr "Rejeter les demandes d'abonnement"
 
 #: classes/lists.table.class.php:123
 #: classes/subscribers.table.class.php:167
 msgid "Send new Campaign"
-msgstr ""
+msgstr "Lancer une nouvelle campagne"
 
 #: classes/manage.class.php:305
 msgid "Signup + Confirm Date"
-msgstr ""
+msgstr "Dates d'inscription et de confirmation"
 
 #: classes/manage.class.php:309
 msgid "Signup IP Address"
-msgstr ""
+msgstr "Adresse IP d'inscription"
 
 #: classes/manage.class.php:310
 msgid "Confirm IP Address"
-msgstr ""
+msgstr "Adresse IP de confirmation"
 
 #: classes/manage.class.php:311
 msgid "Confirm + Signup IP Address"
-msgstr ""
+msgstr "Adresses IP de confirmation et de d'inscription"
 
 #: classes/manage.class.php:312
 msgid "all IP Addresses"
-msgstr ""
+msgstr "toutes les adresses IP"
 
 #: classes/manage.class.php:316
 msgid "Language"
-msgstr ""
+msgstr "Langage"
 
 #: classes/manage.class.php:320
 msgid "Define which column represents which field"
-msgstr ""
+msgstr "Définir quelle colonne représente quel champs"
 
 #: classes/manage.class.php:329
 msgid "Basic"
-msgstr ""
+msgstr "De base"
 
 #: classes/manage.class.php:344
 msgid "no Custom Fields defined!"
-msgstr ""
+msgstr "aucun champs personnalisé défini !"
 
 #: classes/manage.class.php:347
 msgid "Time Options"
-msgstr ""
+msgstr "Options du système horaire"
 
 #: classes/manage.class.php:353
 msgid "IP Options"
-msgstr ""
+msgstr "Options IP"
 
 #: classes/manage.class.php:359
 msgid "Other Meta"
-msgstr ""
+msgstr "Autres métadonnées"
 
 #: classes/manage.class.php:380
 msgid "%s contacts are hidden"
-msgstr ""
+msgstr "%s contacts sont cachés"
 
 #: classes/manage.class.php:393
 msgid "Import %s contacts"
-msgstr ""
+msgstr "importer %s contacts"
 
 #: classes/manage.class.php:393
 msgid "Please make sure you have the permission to import these contacts!"
-msgstr ""
+msgstr "Assurez vous d'avoir le droit d'importer ces contacts !"
 
 #: classes/manage.class.php:407
 msgid "ignore or as defined above"
-msgstr ""
+msgstr "ignorer ou comme défini plus haut"
 
 #: classes/manage.class.php:407
 msgid "Use following numbers for different statuses"
-msgstr ""
+msgstr "Utiliser les nombres suivants pour différents statuts"
 
 #: classes/manage.class.php:412
 #: views/subscribers/detail.php:111
 msgid "choosing \"pending\" as status will force a confirmation message to the subscriber"
-msgstr ""
+msgstr "choisir \"en attente\" comme statut va forcer un message de confirmation à la souscription"
 
 #: classes/manage.class.php:415
 msgid "Other"
-msgstr ""
+msgstr "Autre"
 
 #: classes/manage.class.php:418
 msgid "low memory usage (slower)"
-msgstr ""
+msgstr "utilisation mémoire faible (plus lent)"
 
 #: classes/manage.class.php:643
 msgid "%1$s of %2$s contacts imported"
-msgstr ""
+msgstr "%1$s sur %2$s contacts importés"
 
 #: classes/manage.class.php:809
 #: views/manage.php:243
 msgid "Hash"
-msgstr ""
+msgstr "Hash"
 
 #: classes/manage.class.php:1124
 msgid "%s subscribers removed"
-msgstr ""
+msgstr "%s abonnés supprimés"
 
 #: classes/mymail.class.php:472
 #: classes/mymail.class.php:498
 msgid "Add Ons"
-msgstr ""
+msgstr "Contenus additionnels"
 
 #: classes/mymail.class.php:488
 msgid "Return to Add Ons Page"
-msgstr ""
+msgstr "Retour à la page des contenus additionnels"
 
 #: classes/mymail.class.php:819
 msgid "Your MyMail Newsletter Plugin is ready!"
-msgstr ""
+msgstr "Votre plugin MyMail Newsletter est prêt !"
 
 #: classes/queue.class.php:782
 msgid "Notification %1$s has thrown an error: %2$s"
-msgstr ""
+msgstr "La notification %1$s a retourné une erreur : %2$s"
 
 #: classes/queue.class.php:793
 msgid "Autoresponder %1$s has caused sending error: %2$s"
-msgstr ""
+msgstr "La reponse automatique %1$s a entrainé un erreur d'envoi : %2$s"
 
 #: classes/settings.class.php:86
 msgid "Profile updated!"
-msgstr ""
+msgstr "Profil mis à jour !"
 
 #: classes/settings.class.php:97
 #: classes/update.class.php:946
 msgid "update profile"
-msgstr ""
+msgstr "mettre à jour le profil"
 
 #: classes/settings.class.php:270
 msgid "You are about to overwrite all subscriber data with the matching WordPress User data. Continue?"
-msgstr ""
+msgstr "Vous êtes sur le point de remplacer toutes les données des abonnés par les données des utilisateurs WordPress correspondants. Continuer ?"
 
 #: classes/settings.class.php:271
 msgid "You are about to overwrite all WordPress User data with the matching subscriber data. Continue?"
-msgstr ""
+msgstr "Vous êtes sur le point de remplacer toutes les données des utilisateurs WordPress par les données des abonnés correspondants. Continuer ?"
 
 #: classes/subscribers.class.php:71
 msgid "Edit Subscribers"
-msgstr ""
+msgstr "Éditer les abonnés"
 
 #: classes/subscribers.class.php:112
 msgid "%d Subscribers have been removed"
-msgstr ""
+msgstr "%d abonnés ont été supprimés"
 
 #: classes/subscribers.class.php:131
 msgid "%d Subscribers have been unsubscribed"
-msgstr ""
+msgstr "%d abonnés ont été désinscrits"
 
 #: classes/subscribers.class.php:123
 msgid "%d Subscribers have been subscribed"
-msgstr ""
+msgstr "%d abonnés ont été ajoutés"
 
 #: classes/subscribers.class.php:149
 msgid "%d Subscribers have been assigned to a new list"
-msgstr ""
+msgstr "%d abonnés ont été assignés à une nouvelle liste"
 
 #: classes/subscribers.class.php:203
 #: classes/subscribers.class.php:256
 msgid "Subscriber added"
-msgstr ""
+msgstr "Abonné ajouté"
 
 #: classes/subscribers.class.php:256
 msgid "Subscriber saved"
-msgstr ""
+msgstr "Abonné enregistré"
 
 #: classes/subscribers.class.php:273
 msgid "Subscriber %s has been removed"
-msgstr ""
+msgstr "L'abonné %s a été supprimé"
 
 #: classes/subscribers.class.php:739
 msgid "User does not exist!"
-msgstr ""
+msgstr "L'utilisateur n'existe pas !"
 
 #: classes/subscribers.class.php:1414
 #: classes/subscribers.class.php:1415
 msgid "%d times"
-msgstr ""
+msgstr "%d fois"
 
 #: classes/subscribers.class.php:1418
 msgid "with %s"
-msgstr ""
+msgstr "avec %s"
 
 #: classes/subscribers.class.php:1353
 msgid "in %s, %s"
-msgstr ""
+msgstr "à %s, %s"
 
 #: classes/subscribers.class.php:1427
 msgid "%s soft bounce"
 msgid_plural "%s soft bounces"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s rebond"
+msgstr[1] "%s rebonds"
 
 #: classes/subscribers.class.php:1427
 msgid "Hard bounced at %s"
-msgstr ""
+msgstr "Rejeté à %s"
 
 #: classes/subscribers.class.php:1794
 #: classes/subscribers.table.class.php:183
 msgid "pending"
-msgstr ""
+msgstr "en attente"
 
 #: classes/subscribers.table.class.php:68
 msgid "active filters"
-msgstr ""
+msgstr "filtres"
 
 #: classes/subscribers.class.php:77
 #: classes/subscribers.table.class.php:155
 msgid "emails"
-msgstr ""
+msgstr "courriels"
 
 #: classes/templates.class.php:44
 #: views/templates.php:63
 #: views/templates.php:146
 msgid "%d Update available"
 msgid_plural "%d Updates available"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d mise à jour disponible"
+msgstr[1] "%d mises à jour disponibles"
 
 #: classes/templates.class.php:93
 msgid "Unable to unzip template"
-msgstr ""
+msgstr "Impossible de décompresser le template"
 
 #: classes/templates.class.php:111
 msgid "Unable to save template"
-msgstr ""
+msgstr "Impossiblde de sauvegarder le template"
 
 #: classes/templates.class.php:123
 msgid "Template %s already exists!"
-msgstr ""
+msgstr "Le template %s existe déjà !"
 
 #: classes/templates.class.php:146
 msgid "The header of this template files is missing or corrupt"
-msgstr ""
+msgstr "L'en-tête du fichier template est manquant ou corrompu"
 
 #: classes/templates.class.php:153
 #: classes/templates.class.php:195
 msgid "This is not a valid MyMail template ZIP"
-msgstr ""
+msgstr "Ce n'est pas un template MyMail valide"
 
 #: classes/templates.class.php:367
 msgid "uploading zip file %s"
-msgstr ""
+msgstr "ajout du fichier zip %s"
 
 #: classes/templates.class.php:368
 msgid "Please enter a valid Licensecode!"
-msgstr ""
+msgstr "Veuillez entrer un code de licence valide !"
 
 #: classes/templates.class.php:369
 msgid "All template files will get overwritten if you proceed! Please make sure you have a backup of your files."
-msgstr ""
+msgstr "Tous les fichiers template vont être remplacés ! Assurez vous d'avoir une sauvegarde de ces fichiers."
 
 #: classes/templates.class.php:404
 msgid "Cannot delete the default template %s"
-msgstr ""
+msgstr "Impossible de supprimer le template par defaut %s"
 
 #: classes/templates.class.php:406
 msgid "Template %s has been deleted"
-msgstr ""
+msgstr "Le template %s a été supprimé"
 
 #: classes/templates.class.php:409
 msgid "Template %s has not been deleted"
-msgstr ""
+msgstr "Le template %s n'a pas été supprimé"
 
 #: classes/templates.class.php:438
 msgid "File does not exist. Please contact %s for help!"
-msgstr ""
+msgstr "Le fichier n'existe pas. Veuillez contacter %s !"
 
 #: classes/templates.class.php:439
 #: classes/templates.class.php:447
 msgid "There was an error: %s"
-msgstr ""
+msgstr "Une erreur est survenue : %s"
 
 #: classes/templates.class.php:453
 msgid "Template succesfull updated!"
-msgstr ""
+msgstr "Le template a été mis à jour correctement !"
 
 #: classes/templates.class.php:454
 msgid "Template succesfull loaded!"
-msgstr ""
+msgstr "Le template a été chargé correctement !"
 
 #: classes/templates.class.php:485
 msgid "Licensecode has been changed!"
-msgstr ""
+msgstr "Le code de la licence a été changé !"
 
 #: classes/templates.class.php:895
 msgid "MyMail Template ZIP file"
-msgstr ""
+msgstr "Fichier ZIP du template MyMail"
 
 #: classes/templates.class.php:911
 msgid "Drop your ZIP file here to upload new template"
-msgstr ""
+msgstr "Déposez votre fichier ZIP ici pour charger un nouveau template"
 
 #: classes/update.class.php:943
 msgid "Profile Updated!"
-msgstr ""
+msgstr "Profil mis à jour !"
 
 #: includes/autoresponder.php:31
 msgid "a specific user time"
-msgstr ""
+msgstr "un moment défini par l'utilisateur"
 
 #: includes/autoresponder.php:39
 msgid "a specific action hook"
-msgstr ""
+msgstr "un moment défini par un hook"
 
 #: includes/capability.php:65
 msgid "change text version"
-msgstr ""
+msgstr "changer la version du texte"
 
 #: includes/capability.php:76
 msgid "add subscribers"
-msgstr ""
+msgstr "ajouter des abonnés"
 
 #: includes/capability.php:107
 msgid "bulk delete subscribers"
-msgstr ""
+msgstr "supprimer des abonnés en masse"
 
 #: includes/capability.php:112
 msgid "add lists"
-msgstr ""
+msgstr "ajouter des listes"
 
 #: views/addons.php:46
 msgid "Deactivate"
-msgstr ""
+msgstr "Désactiver"
 
 #: views/addons.php:48
 #: views/templates.php:102
 #: views/templates.php:171
 msgid "Activate"
-msgstr ""
+msgstr "Activer"
 
 #: views/addons.php:52
 msgid "Download from wordpress.org"
-msgstr ""
+msgstr "Télécharger depuis wordpress.org"
 
 #: views/addons.php:58
 msgid "Get this Add On"
-msgstr ""
+msgstr "Récupérer ce contenu additionnel"
 
 #: views/dashboard.php:92
 #: views/dashboard.php:104
 msgid "Signups"
-msgstr ""
+msgstr "Inscriptions"
 
 #: views/dashboard.php:92
 #: views/dashboard.php:105
 msgid "Opens"
-msgstr ""
+msgstr "Ouvert"
 
 #: views/lists/detail.php:14
 msgid "You don't have the right permission to add new lists"
-msgstr ""
+msgstr "Vous n'avez pas la permission d'ajouter de nouvelles listes"
 
 #: views/lists/detail.php:42
 msgid "delete List"
-msgstr ""
+msgstr "supprimer la liste"
 
 #: views/lists/detail.php:42
 msgid "Do you really like to remove this list?"
-msgstr ""
+msgstr "Voulez vous vraiment supprimer cette liste ?"
 
 #: views/lists/detail.php:45
 msgid "delete List with Subscribers"
-msgstr ""
+msgstr "supprimer la liste et ses abonnés"
 
 #: views/lists/detail.php:45
 msgid "Do you really like to remove this list with all subscribers?"
-msgstr ""
+msgstr "Voulez vous vraiment supprimer la liste et ses abonnés ?"
 
 #: views/lists/detail.php:53
 msgid "Add new List"
-msgstr ""
+msgstr "Ajouter une nouvelle liste"
 
 #: views/lists/detail.php:58
 msgid "Edit List %s"
-msgstr ""
+msgstr "Éditer la liste %s"
 
 #: classes/lists.table.class.php:35
 #: classes/subscribers.table.class.php:44
@@ -5392,144 +5392,144 @@ msgstr ""
 #: views/subscribers/detail.php:64
 #: views/subscribers/overview.php:5
 msgid "add New"
-msgstr ""
+msgstr "ajouter"
 
 #: views/lists/detail.php:77
 msgid "Name of the List"
-msgstr ""
+msgstr "Nom de la liste"
 
 #: views/lists/detail.php:96
 msgid "%s Subscriber"
 msgid_plural "%s Subscribers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s abonné"
+msgstr[1] "%s abonnés"
 
 #: views/lists/detail.php:121
 msgid "Mail sent"
 msgid_plural "Mails sent"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Courriel envoyé"
+msgstr[1] "Courriels envoyés"
 
 #: views/lists/detail.php:144
 #: views/subscribers/detail.php:317
 msgid "Activity"
-msgstr ""
+msgstr "Activité"
 
 #: views/lists/detail.php:147
 #: views/subscribers/detail.php:327
 msgid "Action"
-msgstr ""
+msgstr "Action"
 
 #: views/lists/detail.php:157
 msgid "Campaign %s has start sending"
-msgstr ""
+msgstr "La campagne %s a débuté ses envois"
 
 #: views/lists/detail.php:161
 msgid "First open in Campaign %s"
-msgstr ""
+msgstr "Première ouverture dans la campagne %s"
 
 #: views/lists/detail.php:165
 msgid "%1$s in Campaign %2$s clicked"
-msgstr ""
+msgstr "%1$s dans la campagne %2$s cliqué"
 
 #: views/lists/detail.php:169
 msgid "First subscription canceled"
-msgstr ""
+msgstr "Première inscription annulée"
 
 #: views/lists/detail.php:173
 #: views/subscribers/detail.php:353
 msgid "Soft bounce (%d tries)"
-msgstr ""
+msgstr "Rebond (%d essais)"
 
 #: views/lists/detail.php:177
 #: views/subscribers/detail.php:357
 msgid "Hard bounce"
-msgstr ""
+msgstr "Rejet"
 
 #: views/lists/detail.php:199
 #: views/subscribers/detail.php:391
 msgid "no activity yet"
-msgstr ""
+msgstr "pas encore d'activité"
 
 #: views/lists.php:11
 msgid "Search"
-msgstr ""
+msgstr "Rechercher"
 
 #: views/manage.php:49
 msgid "Copy and paste from your spreadsheet app"
-msgstr ""
+msgstr "Copier / coller depuis votre tableur"
 
 #: views/manage.php:336
 msgid "remove all actions from affected users"
-msgstr ""
+msgstr "supprimer toutes les actions des utilisateurs affectés"
 
 #: views/newsletter/delivery.php:34
 msgid "Server time: %s %s"
-msgstr ""
+msgstr "Heure du serveur: %s %s"
 
 #: views/newsletter/delivery.php:57
 #: views/newsletter/delivery.php:171
 #: views/newsletter/delivery.php:220
 #: views/newsletter/delivery.php:320
 msgid "Send this campaign based on the subscribers timezone if known"
-msgstr ""
+msgstr "Envoyer cette campagne en se basant sur le fuseau horaire des abonnés si il est défini"
 
 #: views/newsletter/delivery.php:57
 #: views/newsletter/delivery.php:171
 #: views/newsletter/delivery.php:220
 #: views/newsletter/delivery.php:320
 msgid "Use Subscribers timezone"
-msgstr ""
+msgstr "Utiliser le fuseau horaire des abonnés"
 
 #: views/newsletter/delivery.php:140
 msgctxt "send campaign \"on\" (date) \"at\" (time)"
 msgid "%1$s @ %2$s"
-msgstr ""
+msgstr "%1$s @ %2$s"
 
 #: views/newsletter/delivery.php:149
 msgid "Keep in min it is bad practice to send campaigns after subscribers opt-out so use this option for \"Thank you\" messages or surveys"
-msgstr ""
+msgstr "Gardez à l'esprit qu'envoyer une campagne à des personnes désabonnées est une mauvaise pratique, utilisez cette option pour un message de remerciement ou pour faire un suivi"
 
 #: views/newsletter/delivery.php:307
 msgid "Send this campaign every %1$s %2$s based on the users %3$s value"
-msgstr ""
+msgstr "Envoyer cette campagne toutes les %1$s %2$s en fonction de la valeur %3$s des utilisateurs"
 
 #: views/newsletter/delivery.php:362
 msgid "Hook used to trigger campaign"
-msgstr ""
+msgstr "Hook utilisé pour lancer la campagne"
 
 #: views/newsletter/delivery.php:362
 msgid "use `do_action(\"hook_name\")`, or `do_action(\"hook_name\", $subscriber_id)` to trigger this campaign"
-msgstr ""
+msgstr "utiliser `do_action(\"hook_name\")`, ou `do_action(\"hook_name\", $subscriber_id)` pour lancer la campagne"
 
 #: views/newsletter/delivery.php:366
 msgid "Priority"
-msgstr ""
+msgstr "Priorité"
 
 #: views/newsletter/delivery.php:368
 msgid "High"
-msgstr ""
+msgstr "Haute"
 
 #: views/newsletter/delivery.php:369
 msgid "Normal"
-msgstr ""
+msgstr "Normale"
 
 #: views/newsletter/delivery.php:370
 msgid "Low"
-msgstr ""
+msgstr "Basse"
 
 #: views/newsletter/delivery.php:325
 #: views/newsletter/delivery.php:374
 msgid "send campaign only once"
-msgstr ""
+msgstr "ne lancer la campagne qu'une fois"
 
 #: views/newsletter/delivery.php:418
 msgid "finished in approx. %s"
-msgstr ""
+msgstr "fin dans environ %s"
 
 #: views/newsletter/details.php:67
 msgid "took %s"
-msgstr ""
+msgstr "réalisé en %s"
 
 #: views/newsletter/details.php:101
 #: views/newsletter/details.php:108
@@ -5537,85 +5537,85 @@ msgstr ""
 #: views/newsletter/details.php:130
 #: views/newsletter/details.php:161
 msgid "details"
-msgstr ""
+msgstr "détails"
 
 #: views/newsletter/details.php:121
 msgid "Desktop"
-msgstr ""
+msgstr "Bureau"
 
 #: views/newsletter/details.php:122
 msgid "Mobile"
-msgstr ""
+msgstr "Mobile"
 
 #: views/newsletter/details.php:123
 msgid "Web Client"
-msgstr ""
+msgstr "Client Web"
 
 #: views/newsletter/details.php:126
 msgid "Environment"
-msgstr ""
+msgstr "Environnement"
 
 #: views/newsletter/details.php:149
 msgid "Geo Location"
-msgstr ""
+msgstr "Géolocalisation"
 
 #: views/newsletter/receivers.php:34
 msgid "List doesn't mater"
-msgstr ""
+msgstr "Tout le monde"
 
 #: views/newsletter/receivers.php:71
 msgid "User Role"
-msgstr ""
+msgstr "Role de l'utilisateur"
 
 #: views/newsletter/receivers.php:72
 msgid "User Level"
-msgstr ""
+msgstr "Niveau de l'utilisateur"
 
 #: views/newsletter/receivers.php:82
 #: views/newsletter/receivers.php:190
 msgid "is greater"
-msgstr ""
+msgstr "est plus grand"
 
 #: views/newsletter/receivers.php:83
 #: views/newsletter/receivers.php:191
 msgid "is smaller"
-msgstr ""
+msgstr "est plus petit"
 
 #: views/newsletter/receivers.php:84
 msgid "is greater or equal"
-msgstr ""
+msgstr "est plus grand ou égal"
 
 #: views/newsletter/receivers.php:85
 msgid "is smaller or equal"
-msgstr ""
+msgstr "est plus petit ou égal"
 
 #: views/newsletter/receivers.php:102
 msgid "Meta Data"
-msgstr ""
+msgstr "Métadonnées"
 
 #: views/newsletter/receivers.php:107
 msgid "WordPress User Meta"
-msgstr ""
+msgstr "Métadonnées des utilisateurs WordPress"
 
 #: views/newsletter/receivers.php:138
 msgid "Any List"
-msgstr ""
+msgstr "N'importe quelle liste"
 
 #: views/newsletter/submit.php:39
 msgid "protect the webversion with a password"
-msgstr ""
+msgstr "protéger la version web avec un mot de passe"
 
 #: views/newsletter/submit.php:43
 msgid "password protected"
-msgstr ""
+msgstr "protégée par un mot de passe"
 
 #: views/newsletter/submit.php:81
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmer"
 
 #: views/newsletter/template.php:32
 msgid "toggle HTML/Plain-Text view"
-msgstr ""
+msgstr "basculer entre HTML/Texte"
 
 #: views/newsletter/template.php:180
 msgid "Size"
@@ -5623,143 +5623,143 @@ msgstr "Taille"
 
 #: views/newsletter/template.php:187
 msgid "search for images"
-msgstr ""
+msgstr "rechercher des images"
 
 #: views/newsletter/template.php:235
 msgid "search for posts"
-msgstr ""
+msgstr "rechercher des articles"
 
 #: views/newsletter/template.php:352
 msgid "Create the plain text version based on the HTML version of the campaign"
-msgstr ""
+msgstr "Créer une version texte basée sur la version HTML de la campagne"
 
 #: views/newsletter/template.php:352
 msgid "get text from HTML version"
-msgstr ""
+msgstr "Récupérer le texte de la version HTML"
 
 #: views/settings.php:120
 msgid "Delivery by Time Zone"
-msgstr ""
+msgstr "Envoyer en fonction du fuseau horaire"
 
 #: views/settings.php:121
 msgid "Send Campaigns based on the subscribers timezone if known"
-msgstr ""
+msgstr "Envoyer les campagnes en fonction du fuseau horaire des abonnés si il est défini"
 
 #: views/settings.php:480
 msgid "Sync WordPress Users"
-msgstr ""
+msgstr "Synchroniser les utilisateurs WordPress"
 
 #: views/settings.php:482
 msgid "Sync WordPress Users with Subscribers"
-msgstr ""
+msgstr "Synchroniser les utilisateurs Wordpress avec les abonnés"
 
 #: views/settings.php:483
 msgid "keep WordPress User data and Subscriber data synchronized. Only affects existing Subscribers"
-msgstr ""
+msgstr "garder les données des utilisateurs Wordpress et celles des abonnés synchronisées. N'affecte que les abonnés existants"
 
 #: views/settings.php:490
 msgid "Meta Data List"
-msgstr ""
+msgstr "Liste des métadonnées"
 
 #: views/settings.php:507
 msgid "Meta Fields"
-msgstr ""
+msgstr "Champs des métadonnées"
 
 #: views/settings.php:513
 msgid "%s syncs with %s"
-msgstr ""
+msgstr "%s synchronisé avec %s"
 
 #: views/settings.php:525
 msgid "manually sync all existing users based on the above settings. (save required)"
-msgstr ""
+msgstr "synchroniser manuellement tous les utilisateurs en fonction des options ci-dessus. (sauvegarde requise)"
 
 #: views/settings.php:671
 msgid "This form is used for profile page and all other form specific settings"
-msgstr ""
+msgstr "Ce formulaire est utilisé pour la page des profils ainsi que pour toutes les autre options spécifiques aux formulaires"
 
 #: views/settings.php:879
 msgid "Profile Update"
-msgstr ""
+msgstr "Mis à jour du profil"
 
 #: views/settings.php:893
 msgid "Profile Button"
-msgstr ""
+msgstr "Bouton profil"
 
 #: views/settings.php:905
 msgid "Profile Link"
-msgstr ""
+msgstr "Lien profil"
 
 #: views/settings.php:1227
 msgid "You can keep a browser window open with following URL"
-msgstr ""
+msgstr "Vous pouvez garder une fenêtre de navigateur ouverte avec l'adresse suivante"
 
 #: views/subscribers/detail.php:16
 msgid "You don't have the right permission to add new subscribers"
-msgstr ""
+msgstr "Vous n'avez pas la permission d'ajouter de nouveaux abonnés"
 
 #: views/subscribers/detail.php:48
 msgid "delete Subscriber"
-msgstr ""
+msgstr "supprimer l'abonné"
 
 #: views/subscribers/detail.php:48
 msgid "Do you really like to remove this subscriber?"
-msgstr ""
+msgstr "Voulez vous vraiment supprimer l'abonné ?"
 
 #: views/subscribers/detail.php:56
 msgid "Add new Subscriber"
-msgstr ""
+msgstr "Ajouter un nouvel abonné"
 
 #: views/subscribers/detail.php:58
 msgid "Edit %s"
-msgstr ""
+msgstr "Éditer %s"
 
 #: views/subscribers/detail.php:66
 msgid "goto WordPress User profile"
-msgstr ""
+msgstr "aller au profil utilisateur de WordPress"
 
 #: views/subscribers/detail.php:118
 msgid "subscribed at"
-msgstr ""
+msgstr "abonnement"
 
 #: classes/subscribers.class.php:496
 msgid "import on %s"
-msgstr ""
+msgstr "importation %s"
 
 #: classes/subscribers.class.php:501
 msgid "WP user on %s"
-msgstr ""
+msgstr "utilisateur WP %s"
 
 #: classes/subscribers.class.php:504
 msgid "Backend on %s"
-msgstr ""
+msgstr "l'admin le %s"
 
 #: classes/subscribers.class.php:507
 msgid "an extern form on %s"
-msgstr ""
+msgstr "un formulaire externe %s"
 
 #: classes/subscribers.class.php:510
 msgid "Homepage on %s"
-msgstr ""
+msgstr "la page d'accueil le %s"
 
 #: views/subscribers/detail.php:124
 msgid "more"
-msgstr ""
+msgstr "plus"
 
 #: views/subscribers/detail.php:126
 msgid "confirmed at"
-msgstr ""
+msgstr "confirmation"
 
 #: views/subscribers/detail.php:130
 msgid "latest known IP"
-msgstr ""
+msgstr "dernière IP connue"
 
 #: views/subscribers/detail.php:137
 msgid "latest updated"
-msgstr ""
+msgstr "dernière mise à jour"
 
 #: views/subscribers/detail.php:158
 msgid "nothing selected"
-msgstr ""
+msgstr "aucune sélection"
 
 #: views/subscribers/detail.php:182
 msgid "yes"
@@ -5776,25 +5776,25 @@ msgstr "L'utilisateur n'est assigné à aucune liste"
 #: views/subscribers/detail.php:241
 #: views/subscribers/detail.php:250
 msgid "from"
-msgstr ""
+msgstr "de"
 
 #: views/subscribers/detail.php:272
 msgid "Campaign sent"
 msgid_plural "Campaings sent"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Campagne envoyée"
+msgstr[1] "Campagnes envoyées"
 
 #: views/subscribers/detail.php:293
 msgid "Most popular client"
-msgstr ""
+msgstr "Client le plus populaire"
 
 #: views/subscribers/detail.php:296
 msgid "Other used clients"
-msgstr ""
+msgstr "Autres clients utilisés"
 
 #: views/subscribers/detail.php:320
 msgid "%1$s needs about %2$s to open a campaign"
-msgstr ""
+msgstr "%1$s a besoin d'environ %2$s pour ouvrir une campagne"
 
 #: views/subscribers/detail.php:320
 msgid "User"
@@ -5802,32 +5802,32 @@ msgstr "Utilisateur"
 
 #: views/subscribers/detail.php:320
 msgid "and %1$s to click a link"
-msgstr ""
+msgstr "et %1$s pour cliquer sur un lien"
 
 #: views/subscribers/detail.php:322
 msgid "User has never opened a campaign"
-msgstr ""
+msgstr "L'utilisateur n'a jamais ouvert de campagne"
 
 #: classes/subscribers.class.php:307
 #: views/subscribers/detail.php:337
 msgid "Campaign %s has been sent"
-msgstr ""
+msgstr "a envoyé la campagne %s"
 
 #: views/subscribers/detail.php:341
 msgid "opened Campaign %s"
-msgstr ""
+msgstr "a ouvert la campagne %s"
 
 #: views/subscribers/detail.php:345
 msgid "clicked %1$s in Campaign %2$s"
-msgstr ""
+msgstr "a cliqué sur %1$s dans la campagne %2$s"
 
 #: views/subscribers/detail.php:345
 msgid "a link"
-msgstr ""
+msgstr "lien"
 
 #: views/subscribers/detail.php:349
 msgid "unsubscribed your newsletter"
-msgstr ""
+msgstr "s'est désabonné de votre newsletter"
 
 #: views/subscribers/overview.php:8
 msgid "import"
@@ -5839,7 +5839,7 @@ msgstr "Exporter"
 
 #: views/subscribers/overview.php:14
 msgid "Search result for %s"
-msgstr ""
+msgstr "Résultat de la recherche pour %s"
 
 #: views/settings.php:676
 #: views/subscribers/user_edit.php:11
@@ -5848,11 +5848,11 @@ msgstr "Profil"
 
 #: views/subscribers/user_edit.php:14
 msgid "Edit my MyMail Profile"
-msgstr ""
+msgstr "Éditer mon profil MyMail"
 
 #: views/subscribers/user_edit.php:14
 msgid "Edit Users MyMail Profile"
-msgstr ""
+msgstr "Éditer le profil des utilisateurs MyMail"
 
 #: views/subscribers/user_edit.php:28
 msgid "Create"
@@ -5860,7 +5860,7 @@ msgstr "Créer"
 
 #: views/subscribers/user_edit.php:31
 msgid "Create MyMail Subscriber"
-msgstr ""
+msgstr "Créer un abonné MyMail"
 
 #: views/templates.php:60
 msgid "more templates"
@@ -5870,7 +5870,7 @@ msgstr "plus de modèles"
 #: views/templates.php:163
 #: views/templates.php:171
 msgid "activate with licensecode"
-msgstr ""
+msgstr "activer avec un code de licence"
 
 #: views/templates.php:104
 #: views/templates.php:166
@@ -5887,11 +5887,11 @@ msgstr "plus de modèles"
 
 #: views/templates.php:141
 msgid "back to overview"
-msgstr ""
+msgstr "retour à l'aperçu"
 
 #: views/templates.php:163
 msgid "Change Code"
-msgstr ""
+msgstr "Changer le code"
 
 #: views/templates.php:166
 msgid "Redownload"
@@ -5911,38 +5911,38 @@ msgstr "obtenir ce modèle"
 
 #: classes/subscribers.class.php:465
 msgid "this email address already exists!"
-msgstr ""
+msgstr "cette adresse de messagerie existe déjà !"
 
 #: classes/subscribers.class.php:744
 msgid "Subscriber already exists"
-msgstr ""
+msgstr "L'abonné existe déjà !"
 
 #: views/settings.php:490
 msgid "select the custom field which should sync with a certain meta field"
-msgstr ""
+msgstr "selectionnez le champs personnalisé qui devra se synchroniser avec un certain champs de métadonnée"
 
 #: classes/campaigns.class.php:697
 #: views/newsletter/delivery.php:332
 msgid "has been sent"
-msgstr ""
+msgstr "a été envoyée"
 
 #: classes/campaigns.class.php:698
 #: views/newsletter/delivery.php:333
 msgid "has been opened"
-msgstr ""
+msgstr "a été ouverte"
 
 #: classes/campaigns.class.php:699
 #: views/newsletter/delivery.php:334
 msgid "has been clicked"
-msgstr ""
+msgstr "a reçu un clic"
 
 #: classes/campaigns.class.php:704
 msgid "Campaign does not exist"
-msgstr ""
+msgstr "La campagne n'existe pas"
 
 #: classes/campaigns.class.php:3081
 msgid "ready!"
-msgstr ""
+msgstr "prêt !"
 
 #: classes/campaigns.class.php:3082
 msgid "error!"
@@ -5958,109 +5958,109 @@ msgstr "Format de fichier non accepté"
 
 #: classes/placeholder.class.php:221
 msgid "Share this on %s"
-msgstr ""
+msgstr "Partager sur %s"
 
 #: includes/autoresponder.php:35
 msgid "a specific campaing"
-msgstr ""
+msgstr "un campagne spécifique"
 
 #: views/newsletter/delivery.php:357
 msgid "No campaigns available"
-msgstr ""
+msgstr "Aucune campagne disponible"
 
 #: views/newsletter/details.php:72
 msgid "no preheader"
-msgstr ""
+msgstr "pas d'en-tête de courriel"
 
 #: views/settings.php:1098
 msgid "You are currently sending with the %s delivery method"
-msgstr ""
+msgstr "Vous envoyez actuellement avec la méthode %s de distribution"
 
 #: views/settings.php:1295
 msgid "Do you really like to reset all capabilities? This cannot be undone!"
-msgstr ""
+msgstr "Voullez vous vraiment réinitialiser toutes les permissions ? Ceci ne pourra pas être défait !"
 
 #: views/settings.php:1295
 msgid "Reset all capabilities"
-msgstr ""
+msgstr "Réinitialiser toutes les permissions"
 
 #: views/subscribers/detail.php:373
 msgid "campaign deleted"
-msgstr ""
+msgstr "campagne supprimée"
 
 #: views/subscribers/detail.php:375
 msgid "Do you really like to resend campaign %1$s to %2$s?"
-msgstr ""
+msgstr "Voulez vous vraiment renvoyer la campagne %1$s à %2$s"
 
 #: views/subscribers/detail.php:376
 msgid "resend this campaign"
-msgstr ""
+msgstr "renvoyer cette campagne"
 
 #: classes/subscribers.class.php:1422
 msgctxt "in [city], [country]"
 msgid "in %s, %s"
-msgstr ""
+msgstr "à %s, %s"
 
 #: classes/queue.class.php:691
 msgid "timeout reached"
-msgstr ""
+msgstr "délai dépassé"
 
 #: classes/queue.class.php:693
 msgid "MyMail is not able to send your campaign cause of a server timeout. Please increase the %1$s on the %2$s"
-msgstr ""
+msgstr "MyMail n'est pas capable d'envoyer votre campagne en raison du temps de réponse du serveur. Veuillez augmenter le %1$s sur la %2$s"
 
 #: classes/queue.class.php:693
 #: views/settings.php:1070
 msgid "Max. Execution Time"
-msgstr ""
+msgstr "temps d'exécution maximum"
 
 #: classes/queue.class.php:693
 msgid "settings page"
-msgstr ""
+msgstr "page des paramêtres"
 
 #: includes/autoresponder.php:35
 msgid "a specific campaign"
-msgstr ""
+msgstr "une campagne spécifique"
 
 #: views/settings.php:133
 msgid "Auto Update"
-msgstr ""
+msgstr "Mise à jour automatique"
 
 #: views/settings.php:138
 msgid "enabled"
-msgstr ""
+msgstr "activé"
 
 #: views/settings.php:139
 msgid "disabled"
-msgstr ""
+msgstr "désactivé"
 
 #: views/settings.php:140
 msgid "only minor updates"
-msgstr ""
+msgstr "mises à jour mineures uniquement"
 
 #: views/settings.php:146
 msgid "auto updates are recommmended for important fixes."
-msgstr ""
+msgstr "la mise à jour automatique est recommandé pour les corrections importantes"
 
 #: views/settings.php:1071
 msgid "define a maximum execution time to prevent server timeouts. If set to zero, no time limit is imposed."
-msgstr ""
+msgstr "définisez un temps d'exécution maximal pour éviter un dépassement du délai de réponse du serveur. 0 : aucune limite"
 
 #: includes/capability.php:97
 msgid "import WordPress Users"
-msgstr ""
+msgstr "importer des utilisateurs WordPress"
 
 #: views/newsletter/template.php:136
 msgid "Link Button"
-msgstr ""
+msgstr "Bouton de lien"
 
 #: views/settings.php:1650
 msgid "Please check out %s if you have problems with the plugin"
-msgstr ""
+msgstr "Veuillez vous rendre sur la %s si vous avez des problème avec le plugin"
 
 #: views/settings.php:1650
 msgid "Support Page"
-msgstr ""
+msgstr "page de support"
 
 #: classes/lists.table.class.php:33
 msgid "No list found"
@@ -6068,39 +6068,39 @@ msgstr "Aucune liste trouvée"
 
 #: classes/manage.class.php:416
 msgid "Use a signup date if not defined"
-msgstr ""
+msgstr "Utiliser une date d'inscription si ce n'est pas défini"
 
 #: classes/manage.class.php:417
 msgid "Some Auto responder require a signup date. Define it here if it is not set or missing"
-msgstr ""
+msgstr "Certaines réponses automatiques requièrent une date d'inscription. Définissez la ici si ce n'est pas fait ou si elle est manquante"
 
 #: classes/queue.class.php:802
 msgid "Campaign %1$s has some delay cause of a sending error: %2$s"
-msgstr ""
+msgstr "La campagne %1$s a eu du retard en raison d'une erreur d'envoi : %2$s"
 
 #: classes/subscribers.class.php:158
 msgid "Confirmations sent to %d pending subscribers"
-msgstr ""
+msgstr "Confirmations envoyées aux %d abonnés en attente"
 
 #: classes/subscribers.class.php:169
 msgid "%d Subscribers added to list %s"
-msgstr ""
+msgstr "%d abonnés ajoutés à la liste %s"
 
 #: classes/subscribers.class.php:176
 msgid "%d Subscribers removed from list %s"
-msgstr ""
+msgstr "%d abonnés supprimés de la liste %s"
 
 #: classes/subscribers.class.php:286
 msgid "Confirmation has been sent"
-msgstr ""
+msgstr "La confirmation a été envoyée"
 
 #: classes/subscribers.table.class.php:42
 msgid "No subscriber found"
-msgstr ""
+msgstr "Aucun abonné trouvé"
 
 #: classes/subscribers.table.class.php:187
 msgid "change status"
-msgstr ""
+msgstr "changer le status"
 
 #: classes/subscribers.table.class.php:203
 msgid "add to list"
@@ -6112,43 +6112,43 @@ msgstr "enlever de la liste"
 
 #: classes/update.class.php:54
 msgid "An additional update is required!. Please visit %s to finish the update progress"
-msgstr ""
+msgstr "Une mise à jour additionnelle est requise ! Veuillez vous rendre sur %s afin de finir le processus de mise à jour"
 
 #: classes/update.class.php:54
 msgid "the update page"
-msgstr ""
+msgstr "le page de mise à jour"
 
 #: views/settings.php:353
 msgid "Homepage slugs"
-msgstr ""
+msgstr "Identifiants des pages"
 
 #: views/settings.php:356
 msgid "Confirm Slug"
-msgstr ""
+msgstr "Identifiant de la page de confirmation"
 
 #: views/settings.php:358
 msgid "Subscribe Slug"
-msgstr ""
+msgstr "Identifiant de la page d'abonnement"
 
 #: views/settings.php:360
 msgid "Unsubscribe Slug"
-msgstr ""
+msgstr "Identifiant de la page de désabonnement"
 
 #: views/settings.php:362
 msgid "Profile Slug"
-msgstr ""
+msgstr "Identifiant de la page de profile"
 
 #: views/settings.php:1059
 msgid "Pause campaigns"
-msgstr ""
+msgstr "Mettre en pause les campagnes"
 
 #: views/settings.php:1060
 msgid "pause campaigns if an error occurs"
-msgstr ""
+msgstr "mettre en pause les campagne en cas d'erreur"
 
 #: views/settings.php:1060
 msgid "MyMail will change the status to \"pause\" if an error occur otherwise it tries to finish the campaign"
-msgstr ""
+msgstr "Mymail changera le status à \"pause\" en cas d'erreur sinon il esayera de terminer la campagne"
 
 #: views/subscribers/detail.php:9
 msgid "This user does not exist or has been deleted!"
@@ -6156,19 +6156,19 @@ msgstr "Cet utilisateur n'existe pas ou alors il a été supprimé !"
 
 #: views/subscribers/detail.php:45
 msgid "Do you really like to resend the confirmation?"
-msgstr ""
+msgstr "Voulez vous vraiment renvoyer la confirmation ?"
 
 #: views/subscribers/detail.php:60
 msgid "This subscriber has caused a sending error: %s"
-msgstr ""
+msgstr "Cet abonné a provoqué une erreur d'envoi : %s"
 
 #: classes/subscribers.class.php:516
 msgid "%1$s on %2$s"
-msgstr ""
+msgstr "%1$s le %2$s"
 
 #: classes/subscribers.class.php:516
 msgid "Comment"
-msgstr ""
+msgstr "Commentaire"
 
 #: views/templates.php:97
 msgid "Screenshot"
@@ -6176,100 +6176,100 @@ msgstr "Capture d'écran"
 
 #: classes/settings.class.php:709
 msgid "You can only have up to %d custom fields! Following fields have been removed: %s"
-msgstr ""
+msgstr "Vous ne pouvez avoir que %d champs personnalisés ! Les champs suivants ont été supprimés : %s"
 
 #: classes/ajax.class.php:1127
 #: classes/ajax.class.php:1171
 #: classes/ajax.class.php:1221
 msgid "load more entries (%s left)"
-msgstr ""
+msgstr "charger plus d'entrées (%s restantes)"
 
 #: classes/subscribers.class.php:109
 #: classes/subscribers.class.php:270
 msgid "There was an error while deleting subscribers: %s"
-msgstr ""
+msgstr "Une erreur est survenue lors de la suppression des abonnés : %s"
 
 #: classes/subscribers.class.php:139
 msgid "%d Subscribers have been set to pending"
-msgstr ""
+msgstr "%d abonnés ont été mis en attente"
 
 #: views/settings.php:148
 msgid "auto updates are recommended for important fixes."
-msgstr ""
+msgstr "les mises à jour automatiques sont recommandées pour les corrections importantes"
 
 #: views/settings.php:153
 msgid "System Mails"
-msgstr ""
+msgstr "Système d'envoi"
 
 #: views/settings.php:154
 msgid "decide how MyMail uses the wp_mail function"
-msgstr ""
+msgstr "choisir comment MyMail gère la fonction wp_mail"
 
 #: views/settings.php:156
 msgid "Do not use MyMail for outgoing WordPress mails"
-msgstr ""
+msgstr "Ne pas utiliser MyMail pour l'envoi de courriels WordPress"
 
 #: views/settings.php:157
 msgid "Use MyMail for all outgoing WordPress mails"
-msgstr ""
+msgstr "Utiliser MyMail pour l'envoi de courriels WordPress"
 
 #: views/settings.php:158
 msgid "Use only the template for all outgoing WordPress mails"
-msgstr ""
+msgstr "N'utiliser que le template pour l'envoi de courriels WordPress"
 
 #: views/settings.php:561
 #: views/settings.php:592
 #: views/settings.php:615
 msgid "send confirmation (double-opt-in)"
-msgstr ""
+msgstr "envoyer une confirmation (double validation)"
 
 #: classes/manage.class.php:725
 msgid "Not able to create file in %s. Please make sure WordPress can write files to your filesystem!"
-msgstr ""
+msgstr "Création de fichiers impossible dans %s. Assurez vous que WordPress ait les droits en écriture sur votre système de fichiers !"
 
 #: classes/templates.class.php:365
 msgid "Do you really like to remove file %s from template %s?"
-msgstr ""
+msgstr "Voulez vous vraiment supprimer le fichier %s du template %s ?"
 
 #: views/settings.php:539
 msgid "Delete Subscriber"
-msgstr ""
+msgstr "Supprimer l'abonné"
 
 #: views/settings.php:541
 msgid "Delete Subscriber if the WordPress User gets deleted"
-msgstr ""
+msgstr "Supprimer l'abonné si l'utilisateur WordPress est supprimé"
 
 #: views/settings.php:622
 msgid "only with these user roles:"
-msgstr ""
+msgstr "seulement avec les droits utilisateur suivants :"
 
 #. mymail
 #: classes/lists.class.php:271
 msgid "List failed verification"
-msgstr ""
+msgstr "Échec de la vérification de la liste"
 
 #. mymail
 #: classes/subscribers.class.php:599
 msgid "Subscriber failed verification"
-msgstr ""
+msgstr "Échec de la vérification de l'abonné"
 
 #. mymail
 #: views/newsletter/delivery.php:310
 msgid "No custom date fields found!"
-msgstr ""
+msgstr "Aucun champs personnalisé trouvé !"
 
 #. mymail
 #: views/newsletter/delivery.php:312
 msgid "add new fields"
-msgstr ""
+msgstr "ajouter de nouveaux champs"
 
 #. mymail
 #: views/newsletter/receivers.php:34
 msgid "List doesn't matter"
-msgstr ""
+msgstr "Ne pas prendre les listes en compte"
 
 #. mymail
 #: views/settings.php:676
 msgid "use this form for the users profile page"
-msgstr ""
+msgstr "utiliser ce formulaire pour la page de profil des utlisateurs"
 

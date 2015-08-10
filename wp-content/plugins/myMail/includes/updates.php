@@ -338,6 +338,7 @@ if($old_version){
 	case '2.0.21':
 	case '2.0.22':
 	case '2.0.23':
+	case '2.0.24':
 
 		update_option( 'updatecenter_plugins', array() );
 

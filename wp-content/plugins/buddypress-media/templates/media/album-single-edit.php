@@ -26,17 +26,12 @@ $rtmedia_media = $media[ 0 ];
 					<form method="post" class="rtm-form">
 						<?php
 						RTMediaMedia::media_nonce_generator( $rtmedia_query->media_query[ 'album_id' ] );
-						$post_details = get_post( $media[ 0 ]->media_id );
-						$content = apply_filters( 'the_content', $post_details->post_content );
-						$content = $post_details->post_content;
 						?>
 
 						<div class="rtmedia-edit-title rtm-field-wrap">
 							<label for="media_title"><?php _e( 'Title : ', 'rtmedia' ); ?></label>
 							<?php rtmedia_title_input(); ?>
 						</div>
-
-						<?php do_action( "rtmedia_add_album_privacy", 'album-edit' ); ?>
 
 						<div class="rtmedia-editor-description rtm-field-wrap">
 							<label for='description'><?php _e( 'Description: ', 'rtmedia' ) ?></label>
@@ -45,9 +40,12 @@ $rtmedia_media = $media[ 0 ];
 							RTMediaMedia::media_nonce_generator( rtmedia_id() );
 							?>
 						</div>
-
+						
+						<?php do_action( "rtmedia_album_edit_fields", 'album-edit' ); ?>
+						
 						<div>
 							<input type="submit" name="submit" class='rtmedia-save-album' value="<?php _e( 'Save Changes', 'rtmedia' ); ?>" />
+							<a class="button rtm-button rtm-button-back" href="<?php rtmedia_permalink(); ?>"><?php _e( 'Back', 'rtmedia' ); ?></a>
 						</div>
 					</form>
 				</div>
@@ -62,9 +60,9 @@ $rtmedia_media = $media[ 0 ];
 								<?php RTMediaMedia::media_nonce_generator( $rtmedia_query->media_query[ 'album_id' ] ); ?>
 								<p>
 									<span><input type="checkbox" name="rtm-select-all" class="select-all" title="<?php _e( 'Select All Visible', 'rtmedia' ); ?>" /></span>
-									<button class="button rtmedia-move" type='button' title='<?php echo __( 'Move Selected media to another album.' ); ?>' ><?php _e( 'Move', 'rtmedia' ); ?></button>
+									<button class="button rtmedia-move" type='button' title='<?php echo __( 'Move Selected media to another album.', 'rtmedia' ); ?>' ><?php _e( 'Move', 'rtmedia' ); ?></button>
 									<input type="hidden" name="move-selected" value="move">
-									<button type="button" name="delete-selected" class="button rtmedia-delete-selected" title='<?php echo __( 'Delete Selected media from the album.' ); ?>'><?php _e( 'Delete', 'rtmedia' ); ?></button>
+									<button type="button" name="delete-selected" class="button rtmedia-delete-selected" title='<?php echo __( 'Delete Selected media from the album.', 'rtmedia' ); ?>'><?php _e( 'Delete', 'rtmedia' ); ?></button>
 								</p>
 
 								<p class="rtmedia-move-container">

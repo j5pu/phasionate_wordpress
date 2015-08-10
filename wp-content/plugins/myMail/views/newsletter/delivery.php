@@ -326,7 +326,13 @@
 			</label></p>
 	 	</div>
 	 	<div class="mymail_autoresponder_more autoresponderfield-mymail_autoresponder_followup">
-			<?php if($all_campaigns = $this->get_campaigns(array('orderby' => 'post_status modified', 'post__not_in' => array($post->ID)))): ?>
+			<?php if($all_campaigns = $this->get_campaigns(array('post__not_in' => array($post->ID)))): 
+				
+				//bypass post_status sort limitation
+				$all_campaings_stati = wp_list_pluck($all_campaigns, 'post_status' );
+				asort($all_campaings_stati);
+
+			?>
 			<p>
 				<select name="mymail_data[autoresponder][followup_action]">
 					<option value="1" <?php selected( $autoresponderdata['followup_action'], 1 ); ?>><?php _e('has been sent', 'mymail' ); ?></option>
@@ -341,13 +347,14 @@
 
 				global $wp_post_statuses;
 	 			$status = '';
-	 			foreach($all_campaigns as $c){
+	 			foreach($all_campaings_stati as $i => $c){
+	 				$c = $all_campaigns[$i];
 	 				if($status != $c->post_status){
 						if($status) echo '</optgroup>';
 						echo '<optgroup label="'.$wp_post_statuses[$c->post_status]->label.'">';
 						$status = $c->post_status;
 					}
-	 				?><option value="<?php echo $c->ID ?>" <?php selected($post->post_parent, $c->ID); ?>><?php echo $c->post_title ?></option><?php
+	 				?><option value="<?php echo $c->ID ?>" <?php selected($post->post_parent, $c->ID); ?>><?php echo $c->post_title ? $c->post_title : '['.__('no title', 'mymail').']' ?></option><?php
 	 			}
 	 		 ?>
 				</optgroup></select></label>
@@ -433,7 +440,7 @@
 <?php endif;
 
 	if($this->post_data['parent_id']) :
-		if(current_user_can('edit_newsletter') && current_user_can('edit_others_newsletters', $this->post_data['parent_id'])) :
+		if(current_user_can('edit_newsletter', $post->ID) && current_user_can('edit_others_newsletters', $this->post_data['parent_id'])) :
 	 ?>
 			<p><?php echo sprintf(__('This campaign is based on an %s', 'mymail'), '<a href="post.php?post='.$this->post_data['parent_id'].'&action=edit&showstats=1">'.__('auto responder campaign', 'mymail').'</a>'); ?>
 			</p>

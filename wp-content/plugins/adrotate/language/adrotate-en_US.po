@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdRotate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-15 01:46+0100\n"
-"PO-Revision-Date: 2015-05-15 01:46+0100\n"
+"POT-Creation-Date: 2015-05-30 02:48+0100\n"
+"PO-Revision-Date: 2015-05-30 02:48+0100\n"
 "Last-Translator: Arnan de Gans <info@ajdg.net>\n"
 "Language-Team: Arnan de Gans from AJdG Solutions <info@adrotateplugin.com>\n"
 "Language: en_US\n"
@@ -13,25 +13,25 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.8.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: adrotate-functions.php:801
+#: adrotate-functions.php:796
 #, fuzzy
 msgid "No files found"
 msgstr "Aucun fichier n'a été trouvé"
 
-#: adrotate-functions.php:804
+#: adrotate-functions.php:799
 #, fuzzy
 msgid "Folder not found or not accessible"
 msgstr "Le dossier n'a pas été trouvé ou n'est pas accessible"
 
-#: adrotate-output.php:737
+#: adrotate-output.php:735
 #, fuzzy
 msgid "Oh no! Something went wrong!"
 msgstr "Oh no! Un problème est survenu!"
 
-#: adrotate-output.php:738
+#: adrotate-output.php:736
 #, fuzzy
 msgid ""
 "WordPress was unable to verify the authenticity of the url you have clicked. "
@@ -41,19 +41,19 @@ msgstr ""
 "Veuillez vérifier que le lien utilisé est bien valide, ou connectez-vous via "
 "votre navigateur."
 
-#: adrotate-output.php:739
+#: adrotate-output.php:737
 #, fuzzy
 msgid ""
 "If you have received the url you want to visit via email, you are being "
 "tricked!"
 msgstr "Si vous avez reçu ce lien par email, vous avez été dupés!"
 
-#: adrotate-output.php:740
+#: adrotate-output.php:738
 #, fuzzy
 msgid "Contact support if the issue persists:"
 msgstr "Contactez le support si le soucis persiste :"
 
-#: adrotate-output.php:758
+#: adrotate-output.php:756
 #, fuzzy
 msgid ""
 "Error, Ad is not available at this time due to schedule/geolocation "
@@ -62,7 +62,7 @@ msgstr ""
 "Erreur, la pub n'est pas disponible en ce moment en raison de restrictions "
 "horaires/géographiques ou n'existe pas!"
 
-#: adrotate-output.php:760
+#: adrotate-output.php:758
 #, fuzzy
 msgid ""
 "Error, Ad is not available at this time due to schedule/geolocation "
@@ -71,7 +71,7 @@ msgstr ""
 "Erreur, la pub n'est pas disponible en ce moment en raison de restrictions "
 "horaires/géographiques ou n'existe pas!"
 
-#: adrotate-output.php:767 adrotate-output.php:769
+#: adrotate-output.php:765 adrotate-output.php:767
 #, fuzzy
 msgid ""
 "Either there are no banners, they are disabled or none qualified for this "
@@ -80,22 +80,22 @@ msgstr ""
 "Soit il n'y a pas de bannières, ils sont desactivées ou pas qualifiées pour "
 "cet endroit!"
 
-#: adrotate-output.php:775
+#: adrotate-output.php:773
 #, fuzzy
 msgid "Error, no Ad ID set! Check your syntax!"
 msgstr "Erreur, aucun identifiant de pub n'a été mis! Vérifiez votre syntaxe."
 
-#: adrotate-output.php:781
+#: adrotate-output.php:779
 #, fuzzy
 msgid "Error, no group ID set! Check your syntax!"
 msgstr "Erreur: aucun ID de groupe n'est mis en place! Vérifiez votre syntaxe!"
 
-#: adrotate-output.php:786
+#: adrotate-output.php:784
 #, fuzzy
 msgid "Error, group does not exist! Check your syntax!"
 msgstr "Erreur, le groupe n'existe pas! Vérifiez votre syntaxe!"
 
-#: adrotate-output.php:792
+#: adrotate-output.php:790
 #, fuzzy
 msgid ""
 "There was an error locating the database tables for AdRotate. Please "
@@ -105,169 +105,169 @@ msgstr ""
 "besoin. Veuillez désactiver et ré-activer AdRotate de la page des "
 "extensions. "
 
-#: adrotate-output.php:792
+#: adrotate-output.php:790
 #, fuzzy
 msgid "If this does not solve the issue please seek support at"
 msgstr ""
 "Si les instructions ne résoudent pas le soucis, veuillez contacter le "
 "support à"
 
-#: adrotate-output.php:798
+#: adrotate-output.php:796
 #, fuzzy
 msgid "An unknown error occured."
 msgstr "Une erreur inconnue s'est produite."
 
-#: adrotate-output.php:823
+#: adrotate-output.php:821
 #, fuzzy
 msgid "active ad(s) expired."
 msgstr "publicité(s) active(s) ont expirée(s)."
 
-#: adrotate-output.php:823
+#: adrotate-output.php:821
 #, fuzzy
 msgid "Take action now"
 msgstr "Agir maintenant"
 
-#: adrotate-output.php:825
+#: adrotate-output.php:823
 #, fuzzy
 msgid "active ad(s) are about to expire."
 msgstr "publicité(s) active(s) sont sur le point d'expirer"
 
-#: adrotate-output.php:825
+#: adrotate-output.php:823
 #, fuzzy
 msgid "Check it out"
 msgstr "Vérifier-le"
 
-#: adrotate-output.php:827
+#: adrotate-output.php:825
 #, fuzzy
 msgid "active ad(s) with configuration errors."
 msgstr "publicité(s) active(s) avec des erreurs de configuration."
 
-#: adrotate-output.php:827
+#: adrotate-output.php:825
 #, fuzzy
 msgid "Solve this"
 msgstr "Résoudre"
 
-#: adrotate-output.php:829
+#: adrotate-output.php:827
 #, fuzzy
 msgid "ad(s) expired."
 msgstr "publicité(s) active(s) ont expirée(s)."
 
-#: adrotate-output.php:829
+#: adrotate-output.php:827
 #, fuzzy
 msgid "ad(s) are about to expire."
 msgstr "publicité(s) sont sur le point d'expirer"
 
-#: adrotate-output.php:829
+#: adrotate-output.php:827
 #, fuzzy
 msgid "ad(s) with configuration errors."
 msgstr "publicité(s) avec des erreurs de configuration."
 
-#: adrotate-output.php:829
+#: adrotate-output.php:827
 #, fuzzy
 msgid "Fix this as soon as possible"
 msgstr "Résoudre ce soucis dans les meilleurs délais"
 
-#: adrotate-output.php:841
+#: adrotate-output.php:839
 #, fuzzy
 msgid "Learn More"
 msgstr "En savoir plus"
 
-#: adrotate-output.php:842
+#: adrotate-output.php:840
 msgid ""
 "You've been using <strong>AdRotate</strong> for a while now. Why not upgrade "
 "to the <strong>PRO</strong> version"
 msgstr ""
 
-#: adrotate-output.php:842
+#: adrotate-output.php:840
 msgid "Get more features to even better run your advertising campaigns."
 msgstr ""
 
-#: adrotate-output.php:842
+#: adrotate-output.php:840
 #, fuzzy
 msgid "Thank you for your consideration!"
 msgstr "Avez-vous fait une sauvegarde de votre base de données?"
 
-#: adrotate-output.php:886
+#: adrotate-output.php:884
 msgid ""
 "Welcome, and thanks for using AdRotate. Everything related to AdRotate is in "
 "this menu. Check out the"
 msgstr ""
 
-#: adrotate-output.php:886
+#: adrotate-output.php:884
 msgid "manuals"
 msgstr ""
 
-#: adrotate-output.php:886 adrotate-output.php:962
+#: adrotate-output.php:884 adrotate-output.php:960
 #: dashboard/publisher/adrotate-ads-edit.php:151
 msgid "and"
 msgstr ""
 
-#: adrotate-output.php:886
+#: adrotate-output.php:884
 msgid "forums"
 msgstr ""
 
-#: adrotate-output.php:922
+#: adrotate-output.php:920
 msgid "Useful Links"
 msgstr ""
 
-#: adrotate-output.php:923
+#: adrotate-output.php:921
 msgid "Useful links to learn more about AdRotate"
 msgstr ""
 
-#: adrotate-output.php:925
+#: adrotate-output.php:923
 #, fuzzy
 msgid "AdRotate Page"
 msgstr "AdRotate Pro"
 
-#: adrotate-output.php:926
+#: adrotate-output.php:924
 #, fuzzy
 msgid "Getting Started With AdRotate"
 msgstr "Obtenez plus de fonctionalités avec AdRotate Pro"
 
-#: adrotate-output.php:927
+#: adrotate-output.php:925
 #, fuzzy
 msgid "AdRotate manuals"
 msgstr "Informations sur Adrotate"
 
-#: adrotate-output.php:928
+#: adrotate-output.php:926
 #, fuzzy
 msgid "AdRotate Support Forum"
 msgstr "Magasin AdRotate"
 
-#: adrotate-output.php:954
+#: adrotate-output.php:952
 #, fuzzy
 msgid "Help AdRotate Grow"
 msgstr "Bloqué avec AdRotate? Je peux vous aider!"
 
-#: adrotate-output.php:955
+#: adrotate-output.php:953
 #, fuzzy
 msgid "Brought to you by"
 msgstr "Présenté par"
 
-#: adrotate-output.php:962
+#: adrotate-output.php:960
 msgid ""
 "A lot of users only think to review AdRotate when something goes wrong while "
 "thousands of people use AdRotate satisfactory. Don't let this go unnoticed."
 msgstr ""
 
-#: adrotate-output.php:962
+#: adrotate-output.php:960
 msgid "If you find AdRotate useful please leave your honest"
 msgstr ""
 
-#: adrotate-output.php:962
+#: adrotate-output.php:960
 msgid "rating"
 msgstr ""
 
-#: adrotate-output.php:962
+#: adrotate-output.php:960
 #, fuzzy
 msgid "review"
 msgstr "Réexaminer les annonceurs! Visible pour les annonceurs."
 
-#: adrotate-output.php:962
+#: adrotate-output.php:960
 msgid "on WordPress.org to help AdRotate grow in a positive way"
 msgstr ""
 
-#: adrotate-output.php:965
+#: adrotate-output.php:963
 #, fuzzy
 msgid ""
 "Your one stop for Webdevelopment, consultancy and anything WordPress! Find "
@@ -276,32 +276,32 @@ msgstr ""
 "Votre guichet unique pour le développement Web, le consulting et toutes les "
 "façettes de Wordpress! Découvrez plus sur ce que je peux faire pour vous!"
 
-#: adrotate-output.php:965 dashboard/adrotate-info.php:171
+#: adrotate-output.php:963 dashboard/adrotate-info.php:191
 #, fuzzy
 msgid "Visit the"
 msgstr "Visitez le"
 
-#: adrotate-output.php:965 dashboard/adrotate-info.php:171
+#: adrotate-output.php:963 dashboard/adrotate-info.php:191
 #, fuzzy
 msgid "website"
 msgstr "site"
 
-#: adrotate-output.php:995 dashboard/publisher/adrotate-ads-edit.php:313
+#: adrotate-output.php:993 dashboard/publisher/adrotate-ads-edit.php:313
 #, fuzzy
 msgid "Available in AdRotate Pro"
 msgstr "Disponible dans Adrotate Pro"
 
-#: adrotate-output.php:995
+#: adrotate-output.php:993
 #, fuzzy
 msgid "More information..."
 msgstr "Plus d'informations..."
 
-#: adrotate-output.php:996
+#: adrotate-output.php:994
 #, fuzzy
 msgid "This feature is available in AdRotate Pro"
 msgstr "Cette fonctionalité est disponible dans AdRotate Pro"
 
-#: adrotate-output.php:996
+#: adrotate-output.php:994
 #, fuzzy
 msgid "Learn more"
 msgstr "En savoir plus"
@@ -393,59 +393,59 @@ msgstr "Ce mois-ci"
 msgid "Next"
 msgstr "Prochain"
 
-#: adrotate-statistics.php:284 dashboard/adrotate-info.php:123
+#: adrotate-statistics.php:284 dashboard/adrotate-info.php:125
 #, fuzzy
 msgid "No data to show!"
 msgstr "Aucune donnée à montrer!"
 
-#: adrotate-widget.php:116
+#: adrotate-widget.php:112
 #, fuzzy
 msgid "Title (optional):"
 msgstr "Titre (optionel) :"
 
-#: adrotate-widget.php:119
+#: adrotate-widget.php:115
 #, fuzzy
 msgid "HTML will be stripped out."
 msgstr "Le code HTML sera retiré."
 
-#: adrotate-widget.php:122
+#: adrotate-widget.php:118
 #, fuzzy
 msgid "Description (optional):"
 msgstr "Description (optionelle) :"
 
-#: adrotate-widget.php:125
+#: adrotate-widget.php:121
 #, fuzzy
 msgid "What is this widget used for? (Not parsed, HTML will be stripped out.)"
 msgstr ""
 "Quelle est l'utilisation de ce widget? (Non executé, le code HTML sera "
 "dépouillé.)"
 
-#: adrotate-widget.php:128
+#: adrotate-widget.php:124
 #, fuzzy
 msgid "Type:"
 msgstr "Type :"
 
-#: adrotate-widget.php:130
+#: adrotate-widget.php:126
 #, fuzzy
 msgid "Single Ad - Use Ad ID"
 msgstr "Ad Unique - Mettre l'identifiant de la publicité"
 
-#: adrotate-widget.php:131
+#: adrotate-widget.php:127
 #, fuzzy
 msgid "Group of Ads - Use group ID"
 msgstr "Groupe de Pub - Mettre l'identifiant du groupe"
 
-#: adrotate-widget.php:134
+#: adrotate-widget.php:130
 #, fuzzy
 msgid "Choose what you want to use this widget for"
 msgstr "Choisissez le fonction de ce widget"
 
-#: adrotate-widget.php:137
+#: adrotate-widget.php:133
 #, fuzzy
 msgid "ID:"
 msgstr "ID :"
 
-#: adrotate-widget.php:140
+#: adrotate-widget.php:136
 #, fuzzy
 msgid "Fill in the ID of the type you want to display!"
 msgstr "Insérez l'identifiant du type que vous voulez afficher!"
@@ -892,8 +892,8 @@ msgstr "Effacer les groups"
 msgid "Role to delete groups."
 msgstr "Rôle pour supprimer les groupes."
 
-#: adrotate.php:680 adrotate.php:744 adrotate.php:799 adrotate.php:846
-#: adrotate.php:890
+#: adrotate.php:680 adrotate.php:744 adrotate.php:784 adrotate.php:831
+#: adrotate.php:875
 #, fuzzy
 msgid "Update Options"
 msgstr "Mettre à jour les options"
@@ -1085,7 +1085,7 @@ msgstr ""
 "Activez cette option pour supprimer la marge (espace vide) autour des "
 "publicités dans les widgets. Ceci ne fonctionne pas toujours!"
 
-#: adrotate.php:760 adrotate.php:771
+#: adrotate.php:758
 #, fuzzy
 msgid "NOTICE:"
 msgstr ""
@@ -1095,7 +1095,7 @@ msgstr ""
 "votre site! Ces fonctions seront utilisées quand vous sentez que votre base "
 "de données est lente ou ne réponds pas."
 
-#: adrotate.php:761
+#: adrotate.php:759
 #, fuzzy
 msgid ""
 "You have enabled W3 Total Caching support but not defined the security hash. "
@@ -1108,38 +1108,17 @@ msgstr ""
 "config.php après la ligne 52 (qui définit un autre hash). De plus, la "
 "fonction \"late init\" doit être activée dans W3 Total Cache."
 
-#: adrotate.php:765
+#: adrotate.php:762
 #, fuzzy
 msgid "W3 Total Caching"
 msgstr "W3 Total Caching"
 
-#: adrotate.php:766
+#: adrotate.php:763
 #, fuzzy
 msgid "Check this box if you use W3 Total Caching on your site."
 msgstr "Cochez cette case si vous utilisez W3 Total Caching sur votre site."
 
-#: adrotate.php:772
-#, fuzzy
-msgid ""
-"You have enabled WP Super Cache support. If you have version 1.4 or newer, "
-"this function will not work. WP Super Cache has discontinued support for "
-"dynamic content."
-msgstr ""
-"Vous avez activé le support de WP Super Cache. Si vous avez la version 1.4 "
-"ou plus récent, cette fonction ne marchera pas. WP Super Cache a arrêté le "
-"support pour le contenu dynamique."
-
-#: adrotate.php:776
-#, fuzzy
-msgid "WP Super Cache"
-msgstr "WP Super Cache"
-
-#: adrotate.php:777
-#, fuzzy
-msgid "Check this box if you use WP Super Cache on your site."
-msgstr "Cochez cette option si vous utilisez WP Super Cache sur votre site."
-
-#: adrotate.php:782
+#: adrotate.php:767
 #, fuzzy
 msgid ""
 "It may take a while for the ad to start rotating. The caching plugin needs "
@@ -1150,7 +1129,7 @@ msgstr ""
 "actualiser son contenu. Cela peut prendre jusqu'à une semaine si ce n'est "
 "pas fait manuellement."
 
-#: adrotate.php:782
+#: adrotate.php:767
 #, fuzzy
 msgid ""
 "Caching support only works for [shortcodes] and the AdRotate Widget. If you "
@@ -1160,16 +1139,16 @@ msgstr ""
 "widget Adrotate. Si vous utilisez du code PHP, vous devez envelopper votre "
 "PHP dans le code d'exclusion vous-même."
 
-#: adrotate.php:786
+#: adrotate.php:771
 msgid "Javascript"
 msgstr ""
 
-#: adrotate.php:789
+#: adrotate.php:774
 #, fuzzy
 msgid "Load jQuery"
 msgstr "Utilisez jQuery"
 
-#: adrotate.php:790
+#: adrotate.php:775
 #, fuzzy
 msgid ""
 "jQuery is required for all Javascript features below. Enable this if your "
@@ -1178,12 +1157,12 @@ msgstr ""
 "jQuery est requis pour toutes les fonctions Javascript ci-dessous. Activez-"
 "le si votre thème ne charge pas jQuery directement."
 
-#: adrotate.php:793
+#: adrotate.php:778
 #, fuzzy
 msgid "Load in footer?"
 msgstr "Chargement dans le pied de page?"
 
-#: adrotate.php:794
+#: adrotate.php:779
 #, fuzzy
 msgid ""
 "Enable if you want to load the above libraries in the footer. Your theme "
@@ -1192,12 +1171,12 @@ msgstr ""
 "Activez cette option si vous voulez charger les bibliothèques dans le pied "
 "de page. Votre thème doit appeler wp_footer() pour que cela fonctionne."
 
-#: adrotate.php:802
+#: adrotate.php:787
 #, fuzzy
 msgid "Maintenance"
 msgstr "Maintenance"
 
-#: adrotate.php:803
+#: adrotate.php:788
 #, fuzzy
 msgid ""
 "NOTE: The below functions are intented to be used to OPTIMIZE your database. "
@@ -1212,22 +1191,22 @@ msgstr ""
 "votre site! Ces fonctions seront utilisées quand vous sentez que votre base "
 "de données est lente ou ne réponds pas."
 
-#: adrotate.php:818 adrotate.php:820
+#: adrotate.php:803 adrotate.php:805
 #, fuzzy
 msgid "Optimize Database"
 msgstr "Optimiser la base de données"
 
-#: adrotate.php:820
+#: adrotate.php:805
 #, fuzzy
 msgid "You are about to optimize the AdRotate database."
 msgstr "Vous allez optimiser la base de données de Adrotate."
 
-#: adrotate.php:820
+#: adrotate.php:805
 #, fuzzy
 msgid "Did you make a backup of your database?"
 msgstr "Avez-vous fait une sauvegarde de votre base de données?"
 
-#: adrotate.php:820
+#: adrotate.php:805
 #, fuzzy
 msgid ""
 "This may take a moment and may cause your website to respond slow "
@@ -1236,18 +1215,18 @@ msgstr ""
 "Cela peut prendre un moment et peut causer à votre site un ralentissement "
 "temporaire!"
 
-#: adrotate.php:820 adrotate.php:828 adrotate.php:836
+#: adrotate.php:805 adrotate.php:813 adrotate.php:821
 #: dashboard/publisher/adrotate-groups-main.php:24
 #, fuzzy
 msgid "OK to continue, CANCEL to stop."
 msgstr "Pour continuer, cliquez Ok, autrement, cliquez sur Annuler."
 
-#: adrotate.php:821
+#: adrotate.php:806
 #, fuzzy
 msgid "Cleans up overhead data in the AdRotate tables."
 msgstr "Efface les données de surdébit dans les tables de AdRotate."
 
-#: adrotate.php:822
+#: adrotate.php:807
 #, fuzzy
 msgid ""
 "Overhead data is accumulated garbage resulting from many changes you've "
@@ -1257,12 +1236,12 @@ msgstr ""
 "changements que vous avez fait. Cela peut varier de rien à des centaines de "
 "KB de données."
 
-#: adrotate.php:826 adrotate.php:828
+#: adrotate.php:811 adrotate.php:813
 #, fuzzy
 msgid "Clean-up Database"
 msgstr "Nettoyer la base de données"
 
-#: adrotate.php:828
+#: adrotate.php:813
 #, fuzzy
 msgid ""
 "You are about to clean up your database. This may delete expired schedules "
@@ -1271,24 +1250,24 @@ msgstr ""
 "Vous êtes sur le point de nettoyer votre base de données. Cela peut "
 "supprimer des calendriers périmés et des vieilles statistiques.."
 
-#: adrotate.php:828
+#: adrotate.php:813
 #, fuzzy
 msgid "Are you sure you want to continue?"
 msgstr "Etes-vous certains de vouloir continuer?"
 
-#: adrotate.php:828 adrotate.php:836
+#: adrotate.php:813 adrotate.php:821
 #, fuzzy
 msgid "This might take a while and may slow down your site during this action!"
 msgstr ""
 "Ceci peut prendre un certain temps et peut ralentir votre site pendant cet "
 "interval!"
 
-#: adrotate.php:829
+#: adrotate.php:814
 #, fuzzy
 msgid "Delete stats older than 356 days (Optional)."
 msgstr "Supprimer les statistiques de plus de 365 jours (optionel)."
 
-#: adrotate.php:830
+#: adrotate.php:815
 #, fuzzy
 msgid ""
 "AdRotate creates empty records when you start making ads or groups. In rare "
@@ -1297,7 +1276,7 @@ msgstr ""
 "AdRotate crée des registres vides lorsque vous commencez à faire des "
 "annonces ou des groupes. Dans de rares cas, ces registres sont défectueux."
 
-#: adrotate.php:830
+#: adrotate.php:815
 #, fuzzy
 msgid ""
 "If you made an ad or group that does not save when you make it use this "
@@ -1307,7 +1286,7 @@ msgstr ""
 "sauvegardé quand vous le créez, cliquez sur ce bouton opur effacer ces "
 "registres vides."
 
-#: adrotate.php:830
+#: adrotate.php:815
 #, fuzzy
 msgid ""
 "Additionally you can clean up old statistics. This will improve the speed of "
@@ -1316,22 +1295,22 @@ msgstr ""
 "En outre, vous pouvez nettoyer les anciennes statistiques. Cela permettre "
 "d'améliorer la vitesse de votre site."
 
-#: adrotate.php:834
+#: adrotate.php:819
 #, fuzzy
 msgid "Re-evaluate Ads"
 msgstr "Re-évaluer les publicités"
 
-#: adrotate.php:836
+#: adrotate.php:821
 #, fuzzy
 msgid "Re-evaluate all ads"
 msgstr "Re-évaluer toutes les publicités"
 
-#: adrotate.php:836
+#: adrotate.php:821
 #, fuzzy
 msgid "You are about to check all ads for errors."
 msgstr "Vous allez véifier l'état de toutes les publicités."
 
-#: adrotate.php:837
+#: adrotate.php:822
 #, fuzzy
 msgid ""
 "This will apply all evaluation rules to all ads to see if any error slipped "
@@ -1341,7 +1320,7 @@ msgstr ""
 "voir si une erreur existe. Vous ne devriez pas avoir besoin de cette "
 "fonctionalité."
 
-#: adrotate.php:841
+#: adrotate.php:826
 #, fuzzy
 msgid ""
 "DISCLAIMER: If for any reason your data is lost, damaged or otherwise "
@@ -1359,75 +1338,75 @@ msgstr ""
 "probablement déjà au-delà de la réparation. Affirmer que le site "
 "fonctionnait avant de cliquer sur ces boutons n'est pas un argument valable."
 
-#: adrotate.php:849
+#: adrotate.php:834
 #, fuzzy
 msgid "Troubleshooting"
 msgstr "Diagnostic de dépannage"
 
-#: adrotate.php:852
+#: adrotate.php:837
 #, fuzzy
 msgid "Current version:"
 msgstr "Version actuelle :"
 
-#: adrotate.php:853
+#: adrotate.php:838
 #, fuzzy
 msgid "Previous version:"
 msgstr "Version antérieure :"
 
-#: adrotate.php:856
+#: adrotate.php:841
 #, fuzzy
 msgid "Current database version:"
 msgstr "Version actuelle de la base de données :"
 
-#: adrotate.php:857
+#: adrotate.php:842
 #, fuzzy
 msgid "Previous database version:"
 msgstr "Version antérieure de la base de données :"
 
-#: adrotate.php:860
+#: adrotate.php:845
 msgid "Ad evaluation next run:"
 msgstr ""
 
-#: adrotate.php:861 adrotate.php:865
+#: adrotate.php:846 adrotate.php:850
 #, fuzzy
 msgid "Not scheduled!"
 msgstr "Pas planifié!"
 
-#: adrotate.php:864
+#: adrotate.php:849
 msgid "Clean Trackerdata next run:"
 msgstr ""
 
-#: adrotate.php:868
+#: adrotate.php:853
 #, fuzzy
 msgid "Current status of adverts"
 msgstr "Etat actuel des publicités"
 
-#: adrotate.php:869
+#: adrotate.php:854
 #, fuzzy
 msgid "Normal"
 msgstr "Normal"
 
-#: adrotate.php:869
+#: adrotate.php:854
 #, fuzzy
 msgid "Error"
 msgstr "Erreur"
 
-#: adrotate.php:869
+#: adrotate.php:854
 #, fuzzy
 msgid "Expired"
 msgstr "Expiré"
 
-#: adrotate.php:869
+#: adrotate.php:854
 #, fuzzy
 msgid "Expires Soon"
 msgstr "Expire bientôt."
 
-#: adrotate.php:869
+#: adrotate.php:854
 #, fuzzy
 msgid "Unknown Status"
 msgstr "Statut Inconnu"
 
-#: adrotate.php:872
+#: adrotate.php:857
 #, fuzzy
 msgid ""
 "NOTE: The below options are not meant for normal use and are only there for "
@@ -1441,43 +1420,43 @@ msgstr ""
 "peuvent être utilisés comme une mesure de dépannage sur demande, mais pour "
 "une utilisation normale, ils ne doivent pas être activés!"
 
-#: adrotate.php:876
+#: adrotate.php:861
 #, fuzzy
 msgid "Developer Debug"
 msgstr "Debuggage de développeur"
 
-#: adrotate.php:878
+#: adrotate.php:863
 #, fuzzy
 msgid "Troubleshoot ads and how (if) they are selected, has front-end output."
 msgstr ""
 "Dépannage des publicités. Si cette option est activée, les données seront "
 "placées sur le site."
 
-#: adrotate.php:879
+#: adrotate.php:864
 #, fuzzy
 msgid "Show all settings, dashboard routines and related values."
 msgstr ""
 "Afficher tous les paramétres, les widgets du tableau de bord et les valeurs "
 "connexes."
 
-#: adrotate.php:880
+#: adrotate.php:865
 #, fuzzy
 msgid "Show array of all userroles and capabilities."
 msgstr "Voir les données de tous les rôles d'utilisateurs et leur capacités."
 
-#: adrotate.php:881
+#: adrotate.php:866
 #, fuzzy
 msgid "Review saved advertisers! Visible to advertisers."
 msgstr "Réexaminer les annonceurs! Visible pour les annonceurs."
 
-#: adrotate.php:882
+#: adrotate.php:867
 #, fuzzy
 msgid "Review global stats, per ad/group stats. Visible only to publishers."
 msgstr ""
 "Voir le suivi des statistiques globales, ainsi que par publicité/groupe. "
 "Visible uniquement aux annonceurs."
 
-#: adrotate.php:883
+#: adrotate.php:868
 #, fuzzy
 msgid ""
 "Disable timers for clicks and impressions and enable a alert window for "
@@ -1486,80 +1465,88 @@ msgstr ""
 "Désactivez les minuteurs pour les clicks et les impressions et activez une "
 "fenêtre d'alerte pour le suivi des clicks."
 
-#: adrotate.php:884
+#: adrotate.php:869
 #, fuzzy
 msgid "Temporarily disable encryption on the redirect url."
 msgstr "Désactiver temporairement le chiffrement sur l'url de redirection."
 
-#: dashboard/adrotate-info.php:65
+#: dashboard/adrotate-info.php:66
 #, fuzzy
 msgid "Currently"
 msgstr "Actuellement"
 
-#: dashboard/adrotate-info.php:71
+#: dashboard/adrotate-info.php:72
 #, fuzzy
 msgid "Your setup"
 msgstr "Votre configuration"
 
-#: dashboard/adrotate-info.php:72
+#: dashboard/adrotate-info.php:73
 #, fuzzy
 msgid "Adverts that need you"
 msgstr "Publicités qui ont besoin de votre attention"
 
-#: dashboard/adrotate-info.php:78
+#: dashboard/adrotate-info.php:79
 #, fuzzy
 msgid "Adverts"
 msgstr "Publicités"
 
-#: dashboard/adrotate-info.php:79
+#: dashboard/adrotate-info.php:80
 #, fuzzy
 msgid "(Almost) Expired"
 msgstr "(presque) expiré"
 
-#: dashboard/adrotate-info.php:82
+#: dashboard/adrotate-info.php:83
 #, fuzzy
 msgid "Groups"
 msgstr "Groupes"
 
-#: dashboard/adrotate-info.php:83
+#: dashboard/adrotate-info.php:84
 #, fuzzy
 msgid "Have errors"
 msgstr "Il y a des erreurs"
 
-#: dashboard/adrotate-info.php:87
+#: dashboard/adrotate-info.php:88
 #, fuzzy
 msgid "Queued"
 msgstr "File d'attente"
 
-#: dashboard/adrotate-info.php:93
+#: dashboard/adrotate-info.php:95
 #, fuzzy
 msgid "The last few days"
 msgstr "Les derniers jours"
 
-#: dashboard/adrotate-info.php:132
+#: dashboard/adrotate-info.php:135
 #, fuzzy
 msgid "Support AdRotate"
 msgstr "Soutenez AdRotate"
 
-#: dashboard/adrotate-info.php:139
+#: dashboard/adrotate-info.php:142
 msgid "Your gift helps ensure the continued development of AdRotate!"
 msgstr ""
 
-#: dashboard/adrotate-info.php:139
+#: dashboard/adrotate-info.php:142
 msgid "Can't donate money? Consider writing a review instead. Thank you!"
 msgstr ""
 
-#: dashboard/adrotate-info.php:148
+#: dashboard/adrotate-info.php:151
 #, fuzzy
 msgid "AdRotate News and Developer Blog"
 msgstr "Actus AdRotate et blog du développeur"
 
 #: dashboard/adrotate-info.php:168
+msgid "Get notified of AdRotate updates via Pushover"
+msgstr ""
+
+#: dashboard/adrotate-info.php:175
+msgid "Pushover is a push notification service for iOS and Android!"
+msgstr ""
+
+#: dashboard/adrotate-info.php:188
 #, fuzzy
 msgid "Get more features with AdRotate Pro"
 msgstr "Obtenez plus de fonctionalités avec AdRotate Pro"
 
-#: dashboard/adrotate-info.php:171
+#: dashboard/adrotate-info.php:191
 #, fuzzy
 msgid ""
 "Benefit from extra features to reinforce your income with advertising "
@@ -1571,97 +1558,96 @@ msgstr ""
 "outils puissants qu'AdRotate Pro offre en plus des fonctions incluses dans "
 "la version gratuite."
 
-#: dashboard/adrotate-info.php:171
+#: dashboard/adrotate-info.php:191
 msgid "Want to know more about"
 msgstr ""
 
-#: dashboard/adrotate-info.php:175 dashboard/adrotate-pro.php:76
+#: dashboard/adrotate-info.php:195 dashboard/adrotate-pro.php:72
 #, fuzzy
 msgid "Buy AdRotate Professional"
 msgstr "Achetez AdRotate Professionel"
 
-#: dashboard/adrotate-info.php:179 dashboard/adrotate-pro.php:80
-#, fuzzy
-msgid "Singe License"
-msgstr "Licence Unique"
+#: dashboard/adrotate-info.php:199
+msgid "Single License"
+msgstr ""
 
-#: dashboard/adrotate-info.php:179 dashboard/adrotate-pro.php:80
+#: dashboard/adrotate-info.php:199 dashboard/adrotate-pro.php:76
 #, fuzzy
 msgid "For one WordPress installation."
 msgstr "Pour une installation Wordpress."
 
-#: dashboard/adrotate-info.php:179 dashboard/adrotate-info.php:180
-#: dashboard/adrotate-info.php:181 dashboard/adrotate-info.php:182
-#: dashboard/adrotate-info.php:183 dashboard/adrotate-pro.php:80
-#: dashboard/adrotate-pro.php:81 dashboard/adrotate-pro.php:82
-#: dashboard/adrotate-pro.php:83 dashboard/adrotate-pro.php:84
+#: dashboard/adrotate-info.php:199 dashboard/adrotate-info.php:200
+#: dashboard/adrotate-info.php:201 dashboard/adrotate-info.php:202
+#: dashboard/adrotate-info.php:203 dashboard/adrotate-pro.php:76
+#: dashboard/adrotate-pro.php:77 dashboard/adrotate-pro.php:78
+#: dashboard/adrotate-pro.php:79 dashboard/adrotate-pro.php:80
 #, fuzzy
 msgid "Buy now"
 msgstr "Achetez AdRotate Professionel"
 
-#: dashboard/adrotate-info.php:180 dashboard/adrotate-pro.php:81
+#: dashboard/adrotate-info.php:200 dashboard/adrotate-pro.php:77
 #, fuzzy
 msgid "Duo License"
 msgstr "Licence Duo"
 
-#: dashboard/adrotate-info.php:180 dashboard/adrotate-pro.php:81
+#: dashboard/adrotate-info.php:200 dashboard/adrotate-pro.php:77
 #, fuzzy
 msgid "For two WordPress installations."
 msgstr "Pour deux installations Wordpress."
 
-#: dashboard/adrotate-info.php:181 dashboard/adrotate-pro.php:82
+#: dashboard/adrotate-info.php:201 dashboard/adrotate-pro.php:78
 #, fuzzy
 msgid "Multi License"
 msgstr "Licence Multiple"
 
-#: dashboard/adrotate-info.php:181 dashboard/adrotate-pro.php:82
+#: dashboard/adrotate-info.php:201 dashboard/adrotate-pro.php:78
 #, fuzzy
 msgid " For up to five WordPress installations."
 msgstr "Pour un max de cinq installation Wordpress."
 
-#: dashboard/adrotate-info.php:182 dashboard/adrotate-pro.php:83
+#: dashboard/adrotate-info.php:202 dashboard/adrotate-pro.php:79
 #, fuzzy
 msgid "Developer License"
 msgstr "Licence de Developpeur"
 
-#: dashboard/adrotate-info.php:182 dashboard/adrotate-pro.php:83
+#: dashboard/adrotate-info.php:202 dashboard/adrotate-pro.php:79
 msgid "Unlimited WordPress installations and/or networks."
 msgstr ""
 
-#: dashboard/adrotate-info.php:183 dashboard/adrotate-pro.php:84
+#: dashboard/adrotate-info.php:203 dashboard/adrotate-pro.php:80
 #, fuzzy
 msgid "Network License"
 msgstr "Licence Réseau"
 
-#: dashboard/adrotate-info.php:183 dashboard/adrotate-pro.php:84
+#: dashboard/adrotate-info.php:203 dashboard/adrotate-pro.php:80
 #, fuzzy
 msgid "Set up your own advertising network on a WordPress Multisite."
 msgstr ""
 "Mettez en place votre propre réseau de publicité sur une installation "
 "Wordpress Multisite."
 
-#: dashboard/adrotate-info.php:184 dashboard/adrotate-pro.php:85
+#: dashboard/adrotate-info.php:204 dashboard/adrotate-pro.php:81
 #, fuzzy
 msgid "Compare licenses"
 msgstr "Comparer les licences"
 
-#: dashboard/adrotate-info.php:184 dashboard/adrotate-pro.php:85
+#: dashboard/adrotate-info.php:204 dashboard/adrotate-pro.php:81
 #, fuzzy
 msgid "Not sure which license is for you? Compare them..."
 msgstr ""
 "Comparez les licences pour savoir laquelle est celle dont vous avez besoin..."
 
-#: dashboard/adrotate-info.php:184 dashboard/adrotate-pro.php:85
+#: dashboard/adrotate-info.php:204 dashboard/adrotate-pro.php:81
 #, fuzzy
 msgid "All Licenses"
 msgstr "Toutes les licences"
 
-#: dashboard/adrotate-info.php:188 dashboard/adrotate-pro.php:43
+#: dashboard/adrotate-info.php:208 dashboard/adrotate-pro.php:41
 #, fuzzy
 msgid "AdRotate is brought to you by"
 msgstr "AdRotate est offert par"
 
-#: dashboard/adrotate-info.php:192 dashboard/adrotate-pro.php:47
+#: dashboard/adrotate-info.php:212 dashboard/adrotate-pro.php:45
 #, fuzzy
 msgid ""
 "Your one stop for Webdevelopment, consultancy and anything WordPress! If you "
@@ -1673,12 +1659,12 @@ msgstr ""
 "personnalisation de thème ou pour la migration de votre site entier, visitez "
 "mon site pour tous les détails!"
 
-#: dashboard/adrotate-info.php:192 dashboard/adrotate-pro.php:47
+#: dashboard/adrotate-info.php:212 dashboard/adrotate-pro.php:45
 #, fuzzy
 msgid "Find out more"
 msgstr "En savoir plus"
 
-#: dashboard/adrotate-info.php:194
+#: dashboard/adrotate-info.php:214
 #, fuzzy
 msgid "Follow"
 msgstr "Suivre"
@@ -1702,66 +1688,62 @@ msgstr ""
 "votre personel. Les annonceurs ont accès à leur propre petit tableau de bord "
 "où ils peuvent voir les performances de leur publicités."
 
-#: dashboard/adrotate-pro.php:28
+#: dashboard/adrotate-pro.php:27
 #, fuzzy
 msgid "Localize your ad campaigns with Geo Targeting"
 msgstr "Localiser vos campagnes publicitaires avec le ciblage géographique"
 
-#: dashboard/adrotate-pro.php:31
+#: dashboard/adrotate-pro.php:30
 msgid ""
 "Go nationwide or global with localized adverts for your various audiences. "
 "Set up adverts for countries and cities and sell impressions per general "
-"area. Connect your site to MaxMinds GeoIP2: Precision, FreegeoIP (MaxMind "
-"GeoLITE) or GeoBytes GeoSelect services."
+"area. Connect your site to MaxMind GeoIP2: Precision, Telize or AdRotate "
+"Geo. AdRotate Geo is an exclusive Geo Lookup service for AdRotate Pro users."
 msgstr ""
 
-#: dashboard/adrotate-pro.php:36
+#: dashboard/adrotate-pro.php:34
 #, fuzzy
 msgid "Get Premium Support almost all year round"
 msgstr "Obtenez du soutien Premium pendant toute l'année"
 
-#: dashboard/adrotate-pro.php:39
-#, fuzzy
+#: dashboard/adrotate-pro.php:37
 msgid ""
-"When you activate your AdRotate Pro license you are entitled to ticket "
-"support. AdRotate premium support which takes priority over the Forums and "
-"even email. Get a solution (usually) within a day."
+"When you activate your AdRotate Pro license you can use fast and personal "
+"email support. No more queueing up in the forums. AdRotate premium support  "
+"takes priority over the forums and is checked much more often than the "
+"forum. Get a solution (usually) within a day."
 msgstr ""
-"Lorsque vous activez votre licence AdRotate Pro vous bénéficiez d'une "
-"assistance premium qui a la priorité sur les forums et même les e-mails. "
-"Vous obtiendraient une solution (en général) dans la journée."
 
-#: dashboard/adrotate-pro.php:60
+#: dashboard/adrotate-pro.php:58
 #, fuzzy
 msgid "Schedule all campaigns with ease"
 msgstr "Planifier toutes vos campagnes en toute simplicité"
 
-#: dashboard/adrotate-pro.php:63
-#, fuzzy
+#: dashboard/adrotate-pro.php:61
 msgid ""
-"Schedule your adverts and set up advertising campaigns based on date without "
-"hassle. Seasonal adverts, weekly adverts. You name it. AdRotate schedules it."
+"Schedule your adverts and set up advertising campaigns based on dates you or "
+"your advertisers specify without hassle. Seasonal adverts, weekly adverts. "
+"You name it, AdRotate schedules it. This makes planning your revenue stream "
+"much more easy. You can set one or many schedules for adverts."
 msgstr ""
-"Planifiez vos publicités et mettez en place des campagnes de publicité "
-"basées sur les dates facilement. Vous pouvez utiliser AdRotate pour "
-"planifier des annonces saisonnières, hebdomadaires ou à la carte. "
+
+#: dashboard/adrotate-pro.php:65
+msgid "Stay up-to-date with notifications"
+msgstr ""
 
 #: dashboard/adrotate-pro.php:68
-#, fuzzy
-msgid "Stay up-to-date with the notification system"
-msgstr "Restez à jour avec le système de notification"
-
-#: dashboard/adrotate-pro.php:71
-#, fuzzy
 msgid ""
-"Stay in touch with Email and/or push notifications. Get notified when "
+"Stay in touch with Email notifications. Have AdRotate send you an alert when "
+"adverts expire or need your attention. Additionally, you can have AdRotate "
+"send push notifications to your iOS or Android smartphone. Get notified when "
 "adverts expire, have errors or when advertisers create new adverts. Never "
 "miss an expiration date again."
 msgstr ""
-"Restez en contact avec Email et / ou les notifications push. Recevez des "
-"messages quand les publicités expirent, ont des erreurs ou lorsque les "
-"annonceurs créent de nouvelles annonces. Ne manquez plus jamais une date "
-"d'expiration."
+
+#: dashboard/adrotate-pro.php:76
+#, fuzzy
+msgid "Singe License"
+msgstr "Licence Unique"
 
 #: dashboard/publisher/adrotate-ads-edit.php:46
 #, fuzzy
@@ -2879,6 +2861,59 @@ msgstr "Aucun groupe n'a été créé!"
 #, fuzzy
 msgid "Statistics for group"
 msgstr "Statistiques pour le groupe"
+
+#, fuzzy
+#~ msgid ""
+#~ "You have enabled WP Super Cache support. If you have version 1.4 or "
+#~ "newer, this function will not work. WP Super Cache has discontinued "
+#~ "support for dynamic content."
+#~ msgstr ""
+#~ "Vous avez activé le support de WP Super Cache. Si vous avez la version "
+#~ "1.4 ou plus récent, cette fonction ne marchera pas. WP Super Cache a "
+#~ "arrêté le support pour le contenu dynamique."
+
+#, fuzzy
+#~ msgid "WP Super Cache"
+#~ msgstr "WP Super Cache"
+
+#, fuzzy
+#~ msgid "Check this box if you use WP Super Cache on your site."
+#~ msgstr "Cochez cette option si vous utilisez WP Super Cache sur votre site."
+
+#, fuzzy
+#~ msgid ""
+#~ "When you activate your AdRotate Pro license you are entitled to ticket "
+#~ "support. AdRotate premium support which takes priority over the Forums "
+#~ "and even email. Get a solution (usually) within a day."
+#~ msgstr ""
+#~ "Lorsque vous activez votre licence AdRotate Pro vous bénéficiez d'une "
+#~ "assistance premium qui a la priorité sur les forums et même les e-mails. "
+#~ "Vous obtiendraient une solution (en général) dans la journée."
+
+#, fuzzy
+#~ msgid ""
+#~ "Schedule your adverts and set up advertising campaigns based on date "
+#~ "without hassle. Seasonal adverts, weekly adverts. You name it. AdRotate "
+#~ "schedules it."
+#~ msgstr ""
+#~ "Planifiez vos publicités et mettez en place des campagnes de publicité "
+#~ "basées sur les dates facilement. Vous pouvez utiliser AdRotate pour "
+#~ "planifier des annonces saisonnières, hebdomadaires ou à la carte. "
+
+#, fuzzy
+#~ msgid "Stay up-to-date with the notification system"
+#~ msgstr "Restez à jour avec le système de notification"
+
+#, fuzzy
+#~ msgid ""
+#~ "Stay in touch with Email and/or push notifications. Get notified when "
+#~ "adverts expire, have errors or when advertisers create new adverts. Never "
+#~ "miss an expiration date again."
+#~ msgstr ""
+#~ "Restez en contact avec Email et / ou les notifications push. Recevez des "
+#~ "messages quand les publicités expirent, ont des erreurs ou lorsque les "
+#~ "annonceurs créent de nouvelles annonces. Ne manquez plus jamais une date "
+#~ "d'expiration."
 
 #, fuzzy
 #~ msgid "Title:"

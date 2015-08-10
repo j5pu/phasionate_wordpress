@@ -30,12 +30,27 @@ class mymail_placeholder {
 		$this->add(mymail_option('custom_tags', array()));
 		$this->add(mymail_option('tags', array()));
 
+		//mymail_add_tag('url', array( $this, 'urlencode_tags'));
+
 	}
 	
 	
 	public function __destruct() {
 	}
 	
+	public function urlencode_tags($option, $fallback, $campaignID = NULL, $subscriberID = NULL){
+		
+		if($subscriber = mymail('subscribers')->get($subscriberID) && isset($subscriber->{$option})){
+			$return = rawurlencode($subscriber->{$option});
+		}else{
+			$return = '{'.$option;
+			if($fallback) $return .= '|'.$fallback;
+			$return .= '}';
+		}
+
+		return $return;
+	}
+
 	public function set_content($content = '') {
 		$this->content = $content;
 	}

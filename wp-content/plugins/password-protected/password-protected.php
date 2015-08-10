@@ -4,7 +4,7 @@
 Plugin Name: Password Protected
 Plugin URI: https://wordpress.org/plugins/password-protected/
 Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work on WP Engine or with some caching setups.
-Version: 2.0
+Version: 2.0.1
 Author: Ben Huson
 Text Domain: password-protected
 Author URI: http://github.com/benhuson/password-protected/
@@ -42,7 +42,7 @@ $Password_Protected = new Password_Protected();
 
 class Password_Protected {
 
-	var $version = '1.9';
+	var $version = '2.0.1';
 	var $admin   = null;
 	var $errors  = null;
 
@@ -60,6 +60,7 @@ class Password_Protected {
 		add_filter( 'password_protected_is_active', array( $this, 'allow_ip_addresses' ) );
 
 		add_action( 'init', array( $this, 'disable_caching' ), 1 );
+		add_action( 'init', array( $this, 'maybe_process_logout' ), 1 );
 		add_action( 'init', array( $this, 'maybe_process_login' ), 1 );
 		add_action( 'wp', array( $this, 'disable_feeds' ) );
 		add_action( 'template_redirect', array( $this, 'maybe_show_login' ), -1 );
@@ -249,6 +250,28 @@ class Password_Protected {
 	}
 
 	/**
+	 * Maybe Process Logout
+	 */
+	function maybe_process_logout() {
+
+		if ( isset( $_REQUEST['password-protected'] ) && $_REQUEST['password-protected'] == 'logout' ) {
+
+			$this->logout();
+
+			if ( isset( $_REQUEST['redirect_to'] ) ) {
+				$redirect_to = esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) );
+			} else {
+				$redirect_to = home_url( '/' );
+			}
+
+			wp_redirect( $redirect_to );
+			exit();
+
+		}
+
+	}
+
+	/**
 	 * Maybe Process Login
 	 */
 	function maybe_process_login() {
@@ -276,22 +299,6 @@ class Password_Protected {
 				$this->errors->add( 'incorrect_password', __( 'Incorrect Password', 'password-protected' ) );
 
 			}
-
-		}
-
-		// Log out
-		if ( isset( $_REQUEST['password-protected'] ) && $_REQUEST['password-protected'] == 'logout' ) {
-
-			$this->logout();
-
-			if ( isset( $_REQUEST['redirect_to'] ) ) {
-				$redirect_to = esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) );
-			} else {
-				$redirect_to = home_url( '/' );
-			}
-
-			wp_redirect( $redirect_to );
-			exit();
 
 		}
 
@@ -454,6 +461,17 @@ class Password_Protected {
 	}
 
 	/**
+	 * Get Hashed Password
+	 *
+	 * @return  string  Hashed password.
+	 */
+	function get_hashed_password() {
+
+		return md5( get_option( 'password_protected_password' ) . wp_salt() );
+
+	}
+
+	/**
 	 * Validate Auth Cookie
 	 *
 	 * @param   string   $cookie  Cookie string.
@@ -482,10 +500,7 @@ class Password_Protected {
 			return false;
 		}
 
-		$pass = md5( get_option( 'password_protected_password' ) );
-		$pass_frag = substr( $pass, 8, 4 );
-
-		$key = md5( $this->get_site_id() . $pass_frag . '|' . $expiration );
+		$key = md5( $this->get_site_id() . $this->get_hashed_password() . '|' . $expiration );
 		$hash = hash_hmac( 'md5', $this->get_site_id() . '|' . $expiration, $key);
 
 		if ( $hmac != $hash ) {
@@ -510,10 +525,7 @@ class Password_Protected {
 	 */
 	function generate_auth_cookie( $expiration, $scheme = 'auth' ) {
 
-		$pass = md5( get_option( 'password_protected_password' ) );
-		$pass_frag = substr( $pass, 8, 4 );
-
-		$key = md5( $this->get_site_id() . $pass_frag . '|' . $expiration );
+		$key = md5( $this->get_site_id() . $this->get_hashed_password() . '|' . $expiration );
 		$hash = hash_hmac( 'md5', $this->get_site_id() . '|' . $expiration, $key );
 		$cookie = $this->get_site_id() . '|' . $expiration . '|' . $hash;
 

@@ -11,6 +11,7 @@
 	margin-bottom: 30px !important;
 	-webkit-font-smoothing: antialiased !important;
 	-moz-osx-font-smoothing: grayscale !important;
+	opacity: 0;
 }
 
 .um-s1,
@@ -323,6 +324,7 @@ p.um-notice.warning {
 
 .um-field-area {
 	position: relative;
+	word-wrap: break-word;
 }
 
 .um-field-value p {
@@ -546,10 +548,11 @@ p.um-notice.warning {
 */
 
 .um div.disabled,
+.um-disabled,
 .um input[type=submit]:disabled,
 .um input[type=text]:disabled {
 	opacity: 0.6 !important;
-	cursor: default !important;
+	cursor: no-drop !important;
 }
 
 input[type=submit].um-button,
@@ -565,6 +568,7 @@ input[type=submit].um-button:focus {
 	outline: none !important;
 	margin: 0;
 	opacity: 1;
+	-webkit-appearance: none;
 }
 
 input[type=submit].um-button:hover {

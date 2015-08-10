@@ -183,6 +183,10 @@
 				'ip_confirm' => __('Confirm IP', 'mymail'),
 			);
 
+			foreach ($meta as $field => $name) {
+				$fields[$field] = $name;
+			}
+
 			echo '<p>'.__('only if', 'mymail').'<br>';
 			
 			$conditions = array();

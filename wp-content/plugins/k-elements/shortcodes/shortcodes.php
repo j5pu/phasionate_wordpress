@@ -14,112 +14,142 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 ***************************************************/
 global $kleo_config;
 $k_elements = array(
-		
-		'kleo_gap' => array(
-				'name' => 'Gap',
-				'category' => '',
-				'example' => '[kleo_gap size="12px" class="" id=""]'
-				),
-		'kleo_divider' => array(
-				'name' => 'Divider',
-				'category' => '',
-				'example' => '[kleo_divider type="full|long|double|short" double="yes|no" position="center|left|right" text="" class="" id=""]'
-				),
-		'kleo_grid' => array(
-				'name' => 'Grid container',
-				'category' => '',
-				'example' => '[kleo_grid type="2|3|4|5|6" animation="yes"][kleo_feature_item]Feature item 1[/kleo_feature_item][kleo_feature_item]Feature item 2[/kleo_feature_item][/kleo_grid]'
-				),
-		'kleo_feature_item' => array(
-				'name' => 'Feature Item',
-				'category' => '',
-				'example' => '[kleo_feature_item]Text[/kleo_feature_item]'
-				),
-		'kleo_button' => array(
-				'name' => 'Button',
-				'category' => '',
-				'example' => '[kleo_button title="Button text" href="" style="default" size="" ]'
-				),
-		'kleo_icon' => array(
-				'name' => 'Icon',
-				'category' => '',
-				'example' => '[kleo_icon icon="android" icon_size=""]'
-				),
-		'kleo_list' => array(
-				'name' => 'Fancy List',
-				'category' => '',
-				'example' => '[kleo_list][kleo_list_item]Lorem ipsum[/kleo_list_item][kleo_list_item]Lorem ipsum[/kleo_list_item][/kleo_list]'
-				),
-		'kleo_list_item' => array(
-				'name' => 'Fancy List Item',
-				'category' => '',
-				'example' => '[kleo_list_item]Lorem ipsum[/kleo_list_item]'
-				),
-		'kleo_animate_numbers' => array(
-				'name' => 'Animated numbers',
-				'category' => '',
-				'example' => '[kleo_animate_numbers animation="animate-when-almost-visible" timer=""]100[/kleo_animate_numbers]'
-				),
-		'kleo_visibility' => array(
-				'name' => 'Responsive Visibility',
-				'category' => '',
-				'example' => '[kleo_visibility type="visible-md"]'
-				),
-		'kleo_pin' => array(
-				'name' => 'Pin',
-				'category' => '',
-				'example' => '[kleo_pin type="circle" left="" right="" top="" bottom=""]'
-				),
-		'kleo_clients' => array(
-				'name' => 'Clients',
-				'category' => '',
-				'example' => '[kleo_clients number=5 animated=yes animation=fade]'
-				),
-		'kleo_testimonials' => array(
-				'name' => 'Testimonials',
-				'category' => '',
-				'example' => '[kleo_testimonials number=3]'
-				),
-		'kleo_bp_members_carousel' => array(
-				'name' => 'Members Carousel',
-				'category' => 'buddypress',
-				'example' => '[kleo_bp_members_carousel type="newest" number="12" min_items="1" max_items="6" item_width="150" image_size="full" rounded="rounded" online="show" class=""]'
-				),
-		'kleo_bp_members_grid' => array(
-				'name' => 'Members Grid',
-				'category' => 'buddypress',
-				'example' => '[kleo_bp_members_grid type="newest" number="12" size="150" class=""]'
-				),
-		'kleo_bp_members_masonry' => array(
-				'name' => 'Members Masonry',
-				'category' => 'buddypress',
-				'example' => '[kleo_bp_members_masonry type="newest" number="12" rounded="rounded" class=""]'
-				),
-		'kleo_bp_groups_carousel' => array(
-				'name' => 'Groups Carousel',
-				'category' => 'buddypress',
-				'example' => '[kleo_bp_groups_carousel type="newest" number="12" min_items="1" max_items="6" item_width="150" image_size="full" rounded="rounded" class=""]'
-				),
-		'kleo_bp_groups_grid' => array(
-				'name' => 'Groups Grid',
-				'category' => 'buddypress',
-				'example' => '[kleo_bp_groups_grid type="newest" number="12" size="150" class=""]'
-				),
-		'kleo_bp_groups_masonry' => array(
-				'name' => 'Groups Masonry',
-				'category' => 'buddypress',
-				'example' => '[kleo_bp_groups_masonry type="newest" number="12" rounded="rounded" class=""]'
-				),
-		'kleo_bp_activity_stream' => array(
-				'name' => 'Activity Stream',
-				'category' => 'buddypress',
-				'example' => '[kleo_bp_activity_stream number=6 show_button=yes button_label="View All Activity" button_link="/activity"]'
-				),
-		'kleo_bp_activity_page' => array(
-				'name' => 'Activity Page',
-				'category' => 'buddypress',
-				'example' => '[kleo_bp_activity_page]'
-				)
+
+    'kleo_gap' => array(
+        'name' => 'Gap',
+        'category' => '',
+        'example' => '[kleo_gap size="12px" class="" id=""]'
+    ),
+    'kleo_divider' => array(
+        'name' => 'Divider',
+        'category' => '',
+        'example' => '[kleo_divider type="full|long|double|short" double="yes|no" position="center|left|right" text="" class="" id=""]'
+    ),
+    'kleo_grid' => array(
+        'name' => 'Grid container',
+        'category' => '',
+        'example' => '[kleo_grid type="2|3|4|5|6" animation="yes"][kleo_feature_item]Feature item 1[/kleo_feature_item][kleo_feature_item]Feature item 2[/kleo_feature_item][/kleo_grid]'
+    ),
+    'kleo_feature_item' => array(
+        'name' => 'Feature Item',
+        'category' => '',
+        'example' => '[kleo_feature_item title="" icon="" icon_size="default|big" icon_position="left|center" ]Text[/kleo_feature_item]'
+    ),
+    'kleo_button' => array(
+        'name' => 'Button',
+        'category' => '',
+        'example' => '[kleo_button title="Button text" href="" style="default" size="" ]'
+    ),
+    'kleo_icon' => array(
+        'name' => 'Icon',
+        'category' => '',
+        'example' => '[kleo_icon icon="android" icon_size=""]'
+    ),
+    'kleo_list' => array(
+        'name' => 'Fancy List',
+        'category' => '',
+        'example' => '[kleo_list][kleo_list_item]Lorem ipsum[/kleo_list_item][kleo_list_item]Lorem ipsum[/kleo_list_item][/kleo_list]'
+    ),
+    'kleo_list_item' => array(
+        'name' => 'Fancy List Item',
+        'category' => '',
+        'example' => '[kleo_list_item]Lorem ipsum[/kleo_list_item]'
+    ),
+    'kleo_animate_numbers' => array(
+        'name' => 'Animated numbers',
+        'category' => '',
+        'example' => '[kleo_animate_numbers animation="animate-when-almost-visible" timer=""]100[/kleo_animate_numbers]'
+    ),
+    'kleo_visibility' => array(
+        'name' => 'Responsive Visibility',
+        'category' => '',
+        'example' => '[kleo_visibility type="visible-md"]'
+    ),
+    'kleo_pin' => array(
+        'name' => 'Pin',
+        'category' => '',
+        'example' => '[kleo_pin type="circle" left="" right="" top="" bottom=""]'
+    ),
+    'kleo_clients' => array(
+        'name' => 'Clients',
+        'category' => '',
+        'example' => '[kleo_clients number=5 animated=yes animation=fade]'
+    ),
+    'kleo_testimonials' => array(
+        'name' => 'Testimonials',
+        'category' => '',
+        'example' => '[kleo_testimonials number=3]'
+    ),
+    'kleo_bp_members_carousel' => array(
+        'name' => 'Members Carousel',
+        'category' => 'buddypress',
+        'example' => '[kleo_bp_members_carousel type="newest" number="12" min_items="1" max_items="6" item_width="150" image_size="full" rounded="rounded" online="show" class=""]'
+    ),
+    'kleo_bp_members_grid' => array(
+        'name' => 'Members Grid',
+        'category' => 'buddypress',
+        'example' => '[kleo_bp_members_grid type="newest" number="12" size="150" class=""]'
+    ),
+    'kleo_bp_members_masonry' => array(
+        'name' => 'Members Masonry',
+        'category' => 'buddypress',
+        'example' => '[kleo_bp_members_masonry type="newest" number="12" rounded="rounded" class=""]'
+    ),
+    'kleo_bp_groups_carousel' => array(
+        'name' => 'Groups Carousel',
+        'category' => 'buddypress',
+        'example' => '[kleo_bp_groups_carousel type="newest" number="12" min_items="1" max_items="6" item_width="150" image_size="full" rounded="rounded" class=""]'
+    ),
+    'kleo_bp_groups_grid' => array(
+        'name' => 'Groups Grid',
+        'category' => 'buddypress',
+        'example' => '[kleo_bp_groups_grid type="newest" number="12" size="150" class=""]'
+    ),
+    'kleo_bp_groups_masonry' => array(
+        'name' => 'Groups Masonry',
+        'category' => 'buddypress',
+        'example' => '[kleo_bp_groups_masonry type="newest" number="12" rounded="rounded" class=""]'
+    ),
+    'kleo_bp_activity_stream' => array(
+        'name' => 'Activity Stream',
+        'category' => 'buddypress',
+        'example' => '[kleo_bp_activity_stream number=6 show_button=yes button_label="View All Activity" button_link="/activity"]'
+    ),
+    'kleo_bp_activity_page' => array(
+        'name' => 'Activity Page',
+        'category' => 'buddypress',
+        'example' => '[kleo_bp_activity_page]'
+    ),
+    'kleo_pricing_table' => array(
+        'name' => 'Pricing table',
+        'category' => '',
+        'example' => '[kleo_pricing_table columns=3 style=1|2 heading_bg="#689F38" price_bg="#8BC34A" text_color="#ffffff"] add here kleo_pricing_table_item elements [/kleo_pricing_table]'
+    ),
+    'kleo_pricing_table_item' => array(
+        'name' => 'Pricing table item',
+        'category' => '',
+        'example' => '[kleo_pricing_table_item title="Package 1" price="$10" popular="yes|no" features="Feature one, Feature 2", button_label="Select" link="url:http://mysite.com|target:_blank"]Description[/kleo_pricing_table_item]'
+    ),
+    'kleo_particles' => array(
+        'name' => 'Galaxy Particles',
+        'category' => '',
+        'example' => '[kleo_particles]'
+    ),
+    'kleo_news_focus' => array(
+        'name' => 'News Focus',
+        'category' => '',
+        'example' => '[kleo_news_focus name="Section name"]'
+    ),
+    'kleo_news_highlight' => array(
+        'name' => 'News Highlight',
+        'category' => '',
+        'example' => '[kleo_news_highlight]'
+    ),
+    'kleo_news_ticker' => array(
+        'name' => 'News Ticker',
+        'category' => '',
+        'example' => '[kleo_news_ticker]'
+    ),
 );
 
 $k_elements = apply_filters( 'k_elements_shortcodes', $k_elements );
@@ -1130,7 +1160,7 @@ function kleo_bp_members_grid_mce($args) {
 
 
 /**
- * Buddypress Groups carousel.
+ * Buddypress Members carousel.
  */
 
 add_shortcode( "kleo_bp_members_masonry", "kleo_bp_members_masonry_func");
@@ -1143,7 +1173,7 @@ function kleo_bp_members_masonry_func($atts, $content = null) {
 	$shortcode = $kleo_config['shortcodes']['kleo_bp_members_masonry'];
 	$output = '';
 
-	if(!isset($shortcode)) {
+	if(! isset($shortcode)) {
 		return;
 	}
 
@@ -1153,8 +1183,8 @@ function kleo_bp_members_masonry_func($atts, $content = null) {
 	}
 	$shortcode_path = $sh_category .'kleo_bp_members_masonry';
 
-	if(find_shortcode_template($shortcode_path)) {
-		include find_shortcode_template($shortcode_path);
+	if(find_shortcode_template( $shortcode_path )) {
+		include find_shortcode_template( $shortcode_path );
 	} else {
 		$output = kleo_shortcode_not_found();
 	}
@@ -1460,21 +1490,341 @@ function kleo_snow( $atts, $content = null ) {
         return '<h3 class="text-center">Please update KLEO theme to version 2.3 in order to use SNOW effect</h3>';
     }
 
-    $output = $scope = '';
+    $output = $scope = $type = '';
     extract(shortcode_atts(array(
         'scope' => 'column',
+        'type' => 'column',
     ), $atts));
 
     wp_enqueue_script('three-canvas');
     wp_enqueue_script('snow');
 
+    /* Small compat with an type attribute added by mistake instead of scope */
+    if ( $type != 'column' ) {
+        $scope = $type;
+    }
+
     $rand = rand(100, 999);
     if ($scope == 'column') {
         $output .= '<span id="snow-' . $rand . '"></span>';
         $output .= '<script>jQuery(document).ready(function() { initSnow(jQuery("#snow-'. $rand  .'").closest("div[class^=\'col-sm-\']")); });</script>';
-    } elseif ($scope == 'window') {
+    } elseif ( $scope == 'window' ) {
         $output .= '<script>jQuery(document).ready(function() { initSnow(jQuery("body")); });</script>';
     }
     return $output;
 }
 add_shortcode( 'kleo_snow', 'kleo_snow' );
+
+
+
+/**
+ * Pricing tables
+ */
+
+add_shortcode( "kleo_pricing_table", "kleo_pricing_table_func");
+add_filter('kleo_tinymce_shortcodes', "kleo_pricing_table_mce");
+
+
+function kleo_pricing_table_func($atts, $content = null) {
+
+    global $kleo_config;
+    $shortcode = $kleo_config['shortcodes']['kleo_pricing_table'];
+    $output = '';
+
+    if(! isset($shortcode)) {
+        return;
+    }
+
+    $sh_category = '';
+    if ( isset($shortcode['category']) && !empty($shortcode['category']) ) {
+        $sh_category = trailingslashit($shortcode['category']);
+    }
+    $shortcode_path = $sh_category .'kleo_pricing_table';
+
+    if(find_shortcode_template( $shortcode_path )) {
+        include find_shortcode_template( $shortcode_path );
+    } else {
+        $output = kleo_shortcode_not_found();
+    }
+
+    return $output;
+}
+
+function kleo_pricing_table_mce($args) {
+
+    global $kleo_config;
+    $shortcode = $kleo_config['shortcodes']['kleo_pricing_table'];
+    if(!isset($shortcode)) {
+        return $args;
+    }
+
+    $shortcode = $kleo_config['shortcodes']['kleo_pricing_table'];
+
+    $args[$shortcode["category"]][] = array(
+        "name" => $shortcode["name"],
+        "category" => $shortcode["category"],
+        "code" => $shortcode["example"]
+    );
+    return $args;
+}
+
+
+/**
+ * Pricing table item
+ */
+
+add_shortcode( "kleo_pricing_table_item", "kleo_pricing_table_item_func");
+add_filter('kleo_tinymce_shortcodes', "kleo_pricing_table_item_mce");
+
+
+function kleo_pricing_table_item_func($atts, $content = null) {
+
+    global $kleo_config;
+    $shortcode = $kleo_config['shortcodes']['kleo_pricing_table_item'];
+    $output = '';
+
+    if(! isset($shortcode)) {
+        return;
+    }
+
+    $sh_category = '';
+    if ( isset($shortcode['category']) && !empty($shortcode['category']) ) {
+        $sh_category = trailingslashit($shortcode['category']);
+    }
+    $shortcode_path = $sh_category .'kleo_pricing_table_item';
+
+    if(find_shortcode_template( $shortcode_path )) {
+        include find_shortcode_template( $shortcode_path );
+    } else {
+        $output = kleo_shortcode_not_found();
+    }
+
+    return $output;
+}
+
+function kleo_pricing_table_item_mce($args) {
+
+    global $kleo_config;
+    $shortcode = $kleo_config['shortcodes']['kleo_pricing_table_item'];
+    if(!isset($shortcode)) {
+        return $args;
+    }
+
+    $shortcode = $kleo_config['shortcodes']['kleo_pricing_table_item'];
+
+    $args[$shortcode["category"]][] = array(
+        "name" => $shortcode["name"],
+        "category" => $shortcode["category"],
+        "code" => $shortcode["example"]
+    );
+    return $args;
+}
+
+
+/**
+ * Particles shortcode
+ */
+
+add_shortcode( "kleo_particles", "kleo_particles_func");
+add_filter('kleo_tinymce_shortcodes', "kleo_particles_mce");
+
+
+function kleo_particles_func($atts, $content = null) {
+
+    global $kleo_config;
+    $shortcode = $kleo_config['shortcodes']['kleo_particles'];
+    $output = '';
+
+    if(! isset($shortcode)) {
+        return;
+    }
+
+    $sh_category = '';
+    if ( isset($shortcode['category']) && !empty($shortcode['category']) ) {
+        $sh_category = trailingslashit($shortcode['category']);
+    }
+    $shortcode_path = $sh_category .'kleo_particles';
+
+    if(find_shortcode_template( $shortcode_path )) {
+        include find_shortcode_template( $shortcode_path );
+    } else {
+        $output = kleo_shortcode_not_found();
+    }
+
+    return $output;
+}
+
+function kleo_particles_mce($args) {
+
+    global $kleo_config;
+    $shortcode = $kleo_config['shortcodes']['kleo_particles'];
+    if(!isset($shortcode)) {
+        return $args;
+    }
+
+    $shortcode = $kleo_config['shortcodes']['kleo_particles'];
+
+    $args[$shortcode["category"]][] = array(
+        "name" => $shortcode["name"],
+        "category" => $shortcode["category"],
+        "code" => $shortcode["example"]
+    );
+    return $args;
+}
+
+
+/**
+ * News Focus shortcode
+ */
+
+add_shortcode( "kleo_news_focus", "kleo_news_focus_func");
+add_filter('kleo_tinymce_shortcodes', "kleo_news_focus_mce");
+
+
+function kleo_news_focus_func($atts, $content = null) {
+
+    global $kleo_config;
+    $shortcode = $kleo_config['shortcodes']['kleo_news_focus'];
+    $output = '';
+
+    if(! isset($shortcode)) {
+        return;
+    }
+
+    $sh_category = '';
+    if ( isset($shortcode['category']) && !empty($shortcode['category']) ) {
+        $sh_category = trailingslashit($shortcode['category']);
+    }
+    $shortcode_path = $sh_category .'kleo_news_focus';
+
+    if(find_shortcode_template( $shortcode_path )) {
+        include find_shortcode_template( $shortcode_path );
+    } else {
+        $output = kleo_shortcode_not_found();
+    }
+
+    return $output;
+}
+
+function kleo_news_focus_mce($args) {
+
+    global $kleo_config;
+    $shortcode = $kleo_config['shortcodes']['kleo_news_focus'];
+    if(!isset($shortcode)) {
+        return $args;
+    }
+
+    $shortcode = $kleo_config['shortcodes']['kleo_news_focus'];
+
+    $args[$shortcode["category"]][] = array(
+        "name" => $shortcode["name"],
+        "category" => $shortcode["category"],
+        "code" => $shortcode["example"]
+    );
+    return $args;
+}
+
+
+/**
+ * News Highlight shortcode
+ */
+
+add_shortcode( "kleo_news_highlight", "kleo_news_highlight_func");
+add_filter('kleo_tinymce_shortcodes', "kleo_news_highlight_mce");
+
+
+function kleo_news_highlight_func( $atts, $content = null ) {
+
+    global $kleo_config;
+    $shortcode = $kleo_config['shortcodes']['kleo_news_highlight'];
+    $output = '';
+
+    if(! isset($shortcode)) {
+        return;
+    }
+
+    $sh_category = '';
+    if ( isset($shortcode['category']) && !empty($shortcode['category']) ) {
+        $sh_category = trailingslashit($shortcode['category']);
+    }
+    $shortcode_path = $sh_category .'kleo_news_highlight';
+
+    if(find_shortcode_template( $shortcode_path )) {
+        include find_shortcode_template( $shortcode_path );
+    } else {
+        $output = kleo_shortcode_not_found();
+    }
+
+    return $output;
+}
+
+function kleo_news_highlight_mce($args) {
+
+    global $kleo_config;
+    $shortcode = $kleo_config['shortcodes']['kleo_news_highlight'];
+    if(!isset($shortcode)) {
+        return $args;
+    }
+
+    $shortcode = $kleo_config['shortcodes']['kleo_news_highlight'];
+
+    $args[$shortcode["category"]][] = array(
+        "name" => $shortcode["name"],
+        "category" => $shortcode["category"],
+        "code" => $shortcode["example"]
+    );
+    return $args;
+}
+
+
+
+/**
+ * News Ticker shortcode
+ */
+
+add_shortcode( "kleo_news_ticker", "kleo_news_ticker_func");
+add_filter('kleo_tinymce_shortcodes', "kleo_news_ticker_mce");
+
+
+function kleo_news_ticker_func( $atts, $content = null ) {
+
+    global $kleo_config;
+    $shortcode = $kleo_config['shortcodes']['kleo_news_ticker'];
+    $output = '';
+
+    if(! isset($shortcode)) {
+        return;
+    }
+
+    $sh_category = '';
+    if ( isset($shortcode['category']) && !empty($shortcode['category']) ) {
+        $sh_category = trailingslashit($shortcode['category']);
+    }
+    $shortcode_path = $sh_category .'kleo_news_ticker';
+
+    if(find_shortcode_template( $shortcode_path )) {
+        include find_shortcode_template( $shortcode_path );
+    } else {
+        $output = kleo_shortcode_not_found();
+    }
+
+    return $output;
+}
+
+function kleo_news_ticker_mce($args) {
+
+    global $kleo_config;
+    $shortcode = $kleo_config['shortcodes']['kleo_news_ticker'];
+    if(!isset($shortcode)) {
+        return $args;
+    }
+
+    $shortcode = $kleo_config['shortcodes']['kleo_news_ticker'];
+
+    $args[$shortcode["category"]][] = array(
+        "name" => $shortcode["name"],
+        "category" => $shortcode["category"],
+        "code" => $shortcode["example"]
+    );
+    return $args;
+}

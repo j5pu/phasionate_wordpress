@@ -68,6 +68,12 @@ if ( ! class_exists( 'WooCommerce_PDF_Invoices_Export' ) ) {
 				add_action( 'woocommerce_subscriptions_renewal_order_created', array( $this, 'reset_invoice_data' ), 10, 4 );
 			}
 
+			// WooCommerce Product Bundles compatibility (add row classes)
+
+			if ( class_exists('WC_Bundles') ) {
+				add_filter( 'wpo_wcpdf_item_row_class', array( $this, 'add_product_bundles_classes' ), 10, 3 );
+			}
+
 		}
 
 		/**
@@ -547,7 +553,7 @@ if ( ! class_exists( 'WooCommerce_PDF_Invoices_Export' ) ) {
 
 			// add invoice number if it doesn't exist
 			if ( empty($invoice_number) || !isset($invoice_number) ) {
-				$next_invoice_number = $this->template_settings['next_invoice_number'];
+				$next_invoice_number = apply_filters( 'wpo_wcpdf_next_invoice_number', $this->template_settings['next_invoice_number'], $order_id );
 
 				if ( empty($next_invoice_number) ) {
 					// First time! We start numbering from order_number or order_id
@@ -568,6 +574,7 @@ if ( ! class_exists( 'WooCommerce_PDF_Invoices_Export' ) ) {
 				// die($invoice_number);
 
 				update_post_meta($order_id, '_wcpdf_invoice_number', $invoice_number);
+				update_post_meta($order_id, '_wcpdf_formatted_invoice_number', $this->get_invoice_number( $order_id ) );
 
 				// increase next_order_number
 				$template_settings = apply_filters( 'wpml_unfiltered_admin_string', get_option( 'wpo_wcpdf_template_settings' ), 'wpo_wcpdf_template_settings' );
@@ -612,6 +619,7 @@ if ( ! class_exists( 'WooCommerce_PDF_Invoices_Export' ) ) {
 		public function reset_invoice_data ( $renewal_order, $original_order, $product_id, $new_order_role ) {
 			// delete invoice number, invoice date & invoice exists meta
 			delete_post_meta( $renewal_order->id, '_wcpdf_invoice_number' );
+			delete_post_meta( $renewal_order->id, '_wcpdf_formatted_invoice_number' );
 			delete_post_meta( $renewal_order->id, '_wcpdf_invoice_date' );
 			delete_post_meta( $renewal_order->id, '_wcpdf_invoice_exists' );
 		}
@@ -621,7 +629,6 @@ if ( ! class_exists( 'WooCommerce_PDF_Invoices_Export' ) ) {
 			$order_year = date_i18n( 'Y', strtotime( $order_date ) );
 			$order_month = date_i18n( 'm', strtotime( $order_date ) );
 
-			
 			$formats['prefix'] = isset($this->template_settings['invoice_number_formatting_prefix'])?$this->template_settings['invoice_number_formatting_prefix']:'';
 			$formats['suffix'] = isset($this->template_settings['invoice_number_formatting_suffix'])?$this->template_settings['invoice_number_formatting_suffix']:'';
 			$formats['padding'] = isset($this->template_settings['invoice_number_formatting_padding'])?$this->template_settings['invoice_number_formatting_padding']:'';
@@ -761,7 +768,13 @@ if ( ! class_exists( 'WooCommerce_PDF_Invoices_Export' ) ) {
 					}
 					
 					// Set item meta
-					$meta = new WC_Order_Item_Meta( $item['item_meta'], $product );
+					if ( version_compare( WOOCOMMERCE_VERSION, '2.4', '<' ) ) {
+						$meta = new WC_Order_Item_Meta( $item['item_meta'], $product );
+					} else {
+						// pass complete item for WC2.4+
+						$meta = new WC_Order_Item_Meta( $item, $product );						
+					}
+
 					$data['meta'] = $meta->display( false, true );
 
 					$data_list[$item_id] = apply_filters( 'wpo_wcpdf_order_item_data', $data, $this->order );
@@ -958,6 +971,18 @@ if ( ! class_exists( 'WooCommerce_PDF_Invoices_Export' ) ) {
 			// die($thumbnail);
 
 			return $thumbnail;
+		}
+
+		public function add_product_bundles_classes ( $item_id, $template_type, $order ) {
+			$item_meta = $order->get_item_meta( $item_id );
+
+			if (isset($item_meta['_bundled_by'])) {
+				return  $item_id . ' bundled-item';
+			} elseif (isset($item_meta['_bundled_items'])) {
+				return  $item_id . ' product-bundle';
+			}
+
+			return $item_id;
 		}
 		
 		public function enable_debug () {

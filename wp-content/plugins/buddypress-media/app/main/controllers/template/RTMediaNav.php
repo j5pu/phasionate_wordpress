@@ -11,10 +11,30 @@ class RTMediaNav {
         if ( class_exists ( 'BuddyPress' ) ) {
             add_action ( 'bp_init', array( $this, 'custom_media_nav_tab' ), 10, 1 );
         }
+        
+        add_filter( 'bp_settings_admin_nav', array( $this, 'setup_settings_privacy_nav' ), 3 );
     }
 
     function media_screen () {
         return;
+    }
+    
+    public function setup_settings_privacy_nav( $wp_admin_nav ) {
+        // Setup the logged in user variables
+
+        if( is_rtmedia_privacy_user_overide() ) {
+            $settings_link = trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug() );
+
+            // Add the "Profile" subnav item
+            $wp_admin_nav[] = array(
+                'parent' => 'my-account-' . buddypress()->settings->id,
+                'id' => 'my-account-' . buddypress()->settings->id . '-privacy',
+                'title' => _x( 'Privacy', 'My Account Privacy sub nav', 'rtmedia' ),
+                'href' => trailingslashit( $settings_link . 'privacy' )
+            );
+        }
+        
+        return $wp_admin_nav;
     }
 
     /**
@@ -173,7 +193,7 @@ class RTMediaNav {
             }
 
             $counts[ 'total' ][ "album" ] = $counts[ 'total' ][ "album" ] + $other_count;
-	    $album_label = __( defined('RTMEDIA_ALBUM_PLURAL_LABEL') ? constant ( 'RTMEDIA_ALBUM_PLURAL_LABEL' ) : 'Albums' );
+	    $album_label = __( defined('RTMEDIA_ALBUM_PLURAL_LABEL') ? constant ( 'RTMEDIA_ALBUM_PLURAL_LABEL' ) : 'Albums', 'rtmedia' );
             echo apply_filters ( 'rtmedia_sub_nav_albums', '<li id="rtmedia-nav-item-albums-li" ' . $albums . '><a id="rtmedia-nav-item-albums" href="' . trailingslashit ( $link ) . RTMEDIA_MEDIA_SLUG . '/album/">' . $album_label . '<span>' . ((isset ( $counts[ 'total' ][ "album" ] )) ? $counts[ 'total' ][ "album" ] : 0 ) . '</span>' . '</a></li>' );
         }
 
@@ -217,7 +237,7 @@ class RTMediaNav {
                 );
             }
 
-	    $type_label = __( defined('RTMEDIA_' . $name . '_PLURAL_LABEL') ? constant ( 'RTMEDIA_' . $name . '_PLURAL_LABEL' ) : $type[ 'plural_label' ] );
+	    $type_label = __( defined('RTMEDIA_' . $name . '_PLURAL_LABEL') ? constant ( 'RTMEDIA_' . $name . '_PLURAL_LABEL' ) : $type[ 'plural_label' ], 'rtmedia' );
             echo apply_filters ( 'rtmedia_sub_nav_' . $type[ 'name' ], '<li id="rtmedia-nav-item-' . $type[ 'name' ]
                     . '-' . $context . '-' . $context_id . '-li" ' . $selected
                     . '><a id="rtmedia-nav-item-' . $type[ 'name' ] . '" href="'

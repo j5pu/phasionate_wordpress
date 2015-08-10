@@ -15,7 +15,7 @@ extract( shortcode_atts( array(
 	'icon' => '',
 ), $atts ) );
 
-
+$icon = str_replace( 'icon-', '', $icon );
 if ($icon != '') {
 	$icon = '<i class="icon-'.$icon.'"></i> ';
 }

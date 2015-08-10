@@ -2,23 +2,23 @@
 
 
 //Fontello icons array
-if (!function_exists('kleo_icons_array')) {
-	function kleo_icons_array() {
+if ( ! function_exists( 'kleo_icons_array' ) ) {
+    function kleo_icons_array( $prefix = '' ) {
 
-		$icons= array('');
+        $icons= array('');
 
-		$icons_json = file_get_contents( trailingslashit(K_ELEM_PLUGIN_DIR) . 'compat/plugin-js-composer/font-icons.json');
-		if ($icons_json) {
-			$arr = json_decode($icons_json, true);
-			foreach($arr['glyphs'] as $icon) 
-			{
-				$icons[$icon['css']] = $icon['css'];
-				asort($icons);
-			}
-		}
+        $icons_json = file_get_contents( KLEO_LIB_DIR . '/assets/font-icons.json');
+        if ( $icons_json ) {
+            $arr = json_decode( $icons_json, true );
+            foreach($arr['glyphs'] as $icon)
+            {
+                $icons[$prefix . $icon['css']] = $icon['css'];
+                asort($icons);
+            }
+        }
 
-		return $icons;
-	}
+        return $icons;
+    }
 }
 
 
@@ -72,7 +72,7 @@ function kleo_shortcode_not_found() {
 
 
 /* Get User online */
-if (!function_exists('kleo_is_user_online')): 
+if (!function_exists('kleo_is_user_online')):
 	/**
 	 * Check if a Buddypress member is online or not
 	 * @global object $wpdb
@@ -131,8 +131,8 @@ if (!function_exists('kleo_bp_member_stats')):
 		}
 
 		$where = " WHERE name = '".$field."' AND value = '".esc_sql($value)."'";
-		$sql = "SELECT ".$wpdb->base_prefix."bp_xprofile_data.user_id FROM ".$wpdb->base_prefix."bp_xprofile_data 
-				JOIN ".$wpdb->base_prefix."bp_xprofile_fields ON ".$wpdb->base_prefix."bp_xprofile_data.field_id = ".$wpdb->base_prefix."bp_xprofile_fields.id 
+		$sql = "SELECT ".$wpdb->base_prefix."bp_xprofile_data.user_id FROM ".$wpdb->base_prefix."bp_xprofile_data
+				JOIN ".$wpdb->base_prefix."bp_xprofile_fields ON ".$wpdb->base_prefix."bp_xprofile_data.field_id = ".$wpdb->base_prefix."bp_xprofile_fields.id
 				$where";
 
 		$match_ids = $wpdb->get_col($sql);
@@ -140,7 +140,7 @@ if (!function_exists('kleo_bp_member_stats')):
 			return count($match_ids);
 		}
 
-		if ( !$match_ids ) {	
+		if ( !$match_ids ) {
 			$match_ids = array(0);
 		}
 
@@ -198,36 +198,244 @@ if(!function_exists('get_group_id_by_name')) :
 endif;
 
 
-/*
- * Retrive custom field
- */
-if( !function_exists( 'get_cfield' ) ):
-	
-	function get_cfield($meta = NULL, $id = NULL) {
-		if($meta === NULL) {
-			return false;
-		}
+if( ! function_exists( 'get_cfield' ) ) {
 
-		if ($id === NULL) {
-			$id = get_the_ID();
-		}
+    function get_cfield( $meta = NULL, $id = NULL ) {
+        if( $meta === NULL ) {
+            return false;
+        }
 
-		return get_post_meta( $id, '_kleo_'.$meta, true );
-	}
-endif;
+        if ( ! $id && ! in_the_loop() && is_home() && get_option( 'page_for_posts' ) ) {
+            $id = get_option( 'page_for_posts' );
+        }
+
+        if ( $id === NULL ) {
+            $id = get_the_ID();
+        }
+
+        if ( ! $id ) {
+            return false;
+        }
+
+        return get_post_meta( $id, '_kleo_' . $meta, true );
+    }
+}
 
 /*
  * Echo the custom field
  */
-if(!function_exists('the_cfield')):
-	function the_cfield($meta=NULL, $id=NULL) 
-	{
-		if($meta === NULL)
-				echo '';
+if( ! function_exists( 'the_cfield' ) ) {
+    function the_cfield($meta = NULL, $id = NULL) {
+        echo get_cfield($meta, $id);
+    }
+}
 
-		if ($id === NULL)
-				$id = get_the_ID();
 
-		echo get_post_meta( $id, '_kleo_'.$meta, true );
-	}
-endif;
+
+if ( ! function_exists('kleo_get_img_overlay') ) {
+    function kleo_get_img_overlay() {
+        global $kleo_config;
+
+        if (isset($kleo_config['image_overlay'])) {
+            return $kleo_config['image_overlay'];
+        }
+        return '';
+    }
+}
+
+if (! function_exists('kleo_parse_multi_attribute')) {
+    /**
+     * Parse string like "title:Hello world|weekday:Monday" to array('title' => 'Hello World', 'weekday' => 'Monday')
+     *
+     * @param $value
+     * @param array $default
+     *
+     * @return array
+     */
+    function kleo_parse_multi_attribute($value, $default = array())
+    {
+        $result = $default;
+        $params_pairs = explode('|', $value);
+        if (!empty($params_pairs)) {
+            foreach ($params_pairs as $pair) {
+                $param = preg_split('/\:/', $pair);
+                if (!empty($param[0]) && isset($param[1])) {
+                    $result[$param[0]] = rawurldecode($param[1]);
+                }
+            }
+        }
+
+        return $result;
+    }
+}
+
+if ( ! function_exists('kleo_get_post_media')) {
+    /**
+     * Return post media by format
+     *
+     * @param $post_format
+     * @param $options
+     * @return string
+     *
+     * @since 3.0
+     */
+    function kleo_get_post_media($post_format = 'standard', $options = array())
+    {
+
+        global $kleo_config;
+
+        if (isset($options['icons']) && $options['icons']) {
+            $icons = true;
+        } else {
+            $icons = false;
+        }
+
+        if (isset($options['media_width']) && isset($options['media_height'])) {
+            $media_width = $options['media_width'];
+            $media_height = $options['media_height'];
+        } else {
+            $media_width = $kleo_config['post_gallery_img_width'];
+            $media_height = $kleo_config['post_gallery_img_height'];
+        }
+
+        $output = '';
+
+        switch ($post_format) {
+
+            case 'video':
+
+                //oEmbed video
+                $video = get_cfield('embed');
+                // video bg self hosted
+                $bg_video_args = array();
+                $k_video = '';
+
+                if (get_cfield('video_mp4')) {
+                    $bg_video_args['mp4'] = get_cfield('video_mp4');
+                }
+                if (get_cfield('video_ogv')) {
+                    $bg_video_args['ogv'] = get_cfield('video_ogv');
+                }
+                if (get_cfield('video_webm')) {
+                    $bg_video_args['webm'] = get_cfield('video_webm');
+                }
+
+                if (!empty($bg_video_args)) {
+                    $attr_strings = array(
+                        'preload="none"'
+                    );
+
+                    if (get_cfield('video_poster')) {
+                        $attr_strings[] = 'poster="' . get_cfield('video_poster') . '"';
+                    }
+
+                    $k_video .= '<div class="kleo-video-wrap"><video ' . join(' ', $attr_strings) . ' controls="controls" class="kleo-video" style="width: 100%; height: 100%;">';
+
+                    $source = '<source type="%s" src="%s" />';
+                    foreach ($bg_video_args as $video_type => $video_src) {
+                        $video_type = wp_check_filetype($video_src, wp_get_mime_types());
+                        $k_video .= sprintf($source, $video_type['type'], esc_url($video_src));
+                    }
+
+                    $k_video .= '</video></div>';
+
+                    $output .= $k_video;
+                } // oEmbed
+                elseif (!empty($video)) {
+                    global $wp_embed;
+                    $output .= apply_filters('kleo_oembed_video', $video);
+                }
+
+                break;
+
+            case 'audio':
+
+                $audio = get_cfield('audio');
+
+                if (!empty($audio)) {
+                    $output .=
+                        '<div class="post-audio">' .
+                        '<audio preload="none" class="kleo-audio" id="audio_' . get_the_ID() . '" style="width:100%;" src="' . $audio . '"></audio>' .
+                        '</div>';
+                }
+                break;
+
+            case 'gallery':
+
+                $slides = get_cfield('slider');
+
+                $output .= '<div class="kleo-banner-slider">'
+                    . '<div class="kleo-banner-items" >';
+
+                if ($slides) {
+                    foreach ($slides as $slide) {
+                        if ($slide) {
+                            $image = aq_resize($slide, $media_width, $media_height, true, true, true);
+                            //small hack for non-hosted images
+                            if (!$image) {
+                                $image = $slide;
+                            }
+                            $output .= '<article>
+								<a href="' . $slide . '" data-rel="prettyPhoto[inner-gallery]">
+									<img src="' . $image . '" alt="' . get_the_title() . '">'
+                                . kleo_get_img_overlay()
+                                . '</a>
+							</article>';
+                        }
+                    }
+                }
+
+                $output .= '</div>'
+                    . '<a href="#" class="kleo-banner-prev"><i class="icon-angle-left"></i></a>'
+                    . '<a href="#" class="kleo-banner-next"><i class="icon-angle-right"></i></a>'
+                    . '<div class="kleo-banner-features-pager carousel-pager"></div>'
+                    . '</div>';
+
+                break;
+
+
+            case 'aside':
+                if ($icons) {
+                    $output .= '<div class="post-format-icon"><i class="icon icon-doc"></i></div>';
+                }
+                break;
+
+            case 'link':
+                if ($icons) {
+                    $output .= '<div class="post-format-icon"><i class="icon icon-link"></i></div>';
+                }
+                break;
+
+            case 'quote':
+                if ($icons) {
+                    $output .= '<div class="post-format-icon"><i class="icon icon-quote-right"></i></div>';
+                }
+                break;
+
+            case 'image':
+            default:
+                if (kleo_get_post_thumbnail_url() != '') {
+                    $output .= '<div class="post-image">';
+
+                    $img_url = kleo_get_post_thumbnail_url();
+                    $image = aq_resize($img_url, $media_width, null, true, true, true);
+                    if (!$image) {
+                        $image = $img_url;
+                    }
+                    $output .= '<a href="' . get_permalink() . '" class="element-wrap">'
+                        . '<img src="' . $image . '" alt="' . get_the_title() . '">'
+                        . kleo_get_img_overlay()
+                        . '</a>';
+
+                    $output .= '</div><!--end post-image-->';
+                } elseif ($icons) {
+                    $post_icon = $post_format == 'image' ? 'picture' : 'doc';
+                    $output .= '<div class="post-format-icon"><i class="icon icon-' . $post_icon . '"></i></div>';
+                }
+
+                break;
+        }
+
+        return $output;
+    }
+}

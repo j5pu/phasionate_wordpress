@@ -19,24 +19,22 @@ class UM_API {
 		$this->available_languages = array(
 			'en_US' => 'English (US)',
 			'es_ES' => 'Español',
+			'es_MX' => 'Español (México)',
 			'fr_FR' => 'Français',
 			'it_IT' => 'Italiano',
 			'de_DE'	=> 'Deutsch',
 			'nl_NL' => 'Nederlands',
 			'fi_FI' => 'Suomi',
+			'ro_RO' => 'Română',
 			'da_DK' => 'Dansk',
 			'sv_SE' => 'Svenska',
 			'pl_PL' => 'Polski',
 			'cs_CZ' => 'Czech',
 			'ru_RU' => 'Русский',
 			'tr_TR' => 'Türkçe',
+			'fa_IR' => 'Farsi',
 			'he_IL' => 'Hebrew',
 			'ar' 	=> 'العربية'
-		);
-		
-		$this->addons['multi_language'] = array(
-				__( 'Multi Language Support','ultimatemember' ),
-				__('This add-on helps you offer multi language forms to your visitors based on the languages you want.','ultimatemember')
 		);
 		
 		$this->addons['bp_avatar_transfer'] = array(
@@ -177,7 +175,7 @@ class UM_API {
 		$domain = 'ultimatemember';
 		$locale = ( get_locale() != '' ) ? get_locale() : 'en_US';
 		load_textdomain($domain, WP_LANG_DIR . '/plugins/' .$domain.'-'.$locale.'.mo');
-		
+
 	}
 	
 }

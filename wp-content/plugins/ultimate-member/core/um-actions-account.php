@@ -53,6 +53,14 @@
 		
 		$url = add_query_arg( 'updated', 'account', $url );
 		
+		if ( defined('ICL_SITEPRESS_VERSION') ) {
+			if ( icl_get_current_language() != icl_get_default_language() ) {
+				$url = $ultimatemember->permalinks->get_current_url( true );
+				$url = add_query_arg( 'updated', 'account', $url );
+				exit( wp_redirect( $url ) );
+			}
+		}
+		
 		exit( wp_redirect( $url ) );
 		
 	}
@@ -396,7 +404,7 @@
 						
 						<span class="um-account-icon uimob800-hide"><i class="<?php echo $icon; ?>"></i></span>
 						<span class="um-account-title uimob800-hide"><?php echo $title; ?></span>
-						<span class="um-account-arrow uimob800-hide"><i class="um-faicon-angle-right"></i></span>
+						<span class="um-account-arrow uimob800-hide"><?php echo ( is_rtl() ) ? '<i class="um-faicon-angle-left"></i>' : '<i class="um-faicon-angle-right"></i>'; ?></span>
 					</a>
 				</li>
 				

@@ -211,10 +211,12 @@ function rtmedia_media_ext( $id = false ) {
 	if ( $id ) {
 		$model = new RTMediaModel();
 		$media = $model->get_media( array( 'id' => $id ), 0, 1 );
-		$filepath = get_attached_file( $media[ 0 ]->media_id );
-		$filetype = wp_check_filetype( $filepath );
+		if ( isset( $media[ 0 ] ) ) {
+			$filepath = get_attached_file( $media[ 0 ]->media_id );
+			$filetype = wp_check_filetype( $filepath );
 
-		return $filetype[ 'ext' ];
+			return $filetype[ 'ext' ];
+		}
 	} else {
 		global $rtmedia_media;
 
@@ -302,11 +304,12 @@ function rtmedia_media( $size_flag = true, $echo = true, $media_size = "rt_media
 			$html = "<img src='" . $src[ 0 ] . "' alt='" . $rtmedia_media->post_name . "' />";
 		} elseif ( $rtmedia_media->media_type == 'video' ) {
 			$size = " width=\"" . $rtmedia->options[ "defaultSizes_video_singlePlayer_width" ] . "\" height=\"" . $rtmedia->options[ "defaultSizes_video_singlePlayer_height" ] . "\" ";
-			$html = "<div id='rtm-mejs-video-container' style='width:" . $rtmedia->options[ "defaultSizes_video_singlePlayer_width" ] . "px;max-width:96%;height:" . $rtmedia->options[ "defaultSizes_video_singlePlayer_height" ] . "px;'>";
+			$html = "<div id='rtm-mejs-video-container' style='width:" . $rtmedia->options[ "defaultSizes_video_singlePlayer_width" ] . "px;max-width:96%;max-height:" . $rtmedia->options[ "defaultSizes_video_singlePlayer_height" ] . "px;'>";
 			$html .= '<video src="' . wp_get_attachment_url( $rtmedia_media->media_id ) . '" ' . $size . ' type="video/mp4" class="wp-video-shortcode" id="bp_media_video_' . $rtmedia_media->id . '" controls="controls" preload="true"></video>';
 			$html .= '</div>';
 		} elseif ( $rtmedia_media->media_type == 'music' ) {
-			$size = ' width="400" height="30" ';
+                    $width = $rtmedia->options[ 'defaultSizes_music_singlePlayer_width' ];
+                    $size = ' width="'. $width .'px" height="30" ';
 			if ( ! $size_flag ) {
 				$size = '';
 			}
@@ -358,7 +361,6 @@ function rtmedia_image( $size = 'rt_media_thumbnail', $id = false, $recho = true
 	$thumbnail_id = 0;
 	if ( isset( $media_object->media_type ) ) {
 		if ( $media_object->media_type == 'album' || $media_object->media_type != 'photo' || $media_object->media_type == 'video' ) {
-			$thumbnail_id = ( isset( $media_object->cover_art ) && ( $media_object->cover_art != "0" ) ) ? $media_object->cover_art : false;
 			$thumbnail_id = apply_filters( 'show_custom_album_cover', $thumbnail_id, $media_object->media_type, $media_object->id ); // for rtMedia pro users
 		} elseif ( $media_object->media_type == 'photo' ) {
 			$thumbnail_id = $media_object->media_id;
@@ -779,11 +781,11 @@ function rtmedia_comments( $echo = true ) {
 
 	global $wpdb, $rtmedia_media;
 
-	$comments = $wpdb->get_results( "SELECT * FROM $wpdb->comments WHERE comment_post_ID = '" . $rtmedia_media->media_id . "'", ARRAY_A );
+	$comments = get_comments( array( 'post_id' => $rtmedia_media->media_id, 'order' => 'ASC' ) );
 
 	$comment_list = "";
 	foreach ( $comments as $comment ) {
-		$comment_list .= rmedia_single_comment( $comment );
+		$comment_list .= rmedia_single_comment( (array) $comment );
 	}
 
 	if ( $comment_list != "" ) {
@@ -821,11 +823,11 @@ function rmedia_single_comment( $comment ) {
 	$html .= '<span class ="rtmedia-comment-date"> ' . apply_filters( 'rtmedia_comment_date_format', rtmedia_convert_date( $comment[ 'comment_date_gmt' ] ), $comment ) . '</span>';
 
 	$comment_string = wp_kses( $comment[ 'comment_content' ], $allowedtags );
-	$html .= '<div class="rtmedia-comment-content">' . wpautop( make_clickable( $comment_string ) ) . '</div>';
+	$html .= '<div class="rtmedia-comment-content">' . wpautop( make_clickable( apply_filters( 'bp_get_activity_content', $comment_string ) ) ) . '</div>';
 
 	global $rtmedia_media;
 	if ( is_rt_admin() || ( isset( $comment[ 'user_id' ] ) && ( get_current_user_id() == $comment[ 'user_id' ] || $rtmedia_media->media_author == get_current_user_id() ) ) || apply_filters( 'rtmedia_allow_comment_delete', false ) ) { // show delete button for comment author and admins
-		$html .= '<i data-id="' . $comment[ 'comment_ID' ] . '" class = "rtmedia-delete-comment dashicons dashicons-no-alt rtmicon" title="' . __( 'Delete Comment' ) . '"></i>';
+		$html .= '<i data-id="' . $comment[ 'comment_ID' ] . '" class = "rtmedia-delete-comment dashicons dashicons-no-alt rtmicon" title="' . __( 'Delete Comment', 'rtmedia' ) . '"></i>';
 	}
 
 	$html .= '<div class="clear"></div></div></div></li>';
@@ -1208,7 +1210,7 @@ add_action( 'rtmedia_add_edit_tab_content', 'rtmedia_vedio_editor_content', 1000
 
 function rtmedia_vedio_editor_content() {
 	global $rtmedia_query;
-	if ( isset( $rtmedia_query->media[ 0 ]->media_type ) && $rtmedia_query->media[ 0 ]->media_type == 'video' ) {
+	if ( isset( $rtmedia_query->media ) && is_array( $rtmedia_query->media ) && isset( $rtmedia_query->media[ 0 ]->media_type ) && $rtmedia_query->media[ 0 ]->media_type == 'video' ) {
 		$media_id = $rtmedia_query->media[ 0 ]->media_id;
 		$thumbnail_array = get_post_meta( $media_id, "rtmedia_media_thumbnails", true );
 		echo '<div class="content" id="panel2">';
@@ -1878,7 +1880,7 @@ add_action( 'rtmedia_before_item', 'rtmedia_item_select' );
 function rtmedia_item_select() {
 	global $rtmedia_query, $rtmedia_backbone;
 	if ( $rtmedia_backbone[ 'backbone' ] ) {
-		if ( $rtmedia_backbone[ 'is_album' ] && $rtmedia_backbone[ 'is_edit_allowed' ] ) {
+		if ( isset( $rtmedia_backbone[ 'is_album' ] ) && $rtmedia_backbone[ 'is_album' ] && isset( $rtmedia_backbone[ 'is_edit_allowed' ] ) && $rtmedia_backbone[ 'is_edit_allowed' ] ) {
 			echo '<span class="rtm-checkbox-wrap"><input type="checkbox" name="move[]" class="rtmedia-item-selector" value="<%= id %>" /></span>';
 		}
 	} else {
@@ -2227,7 +2229,7 @@ function rtmedia_content_before_media() {
 
 	if ( $rt_ajax_request ) {
 		?>
-		<span class="rtm-mfp-close mfp-close dashicons dashicons-no-alt" title="<?php _e( "Close (Esc)" ); ?>"></span><?php
+		<span class="rtm-mfp-close mfp-close dashicons dashicons-no-alt" title="<?php _e( "Close (Esc)", 'rtmedia' ); ?>"></span><?php
 	}
 }
 
@@ -2271,13 +2273,16 @@ function get_rtmedia_privacy_symbol( $rtmedia_id = false ) {
 
 //
 function get_rtmedia_date_gmt( $rtmedia_id = false ) {
-	$media = get_post( rtmedia_media_id( rtmedia_id( $rtmedia_id ) ) );
-	$date_time = "";
-	if ( isset( $media->post_date_gmt ) && $media->post_date_gmt != "" ) {
-		$date_time = rtmedia_convert_date( $media->post_date_gmt );
-	}
+    $media = get_post( rtmedia_media_id( rtmedia_id( $rtmedia_id ) ) );
+    $date_time = "";
+    
+    if ( isset( $media->post_date_gmt ) && $media->post_date_gmt != "" ) {
+        $date_time = rtmedia_convert_date( $media->post_date_gmt );
+    }
 
-	return '<span>' . $date_time . '</span>';
+    $date_time = apply_filters( 'rtmedia_comment_date_format', $date_time, null );
+
+    return '<span>' . $date_time . '</span>';
 }
 
 //function to convert comment datetime to "time ago" format.
@@ -2658,6 +2663,30 @@ function rtmedia_modify_activity_upload_url( $params ) {
 // Fix for BuddyPress multilingual plugin on activity pages
 add_filter( 'rtmedia_modify_upload_params', 'rtmedia_modify_activity_upload_url', 999, 1 );
 
+add_action( "rtmedia_admin_page_insert", "rtmedia_admin_pages_content", 99, 1 );
+
+function rtmedia_admin_pages_content( $page ){
+	if ( $page == "rtmedia-hire-us" ) {
+		$url = admin_url() . "admin.php?page=rtmedia-premium";
+		?>
+		<div class="rtm-hire-us-container rtm-page-container">
+			<h3 class="rtm-setting-title rtm-show"><?php _e( 'You can consider rtMedia Team for following :', 'rtmedia' ); ?></h3>
+
+			<ol class="rtm-hire-points">
+				<li><?php _e( 'rtMedia Customization ( in Upgrade Safe manner )', 'rtmedia' ); ?></li>
+				<li><?php _e( 'WordPress/BuddyPress Theme Design and Development', 'rtmedia' ); ?></li>
+				<li><?php _e( 'WordPress/BuddyPress Plugin Development', 'rtmedia' ); ?></li>
+			</ol>
+
+			<div class="clearfix">
+				<a href="https://rtcamp.com/contact" class="rtm-button rtm-success" target="_blank"><?php _e( 'Contact Us', 'rtmedia' ); ?></a>
+			</div>
+		</div>
+	<?php
+	}
+}
+
+
 // Get rtMedia Encoding API Key
 function get_rtmedia_encoding_api_key() {
 	return get_site_option( 'rtmedia-encoding-api-key' );
@@ -2691,4 +2720,13 @@ function rtm_filter_metaid_column_name( $q ) {
 		}
 	}
 	return $q;
+}
+
+/*
+ * Checking if SCRIPT_DEBUG constant is defined or not
+ */
+function rtm_get_script_style_suffix() {
+	$suffix = ( defined( 'SCRIPT_DEBUG' ) && constant( 'SCRIPT_DEBUG' ) === true ) ? '' : '.min';
+
+	return $suffix;
 }

@@ -86,7 +86,7 @@ msgstr "Kampanjer"
 #: views/subscribers/detail.php:327
 msgid "Campaign"
 msgid_plural "Campaigns"
-msgstr[0] ""
+msgstr[0] "Kampanj"
 msgstr[1] ""
 
 #: classes/campaigns.class.php:132
@@ -219,7 +219,7 @@ msgstr "Prenumeranter"
 #: classes/subscribers.table.class.php:12
 msgid "Subscriber"
 msgid_plural "Subscribers"
-msgstr[0] ""
+msgstr[0] "Prenumerant"
 msgstr[1] ""
 
 #: classes/subscriber.class.php:1088

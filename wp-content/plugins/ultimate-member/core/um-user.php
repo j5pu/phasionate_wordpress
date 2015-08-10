@@ -72,11 +72,14 @@ class UM_User {
 	}
 	
 	function get_cached_data( $user_id ) {
-		$find_user = get_option("um_cache_userdata_{$user_id}");
-		if ( $find_user ) {
-			$find_user = apply_filters('um_user_permissions_filter', $find_user, $user_id);
-			return $find_user;
+		if ( is_numeric( $user_id ) && $user_id > 0 ) {
+			$find_user = get_option("um_cache_userdata_{$user_id}");
+			if ( $find_user ) {
+				$find_user = apply_filters('um_user_permissions_filter', $find_user, $user_id);
+				return $find_user;
+			}
 		}
+		return '';
 	}
 	
 	function setup_cache( $user_id, $profile ) {
@@ -174,23 +177,23 @@ class UM_User {
 			}
 
 			if ( $this->usermeta['account_status'][0] == 'approved' ) {
-				$this->usermeta['account_status_name'][0] = 'Approved';
+				$this->usermeta['account_status_name'][0] = __('Approved','ultimatemember');
 			}
 
 			if ( $this->usermeta['account_status'][0] == 'awaiting_email_confirmation' ) {
-				$this->usermeta['account_status_name'][0] = 'Awaiting E-mail Confirmation';
+				$this->usermeta['account_status_name'][0] = __('Awaiting E-mail Confirmation','ultimatemember');
 			}
 				
 			if ( $this->usermeta['account_status'][0] == 'awaiting_admin_review' ) {
-				$this->usermeta['account_status_name'][0] = 'Pending Review';
+				$this->usermeta['account_status_name'][0] = __('Pending Review','ultimatemember');
 			}
 			
 			if ( $this->usermeta['account_status'][0] == 'rejected' ) {
-				$this->usermeta['account_status_name'][0] = 'Membership Rejected';
+				$this->usermeta['account_status_name'][0] = __('Membership Rejected','ultimatemember');
 			}
 			
 			if ( $this->usermeta['account_status'][0] == 'inactive' ) {
-				$this->usermeta['account_status_name'][0] = 'Membership Inactive';
+				$this->usermeta['account_status_name'][0] = __('Membership Inactive','ultimatemember');
 			}
 			
 			// add user meta
@@ -348,6 +351,8 @@ class UM_User {
 		$this->update_usermeta_info('role');
 		
 		do_action('um_after_user_role_is_changed');
+		
+		do_action('um_after_user_role_is_updated', um_user('ID'), $role );
 		
 	}
 	
@@ -570,7 +575,7 @@ class UM_User {
 				require_once( ABSPATH . 'wp-admin/includes/user.php' );
 			}
 			
-			wp_delete_user( $this->id, 1 );
+			wp_delete_user( $this->id );
 			
 		}
 

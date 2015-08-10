@@ -142,7 +142,7 @@ msgstr "Αρχίζει στο %s"
 
 #: classes/campaigns.class.php:612
 msgid "progressing"
-msgstr ""
+msgstr "Υπολογισμός"
 
 #: views/lists/detail.php:124
 #: views/subscribers/detail.php:276
@@ -157,7 +157,7 @@ msgstr ""
 #: classes/campaigns.class.php:893
 #: views/newsletter/submit.php:48
 msgid "Duplicate"
-msgstr ""
+msgstr "Αντιγραφή"
 
 #: classes/campaigns.class.php:478
 msgid "Template changed. %1$s"
@@ -226,27 +226,27 @@ msgstr[1] ""
 
 #: classes/subscriber.class.php:1088
 msgid "Add New"
-msgstr ""
+msgstr "Προσθήκη νέου"
 
 #: classes/subscriber.class.php:1089
 msgid "Add New Subscriber"
-msgstr ""
+msgstr "Προσθήκη νέου συνδρομητή "
 
 #: classes/subscriber.class.php:1090
 msgid "Edit Subscriber"
-msgstr ""
+msgstr "Επεξεργασία συνδρομητή"
 
 #: classes/subscriber.class.php:1091
 msgid "New Subscriber"
-msgstr ""
+msgstr "Νέος Συνδρομητής"
 
 #: classes/subscriber.class.php:1093
 msgid "View Subscribers"
-msgstr ""
+msgstr "Προβολή συνδρομητών"
 
 #: classes/subscriber.class.php:1095
 msgid "No Subscriber found"
-msgstr ""
+msgstr "Δεν βρέθηκε ο συνδρομητής"
 
 #: classes/subscriber.class.php:1096
 msgid "No Subscriber found in Trash"
@@ -255,40 +255,40 @@ msgstr ""
 #: classes/subscriber.class.php:1119
 msgctxt "taxonomy general name"
 msgid "Lists"
-msgstr ""
+msgstr "Λίστες"
 
 #: classes/subscriber.class.php:1120
 msgctxt "taxonomy singular name"
 msgid "List"
-msgstr ""
+msgstr "Λίστα"
 
 #: classes/subscriber.class.php:1121
 msgid "Search Lists"
-msgstr ""
+msgstr "Αναζήτηση Λίστας"
 
 #: classes/subscriber.class.php:1122
 msgid "Popular Lists"
-msgstr ""
+msgstr "Δημοφιλείς λίστες"
 
 #: classes/subscriber.class.php:1123
 msgid "All Lists"
-msgstr ""
+msgstr "Όλες οι λίστες"
 
 #: classes/subscriber.class.php:1124
 msgid "Edit List"
-msgstr ""
+msgstr "Επεξεργασία Λίστας"
 
 #: classes/subscriber.class.php:1125
 msgid "Update List"
-msgstr ""
+msgstr "Ενημέρωση λίστας"
 
 #: classes/subscriber.class.php:1126
 msgid "Add New List"
-msgstr ""
+msgstr "Προσθήκη καινούργιας λίστας"
 
 #: classes/subscriber.class.php:1127
 msgid "New List Name"
-msgstr ""
+msgstr "Νέο όνομα Λίστας"
 
 #: classes/subscriber.class.php:1128
 msgid "Separate Lists with commas"
@@ -296,11 +296,11 @@ msgstr ""
 
 #: classes/subscriber.class.php:1129
 msgid "Add or remove Lists"
-msgstr ""
+msgstr "Προσθήκη ή διαγραφή λιστών"
 
 #: classes/subscriber.class.php:1130
 msgid "Choose List"
-msgstr ""
+msgstr "Επιλογή λίστας"
 
 #: classes/form.class.php:287
 #: classes/form.class.php:544
@@ -317,17 +317,17 @@ msgstr ""
 #: views/settings.php:891
 #: views/subscribers/detail.php:210
 msgid "Lists"
-msgstr ""
+msgstr "Λίστες"
 
 #: classes/subscribers.class.php:79
 #: classes/subscribers.table.class.php:157
 msgid "Subscribed"
-msgstr ""
+msgstr "Εγγραφή"
 
 #: classes/manage.class.php:342 classes/subscriber.class.php:1169
 #: classes/subscriber.class.php:1173
 msgid "Unsubscribed"
-msgstr ""
+msgstr "Διαγραφή"
 
 #: classes/subscriber.class.php:1177 classes/subscriber.class.php:1181
 msgid "Hardbounced"
@@ -336,7 +336,7 @@ msgstr ""
 #: classes/subscriber.class.php:1295 classes/subscriber.class.php:1298
 #: classes/subscriber.class.php:1300
 msgid "Subscriber updated."
-msgstr ""
+msgstr "Ενημέρωση συνδρομητή"
 
 #: classes/subscriber.class.php:1296
 msgid "Custom field updated."
@@ -358,7 +358,7 @@ msgstr ""
 #: classes/templates.class.php:49
 #: views/templates.php:60
 msgid "Templates"
-msgstr ""
+msgstr "Θέματα"
 
 #: views/dashboard.php:59
 msgid "%n Active Campaign"
@@ -392,28 +392,28 @@ msgstr[1] ""
 
 #: views/dashboard.php:163
 msgid "You are using %s"
-msgstr ""
+msgstr "Χρησιμοποιείτε  %s"
 
 #: views/newsletter/delivery.php:33
 msgid "Server Time: %s %s"
-msgstr ""
+msgstr "Χρόνος στον Server %s %s"
 
 #: classes/lists.class.php:656
 msgid "No Lists found!"
-msgstr ""
+msgstr "Δεν βρέθηκε η λίστα"
 
 #: classes/lists.class.php:656
 msgid "Create a List now"
-msgstr ""
+msgstr "Δημιουργία λίστας τώρα"
 
 #: views/newsletter/details.php:58 views/newsletter/details.php:64
 #: views/newsletter/details.php:78
 msgid "show details"
-msgstr ""
+msgstr "Δες τις λεπτομέρειες"
 
 #: views/newsletter/options.php:56
 msgid "original"
-msgstr ""
+msgstr "Αυθεντικό"
 
 #: views/newsletter/options.php:135
 #: views/settings.php:1145
@@ -426,7 +426,7 @@ msgstr ""
 
 #: views/newsletter/submit.php:26
 msgid "Move to Trash"
-msgstr ""
+msgstr "Μετακίνηση στον κάδο"
 
 #: views/newsletter/submit.php:50 views/newsletter/submit.php:51
 #: views/subscriber/submit.php:29 views/subscriber/submit.php:30
@@ -437,7 +437,7 @@ msgstr ""
 #: views/newsletter/submit.php:77
 #: views/newsletter/submit.php:80
 msgid "Publish"
-msgstr ""
+msgstr "Δημοσίευση"
 
 #: views/newsletter/submit.php:84
 #: views/newsletter/submit.php:85
@@ -448,26 +448,26 @@ msgstr ""
 #: views/newsletter/submit.php:91
 #: views/newsletter/submit.php:110
 msgid "Update"
-msgstr ""
+msgstr "Ενημέρωση"
 
 #: views/newsletter/template.php:65
 msgid "Change Template"
-msgstr ""
+msgstr "Αλλαγή θέματος"
 
 #: classes/campaigns.class.php:1041
 #: classes/campaigns.class.php:3133
 msgid "Preview"
-msgstr ""
+msgstr "Προεπισκόπηση"
 
 #: views/settings.php:44
 #: views/settings.php:81
 msgid "General"
-msgstr ""
+msgstr "Γενικά"
 
 #: views/settings.php:50
 #: views/settings.php:912
 msgid "Tags"
-msgstr ""
+msgstr "Ετικέτες"
 
 #: views/settings.php:52
 #: views/settings.php:1193
@@ -481,7 +481,7 @@ msgstr ""
 #: views/newsletter/details.php:28
 #: views/settings.php:89
 msgid "From Name"
-msgstr ""
+msgstr "Από Όνομα"
 
 #: views/settings.php:90
 msgid "The sender name which is displayed in the from field"
@@ -489,7 +489,7 @@ msgstr ""
 
 #: views/settings.php:93
 msgid "From Address"
-msgstr ""
+msgstr "Από Διεύθυνση"
 
 #: views/settings.php:94
 msgid "The sender email address. Force your recievers to whitelabel this email address."
@@ -505,33 +505,33 @@ msgstr ""
 
 #: views/settings.php:101
 msgid "Default Template"
-msgstr ""
+msgstr "Προεπιλεγμένο Θέμα"
 
 #: views/settings.php:112
 msgid "get more"
-msgstr ""
+msgstr "Κατέβασε περισσότερα"
 
 #: views/newsletter/options.php:8
 #: views/settings.php:124
 msgid "Embed Images"
-msgstr ""
+msgstr "Ενσωματώστε Εικόνες"
 
 #: views/settings.php:125
 msgid "Embed images in the mail"
-msgstr ""
+msgstr "Ενσωματώστε Εικόνες στο e-mail"
 
 #: views/settings.php:268
 msgid "can be changed in each campaign"
-msgstr ""
+msgstr "μπορεί να αλλάξει σε κάθε καμπάνια"
 
 #: views/settings.php:283
 msgid "Newsletter Homepage"
-msgstr ""
+msgstr "Ενημερωτικά δελτία Αρχικής σελίδας"
 
 #: views/settings.php:285
 #: views/settings.php:994
 msgid "Choose"
-msgstr ""
+msgstr "Επιλογή"
 
 #: views/settings.php:735
 msgid "Double-Opt-In"
@@ -543,7 +543,7 @@ msgstr ""
 
 #: views/settings.php:872
 msgid "Subscription Form"
-msgstr ""
+msgstr "Φόρμα Εγγραφής"
 
 #: views/settings.php:762
 msgid "The text new subscribers get when Double-Opt-In is selected. Use %s for the link placeholder. Basic HTML is allowed"
@@ -551,7 +551,7 @@ msgstr ""
 
 #: views/settings.php:938
 msgid "Custom Tags"
-msgstr ""
+msgstr "Προσαρμοσμένες Ετικέτες"
 
 #: classes/campaigns.class.php:1023
 #: classes/manage.class.php:403
@@ -560,7 +560,7 @@ msgstr ""
 #: views/settings.php:519
 #: views/settings.php:950
 msgid "add"
-msgstr ""
+msgstr "Προσθήκη"
 
 #: views/settings.php:1204
 msgid "Cron Service"
@@ -580,7 +580,7 @@ msgstr ""
 
 #: views/settings.php:1200
 msgid "Interval for sending emails"
-msgstr ""
+msgstr "Διάστημα για αποστολή μηνυμάτων ηλεκτρονικού ταχυδρομείου"
 
 #: views/settings.php:1201
 msgid "Send emails at most every %1$s minutes"
@@ -588,7 +588,7 @@ msgstr ""
 
 #: views/settings.php:1218
 msgid "Cron Settings"
-msgstr ""
+msgstr "Ρυθμίσεις Cron"
 
 #: views/settings.php:1221
 msgid "a secret hash which is required to execute the cron"
@@ -597,7 +597,7 @@ msgstr ""
 #: views/settings.php:1241
 #: views/subscribers/detail.php:139
 msgid "never"
-msgstr ""
+msgstr "ποτέ"
 
 #: views/settings.php:1310
 msgid "Bounce Address"
@@ -605,17 +605,17 @@ msgstr ""
 
 #: views/settings.php:1327
 msgid "Server Address : Port"
-msgstr ""
+msgstr "Διεύθυνση εξυπηρετητή : Πόρτα "
 
 #: views/settings.php:1155
 #: views/settings.php:1170
 #: views/settings.php:1336
 msgid "Username"
-msgstr ""
+msgstr "Όνομα Χρήστη"
 
 #: views/settings.php:1206
 msgid "Attempts"
-msgstr ""
+msgstr "Προσπάθειες"
 
 #: views/settings.php:1364
 msgid "%s attempts to deliver message until hardbounce"
@@ -623,7 +623,7 @@ msgstr ""
 
 #: views/settings.php:1140
 msgid "Secure connection"
-msgstr ""
+msgstr "Ασφαλή σύνδεση"
 
 #: views/settings.php:1152
 msgid "If checked username and password are required"
@@ -632,12 +632,12 @@ msgstr ""
 #: views/newsletter/delivery.php:390
 #: views/settings.php:1078
 msgid "Send Test"
-msgstr ""
+msgstr "Αποστολή δοκιμαστικού Μηνύματος"
 
 #: views/settings.php:24
 #: views/settings.php:1672
 msgid "Save Changes"
-msgstr ""
+msgstr "Αποθήκευση Αλλαγών"
 
 #: classes/campaigns.class.php:501
 #: classes/campaigns.class.php:2480
@@ -648,11 +648,11 @@ msgstr ""
 #: views/manage.php:251
 #: views/subscribers/detail.php:99
 msgid "Status"
-msgstr ""
+msgstr "Κατάσταση"
 
 #: classes/manage.class.php:403
 msgid "add new list"
-msgstr ""
+msgstr "Προσθήκη νέας λίστας"
 
 #: classes/manage.class.php:1267
 #: classes/manage.class.php:1269
@@ -663,34 +663,34 @@ msgstr ""
 #: views/settings.php:230
 #: views/settings.php:239
 msgid "Upload"
-msgstr ""
+msgstr "Ενημέρωση"
 
 #: views/subscriber/stats.php:39
 msgid "No clicks yet"
-msgstr ""
+msgstr "Χωρίς Κλικ ακόμη"
 
 #: views/subscriber/stats.php:46
 msgid "%d campaign was deleted"
 msgid_plural "%d campaigns where deleted"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Η καμπάνια διαγράφηκε "
+msgstr[1] "%d οι καμπάνιες διαγράφηκαν "
 
 #: classes/form.class.php:643
 #: views/settings.php:877
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Διαγραφή"
 
 #: views/templates.php:29
 msgid "Template uploaded"
-msgstr ""
+msgstr "Το θέμα ενημερώθηκε"
 
 #: views/templates.php:140
 msgid "Available Templates"
-msgstr ""
+msgstr "Διαθέσιμα Θέματα"
 
 #: views/templates.php:180
 msgid "Upload a template in .zip format"
-msgstr ""
+msgstr "Ανέβασε το θέμα σε μορφή .zip"
 
 #: views/templates.php:181
 msgid "Please upload the whole zip file here."
@@ -698,17 +698,17 @@ msgstr ""
 
 #: classes/campaigns.class.php:896
 msgid "Statistics"
-msgstr ""
+msgstr "Στατιστικά"
 
 #: classes/widget.class.php:25
 #: classes/widget.class.php:165
 msgid "Title"
-msgstr ""
+msgstr "Τίτλος"
 
 #: classes/settings.class.php:81
 #: includes/static.php:8
 msgid "Thanks for your interest!"
-msgstr ""
+msgstr "Ευχαριστούμε για το ενδιαφέρον"
 
 #: classes/campaigns.class.php:500
 #: classes/lists.table.class.php:106
@@ -719,7 +719,7 @@ msgstr ""
 #: views/settings.php:671
 #: views/subscribers/detail.php:86
 msgid "Name"
-msgstr ""
+msgstr "¨ονομα"
 
 #: views/dashboard.php:44
 #: views/manage.php:143
@@ -727,7 +727,7 @@ msgstr ""
 #: views/manage.php:313
 #: views/manage.php:321
 msgid "total"
-msgstr ""
+msgstr "Σύνολο"
 
 #: views/newsletter/details.php:157
 msgid "open"
@@ -746,7 +746,7 @@ msgstr ""
 #: views/settings.php:424
 #: views/subscribers/detail.php:327
 msgid "Date"
-msgstr ""
+msgstr "Ημερομηνία"
 
 #: classes/campaigns.class.php:477
 msgid "Campaign updated. %s"
@@ -775,7 +775,7 @@ msgstr ""
 #: views/newsletter/details.php:62
 #: views/settings.php:750
 msgid "Subject"
-msgstr ""
+msgstr "Θέμα"
 
 #: views/newsletter/details.php:24
 #: views/newsletter/details.php:72
@@ -784,7 +784,7 @@ msgstr ""
 
 #: views/newsletter/details.php:32
 msgid "From Email"
-msgstr ""
+msgstr "Από το e-mail"
 
 #: views/newsletter/details.php:36
 msgid "reply-to email"
@@ -818,7 +818,7 @@ msgstr ""
 
 #: classes/manage.class.php:345
 msgid "Yes, I have the permission to import these contacts"
-msgstr ""
+msgstr "Ναι, δίνω την άδεια να προστεθούν αυτές οι επαφές"
 
 #: classes/campaigns.class.php:2543
 #: classes/subscribers.class.php:1414
@@ -826,7 +826,7 @@ msgstr ""
 #: views/newsletter/details.php:77
 #: views/newsletter/details.php:99
 msgid "sent"
-msgstr ""
+msgstr "Αποστολή"
 
 #: classes/mymail.class.php:1481 views/subscriber/stats.php:18
 msgid "first click"
@@ -853,16 +853,16 @@ msgstr ""
 #: views/newsletter/submit.php:105
 #: views/single-newsletter.php:25
 msgid "Edit"
-msgstr ""
+msgstr "Επεξεργασία"
 
 #: classes/campaigns.class.php:1034
 msgctxt "for the autoimporter"
 msgid "Auto"
-msgstr ""
+msgstr "Αυτόματα"
 
 #: classes/campaigns.class.php:1035
 msgid "add button"
-msgstr ""
+msgstr "προσθήκη κουμπιού"
 
 #: classes/mymail.class.php:3048
 msgctxt "\"link\" \"count\" clicks (\"percentage\")"
@@ -879,7 +879,7 @@ msgstr ""
 
 #: views/newsletter/template.php:218
 msgid "Select a post"
-msgstr ""
+msgstr "Επιλέξτε ένα άρθρο"
 
 #: classes/manage.class.php:1270
 #: classes/templates.class.php:925
@@ -887,7 +887,7 @@ msgstr ""
 #: views/templates.php:46
 #: views/templates.php:54
 msgid "Cancel"
-msgstr ""
+msgstr "Ακύρωση"
 
 #: views/newsletter/template.php:326
 msgid "remove element"
@@ -902,7 +902,7 @@ msgstr ""
 #: views/settings.php:1174
 #: views/settings.php:1340
 msgid "Password"
-msgstr ""
+msgstr "Κωδικός"
 
 #: views/subscriber/stats.php:51
 msgid "This subscriber has never recieved any newsletter"
@@ -921,7 +921,7 @@ msgstr ""
 #: views/templates.php:45
 #: views/templates.php:53
 msgid "or"
-msgstr ""
+msgstr "ή"
 
 #: classes/manage.class.php:405
 msgid "Import as"
@@ -943,13 +943,13 @@ msgstr ""
 #: views/newsletter/delivery.php:411
 #: views/newsletter/delivery.php:432
 msgid "%1$s of %2$s sent"
-msgstr ""
+msgstr "%1$s από %2$s στάλθηκαν "
 
 #: classes/campaigns.class.php:175
 #: classes/campaigns.class.php:177
 #: classes/campaigns.class.php:599
 msgid "Paused"
-msgstr ""
+msgstr "Σε Παύση"
 
 #: classes/campaigns.class.php:216
 msgid "Details"
@@ -957,7 +957,7 @@ msgstr ""
 
 #: classes/campaigns.class.php:217
 msgid "Template"
-msgstr ""
+msgstr "Θέματα"
 
 #: classes/campaigns.class.php:219
 #: views/settings.php:51
@@ -968,7 +968,7 @@ msgstr ""
 #: classes/campaigns.class.php:221
 #: classes/settings.class.php:263
 msgid "Options"
-msgstr ""
+msgstr "Επιλογές"
 
 #: views/settings.php:1239
 msgid "Last hit"
@@ -981,7 +981,7 @@ msgstr ""
 #: views/settings.php:1241
 msgctxt "short for minute"
 msgid "min"
-msgstr ""
+msgstr "λεπτά"
 
 #: classes/subscriber.class.php:1327
 msgid "Master Data"
@@ -991,7 +991,7 @@ msgstr ""
 #: views/subscribers/detail.php:74
 #: views/subscribers/detail.php:75
 msgid "Source"
-msgstr ""
+msgstr "Πηγή"
 
 #: classes/manage.class.php:338
 #: views/newsletter/receivers.php:97
@@ -1004,34 +1004,34 @@ msgstr ""
 #: classes/lists.class.php:56
 #: classes/subscribers.class.php:458
 msgid "next"
-msgstr ""
+msgstr "Επόμενο"
 
 #: classes/campaigns.class.php:1048
 #: classes/lists.class.php:57
 #: classes/subscribers.class.php:459
 msgid "prev"
-msgstr ""
+msgstr "Προηγούμενο"
 
 #: classes/settings.class.php:95
 #: includes/updates.php:30
 msgid "webversion"
-msgstr ""
+msgstr "Μορφή Ιστοσελίδας"
 
 #: classes/settings.class.php:132
 msgid "Please confirm your Email Address"
-msgstr ""
+msgstr "Παρακαλώ επιβεβαιώστε τη διεύθυνση ηλεκτρονικού ταχυδρομείου σας"
 
 #: classes/subscribers.class.php:1481
 msgid "Wordpress Users"
-msgstr ""
+msgstr "Χρήστες του Wordpress"
 
 #: views/settings.php:923
 msgid "Permanent Tags"
-msgstr ""
+msgstr "Μόνιμες ετικέτες"
 
 #: views/settings.php:954
 msgid "Special Tags"
-msgstr ""
+msgstr "Ειδικές ετικέτες"
 
 #: views/subscribers/detail.php:83
 #: views/subscribers/detail.php:94
@@ -1047,11 +1047,11 @@ msgstr ""
 
 #: views/subscriber/data.php:92
 msgid "Settings Page"
-msgstr ""
+msgstr "Ρυθμίσεις σελίδας"
 
 #: includes/functions.php:198
 msgid "Newsletters"
-msgstr ""
+msgstr "Ενημερωτικά δελτία"
 
 #: views/settings.php:310
 msgid "Offer share option for your customers"
@@ -1059,16 +1059,16 @@ msgstr ""
 
 #: views/settings.php:314
 msgid "Services"
-msgstr ""
+msgstr "Υπηρεσίες"
 
 #: views/single-newsletter.php:59
 msgid "Share with %s"
-msgstr ""
+msgstr "Κοινοποίηση με %s "
 
 #: classes/subscribers.class.php:1414
 #: classes/subscribers.class.php:1415
 msgid "not yet"
-msgstr ""
+msgstr "όχι ακόμη"
 
 #: classes/frontpage.class.php:422
 msgid "There is no content for this newsletter."
@@ -1076,7 +1076,7 @@ msgstr ""
 
 #: classes/frontpage.class.php:422
 msgid "Add content"
-msgstr ""
+msgstr "προσθήκη σχολίου "
 
 #: classes/campaigns.class.php:453
 #: views/dashboard.php:62
@@ -1099,11 +1099,11 @@ msgstr ""
 
 #: views/single-newsletter.php:59
 msgid "email"
-msgstr ""
+msgstr "Διεύθυνση Ηλεκτρονικού ταχυδρομίου"
 
 #: views/dashboard.php:50
 msgid "new"
-msgstr ""
+msgstr "νέο"
 
 #: views/dashboard.php:56
 msgid "%n Pending Campaign"
@@ -1119,7 +1119,7 @@ msgstr[1] ""
 
 #: views/dashboard.php:78
 msgid "create a new Campaign"
-msgstr ""
+msgstr "Δημιουργία νέα καμπάνιας"
 
 #: views/dashboard.php:33
 msgid "Recent Campaign"
@@ -1129,7 +1129,7 @@ msgstr ""
 #: views/dashboard.php:33
 #: views/settings.php:297
 msgid "edit"
-msgstr ""
+msgstr "Επεξεργασία"
 
 #: views/newsletter/details.php:77
 msgid "receiver"
@@ -1168,7 +1168,7 @@ msgstr[1] ""
 
 #: classes/ajax.class.php:822
 msgid "Country"
-msgstr ""
+msgstr "Χώρα"
 
 #: views/settings.php:45
 #: views/settings.php:275
@@ -1182,11 +1182,11 @@ msgstr ""
 
 #: views/single-newsletter.php:63
 msgid "Your name"
-msgstr ""
+msgstr "Το όνομα σας"
 
 #: views/single-newsletter.php:66
 msgid "Your email address"
-msgstr ""
+msgstr "Η διεύθυνση ηλεκτρονικού σας ταχυδρομείου "
 
 #: views/single-newsletter.php:69
 msgid "Your friend's email address"
@@ -1202,14 +1202,14 @@ msgstr ""
 
 #: views/single-newsletter.php:89
 msgid "Share the link"
-msgstr ""
+msgstr "Κοινοποίησε τον σύνδεσμο"
 
 #: classes/ajax.class.php:822
 #: classes/campaigns.class.php:2517
 #: classes/subscribers.class.php:1415
 #: views/dashboard.php:44
 msgid "opens"
-msgstr ""
+msgstr "Ανοιχτά"
 
 #: views/dashboard.php:44
 msgctxt "count of"
@@ -1228,7 +1228,7 @@ msgstr ""
 #: views/settings.php:1617
 #: views/settings.php:1624
 msgid "Purchasecode"
-msgstr ""
+msgstr "Κωδικός αγορά"
 
 #: views/settings.php:1631
 msgid "Disable this tab"
@@ -1250,11 +1250,11 @@ msgstr ""
 #: views/newsletter/submit.php:57
 #: views/newsletter/submit.php:62
 msgid "Pause"
-msgstr ""
+msgstr "Σε Παύση"
 
 #: classes/campaigns.class.php:782
 msgid "Start"
-msgstr ""
+msgstr "Έναρξη"
 
 #: classes/settings.class.php:147
 msgid "All rights reserved"
@@ -1281,7 +1281,7 @@ msgstr ""
 #: views/settings.php:1401
 #: views/settings.php:1475
 msgid "read more"
-msgstr ""
+msgstr "διάβασε περισσότερα"
 
 #: views/settings.php:1569
 msgid "DKIM often doesn't work out of the box. You may have to contact your email provider to get more information"
@@ -1289,26 +1289,26 @@ msgstr ""
 
 #: classes/campaigns.class.php:777
 msgid "Pause Campaign"
-msgstr ""
+msgstr "Παύση καμπανιας"
 
 #: classes/campaigns.class.php:782
 msgid "Start Campaign"
-msgstr ""
+msgstr "Έναρξη καμπάνιας"
 
 #: classes/campaigns.class.php:774
 msgid "Start now"
-msgstr ""
+msgstr "Έναρξη τώρα"
 
 #: views/newsletter/submit.php:71
 #: views/newsletter/submit.php:98
 #: views/newsletter/submit.php:106
 #: views/single-newsletter.php:76
 msgid "Send now"
-msgstr ""
+msgstr "Αποστολή τώρα"
 
 #: classes/campaigns.class.php:774
 msgid "Start Campaign now"
-msgstr ""
+msgstr "Έναρξη καμπάνιας τώρα"
 
 #: classes/campaigns.class.php:1040
 msgid "Preview for %s"
@@ -1317,11 +1317,11 @@ msgstr ""
 #: classes/campaigns.class.php:502
 #: views/newsletter/template.php:343
 msgid "Total"
-msgstr ""
+msgstr "Σύνολο"
 
 #: classes/campaigns.class.php:503
 msgid "Open"
-msgstr ""
+msgstr "Άνοιξε"
 
 #: classes/campaigns.class.php:504
 #: classes/campaigns.class.php:2486
@@ -1330,8 +1330,8 @@ msgstr ""
 #: views/newsletter/template.php:343
 msgid "Clicks"
 msgid_plural "Clicks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Κλικς"
+msgstr[1] "Κλικς"
 
 #: classes/campaigns.class.php:505
 #: classes/campaigns.class.php:2488
@@ -1354,7 +1354,7 @@ msgstr ""
 
 #: classes/ajax.class.php:1441
 msgid "Your message was sent succefully!"
-msgstr ""
+msgstr "Το μήνυμά σας εστάλη επιτυχώς!"
 
 #: classes/ajax.class.php:1441
 msgid "Sorry, we couldn't deliver your message. Please try again later!"
@@ -1362,7 +1362,7 @@ msgstr ""
 
 #: views/single-newsletter.php:35
 msgid "Share"
-msgstr ""
+msgstr "Κοινοποίηση "
 
 #: classes/campaigns.class.php:893
 msgid "Duplicate Campaign %s"
@@ -1372,7 +1372,7 @@ msgstr ""
 #: views/newsletter/details.php:32
 #: views/newsletter/details.php:36
 msgid "restore default"
-msgstr ""
+msgstr "Επαναφέρετε τις προεπιλεγμένες"
 
 #: classes/settings.class.php:611
 msgid "%s is not a valid email address"
@@ -1394,11 +1394,11 @@ msgstr ""
 
 #: views/settings.php:500
 msgid "Firstname"
-msgstr ""
+msgstr "Όνομα"
 
 #: views/settings.php:500
 msgid "Lastname"
-msgstr ""
+msgstr "Επίθετο"
 
 #: views/manage.php:126
 msgid "Export Subscribers"
@@ -1408,7 +1408,7 @@ msgstr ""
 #: classes/settings.class.php:237
 #: classes/settings.class.php:240
 msgid "Settings"
-msgstr ""
+msgstr "Ρυθμίσεις"
 
 #: classes/settings.class.php:906
 msgid "The caching time for tweets must be at least %d minutes"
@@ -1424,7 +1424,7 @@ msgstr ""
 
 #: views/templates.php:118
 msgid "Edit HTML"
-msgstr ""
+msgstr "Επεξεργασία HTML"
 
 #: classes/ajax.class.php:1630
 msgid "Country DB successfully loaded!"
@@ -1440,7 +1440,7 @@ msgstr ""
 
 #: views/settings.php:253
 msgid "Your IP"
-msgstr ""
+msgstr "Η IP σας"
 
 #: views/settings.php:36
 msgid "%d campaign is active. You should pause it before you change the settings!"
@@ -1455,15 +1455,15 @@ msgstr ""
 #: views/settings.php:254
 #: views/settings.php:256
 msgid "Last update"
-msgstr ""
+msgstr "Τελευταία ενημέρωση"
 
 #: views/settings.php:254
 msgid "Your country"
-msgstr ""
+msgstr "Η χώρα σας"
 
 #: classes/settings.class.php:80
 msgid "Please confirm your subscription!"
-msgstr ""
+msgstr "Παρακαλώ επιβεβαιώστε την εγγραφή σας"
 
 #: classes/mail.class.php:432
 msgid "myMail Test Email"
@@ -1471,23 +1471,23 @@ msgstr ""
 
 #: classes/mail.class.php:427
 msgid "Your settings are good"
-msgstr ""
+msgstr "Οι ρυθμίσεις σας είναι καλές"
 
 #: classes/form.class.php:28
 #: classes/settings.class.php:116
 #: views/settings.php:671
 msgid "Default Form"
-msgstr ""
+msgstr "Προεπιλεγμένη φόρμα"
 
 #: classes/widget.class.php:27
 msgid "Form"
-msgstr ""
+msgstr "Φόρμα"
 
 #: views/settings.php:48
 #: views/settings.php:413
 #: views/settings.php:638
 msgid "Forms"
-msgstr ""
+msgstr "Φόρμες"
 
 #: views/settings.php:671
 msgid "Name your form"
@@ -1495,15 +1495,15 @@ msgstr ""
 
 #: views/settings.php:669
 msgid "remove this form"
-msgstr ""
+msgstr "Διαγραφή αυτής της φόρμας"
 
 #: views/settings.php:711
 msgid "offer lists"
-msgstr ""
+msgstr "Λίστες προσφορών"
 
 #: views/settings.php:728
 msgid "new lists"
-msgstr ""
+msgstr "Νέες λίστες"
 
 #: classes/lists.class.php:279
 msgid "undefined"
@@ -1512,7 +1512,7 @@ msgstr ""
 #: classes/widget.class.php:33
 #: views/settings.php:663
 msgid "add form"
-msgstr ""
+msgstr "Προσθήκη φόρμας"
 
 #: views/settings.php:850
 msgid "Form CSS"
@@ -1541,7 +1541,7 @@ msgstr ""
 #: classes/campaigns.class.php:1042
 #: views/settings.php:925
 msgid "Read more"
-msgstr ""
+msgstr "Διάβασε περισσότερα"
 
 #: views/settings.php:940
 msgid "Add your custom tags here. They work like permanent tags"
@@ -1595,11 +1595,11 @@ msgstr ""
 #: views/newsletter/receivers.php:128
 #: views/newsletter/receivers.php:232
 msgid "Total receivers"
-msgstr ""
+msgstr "Συνολικοί δέκτες"
 
 #: classes/manage.class.php:63
 msgid "Import complete!"
-msgstr ""
+msgstr "Η εισαγωγή ολοκληρώθηκε "
 
 #: views/settings.php:957
 msgid "displays the last tweet from Twitter user [username] (cache it for %s minutes)"
@@ -1608,11 +1608,11 @@ msgstr ""
 #: classes/settings.class.php:85
 #: includes/updates.php:44
 msgid "An error occurred! Please try again later!"
-msgstr ""
+msgstr "Παρουσιάστηκε σφάλμα! Παρακαλώ δοκιμάστε ξανά αργότερα!"
 
 #: classes/settings.class.php:131
 msgid "Please confirm"
-msgstr ""
+msgstr "Παρακαλώ επιβεβαιώστε "
 
 #: classes/settings.class.php:133
 msgid "You'll need to confirm your email address. Please click the link below to confirm. %s"
@@ -1620,7 +1620,7 @@ msgstr ""
 
 #: classes/settings.class.php:134
 msgid "Click here to confirm"
-msgstr ""
+msgstr "Κάντε κλικ εδώ για να επιβεβαιώσετε"
 
 #: classes/settings.class.php:82
 msgid "Following fields are missing or incorrect"
@@ -1644,19 +1644,19 @@ msgstr ""
 
 #: views/settings.php:762
 msgid "Text"
-msgstr ""
+msgstr "Κείμενο"
 
 #: views/settings.php:874
 msgid "Confirmation"
-msgstr ""
+msgstr "επιβεβαίωση"
 
 #: views/settings.php:875
 msgid "Successful"
-msgstr ""
+msgstr "Επιτυχία "
 
 #: views/settings.php:876
 msgid "Error Message"
-msgstr ""
+msgstr "Μήνυμα σφάλματος "
 
 #: views/settings.php:1233
 msgid "You can setup an interval as low as one minute, but should consider a reasonable value of 5-15 minutes as well."
@@ -1688,12 +1688,12 @@ msgstr ""
 
 #: views/settings.php:112
 msgid "show Templates"
-msgstr ""
+msgstr "Προβολή θεμάτων"
 
 #: classes/ajax.class.php:1131
 #: classes/ajax.class.php:1176
 msgid "no entries found"
-msgstr ""
+msgstr "Δεν βρέθηκαν εγγραφές"
 
 #: views/newsletter/template.php:136
 msgid "Link Button (required)"
@@ -1708,7 +1708,7 @@ msgstr ""
 
 #: views/settings.php:116
 msgid "Send delay"
-msgstr ""
+msgstr "Καθυστέρηση αποστολής "
 
 #: views/settings.php:117
 msgid "The default delay in minutes for sending campaigns."
@@ -1730,7 +1730,7 @@ msgstr ""
 #: views/newsletter/template.php:136
 #: views/newsletter/template.php:204
 msgid "insert URL"
-msgstr ""
+msgstr "εισαγωγή υπερσυνδέσμου "
 
 #: classes/campaigns.class.php:1549
 msgid "You are not allowed to pause campaigns."
@@ -1746,35 +1746,35 @@ msgstr ""
 
 #: includes/capability.php:5
 msgid "edit campaigns"
-msgstr ""
+msgstr "Επεξεργασία καμπανιών"
 
 #: includes/capability.php:10
 msgid "send campaigns"
-msgstr ""
+msgstr "Αποστολή καμπανιών"
 
 #: includes/capability.php:15
 msgid "delete campaigns"
-msgstr ""
+msgstr "Διαγραφή καμπανιών"
 
 #: includes/capability.php:20
 msgid "edit others campaigns"
-msgstr ""
+msgstr "Επεξεργασία άλλων καμπανιών"
 
 #: includes/capability.php:25
 msgid "delete others campaigns"
-msgstr ""
+msgstr "Διαγραφή άλλων καμπανιών"
 
 #: includes/capability.php:30
 msgid "duplicate campaigns"
-msgstr ""
+msgstr "Αντιγραφή καμπανιών"
 
 #: includes/capability.php:35
 msgid "duplicate others campaigns"
-msgstr ""
+msgstr "Αντιγραφή άλλων καμπανιών"
 
 #: includes/capability.php:51
 msgid "change template"
-msgstr ""
+msgstr "Αλλαγή θέματος"
 
 #: includes/capability.php:60
 msgid "see codeview"
@@ -1782,31 +1782,31 @@ msgstr ""
 
 #: includes/capability.php:71
 msgid "edit subscribers"
-msgstr ""
+msgstr "Επεξεργασία Εγγεγραμμένων"
 
 #: includes/capability.php:71
 msgid "create subscribers"
-msgstr ""
+msgstr "Δημιουργία Εγγεγραμμένων"
 
 #: includes/capability.php:76
 msgid "edit others subscribers"
-msgstr ""
+msgstr "Επεξεργασία άλλων Εγγεγραμμένων"
 
 #: includes/capability.php:81
 msgid "delete subscribers"
-msgstr ""
+msgstr "Διαγραφή Εγγεγραμμένων"
 
 #: includes/capability.php:86
 msgid "delete others subscribers"
-msgstr ""
+msgstr "Διαγραφή άλλων Εγγεγραμμένων"
 
 #: includes/capability.php:117
 msgid "edit lists"
-msgstr ""
+msgstr "Επεξεργασία λιστών"
 
 #: includes/capability.php:122
 msgid "delete lists"
-msgstr ""
+msgstr "Διαγραφή λιστών"
 
 #: includes/capability.php:103
 msgid "assign lists"
@@ -1814,7 +1814,7 @@ msgstr ""
 
 #: includes/capability.php:92
 msgid "import subscribers"
-msgstr ""
+msgstr "Εισαγωγή εγγεγραμμένων"
 
 #: includes/capability.php:102
 msgid "export subscribers"
@@ -1822,19 +1822,19 @@ msgstr ""
 
 #: includes/capability.php:129
 msgid "manage templates"
-msgstr ""
+msgstr "Διαχείριση Θεμάτων "
 
 #: includes/capability.php:134
 msgid "edit templates"
-msgstr ""
+msgstr "Επεξεργασία Θεμάτων"
 
 #: includes/capability.php:139
 msgid "delete templates"
-msgstr ""
+msgstr "Διαγραφή Θεμάτων"
 
 #: includes/capability.php:144
 msgid "upload templates"
-msgstr ""
+msgstr "Ενημέρωση Θεμάτων"
 
 #: includes/capability.php:154
 msgid "see dashboard widget"
@@ -1864,17 +1864,17 @@ msgstr ""
 #: classes/settings.class.php:251
 #: views/settings.php:431
 msgid "Field Name"
-msgstr ""
+msgstr "Όνομα πεδίου"
 
 #: classes/settings.class.php:252
 #: views/settings.php:432
 msgid "Tag"
-msgstr ""
+msgstr "Ετικέτα"
 
 #: classes/settings.class.php:253
 #: views/settings.php:433
 msgid "Type"
-msgstr ""
+msgstr "Τύπος"
 
 #: classes/settings.class.php:254
 #: views/settings.php:420
@@ -1900,42 +1900,42 @@ msgstr ""
 #: views/settings.php:449
 #: views/settings.php:456
 msgid "this field is selected by default"
-msgstr ""
+msgstr "αυτό το πεδίο είναι επιλεγμένο από προεπιλογή"
 
 #: classes/settings.class.php:262
 #: views/settings.php:452
 msgid "add field"
-msgstr ""
+msgstr "Προσθήκη πεδίου"
 
 #: classes/settings.class.php:265
 #: views/settings.php:449
 #: views/settings.php:458
 msgid "remove field"
-msgstr ""
+msgstr "Διαγραφή πεδίου"
 
 #: classes/settings.class.php:266
 #: views/settings.php:429
 msgid "move up"
-msgstr ""
+msgstr "Μετακίνηση επάνω"
 
 #: classes/settings.class.php:267
 #: views/settings.php:430
 msgid "move down"
-msgstr ""
+msgstr "Μετακίνηση κάτω"
 
 #: views/subscribers/detail.php:361
 msgid "Error"
-msgstr ""
+msgstr "Λάθος"
 
 #: classes/subscribers.class.php:1795
 #: classes/subscribers.table.class.php:184
 msgid "subscribed"
-msgstr ""
+msgstr "Εγγραφή"
 
 #: classes/subscribers.class.php:1796
 #: classes/subscribers.table.class.php:185
 msgid "unsubscribed"
-msgstr ""
+msgstr "Διαγραφή"
 
 #: classes/subscribers.class.php:1797
 msgid "hardbounced"
@@ -1944,7 +1944,7 @@ msgstr ""
 #: views/settings.php:49
 #: views/settings.php:865
 msgid "Texts"
-msgstr ""
+msgstr "Κείμενα"
 
 #: views/settings.php:872
 msgid "Define messages for the subscription form"
@@ -2001,7 +2001,7 @@ msgstr ""
 
 #: views/newsletter/options.php:9
 msgid "Colors"
-msgstr ""
+msgstr "Χρώματα"
 
 #: classes/dashboard.class.php:60
 #: classes/campaigns.class.php:198
@@ -2018,15 +2018,15 @@ msgstr ""
 
 #: classes/autoresponder.class.php:509
 msgid "Sent"
-msgstr ""
+msgstr "Αποστολή"
 
 #: classes/campaigns.class.php:649
 msgid "active"
-msgstr ""
+msgstr "Ενεργό"
 
 #: classes/campaigns.class.php:649
 msgid "inactive"
-msgstr ""
+msgstr "αδρανής"
 
 #: classes/campaigns.class.php:701
 #: classes/campaigns.class.php:709
@@ -2034,13 +2034,13 @@ msgstr ""
 #: views/newsletter/delivery.php:119
 #: views/newsletter/delivery.php:136
 msgid "after"
-msgstr ""
+msgstr "μετά"
 
 #: classes/campaigns.class.php:734
 #: views/newsletter/receivers.php:36
 #: views/newsletter/receivers.php:180
 msgid "only if"
-msgstr ""
+msgstr "μόνο αν"
 
 #: classes/campaigns.class.php:740
 #: views/newsletter/receivers.php:196
@@ -2049,28 +2049,28 @@ msgstr ""
 
 #: classes/campaigns.class.php:756
 msgid "activate"
-msgstr ""
+msgstr "Ενεργοποίηση"
 
 #: classes/campaigns.class.php:758
 msgid "deactivate"
-msgstr ""
+msgstr "Απενεργοποίηση"
 
 #: includes/autoresponder.php:6
 msgid "minute(s)"
-msgstr ""
+msgstr "Λεπτό(ά)"
 
 #: classes/campaigns.class.php:655
 #: includes/autoresponder.php:7
 #: views/newsletter/delivery.php:200
 msgid "hour(s)"
-msgstr ""
+msgstr "Ώρα(ες)"
 
 #: classes/campaigns.class.php:656
 #: includes/autoresponder.php:8
 #: views/newsletter/delivery.php:201
 #: views/newsletter/delivery.php:290
 msgid "day(s)"
-msgstr ""
+msgstr "Μέρα(ες)"
 
 #: includes/autoresponder.php:15
 msgid "user signed up"
@@ -2083,40 +2083,40 @@ msgstr ""
 #: views/newsletter/receivers.php:76
 #: views/newsletter/receivers.php:184
 msgid "is"
-msgstr ""
+msgstr "είναι"
 
 #: views/newsletter/receivers.php:77
 #: views/newsletter/receivers.php:185
 msgid "is not"
-msgstr ""
+msgstr "δεν είναι"
 
 #: views/newsletter/receivers.php:78
 #: views/newsletter/receivers.php:186
 msgid "contains"
-msgstr ""
+msgstr "περιέχει"
 
 #: views/newsletter/receivers.php:79
 #: views/newsletter/receivers.php:187
 msgid "contains not"
-msgstr ""
+msgstr "δεν περιέχει"
 
 #: views/newsletter/receivers.php:80
 #: views/newsletter/receivers.php:188
 msgid "begins with"
-msgstr ""
+msgstr "ξεκινάει με"
 
 #: views/newsletter/receivers.php:81
 #: views/newsletter/receivers.php:189
 msgid "ends with"
-msgstr ""
+msgstr "τελειώνει με"
 
 #: includes/autoresponder.php:38
 msgid "is less than"
-msgstr ""
+msgstr "είναι λιγότερο από"
 
 #: includes/autoresponder.php:39
 msgid "is more than"
-msgstr ""
+msgstr "είναι περισσότερο από"
 
 #: includes/capability.php:40
 msgid "edit autoresponders"
@@ -2132,7 +2132,7 @@ msgstr ""
 
 #: views/newsletter/delivery.php:46
 msgid "send this campaign"
-msgstr ""
+msgstr "Αποστολή αυτής της καμπάνιας"
 
 #: views/newsletter/receivers.php:40
 msgid "one of the conditions is true"
@@ -2141,7 +2141,7 @@ msgstr ""
 #: classes/helper.class.php:308
 #: views/newsletter/receivers.php:41
 msgid "and"
-msgstr ""
+msgstr "και"
 
 #: views/newsletter/receivers.php:41
 msgid "all of the conditions are true"
@@ -2149,15 +2149,15 @@ msgstr ""
 
 #: views/newsletter/receivers.php:120
 msgid "remove condition"
-msgstr ""
+msgstr "αφαιρεση κατάστασης"
 
 #: views/newsletter/receivers.php:120
 msgid "remove"
-msgstr ""
+msgstr "διαγραφή"
 
 #: views/newsletter/receivers.php:125
 msgid "add condition"
-msgstr ""
+msgstr "προσθέστε κατάσταση"
 
 #: classes/campaigns.class.php:717
 msgid "in one of these lists"
@@ -2166,11 +2166,11 @@ msgstr ""
 #: classes/campaigns.class.php:723
 #: views/newsletter/receivers.php:153
 msgid "no lists selected"
-msgstr ""
+msgstr "Δεν επιλέχθηκαν λίστες"
 
 #: classes/autoresponder.class.php:617
 msgid "remove all future jobs"
-msgstr ""
+msgstr "αφαίρεση όλων των μελλοντικών εργασιών "
 
 #: classes/campaigns.class.php:1687
 msgid "%d job deleted"

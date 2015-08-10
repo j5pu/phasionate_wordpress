@@ -813,6 +813,9 @@ class mymail_manage {
 						case 'status':
 							$val = __('Status', 'mymail');
 							break;
+						case 'statuscode':
+							$val = __('Statuscode', 'mymail');
+							break;
 						case 'ip':
 							$val = __('IP Address', 'mymail');
 							break;
@@ -924,7 +927,10 @@ class mymail_manage {
 						$val = implode(', ', wp_list_pluck( $list, 'name' ) );
 						break;
 					case 'status':
-						$val = $statusnames->{$user->status};
+						$val = $statusnames[$user->status];
+						break;
+					case 'statuscode':
+						$val = $user->status;
 						break;
 					case 'ip':
 					case 'ip_signup':
@@ -941,6 +947,8 @@ class mymail_manage {
 						$val = isset($user->{$col}) ? $user->{$col} : '';
 						if($dateformat && in_array($col, $custom_date_fields))
 							$val = date($dateformat, strtotime($user->{$col}));
+						//remove linebreaks
+						$val = preg_replace("/[\n\r]/"," ",$val);
 				}
 
 				if(function_exists('mb_convert_encoding'))

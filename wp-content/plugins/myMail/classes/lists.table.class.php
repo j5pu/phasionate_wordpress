@@ -54,13 +54,9 @@ class MyMail_Lists_Table extends WP_List_Table {
 	}
 
 	public function filter_box() {
-		
-		
 	}
 
 	public function script() {
-		// wp_register_script('updatecenter-locations', UPDATE_CENTER_URI . '/assets/js/locations.js', array('jquery'), UPDATE_CENTER, true);
-		// wp_enqueue_script('updatecenter-locations');
 	}
 	
 	public function column_default( $item, $column_name ) {
@@ -138,7 +134,8 @@ class MyMail_Lists_Table extends WP_List_Table {
 	}
 
 	public function prepare_items($domain = NULL, $post_id = NULL) {
-		global $wpdb, $mymail;
+		
+		global $wpdb;
 		$screen = get_current_screen();
 	
 		/* -- Preparing your query -- */
@@ -203,8 +200,6 @@ class MyMail_Lists_Table extends WP_List_Table {
 		}
 
 	}
-		
-
 
 
 } //class

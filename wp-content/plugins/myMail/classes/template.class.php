@@ -74,6 +74,8 @@ class mymail_template {
 				
 		}
 		if($absolute_img) $html = $this->make_img_absolute( $html );
+
+		$html = str_replace( array('%7B', '%7D') , array( '{', '}' ), $html );
 		
 		return $html;
 	}
@@ -802,6 +804,9 @@ class mymail_template {
 	private function get_html_from_node($node){
 	
 		$html = $node->ownerDocument->saveXML($node);
+
+		//remove CDATA elements (keep content)
+		$html = preg_replace('~<!\[CDATA\[\s*|\s*\]\]>~', '', $html);
 		return $html;
 		
 	}

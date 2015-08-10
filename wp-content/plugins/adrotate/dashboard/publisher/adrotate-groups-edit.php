@@ -210,24 +210,21 @@ if(!is_array($meta_array)) $meta_array = array();
 		        	<option value="1" <?php if($edit_group->cat_loc == 1) { echo 'selected'; } ?>><?php _e('Before content', 'adrotate'); ?></option>
 		        	<option value="2" <?php if($edit_group->cat_loc == 2) { echo 'selected'; } ?>><?php _e('After content', 'adrotate'); ?></option>
 		        	<option value="3" <?php if($edit_group->cat_loc == 3) { echo 'selected'; } ?>><?php _e('Before and after content', 'adrotate'); ?></option>
-		        	<option value="4" <?php if($edit_group->cat_loc == 4) { echo 'selected'; } ?>><?php _e('After...', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->cat_loc == 4) { echo 'selected'; } ?>><?php _e('Inside the content...', 'adrotate'); ?></option>
 		        </select>
 			</label>
 	        <label for="adrotate_cat_paragraph">
 		        <select tabindex="13" name="adrotate_cat_paragraph">
 		        	<option value="0" <?php if($edit_group->cat_par == 0) { echo 'selected'; } ?>>...</option>
-		        	<option value="1" <?php if($edit_group->cat_par == 1) { echo 'selected'; } ?>><?php _e('the first paragraph', 'adrotate'); ?></option>
-		        	<option value="20" <?php if($edit_group->cat_par == 20) { echo 'selected'; } ?>><?php _e('the second paragraph', 'adrotate'); ?></option>
-		        	<option value="30" <?php if($edit_group->cat_par == 30) { echo 'selected'; } ?>><?php _e('the third paragraph', 'adrotate'); ?></option>
-		        	<option value="40" <?php if($edit_group->cat_par == 40) { echo 'selected'; } ?>><?php _e('the fourth paragraph', 'adrotate'); ?></option>
-		        	<option value="0" disabled>---</option>
-		        	<option value="2" <?php if($edit_group->cat_par == 2) { echo 'selected'; } ?>><?php _e('every 2nd paragraph', 'adrotate'); ?></option>
-		        	<option value="3" <?php if($edit_group->cat_par == 3) { echo 'selected'; } ?>><?php _e('every 3rd paragraph', 'adrotate'); ?></option>
-		        	<option value="4" <?php if($edit_group->cat_par == 4) { echo 'selected'; } ?>><?php _e('every 4th paragraph', 'adrotate'); ?></option>
-		        	<option value="5" <?php if($edit_group->cat_par == 5) { echo 'selected'; } ?>><?php _e('every 5th paragraph', 'adrotate'); ?></option>
-		        	<option value="6" <?php if($edit_group->cat_par == 6) { echo 'selected'; } ?>><?php _e('every 6th paragraph', 'adrotate'); ?></option>
-		        	<option value="7" <?php if($edit_group->cat_par == 7) { echo 'selected'; } ?>><?php _e('every 7th paragraph', 'adrotate'); ?></option>
-		        	<option value="8" <?php if($edit_group->cat_par == 8) { echo 'selected'; } ?>><?php _e('every 8th paragraph', 'adrotate'); ?></option>
+		        	<option value="98" <?php if($edit_group->cat_par == 98) { echo 'selected'; } ?>><?php _e('after the middle paragraph', 'adrotate'); ?></option>
+		        	<option value="1" <?php if($edit_group->cat_par == 1) { echo 'selected'; } ?>><?php _e('after the 1st paragraph', 'adrotate'); ?></option>
+		        	<option value="2" <?php if($edit_group->cat_par == 2) { echo 'selected'; } ?>><?php _e('after the 2nd paragraph', 'adrotate'); ?></option>
+		        	<option value="3" <?php if($edit_group->cat_par == 3) { echo 'selected'; } ?>><?php _e('after the 3rd paragraph', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->cat_par == 4) { echo 'selected'; } ?>><?php _e('after the 4th paragraph', 'adrotate'); ?></option>
+		        	<option value="5" <?php if($edit_group->cat_par == 5) { echo 'selected'; } ?>><?php _e('after the 5th paragraph', 'adrotate'); ?></option>
+		        	<option value="6" <?php if($edit_group->cat_par == 6) { echo 'selected'; } ?>><?php _e('after the 6th paragraph', 'adrotate'); ?></option>
+		        	<option value="7" <?php if($edit_group->cat_par == 7) { echo 'selected'; } ?>><?php _e('after the 7th paragraph', 'adrotate'); ?></option>
+		        	<option value="8" <?php if($edit_group->cat_par == 8) { echo 'selected'; } ?>><?php _e('after the 8th paragraph', 'adrotate'); ?></option>
 		        </select>
 			</label>
 	        </td>
@@ -251,24 +248,21 @@ if(!is_array($meta_array)) $meta_array = array();
 		        	<option value="1" <?php if($edit_group->page_loc == 1) { echo 'selected'; } ?>><?php _e('Before content', 'adrotate'); ?></option>
 		        	<option value="2" <?php if($edit_group->page_loc == 2) { echo 'selected'; } ?>><?php _e('After content', 'adrotate'); ?></option>
 		        	<option value="3" <?php if($edit_group->page_loc == 3) { echo 'selected'; } ?>><?php _e('Before and after content', 'adrotate'); ?></option>
-		        	<option value="4" <?php if($edit_group->page_loc == 4) { echo 'selected'; } ?>><?php _e('After...', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->page_loc == 4) { echo 'selected'; } ?>><?php _e('Inside the content...', 'adrotate'); ?></option>
 		        </select>
 			</label>
 	        <label for="adrotate_page_paragraph">
 		        <select tabindex="15" name="adrotate_page_paragraph">
 		        	<option value="0" <?php if($edit_group->page_par == 0) { echo 'selected'; } ?>>...</option>
-		        	<option value="1" <?php if($edit_group->page_par == 1) { echo 'selected'; } ?>><?php _e('the first paragraph', 'adrotate'); ?></option>
-		        	<option value="20" <?php if($edit_group->page_par == 20) { echo 'selected'; } ?>><?php _e('the second paragraph', 'adrotate'); ?></option>
-		        	<option value="30" <?php if($edit_group->page_par == 30) { echo 'selected'; } ?>><?php _e('the third paragraph', 'adrotate'); ?></option>
-		        	<option value="40" <?php if($edit_group->page_par == 40) { echo 'selected'; } ?>><?php _e('the fourth paragraph', 'adrotate'); ?></option>
-		        	<option value="0" disabled>---</option>
-		        	<option value="2" <?php if($edit_group->page_par == 2) { echo 'selected'; } ?>><?php _e('every 2nd paragraph', 'adrotate'); ?></option>
-		        	<option value="3" <?php if($edit_group->page_par == 3) { echo 'selected'; } ?>><?php _e('every 3rd paragraph', 'adrotate'); ?></option>
-		        	<option value="4" <?php if($edit_group->page_par == 4) { echo 'selected'; } ?>><?php _e('every 4th paragraph', 'adrotate'); ?></option>
-		        	<option value="5" <?php if($edit_group->page_par == 5) { echo 'selected'; } ?>><?php _e('every 5th paragraph', 'adrotate'); ?></option>
-		        	<option value="6" <?php if($edit_group->page_par == 6) { echo 'selected'; } ?>><?php _e('every 6th paragraph', 'adrotate'); ?></option>
-		        	<option value="7" <?php if($edit_group->page_par == 7) { echo 'selected'; } ?>><?php _e('every 7th paragraph', 'adrotate'); ?></option>
-		        	<option value="8" <?php if($edit_group->page_par == 8) { echo 'selected'; } ?>><?php _e('every 8th paragraph', 'adrotate'); ?></option>
+		        	<option value="99" <?php if($edit_group->page_par == 99) { echo 'selected'; } ?>><?php _e('after the middle paragraph', 'adrotate'); ?></option>
+		        	<option value="1" <?php if($edit_group->page_par == 1) { echo 'selected'; } ?>><?php _e('after the 1st paragraph', 'adrotate'); ?></option>
+		        	<option value="2" <?php if($edit_group->page_par == 2) { echo 'selected'; } ?>><?php _e('after the 2nd paragraph', 'adrotate'); ?></option>
+		        	<option value="3" <?php if($edit_group->page_par == 3) { echo 'selected'; } ?>><?php _e('after the 3rd paragraph', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->page_par == 4) { echo 'selected'; } ?>><?php _e('after the 4th paragraph', 'adrotate'); ?></option>
+		        	<option value="5" <?php if($edit_group->page_par == 5) { echo 'selected'; } ?>><?php _e('after the 5th paragraph', 'adrotate'); ?></option>
+		        	<option value="6" <?php if($edit_group->page_par == 6) { echo 'selected'; } ?>><?php _e('after the 6th paragraph', 'adrotate'); ?></option>
+		        	<option value="7" <?php if($edit_group->page_par == 7) { echo 'selected'; } ?>><?php _e('after the 7th paragraph', 'adrotate'); ?></option>
+		        	<option value="8" <?php if($edit_group->page_par == 8) { echo 'selected'; } ?>><?php _e('after the 8th paragraph', 'adrotate'); ?></option>
 		        </select>
 			</label>
 	        </td>

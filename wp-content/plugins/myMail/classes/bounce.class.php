@@ -53,10 +53,7 @@ class mymail_bounce {
 
 		$count = $pop3->pass($pwd);
 		
-		if (false === $count)
-			return false;
-
-		if (0 === $count) {
+		if (0 === $count || false === $count) {
 			$pop3->quit();
 			return false;
 		}

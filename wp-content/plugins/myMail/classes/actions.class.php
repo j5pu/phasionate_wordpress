@@ -152,6 +152,7 @@ class mymail_actions {
 		$this->add($args, $explicit);
 
 	}
+	
 	private function add_action($args, $explicit = true) {
 
 		$this->add($args, $explicit);
@@ -174,7 +175,7 @@ class mymail_actions {
 
 		$sql .= ($explicit) ? " timestamp = timestamp, count = count+1" : " count = values(count)";
 
-		return !!$wpdb->query($sql);
+		return false !== $wpdb->query($sql);
 		
 	}
 

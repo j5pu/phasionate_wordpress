@@ -39,11 +39,11 @@ if ($double) {
 
 $text_inside = '';
 if( $icon != '' ) {
-	$icon = 'icon-'.$icon;
-	if ($icon_size != '') {
-		$icon .= ' icon-'.$icon_size;
+	$icon = 'icon-' . str_replace( "icon-", "", $icon );
+	if ( $icon_size != '' ) {
+		$icon .= ' icon-' . $icon_size;
 	}
-	$icon_el = '<i class="'.$icon.'"></i> ';
+	$icon_el = '<i class="' . $icon . '"></i> ';
 }
 $text = ( $text != '' ) ? $text : '';
 

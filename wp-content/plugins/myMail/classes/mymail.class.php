@@ -2,7 +2,6 @@
 
 class mymail {
 
-	private $defaultTemplate = 'mymail';
 	private $template;
 	private $post_data;
 	private $campaign_data;
@@ -91,7 +90,7 @@ class mymail {
 		//remove revisions if newsletter is finished
 		add_action('mymail_reset_mail', array( &$this, 'reset_mail_delayed'), 10, 3);
 
-		add_action('mymail_cron', array( &$this, 'optimize_tables'), 99);
+		//add_action('mymail_cron', array( &$this, 'optimize_tables'), 99);
 
 		$this->wp_mail_setup();
 
@@ -109,7 +108,6 @@ class mymail {
 			//frontpage stuff (!is_admin())
 		} else {
 		
-			add_action('wp_head', array( &$this, 'register_script'));
 			add_action('wp_enqueue_scripts', array( &$this, 'style'));
 
 		}
@@ -504,13 +502,6 @@ class mymail {
 		wp_enqueue_style('mymail-addons');
 
 	}
-
-
-	public function register_script() {							//allow to remove jquery with filter if a theme incorrectly includes jquery
-		wp_register_script('mymail-form', MYMAIL_URI . 'assets/js/form.js', apply_filters('mymail_no_jquery', array('jquery')), MYMAIL_VERSION, true);
-		wp_register_script('mymail-form-placeholder', MYMAIL_URI . 'assets/js/placeholder-fix.js', apply_filters('mymail_no_jquery', array('jquery')), MYMAIL_VERSION, true);
-	}
-
 
 	public function style() {
 		if(mymail_option('form_css')){

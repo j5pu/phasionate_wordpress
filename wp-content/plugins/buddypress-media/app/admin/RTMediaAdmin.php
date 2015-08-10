@@ -53,6 +53,7 @@ if ( ! class_exists( 'RTMediaAdmin' ) ) {
 			add_filter( 'attachment_fields_to_save', array( $this, 'save_video_thumbnail' ), null, 2 );
 			add_action( 'wp_ajax_rtmedia_hide_video_thumb_admin_notice', array( $this, 'rtmedia_hide_video_thumb_admin_notice' ), 1 );
 			add_action( 'wp_ajax_rtmedia_hide_addon_update_notice', array( $this, 'rtmedia_hide_addon_update_notice' ), 1 );
+                        add_filter( 'media_row_actions', array( $this, 'modify_medialibrary_permalink' ), 10, 3 );
 
 			$obj_encoding = new RTMediaEncoding( true );
 
@@ -114,6 +115,18 @@ if ( ! class_exists( 'RTMediaAdmin' ) ) {
 			add_action( 'admin_init', array( $this, 'rtmedia_addon_license_save_hook' ) );
 			add_action( 'admin_init', array( $this, 'rtmedia_migration' ) );
 		}
+                
+                function modify_medialibrary_permalink( $action, $post, $detached ) {
+                    $rtm_id = rtmedia_id( $post->ID );
+                    
+                    if ( $rtm_id ) {
+                        $link = get_rtmedia_permalink( $rtm_id );                  
+                        $title =_draft_or_post_title( $post->post_parent );
+                        $action[ 'view' ] = '<a href="' . $link . '" title="' . esc_attr( sprintf( __( 'View &#8220;%s&#8221;', 'rtmedia' ), $title ) ) . '" rel="permalink">' . __( 'View', 'rtmedia' ) . '</a>';
+                    }            
+                    
+                    return $action;
+                }
 
 		function rtmedia_migration() {
 			$rtMigration = new RTMediaMigration();
@@ -351,7 +364,7 @@ if ( ! class_exists( 'RTMediaAdmin' ) ) {
 		 */
 		public function rtmedia_permalink_notice() {
 			echo '<div class="error rtmedia-permalink-change-notice">
-		    <p> <b>' . __( 'rtMedia:' ) . '</b> ' . __( ' You must ' ) . '<a href="' . admin_url( 'options-permalink.php' ) . '">' . __( 'update permalink structure' ) . '</a>' . __( ' to something other than the default for it to work.', 'rtmedia' ) . ' </p>
+		    <p> <b>rtMedia:</b> ' . __( ' You must', 'rtmedia' ) . ' <a href="' . admin_url( 'options-permalink.php' ) . '">' . __( 'update permalink structure', 'rtmedia' ) . '</a> ' . __( 'to something other than the default for it to work.', 'rtmedia' ) . ' </p>
 		    </div>';
 		}
 
@@ -583,9 +596,9 @@ if ( ! class_exists( 'RTMediaAdmin' ) ) {
 			<div class="rtm-meta-container">
 				<ul class="rtm-meta-links">
 					<li><b><?php _e( 'rtMedia Links:', 'rtmedia' ); ?></b></li>
-					<li><a href="http://rtcamp.com"><?php _e( 'Homepage', 'rtmedia' ); ?></a></li>
+					<li><a href="https://rtcamp.com/rtmedia/"><?php _e( 'Homepage', 'rtmedia' ); ?></a></li>
 					<li><a href="admin.php?page=rtmedia-support#rtmedia-general"><?php _e( 'Free Support', 'rtmedia' ); ?></a></li>
-					<li><a href="http://rtcamp.com/rtmedia/addons/"><?php _e( 'Premium Addons', 'rtmedia' ); ?></a></li>
+					<li><a href="https://rtcamp.com/products/category/rtmedia/"><?php _e( 'Premium Addons', 'rtmedia' ); ?></a></li>
 				</ul>
 			</div>
 			<?php
@@ -798,13 +811,20 @@ if ( ! class_exists( 'RTMediaAdmin' ) ) {
 			}
 
 			$admin_pages = apply_filters( 'rtmedia_filter_admin_pages_array', $admin_pages );
+			$suffix = ( function_exists( 'rtm_get_script_style_suffix' ) ) ? rtm_get_script_style_suffix() : '.min';
 
 			if ( in_array( $hook, $admin_pages ) || strpos( $hook, 'rtmedia-migration' ) ) {
 
 				$admin_ajax = admin_url( 'admin-ajax.php' );
 
 				/* Only one JS file should enqueue */
-				wp_enqueue_script( 'rtmedia-admin', RTMEDIA_URL . 'app/assets/admin/js/admin-min.js', array( 'backbone' ), RTMEDIA_VERSION );
+				if( $suffix === '' ) {
+					wp_enqueue_script( 'rtmedia-admin-tabs', RTMEDIA_URL . 'app/assets/admin/js/vendors/tabs.js', array( 'backbone' ), RTMEDIA_VERSION );
+					wp_enqueue_script( 'rtmedia-admin-scripts', RTMEDIA_URL . 'app/assets/admin/js/scripts.js', array( 'backbone' ), RTMEDIA_VERSION );
+					wp_enqueue_script( 'rtmedia-admin', RTMEDIA_URL . 'app/assets/admin/js/settings.js', array( 'backbone' ), RTMEDIA_VERSION );
+				} else {
+					wp_enqueue_script( 'rtmedia-admin', RTMEDIA_URL . 'app/assets/admin/js/admin.min.js', array( 'backbone' ), RTMEDIA_VERSION );
+				}
 
 				wp_localize_script( 'rtmedia-admin', 'rtmedia_on_label', __( 'ON', 'rtmedia' ) );
 				wp_localize_script( 'rtmedia-admin', 'rtmedia_off_label', __( 'OFF', 'rtmedia' ) );
@@ -825,11 +845,11 @@ if ( ! class_exists( 'RTMediaAdmin' ) ) {
 				wp_localize_script( 'rtmedia-admin', 'settings_rt_album_import_url', esc_url( add_query_arg( array( 'page' => 'rtmedia-settings' ), ( is_multisite() ? network_admin_url( 'admin.php' ) : admin_url( 'admin.php' ) ) ) ) );
 
 				/* Only one CSS file should enqueue */
-				wp_enqueue_style( 'rtmedia-admin', RTMEDIA_URL . 'app/assets/admin/css/admin.css', '', RTMEDIA_VERSION );
+				wp_enqueue_style( 'rtmedia-admin', RTMEDIA_URL . 'app/assets/admin/css/admin' . $suffix . '.css', '', RTMEDIA_VERSION );
 			} else {
 
 				/* This CSS is using for "Right Now in rtMedia" Widget section on Dashboard */
-				wp_enqueue_style( 'rtmedia-widget', RTMEDIA_URL . 'app/assets/admin/css/widget.css', '', RTMEDIA_VERSION );
+				wp_enqueue_style( 'rtmedia-widget', RTMEDIA_URL . 'app/assets/admin/css/widget' . $suffix . '.css', '', RTMEDIA_VERSION );
 			}
 		}
 
@@ -1626,7 +1646,7 @@ if ( ! class_exists( 'RTMediaAdmin' ) ) {
 		public function admin_sidebar() {
 			do_action( 'rtmedia_before_default_admin_widgets' );
 			$current_user = wp_get_current_user();
-			$message = sprintf( __( 'I use @buddypressmedia http://rt.cx/rtmedia on %s', 'rtmedia' ), home_url() );
+			$message = sprintf( __( 'I use @rtMediaWP http://rt.cx/rtmedia on %s', 'rtmedia' ), home_url() );
 			$addons = '<div id="social" class="rtm-social-share">
 											<p><a href="http://twitter.com/home/?status=' . $message . '" class="button twitter" target= "_blank" title="' . __( 'Post to Twitter Now', 'rtmedia' ) . '">' . __( 'Post to Twitter', 'rtmedia' ) . '<span class="dashicons dashicons-twitter"></span></a></p>
 											<p><a href="https://www.facebook.com/sharer/sharer.php?u=http://rtcamp.com/rtmedia/" class="button facebook" target="_blank" title="' . __( 'Share on Facebook Now', 'rtmedia' ) . '">' . __( 'Share on Facebook', 'rtmedia' ) . '<span class="dashicons dashicons-facebook"></span></a></p>
@@ -1919,7 +1939,7 @@ if ( ! class_exists( 'RTMediaAdmin' ) ) {
 			if ( ! $site_option || 'hide' != $site_option ) {
 				rtmedia_update_site_option( 'rtmedia-update-template-notice-v3_8', 'show' );
 				if ( is_dir( get_template_directory() . '/rtmedia' ) ) {
-					echo '<div class="error rtmedia-update-template-notice"><p>' . __( 'Please update rtMedia template files if you have overridden the default rtMedia templates in your theme. If not, you can ignore and hide this notice.' ) . '<a href="#" onclick="rtmedia_hide_template_override_notice()" style="float:right">' . __( 'Hide', 'rtmedia' ) . '</a>' . ' </p></div>';
+					echo '<div class="error rtmedia-update-template-notice"><p>' . __( 'Please update rtMedia template files if you have overridden the default rtMedia templates in your theme. If not, you can ignore and hide this notice.', 'rtmedia' ) . '<a href="#" onclick="rtmedia_hide_template_override_notice()" style="float:right">' . __( 'Hide', 'rtmedia' ) . '</a>' . ' </p></div>';
 					?>
 					<script type="text/javascript">
 						function rtmedia_hide_template_override_notice() {
@@ -2008,7 +2028,7 @@ if ( ! class_exists( 'RTMediaAdmin' ) ) {
 						}
 						$tab_without_hash = explode( '#', $tab[ 'href' ] );
 						$tab_without_hash = $tab_without_hash[ 1 ];
-						echo '<div class="content' . $active_class . '" id="' . $tab_without_hash . '">';
+						echo '<div class="rtm-content' . $active_class . '" id="' . $tab_without_hash . '">';
 						if ( isset( $tab[ 'args' ] ) ) {
 							call_user_func( $tab[ 'callback' ], $page, $tab[ 'args' ] );
 						} else {

@@ -2,6 +2,7 @@
 
 class mymail_campaigns {
 
+	private $defaultTemplate = 'mymail';
 	private $template;
 	private $templatefile;
 	private $templateobj;
@@ -1612,39 +1613,68 @@ class mymail_campaigns {
 
 		$post = get_post($id);
 
-		if(!in_array($post->post_status, array('active', 'queued'))) return;
+		if(!in_array($post->post_status, array('active', 'queued', 'paused'))) return;
+ 
+		$meta = $this->meta($id);
+		$meta['totals'] = $this->get_totals($id);
+		$meta['sent'] = $this->get_sent($id);
+		$meta['errors'] = $this->get_errors($id);
+		$meta['finished'] = time();
 
-		$totals = $this->get_totals($id);
-		$sent = $this->get_sent($id);
-		$errors = $this->get_errors($id);
+		$placeholder = mymail('placeholder');
 
-		if($this->change_status($post, 'finished')){
+		$placeholder->clear_placeholder();
+
+		$placeholder->set_content($post->post_title);
+		$post->post_title = $placeholder->get_content(false, array(), true);
+
+		$placeholder->set_content($post->post_content);
+		$post->post_content = $placeholder->get_content(false, array(), true);
+
+		$placeholder->set_content($meta['subject']);
+		$meta['subject'] = $placeholder->get_content(false, array(), true);
+		
+		$placeholder->set_content($meta['preheader']);
+		$meta['preheader'] = $placeholder->get_content(false, array(), true);
+		
+		$placeholder->set_content($meta['from_name']);
+		$meta['from_name'] = $placeholder->get_content(false, array(), true);
 			
-			$this->update_meta($id, 'sent', $sent);
-			$this->update_meta($id, 'errors', $errors);
-			$this->update_meta($id, 'finished', time());
+		remove_action('save_post', array( &$this, 'save_campaign'), 10, 3);
+		kses_remove_filters();
+		
+		wp_update_post(array(
+			'ID' => $id,
+			'post_title' => $post->post_title,
+			'post_content' => $post->post_content,
 
-			$parent_id = $this->meta($id, 'parent_id');
+		));
+	
+		kses_init_filters();
+		add_action('save_post', array( &$this, 'save_campaign'), 10, 3);
+		
+		$this->update_meta($id, $meta);
 
-			if($parent_id = $this->meta($id, 'parent_id')){
-				$parent_sent = $this->meta($parent_id, 'sent');
-				$parent_errors = $this->meta($parent_id, 'errors');
+		$this->change_status($post, 'finished');
 
-				$this->update_meta($parent_id, 'sent', $parent_sent+$sent);
-				$this->update_meta($parent_id, 'errors', $parent_errors+$errors);
-			}
+		$parent_id = $this->meta($id, 'parent_id');
 
-			do_action('mymail_finish_campaign', $id);
+		if($parent_id = $this->meta($id, 'parent_id')){
+			$parent_sent = $this->meta($parent_id, 'sent');
+			$parent_errors = $this->meta($parent_id, 'errors');
 
-			mymail('queue')->remove($id);
-
-			mymail_remove_notice('camp_error_'.$id);
-
-			return true;
-
+			$this->update_meta($parent_id, 'sent', $parent_sent+$sent);
+			$this->update_meta($parent_id, 'errors', $parent_errors+$errors);
 		}
 
-		return false;
+
+		do_action('mymail_finish_campaign', $id);
+
+		mymail('queue')->remove($id);
+
+		mymail_remove_notice('camp_error_'.$id);
+
+		return true;
 
 	}
 
@@ -2325,7 +2355,7 @@ class mymail_campaigns {
 				$joins[] = "LEFT JOIN {$wpdb->prefix}mymail_subscriber_fields AS `meta_$field` ON `meta_$field`.subscriber_id = a.ID AND `meta_$field`.meta_key = '$field'";
 
 			}else if(in_array($field, $wp_user_meta)){
-				$joins[] = "LEFT JOIN {$wpdb->usermeta} AS `meta_$field` ON `meta_$field`.user_id = a.wp_id AND `meta_$field`.meta_key = '$field'";
+				$joins[] = "LEFT JOIN {$wpdb->usermeta} AS `meta_wp_$field` ON `meta_wp_$field`.user_id = a.wp_id AND `meta_wp_$field`.meta_key = '$field'";
 
 			}
 			
@@ -2369,14 +2399,15 @@ class mymail_campaigns {
 						$c = "STR_TO_DATE(FROM_UNIXTIME($tablealias.$field),'%Y-%m-%d')";
 					}else if(in_array($field, $custom_fields)){
 						$c = "`meta_$field`.meta_value";
-					}else{
-						$c = "$tablealias.$field";
+					}else if(in_array($field, $wp_user_meta)){
+						$c = "`meta_wp_$field`.meta_value";
 						if($field == 'wp_capabilities'){
-							$c = "`meta_$field`.meta_value";
 							$value = "s:".strlen($value).":\"$value\";b:1;";
-							$cond[] = "`meta_$field`.meta_value ".($options['operator'] == 'is' ? 'LIKE' : 'NOT LIKE')." '%$value%'";
+							$cond[] = "`meta_wp_$field`.meta_value ".($options['operator'] == 'is' ? 'LIKE' : 'NOT LIKE')." '%$value%'";
 							break;
 						}
+					}else{
+						$c = "$tablealias.$field";
 					}
 
 					$c .= " ".($options['operator'] == 'is' ? '=' : '!=')." '$value'";
@@ -2391,10 +2422,15 @@ class mymail_campaigns {
 					}else{
 						$value = "'%$value%'";
 					}
+					if(in_array($field, $custom_fields)){
+						$c = "`meta_$field`.meta_value";
+					}else if(in_array($field, $wp_user_meta)){
+						$c = "`meta_wp_$field`.meta_value";
+					}else{
+						$c = "$tablealias.$field";
+					}
 					
-					$c = (in_array($field, $custom_fields)
-						? "`meta_$field`.meta_value"
-						: "$tablealias.$field") ." ".($options['operator'] == 'contains' ? 'LIKE' : 'NOT LIKE')." $value";
+					$c .= " ".($options['operator'] == 'contains' ? 'LIKE' : 'NOT LIKE')." $value";
 
 					$cond[] = $c;
 				break;
@@ -2405,10 +2441,15 @@ class mymail_campaigns {
 					}else{
 						$value = "'$value%'";
 					}
+					if(in_array($field, $custom_fields)){
+						$c = "`meta_$field`.meta_value";
+					}else if(in_array($field, $wp_user_meta)){
+						$c = "`meta_wp_$field`.meta_value";
+					}else{
+						$c = "$tablealias.$field";
+					}
 					
-					$c = (in_array($field, $custom_fields)
-						? "`meta_$field`.meta_value"
-						: "$tablealias.$field") ." LIKE $value";
+					$c .= " LIKE $value";
 
 					$cond[] = $c;
 				break;
@@ -2419,10 +2460,16 @@ class mymail_campaigns {
 					}else{
 						$value = "'%$value'";
 					}
+
+					if(in_array($field, $custom_fields)){
+						$c = "`meta_$field`.meta_value";
+					}else if(in_array($field, $wp_user_meta)){
+						$c = "`meta_wp_$field`.meta_value";
+					}else{
+						$c = "$tablealias.$field";
+					}
 					
-					$c = (in_array($field, $custom_fields)
-						? "`meta_$field`.meta_value"
-						: "$tablealias.$field") ." LIKE $value";
+					$c .= " LIKE $value";
 
 					$cond[] = $c;
 				break;
@@ -2441,13 +2488,13 @@ class mymail_campaigns {
 						$value = "'$value'";
 					}else if(in_array($field, $custom_fields)){
 						$c = "`meta_$field`.meta_value";
+					}else if(in_array($field, $wp_user_meta)){
+						$c = "`meta_wp_$field`.meta_value";
+						if($field == 'wp_capabilities')
+							$value = "'NOTPOSSIBLE'";
 					}else{
 						$c = "$tablealias.$field";
-						if($field == 'wp_capabilities'){
-							$value = "'NOTPOSSIBLE'";
-						}else{
-							$value = floatval($value);
-						}
+						$value = floatval($value);
 					}
 
 					$c .= " ".($options['operator'] == 'is_greater' || $options['operator'] == 'is_greater_equal' ? '>'.$extra : '<'.$extra)." $value";
@@ -2463,7 +2510,6 @@ class mymail_campaigns {
 
 
 		if(!empty($cond)) $sql .= " AND (".implode(' '.$conditions['operator'].' ', $cond).")";
-
 		return $sql;
 	}
 

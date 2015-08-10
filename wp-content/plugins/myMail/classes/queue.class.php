@@ -396,9 +396,11 @@ class mymail_queue {
 
 		if(did_action('mymail_autoresponder_timebased') > 1) return;
 
+		
 		$campaigns = empty($campaign_id) ? mymail('campaigns')->get_autoresponder() : array(mymail('campaigns')->get($campaign_id));
 
 		if(empty($campaigns)) return;
+
 
 		$now = time();
 		$timeoffset = mymail('helper')->gmt_offset(true);
@@ -408,6 +410,10 @@ class mymail_queue {
 			if($campaign->post_status != 'autoresponder') continue;
 			
 			$meta = mymail('campaigns')->meta($campaign->ID);
+			
+			$autoresponder_meta = $meta['autoresponder'];
+			
+			if('mymail_autoresponder_timebased' != $autoresponder_meta['action']) continue;
 
 			if(!$meta['active']){
 
@@ -415,52 +421,47 @@ class mymail_queue {
 				continue;
 			}
 			
-			$autoresponder_meta = $meta['autoresponder'];
+			$starttime = $meta['timestamp'];
 
-			if('mymail_autoresponder_timebased' == $autoresponder_meta['action']){
 
-				$starttime = $meta['timestamp'];
+			//more than an hour in the future (without timezone) or more than 24h in the future (with timezone)
+			if($starttime-$now > 3600 && !$meta['timezone']
+				|| ($starttime-$now > 86400)) continue;
 
-				//more than an hour in the future (without timezone) or more than 24h in the future (with timezone)
-				if($starttime-$now > 3600 && !$meta['timezone']
-					|| ($starttime-$now > 86400)) continue;
-
-				if(isset($autoresponder_meta['endschedule']) && $autoresponder_meta['endtimestamp']){
-					$endtime = $autoresponder_meta['endtimestamp'];
+			if(isset($autoresponder_meta['endschedule']) && $autoresponder_meta['endtimestamp']){
+				$endtime = $autoresponder_meta['endtimestamp'];
+				
+				//endtime has passed
+				if($endtime-$now < 0){
 					
-					//endtime has passed
-					if($endtime-$now < 0){
-						
-						//disable this campaign
-						mymail('campaigns')->update_meta($campaign->ID, 'active', false);
-						mymail_notice(sprintf(__('Auto responder campaign %s has been finished and is deactivated!', 'mymail'), '<strong>"<a href="post.php?post='.$campaign->ID.'&action=edit">'.$campaign->post_title.'</a>"</strong>'), 'updated', false, 'autoresponder_'.$campaign_id);
-						continue;
-
-						
-					}
-					
-				}
-
-				$delay = $starttime-time();
-
-				if($new_id = mymail('campaigns')->autoresponder_to_campaign($campaign->ID, $delay, $autoresponder_meta['issue']++)){
-
-					$nextdate = mymail('helper')->get_next_date($starttime+$timeoffset, $autoresponder_meta['interval'], $autoresponder_meta['time_frame'], $autoresponder_meta['weekdays']);
-					
-					mymail('campaigns')->update_meta($campaign->ID, 'timestamp', $nextdate-$timeoffset);
-					mymail('campaigns')->update_meta($campaign->ID, 'autoresponder', $autoresponder_meta);
-
-					$newCamp = mymail('campaigns')->get($new_id);
-					
-					mymail_notice(sprintf(__('New campaign %s has been created!', 'mymail'), '<strong>"<a href="post.php?post='.$newCamp->ID.'&action=edit">'.$newCamp->post_title.'</a>"</strong>'), 'error', true, 'autoresponder_'.$new_id);
-					
-					do_action('mymail_autoresponder_timebased', $campaign->ID, $new_id);
-					
+					//disable this campaign
+					mymail('campaigns')->update_meta($campaign->ID, 'active', false);
+					mymail_notice(sprintf(__('Auto responder campaign %s has been finished and is deactivated!', 'mymail'), '<strong>"<a href="post.php?post='.$campaign->ID.'&action=edit">'.$campaign->post_title.'</a>"</strong>'), 'updated', false, 'autoresponder_'.$campaign_id);
 					continue;
 
 					
 				}
+				
+			}
 
+			$delay = $starttime-time();
+
+			if($new_id = mymail('campaigns')->autoresponder_to_campaign($campaign->ID, $delay, $autoresponder_meta['issue']++)){
+
+				$nextdate = mymail('helper')->get_next_date($starttime+$timeoffset, $autoresponder_meta['interval'], $autoresponder_meta['time_frame'], $autoresponder_meta['weekdays']);
+				
+				mymail('campaigns')->update_meta($campaign->ID, 'timestamp', $nextdate-$timeoffset);
+				mymail('campaigns')->update_meta($campaign->ID, 'autoresponder', $autoresponder_meta);
+
+				$newCamp = mymail('campaigns')->get($new_id);
+				
+				mymail_notice(sprintf(__('New campaign %s has been created!', 'mymail'), '<strong>"<a href="post.php?post='.$newCamp->ID.'&action=edit">'.$newCamp->post_title.'</a>"</strong>'), 'error', true, 'autoresponder_'.$new_id);
+				
+				do_action('mymail_autoresponder_timebased', $campaign->ID, $new_id);
+				
+				continue;
+
+				
 			}
 
 		}
@@ -485,77 +486,75 @@ class mymail_queue {
 
 			$meta = mymail('campaigns')->meta($campaign->ID);
 			
+			$autoresponder_meta = $meta['autoresponder'];
+			
+			if('mymail_autoresponder_usertime' != $autoresponder_meta['action']) continue;
+
 			if(!$meta['active']){
 
 				$this->remove($campaign->ID);
 				continue;
 			}
 			
-			$autoresponder_meta = $meta['autoresponder'];
+			$timezone_based = $meta['timezone'];
 
-			if('mymail_autoresponder_usertime' == $autoresponder_meta['action']){
+			$date_fields = mymail()->get_custom_date_fields(true);
 
-				$timezone_based = $meta['timezone'];
+			if(!in_array($autoresponder_meta['uservalue'], $date_fields)){
+				mymail_notice(sprintf('Auto responder campaign %s has been deactivated caused by a missing date field. Please update your campaign!', '<strong>"<a href="post.php?post='.$campaign->ID.'&action=edit">'.$campaign->post_title.'</a>"</strong>'), 'error', false, 'camp_error_'.$campaign->ID);
+				mymail('campaigns')->update_meta($campaign->ID, 'active', false);
+				$this->remove($campaign->ID);
+				continue;
+			}
+			$integer = floor($autoresponder_meta['amount']);
+			$decimal = $autoresponder_meta['amount']-$integer;
 
-				$date_fields = mymail()->get_custom_date_fields(true);
+			$useroffset = strtotime('+'.$autoresponder_meta['useramount'].' '.$autoresponder_meta['userunit'], 0);
+			$send_offset = (strtotime('+'.$integer.' '.$autoresponder_meta['unit'], 0)+(strtotime('+1 '.$autoresponder_meta['unit'], 0)*$decimal))*$autoresponder_meta['before_after'];
 
-				if(!in_array($autoresponder_meta['uservalue'], $date_fields)){
-					mymail_notice(sprintf('Auto responder campaign %s has been deactivated caused by a missing date field. Please update your campaign!', '<strong>"<a href="post.php?post='.$campaign->ID.'&action=edit">'.$campaign->post_title.'</a>"</strong>'), 'error', false, 'camp_error_'.$campaign->ID);
-					mymail('campaigns')->update_meta($campaign->ID, 'active', false);
-					$this->remove($campaign->ID);
-					continue;
-				}
-				$integer = floor($autoresponder_meta['amount']);
-				$decimal = $autoresponder_meta['amount']-$integer;
+			$subscriber_ids = array();
+			$timestamps = array();
 
-				$useroffset = strtotime('+'.$autoresponder_meta['useramount'].' '.$autoresponder_meta['userunit'], 0);
-				$send_offset = (strtotime('+'.$integer.' '.$autoresponder_meta['unit'], 0)+(strtotime('+1 '.$autoresponder_meta['unit'], 0)*$decimal))*$autoresponder_meta['before_after'];
+			$once = isset($autoresponder_meta['once']) && $autoresponder_meta['once'];
 
-				$subscriber_ids = array();
-				$timestamps = array();
+			$chunks = $meta['ignore_lists'] && !$meta['list_conditions'] 
+						? array(0)
+						: array_chunk(mymail('campaigns')->get_subscribers($campaign->ID, NULL, true, $once), 10000);
 
-				$once = isset($autoresponder_meta['once']) && $autoresponder_meta['once'];
+			foreach($chunks as $ids){
 
-				$chunks = $meta['ignore_lists'] && !$meta['list_conditions'] 
-							? array(0)
-							: array_chunk(mymail('campaigns')->get_subscribers($campaign->ID, NULL, true, $once), 10000);
+				$sql = $wpdb->prepare("SELECT a.ID, a.email, b.meta_value AS date FROM {$wpdb->prefix}mymail_subscribers AS a LEFT JOIN {$wpdb->prefix}mymail_subscriber_fields AS b ON a.ID = b.subscriber_id WHERE b.meta_key = %s AND b.meta_value != '' AND a.status = 1 AND STR_TO_DATE(b.meta_value, '%s') <= %s", $autoresponder_meta['uservalue'], '%Y-%m-%d', date('Y-m-d', strtotime('+ 2 days')));
 
-				foreach($chunks as $ids){
+				if($ids) $sql .= " AND a.ID IN (".implode(',', $ids).")";
+				
+				$sql .= " GROUP BY a.ID";
 
-					$sql = $wpdb->prepare("SELECT a.ID, a.email, b.meta_value AS date FROM {$wpdb->prefix}mymail_subscribers AS a LEFT JOIN {$wpdb->prefix}mymail_subscriber_fields AS b ON a.ID = b.subscriber_id WHERE b.meta_key = %s AND b.meta_value != '' AND a.status = 1 AND STR_TO_DATE(b.meta_value, '%s') <= %s", $autoresponder_meta['uservalue'], '%Y-%m-%d', date('Y-m-d', strtotime('+ 2 days')));
+				//UPDATE wp_mymail_subscriber_fields SET  `meta_value` =  (CONCAT(FLOOR(RAND() * 30)+1970, '-', FROM_UNIXTIME(UNIX_TIMESTAMP(NOW() - INTERVAL FLOOR(RAND() * 365) DAY) ,'%m-%d'))) WHERE meta_key =  'birthday';
 
-					if($ids) $sql .= " AND a.ID IN (".implode(',', $ids).")";
+				$subscribers = $wpdb->get_results($sql);
+
+				foreach($subscribers as $subscriber){
+
+					$nextdate = mymail('helper')->get_next_date_in_future(strtotime($subscriber->date) - $timeoffset + $send_offset, $autoresponder_meta['useramount'], $autoresponder_meta['userunit']);
 					
-					$sql .= " GROUP BY a.ID";
+					$timedelay = $nextdate - $now;
 
-					//UPDATE wp_mymail_subscriber_fields SET  `meta_value` =  (CONCAT(FLOOR(RAND() * 30)+1970, '-', FROM_UNIXTIME(UNIX_TIMESTAMP(NOW() - INTERVAL FLOOR(RAND() * 365) DAY) ,'%m-%d'))) WHERE meta_key =  'birthday';
+					if($timedelay < ($timezone_based ? 86400 : 3600) && $timedelay >= 0){
+						$subscriber_ids[] = $subscriber->ID;
+						$timestamps[] = $nextdate;
+					}
 
-					$subscribers = $wpdb->get_results($sql);
+				} 
 
-					foreach($subscribers as $subscriber){
+			}
 
-						$nextdate = mymail('helper')->get_next_date_in_future(strtotime($subscriber->date) - $timeoffset + $send_offset, $autoresponder_meta['useramount'], $autoresponder_meta['userunit']);
-						
-						$timedelay = $nextdate - $now;
+			if(!empty($subscriber_ids)){
+				if($timezone_based)
+					$timestamps = mymail('subscribers')->get_timeoffset_timestamps($subscriber_ids, $timestamps);
 
-						if($timedelay < ($timezone_based ? 86400 : 3600) && $timedelay >= 0){
-							$subscriber_ids[] = $subscriber->ID;
-							$timestamps[] = $nextdate;
-						}
-
-					} 
-
-				}
-
-				if(!empty($subscriber_ids)){
-					if($timezone_based)
-						$timestamps = mymail('subscribers')->get_timeoffset_timestamps($subscriber_ids, $timestamps);
-
-					$this->bulk_add($campaign->ID, $subscriber_ids, $timestamps, 15);
-					
-					do_action('mymail_autoresponder_usertime', $campaign->ID, $subscriber_ids);
-				}
-
+				$this->bulk_add($campaign->ID, $subscriber_ids, $timestamps, 15);
+				
+				do_action('mymail_autoresponder_usertime', $campaign->ID, $subscriber_ids);
 			}
 
 		}
@@ -570,7 +569,7 @@ class mymail_queue {
 		$wpdb->query("DELETE a FROM {$wpdb->prefix}mymail_queue AS a LEFT JOIN {$wpdb->prefix}mymail_subscribers AS b ON a.subscriber_id = b.ID WHERE (a.sent = 0 OR a.ignore_status = 1) AND b.status != 1");
 
 		//select all finished campaigns
-		$sql = "SELECT posts.ID, queue.sent FROM {$wpdb->prefix}posts AS posts LEFT JOIN {$wpdb->prefix}mymail_queue AS queue ON posts.ID = queue.campaign_id LEFT JOIN {$wpdb->prefix}mymail_actions AS actions ON actions.subscriber_id = queue.subscriber_id AND actions.campaign_id = queue.campaign_id AND actions.type = 1 WHERE posts.post_status IN ('active') AND posts.post_type = 'newsletter' GROUP BY posts.ID HAVING SUM(queue.sent = 0) = 0 OR queue.sent IS NULL";
+		$sql = "SELECT posts.ID, queue.sent FROM {$wpdb->prefix}posts AS posts LEFT JOIN {$wpdb->prefix}mymail_queue AS queue ON posts.ID = queue.campaign_id LEFT JOIN {$wpdb->prefix}mymail_actions AS actions ON actions.subscriber_id = queue.subscriber_id AND actions.campaign_id = queue.campaign_id AND actions.type = 1 WHERE posts.post_status IN ('active') AND posts.post_type = 'newsletter' AND queue.requeued = 0 GROUP BY posts.ID HAVING SUM(queue.sent = 0) = 0 OR queue.sent IS NULL";
 
 		$ids = $wpdb->get_col($sql);
 
@@ -724,7 +723,7 @@ class mymail_queue {
 				if($metadata->campaign_id){
 
 					//check if status hasn't changed yet
-					if(!$wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE ID = %d AND post_status NOT IN ('paused', 'finished' ) AND post_type = 'newsletter'", $metadata->campaign_id)) && !$force){
+					if(!$wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE ID = %d AND post_status NOT IN ('paused', 'finished' ) AND post_type = 'newsletter'", $metadata->campaign_id)) && $metadata->_requeued == 0){
 
 						array_push($campaign_errors, $metadata->campaign_id);
 					}

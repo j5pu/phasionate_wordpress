@@ -327,7 +327,7 @@ function adrotate_date_start($what) {
 		case 'day' :
 			$timezone = get_option('timezone_string');
 			if($timezone) {
-				$server_timezone = date('T');
+				$server_timezone = date('e');
 				date_default_timezone_set($timezone);
 				$result = strtotime('00:00:00') + (get_option('gmt_offset') * HOUR_IN_SECONDS);
 				date_default_timezone_set($server_timezone);
@@ -338,7 +338,7 @@ function adrotate_date_start($what) {
 		case 'week' :
 			$timezone = get_option('timezone_string');
 			if($timezone) {
-				$server_timezone = date('T');
+				$server_timezone = date('e');
 				date_default_timezone_set($timezone);
 				$result = strtotime('Last Monday', $now) + (get_option('gmt_offset') * HOUR_IN_SECONDS);
 				date_default_timezone_set($server_timezone);

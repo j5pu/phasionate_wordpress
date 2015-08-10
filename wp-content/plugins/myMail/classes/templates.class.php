@@ -185,7 +185,7 @@ class mymail_templates {
 			if($templateslug){
 				
 				//force a reload
-				$this->get_other_templates($slug, true);
+				$this->get_other_templates($templateslug, true);
 
 				return true;
 			}
@@ -560,7 +560,7 @@ class mymail_templates {
 	/*----------------------------------------------------------------------*/
 	
 	
-	public function get_screenshot( $slug, $file = 'index.html', $size = 300 ) {
+	public function get_screenshot( $slug, $file = 'index.html', $size = 600 ) {
 	
 		global $wp_filesystem;
 
@@ -572,8 +572,10 @@ class mymail_templates {
 		//serve saved
 		if(file_exists($screenshotfile) && file_exists($file) && filemtime($file) < filemtime($screenshotfile)){
 			$url = $screenshoturi.'?c='.filemtime($screenshotfile);
-		}else if(!file_exists($file) || substr($_SERVER['REMOTE_ADDR'], 0, 4) == '127.' || $_SERVER['REMOTE_ADDR'] == '::1'){
-			$url = 'http://s.wordpress.com/wp-content/plugins/mshots/default.gif';
+		}else if(!file_exists($file)){
+			$url = 'https://data.newsletter-plugin.com/preview/not_available.gif';
+		}else if(substr($_SERVER['REMOTE_ADDR'], 0, 4) == '127.' || $_SERVER['REMOTE_ADDR'] == '::1'){
+			$url = 'https://data.newsletter-plugin.com/preview/not_available.gif';
 		}else{
 			$url = 'http://s.wordpress.com/mshots/v1/'.(rawurlencode($fileuri.'?c='.md5_file($file))).'?w='.$size;
 			
@@ -589,6 +591,8 @@ class mymail_templates {
 				
 				$wp_filesystem->put_contents($screenshotfile, wp_remote_retrieve_body($remote), false );
 			}
+
+			$url = 'https://data.newsletter-plugin.com/preview/create.gif';
 			
 		}
 		return $url;

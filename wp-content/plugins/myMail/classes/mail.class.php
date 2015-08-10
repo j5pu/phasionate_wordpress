@@ -207,12 +207,12 @@ class mymail_mail {
 
 
 	public function set_campaign($id) {
-		$this->campaignID = $id;
-		$this->baselink = mymail()->get_base_link($id);
+		$this->campaignID = intval($id);
+		$this->baselink = mymail()->get_base_link(intval($id));
 	}
 	
 	public function set_subscriber($id) {
-		$this->subscriberID = $id;
+		$this->subscriberID = intval($id);
 	}
 
 
@@ -426,7 +426,8 @@ class mymail_mail {
 
 
 	public function add_header( $key, $value ) {
-		$this->headers[$key] = $value;
+								//should be a string
+		$this->headers[$key] = (string) $value;
 	}
 
 

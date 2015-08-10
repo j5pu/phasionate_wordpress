@@ -4,7 +4,7 @@
 Plugin Name: K Elements
 Plugin URL: http://seventhqueen.com/
 Description: WordPress elements using easy to add shortcodes
-Version: 2.4
+Version: 3.0
 Author: SeventhQueen
 Author URI: http://seventhqueen.com/
 */
@@ -22,7 +22,7 @@ Author URI: http://seventhqueen.com/
 
 
 if ( ! defined( 'K_ELEM_VERSION' ) ) {
-	define( 'K_ELEM_VERSION', '2.4' );
+	define( 'K_ELEM_VERSION', '3.0' );
 }
 
 // Plugin Folder Path
@@ -64,7 +64,7 @@ add_action( 'init', 'k_elements_init', 6 );
 function k_elements_enqueue_site_scripts() {
 
     // don't load plugin files if using a Kleo theme
-    if ( class_exists('Kleo') ) {
+    if ( class_exists( 'Kleo' ) ) {
         return;
     }
 
@@ -78,6 +78,7 @@ function k_elements_enqueue_site_scripts() {
 		wp_register_script( 'jquery-touchswipe', trailingslashit(K_ELEM_PLUGIN_URL) . 'assets/js/plugins/carouFredSel/helper-plugins/jquery.touchSwipe.min.js', array('jquery', 'caroufredsel'),K_ELEM_VERSION, true );
 		wp_register_script( 'isotope', trailingslashit(K_ELEM_PLUGIN_URL) . 'assets/js/plugins/jquery.isotope.min.js', array('jquery'),K_ELEM_VERSION, true );
 		wp_register_script( 'kleo-shortcodes', trailingslashit(K_ELEM_PLUGIN_URL) . 'assets/js/shortcodes.min.js', array('jquery'),K_ELEM_VERSION, true );
+		wp_register_script( 'particles-js', trailingslashit(K_ELEM_PLUGIN_URL) . 'assets/js/plugins/particles.min.js', array('jquery'),K_ELEM_VERSION, true );
 
 		//enqueue them
 		wp_enqueue_script('bootstrap');

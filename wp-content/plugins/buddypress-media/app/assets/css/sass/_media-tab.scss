@@ -2,45 +2,48 @@
 	display: none;
 }
 
-.drag-drop {
-	border: 4px dashed #DDD;
-	text-align: center;
-	background: #fafafa;
-	overflow: hidden;
-	color: #AAAAAA;
-	margin-top: 20px;
-	padding: 25px 0;
+.rtmedia-uploader{
+	.drag-drop {
+		border: 4px dashed #DDD;
+		text-align: center;
+		background: #fafafa;
+		overflow: hidden;
+		color: #AAAAAA;
+		margin-top: 20px;
+		padding: 25px 0;
 
-	&.dragover {
-		border-color: #83b4d8;
-	}
+		&.dragover {
+			border-color: #83b4d8;
+		}
 
-	.drag-drop-info {
-		font-size: 20px;
-		line-height: 24px;
-	}
+		.drag-drop-info {
+			font-size: 20px;
+			line-height: 24px;
+		}
 
-	.rtm-select-files {
-		span {
+		.rtm-select-files {
+			span {
+				vertical-align: middle;
+			}
+		}
+
+		.rtm-seperator {
+			margin: 0px 20px;
+		}
+
+		.start-media-upload {
+			display: none;
+			margin-top: 20px;
+		}
+
+		.rtm-file-size-limit {
 			vertical-align: middle;
+			font-size: 16px;
+			line-height: 24px;
 		}
 	}
-
-	.rtm-seperator {
-		margin: 0px 20px;
-	}
-
-	.start-media-upload {
-		display: none;
-		margin-top: 20px;
-	}
-
-	.rtm-file-size-limit {
-		vertical-align: middle;
-		font-size: 16px;
-		line-height: 24px;
-	}
 }
+
 
 .rtm-uploader-main-wrapper {
     .rtm-uploader-tabs {
@@ -140,24 +143,22 @@
 	}
 
 	.rtm-media-options-list {
-		margin-right: 10px;
+		margin-right: 5px;
 		padding-right: 10px;
 		position: relative;
-
-		&:after {
-			background: #999;
-			content: ' ';
-			bottom: 3px;
-			position: absolute;
-			height: 14px;
-			right: 0;
-			width: 1px;
-		}
 	}
+
+  	& > * {
+	    border-right: 1px solid #999;
+
+        &:last-child {
+          border-right: none;
+        }
+    }
 
 	.dashicons {
 		font-size: inherit;
-		line-height: 1.6;
+		line-height: 1.4;
 	}
 }
 
@@ -180,7 +181,7 @@
 
 	.dashicons {
 		font-size: 16px;
-		line-height: 1.5;
+		line-height: 1.6;
 		margin-right: 5px;
 	}
 }

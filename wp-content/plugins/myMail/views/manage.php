@@ -3,8 +3,7 @@
 	
 	$currentpage = isset($_GET['tab']) ? $_GET['tab'] : 'import';
 	$currentstep = isset($_GET['step']) ? intval($_GET['step']) : 1;
-
-
+	
 ?>
 <div class="wrap mymail-manage">
 <div class="icon32" id="icon-edit"><br></div>
@@ -244,6 +243,7 @@ jane.roe@<?php echo $_SERVER['HTTP_HOST']?>; Jane; Roe
 
 			$meta = array(
 				'status' => __('Status', 'mymail'),
+				'statuscode' => __('Statuscode', 'mymail'),
 				'added' => __('Added', 'mymail'),
 				'updated' => __('Updated', 'mymail'),
 				//'ip' => __('IP Address', 'mymail'),

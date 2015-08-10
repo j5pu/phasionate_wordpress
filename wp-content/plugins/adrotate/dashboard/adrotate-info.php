@@ -153,7 +153,7 @@ $adrotate_config = get_option('adrotate_config');
 					<div class="inside">
 						<?php 
 							wp_widget_rss_output(array(
-							'url' => array('http://meandmymac.net/feed/', 'http://ajdg.solutions/feed/',), 
+							'url' => array('http://meandmymac.net/feed/', 'http://www.floatingcoconut.net/feed/', 'http://ajdg.solutions/feed/',), 
 							'title' => 'AdRotate Development News', 
 							'items' => 4, 
 							'show_summary' => 1, 
@@ -196,7 +196,7 @@ $adrotate_config = get_option('adrotate_config');
 				<div class="postbox-adrotate">
 					<div class="inside">
 						<a href="https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-infopage&pk_kwd=compare_license"><img src="<?php echo WP_CONTENT_URL; ?>/plugins/adrotate/images/adrotate-product.png" alt="adrotate-product" width="150" height="150" align="right" style="padding: 0 0 10px 10px;" /></a>
-						<p><h4><?php _e('Singe License', 'adrotate'); ?> (&euro; 29.00)</h4><?php _e('For one WordPress installation.', 'adrotate'); ?> <a href="https://ajdg.solutions/cart/?add-to-cart=1124&pk_campaign=adrotatefree-infopage&pk_kwd=buy_single" target="_blank"><?php _e('Buy now', 'adrotate'); ?> &raquo;</a></p>
+						<p><h4><?php _e('Single License', 'adrotate'); ?> (&euro; 29.00)</h4><?php _e('For one WordPress installation.', 'adrotate'); ?> <a href="https://ajdg.solutions/cart/?add-to-cart=1124&pk_campaign=adrotatefree-infopage&pk_kwd=buy_single" target="_blank"><?php _e('Buy now', 'adrotate'); ?> &raquo;</a></p>
 						<p><h4><?php _e('Duo License', 'adrotate'); ?> (&euro; 39.00)</h4><?php _e('For two WordPress installations.', 'adrotate'); ?> <a href="https://ajdg.solutions/cart/?add-to-cart=1126&pk_campaign=adrotatefree-infopage&pk_kwd=buy_duo" target="_blank"><?php _e('Buy now', 'adrotate'); ?> &raquo;</a></p>
 						<p><h4><?php _e('Multi License', 'adrotate'); ?> (&euro; 99.00)</h4><?php _e(' For up to five WordPress installations.', 'adrotate'); ?> <a href="https://ajdg.solutions/cart/?add-to-cart=1128&pk_campaign=adrotatefree-infopage&pk_kwd=buy_multi" target="_blank"><?php _e('Buy now', 'adrotate'); ?> &raquo;</a></p>
 						<p><h4><?php _e('Developer License', 'adrotate'); ?> (&euro; 299.00)</h4><?php _e('Unlimited WordPress installations and/or networks.', 'adrotate'); ?> <a href="https://ajdg.solutions/cart/?add-to-cart=1130&pk_campaign=adrotatefree-infopage&pk_kwd=buy_developer" target="_blank"><?php _e('Buy now', 'adrotate'); ?> &raquo;</a></p>

@@ -5,9 +5,9 @@ Contributors: ultimatemember
 Donate link: 
 Tags: access control, author, authors, author profile, comments, community, communities, conditional fields, conditional logic, conditional menus, content protection, custom fields, file uploads, form builder, front-end login, front-end registration, gravatar, hide wp-admin, login, login page, logged-in users, mandrill, member, members, membership, member directory, online users, profile, profiles, profile builder, registration, restriction, restrict content, role creation, role menus, search filters, sign in, sign up, social network, star ratings, toolbar, user, users, user fields, user profile, user-profile, user profiles, user roles
 Requires at least: 4.1
-Tested up to: 4.2.2
+Tested up to: 4.2.3
 
-Stable Tag: 1.2.994
+Stable Tag: 1.3.15
 
 License: GNU Version 2 or Any Later Version
 
@@ -37,7 +37,7 @@ Ultimate Member is a powerful and flexible plugin that makes it a breeze for use
 * Developer friendly with dozens of actions and filters
 * Multi-site compatibility
 * Mandrill compatibility
-* Multi language support
+* WPML Support
 
 Read about all of the plugin's features at [Ultimate Member](https://ultimatemember.com)
 
@@ -45,6 +45,7 @@ Read about all of the plugin's features at [Ultimate Member](https://ultimatemem
 
 Ultimate Member has a range of extensions that allow you to extend the power of the plugin
 
+* [WooCommerce](https://ultimatemember.com/extensions/woocommerce/) - Allow you to integrate WooCommerce with Ultimate Member
 * [Private Messages](https://ultimatemember.com/extensions/private-messages/) - Add a private messaging system to your site & allow users to message each other
 * [Followers](https://ultimatemember.com/extensions/followers/) - Allow users to follow each other on your site and protect their profile information
 * [Real-time Notifications](https://ultimatemember.com/extensions/real-time-notifications/) - Add a notifications system to your site so users can receive real-time notifications
@@ -75,17 +76,20 @@ Ultimate Member has been translated into the following languages:
 
 * English (US)
 * Spanish - Español
+* Spanish (Mexico) - Español (México)
 * French - Français
 * Italian - Italiano
 * German - Deutsch
 * Dutch - Nederlands
 * Finnish - Suomi
+* Romanian - Română
 * Danish - Dansk
 * Swedish - Svenska
 * Polish - Polski
 * Czech
 * Russian - Русский
 * Turkish - Türkçe
+* Farsi - فارسى
 * Hebrew
 * العربية
 
@@ -145,6 +149,73 @@ The plugin works with popular caching plugins by automatically excluding Ultimat
 16. Screenshot 16
 
 == Changelog ==
+
+= 1.3.15: August 4, 2015 =
+
+* Fixed: issue with logout from adminbar
+
+= 1.3.14: August 4, 2015 =
+
+* New: added last login date support
+* New: show user's last login in profile
+* New: added sorting members by last login date
+* New: added option to re-assign core pages in plugin settings
+* Fixed: issue with multi-select required field
+* Fixed: URL validation for custom fields
+* Fixed: backend user filtering by non-english role
+* Fixed: RTL css bugs
+
+= 1.3.13: July 22, 2015 =
+
+* Fixed: Woocommerce manual order dropdown conflict
+
+= 1.3.12: July 22, 2015 =
+
+* New: ability to delete user cache from plugin dashboard
+* New: function is_ultimatemember() checks if user is on UM page (developers)
+* New: option to disallow editing email in account page
+* New: added Spanish (Mexico) language support
+* Fixed: bug with profile viewing and user roles
+* Fixed: Woocommerce dropdown bugs/conflicts
+* Fixed: ipad/tablet css fixes for profile columns
+* Fixed: deleting users delete their content
+
+= 1.3.11: July 8, 2015 =
+
+* Fixed: Redux errors and popups in backend
+
+= 1.3.1: July 7, 2015 =
+
+* Fixed: major issue with showing HTML in profiles
+
+= 1.3.0: July 7, 2015 =
+
+* New: easily sync UM roles with WP roles with role settings
+* New: first steps towards WPML compatibility
+* New: option to show member results only If user has searched
+* New: add .um-err class to UM form if the form contains errors
+* New: updated redux framework to latest version
+* Fixed: feed issue with private / access locked posts
+
+= 1.2.997: June 21, 2015 =
+
+* New: added support for Farsi / Romanian language
+* Tweak: adapted core community roles to prevent conflicts
+* Fixed: bug with search results pagination
+* Fixed: issue with panic key usage and wp-admin screen
+* Fixed: bug with custom field validation action
+
+= 1.2.996: June 11, 2015 =
+
+* Fixed: php notice causing errors to appear in both frontend and backend
+
+= 1.2.995: June 11, 2015 =
+
+* New: added required support for WooCommerce extension
+* Tweak: added option to fix conflicts of user profile links using different server method to get current url
+* Fixed: security fix for redux framework added
+* Fixed: button appearance on tablets
+* Fixed: member search by display name
 
 = 1.2.994: June 6, 2015 =
 

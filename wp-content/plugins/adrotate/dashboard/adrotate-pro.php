@@ -20,23 +20,21 @@
 				<h3><?php _e('Satisfy your advertisers', 'adrotate'); ?></h3>
 				<div class="postbox-adrotate">
 					<div class="inside">
-						<p><?php _e('Set up advertisers and let them log in to their statistics or even create their own adverts. Created adverts go into a moderation queue for your staff to review. Advertisers have access to their own little dashboard where they can see their adverts performance.', 'adrotate'); ?></p>
-						<center><a href="https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-propage&pk_kwd=upgrade_adrotatefree" target="_blank"><img src="<?php echo WP_CONTENT_URL; ?>/plugins/adrotate/images/demo-advertisers.jpg" /></a></center>
+						<p><a href="https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-propage&pk_kwd=upgrade_adrotatefree" target="_blank"><img src="<?php echo WP_CONTENT_URL; ?>/plugins/adrotate/images/demo-satisfy.png" class="alignleft pro-image" /></a><?php _e('Set up advertisers and let them log in to their statistics or even create their own adverts. Created adverts go into a moderation queue for your staff to review. Advertisers have access to their own little dashboard where they can see their adverts performance.', 'adrotate'); ?></p>
 					</div>
 				</div>
 
 				<h3><?php _e('Localize your ad campaigns with Geo Targeting', 'adrotate'); ?></h3>
 				<div class="postbox-adrotate">
 					<div class="inside">
-						<p><?php _e('Go nationwide or global with localized adverts for your various audiences. Set up adverts for countries and cities and sell impressions per general area. Connect your site to MaxMinds GeoIP2: Precision, FreegeoIP (MaxMind GeoLITE) or GeoBytes GeoSelect services.', 'adrotate'); ?></p>
-						<center><a href="https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-propage&pk_kwd=upgrade_adrotatefree" target="_blank"><img src="<?php echo WP_CONTENT_URL; ?>/plugins/adrotate/images/demo-geotargetting.jpg" /></a></center>
+						<p><a href="https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-propage&pk_kwd=upgrade_adrotatefree" target="_blank"><img src="<?php echo WP_CONTENT_URL; ?>/plugins/adrotate/images/demo-geo-targeting.png" class="alignleft pro-image" /></a><?php _e('Go nationwide or global with localized adverts for your various audiences. Set up adverts for countries and cities and sell impressions per general area. Connect your site to MaxMind GeoIP2: Precision, Telize or AdRotate Geo. AdRotate Geo is an exclusive Geo Lookup service for AdRotate Pro users.', 'adrotate'); ?></p>
 					</div>
 				</div>
 
 				<h3><?php _e('Get Premium Support almost all year round', 'adrotate'); ?></h3>
 				<div class="postbox-adrotate">
 					<div class="inside">
-						<p><?php _e('When you activate your AdRotate Pro license you are entitled to ticket support. AdRotate premium support which takes priority over the Forums and even email. Get a solution (usually) within a day.', 'adrotate'); ?></p>
+						<p><a href="https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-propage&pk_kwd=upgrade_adrotatefree" target="_blank"><img src="<?php echo WP_CONTENT_URL; ?>/plugins/adrotate/images/demo-support.png" class="alignleft pro-image" /></a><?php _e('When you activate your AdRotate Pro license you can use fast and personal email support. No more queueing up in the forums. AdRotate premium support  takes priority over the forums and is checked much more often than the forum. Get a solution (usually) within a day.', 'adrotate'); ?></p>
 					</div>
 				</div>
 
@@ -60,16 +58,14 @@
 				<h3><?php _e('Schedule all campaigns with ease', 'adrotate'); ?></h3>
 				<div class="postbox-adrotate">
 					<div class="inside">
-						<p><?php _e('Schedule your adverts and set up advertising campaigns based on date without hassle. Seasonal adverts, weekly adverts. You name it. AdRotate schedules it.', 'adrotate'); ?></p>
-						<center><a href="https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-propage&pk_kwd=upgrade_adrotatefree" target="_blank"><img src="<?php echo WP_CONTENT_URL; ?>/plugins/adrotate/images/demo-schedules.jpg" /></a></center>
+						<p><a href="https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-propage&pk_kwd=upgrade_adrotatefree" target="_blank"><img src="<?php echo WP_CONTENT_URL; ?>/plugins/adrotate/images/demo-schedule.png" class="alignleft pro-image" /></a><?php _e('Schedule your adverts and set up advertising campaigns based on dates you or your advertisers specify without hassle. Seasonal adverts, weekly adverts. You name it, AdRotate schedules it. This makes planning your revenue stream much more easy. You can set one or many schedules for adverts.', 'adrotate'); ?></p>
 					</div>
 				</div>
 
-				<h3><?php _e('Stay up-to-date with the notification system', 'adrotate'); ?></h3>
+				<h3><?php _e('Stay up-to-date with notifications', 'adrotate'); ?></h3>
 				<div class="postbox-adrotate">
 					<div class="inside">
-						<p><?php _e('Stay in touch with Email and/or push notifications. Get notified when adverts expire, have errors or when advertisers create new adverts. Never miss an expiration date again.', 'adrotate'); ?></p>
-						<center><a href="https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-propage&pk_kwd=upgrade_adrotatefree" target="_blank"><img src="<?php echo WP_CONTENT_URL; ?>/plugins/adrotate/images/demo-notifications.jpg" /></a></center>
+						<p><a href="https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-propage&pk_kwd=upgrade_adrotatefree" target="_blank"><img src="<?php echo WP_CONTENT_URL; ?>/plugins/adrotate/images/demo-notifications.png" class="alignleft pro-image" /></a><?php _e('Stay in touch with Email notifications. Have AdRotate send you an alert when adverts expire or need your attention. Additionally, you can have AdRotate send push notifications to your iOS or Android smartphone. Get notified when adverts expire, have errors or when advertisers create new adverts. Never miss an expiration date again.', 'adrotate'); ?></p>
 					</div>
 				</div>
 
@@ -77,7 +73,7 @@
 				<div class="postbox-adrotate">
 					<div class="inside">
 						<a href="https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-propage&pk_kwd=compare_license"><img src="<?php echo WP_CONTENT_URL; ?>/plugins/adrotate/images/adrotate-product.png" alt="adrotate-product" width="150" height="150" align="right" style="padding: 0 0 10px 10px;" /></a>
-						<p><h4><?php _e('Singe License', 'adrotate'); ?> (&euro; 29.00)</h4><?php _e('For one WordPress installation.', 'adrotate'); ?> <a href="https://ajdg.solutions/cart/?add-to-cart=1124&pk_campaign=adrotatefree-propage&pk_kwd=buy_single" target="_blank"><?php _e('Buy now', 'adrotate'); ?> &raquo;</a></p>
+						<p><h4><?php _e('Single License', 'adrotate'); ?> (&euro; 29.00)</h4><?php _e('For one WordPress installation.', 'adrotate'); ?> <a href="https://ajdg.solutions/cart/?add-to-cart=1124&pk_campaign=adrotatefree-propage&pk_kwd=buy_single" target="_blank"><?php _e('Buy now', 'adrotate'); ?> &raquo;</a></p>
 						<p><h4><?php _e('Duo License', 'adrotate'); ?> (&euro; 39.00)</h4><?php _e('For two WordPress installations.', 'adrotate'); ?> <a href="https://ajdg.solutions/cart/?add-to-cart=1126&pk_campaign=adrotatefree-propage&pk_kwd=buy_duo" target="_blank"><?php _e('Buy now', 'adrotate'); ?> &raquo;</a></p>
 						<p><h4><?php _e('Multi License', 'adrotate'); ?> (&euro; 99.00)</h4><?php _e(' For up to five WordPress installations.', 'adrotate'); ?> <a href="https://ajdg.solutions/cart/?add-to-cart=1128&pk_campaign=adrotatefree-propage&pk_kwd=buy_multi" target="_blank"><?php _e('Buy now', 'adrotate'); ?> &raquo;</a></p>
 						<p><h4><?php _e('Developer License', 'adrotate'); ?> (&euro; 299.00)</h4><?php _e('Unlimited WordPress installations and/or networks.', 'adrotate'); ?> <a href="https://ajdg.solutions/cart/?add-to-cart=1130&pk_campaign=adrotatefree-propage&pk_kwd=buy_developer" target="_blank"><?php _e('Buy now', 'adrotate'); ?> &raquo;</a></p>

@@ -403,7 +403,7 @@ if ( ! class_exists( 'RTMediaSupport' ) ) {
 				if ( ! defined( 'RTMEDIA_PRO_VERSION' ) ) {
 					$content = '<h3 class="rtm-option-title">' . $meta_title . '</h3>';
 					$content .= '<p>' . __( 'If your site has some issues due to rtMedia and you want support, feel free to create a support topic on <a target="_blank" href="http://community.rtcamp.com/c/rtmedia/?utm_source=dashboard&utm_medium=plugin&utm_campaign=buddypress-media">Community Forum</a>.', 'rtmedia' ) . '</p>';
-					$content .= '<p>' . __( 'If you have any suggestions, enhancements or bug reports, you can open a new issue on <a target="_blank" href="https://github.com/rtCamp/buddypress-media/issues/new">GitHub</a>.', 'rtmedia' ) . '</p>';
+					$content .= '<p>' . __( 'If you have any suggestions, enhancements or bug reports, you can open a new issue on <a target="_blank" href="https://github.com/rtCamp/rtMedia/issues/new">GitHub</a>.', 'rtmedia' ) . '</p>';
 
 					echo $content;
 				} else {
@@ -576,7 +576,7 @@ if ( ! class_exists( 'RTMediaSupport' ) ) {
 				$support_email = 'support@rtcamp.com';
 			}
 			$support_email = 'support@rtcamp.com';
-			if ( wp_mail( $support_email, '[rtmedia] ' . $mail_type . ' from ' . str_replace( array( 'http://', 'https://' ), '', $form_data[ 'website' ] ), $message, $headers ) ) {
+			if ( wp_mail( $support_email, '[rtmedia] ' . $mail_type . ' from ' . str_replace( array( 'http://', 'https://' ), '', $form_data[ 'website' ] ), stripslashes( $message ), $headers ) ) {
 				echo '<div class="rtmedia-success" style="margin:10px 0;">';
 				if ( 'new_feature' == $form_data[ 'request_type' ] ) {
 					echo '<p>' . __( 'Thank you for your Feedback/Suggestion.', 'rtmedia' ) . '</p>';

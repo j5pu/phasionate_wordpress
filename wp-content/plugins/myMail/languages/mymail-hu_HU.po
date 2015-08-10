@@ -775,10 +775,9 @@ msgstr "Hírlevél előnézete"
 #: views/newsletter/delivery.php:51
 #: views/newsletter/delivery.php:212
 #: views/newsletter/delivery.php:229
-#, fuzzy
 msgctxt "send campaign \"on\" (date) \"at\" (time)"
 msgid "on %1$s @ %2$s"
-msgstr "Oldalak1$s / %2$s"
+msgstr ""
 
 #: views/newsletter/details.php:20
 #: views/newsletter/details.php:62
@@ -953,9 +952,8 @@ msgstr "Nincsenek címzettek!"
 #: views/newsletter/delivery.php:67
 #: views/newsletter/delivery.php:411
 #: views/newsletter/delivery.php:432
-#, fuzzy
 msgid "%1$s of %2$s sent"
-msgstr "Oldalak1$s / %2$s"
+msgstr ""
 
 #: classes/campaigns.class.php:175
 #: classes/campaigns.class.php:177
@@ -2337,9 +2335,8 @@ msgstr ""
 
 #: classes/campaigns.class.php:701
 #: classes/campaigns.class.php:709
-#, fuzzy
 msgid "send %1$s %2$s %3$s"
-msgstr "Oldalak1$s / %2$s"
+msgstr ""
 
 #: classes/campaigns.class.php:701
 #: classes/campaigns.class.php:709
@@ -5980,9 +5977,8 @@ msgid "User"
 msgstr "Felhasználó"
 
 #: views/subscribers/detail.php:320
-#, fuzzy
 msgid "and %1$s to click a link"
-msgstr "Oldalak1$s / %2$s"
+msgstr ""
 
 #: views/subscribers/detail.php:322
 msgid "User has never opened a campaign"
@@ -6357,9 +6353,8 @@ msgid "This subscriber has caused a sending error: %s"
 msgstr ""
 
 #: classes/subscribers.class.php:516
-#, fuzzy
 msgid "%1$s on %2$s"
-msgstr "Oldalak1$s / %2$s"
+msgstr ""
 
 #: classes/subscribers.class.php:516
 msgid "Comment"

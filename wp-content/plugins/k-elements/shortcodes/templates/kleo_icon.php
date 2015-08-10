@@ -24,8 +24,9 @@ extract(shortcode_atts(array(
     'target' => '_self'
 ), $atts));
 
-if ($icon != '') {
-	
+if ( $icon != '' ) {
+
+    $icon = str_replace( 'icon-', '', $icon );
 
 	$tooltip_class = '';
 	$tooltip_data = '';
@@ -38,15 +39,15 @@ if ($icon != '') {
             $tooltip_data .= ' data-toggle="tooltip" data-original-title="'.$tooltip_title.'" data-placement="'.$tooltip_position.'"';
 		}
 	}
-	$class = esc_attr($el_class);
-	$class .= ' icon-'.esc_attr($icon);
-	$class .= $icon_size != '' ? ' icon-'.esc_attr($icon_size) : '';
+	$class = esc_attr( $el_class );
+	$class .= ' icon-' . esc_attr( $icon );
+	$class .= $icon_size != '' ? ' icon-' . esc_attr($icon_size) : '';
 	$class .= $tooltip_class;
 
 	$output = '<i class="' . trim( $class ) . '"' . $tooltip_data . '></i> ';
 
     if ( $href != '' ) {
-        $output = '<a href="' . $href . '" target="' . $target . '">' . trim( $output ) . '</a>';
+        $output = '<a class="kleo-icon-anchor" href="' . $href . '" target="' . $target . '">' . trim( $output ) . '</a>';
     }
 
 }

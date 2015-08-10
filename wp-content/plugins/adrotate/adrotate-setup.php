@@ -46,7 +46,7 @@ function adrotate_activate($network_wide) {
  Since:		0.1
 -------------------------------------------------------------*/
 function adrotate_activate_setup() {
-	global $wpdb, $current_user, $userdata;
+	global $wpdb, $userdata;
 
 	if(version_compare(PHP_VERSION, '5.3.0', '<') == -1) { 
 		deactivate_plugins(plugin_basename('adrotate/adrotate.php'));
@@ -159,7 +159,7 @@ function adrotate_deactivate_setup() {
  Return:	-none-
  Since:		2.4.2
 -------------------------------------------------------------*/
-function adrotate_uninstall() {
+function adrotate_uninstall($network_wide) {
     adrotate_network_propagate('adrotate_uninstall_setup', $network_wide);
 }
 
@@ -284,7 +284,6 @@ function adrotate_check_config() {
 	if(!isset($config['widgetalign']) OR ($config['widgetalign'] != 'Y' AND $config['widgetalign'] != 'N')) $config['widgetalign'] = 'N';
 	if(!isset($config['widgetpadding']) OR ($config['widgetpadding'] != 'Y' AND $config['widgetpadding'] != 'N')) $config['widgetpadding'] = 'N';
 	if(!isset($config['w3caching']) OR ($config['w3caching'] != 'Y' AND $config['w3caching'] != 'N')) $config['w3caching'] = 'N';
-	if(!isset($config['supercache']) OR ($config['supercache'] != 'Y' AND $config['supercache'] != 'N')) $config['supercache'] = 'N';
 	if(!isset($config['jquery']) OR ($config['jquery'] != 'Y' AND $config['jquery'] != 'N')) $config['jquery'] = 'N';
 	if(!isset($config['jsfooter']) OR ($config['jsfooter'] != 'Y' AND $config['jsfooter'] != 'N')) $config['jsfooter'] = 'Y';
 	if(!isset($config['adblock']) OR ($config['adblock'] != 'Y' AND $config['adblock'] != 'N')) $config['adblock'] = 'N';
@@ -320,7 +319,7 @@ function adrotate_check_config() {
  Since:		3.11.3
 -------------------------------------------------------------*/
 function adrotate_dummy_data() {
-	global $wpdb;
+	global $wpdb, $current_user;
 
 	// Initial data
 	$now 			= adrotate_now();

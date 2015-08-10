@@ -32,15 +32,11 @@ function adrotate_shortcode($atts, $content = null) {
 	if($adrotate_config['w3caching'] == "Y") $output .= '<!-- mfunc '.W3TC_DYNAMIC_SECURITY.' -->';
 
 	if($banner_id > 0 AND $group_ids == 0) { // Show one Ad
-		if($adrotate_config['supercache'] == "Y") $output .= '<!--mfunc echo adrotate_ad('.$banner_id.', true, 0, 0) -->';
 		$output .= adrotate_ad($banner_id, true, 0, 0);
-		if($adrotate_config['supercache'] == "Y") $output .= '<!--/mfunc-->';
 	}
 
 	if($banner_id == 0 AND $group_ids > 0) { // Show group 
-		if($adrotate_config['supercache'] == "Y") $output .= '<!--mfunc echo adrotate_group('.$group_ids.', 0, 0, 0) -->';
 		$output .= adrotate_group($group_ids, 0, 0, 0);
-		if($adrotate_config['supercache'] == "Y") $output .= '<!--/mfunc-->';
 	}
 
 	if($adrotate_config['w3caching'] == "Y") $output .= '<!-- /mfunc -->';
@@ -59,7 +55,7 @@ function adrotate_shortcode($atts, $content = null) {
 function adrotate_is_networked() {
 	if(!function_exists('is_plugin_active_for_network')) require_once(ABSPATH.'/wp-admin/includes/plugin.php');
 	 
-	if(is_plugin_active_for_network(ADROTATE_FOLDER.'/adrotate.php')) {
+	if(is_plugin_active_for_network('adrotate/adrotate.php')) {
 		return true;
 	}		
 	return false;
@@ -625,7 +621,7 @@ function adrotate_ad_is_in_groups($id) {
  Name:      adrotate_hash
 
  Purpose:   Generate the adverts clicktracking hash
- Receive:   $ad, $group, $remote, $blog_id
+ Receive:   $ad, $group, $blog_id
  Return:    $result
  Since:		3.9.12
 -------------------------------------------------------------*/

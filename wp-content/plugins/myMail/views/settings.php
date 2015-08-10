@@ -19,6 +19,7 @@
 
 ?>
 <form method="post" action="options.php" autocomplete="off" enctype="multipart/form-data">
+<input style="display:none"><input type="password" style="display:none">
 <div class="wrap">
 	<p class="alignright">
 		<input type="submit" class="submit-form button-primary" value="<?php _e('Save Changes' ,'mymail') ?>" disabled />
@@ -959,10 +960,10 @@
 				<?php echo sprintf(__('To enable the tweet feature you have to create a new %s and insert your credentials', 'mymail'), '<a href="https://dev.twitter.com/apps/new" class="external">Twitter App</a>'); ?>
 			</p>
 			<p>
-			<div class="mymail_text">&nbsp;<label><?php _e('Access token', 'mymail'); ?>:</label> <input type="text" name="mymail_options[twitter_token]" value="<?php echo esc_attr(mymail_option('twitter_token')); ?>" class="regular-text"></div>
-			<div class="mymail_text">&nbsp;<label><?php _e('Access token Secret', 'mymail'); ?>:</label> <input type="password" name="mymail_options[twitter_token_secret]" value="<?php echo esc_attr(mymail_option('twitter_token_secret')); ?>" class="regular-text"></div>
-			<div class="mymail_text">&nbsp;<label><?php _e('Consumer key', 'mymail'); ?>:</label> <input type="text" name="mymail_options[twitter_consumer_key]" value="<?php echo esc_attr(mymail_option('twitter_consumer_key')); ?>" class="regular-text"></div>
-			<div class="mymail_text">&nbsp;<label><?php _e('Consumer secret', 'mymail'); ?>:</label> <input type="password" name="mymail_options[twitter_consumer_secret]" value="<?php echo esc_attr(mymail_option('twitter_consumer_secret')); ?>" class="regular-text"></div>
+			<div class="mymail_text">&nbsp;<label><?php _e('Access token', 'mymail'); ?>:</label> <input type="text" name="mymail_options[twitter_token]" value="<?php echo esc_attr(mymail_option('twitter_token')); ?>" class="regular-text" autocomplete="off"></div>
+			<div class="mymail_text">&nbsp;<label><?php _e('Access token Secret', 'mymail'); ?>:</label> <input type="password" name="mymail_options[twitter_token_secret]" value="<?php echo esc_attr(mymail_option('twitter_token_secret')); ?>" class="regular-text" autocomplete="off"></div>
+			<div class="mymail_text">&nbsp;<label><?php _e('Consumer key', 'mymail'); ?>:</label> <input type="text" name="mymail_options[twitter_consumer_key]" value="<?php echo esc_attr(mymail_option('twitter_consumer_key')); ?>" class="regular-text" autocomplete="off"></div>
+			<div class="mymail_text">&nbsp;<label><?php _e('Consumer secret', 'mymail'); ?>:</label> <input type="password" name="mymail_options[twitter_consumer_secret]" value="<?php echo esc_attr(mymail_option('twitter_consumer_secret')); ?>" class="regular-text" autocomplete="off"></div>
 			</p>
 			<br>
 			<div class="customfield"><span><code>{share:twitter}</code></span> &#10152; <?php echo sprintf(__('displays %1$s to share the newsletter via %2$s', 'mymail'), '<img src="' . MYMAIL_URI. '/assets/img/share/share_twitter.png">', 'Twitter'); ?></div>

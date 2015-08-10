@@ -45,16 +45,16 @@ if($camps = mymail_get_finished_campaigns(array( 'posts_per_page' => 10, 'post_s
 	<tr>
 	<td align="center"><span class="verybold" id="stats_total"><?php echo $sent ?></span></td>
 	<td width="100" align="center">
-	<div id="stats_open" class="piechart" data-percent="<?php echo !empty($sent) ? $opens/$sent*100 : 0 ?>"><span>0</span>%</div>
+	<div id="stats_open" class="piechart" data-percent="<?php echo mymail('campaigns')->get_open_rate($campaign->ID)*100 ?>"><span>0</span>%</div>
 	</td>
 	<td width="100" align="center">
-	<div id="stats_clicks" class="piechart" data-percent="<?php echo !empty($opens) ? $clicks/$opens*100 : 0 ?>"><span>0</span>%</div>
+	<div id="stats_clicks" class="piechart" data-percent="<?php echo mymail('campaigns')->get_click_rate($campaign->ID)*100 ?>"><span>0</span>%</div>
 	</td>
 	<td width="100" align="center">
-	<div id="stats_unsubscribes" class="piechart" data-percent="<?php echo !empty($opens) ? $unsubscribes/$opens*100 : 0 ?>"><span>0</span>%</div>
+	<div id="stats_unsubscribes" class="piechart" data-percent="<?php echo mymail('campaigns')->get_unsubscribe_rate($campaign->ID)*100 ?>"><span>0</span>%</div>
 	</td>
 	<td width="100" align="center">
-	<div id="stats_bounces" class="piechart" data-percent="<?php echo $bounces/(($sent ? $sent : 1)+$bounces)*100 ?>"><span>0</span>%</div></td>
+	<div id="stats_bounces" class="piechart" data-percent="<?php echo mymail('campaigns')->get_bounce_rate($campaign->ID)*100 ?>"><span>0</span>%</div>
 	</tr>
 </table>
 

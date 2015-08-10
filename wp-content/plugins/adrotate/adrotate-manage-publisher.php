@@ -333,6 +333,8 @@ function adrotate_insert_group() {
 function adrotate_request_action() {
 	global $wpdb, $adrotate_config;
 
+	$banner_ids = $group_ids = '';
+
 	if(wp_verify_nonce($_POST['adrotate_nonce'],'adrotate_bulk_ads_active') OR wp_verify_nonce($_POST['adrotate_nonce'],'adrotate_bulk_ads_disable') 
 	OR wp_verify_nonce($_POST['adrotate_nonce'],'adrotate_bulk_ads_error') OR wp_verify_nonce($_POST['adrotate_nonce'],'adrotate_bulk_ads_queue') 
 	OR wp_verify_nonce($_POST['adrotate_nonce'],'adrotate_bulk_groups')) {
@@ -352,9 +354,6 @@ function adrotate_request_action() {
 		} else if(isset($_POST['adrotate_error_action'])) {
 			// Erroneous ads listing call
 			$actions = $_POST['adrotate_error_action'];
-		} else {
-			// If neither, protect user with invalid ID
-			$banner_ids = $group_ids = '';
 		}
 		list($action, $specific) = explode("-", $actions);	
 	
@@ -627,8 +626,6 @@ function adrotate_options_submit() {
 			else 											$config['widgetpadding']	= 'N';
 		if(isset($_POST['adrotate_w3caching'])) 			$config['w3caching'] 		= 'Y';
 			else 											$config['w3caching'] 		= 'N';
-		if(isset($_POST['adrotate_supercache'])) 			$config['supercache'] 		= 'Y';
-			else 											$config['supercache'] 		= 'N';
 		if(isset($_POST['adrotate_jquery'])) 				$config['jquery'] 			= 'Y';
 			else 											$config['jquery'] 			= 'N';
 		if(isset($_POST['adrotate_jsfooter'])) 				$config['jsfooter'] 		= 'Y';

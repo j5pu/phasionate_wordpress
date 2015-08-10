@@ -39,7 +39,27 @@ class MyMail_Subscribers_Table extends WP_List_Table {
 	}
 
 	public function no_items() {
-		echo __( 'No subscriber found', 'mymail').'.';
+
+		$status = isset($_GET['status']) ? intval($_GET['status']) : NULL;
+
+		switch($status){
+			case '0': //pending
+				_e('No pending subscribers found', 'mymail');
+			break;
+			case '2': //unsubscribed
+				_e('No unsubscribed subscribers found', 'mymail');
+			break;
+			case '3': //hardbounced
+				_e('No hardbounced subscribers found', 'mymail');
+			break;
+			case '4': //error
+				_e('No subscriber with delivery errors found', 'mymail');
+			break;
+			default:
+				_e( 'No subscribers found', 'mymail');
+
+		}
+
 		if(current_user_can( 'mymail_add_subscribers' ))
 			echo ' <a href="edit.php?post_type=newsletter&page=mymail_subscribers&new">'.__('add New', 'mymail').'</a>';
 	}

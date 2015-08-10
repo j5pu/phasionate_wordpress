@@ -3,10 +3,8 @@
 class UM_Members {
 
 	function __construct() {
-		
-		add_filter('pre_user_query', array(&$this, 'custom_order_query') );
-		
-		add_filter('user_search_columns', array(&$this, 'add_display_name'), 99 );
+
+		add_filter('user_search_columns', array(&$this, 'user_search_columns'), 99 );
 		
 		add_action('template_redirect', array(&$this, 'access_members'), 555);
 		
@@ -19,10 +17,14 @@ class UM_Members {
 	}
 	
 	/***
-	***	@Add display name
+	***	@user_search_columns
 	***/
-	function add_display_name( $search_columns ){
-		$search_columns[] = 'display_name';
+	function user_search_columns( $search_columns ){
+		if ( is_admin() ) {
+			$search_columns[] = 'display_name';
+		} else {
+			$search_columns = array('display_name');
+		}
 		return $search_columns;
 	}
 	
@@ -33,17 +35,6 @@ class UM_Members {
 		
 		if ( um_get_option('members_page') == 0 && um_is_core_page('members') ) {
 			um_redirect_home();
-		}
-		
-	}
-	
-	/***
-	***	@custom user ordering
-	***/
-	function custom_order_query( $query ) {
-	
-		if($query->query_vars["orderby"] == 'random') {
-			$query->query_orderby = 'ORDER by RAND()';
 		}
 		
 	}
@@ -152,20 +143,6 @@ class UM_Members {
 			$profiles_per_page = $profiles_per_page_mobile;
 		
 		$array['users'] = $users->results;
-
-		// añadido para ampliar la busqueda de nombre a nick
-		if( $query_args['meta_query'][1]['key'] == 'first_name' ){
-
-			$query_args['meta_query'][1]['key'] = 'nickname';
-
-			$users = new WP_User_Query( $query_args );
-
-			if ($users->total_users != 0){
-				$add_array = $users->results;
-				$array['users'] = array_merge($array['users'], $add_array);
-				$array['users'] = array_unique($array['users']);
-			}
-		}
 		
 		$array['total_users'] = (isset( $max_users ) && $max_users && $max_users <= $users->total_users ) ? $max_users : $users->total_users;
 

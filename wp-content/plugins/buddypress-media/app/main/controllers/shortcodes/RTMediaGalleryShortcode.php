@@ -39,7 +39,7 @@ class RTMediaGalleryShortcode {
 		if( ! wp_script_is ( 'plupload-all' ) ) {
 			wp_enqueue_script ( 'plupload-all' );
 		}
-        wp_enqueue_script ( 'rtmedia-backbone', RTMEDIA_URL . 'app/assets/js/rtMedia.backbone.js', array( 'plupload-all', 'backbone' ), false, true );
+        wp_enqueue_script ( 'rtmedia-backbone', RTMEDIA_URL . 'app/assets/js/rtMedia.backbone.js', array( 'plupload-all', 'backbone' ), RTMEDIA_VERSION, true );
 
     	if(is_rtmedia_album_gallery()) {
     	    $template_url = esc_url( add_query_arg( array( "action" => 'rtmedia_get_template', "template" => "album-gallery-item" ),admin_url("admin-ajax.php") ), null, '' );
@@ -65,7 +65,7 @@ class RTMediaGalleryShortcode {
             'container' => 'rtmedia-upload-container',
             'drop_element' => 'drag-drop-area',
             'filters' => apply_filters ( 'rtmedia_plupload_files_filter', array( array( 'title' => "Media Files", 'extensions' => get_rtmedia_allowed_upload_type () ) ) ),
-            'max_file_size' => min ( array( ini_get ( 'upload_max_filesize' ), ini_get ( 'post_max_size' ) ) ),
+            'max_file_size' => ( wp_max_upload_size() ) / ( 1024 * 1024 ) . 'M',
             'multipart' => true,
             'urlstream_upload' => true,
             'flash_swf_url' => includes_url ( 'js/plupload/plupload.flash.swf' ),
