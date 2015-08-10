@@ -13,19 +13,20 @@
             }
             .jssort11 {
                 position: absolute;
-                width: 200px;
-                height: 377px;
+                width: 236px;
+                height: 433px;
                 font-family: Arial, Helvetica, sans-serif;
                 -moz-user-select: none;
                 -webkit-user-select: none;
                 -ms-user-select: none;
                 user-select: none;
+                box-shadow: 0px 0px 10px black inset;
             }
 
                 .jssort11 .p {
                     position: absolute;
-                    width: 200px;
-                    height: 88px;
+                    width: 170px;
+                    height: 85px;
                     /*background: #181818;*/
                 }
 
@@ -42,10 +43,10 @@
                 .jssort11 .i, .jssort11 .pav:hover .i {
                     position: absolute;
                     top: 0px;
-                    left: 4px;
-                    width: 176px;
-                    height: 88px;
-                    border: black 1px dashed;
+                    left: 0px;
+                    width: 170px;
+                    height: 85px;
+                    border: black 1px solid;
                 }
 
                 * html .jssort11 .i {
@@ -54,7 +55,7 @@
                 }
 
                 .jssort11 .pav .i {
-                    border: black 1px solid;
+                    border: 1px solid white;
                 }
 
                 .jssort11 .t, .jssort11 .pav:hover .t {
@@ -110,7 +111,7 @@
                 }
 
                 .jssort11 .i:hover, .jssort11 .pav .i:hover {
-                    border-color: #902828;
+                    border-color: white;
                 }
                 .jssort11 .p:hover, .jssort11 .pav:hover {
                     /*background: #333;*/

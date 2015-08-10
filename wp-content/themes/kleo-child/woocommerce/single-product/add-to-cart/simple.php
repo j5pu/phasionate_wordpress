@@ -44,6 +44,8 @@ if ( ! $product->is_purchasable() ) return;
 		<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 	</form>
 
+	<div class="adSendFree-single"><i class="fa fa-truck"></i><span> Envio y devolución </span><span>gratuitos</span></div>
+
 	<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
 
 <?php endif; ?>

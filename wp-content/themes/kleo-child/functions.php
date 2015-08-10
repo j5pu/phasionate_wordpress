@@ -771,7 +771,7 @@ function slider_shop( $atts ){
     </div>
 	<script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/jssor.slider.mini.js"></script>
 	<script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/sliderShop.js"></script>
-    <div id="sliderShop_container" style="position: relative; top: 0px; left: 0px; width: 964px; height: 377px; background: #fff; overflow: hidden; ">
+    <div id="sliderShop_container" style="position: relative; top: 0px; left: 0px; width: 1110px; height: 433px; background: #fff; overflow: hidden; ">
 		
         <!-- Loading Screen -->
         <div u="loading" style="position: absolute; top: 0px; left: 0px;">
@@ -784,7 +784,7 @@ function slider_shop( $atts ){
         </div>
 
 		<!-- Slides Container -->
-        <div u="slides" style="cursor: pointer; position: absolute; left: 0px; top: 0px; width: 760px; height: 380px;
+        <div u="slides" style="cursor: pointer; position: absolute; left: 0px; top: 0px; width: 874px; height: 437px;
             overflow: hidden;">
 
         <?php
@@ -807,7 +807,7 @@ function slider_shop( $atts ){
         </div>
  		<!--#region ThumbnailNavigator Skin Begin -->
  		<link href="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/css/sliderShop.css" rel="stylesheet" type="text/css">
-        <div u="thumbnavigator" class="jssort11" style="left: 760px; top:0px;">
+        <div u="thumbnavigator" class="jssort11" style="left: 874px; top:0px;">
             <!-- Thumbnail Item Skin Begin -->
             <div u="slides" style="cursor: default;">
                 <div u="prototype" class="p" style="top: 0; left: 0;">
@@ -1394,4 +1394,3 @@ function um_profile_share_header( $user_id ){
     	}
 	}
 */
-

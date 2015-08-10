@@ -5038,7 +5038,7 @@ body.woocommerce-page #main{
 	color: #bbb;
 	float: right;
 }
-.adSendFree span:last-child{
+.adSendFree span:last-child, .adSendFree-single span:last-child{
 	color: #c00;
 }
 ul.dropdown-menu.sub-menu{
@@ -5070,6 +5070,12 @@ ul.dropdown-menu.sub-menu{
 body.single-product .product .summary.entry-summary{
 	float: left;
 }
+.adSendFree-single{
+	margin: 20px 0px;
+}
+.woocommerce #accordion-woo .panel-body{
+	padding: 0px;
+}
 /* Woocommerce - Categorias */
 body.tax-product_cat.woocommerce-page #main .template-page > .wrap-content{
 	margin-top: 40px;
@@ -5091,6 +5097,9 @@ h2#designersTitle, h1#collectionsTitle{
 .boxContDesigners{
 	margin: 10px 0px;
 	border-top:	2px solid #000;
+}
+.boxContDesigners .loaded{
+	display: inline;
 }
 .boxDesigner{
 	margin:1.5%;
@@ -5360,4 +5369,13 @@ li.product figcaption .shop-actions > a.button:hover{
 }
 .home .textwidget .mymail-submit-wrapper input{
 	width: 100%;
+}
+#mc_embed_signup .button{
+	background-color: #902828;
+}
+#mc_embed_signup .button:hover{
+	background-color: #aa4848;
+}
+#mc_embed_signup .clear{
+	text-align: center;
 }

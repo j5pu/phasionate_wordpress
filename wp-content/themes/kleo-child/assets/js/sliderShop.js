@@ -45,7 +45,7 @@
                     var sliderWidth = parentWidth;
 
                     //keep the slider width no more than 964
-                    sliderWidth = Math.min(sliderWidth, 964);
+                    sliderWidth = Math.min(sliderWidth, 1110);
 
                     jssor_sliderShop.$ScaleWidth(sliderWidth);
                 }

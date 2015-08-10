@@ -894,6 +894,7 @@ class WC_Shortcodes {
 	 */
 	public static function product_attribute( $atts ) {
 		global $woocommerce_loop;
+		global $product;
 
 		$atts = shortcode_atts( array(
 			'per_page'  => '12',
@@ -914,6 +915,7 @@ class WC_Shortcodes {
 			'posts_per_page'      => $atts['per_page'],
 			'orderby'             => $atts['orderby'],
 			'order'               => $atts['order'],
+  			'post__not_in' 		  => array($product->id),
 			'meta_query'          => $meta_query,
 			'tax_query'           => array(
 				array(

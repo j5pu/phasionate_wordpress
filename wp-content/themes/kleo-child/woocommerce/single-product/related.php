@@ -31,6 +31,14 @@ $woocommerce_loop['columns'] = $columns;
 
 $items = sq_option( 'woo_related_columns', 3 );
 
+$subheadingvalues = get_the_terms( $product->id, 'pa_coleccion');
+
+if ( $subheadingvalues && ! is_wp_error( $subheadingvalues ) ) {
+	foreach ( $subheadingvalues as $subheadingvalue ) {
+		echo do_shortcode('[product_attribute attribute="coleccion" filter="'.$subheadingvalue->slug.'" columns="3" per_page="3"]');
+	}		
+}else{
+
 if ( $products->have_posts() ) : ?>
 
 	<div class="related products kleo-shop-<?php echo $items;?>">
@@ -50,5 +58,7 @@ if ( $products->have_posts() ) : ?>
 	</div>
 
 <?php endif;
+
+}
 
 wp_reset_postdata();
