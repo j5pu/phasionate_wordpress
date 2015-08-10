@@ -5326,6 +5326,9 @@ body.single-product nav.pagination-sticky.product-navigation{
 li.product figcaption .shop-actions > a.button{
 	width: 100%;
 }
+li.product figcaption .shop-actions > a.button:hover{
+	color: #f66;
+}
 .woocommerce div.product form.cart{
 	margin-bottom: 0px;
 }
