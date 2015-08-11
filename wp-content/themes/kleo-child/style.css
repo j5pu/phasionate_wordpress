@@ -5350,6 +5350,92 @@ li.product figcaption .shop-actions > a.button:hover{
 .panel span.icon-opened.icon-angle-down{
 	display: none;
 }
+/* Woocommerce - ¿Por que bogadia Shop? */
+.box-bShop{
+	border: 1px solid black;
+	width: 33%;
+	min-width: 400px;
+	height: 150px;
+	padding: 5px;
+}
+.box-bShop h3{
+	text-align: center;
+}
+.box-bShop h3, .box-bShop p{
+	font-size: 80%;
+	margin: 0px;
+}
+.left-bShop{
+	float: left;
+}
+.right-bShop{
+	float: right;
+}
+.bottom-bShop{
+	margin-top: -75px;
+	margin-bottom: 20px;
+}
+.imgLogoShop{
+	border-radius: 100%;
+	width: 250px;
+	height: auto;
+	margin-top: -50px;
+}
+.img-logo-container{
+	text-align: center;
+	margin-top: 100px;
+	height: 150px;
+}
+@media (max-width: 1200px){
+	.imgLogoShop{
+		width: 100px;
+		margin-top: 25px;
+	}
+}
+@media (max-width: 991px){
+	.box-bShop{
+		min-width: 300px;
+		height: 175px;
+	}
+	.img-logo-container{
+		height: 175px;
+	}
+	.imgLogoShop{
+		margin-top: 50px !important;
+	}
+}
+@media (max-width: 769px) {
+	.box-bShop{
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-bottom: 10px;
+		margin-top: 0px;
+		width: 100%;
+		height: 125px;
+	}
+	.right-bShop{
+		float: left;
+	}
+	.img-logo-container{
+		float: left;
+		height: 100px;
+		width: 100%;
+		margin: 0 0 10px 0;
+	}
+	.imgLogoShop{
+		margin: 0px !important;
+	}
+}
+@media (max-width: 480px){
+	.box-bShop{
+		height: 150px;
+	}
+}
+@media (max-width: 380px){
+	.box-bShop{
+		height: 175px;
+	}
+}
 /*Newsletter*/
 .mymail-form .mymail-form-info.success {
 	background-color: #902828;
