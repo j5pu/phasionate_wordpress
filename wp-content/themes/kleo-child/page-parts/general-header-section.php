@@ -121,6 +121,7 @@ $primary_menu = wp_nav_menu( array(
 				</div><!--end container-->
 			</div>
 			<?php
+			/* Añade submenu si encuentra clase woocommerce en el body
 			if ( in_array('woocommerce-page', get_body_class() ) ){
 			?>
 			<div class="submenu-shop">
@@ -134,6 +135,7 @@ $primary_menu = wp_nav_menu( array(
 			</div>
 			<?php
 			}
+			*/
 			?>
 	</div>
 

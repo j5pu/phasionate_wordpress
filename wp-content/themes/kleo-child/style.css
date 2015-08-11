@@ -5008,11 +5008,11 @@ body.woocommerce .page-title{
       box-shadow: none;
 }
 
-/* Submenu Tienda */
-
+/* Submenu Tienda 
 body.woocommerce-page #main{
 	margin-top: 40px;
-}
+}*/
+
 /* Woocommerce - Submenu */
 .submenu-shop{
 	background-color: black;
@@ -5062,6 +5062,10 @@ ul.dropdown-menu.sub-menu{
 }
 
 /* Woocommerce Style */
+/* B-shop */
+.b-shop-designer ul.products li.product{
+	width: 50%;
+}
 /* Woocommerce - Prendas */
 .woocommerce ul.products li.product p.por_disenador, .woocommerce ul.products li.product p.por_coleccion{
 	margin: 0px;
@@ -5228,7 +5232,7 @@ h2#designersTitle, h1#collectionsTitle{
 		display: none;
 	}
 }
-/*Pagina Ropa*/
+/*Pagina Productos */
 div#contenidoRopa{
 	text-align: center;
 	padding-left: 20px;
