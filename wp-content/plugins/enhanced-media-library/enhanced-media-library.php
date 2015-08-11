@@ -3,7 +3,7 @@
 Plugin Name: Enhanced Media Library
 Plugin URI: http://wpUXsolutions.com
 Description: This plugin will be handy for those who need to manage a lot of media files.
-Version: 2.0.4.6
+Version: 2.0.4.7
 Author: wpUXsolutions
 Author URI: http://wpUXsolutions.com
 Text Domain: eml
@@ -23,7 +23,27 @@ global $wp_version,
 
 
 
-$wpuxss_eml_version = '2.0.4.6';
+$wpuxss_eml_version = '2.0.4.7';
+
+
+
+
+/**
+ *  Load plugin text domain
+ *
+ *  @since    2.0.4.7
+ *  @created  18/07/15
+ */
+
+add_action( 'plugins_loaded', 'wpuxss_eml_on_plugins_loaded' );
+
+if ( ! function_exists( 'wpuxss_eml_on_plugins_loaded' ) ) {
+    
+    function wpuxss_eml_on_plugins_loaded() {
+        
+      load_plugin_textdomain( 'eml', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+    }
+}
 
 
 
@@ -60,7 +80,7 @@ if ( ! function_exists( 'wpuxss_eml_on_init' ) ) {
         $wpuxss_eml_dir = plugin_dir_url( __FILE__ );
         $wpuxss_eml_path = plugin_dir_path( __FILE__ );  
         
-        load_textdomain( 'eml', $wpuxss_eml_path . 'languages/eml-' . get_locale() . '.mo' );
+
         wpuxss_eml_on_activation_update();
 
 
@@ -315,6 +335,14 @@ if ( ! function_exists( 'wpuxss_eml_enqueue_media' ) ) {
             $wpuxss_eml_version,
             true
         );
+        
+        wp_enqueue_script(
+            'wpuxss-eml-tags-box-script',
+            '/wp-admin/js/tags-box.js',
+            array(),
+            $wpuxss_eml_version,
+            true
+        );
     
     
         wp_localize_script( 
@@ -444,7 +472,7 @@ if ( ! function_exists( 'wpuxss_eml_on_activation_update' ) ) {
                     'show_admin_column' => 1,
                     'admin_filter' => 1, // list view filter
                     'media_uploader_filter' => 1, // grid view filter
-                    'media_popup_taxonomy_edit' => 0,
+                    'media_popup_taxonomy_edit' => 1,
                     
                     'show_in_nav_menus' => 1,
                     'sort' => 0,

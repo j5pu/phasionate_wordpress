@@ -425,17 +425,23 @@ if( ! function_exists( 'wpuxss_eml_dropdown_cats' ) ) {
  *  @created  21/02/15
  */
  
-add_action( 'load-upload.php', 'wpuxss_eml_custom_media' );
+add_action( 'load-upload.php', 'wpuxss_eml_custom_media', 999 );
 
 if( ! function_exists( 'wpuxss_eml_custom_media' ) ) {
     
     function wpuxss_eml_custom_media() {
         
-        global $wpdb;
-        
+        global $wpdb,
+               $wp_version;
+               
+
         require_once( ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php' );
         require_once( 'class-eml-media-list-table.php' );
-        require_once( 'eml-upload.php' );
+        
+        if ( version_compare( $wp_version, '4.2', '<' ) ) 
+            require_once( 'eml-upload-4.1.php' );
+        else
+            require_once( 'eml-upload-4.2.php' );
     
         exit();
     }
@@ -647,6 +653,7 @@ if( ! function_exists( 'wpuxss_eml_attachment_fields_to_edit' ) ) {
         return $form_fields;
     }
 }
+
 
 
 

@@ -75,12 +75,13 @@ window.eml = { l10n: {} };
      * media.view.AttachmentCompat
      *
      */
-    var newEvents = { 'click input'  : 'preSave' };
-    _.extend( newEvents, media.view.AttachmentCompat.prototype.events );
+    var newEvents = { 
+        'click input'  : 'preSave'
+    };
     
-    _.extend( media.view.AttachmentCompat.prototype, { 
-        
-        events: newEvents,
+    _.extend( media.view.AttachmentCompat.prototype.events, newEvents );
+    
+    _.extend( media.view.AttachmentCompat.prototype, {
         
         preSave: function() {
             
