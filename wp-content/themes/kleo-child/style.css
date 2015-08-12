@@ -5469,3 +5469,18 @@ li.product figcaption .shop-actions > a.button:hover{
 #mc_embed_signup .clear{
 	text-align: center;
 }
+/* Newsletter Landing Page */
+.news-landing .mymail-form .submit-button{
+	margin: 0 auto;
+	padding: 15px;
+}
+.newsletter-example{
+	float: left;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 100px;
+}
+.newsletter-example img{
+	width: 50%;
+	min-width: 300px;
+}
