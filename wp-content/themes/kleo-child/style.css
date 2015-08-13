@@ -5460,10 +5460,10 @@ li.product figcaption .shop-actions > a.button:hover{
 .home .textwidget .mymail-submit-wrapper input{
 	width: 100%;
 }
-.textwidget #mc_embed_signup .button{
+.textwidget #mc_embed_signup .button, .news-landing #mc-embedded-subscribe{
 	background-color: #902828;
 }
-.textwidget #mc_embed_signup .button:hover{
+.textwidget #mc_embed_signup .button:hover, .news-landing #mc-embedded-subscribe:hover{
 	background-color: #aa4848;
 }
 #mc_embed_signup .clear{
