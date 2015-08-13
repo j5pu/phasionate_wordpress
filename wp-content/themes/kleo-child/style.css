@@ -5484,3 +5484,18 @@ li.product figcaption .shop-actions > a.button:hover{
 	width: 50%;
 	min-width: 300px;
 }
+/**/
+.sorteo-newsletter{
+	text-align: center;
+}
+.sorteo-newsletter span{
+	background-color: #902828;
+	padding: 15px 30px 20px;
+	margin:	4px;
+	display: inline-block;
+	border-radius: 5px;
+	color: white;
+}
+.sorteo-newsletter span:hover{
+	background-color:#AA4848;
+}
