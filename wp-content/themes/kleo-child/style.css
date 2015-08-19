@@ -5499,3 +5499,51 @@ li.product figcaption .shop-actions > a.button:hover{
 .sorteo-newsletter span:hover{
 	background-color:#AA4848;
 }
+
+/* b-shop-template */
+.b-shop-designer .product{
+	width: 50%;
+}
+
+.b-shop-designers {
+	margin-bottom: 25px;
+}
+
+.page-template-b-shop-home #main-container{
+	padding-left: 0px !important;
+}
+
+
+@media (min-width: 768px) {
+	#cabecero-tienda {
+		margin-top: 54px;
+	}
+
+	#phetnia{
+		border-right: 1px solid #eee;
+	}
+}
+
+.b-shop-banner{
+	margin: 60px 0 20px 0 !important;
+}
+
+.bshop-header{
+	padding-top: 9px;
+}
+
+.page-template-b-shop-home #main{
+	margin-top: -40px !important;
+}
+
+.bshop-logo{
+	border-radius: 100%;
+}
+
+/*centrar paginas de tienda*/
+.page-id-19760 .section-container .container, .page-id-22656 .section-container .container, .page-id-19704 .section-container .container, .page-id-22597 .section-container .container{
+	/*
+   padding-right: 15px;
+    */
+	padding-left: 15px;
+}
