@@ -3,6 +3,8 @@
 .idea/
 ai-cache/
 cache/
+google7ea3d57011681e8d.html
+robots.txt
 sitemap.xml
 sitemap.xml.gz
 wp-config.php
@@ -16,4 +18,3 @@ wp-content/uploads/
 wp-content/wfcache/
 wp-content/wp-cache-config.php
 wp-content/plugins/wordfence/tmp/
-wp-content/plugins/um-social-login/providers/vk/api/VK.php
