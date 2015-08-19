@@ -5547,3 +5547,11 @@ li.product figcaption .shop-actions > a.button:hover{
     */
 	padding-left: 15px;
 }
+
+.page-template-b-shop-home .container{
+	padding-left: 15px;
+}
+
+.page-template-b-shop-home .template-page{
+	margin-left: 0px !important;
+}
