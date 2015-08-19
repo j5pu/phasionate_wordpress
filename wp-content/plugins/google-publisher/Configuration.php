@@ -70,9 +70,9 @@ class GooglePublisherPluginConfiguration {
    */
   public function getTag($page_type, $position, $current_theme_hash) {
     $option = get_option(self::OPTIONS_NAME);
+    $result = '';
     foreach ($option[self::TAGS_CONFIGURATION_KEY] as $tag) {
       if (array_key_exists('pageType', $tag) &&
-          $tag['pageType'] == $page_type &&
           array_key_exists('position', $tag) && $tag['position'] == $position &&
           array_key_exists('code', $tag)) {
         // If an expected theme hash was specified then skip this tag if the
@@ -81,10 +81,17 @@ class GooglePublisherPluginConfiguration {
             $tag['expectedCmsThemeHash'] !== $current_theme_hash) {
           continue;
         }
-        return $tag['code'];
+        // A matching pageType should take priority over the 'default' tag. Only
+        // break if a matching pageType has been found.
+        if ($tag['pageType'] == $page_type) {
+          $result = $tag['code'];
+          break;
+        } else if ($tag['pageType'] == 'default') {
+          $result = $tag['code'];
+        }
       }
     }
-    return '';
+    return $result;
   }
 
   /**
@@ -304,7 +311,8 @@ class GooglePublisherPluginConfiguration {
         self::SITE_VERIFICATION_TOKEN_KEY => array(),
         self::SITE_ID_KEY => null,
         self::TAGS_CONFIGURATION_KEY => array(),
-        self::NOTIFICATION_KEY => null,
+        self::NOTIFICATION_KEY =>
+            GooglePublisherPluginNotifier::NEW_INSTALL_NOTIFICATION,
         self::UPDATE_SUPPORT_KEY => null);
 
     $option = array_merge($default_values, $option);

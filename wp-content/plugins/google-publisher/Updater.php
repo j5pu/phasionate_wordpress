@@ -78,7 +78,7 @@ class GooglePublisherPluginUpdater {
   public function getUpdateSupport() {
     if (is_null($this->configuration->getUpdateSupport())) {
       $response = wp_remote_get(self::SITE_DATA_SERVER_ENDPOINT,
-          array('timeout' => $this->siteTimeout));
+          array('timeout' => $this->siteTimeout, 'sslverify' => true));
       if (is_wp_error($response)) {
         $this->configuration->writeUpdateSupport('false');
       } else {
@@ -106,7 +106,8 @@ class GooglePublisherPluginUpdater {
 
     $url = self::SITE_DATA_SERVER_ENDPOINT .
         sprintf(self::SITE_DATA_GET_API_TEMPLATE, $siteId);
-    $response = wp_remote_get($url, array('timeout' => $this->siteTimeout));
+    $response = wp_remote_get($url,
+        array('timeout' => $this->siteTimeout, 'sslverify' => true));
     if (is_wp_error($response)) {
       $this->configuration->writeUpdateSupport('false');
       $errorMessage = $response->get_error_message();

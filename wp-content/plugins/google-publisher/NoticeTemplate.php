@@ -23,11 +23,11 @@ if(!defined('ABSPATH')) {
   exit;
 }
 ?>
-<div class="update-nag">
+<div id="google-publisher-plugin-notification" class="<?php echo $class ?>">
   <p>
-    <?php _e('There are issues with your AdSense Plugin settings. This may affect your ad placements.', 'google-publisher-plugin') ?>
+    <?php echo $message ?>
     <a href="<?php echo admin_url('options-general.php?page=GooglePublisherPlugin'); ?>">
-      <?php _e('View settings', 'google-publisher-plugin') ?>
+      <?php echo $link ?>
     </a>
   </p>
 </div>

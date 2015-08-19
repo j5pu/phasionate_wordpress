@@ -27,20 +27,17 @@ require_once 'ClassAutoloader.php';
 
 class GooglePublisherPluginTags {
 
-  // Url parameter specifying whether to send page details in the WordPress
-  // responses, both as metadata and in the HTTP header.
-  const SEND_PAGE_DETAILS = 'google_publisher_plugin_page_details';
-  const PAGE_TYPE_META_TAG_NAME = 'google-publisher-plugin-pagetype';
-  const EXCLUDE_ADS_META_TAG_NAME = 'google-publisher-plugin-exclude-ads';
-
-  const THEME_HASH_HTTP_HEADER = 'X-Publisher-Plugin-Theme-Hash';
-  const VERSION_HTTP_HEADER = 'X-Publisher-Plugin-Version';
+  // Data attributes to be placed in a metatag describing the plugin and page
+  // details.
+  const VERSION_DATA_ATTRIBUTE = 'data-pso-pv';
+  const PAGE_TYPE_DATA_ATTRIBUTE = 'data-pso-pt';
+  const THEME_HASH_DATA_ATTRIBUTE = 'data-pso-th';
+  const EXCLUDE_ADS_DATA_ATTRIBUTE = 'data-pso-ea';
 
   private $configuration;
   private $current_page_type;
   private $exclude_ads;
   private $theme_hash;
-  private $send_page_details;
 
   /**
    * @param Configuration $configuration The configuration object to use
@@ -49,7 +46,6 @@ class GooglePublisherPluginTags {
    */
   public function __construct($configuration, $preview_mode) {
     $this->configuration = $configuration;
-    $this->send_page_details = array_key_exists(self::SEND_PAGE_DETAILS, $_GET);
 
     // Note we can't compute the theme hash here, since this is executed before
     // before plugins like WP touch have had a chance to change the theme.
@@ -60,12 +56,7 @@ class GooglePublisherPluginTags {
     // action hook after that initialization.
     add_action('template_redirect', array($this,
         'determineCurrentPageDetails'));
-    add_action('send_headers', array($this, 'computeThemeHashAndSetHeaders'),
-        PHP_INT_MAX);
-
-    if ($preview_mode || $this->send_page_details) {
-      add_action('wp_head', array($this, 'printPageDetails'));
-    }
+    add_action('wp_head', array($this, 'printMetaTag'), PHP_INT_MAX);
 
     if (!$preview_mode) {
       add_action('wp_head', array($this, 'wpHead'), PHP_INT_MAX);
@@ -76,43 +67,20 @@ class GooglePublisherPluginTags {
   }
 
   /**
-   * Prints the page details in meta data to the page. Expected to be called on
-   * the wp_head action hook.
+   * Prints the page details in a meta tag on the header. This is expected to be
+   * called from the wp_head action hook.
    */
-  public function printPageDetails() {
-    printf('<meta name="%s" content="%s">', self::PAGE_TYPE_META_TAG_NAME,
-           htmlspecialchars($this->current_page_type));
+  public function printMetaTag() {
+    echo '<meta';
+    printf(' %s="%s"', self::VERSION_DATA_ATTRIBUTE,
+        GooglePublisherPlugin::PLUGIN_VERSION);
+    printf(' %s="%s"', self::PAGE_TYPE_DATA_ATTRIBUTE,
+        htmlspecialchars($this->current_page_type));
+    printf(' %s="%s"', self::THEME_HASH_DATA_ATTRIBUTE, $this->getThemeHash());
     if ($this->exclude_ads) {
-      printf('<meta name="%s" content="true">',
-          self::EXCLUDE_ADS_META_TAG_NAME);
+      printf(' %s="true"', self::EXCLUDE_ADS_DATA_ATTRIBUTE);
     }
-  }
-
-  /**
-   * Computes an opaque ID for the current Theme.
-   *
-   * If the request is flagged to send_page_details then send headers containing
-   * the current theme hash and plugin version. The theme hash is stored by the
-   * Google Publisher Plugin in the ad configuration so the php plugin can
-   * detect if the theme has changed at serving time, and turn off ads if
-   * needed.
-   */
-  public function computeThemeHashAndSetHeaders() {
-    $this->theme_hash = $this->computeThemeHash();
-
-    if ($this->send_page_details) {
-      $this->emitHttpHeader(self::THEME_HASH_HTTP_HEADER . ': ' .
-          $this->theme_hash);
-      $this->emitHttpHeader(self::VERSION_HTTP_HEADER . ': ' .
-          GooglePublisherPlugin::PLUGIN_VERSION);
-    }
-  }
-
-  /**
-   * Wrapper for the php header function, to facilitate unit testing.
-   */
-  public function emitHttpHeader($value) {
-    header($value);
+    echo '>';
   }
 
   /**
@@ -136,7 +104,7 @@ class GooglePublisherPluginTags {
     }
     // Inserts a js script tag which don't need escaping.
     echo $this->configuration->getTag(
-        $this->current_page_type, 'head', $this->theme_hash);
+        $this->current_page_type, 'head', $this->getThemeHash());
   }
 
   /**
@@ -151,7 +119,7 @@ class GooglePublisherPluginTags {
       return $content;
     }
     $repeatingTag = $this->configuration->getTag(
-        $this->current_page_type, 'repeating', $this->theme_hash);
+        $this->current_page_type, 'repeating', $this->getThemeHash());
 
     return $repeatingTag . $content;
   }
@@ -166,9 +134,9 @@ class GooglePublisherPluginTags {
     }
     // Inserts js script tags which don't need escaping.
     echo $this->configuration->getTag(
-        $this->current_page_type, 'repeating', $this->theme_hash);
+        $this->current_page_type, 'repeating', $this->getThemeHash());
     echo $this->configuration->getTag(
-        $this->current_page_type, 'bodyEnd', $this->theme_hash);
+        $this->current_page_type, 'bodyEnd', $this->getThemeHash());
   }
 
   /**
@@ -187,6 +155,9 @@ class GooglePublisherPluginTags {
   }
 
   public function getThemeHash() {
+    if ($this->theme_hash == '') {
+      $this->theme_hash = $this->computeThemeHash();
+    }
     return $this->theme_hash;
   }
 }

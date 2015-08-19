@@ -2,7 +2,7 @@
 Contributors: google
 Tags: adsense, google adsense, adsense plugin, ads, advertising, google ads,  advertisement, advertising, google
 Requires at least: 3.5
-Tested up to: 4.2
+Tested up to: 4.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -99,6 +99,10 @@ All plugins and placements must still adhere to the [AdSense Terms and Condition
 4. Preview example advertisements alongside your content.
 
 == Changelog ==
+
+= 17 August 2015, Plugin version 1.2.0 =
+* Improved interaction with caching plugins.
+* Added new activation success notification.
 
 = 18 June 2015, Plugin version 1.1.1 =
 * You can now use Automated Mobile Ads without having to remove existing ads from your site.

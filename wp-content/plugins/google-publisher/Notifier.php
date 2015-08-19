@@ -39,6 +39,8 @@ class GooglePublisherPluginNotifier {
   );
 
   const NO_NOTIFICATION = 'none';
+  const PENDING_NOTIFICATION = 'pending';
+  const NEW_INSTALL_NOTIFICATION = 'new_install';
 
   private $configuration;
 
@@ -50,14 +52,31 @@ class GooglePublisherPluginNotifier {
     global $pagenow;
     if (array_key_exists($pagenow, self::$ADMIN_PAGE_NAME_WHITELIST)) {
       $notification = $this->configuration->getNotification();
-      if (isset($notification) &&
-          $notification !== self::NO_NOTIFICATION) {
-        add_action('admin_notices', array($this, 'displayNotice'));
+      switch($notification) {
+        case self::NEW_INSTALL_NOTIFICATION:
+          $class = 'updated notice is-dismissible';
+          $message = 'Congratulations on installing the AdSense Plugin.';
+          $link = 'Get started';
+          $this->displayNotice($class, $message, $link);
+          $this->configuration->writeNotification(self::NO_NOTIFICATION);
+          break;
+        case self::PENDING_NOTIFICATION:
+          $class = 'update-nag notice';
+          $message = 'There are issues with your AdSense Plugin settings. ' .
+              'This may affect your ad placements.';
+          $link = 'View settings';
+          $this->displayNotice($class, $message, $link);
+          break;
+        case self::NO_NOTIFICATION:
+        default:
       }
     }
   }
 
-  public function displayNotice() {
+  private function displayNotice($class, $message, $link) {
+    $class = $class;
+    $message = __($message, 'google-publisher-plugin');
+    $link = __($link, 'google-publisher-plugin');
     include 'NoticeTemplate.php';
   }
 }
