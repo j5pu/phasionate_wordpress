@@ -23,7 +23,8 @@ function is_mobile() {
                 <?php
                 } else {
                 ?>
-                    <img class="img-responsive b-shop-banner b-shop-logo" src="https://www.bogadia.com/wp-content/uploads/2015/08/redes-tiendamovildefinitivo.jpg">
+                    <img id="b-shop-banner-movil" class="img-responsive b-shop-banner b-shop-logo" src="https://www.bogadia.com/wp-content/uploads/2015/08/redes-tiendamovildefinitivo.jpg">
+                    <img id="b-shop-banner-tablet" class="img-responsive b-shop-banner b-shop-logo " src="https://www.bogadia.com/wp-content/uploads/2015/08/redes-tienda2grandealargadotablet.jpg" style="display: none;">
                 <?php
                 }
                 ?>
