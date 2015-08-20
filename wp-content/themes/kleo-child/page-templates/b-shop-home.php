@@ -8,34 +8,27 @@ function is_mobile() {
     return strpos($userAgent, 'mobile');
 }
 
-/* Does the UA string indicate this is a mobile? */
-
 ?>
 
 <?php /*get_template_part('page-parts/general-before-wrap'); */?>
 <section class="container-wrap main-color">
     <div id="main-container" class="<?php echo $container; ?>">
         <div class="row bshop-header">
-<!--            <div class="col-sm-2 col-md-2" style="height: 150px;">
-                <img class="img-responsive bshop-logo" width="150px" src="https://www.bogadia.com/wp-content/uploads/2015/07/simboloShop.jpg">
-            </div>
-            <div class="col-sm-8 col-md-8 text-center">
-                <h1 id="cabecero-tienda">Colecciones exclusivas</h1>
-            </div>-->
             <div class="col-md-12">
-            <?php
-            if(!is_mobile()){
-            ?>
-                <img class="img-responsive b-shop-banner" src="https://www.bogadia.com/wp-content/uploads/2015/08/redes-tienda2grandealargado.jpg">
-            <?php
-            } else {
-            ?>
-                <img class="img-responsive b-shop-banner b-shop-logo" height="150px" src="https://www.bogadia.com/wp-content/uploads/2015/08/redes-tienda2grandemovilcuadrada.jpg">
-            <?php
-            }
-            ?>
-            </div>
-
+                <a href="https://www.bogadia.com/por-que-bogadia">
+                <?php
+                if(!is_mobile()){
+                ?>
+                    <img class="img-responsive b-shop-banner" src="https://www.bogadia.com/wp-content/uploads/2015/08/redes-tienda2grandealargado.jpg">
+                <?php
+                } else {
+                ?>
+                    <img class="img-responsive b-shop-banner b-shop-logo" height="150px" src="https://www.bogadia.com/wp-content/uploads/2015/08/redes-tienda2grandemovilcuadrada.jpg">
+                <?php
+                }
+                ?>
+                </div>
+                </a>
         </div>
         <div class="row">
 <!--            phetnia-->
@@ -90,13 +83,6 @@ function is_mobile() {
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 b-shop-designers">
-                <a href="https://www.bogadia.com/por-que-bogadia">
-                    <img class="img-responsive" src="https://www.bogadia.com/wp-content/uploads/2015/08/redes-tienda2grande-con-boton.jpg">
-                </a>
             </div>
         </div>
 
