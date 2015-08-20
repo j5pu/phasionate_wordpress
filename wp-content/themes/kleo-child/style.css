@@ -5555,3 +5555,27 @@ li.product figcaption .shop-actions > a.button:hover{
 .page-template-b-shop-home .template-page{
 	margin-left: 0px !important;
 }
+.page-id-22568 #main {
+    background: #eeeef0;
+}
+.buttom-nl {
+	margin:0px auto; 
+	width: 200px; 
+	text-align: center;
+}
+.buttom-newsletter {
+	background-color: #902828 !important;
+}
+.buttom-newsletter:hover {
+	opacity: 0.8;
+}
+.img-bolso-newsletter {
+	float: right;
+	margin: 0px 30px;
+}
+.arrow-newsletter {
+	    margin-top: 30px;
+}
+.scrollbar_bases_legales {
+    overflow: auto;
+}

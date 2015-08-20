@@ -2,7 +2,7 @@
 /**
  * Template Name: Newsletter
  *
- * Description: Newsletter
+ * Description: Template landing-page newsletter
  *
  * @package WordPress
  * @subpackage Kleo
@@ -10,121 +10,108 @@
  * @since Kleo 1.0
  */
 
-?><!DOCTYPE html>
-<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" <?php language_attributes(); ?>><![endif]-->
-<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <?php language_attributes(); ?>><![endif]-->
-<!--[if IE 8]><html class="no-js lt-ie9" <?php language_attributes(); ?>><![endif]-->
-<!--[if IE 9]><html class="no-js lt-ie10" <?php language_attributes(); ?>><![endif]-->
-<!--[if gt IE 9]><!-->
-<html class="no-js" <?php language_attributes(); ?>>
-<!--<![endif]-->
-<head>
-    <meta charset="<?php bloginfo( 'charset' ); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php wp_title( '|', true, 'right' ); ?></title>
-    <link rel="profile" href="http://gmpg.org/xfn/11">
-    <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-    <meta name="verification" content="6c2c0d0251a189774a6fe4252ce561a5" /><!-- Código de verifiación para zanox -->
-    <meta name="inmobi-site-verification" content="fa3318c03e3cc17de5c28334685b8964" /><!-- Código de verificación para inmobi -->
-    <link href='http://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
-    
-    <!-- Fav and touch icons -->
-    <?php if (sq_option_url('favicon')) { ?>
-    <link rel="shortcut icon" href="<?php echo sq_option_url('favicon'); ?>">
-    <?php } ?>
-    <?php if (sq_option_url('apple57')) { ?>
-    <link rel="apple-touch-icon-precomposed" href="<?php echo sq_option_url('apple57'); ?>">
-    <?php } ?>   
-    <?php if (sq_option_url('apple72')) { ?>
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo sq_option_url('apple72'); ?>">
-    <?php } ?>   
-    <?php if (sq_option_url('apple114')) { ?>
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo sq_option_url('apple114'); ?>">
-    <?php } ?>   
-    <?php if (sq_option_url('apple144')) { ?>
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo sq_option_url('apple144'); ?>">
-    <?php } ?>
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src="<?php echo get_template_directory_uri(); ?>/assets/js/html5shiv.js"></script>
-    <![endif]-->
-
-    <!--[if IE 7]>
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/fontello-ie7.css">
-    <![endif]-->
-    
-    <?php if(function_exists('bp_is_active')) { bp_head(); } ?> 
-    
-    <?php wp_head(); ?>
-</head>
-
-<?php 
-/***************************************************
-:: Some header customizations
-***************************************************/
-
-$site_style = sq_option('site_style', 'wide') == 'boxed' ? ' page-boxed' : '';
-$site_style = apply_filters('kleo_site_style', $site_style);
-?>
-
-<body <?php body_class(); ?>>
-    
-    <?php do_action('kleo_after_body');?>
-    
-    <!-- PAGE LAYOUT
-    ================================================ -->
-    <!--Attributes-->
-    <div class="kleo-page<?php echo $site_style;?>">
-
-
-    <!-- HEADER SECTION
-    ================================================ -->
-    <?php 
-    /**
-     * Header section
-     * @hooked kleo_show_header
-     */
-    do_action('kleo_header');
-    ?>
-    
-    <!-- MAIN SECTION
-    ================================================ -->
-    <div id="main">
-
-    <?php 
-    /**
-     * Hook into this action if you want to display something before any Main content
-     * 
-     */
-    do_action('kleo_before_main');
-    ?>
-
+get_header(); ?>
+<link href='http://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
 <?php
 //create full width template
 kleo_switch_layout('no');
 ?>
 
-<?php get_template_part('page-parts/general-before-wrap-no-title'); ?>
+<?php get_template_part('page-parts/general-title-section'); ?>
 
 <?php
 if ( have_posts() ) :
-    // Start the Loop.
-    while ( have_posts() ) : the_post();
+	// Start the Loop.
+	while ( have_posts() ) : the_post();
 
-        /*
-         * Include the post format-specific template for the content. If you want to
-         * use this in a child theme, then include a file called called content-___.php
-         * (where ___ is the post format) and that will be used instead.
-         */
-        get_template_part( 'content', 'page' );
+		/*
+		 * Include the post format-specific template for the content. If you want to
+		 * use this in a child theme, then include a file called called content-___.php
+		 * (where ___ is the post format) and that will be used instead.
+		 */
+		get_template_part( 'content', 'page' );
         ?>
 
-    <?php endwhile;
+        <?php get_template_part( 'page-parts/posts-social-share' ); ?>
+				<div style="background-color: #333; box-shadow: 0px -12px 20px 10px rgba(0,0,0,0.75); color: #FFF;">
+					<div style="max-width: 1024px; margin: 0px auto;">
+						<h2 style="line-height: 50px; font-family: 'Expletus Sans', cursive; float: left; width: 72%;">¡Suscríbete a nuestra <spam style="color: #c64040;">NEWSLETTER</spam> y podras <spam style="font-size: 50px;">ganar</spam> un bolso <span style="font-size: 50px;">PARFOIS</span>!</h2>
+						<img class="arrow-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/arrow333.jpg" alt="flecha" />
+					</div>
+				</div>
+			<div style="max-width: 1024px; min-height: 620px; margin: 0px auto 20px; padding: 20px;">
+
+				<div style="background-color: white; float: right; border-radius: 5px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75); padding: 20px; max-width: 340px;">
+					<div style="color: #902828; text-align: center; font-family: 'Expletus Sans', cursive; font-size: 28px; border-bottom: 1px solid black; padding-bottom: 20px; margin-bottom: 20px;">NEWSLETTER</div>			
+					<!-- Begin MailChimp Signup Form -->
+					<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
+					<style type="text/css">
+						#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif;  width:300px;}
+						/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+						   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+					</style>
+					<div id="mc_embed_signup">
+					<form action="//bogadia.us10.list-manage.com/subscribe/post?u=2f7c3f6390d0e389e5a73d4b7&amp;id=73f14c9734" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+					    <div id="mc_embed_signup_scroll">
+						
+					<div class="mc-field-group">
+						<label for="mce-EMAIL">Email </label>
+						<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" style="border-radius: 5px;">
+					</div>
+						<div id="mce-responses" class="clear">
+							<div class="response" id="mce-error-response" style="display:none"></div>
+							<div class="response" id="mce-success-response" style="display:none"></div>
+						</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+					    <div style="position: absolute; left: -5000px;"><input type="text" name="b_2f7c3f6390d0e389e5a73d4b7_73f14c9734" tabindex="-1" value=""></div>
+					    <div class="clear buttom-nl"><input type="submit" value="Suscríbirme" name="subscribe" id="mc-embedded-subscribe" class="button buttom-newsletter"></div>
+					    </div>
+					</form>
+					</div>
+					<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email'; /*
+					 * Translated default messages for the $ validation plugin.
+					 * Locale: ES
+					 */
+					$.extend($.validator.messages, {
+					  required: "Este campo es obligatorio.",
+					  remote: "Por favor, rellena este campo.",
+					  email: "Por favor, escribe una dirección de correo válida",
+					  url: "Por favor, escribe una URL válida.",
+					  date: "Por favor, escribe una fecha válida.",
+					  dateISO: "Por favor, escribe una fecha (ISO) válida.",
+					  number: "Por favor, escribe un número entero válido.",
+					  digits: "Por favor, escribe sólo dígitos.",
+					  creditcard: "Por favor, escribe un número de tarjeta válido.",
+					  equalTo: "Por favor, escribe el mismo valor de nuevo.",
+					  accept: "Por favor, escribe un valor con una extensión aceptada.",
+					  maxlength: $.validator.format("Por favor, no escribas más de {0} caracteres."),
+					  minlength: $.validator.format("Por favor, no escribas menos de {0} caracteres."),
+					  rangelength: $.validator.format("Por favor, escribe un valor entre {0} y {1} caracteres."),
+					  range: $.validator.format("Por favor, escribe un valor entre {0} y {1}."),
+					  max: $.validator.format("Por favor, escribe un valor menor o igual a {0}."),
+					  min: $.validator.format("Por favor, escribe un valor mayor o igual a {0}.")
+					});}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+					<!--End mc_embed_signup-->
+					<div>Suscribete a nuestra newsletter y recibirás cada 15 días una selección de los mejores contenidos, noticias y sorteos de Bogadia en tu correo electrónico.</div>					
+					<img style="margin-top: 20px;" src="https://www.bogadia.com/wp-content/uploads/2015/08/newsletter-example.jpg" alt="Ejemplo newsletter" />
+				</div>
+				<img class="img-bolso-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/modelo-bolso-gris.jpg" alt="Bolso Parfois" />				
+				<div style="margin-top: 65px; font-size: 20px; line-height: 33px; text-align: center;">Suscribete a nuestra newsletter antes del 14 de septiembre y entrarás en el sorteo de un bolso de la firma Parfois.<br>Así de sencillo. ¿A qué esperas?
+					<img style="margin: 50px auto 0px auto; display: block; float: right;" src="https://www.bogadia.com/wp-content/uploads/2015/08/bolso_parfois-gris.jpg" alt="Bolso Parfois" />
+				</div>
+			</div>
+        <?php if ( sq_option( 'page_comments', 0 ) == 1 ): ?>
+
+            <!-- Begin Comments -->
+            <?php comments_template( '', true ); ?>
+            <!-- End Comments -->
+
+        <?php endif; ?>
+
+	<?php endwhile;
 
 endif;
 ?>
-
+        
 <?php get_template_part('page-parts/general-after-wrap'); ?>
 
 <?php get_footer(); ?>
