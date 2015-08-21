@@ -5541,18 +5541,18 @@ li.product figcaption .shop-actions > a.button:hover{
 }
 
 /*centrar paginas de tienda*/
-.page-id-19760 .section-container, .page-id-22656 .section-container, .page-id-19704 .section-container, .page-id-22597 .section-container{
+.page-id-19760 .section-container, .page-id-20663 .section-container, .page-id-19704 .section-container, .page-id-22597 .section-container{
 	/*
    padding-right: 15px;
     */
 	padding-left: 15px;
 }
 
-.page-template-b-shop-home .container, .page-id-19760 .footer > div, .page-id-22656 .footer > div, .page-id-19704 .footer > div, .page-id-22597 .footer > div{
+.page-template-b-shop-home .container, .page-id-19760 #footer > div, .page-id-20663 #footer > div, .page-id-19704 #footer > div, .page-id-22597 #footer > div{
 	padding-left: 15px;
 }
 
-.page-template-b-shop-home .template-page, .page-id-19760 .template-page, .page-id-22656 .template-page, .page-id-19704 .template-page, .page-id-22597 .template-page{
+.page-template-b-shop-home .template-page, .page-id-19760 .template-page, .page-id-20663 .template-page, .page-id-19704 .template-page, .page-id-22597 .template-page{
 	margin-left: 0px !important;
 }
 
