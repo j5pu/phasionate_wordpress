@@ -12,6 +12,7 @@
 
 get_header(); ?>
 <link href='http://fonts.googleapis.com/css?family=Expletus+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 <?php
 //create full width template
 kleo_switch_layout('no');
@@ -36,7 +37,7 @@ if ( have_posts() ) :
 				<div style="background-color: #333; box-shadow: 0px -12px 20px 10px rgba(0,0,0,0.75); color: #FFF;">
 					<div style="max-width: 1024px; margin: 0px auto;">
 						<h2 style="line-height: 50px; font-family: 'Expletus Sans', cursive; float: left; width: 72%;">¡Suscríbete a nuestra <spam style="color: #c64040;">NEWSLETTER</spam> y podras <spam style="font-size: 50px;">ganar</spam> un bolso <span style="font-size: 50px;">PARFOIS</span>!</h2>
-						<img class="arrow-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/arrow333.jpg" alt="flecha" />
+						<img class="arrow-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/arrow.jpg" alt="flecha" />
 					</div>
 				</div>
 			<div style="max-width: 1024px; min-height: 620px; margin: 0px auto 20px; padding: 20px;">
@@ -91,11 +92,12 @@ if ( have_posts() ) :
 					  min: $.validator.format("Por favor, escribe un valor mayor o igual a {0}.")
 					});}(jQuery));var $mcj = jQuery.noConflict(true);</script>
 					<!--End mc_embed_signup-->
-					<div>Suscribete a nuestra newsletter y recibirás cada 15 días una selección de los mejores contenidos, noticias y sorteos de Bogadia en tu correo electrónico.</div>					
+					<div style="font-family: 'Open Sans', sans-serif;">Suscríbete a nuestra newsletter y recibirás cada 15 días una selección de los mejores contenidos, noticias y sorteos de Bogadia en tu correo electrónico.</div>					
 					<img style="margin-top: 20px;" src="https://www.bogadia.com/wp-content/uploads/2015/08/newsletter-example.jpg" alt="Ejemplo newsletter" />
 				</div>
 				<img class="img-bolso-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/modelo-bolso-gris.jpg" alt="Bolso Parfois" />				
-				<div style="margin-top: 65px; font-size: 20px; line-height: 33px; text-align: center;">Suscribete a nuestra newsletter antes del 14 de septiembre y entrarás en el sorteo de un bolso de la firma Parfois.<br>Así de sencillo. ¿A qué esperas?
+				<div style="margin-top: 65px; font-size: 20px; line-height: 33px; text-align: center;">
+					<div style="max-width: 334px; box-shadow: 0px 0px 40px -10px rgba(0,0,0,0.75); padding: 10px; border-radius: 5px;">Suscríbete a nuestra newsletter antes del <span style="color: #c64040; font-size: 22px;">14 de septiembre</span> y entrarás en el <span style="color: #c64040; font-size: 22px;">sorteo</span> de un bolso de la firma <span style="font-size: 22px;">PARFOIS</span>.<br>Así de sencillo. ¿A qué esperas?</div>
 					<img style="margin: 50px auto 0px auto; display: block; float: right;" src="https://www.bogadia.com/wp-content/uploads/2015/08/bolso_parfois-gris.jpg" alt="Bolso Parfois" />
 				</div>
 			</div>
