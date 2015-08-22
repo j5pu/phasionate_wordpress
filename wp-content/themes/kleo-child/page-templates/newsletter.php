@@ -34,15 +34,19 @@ if ( have_posts() ) :
         ?>
 
         <?php get_template_part( 'page-parts/posts-social-share' ); ?>
-				<div style="background-color: #333; box-shadow: 0px -12px 20px 10px rgba(0,0,0,0.75); color: #FFF;">
-					<div style="max-width: 1024px; margin: 0px auto;">
-						<h2 style="line-height: 50px; font-family: 'Expletus Sans', cursive; float: left; width: 72%;">¡Suscríbete a nuestra <spam style="color: #c64040;">NEWSLETTER</spam> y podras <spam style="font-size: 50px;">ganar</spam> un bolso <span style="font-size: 50px;">PARFOIS</span>!</h2>
-						<img class="arrow-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/arrow.jpg" alt="flecha" />
-					</div>
+			<div class="div-newsletter">
+				<div style="max-width: 1024px; margin: 0px auto; padding: 0px 15px;">
+					<h2 class="title-newsletter">¡Suscríbete a nuestra <span style="color: #c64040;">NEWSLETTER</span> y podras <span class="size-title-newsletter">ganar</span> un bolso <span class="size-title-newsletter">PARFOIS!</span></h2>
+					<img class="arrow-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/arrow.png" alt="flecha" />
 				</div>
-			<div style="max-width: 1024px; min-height: 620px; margin: 0px auto 20px; padding: 20px;">
-
-				<div style="background-color: white; float: right; border-radius: 5px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75); padding: 20px; max-width: 340px;">
+			</div>
+			<div style="max-width: 1024px; min-height: 620px; margin: 0px auto 20px; padding: 20px;">			
+				<div class="part-left">
+					<div class="part-left-text">Suscríbete a nuestra newsletter antes del <span style="color: #c64040; font-size: 22px;">14 de septiembre</span> y entrarás en el <span style="color: #c64040; font-size: 22px;">sorteo</span> de un bolso de la firma <span style="font-size: 22px;">PARFOIS</span>.<br>Así de sencillo. ¿A qué esperas?</div>
+					<img class="bolso-sorteo-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/bolso_parfois-gris.jpg" alt="Bolso Parfois" />
+				</div>
+				<img class="img-bolso-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/modelo-bolso-gris.jpg" alt="Bolso Parfois" />	
+				<div class="part-right">
 					<div style="color: #902828; text-align: center; font-family: 'Expletus Sans', cursive; font-size: 28px; border-bottom: 1px solid black; padding-bottom: 20px; margin-bottom: 20px;">NEWSLETTER</div>			
 					<!-- Begin MailChimp Signup Form -->
 					<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
@@ -93,12 +97,7 @@ if ( have_posts() ) :
 					});}(jQuery));var $mcj = jQuery.noConflict(true);</script>
 					<!--End mc_embed_signup-->
 					<div style="font-family: 'Open Sans', sans-serif;">Suscríbete a nuestra newsletter y recibirás cada 15 días una selección de los mejores contenidos, noticias y sorteos de Bogadia en tu correo electrónico.</div>					
-					<img style="margin-top: 20px;" src="https://www.bogadia.com/wp-content/uploads/2015/08/newsletter-example.jpg" alt="Ejemplo newsletter" />
-				</div>
-				<img class="img-bolso-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/modelo-bolso-gris.jpg" alt="Bolso Parfois" />				
-				<div style="margin-top: 65px; font-size: 20px; line-height: 33px; text-align: center;">
-					<div style="max-width: 334px; box-shadow: 0px 0px 40px -10px rgba(0,0,0,0.75); padding: 10px; border-radius: 5px;">Suscríbete a nuestra newsletter antes del <span style="color: #c64040; font-size: 22px;">14 de septiembre</span> y entrarás en el <span style="color: #c64040; font-size: 22px;">sorteo</span> de un bolso de la firma <span style="font-size: 22px;">PARFOIS</span>.<br>Así de sencillo. ¿A qué esperas?</div>
-					<img style="margin: 50px auto 0px auto; display: block; float: right;" src="https://www.bogadia.com/wp-content/uploads/2015/08/bolso_parfois-gris.jpg" alt="Bolso Parfois" />
+					<img style="margin: 20px auto 0px auto; display: block;" src="https://www.bogadia.com/wp-content/uploads/2015/08/newsletter-example.jpg" alt="Ejemplo newsletter" />
 				</div>
 			</div>
         <?php if ( sq_option( 'page_comments', 0 ) == 1 ): ?>
