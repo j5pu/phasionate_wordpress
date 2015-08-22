@@ -5591,7 +5591,7 @@ li.product figcaption .shop-actions > a.button:hover{
 }
 .arrow-newsletter {
 	    margin-top: 30px;
-		width: 130px;
+		width: 140px;
 }
 .scrollbar_bases_legales {
     overflow: auto;
@@ -5635,7 +5635,8 @@ li.product figcaption .shop-actions > a.button:hover{
 	line-height: 50px; 
 	font-family: 'Expletus Sans', cursive; 
 	float: left; 
-	width: 72%;
+	width: 75%;
+	margin-top: 0px;
 }
 .div-newsletter  {
 	background-color: #333; 
