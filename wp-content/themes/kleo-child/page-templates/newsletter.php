@@ -72,29 +72,6 @@ if ( have_posts() ) :
 					    </div>
 					</form>
 					</div>
-					<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email'; /*
-					 * Translated default messages for the $ validation plugin.
-					 * Locale: ES
-					 */
-					$.extend($.validator.messages, {
-					  required: "Este campo es obligatorio.",
-					  remote: "Por favor, rellena este campo.",
-					  email: "Por favor, escribe una dirección de correo válida",
-					  url: "Por favor, escribe una URL válida.",
-					  date: "Por favor, escribe una fecha válida.",
-					  dateISO: "Por favor, escribe una fecha (ISO) válida.",
-					  number: "Por favor, escribe un número entero válido.",
-					  digits: "Por favor, escribe sólo dígitos.",
-					  creditcard: "Por favor, escribe un número de tarjeta válido.",
-					  equalTo: "Por favor, escribe el mismo valor de nuevo.",
-					  accept: "Por favor, escribe un valor con una extensión aceptada.",
-					  maxlength: $.validator.format("Por favor, no escribas más de {0} caracteres."),
-					  minlength: $.validator.format("Por favor, no escribas menos de {0} caracteres."),
-					  rangelength: $.validator.format("Por favor, escribe un valor entre {0} y {1} caracteres."),
-					  range: $.validator.format("Por favor, escribe un valor entre {0} y {1}."),
-					  max: $.validator.format("Por favor, escribe un valor menor o igual a {0}."),
-					  min: $.validator.format("Por favor, escribe un valor mayor o igual a {0}.")
-					});}(jQuery));var $mcj = jQuery.noConflict(true);</script>
 					<!--End mc_embed_signup-->
 					<div style="font-family: 'Open Sans', sans-serif;">Suscríbete a nuestra newsletter y recibirás cada 15 días una selección de los mejores contenidos, noticias y sorteos de Bogadia en tu correo electrónico.</div>					
 					<img style="margin: 20px auto 0px auto; display: block;" src="https://www.bogadia.com/wp-content/uploads/2015/08/newsletter-example.jpg" alt="Ejemplo newsletter" />
