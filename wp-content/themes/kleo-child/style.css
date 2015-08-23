@@ -5649,7 +5649,7 @@ li.product figcaption .shop-actions > a.button:hover{
 		display: none;
 	}
 	.bolso-sorteo-newsletter {
-		float: inherit;
+		float: none;
 	}
 	.part-left {
 		width: 55%;
