@@ -5662,6 +5662,12 @@ li.product figcaption .shop-actions > a.button:hover{
 	}
 }
 
+@media (max-width: 991px) {
+	.title-newsletter {
+		margin-top: 10px;
+	}
+}
+
 @media (max-width: 820px) {
 	.size-title-newsletter {
 		font-size: 40px;
@@ -5671,12 +5677,6 @@ li.product figcaption .shop-actions > a.button:hover{
 	}
 	.buttom-nl {
 		margin: 15px auto 0px;
-	}
-}
-
-@media (max-width: 747px) {
-	.title-newsletter {
-		margin-top: 10px;
 	}
 }
 
@@ -5716,8 +5716,8 @@ li.product figcaption .shop-actions > a.button:hover{
 		height: 105px;
 	}
 }
-@media (max-width: 352px) {
+@media (max-width: 360px) {
 	.div-newsletter  {
-		height: 130px;
+		height: 140px;
 	}
 }
