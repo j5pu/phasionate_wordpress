@@ -5599,7 +5599,7 @@ li.product figcaption .shop-actions > a.button:hover{
 .bolso-sorteo-newsletter {
 	margin: 50px auto 0px auto; 
 	display: block; 
-	float: right;
+	float: none;
 }
 .part-left {
 	margin-top: 65px; 
@@ -5644,6 +5644,11 @@ li.product figcaption .shop-actions > a.button:hover{
 	color: #FFF; 
 	height: 130px;
 }
+.bases-legales-sorteo-newsletter {
+	display: block; 
+	padding: 20px 0px;
+}
+
 @media (max-width: 1025px) {
 	.img-bolso-newsletter {
 		display: none;
@@ -5701,6 +5706,9 @@ li.product figcaption .shop-actions > a.button:hover{
 	.title-newsletter {
 		width: 100%;
 		text-align: center;
+	}
+	.bases-legales-sorteo-newsletter {
+		padding: 0px 0px 20px;
 	}
 }
 @media (max-width: 460px) {
