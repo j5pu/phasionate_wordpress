@@ -5674,6 +5674,12 @@ li.product figcaption .shop-actions > a.button:hover{
 	}
 }
 
+@media (max-width: 747px) {
+	.title-newsletter {
+		margin-top: 10px;
+	}
+}
+
 @media (max-width: 639px) {
 	.arrow-newsletter {
 		display: none;
@@ -5697,7 +5703,7 @@ li.product figcaption .shop-actions > a.button:hover{
 		text-align: center;
 	}
 }
-@media (max-width: 440px) {
+@media (max-width: 460px) {
 	.title-newsletter {
 		font-size: 18px;
 		line-height: 35px;
