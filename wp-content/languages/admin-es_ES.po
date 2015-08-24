@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-08-17 12:06:52+0000\n"
+"PO-Revision-Date: 2015-08-19 00:53:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2515,10 +2515,6 @@ msgstr "Añade elementos de menú desde la columna de la izquierda."
 msgid "Plugins extend and expand the functionality of WordPress. You may automatically install plugins from the <a href=\"%1$s\">WordPress Plugin Directory</a> or upload a plugin in .zip format via <a href=\"%2$s\">this page</a>."
 msgstr "Los plugins extienden y amplían las funcionalidades de WordPress. Puedes instalar automáticamente plugins del <a href=\"%1$s\">Directorio de Plugins de WordPress </a> o subir un plugin en formato Zip a través de <a href=\"%2$s\">esta página</a>."
 
-#. Plugin URI of the plugin/theme
-msgid "http://wordpress.org/plugins/hello-dolly/"
-msgstr "http://wordpress.org/plugins/hello-dolly/"
-
 #: wp-admin/includes/class-wp-upgrader.php:131
 msgid "The package contains no files."
 msgstr "El paquete no contiene archivos."
@@ -3651,22 +3647,6 @@ msgstr[1] "Rotos <span class=\"count\">(%s)</span>"
 #: wp-admin/includes/theme.php:211
 msgid "Light"
 msgstr "Ligero"
-
-#. Plugin Name of the plugin/theme
-msgid "Hello Dolly"
-msgstr "Hello Dolly"
-
-#. Author of the plugin/theme
-msgid "Matt Mullenweg"
-msgstr "Matt Mullenweg"
-
-#. Author URI of the plugin/theme
-msgid "http://ma.tt/"
-msgstr "http://ma.tt/"
-
-#. Description of the plugin/theme
-msgid "This is not just a plugin, it symbolizes the hope and enthusiasm of an entire generation summed up in two words sung most famously by Louis Armstrong: Hello, Dolly. When activated you will randomly see a lyric from <cite>Hello, Dolly</cite> in the upper right of your admin screen on every page."
-msgstr "Esto no es solo un plugin, simboliza la esperanza y entusiasmo de toda una generación resumidas en las dos palabras más famosas cantadas por Louis Armstrong: Hello, Dolly. Cuando lo actives verás frases al azar de <cite>Hello, Dolly</cite> en la parte superior derecha de cada página de tu pantalla de administración."
 
 #: wp-admin/includes/screen.php:1066
 msgid "Show on screen"
@@ -10281,7 +10261,7 @@ msgstr "Comentario"
 
 #: wp-admin/edit-form-advanced.php:245 wp-admin/menu.php:241
 msgid "Discussion"
-msgstr "Opciones comentarios/trackbacks"
+msgstr "Comentarios"
 
 #: wp-admin/includes/ajax-actions.php:1548
 msgid "Someone"
