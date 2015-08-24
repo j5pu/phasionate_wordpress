@@ -308,7 +308,7 @@ function posts_home(){
 			$link = get_permalink();
 			$title = get_the_title();
 			
-			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $post_id, 'large' ).'</a>';
+			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $post_id, 'medium' ).'</a>';
 			echo '<div class="hr-title hr-long"><abbr><a href="'.get_category_link($category[0]->term_id ).'">'.$category[0]->cat_name.'</a></div>';			
 			echo '<h5><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '<div class="pt-cv-content"><small>'.get_the_excerpt().'</small></div>';
@@ -318,6 +318,9 @@ function posts_home(){
 		}else{
 				//Mirar los post que ya han salido y cargararlo en la variable de wordpress que permite obviar los que se han mostrado
 				$not_post_in[] = get_the_ID();
+		}
+		if($c==3){
+			echo '<a style="text-align: center; display: block; margin: 10px auto;" href="https://www.bogadia.com/sorteos/concurso-de-disenadoras/"><img src="https://www.bogadia.com/wp-content/uploads/tienda/banner-sorteo-tienda.jpg" alt="Sorteo de bolso - Tienda Bogadia"/></a>';
 		}
 	/*
 		//Seccion tracdelight
