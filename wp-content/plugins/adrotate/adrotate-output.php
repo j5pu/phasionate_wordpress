@@ -1,7 +1,7 @@
 <?php
 /* ------------------------------------------------------------------------------------
 *  COPYRIGHT AND TRADEMARK NOTICE
-*  Copyright 2008-2015 AJdG Solutions (Arnan de Gans). All Rights Reserved.
+*  Copyright 2008-2015 Arnan de Gans. All Rights Reserved.
 *  ADROTATE is a trademark of Arnan de Gans.
 
 *  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
@@ -23,7 +23,7 @@ function adrotate_ad($banner_id, $individual = true, $group = null, $site = 0) {
 	$output = '';
 
 	if($banner_id) {			
-		$banner = $wpdb->get_row($wpdb->prepare("SELECT `id`, `bannercode`, `tracker`, `link`, `image`, `responsive` FROM `{$wpdb->prefix}adrotate` WHERE `id` = %d AND (`type` = 'active' OR `type` = '2days' OR `type` = '7days');", $banner_id));
+		$banner = $wpdb->get_row($wpdb->prepare("SELECT `id`, `title`, `bannercode`, `tracker`, `link`, `image`, `responsive` FROM `{$wpdb->prefix}adrotate` WHERE `id` = %d AND (`type` = 'active' OR `type` = '2days' OR `type` = '7days');", $banner_id));
 
 		if($banner) {
 			if($adrotate_debug['general'] == true) {
@@ -42,7 +42,7 @@ function adrotate_ad($banner_id, $individual = true, $group = null, $site = 0) {
 			$image = str_replace('%folder%', $adrotate_config['banner_folder'], $banner->image);
 
 			if($individual == true) $output .= '<div class="a-single a-'.$banner->id.'">';
-			$output .= adrotate_ad_output($banner->id, 0, $banner->bannercode, $banner->tracker, $banner->link, $image, $banner->responsive);
+			$output .= adrotate_ad_output($banner->id, 0, $banner->title, $banner->bannercode, $banner->tracker, $banner->link, $image, $banner->responsive);
 			if($individual == true) $output .= '</div>';
 
 			if($adrotate_config['stats'] == 1 AND $banner->tracker == "Y") {
@@ -93,6 +93,7 @@ function adrotate_group($group_ids, $fallback = 0, $weight = 0, $site = 0) {
 			$ads = $wpdb->get_results(
 				"SELECT 
 					`{$wpdb->prefix}adrotate`.`id`, 
+					`{$wpdb->prefix}adrotate`.`title`, 
 					`{$wpdb->prefix}adrotate`.`bannercode`, 
 					`{$wpdb->prefix}adrotate`.`link`, 
 					`{$wpdb->prefix}adrotate`.`image`, 
@@ -152,7 +153,7 @@ function adrotate_group($group_ids, $fallback = 0, $weight = 0, $site = 0) {
 								$image = str_replace('%folder%', $adrotate_config['banner_folder'], $banner->image);
 	
 								$output .= '<div class="g-dyn a-'.$banner->id.' c-'.$i.'">';
-								$output .= $before.adrotate_ad_output($banner->id, $group->id, $banner->bannercode, $banner->tracker, $banner->link, $image, $banner->responsive).$after;
+								$output .= $before.adrotate_ad_output($banner->id, $group->id, $banner->title, $banner->bannercode, $banner->tracker, $banner->link, $image, $banner->responsive).$after;
 								$output .= '</div>';
 								$i++;
 							}
@@ -168,7 +169,7 @@ function adrotate_group($group_ids, $fallback = 0, $weight = 0, $site = 0) {
 							$image = str_replace('%folder%', $adrotate_config['banner_folder'], $selected[$banner_id]->image);
 
 							$output .= '<div class="g-col b-'.$group->id.' a-'.$selected[$banner_id]->id.'">';
-							$output .= $before.adrotate_ad_output($selected[$banner_id]->id, $group->id, $selected[$banner_id]->bannercode, $selected[$banner_id]->tracker, $selected[$banner_id]->link, $image, $selected[$banner_id]->responsive).$after;
+							$output .= $before.adrotate_ad_output($selected[$banner_id]->id, $group->id, $selected[$banner_id]->title, $selected[$banner_id]->bannercode, $selected[$banner_id]->tracker, $selected[$banner_id]->link, $image, $selected[$banner_id]->responsive).$after;
 							$output .= '</div>';
 
 							if($columns == $group->gridcolumns AND $i != $block_count) {
@@ -190,7 +191,7 @@ function adrotate_group($group_ids, $fallback = 0, $weight = 0, $site = 0) {
 						$image = str_replace('%folder%', $adrotate_config['banner_folder'], $selected[$banner_id]->image);
 
 						$output .= '<div class="g-single a-'.$selected[$banner_id]->id.'">';
-						$output .= $before.adrotate_ad_output($selected[$banner_id]->id, $group->id, $selected[$banner_id]->bannercode, $selected[$banner_id]->tracker, $selected[$banner_id]->link, $image, $selected[$banner_id]->responsive).$after;
+						$output .= $before.adrotate_ad_output($selected[$banner_id]->id, $group->id, $selected[$banner_id]->title, $selected[$banner_id]->bannercode, $selected[$banner_id]->tracker, $selected[$banner_id]->link, $image, $selected[$banner_id]->responsive).$after;
 						$output .= '</div>';
 
 						if($adrotate_config['stats'] == 1){
@@ -364,7 +365,7 @@ function adrotate_preview($banner_id) {
 
 		if($banner) {
 			$image = str_replace('%folder%', '/wp-content/banners/', $banner->image);		
-			$output = adrotate_ad_output($banner->id, 0, $banner->bannercode, $banner->tracker, $banner->link, $image, 'N');
+			$output = adrotate_ad_output($banner->id, 0, $banner->title, $banner->bannercode, $banner->tracker, $banner->link, $image, 'N');
 		} else {
 			$output = adrotate_error('ad_expired');
 		}
@@ -383,7 +384,7 @@ function adrotate_preview($banner_id) {
  Return:    $banner_output
  Since:		3.0
 -------------------------------------------------------------*/
-function adrotate_ad_output($id, $group = 0, $bannercode, $tracker, $link, $image, $responsive) {
+function adrotate_ad_output($id, $group = 0, $name, $bannercode, $tracker, $link, $image, $responsive) {
 	global $blog_id, $adrotate_debug, $adrotate_config;
 
 	$banner_output = $bannercode;
@@ -588,7 +589,7 @@ function adrotate_custom_css() {
 			if($group->modus == 2) { // Block group
 				if($group->adwidth != 'auto') {
 					$width_sum = $group->gridcolumns * ($group->admargin + $group->adwidth + $group->admargin);
-					$grid_width = "width:".$group->admargin."px; max-width:".$width_sum."px;";
+					$grid_width = "min-width:".$group->admargin."px; max-width:".$width_sum."px;";
 				} else {
 					$grid_width = "width:auto;";
 				}

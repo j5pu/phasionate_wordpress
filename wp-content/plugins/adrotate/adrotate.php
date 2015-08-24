@@ -5,13 +5,13 @@ Plugin URI: https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=
 Author: Arnan de Gans of AJdG Solutions
 Author URI: http://ajdg.solutions/?pk_campaign=adrotatefree-pluginpage
 Description: Used on over a hundred thousand websites and by even more people! AdRotate is the popular choice for monetizing your website with adverts while keeping things simple.
-Version: 3.12
+Version: 3.12.1
 License: GPLv3
 */
 
 /* ------------------------------------------------------------------------------------
 *  COPYRIGHT AND TRADEMARK NOTICE
-*  Copyright 2008-2015 AJdG Solutions (Arnan de Gans). All Rights Reserved.
+*  Copyright 2008-2015 Arnan de Gans. All Rights Reserved.
 *  ADROTATE is a trademark of Arnan de Gans.
 
 *  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
@@ -20,7 +20,7 @@ License: GPLv3
 ------------------------------------------------------------------------------------ */
 
 /*--- AdRotate values ---------------------------------------*/
-define("ADROTATE_DISPLAY", '3.12');
+define("ADROTATE_DISPLAY", '3.12.1');
 define("ADROTATE_VERSION", 380);
 define("ADROTATE_DB_VERSION", 51);
 /*-----------------------------------------------------------*/

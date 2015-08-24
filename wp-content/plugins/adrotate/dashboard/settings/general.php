@@ -1,3 +1,14 @@
+<?php
+/* ------------------------------------------------------------------------------------
+*  COPYRIGHT AND TRADEMARK NOTICE
+*  Copyright 2008-2015 Arnan de Gans. All Rights Reserved.
+*  ADROTATE is a trademark of Arnan de Gans.
+
+*  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
+*  By using this code you agree to indemnify Arnan de Gans from any
+*  liability that might arise from it's use.
+------------------------------------------------------------------------------------ */
+?>
 <h3><?php _e('General Settings', 'adrotate'); ?></h3>
 <span class="description"><?php _e('General settings for AdRotate.', 'adrotate'); ?></span>
 <table class="form-table">			

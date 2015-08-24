@@ -4,7 +4,7 @@ Donate link: http://meandmymac.net/donate/?pk_campaign=adrotatefree-readme
 Tags: ads, banner, commercial, admin, advertise, adrotator, plugin, random, rotator, ad, advertising, advertisement, block, blocks, advertiser, publisher, adsense, geo, geolocation, geotarget, chitika, clickbank, broadstreet, banner manager,advert manager, campaign manager, export, import, telize, maxmind, referrer, email, menu, statistics, stats, report, advert, adverts, popular, best, great, 2014, geoselect, geobytes, schedules, schedule, monetize, header, widget, javascript, jquery, tracking, clicks, impressions, rotate, zone, zones, sidebar, footer, content, posts, pages, 2015
 Requires at least: 3.8, PHP5.3
 Tested up to: 4.3
-Stable tag: 3.12
+Stable tag: 3.12.1
  
 Used on over a hundred thousand websites and by even more people! With over a million downloads AdRotate is the popular choice for monetizing your website with adverts while keeping things simple. Make money with advertising while you do other things. Make making money easy!
 
@@ -90,6 +90,10 @@ If that's not enough you can post on the [forum](https://ajdg.solutions/forums/?
 
 == Changelog ==
 
+= 3.12.1 FREE =
+* [fix] Block width not applied correctly for some users
+* [fix] %title% variable not converted correctly
+
 = 3.12 FREE =
 * [change] Improved WordPress 4.3 compatibility
 * [new] Now uses the same status system as AdRotate Pro
@@ -114,6 +118,10 @@ Get more AdRotate! [Get AdRotate Pro today](https://ajdg.solutions/products/adro
 NOTE: Unsolicited offers, parnterships, job offers, promotional emails or product offers to "enhance" my business or products through this site or any means are not appreciated and will most likely be ignored.
 
 == Upgrade Notice ==
+
+= 3.12.1 FREE =
+* [fix] Block width not applied correctly for some users
+* [fix] %title% variable not converted correctly
 
 = 3.12 FREE =
 * [change] Improved WordPress 4.3 compatibility
