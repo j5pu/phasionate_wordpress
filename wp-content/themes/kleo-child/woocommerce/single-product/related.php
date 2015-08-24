@@ -28,6 +28,8 @@ $args = apply_filters( 'woocommerce_related_products_args', array(
 	'post_status'         => 'publish',
 	'ignore_sticky_posts' => 1,
 	'posts_per_page'      => 3,
+	'orderby'				=>"rand",
+	'order'					=>"rand",
 	'meta_query'          => WC()->query->get_meta_query(),
 	'post__not_in'			=> array( $product->id ),
 	'tax_query'           => array(
@@ -40,6 +42,7 @@ $args = apply_filters( 'woocommerce_related_products_args', array(
 ) );
 
 $products = new WP_Query( $args );
+$success = shuffle( $products->posts );
 
 if ( $coleccion && ! is_wp_error( $coleccion ) ) {
 	?>
