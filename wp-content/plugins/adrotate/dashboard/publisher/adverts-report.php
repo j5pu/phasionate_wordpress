@@ -16,7 +16,7 @@ $stats_today 	= adrotate_stats($ad_edit_id, $today);
 // Get Click Through Rate
 $ctr = adrotate_ctr($stats['clicks'], $stats['impressions']);
 
-if($adrotate_debug['stats'] == true) {
+if($adrotate_debug['publisher'] == true) {
 	echo "<p><strong>[DEBUG] Ad Stats (all time)</strong><pre>";
 	print_r($stats); 
 	echo "</pre></p>"; 

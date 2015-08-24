@@ -236,7 +236,7 @@ function adrotate_stats_nav($type, $id, $month, $year) {
  Since:		3.8
 -------------------------------------------------------------*/
 function adrotate_stats_graph($type, $id, $chartid, $start, $end) {
-	global $wpdb, $adrotate_debug;
+	global $wpdb;
 
 	if($type == 'ads' OR $type == 'advertiser') {
 		$stats = $wpdb->get_results($wpdb->prepare("SELECT `thetime`, SUM(`clicks`) as `clicks`, SUM(`impressions`) as `impressions` FROM `".$wpdb->prefix."adrotate_stats` WHERE `ad` = %d AND `thetime` >= %d AND `thetime` <= %d GROUP BY `thetime` ASC;", $id, $start, $end), ARRAY_A);
@@ -271,12 +271,6 @@ function adrotate_stats_graph($type, $id, $chartid, $start, $end) {
 		$impressions = trim($impressions, ",");
 		
 		$output = '';
-		if($adrotate_debug['stats'] == true) { 
-			$output .= "<p><strong>[DEBUG] Dates</strong><pre>".$dates."</pre></p>"; 
-			$output .= "<p><strong>[DEBUG] Clicks</strong><pre>".$clicks."</pre></p>"; 
-			$output .= "<p><strong>[DEBUG] Impressions</strong><pre>".$impressions."</pre></p>"; 
-		}
-
 		$output .= '<div id="chart-1" style="height:300px; width:100%;"></div>';
 		$output .= adrotate_draw_graph($chartid, $dates, $clicks, $impressions);
 		unset($stats, $dates, $clicks, $impressions);

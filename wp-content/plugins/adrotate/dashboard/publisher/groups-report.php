@@ -22,7 +22,7 @@ if(empty($stats['clicks']))	$stats['clicks'] = 0;
 if(empty($stats_today['impressions'])) $stats_today['impressions'] = 0;
 if(empty($stats_today['clicks'])) $stats_today['clicks'] = 0;
 
-if($adrotate_debug['stats'] == true) {
+if($adrotate_debug['publisher'] == true) {
 	echo "<p><strong>[DEBUG] Group (all time)</strong><pre>";
 	print_r($stats); 
 	echo "</pre></p>"; 

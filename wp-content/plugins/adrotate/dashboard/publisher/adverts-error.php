@@ -45,7 +45,7 @@
 		<?php foreach($errorbanners as $errbanner) {
 			$grouplist = adrotate_ad_is_in_groups($errbanner['id']);
 			
-			if($adrotate_debug['dashboard'] == true) {
+			if($adrotate_debug['publisher'] == true) {
 				echo "<tr><td>&nbsp;</td><td><strong>[DEBUG]</strong></td><td colspan='9'>";
 				echo "Ad Specs: <pre>";
 				print_r($errbanner); 
