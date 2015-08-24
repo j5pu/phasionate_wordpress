@@ -284,7 +284,7 @@ function posts_home(){
 	// The Query
 	$args = array(
 		'post_status'  => 'publish',
-		'posts_per_page' => 14,
+		'posts_per_page' => 13,
 		'orderby' => 'date',
 		'order'    => 'DESC',
 		'cat'	=> '-566, -'.$id_noticias
@@ -296,25 +296,6 @@ function posts_home(){
 	$c=1;
 
 	while ( have_posts() ) : the_post();
-		if ($c==1) {
-			$category = get_the_category();
-			foreach ($category as $struct ) {
-				if ( $struct->cat_name == 'Streetstyle'){
-					$category[0] = $struct;
-				}
-			}
-			echo '<div class="portada_posts">';
-			$link = get_permalink();
-			$title = get_the_title();
-			
-			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $post_id, 'large' ).'</a>';
-			echo '<div class="hr-title hr-long"><abbr><a href="'.get_category_link($category[0]->term_id ).'">'.$category[0]->cat_name.'</a></div>';			
-			echo '<h5><a href="'.$link.'">'.$title.'</a></h5>';
-			echo '<div class="pt-cv-content"><small>'.get_the_excerpt().'</small></div>';
-			echo '</div>';
-			//Mirar los post que ya han salido y cargararlo en la variable de wordpress que permite obviar los que se han mostrado
-			$not_post_in[] = get_the_ID();
-		}
 		if($c>0){ 
 		//if($c>0){
 			$category = get_the_category();
@@ -327,7 +308,11 @@ function posts_home(){
 			$link = get_permalink();
 			$title = get_the_title();
 			
-			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $post_id, 'medium' ).'</a>';
+			if ($c==1) {
+				echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $post_id, 'large' ).'</a>';
+			}else{	
+				echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $post_id, 'medium' ).'</a>';
+			}
 			echo '<div class="hr-title hr-long"><abbr><a href="'.get_category_link($category[0]->term_id ).'">'.$category[0]->cat_name.'</a></div>';			
 			echo '<h5><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '<div class="pt-cv-content"><small>'.get_the_excerpt().'</small></div>';
@@ -338,7 +323,7 @@ function posts_home(){
 				//Mirar los post que ya han salido y cargararlo en la variable de wordpress que permite obviar los que se han mostrado
 				$not_post_in[] = get_the_ID();
 		}
-		if($c==4){
+		if($c==5){
 			echo '<a style="text-align: center; display: block; margin: 10px auto;" href="https://www.bogadia.com/sorteos/concurso-de-disenadoras/"><img src="https://www.bogadia.com/wp-content/uploads/tienda/banner-sorteo-tienda.jpg" alt="Sorteo de bolso - Tienda Bogadia"/></a>';
 		}
 	/*
