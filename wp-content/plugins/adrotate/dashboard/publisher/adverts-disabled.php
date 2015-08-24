@@ -49,7 +49,7 @@
 			// Prevent gaps in display
 			$ctr = adrotate_ctr($stats['clicks'], $stats['impressions']);
 			
-			if($adrotate_debug['dashboard'] == true) {
+			if($adrotate_debug['publisher'] == true) {
 				echo "<tr><td>&nbsp;</td><td><strong>[DEBUG]</strong></td><td colspan='9'><pre>";
 				echo "Ad Specs: <pre>";
 				print_r($disbanner); 

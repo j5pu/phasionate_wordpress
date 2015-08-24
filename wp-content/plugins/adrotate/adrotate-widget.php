@@ -24,7 +24,7 @@ class adrotate_widgets extends WP_Widget {
 	-------------------------------------------------------------*/
 	function adrotate_widgets() {
 
-        parent::WP_Widget(false, 'AdRotate', array('description' => "Show unlimited ads in the sidebar."));	
+        parent::__construct(false, 'AdRotate', array('description' => "Show unlimited ads in the sidebar."));	
 
 	}
 

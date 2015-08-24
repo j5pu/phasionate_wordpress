@@ -57,7 +57,7 @@ function adrotate_export_ads($ids) {
 
 	file_put_contents(WP_CONTENT_DIR . '/reports/'.$filename, $xml->saveXML());
 
-	adrotate_return('exported', array($filename));
+	adrotate_return('adrotate-ads', 215, array('file' => $filename));
 	exit;
 }
 ?>

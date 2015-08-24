@@ -1,10 +1,10 @@
 === AdRotate ===
 Contributors: adegans
-Donate link: http://meandmymac.net/donate/?pk_campaign=adrotatefree-readme&pk_kwd=donatelink
+Donate link: http://meandmymac.net/donate/?pk_campaign=adrotatefree-readme
 Tags: ads, banner, commercial, admin, advertise, adrotator, plugin, random, rotator, ad, advertising, advertisement, block, blocks, advertiser, publisher, adsense, geo, geolocation, geotarget, chitika, clickbank, broadstreet, banner manager,advert manager, campaign manager, export, import, telize, maxmind, referrer, email, menu, statistics, stats, report, advert, adverts, popular, best, great, 2014, geoselect, geobytes, schedules, schedule, monetize, header, widget, javascript, jquery, tracking, clicks, impressions, rotate, zone, zones, sidebar, footer, content, posts, pages, 2015
 Requires at least: 3.8, PHP5.3
-Tested up to: 4.2.2
-Stable tag: 3.11.7
+Tested up to: 4.3
+Stable tag: 3.12
  
 Used on over a hundred thousand websites and by even more people! With over a million downloads AdRotate is the popular choice for monetizing your website with adverts while keeping things simple. Make money with advertising while you do other things. Make making money easy!
 
@@ -19,13 +19,13 @@ AdRotate looks and feels similar to the dashboard you already know, so you're al
 The thought out menu structure and features make advert management very easy and straightforward.
 
 AdRotate is also available as a premium plugin for a very low price. Offering extra and more extensive features and faster support! 
-Check out the benefits of AdRotate Pro! [Get AdRotate Pro today](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=adrotatepage)!
+Check out the benefits of AdRotate Pro! [Get AdRotate Pro today](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme)!
 
 **Important links**
 
-* [Details](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=adrotatepage) - Lots of Additional plugin information
-* [Manuals & Support](https://ajdg.solutions/forums/?pk_campaign=adrotatefree-readme&pk_kwd=manuals) - Setup instructions and support
-* [AdRotate Store](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=buypro) - Buy AdRotate Pro or hire me to install or troubleshoot AdRotate
+* [Details](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme) - Lots of Additional plugin information
+* [Manuals & Support](https://ajdg.solutions/forums/?pk_campaign=adrotatefree-readme) - Setup instructions and support
+* [AdRotate Store](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme) - Buy AdRotate Pro or hire me to install or troubleshoot AdRotate
 
 **Some Features**
 
@@ -57,7 +57,7 @@ Check out the benefits of AdRotate Pro! [Get AdRotate Pro today](https://ajdg.so
 * Warns you on the dashboard when ads are about to expire or need attention
 * Use shortcodes, widgets or PHP to put ads on your site
 
-NOTE: Certain features are exclusive to AdRotate PRO. Learn more about what AdRotate Pro will do for you in the [features list](https://ajdg.solutions/products/adrotate-for-wordpress/features/?pk_campaign=adrotatefree-readme&pk_kwd=features).
+NOTE: Certain features are exclusive to AdRotate PRO. Learn more about what AdRotate Pro will do for you in the [features list](https://ajdg.solutions/products/adrotate-for-wordpress/features/?pk_campaign=adrotatefree-readme).
 
 **AdRotate Switch**
 
@@ -75,9 +75,9 @@ Looking to switch from another plugin? Check out [AdRotate Switch](https://wordp
 
 **Important links**
 
-* [Manual Installation](https://ajdg.solutions/manuals/adrotate-manuals/installing-adrotate-on-your-website/?pk_campaign=adrotatefree-readme&pk_kwd=installation)
-* [Manuals & Support](https://https://ajdg.solutions/forums/?pk_campaign=adrotatefree-readme&pk_kwd=manuals)
-* [AdRotate Store](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=buypro)
+* [Manual Installation](https://ajdg.solutions/manuals/adrotate-manuals/installing-adrotate-on-your-website/?pk_campaign=adrotatefree-readme)
+* [Manuals & Support](https://https://ajdg.solutions/forums/?pk_campaign=adrotatefree-readme)
+* [AdRotate Store](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme)
 
 == Frequently Asked Questions ==
 
@@ -85,58 +85,53 @@ Looking to switch from another plugin? Check out [AdRotate Switch](https://wordp
 Maybe. Take a look at [AdRotate Switch](https://wordpress.org/plugins/adrotate-switch/) and see if your current advertising plugin is compatible for migrating your data!
 
 = How do I use AdRotate =
-There are [manuals](https://ajdg.solutions/manuals/adrotate-manuals/?pk_campaign=adrotatefree-readme&pk_kwd=manuals) with every feature explained.
-If that's not enough you can post on the [forum](https://ajdg.solutions/forums/?pk_campaign=adrotatefree-readme&pk_kwd=forum) and ask your question there!
+There are [manuals](https://ajdg.solutions/manuals/adrotate-manuals/?pk_campaign=adrotatefree-readme) with every feature explained.
+If that's not enough you can post on the [forum](https://ajdg.solutions/forums/?pk_campaign=adrotatefree-readme) and ask your question there!
 
 == Changelog ==
 
-= 3.11.7 FREE =
-* [new] More 'after paragraph' options for Post Injection
-* [change] Removed all 'every N paragraph' options for post injection
-* [fix] Responsive class overwriting existing html classes
-* [fix] Post Injection cutting off content at the end of posts
-* [fix] Impression timer not always accurate for some users
-* [fix] Timezone notation not always valid
-* [i18n] New and updated strings
+= 3.12 FREE =
+* [change] Improved WordPress 4.3 compatibility
+* [new] Now uses the same status system as AdRotate Pro
+* [new] Complete overhaul of the settings page
+* [fix] Wrong variable used for default advert sizes
+* [change] Updated H2 tags to H1 for WordPress 4.3
+* [change] Updated Widget Class structure
+* [change] Tweaks to the dashboard
+* [change] Revised debug options
+* [i18n] New and updated translation strings
 
-= 3.13 PRO =
-* [new] Fallback groups now take their parent multisite id into account
-* [new] Manage HTML5 file assets via the AdRotate Media manager
-* [new] Create HTML5 adverts more easily
-* [new] More 'after paragraph' options for Post Injection
-* [change] Removed all 'every N paragraph' options for post injection
-* [tweak] Faster tag adding when using Google Analytics
-* [tweak] Faster tag adding for Piwik Analytics
-* [fix] Responsive and adblock class overwriting existing html classes
-* [fix] Tracking pixel for some adverts that didn't need it
-* [fix] Redirect when advertiser exports stats
-* [fix] Post Injection cutting off content at the end of posts
-* [fix] Impression timer not always accurate for some users
-* [fix] Timezone notation not always valid
-* [i18n] New and updated strings
+= 3.15 PRO =
+* [change] Updated H2 tags to H1 for WordPress 4.3
+* [fix] User dropdown not loaded if advertisers are disabled
+* [fix] Better check if Geo Targeting cookie should be created
+* [fix] Better filter for mobile vs. desktop adverts
+* [i18n] New and updated translation strings
 
-The full changelog can be found on the [AdRotate website](https://ajdg.solutions/products/adrotate-for-wordpress/development/?pk_campaign=adrotatefree-readme&pk_kwd=changelog).
-Get more AdRotate! [Get AdRotate Pro today](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=buypro)!
+The full changelog can be found on the [AdRotate website](https://ajdg.solutions/products/adrotate-for-wordpress/development/?pk_campaign=adrotatefree-readme).
+Get more AdRotate! [Get AdRotate Pro today](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme)!
 
 NOTE: Unsolicited offers, parnterships, job offers, promotional emails or product offers to "enhance" my business or products through this site or any means are not appreciated and will most likely be ignored.
 
 == Upgrade Notice ==
 
-= 3.11.7 FREE =
-* [new] More 'after paragraph' options for Post Injection
-* [change] Removed all 'every N paragraph' options for post injection
-* [fix] Responsive class overwriting existing html classes
-* [fix] Post Injection cutting off content at the end of posts
-* [fix] Impression timer not always accurate for some users
-* [fix] Timezone notation not always valid
-* [i18n] New and updated strings
+= 3.12 FREE =
+* [change] Improved WordPress 4.3 compatibility
+* [new] Now uses the same status system as AdRotate Pro
+* [new] Complete overhaul of the settings page
+* [fix] Wrong variable used for default advert sizes
+* [change] Updated H2 tags to H1 for WordPress 4.3
+* [change] Updated Widget Class structure
+* [change] Tweaks to the dashboard
+* [change] Revised debug options
+* [i18n] New and updated translation strings
 
-The full changelog can be found on the [AdRotate website](https://ajdg.solutions/products/adrotate-for-wordpress/development/?pk_campaign=adrotatefree-readme&pk_kwd=changelog).
-Get more AdRotate! [Get AdRotate Pro today](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=buypro)!
+The full changelog can be found on the [AdRotate website](https://ajdg.solutions/products/adrotate-for-wordpress/development/?pk_campaign=adrotatefree-readme).
+Get more AdRotate! [Get AdRotate Pro today](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme)!
 
-NOTE: Certain features are exclusive to AdRotate PRO. If you need these features please consider upgrading to [AdRotate PRO](https://ajdg.solutions/products/adrotate-for-wordpress/features/?pk_campaign=adrotatefree-readme&pk_kwd=features).
+NOTE: Certain features are exclusive to AdRotate PRO. If you need these features please consider upgrading to [AdRotate PRO](https://ajdg.solutions/products/adrotate-for-wordpress/features/?pk_campaign=adrotatefree-readme).
 
 == Screenshots ==
 
-* Visit [the site](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme&pk_kwd=screenshots) for screenshots.
-* [Manuals & Support](https://https://ajdg.solutions/forums/?pk_campaign=adrotatefree-readme&pk_kwd=manuals)
+* Visit [the site](https://ajdg.solutions/products/adrotate-for-wordpress/?pk_campaign=adrotatefree-readme) for screenshots.
+* [Manuals & Support](https://https://ajdg.solutions/forums/?pk_campaign=adrotatefree-readme)

@@ -495,7 +495,7 @@ function adrotate_prepare_evaluate_ads($return = true, $id = 0) {
 					);
 
 	update_option('adrotate_advert_status', $result);
-	if($return) adrotate_return('db_evaluated');
+	if($return) adrotate_return('adrotate-settings', 405);
 }
 
 /*-------------------------------------------------------------
@@ -808,121 +808,133 @@ function adrotate_folder_contents($current) {
  Purpose:   Internal redirects
  Receive:   $action, $arg (array)
  Return:    -none-
- Since:		0.2
- Usage:		array('wp_page', 'message', 'arguments', 'id')
+ Since:		3.12
 -------------------------------------------------------------*/
-function adrotate_return($action, $arg = null) {
+function adrotate_return($page, $status, $args = null) {
 
-	switch($action) {
-		// Manage Ads
-		case "new" :
-			wp_redirect('admin.php?page=adrotate-ads&message=new');
+	if(strlen($page) > 0 AND ($status > 0 AND $status < 1000)) {
+		$defaults = array(
+			'status' => $status
+		);
+		$arguments = wp_parse_args($args, $defaults);
+		$redirect = 'admin.php?page=' . $page . '&'.http_build_query($arguments);
+	} else {
+		$redirect = 'admin.php?page=adrotate';
+	}
+
+	wp_redirect($redirect);
+}
+
+/*-------------------------------------------------------------
+ Name:      adrotate_status
+
+ Purpose:   Internal redirects
+ Receive:   $status, $args
+ Return:    -none-
+ Since:		3.12
+-------------------------------------------------------------*/
+function adrotate_status($status, $args = null) {
+
+	$defaults = array(
+		'ad' => '',
+		'group' => '',
+		'file' => ''
+	);
+	$arguments = wp_parse_args($args, $defaults);
+
+	switch($status) {
+		// Management messages
+		case '200' :
+			echo '<div id="message" class="updated"><p>'. __('Ad saved', 'adrotate') .'</p></div>';
 		break;
 
-		case "update" :
-			wp_redirect('admin.php?page=adrotate-ads&view=edit&message=updated&ad='.$arg[0]);
+		case '201' :
+			echo '<div id="message" class="updated"><p>'. __('Group saved', 'adrotate') .'</p></div>';
 		break;
 
-		case "update_manage" :
-			wp_redirect('admin.php?page=adrotate-ads&message=updated');
+		case '203' :
+			echo '<div id="message" class="updated"><p>'. __('Ad(s) deleted', 'adrotate') .'</p></div>';
 		break;
 
-		case "delete" :
-			wp_redirect('admin.php?page=adrotate-ads&message=deleted');
+		case '204' :
+			echo '<div id="message" class="updated"><p>'. __('Group deleted', 'adrotate') .'</p></div>';
 		break;
 
-		case "reset" :
-			wp_redirect('admin.php?page=adrotate-ads&message=reset');
+		case '208' :
+			echo '<div id="message" class="updated"><p>'. __('Ad(s) statistics reset', 'adrotate') .'</p></div>';
 		break;
 
-		case "renew" :
-			wp_redirect('admin.php?page=adrotate-ads&message=renew');
+		case '209' :
+			echo '<div id="message" class="updated"><p>'. __('Ad(s) renewed', 'adrotate') .'</p></div>';
 		break;
 
-		case "deactivate" :
-			wp_redirect('admin.php?page=adrotate-ads&message=deactivate');
+		case '210' :
+			echo '<div id="message" class="updated"><p>'. __('Ad(s) deactivated', 'adrotate') .'</p></div>';
 		break;
 
-		case "activate" :
-			wp_redirect('admin.php?page=adrotate-ads&message=activate');
+		case '211' :
+			echo '<div id="message" class="updated"><p>'. __('Ad(s) activated', 'adrotate') .'</p></div>';
 		break;
 
-		case "exported" :
-			wp_redirect('admin.php?page=adrotate-ads&message=exported&file='.$arg[0]);
+		case '213' :
+			echo '<div id="message" class="updated"><p>'. __('Group including it\'s Ads deleted', 'adrotate') .'</p></div>';
 		break;
 
-		case "field_error" :
-			wp_redirect('admin.php?page=adrotate-ads&message=field_error');
-		break;
-
-		// Groups
-		case "group_new" :
-			wp_redirect('admin.php?page=adrotate-groups&message=created');
-		break;
-
-		case "group_edit" :
-			wp_redirect('admin.php?page=adrotate-groups&view=edit&message=updated&group='.$arg[0]);
-		break;
-
-		case "group_delete" :
-			wp_redirect('admin.php?page=adrotate-groups&message=deleted');
-		break;
-
-		case "group_delete_banners" :
-			wp_redirect('admin.php?page=adrotate-groups&message=deleted_banners');
+		case '215' :
+			echo '<div id="message" class="updated"><p>'. __('Export created', 'adrotate') .'. <a href="' . WP_CONTENT_URL . '/reports/'.$arguments['file'].'">Download</a>.</p></div>';
 		break;
 
 		// Settings
-		case "settings_saved" :
-			wp_redirect('admin.php?page=adrotate-settings&message=updated');
+		case '400' :
+			echo '<div id="message" class="updated"><p>'. __('Settings saved', 'adrotate') .'</p></div>';
 		break;
 
-		// Maintenance
-		case "db_optimized" :
-			wp_redirect('admin.php?page=adrotate-settings&message=db_optimized');
+		case '403' :
+			echo '<div id="message" class="updated"><p>'. __('Database optimized', 'adrotate') .'</p></div>';
 		break;
 
-		case "db_evaluated" :
-			wp_redirect('admin.php?page=adrotate-settings&message=db_evaluated');
+		case '404' :
+			echo '<div id="message" class="updated"><p>'. __('Database repaired', 'adrotate') .'</p></div>';
 		break;
 
-		case "db_repaired" :
-			wp_redirect('admin.php?page=adrotate-settings&message=db_optimized');
+		case '405' :
+			echo '<div id="message" class="updated"><p>'. __('Ads evaluated and statuses have been corrected where required', 'adrotate') .'</p></div>';
 		break;
 
-		case "db_cleaned" :
-			wp_redirect('admin.php?page=adrotate-settings&message=db_cleaned');
+		case '406' :
+			echo '<div id="message" class="updated"><p>'. __('Empty database records removed', 'adrotate') .'</p></div>';
 		break;
 
-		case "db_timer" :
-			wp_redirect('admin.php?page=adrotate-settings&message=db_timer');
+		// (all) Error messages
+		case '500' :
+			echo '<div id="message" class="error"><p>'. __('Action prohibited', 'adrotate') .'</p></div>';
 		break;
 
-		// Misc plugin events
-		case "mail_sent" :
-			wp_redirect('admin.php?page=adrotate-advertiser&message=mail_sent');
+		case '501' :
+			echo '<div id="message" class="error"><p>'. __('The ad was saved but has an issue which might prevent it from working properly. Review the colored ad.', 'adrotate') .'</p></div>';
 		break;
 
-		case "beta_mail_sent" :
-			wp_redirect('admin.php?page=adrotate-beta&message=sent');
+		case '503' :
+			echo '<div id="message" class="error"><p>'. __('No data found in selected time period', 'adrotate') .'</p></div>';
 		break;
 
-		case "beta_mail_empty" :
-			wp_redirect('admin.php?page=adrotate-beta&message=empty');
+		case '504' :
+			echo '<div id="message" class="error"><p>'. __('Database can only be optimized or cleaned once every hour', 'adrotate') .'</p></div>';
 		break;
 
-		case "no_access" :
-			wp_redirect('admin.php?page=adrotate&message=no_access');
+		case '505' :
+			echo '<div id="message" class="error"><p>'. __('Form can not be (partially) empty!', 'adrotate') .'</p></div>';
 		break;
 
-		case "error" :
-			wp_redirect('admin.php?page=adrotate&message=error');
+		case '509' :
+			echo '<div id="message" class="updated"><p>'. __('No ads found.', 'adrotate') .'</p></div>';
 		break;
-
-		default:
-			wp_redirect('admin.php?page=adrotate');
+		
+		default :
+			echo '<div id="message" class="updated"><p>'. __('Unexpected error', 'adrotate') .'</p></div>';			
 		break;
-
 	}
+	
+	unset($arguments, $args);
 }
 ?>
