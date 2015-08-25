@@ -949,7 +949,7 @@ function promo_post( $atts ){
 	if ( $current_url != $atts['post_url'] ){
 		echo $atts['title_widget'];
 		?>
-		<a href="<?php echo $atts['post_url']; ?>" ><img src="<?php echo $atts['img_src']; ?>" alt="Post promocionado Bogadia"/></a>
+		<a rel="nofollow" href="<?php echo $atts['post_url']; ?>" ><img src="<?php echo $atts['img_src']; ?>" alt="Post promocionado Bogadia"/></a>
 		<?php
 	}
 }
