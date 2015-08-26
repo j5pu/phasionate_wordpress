@@ -1466,7 +1466,7 @@ width:30%;
 	background-color: #222 !important;
 	box-shadow: none !important;
 	border: none !important;
-	font-family: 'Playfair Display' !important;
+	font-family: 'Roboto', sans-serif;
 }
 
 
@@ -5730,6 +5730,14 @@ li.product figcaption .shop-actions > a.button:hover{
 	}
 }
 
+/*Personalización del plugin WP-PostRating*/
+.post-ratings{
+	height: 50px;
+}
+
+.post-ratings-loading {
+	display: none !important;
+}
 .shipping-calculator-button {
 	display: none;
 }

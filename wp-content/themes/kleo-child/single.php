@@ -57,6 +57,9 @@ kleo_switch_layout('right');
 	}
 	?>
 
+	<!-- WP-PostRating - Muestra las estrellas para valorar el post -->
+	<?php if(function_exists('the_ratings')) { the_ratings(); } ?>
+
 	<?php
 	global $not_post_in;
 	$current_post = get_the_ID();
