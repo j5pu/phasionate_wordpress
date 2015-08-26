@@ -36,7 +36,7 @@ if ( have_posts() ) :
         <?php get_template_part( 'page-parts/posts-social-share' ); ?>
 			<div class="div-newsletter">
 				<div style="max-width: 1024px; margin: 0px auto; padding: 0px 15px;">
-					<h2 class="title-newsletter">¡Suscríbete a nuestra <span style="color: #c64040;">NEWSLETTER</span> y podras <span class="size-title-newsletter">ganar</span> un bolso <span class="size-title-newsletter">PARFOIS!</span></h2>
+					<h2 class="title-newsletter">¡Suscríbete a nuestra <span style="color: #c64040;">NEWSLETTER</span> y podrás <span class="size-title-newsletter">ganar</span> un bolso <span class="size-title-newsletter">PARFOIS!</span></h2>
 					<img class="arrow-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/arrow.png" alt="flecha" />
 				</div>
 			</div>
