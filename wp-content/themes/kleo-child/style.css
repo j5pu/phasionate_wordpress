@@ -5729,3 +5729,7 @@ li.product figcaption .shop-actions > a.button:hover{
 		height: 140px;
 	}
 }
+
+.shipping-calculator-button {
+	display: none;
+}
