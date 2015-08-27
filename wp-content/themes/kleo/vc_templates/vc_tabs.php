@@ -2,15 +2,15 @@
 $output = $title = $interval = $el_class = '';
 extract(shortcode_atts(array(
     'title' => '',
-		'type' => 'tab',
-		'active_tab' => '1',
-		'style' => 'default',
-        'style_pills' => 'square',
-		'align' => '',
-		'margin_top' => '',
-        'interval' => 0,
-        'position' => '',
-        'el_class' => ''
+    'type' => 'tabs',
+    'active_tab' => '1',
+    'style' => 'default',
+    'style_pills' => 'square',
+    'align' => '',
+    'margin_top' => '',
+    'interval' => 0,
+    'position' => '',
+    'el_class' => ''
 ), $atts));
 
 
@@ -20,6 +20,7 @@ $element = 'kleo-tabs';
 
 if ( 'vc_tour' == $this->shortcode ) {
     $element = 'wpb_tour';
+    $type = 'tab';
 }
 
 $align = $align != "" ? " tabs-" . $align : "";
@@ -35,7 +36,10 @@ if ( $margin_top != '' ) {
 }
 
 // Extract tab titles
-preg_match_all( '/vc_tab title="([^\"]+)"(\stab_id\=\"([^\"]+)\"){0,1}(\sicon\=\"([^\"]+)\")*/i', $content, $matches, PREG_OFFSET_CAPTURE );
+//preg_match_all( '/vc_tab title="([^\"]+)"(\stab_id\=\"([^\"]+)\"){0,1}(\sicon\=\"([^\"]+)\")*/i', $content, $matches, PREG_OFFSET_CAPTURE );
+preg_match_all( '/vc_tab([^\]]+)/i', $content, $matches, PREG_OFFSET_CAPTURE );
+
+
 $tab_titles = array();
 
 /**
@@ -51,15 +55,15 @@ if ( isset($matches[0]) ) { $tab_titles = $matches[0]; }
 $tabs_nav = '';
 $tabs_nav .= '<ul class="nav nav-' . $type . ' responsive-' . $type . ' ' . $type . '-style-' . $style . $align . '">';
 foreach ( $tab_titles as $tab ) {
-    preg_match('/vc_tab title="([^\"]+)"(\stab_id\=\"([^\"]+)\"){0,1}(\sicon\=\"([^\"]+)\")*/i', $tab[0], $tab_matches, PREG_OFFSET_CAPTURE );
-    if(isset($tab_matches[1][0])) {
-				$tabid = isset($tab_matches[3][0]) ? $tab_matches[3][0] : sanitize_title( $tab_matches[1][0] );
+    $tab_atts = shortcode_parse_atts( $tab[0] );
 
-				$icon = isset($tab_matches[5][0]) ? '<i class="icon-'.$tab_matches[5][0].'"></i> ' : "";
-        $tabs_nav .= '<li'.($i == $active_tab ? ' class="active"':'').'><a href="#tab-'. $tabid .'" data-toggle="tab" onclick="return false;">' .$icon. $tab_matches[1][0] . '</a></li>';
-				if ($i == $active_tab) {$kleo_tab_active = $tabid;}
+    if ( isset( $tab_atts['title'] ) ) {
+        $tabid = ( (isset( $tab_atts['tab_id'] ) && $tab_atts['tab_id'] != __( "Tab", "js_composer" ) ) ? $tab_atts['tab_id'] : esc_attr(str_replace("%", "",sanitize_title_with_dashes( $tab_atts['title'] ))) );
+        $icon = (isset($tab_atts['icon']) && $tab_atts['icon']) ? '<i class="icon-' . str_replace( "icon-", "", $tab_atts['icon'] ) . '"></i> ' : "";
+        $tabs_nav .= '<li' . ($i == $active_tab ? ' class="active"' : '') . '><a href="#tab-'. $tabid .'" data-toggle="tab" onclick="return false;">' .$icon. $tab_atts['title'] . '</a></li>';
+        if ($i == $active_tab) {$kleo_tab_active = $tabid;}
     }
-		$i++;
+    $i++;
 }
 $tabs_nav .= '</ul>'."\n";
 

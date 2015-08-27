@@ -1,45 +1,59 @@
 <?php
-$output = '';
+$css = $output = '';
 extract(shortcode_atts(array(
+    //'bg_image' => '',
+    //'bg_color' => '',
+    'bg_image_repeat' => '',
+    //'font_color' => '',
     'front_status' => '',
-		'inner_container' => 'yes',
-		'text_align' => '',
-		'section_type' => 'main',
-		'type' => '',
-		'text_color' => '',
-		'bg_color' => '',
-		'bg_image' => '',
-		'bg_position' => '',
-		'bg_position_horizontal' => '',
-		'bg_repeat' => '',
-		'bg_cover' => '',
-		'bg_attachment' => 'false',
+    'inner_container' => 'yes',
+    'text_align' => '',
+    'section_type' => 'main',
+    'type' => '',
+    'text_color' => '',
+    'bg_color' => '',
+    'bg_image' => '',
+    'bg_position' => 'top',
+    'bg_position_horizontal' => 'left',
+    'bg_repeat' => '',
+    'bg_cover' => '',
+    'bg_attachment' => 'false',
 
-		'bg_video_src_mp4' => '',
-		'bg_video_src_ogv' => '',
-		'bg_video_src_webm' => '',
-        'bg_video_cover' => '',
-        'column_gap' => '',
-        'vertical_align' => '',
-		'padding_top' => '',
-		'padding_bottom' => '',
-		'padding_left' => '',
-		'padding_right' => '',
-		'margin_top' => '',
-		'margin_bottom' => '',
-		'border' => '',
-		'min_height' => '',
-		'animation' => '',
-		'css_animation' => '',
-		'parallax_speed' => '',
-		'enable_parallax' => '',
-		'video_mute' => '',
-		'video_autoplay' => 'true',
-		'inline_style' => '',
-		'visibility' => '',
-		'overflow' => '',
-		'el_class' => '',
-        'el_id' => ''
+    'bg_video_src_mp4' => '',
+    'bg_video_src_ogv' => '',
+    'bg_video_src_webm' => '',
+    'bg_video_cover' => '',
+
+    'full_height' => '',
+    'content_placement' => 'middle',
+    'video_bg' => '',
+    'video_bg_url' => '',
+    'video_bg_parallax' => '',
+
+    'column_gap' => '',
+    'vertical_align' => '',
+    'padding_top' => '40',
+    'padding_bottom' => '40',
+    'padding_left' => '',
+    'padding_right' => '',
+    'margin_top' => '',
+    'margin_bottom' => '',
+    'border' => '',
+    'min_height' => '',
+    'animation' => '',
+    'css_animation' => '',
+    'parallax_speed' => '',
+    'enable_parallax' => '',
+    'video_mute' => '',
+    'video_autoplay' => 'true',
+    'inline_style' => '',
+    'visibility' => '',
+    'overflow' => '',
+    'parallax' => false,
+    'parallax_image' => false,
+    'el_class' => '',
+    'el_id' => '',
+    'css' => ''
 ), $atts));
 
 // wp_enqueue_style( 'js_composer_front' );
@@ -50,9 +64,80 @@ if ( $front_status == 'draft' ) {
   return false;
 }
 
-$section_classes = array( 'container-wrap', $section_type.'-color' );
+$bg_video = '';
+$video_output = '';
+$style = array();
+
+$css_classes = array( 'container-wrap' );
+if ($this->settings( 'base' ) !== 'vc_row_inner' ) {
+    $css_classes[] =  $section_type . '-color';
+}
+
 if( $el_class != '' ) {
-	$section_classes[] = $el_class;
+	$css_classes[] = $el_class;
+}
+
+//$style_build = $this->buildStyle( $bg_image, $bg_color, $bg_image_repeat );
+
+if ( vc_shortcode_custom_css_class( $css, '' ) != '' ) {
+    $css_classes[] = vc_shortcode_custom_css_class( $css, '' );
+}
+
+$wrapper_attributes = array();
+// build attributes for wrapper
+if ( ! empty( $el_id ) ) {
+    $wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
+}
+
+
+if ( ! empty( $full_height ) ) {
+    $css_classes[] = ' vc_row-o-full-height';
+    if ( ! empty( $content_placement ) ) {
+        $css_classes[] = ' vc_row-o-content-' . $content_placement;
+    }
+}
+
+// use default video if user checked video, but didn't chose url
+if ( ! empty( $video_bg ) && empty( $video_bg_url ) ) {
+    $video_bg_url = 'https://www.youtube.com/watch?v=lMJXxhRFO1k';
+}
+
+$has_video_bg = ( ! empty( $video_bg ) && ! empty( $video_bg_url ) && vc_extract_youtube_id( $video_bg_url ) );
+
+if ( $has_video_bg ) {
+    $parallax = $video_bg_parallax;
+    $parallax_image = $video_bg_url;
+    $css_classes[] = ' vc_video-bg-container';
+    wp_enqueue_script( 'vc_youtube_iframe_api_js' );
+}
+
+/* Parallax */
+if ( ! empty( $parallax ) ) {
+    wp_enqueue_script( 'vc_jquery_skrollr_js' );
+    $wrapper_attributes[] = 'data-vc-parallax="1.5"'; // parallax speed
+    $css_classes[] = 'vc_general vc_parallax vc_parallax-' . $parallax;
+    if ( strpos( $parallax, 'fade' ) !== false ) {
+        $css_classes[] = 'js-vc_parallax-o-fade';
+        $wrapper_attributes[] = 'data-vc-parallax-o-fade="on"';
+    } elseif ( strpos( $parallax, 'fixed' ) !== false ) {
+        $css_classes[] = 'js-vc_parallax-o-fixed';
+    }
+}
+
+if ( ! empty ( $parallax_image ) ) {
+    if ( $has_video_bg ) {
+        $parallax_image_src = $parallax_image;
+    } else {
+        $parallax_image_id = preg_replace( '/[^\d]/', '', $parallax_image );
+        $parallax_image_src = wp_get_attachment_image_src( $parallax_image_id, 'full' );
+        if ( ! empty( $parallax_image_src[0] ) ) {
+            $parallax_image_src = $parallax_image_src[0];
+        }
+    }
+    $wrapper_attributes[] = 'data-vc-parallax-image="' . esc_attr( $parallax_image_src ) . '"';
+}
+if ( ! $parallax && $has_video_bg ) {
+    $wrapper_attributes[] = 'data-vc-video-bg="' . esc_attr( $video_bg_url ) . '"';
 }
 
 switch ( $inner_container ) {
@@ -65,18 +150,14 @@ switch ( $inner_container ) {
     $container_end   = '</div></div>';
 }
 
-$bg_video = '';
-$video_output = '';
-$data_attr = '';
-$style = array();
 
-if ($text_color != '') {
+if ( $text_color != '' ) {
 	$style[] = 'color: '.$text_color;
-	$section_classes[] = 'custom-color';
+	$css_classes[] = 'custom-color';
 }
 
 
-switch ($type) {
+switch ( $type ) {
 	case 'color':
 
 		if ( $bg_color ) {
@@ -99,13 +180,12 @@ switch ($type) {
         }
 
 		$position = array();
-		if ( $bg_position && $bg_position != '') {
+        if ( $bg_position != 'top' || $bg_position_horizontal != 'left' ) {
+            $position[] = $bg_position_horizontal;
 			$position[] = $bg_position;
 		}
-		if ( $bg_position_horizontal && $bg_position_horizontal != 'left' ) {
-			$position[] = $bg_position_horizontal;
-		}
-		if ( !empty( $position ) ) {
+
+		if ( ! empty( $position ) ) {
 			$style[] = 'background-position: ' . join(' ', $position);
 		}
 		
@@ -114,28 +194,37 @@ switch ($type) {
 			$style[] = 'background-repeat: ' . $bg_repeat;
 		}
 
-		if ( 'false' != $bg_attachment ) {
-			$style[] = 'background-attachment: fixed';
-		} else {
-			$style[] = 'background-attachment: scroll';
-		}
-
-		if ( 'false' != $bg_cover ) {
-			$style[] = 'background-size: cover';
-		} else {
-			$style[] = 'background-size: auto';
-		}
+        if ( $bg_color ) {
+            $style[] = 'background-color: ' . $bg_color;
+        }
 		
-		if ( '' != $parallax_speed && $enable_parallax ) {
+		if ( $enable_parallax && '' != $parallax_speed ) {
 
-			$parallax_speed = floatval($parallax_speed);
+			$parallax_speed = floatval( $parallax_speed );
 			if ( false == $parallax_speed ) {
 				$parallax_speed = 0.05;
 			}
 
-			$section_classes[] = 'bg-parallax';
-			$data_attr = ' data-prlx-speed="' . $parallax_speed . '"';
-		}
+			$css_classes[] = 'bg-parallax';
+			$wrapper_attributes[] = 'data-prlx-speed="' . $parallax_speed . '"';
+
+            $style[] = 'background-attachment: fixed';
+            $style[] = 'background-size: cover';
+		} else {
+
+            if ( 'false' != $bg_attachment ) {
+                $style[] = 'background-attachment: fixed';
+            } else {
+                $style[] = 'background-attachment: scroll';
+            }
+
+            if ( 'false' != $bg_cover ) {
+                $style[] = 'background-size: cover';
+            } else {
+                $style[] = 'background-size: auto';
+            }
+
+        }
 	
 		break;
 		
@@ -187,7 +276,7 @@ switch ($type) {
 
 			$bg_video .= '</video></div>';
 
-			$section_classes[] = 'bg-full-video no-video-controls';
+			$css_classes[] = 'bg-full-video no-video-controls';
 		}
 		break;
 
@@ -196,10 +285,10 @@ switch ($type) {
 }
 
 if ( $column_gap == 'no' ) {
-    $section_classes[] = 'no-col-gap';
+    $css_classes[] = 'no-col-gap';
 }
 if ( $vertical_align == 'yes' ) {
-    $section_classes[] = 'vertical-col';
+    $css_classes[] = 'vertical-col';
 }
 
 if( $padding_top != '' ) {
@@ -249,10 +338,10 @@ switch ( $border ) {
 	default :
 		$border = '';
 }
-$section_classes[] = $border;
+$css_classes[] = $border;
 
 if ($overflow) {
-	$section_classes[] = 'ov-hidden';
+	$css_classes[] = 'ov-hidden';
 }
 
 
@@ -273,23 +362,20 @@ $video_output .= $bg_video;
 
 if ( $animation != '' ) {
 	wp_enqueue_script( 'waypoints' );
-	$section_classes[] = "animated {$animation} {$css_animation}";
+	$css_classes[] = "animated {$animation} {$css_animation}";
 }
 
 if($text_align != '') {
-	$section_classes[] = 'text-'.$text_align;
+	$css_classes[] = 'text-'.$text_align;
 }
 
 if ($visibility != '') {
-	$section_classes[] = str_replace(',', ' ', $visibility);
+	$css_classes[] = str_replace(',', ' ', $visibility);
 }
 
-$section_id = '';
-if ( $el_id != '' ) {
-    $section_id = ' id="' . $el_id . '"';
-}
+//echo $style_build;
 
-$output .= "\n".'<section '. $section_id .'class="'. esc_attr(trim(implode(' ', $section_classes))) .'"' .$data_attr . $style. '>';
+$output .= "\n" . '<section ' . implode( ' ', $wrapper_attributes ) . 'class="' . esc_attr(trim(implode(' ', $css_classes))) .'"' . $style. '>';
 
 $output .= $container_start;
 $output .= wpb_js_remove_wpautop($content);

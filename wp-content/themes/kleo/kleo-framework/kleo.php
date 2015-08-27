@@ -6,9 +6,9 @@ class Kleo {
      * Initialization args
      */
     public $args;
-		
+
     private $custom_css;
-		
+
     private $tgm_plugins;
     
 	/**
@@ -18,7 +18,7 @@ class Kleo {
 	 * @since 1.0.0
 	 */
 	function __construct($args) {
-        
+
 		$this->args = $args;
         
 		/* Define framework, parent theme, and child theme constants. */
@@ -95,6 +95,13 @@ class Kleo {
 		/* Load the core framework functions. */
 		require_once( trailingslashit( KLEO_DIR ) . 'lib/function-core.php' );
 
+        /* load required plugins if the theme needs to */
+        if (!empty($this->args['required_plugins'])) {
+            $this->tgm_plugins = $this->args['required_plugins'];
+            require_once KLEO_DIR. '/lib/class-tgm-plugin-activation.php';
+            add_action( 'tgmpa_register', array( $this, 'required_plugins' ) );
+        }
+
 	}
 
 	/**
@@ -103,14 +110,6 @@ class Kleo {
 	 * @since 1.0.0
 	 */
 	function functions() {
-
-
-		/* load required plugins if the theme needs to */
-		if (!empty($this->args['required_plugins'])) {
-				$this->tgm_plugins = $this->args['required_plugins'];
-				require_once KLEO_DIR. '/lib/class-tgm-plugin-activation.php';
-				add_action( 'tgmpa_register', array($this,'required_plugins') );
-		}
 
 		/* Load multiple sidebars plugin */
 		if(!class_exists('sidebar_generator')) {
@@ -151,9 +150,9 @@ class Kleo {
 		add_filter( 'term_description', 'do_shortcode' );
 		
 	}
-    
 
-	function required_plugins() {
+
+	public function required_plugins() {
 		// Change this to your theme text domain, used for internationalising strings
 		$theme_text_domain = 'kleo_framework';
 
@@ -165,10 +164,11 @@ class Kleo {
 		 * end of each line for what each argument will be.
 		 */
 		$config = array(
-			'domain'            => $theme_text_domain,           // Text domain - likely want to be the same as your theme.
+            'id'                => 'tgmpa-kleo-' . KLEO_THEME_VERSION,
+            //'domain'            => $theme_text_domain,           // Text domain - likely want to be the same as your theme.
 			'default_path'      => '',                           // Default absolute path to pre-packaged plugins
-			'parent_menu_slug'  => 'themes.php',         // Default parent menu slug
-			'parent_url_slug'   => 'themes.php',         // Default parent URL slug
+			//'parent_menu_slug'  => 'themes.php',         // Default parent menu slug
+			//'parent_url_slug'   => 'themes.php',         // Default parent URL slug
 			'menu'              => 'install-required-plugins',   // Menu slug
 			'has_notices'       => true,                         // Show admin notices or not
 			'is_automatic'      => true,            // Automatically activate plugins after installation or not
@@ -197,7 +197,7 @@ class Kleo {
 		tgmpa( $this->tgm_plugins, $config );
 
 	}
-    
+
     
     public function add_css($data)
     {

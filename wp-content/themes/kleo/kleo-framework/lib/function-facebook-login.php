@@ -37,7 +37,7 @@ function kleo_fb_footer(){
 
     </script>
 	<script type="text/javascript">
-	var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+	var fbAjaxUrl = '<?php echo site_url( 'wp-login.php', 'login_post' ); ?>';
 
     jQuery(document).ready(function() {
 
@@ -80,7 +80,7 @@ function kleo_fb_footer(){
             function(FB_userdata){
                 jQuery.ajax({
                     type: 'POST',
-                    url: ajaxurl,
+                    url: fbAjaxUrl,
                     data: {"action": "fb_intialize", "FB_userdata": FB_userdata, "FB_response": FB_response},
                     success: function(user){
                         if( user.error ) {
@@ -90,9 +90,11 @@ function kleo_fb_footer(){
                             jQuery('#kleo-login-result').html(user.message);
                             if( user.type === 'login' ) {
                                 if(window.location.href.indexOf("wp-login.php") > -1) {
-                                  window.location = user.siteUrl;
+                                    window.location = user.url;
+                                } else if (user.redirectType == 'reload') {
+                                    window.location.reload();
                                 } else {
-                                  window.location.reload();
+                                    window.location = user.url;
                                 }
                             }
                             else if( user.type === 'register' ) {
@@ -161,13 +163,24 @@ add_action( 'login_head', 'kleo_fb_loginform_script' );
 add_action( 'wp_footer', 'kleo_fb_footer' );
 add_action( 'login_footer', 'kleo_fb_footer' );
 
-        
-function wp_ajax_fb_intialize(){
+
+
+function kleo_fb_intialize(){
+
     @error_reporting( 0 ); // Don't break the JSON result
     header( 'Content-type: application/json' );
 
+    /* If not our action, bail out */
+    if (! isset($_POST['action']) || ( isset($_POST['action']) && $_POST['action'] != 'fb_intialize' ) ) {
+        return false;
+    }
+
+    if ( is_user_logged_in() ) {
+        die(json_encode(array('error' => __('You are already logged in.', 'kleo_framework'))));
+    }
+
     if( !isset( $_REQUEST['FB_response'] ) || !isset( $_REQUEST['FB_userdata'] )) {
-        die(json_encode(array('error' => __('Authenication required.', 'kleo_framework'))));
+        die(json_encode(array('error' => __('Authentication required.', 'kleo_framework'))));
     }
 
     $FB_response = $_REQUEST['FB_response'];
@@ -250,7 +263,13 @@ function wp_ajax_fb_intialize(){
 
             update_user_meta( $user_ID, '_fbid', $id );
             $logintype = 'register';
-            $redirect = apply_filters('kleo_fb_register_redirect', bp_core_get_user_domain( $user_ID ) . 'profile/edit/group/1/?fb=registered', $user_ID );
+
+            $redirect_link = home_url();
+            if (function_exists( 'bp_is_active' )) {
+                $redirect_link = bp_core_get_user_domain( $user_ID ) . 'profile/edit/group/1/?fb=registered';
+            }
+
+            $redirect = apply_filters( 'kleo_fb_register_redirect', $redirect_link, $user_ID );
         }
         else
         {
@@ -265,10 +284,57 @@ function wp_ajax_fb_intialize(){
         $logintype = 'login';
     }
 
+    $user = get_user_by( 'id', $user_ID );
+
+    if ( $logintype == 'login' ) {
+
+        $redirect_to = home_url();
+        if (function_exists( 'bp_is_active' )) {
+            $redirect_to =  bp_core_get_user_domain( $user_ID );
+        }
+
+        /**
+         * Filter the login redirect URL.
+         *
+         * @since 3.0.0
+         *
+         * @param string           $redirect_to           The redirect destination URL.
+         * @param string           $requested_redirect_to The requested redirect destination URL passed as a parameter.
+         * @param WP_User|WP_Error $user                  WP_User object if login was successful, WP_Error object otherwise.
+         */
+
+        $redirect = apply_filters( 'login_redirect', $redirect_to, '', $user );
+    }
+
     wp_set_auth_cookie( $user_ID, false, false );
-    die( json_encode( array( 'loggedin' => true, 'type' => $logintype, 'url' => $redirect, 'siteUrl' => home_url(), 'message' => __( 'Login successful, redirecting...','kleo_framework' ) )));
+    /**
+     * Fires after the user has successfully logged in.
+     *
+     * @since 1.5.0
+     *
+     * @param string  $user_login Username.
+     * @param WP_User $user       WP_User object of the logged-in user.
+     */
+    do_action( 'wp_login', $user->user_login, $user );
+
+    /* Check the configured type of redirect */
+    if ( sq_option('login_redirect') == 'reload' ) {
+        $redirect_type = 'reload';
+    } else {
+        $redirect_type = 'redirect';
+    }
+
+    die( json_encode( array(
+        'loggedin' => true,
+        'type' => $logintype,
+        'url' => $redirect,
+        'redirectType' => $redirect_type,
+        'message' => __( 'Login successful, redirecting...','kleo_framework' )
+    )));
 }
-add_action( 'wp_ajax_nopriv_fb_intialize', 'wp_ajax_fb_intialize' );  
+add_action( 'init', 'kleo_fb_intialize' );
+
+
         
 //If registered via Facebook -> show message
 add_action( 'template_notices', 'kleo_fb_register_message' );
@@ -347,8 +413,9 @@ function kleo_fb_bp_show_avatar_url($gravatar, $params) {
 if (!function_exists('gaf_fb_register_activity')):
 function gaf_fb_register_activity($user_id) {
 	global $bp;
-	if ( !function_exists( 'bp_activity_add' ) )
-			return false;
+	if ( !function_exists( 'bp_activity_add' ) ) {
+        return false;
+    }
 
 	$userlink = bp_core_get_userlink( $user_id );
 	bp_activity_add( array(

@@ -40,7 +40,7 @@ $kleo_post_format = get_cfield( 'media_type' ) ? get_cfield( 'media_type' ) : 't
 
                     if ( !empty( $bg_video_args ) ) {
                         $attr_strings = array(
-                            'preload="0"'
+                            'preload="none"'
                         );
 
                         if (get_cfield( 'video_poster' ) ) {

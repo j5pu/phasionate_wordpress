@@ -58,7 +58,7 @@ class ItemLikes {
 		$one_postfix = strip_tags($one_postfix);
 		$more_postfix = strip_tags($more_postfix);
 
-        if ( function_exists('icl_object_id') ) {
+		if ( defined('ICL_SITEPRESS_VERSION') ){
             global $sitepress;
             if (is_object($sitepress)) {
                 $post_id = icl_object_id($post_id, 'post', true, $sitepress->get_default_language());
@@ -114,7 +114,7 @@ class ItemLikes {
             $post_id = $post->ID;
         }
 
-        if ( function_exists('icl_object_id') ) {
+		if ( defined('ICL_SITEPRESS_VERSION') ){
             global $sitepress;
             $post_id = icl_object_id( $post_id, 'post', true, $sitepress->get_default_language() );
         }
@@ -164,7 +164,7 @@ function kleo_item_likes( $post_id = null, $return = false )
 class ItemLikes_Widget extends WP_Widget {
 
 	function __construct() {
-		parent::WP_Widget( 'item_likes_widget', 'ItemLikes', array( 'description' => __('Displays your most popular posts sorted by most liked', 'kleo_framework') ) );
+		parent::__construct( 'item_likes_widget', 'ItemLikes', array( 'description' => __('Displays your most popular posts sorted by most liked', 'kleo_framework') ) );
 	}
 
 	function widget( $args, $instance ) {

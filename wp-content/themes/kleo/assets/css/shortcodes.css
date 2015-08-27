@@ -2976,14 +2976,14 @@ blockquote cite {
     right: -1px;
 }
 /* Tour section */
-.wpb_tour .nav-tab {
+.wpb_tour .nav-tabs {
     float: left;
     width: 31.6667%;
 }
-.wpb_tour.pos-right .nav-tab {
+.wpb_tour.pos-right .nav-tabs {
     float: right;
 }
-.wpb_tour .nav-tab li {
+.wpb_tour .nav-tabs li {
     clear: left;
     margin: 0 0 1px;
     width: 100%;
@@ -3005,7 +3005,7 @@ blockquote cite {
     padding-top: 10px;
 }
 @media (max-width: 767px) {
-    .wpb_tour .nav-tab,
+    .wpb_tour .nav-tabs,
     .wpb_tour .tab-content {
         float: none;
         width: 100%;

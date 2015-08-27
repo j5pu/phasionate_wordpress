@@ -1,5 +1,5 @@
 <?php
-define('KLEO_THEME_VERSION', '2.4.3');
+define('KLEO_THEME_VERSION', '3.0.7');
 
 /* Configuration array */
 global $kleo_config;
@@ -38,8 +38,9 @@ if ( is_ssl() ) {
     }
 }
 
-$kleo_config['custom_style_path'] = $upload_dir['basedir'].'/custom_styles'; 
-$kleo_config['custom_style_url'] = $upload_dir['baseurl'].'/custom_styles'; 
+$kleo_config['upload_basedir'] = $upload_dir['basedir'];
+$kleo_config['custom_style_path'] = $upload_dir['basedir'] . '/custom_styles';
+$kleo_config['custom_style_url'] = $upload_dir['baseurl'] . '/custom_styles';
 $kleo_config['image_overlay'] = '<span class="hover-element"><i>+</i></span>';
 
 //define site style sets
@@ -66,7 +67,7 @@ $theme_args = array(
 			'name'                  => 'Buddypress', // The plugin name
 			'slug'                  => 'buddypress', // The plugin slug (typically the folder name)
 			'required'              => false, // If false, the plugin is only 'recommended' instead of required
-			'version'               => '2.2', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+			'version'               => '2.3.2.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 			'force_activation'      => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 			'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 			'external_url'          => '', // If set, overrides default API URL and points to an external URL
@@ -86,7 +87,7 @@ $theme_args = array(
 				'slug'			=> 'js_composer', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/js_composer.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '4.4.2', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '4.6.2', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -96,7 +97,7 @@ $theme_args = array(
 				'slug'			=> 'revslider', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/revslider.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '4.1.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '5.0.4.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -106,16 +107,26 @@ $theme_args = array(
 				'slug'			=> 'k-elements', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/k-elements.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '2.4', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '3.0.7', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
 		),
         array(
+            'name'			=> 'Go Pricing', // The plugin name
+            'slug'			=> 'go_pricing', // The plugin slug (typically the folder name)
+            'source'			=> get_template_directory() . '/lib/inc/go_pricing.zip', // The plugin source
+            'required'			=> false, // If false, the plugin is only 'recommended' instead of required
+            'version'			=> '3.0.3', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+            'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
+            'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
+            'external_url'		=> '', // If set, overrides default API URL and points to an external URL
+        ),
+        array(
             'name'                  => 'BuddyPress Cover Photo', // The plugin name
             'slug'                  => 'buddypress-cover-photo', // The plugin slug (typically the folder name)
             'required'              => false, // If false, the plugin is only 'recommended' instead of required
-            'version'               => '1.0.4', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+            'version'               => '1.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
             'force_activation'      => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
             'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
             'external_url'          => '', // If set, overrides default API URL and points to an external URL
@@ -133,7 +144,7 @@ $theme_args = array(
 			'name'                  => 'WooCommerce', // The plugin name
 			'slug'                  => 'woocommerce', // The plugin slug (typically the folder name)
 			'required'              => false, // If false, the plugin is only 'recommended' instead of required
-			'version'               => '', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+			'version'               => '2.4.5', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 			'force_activation'      => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 			'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 			'external_url'          => '', // If set, overrides default API URL and points to an external URL
@@ -160,7 +171,16 @@ $theme_args = array(
             'name'                  => 'Paid Memberships Pro', // The plugin name
             'slug'                  => 'paid-memberships-pro', // The plugin slug (typically the folder name)
             'required'              => false, // If false, the plugin is only 'recommended' instead of required
-            'version'               => '1.7', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+            'version'               => '1.8', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+            'force_activation'      => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
+            'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
+            'external_url'          => '', // If set, overrides default API URL and points to an external URL
+        ),
+        array(
+            'name'                  => 'BP Profile Search', // The plugin name
+            'slug'                  => 'bp-profile-search', // The plugin slug (typically the folder name)
+            'required'              => false, // If false, the plugin is only 'recommended' instead of required
+            'version'               => '4.2.2', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
             'force_activation'      => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
             'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
             'external_url'          => '', // If set, overrides default API URL and points to an external URL
@@ -185,7 +205,7 @@ function kleo_theme_functions() {
 
 	/* Plugins and functionality */
 	
-	// bbPress compatibility
+	// BuddyPress compatibility
 	if (function_exists( 'bp_is_active' )) {
 		require_once( KLEO_LIB_DIR . '/plugin-buddypress/config.php' );	    //compatibility with buddypress plugin
 	}  
@@ -204,6 +224,21 @@ function kleo_theme_functions() {
 	if(function_exists('pmpro_url')) {
 		require_once( KLEO_LIB_DIR . '/plugin-pmpro/config.php' );
 	}
+
+    // Compatibility with GeoDirectory plugin
+    if( defined( 'GEODIRECTORY_VERSION' ) ) {
+        require_once( KLEO_LIB_DIR . '/plugin-geodirectory/config.php' );
+    }
+
+    // Compatibility with Sensei plugin
+    if( class_exists( 'WooThemes_Sensei' ) ) {
+        require_once( KLEO_LIB_DIR . '/plugin-sensei/config.php' );
+    }
+
+    // Compatibility Bp Profile Search
+    if( defined( 'BPS_VERSION' ) ) {
+        require_once( KLEO_LIB_DIR . '/plugin-bp-profile-search/config.php' );
+    }
 
 	// Posts likes
 	if (sq_option('likes_status', 1) == 1) {
@@ -231,10 +266,16 @@ function kleo_theme_functions() {
     if ( is_admin() ) {
         //Metaboxes
         require_once(KLEO_LIB_DIR . '/metaboxes.php');
-
-        //demo content importer
-        require_once(KLEO_LIB_DIR . '/importer/import.php');
     }
+}
+
+
+
+/***************************************************
+:: 1 Click Install
+ ***************************************************/
+if ( is_admin() ) {
+    require_once(KLEO_LIB_DIR . '/importer/import.php');
 }
 
 
@@ -253,16 +294,16 @@ $kleo_post_types = new Post_types();
 :: Theme options
  ***************************************************/
 
-add_action( 'init', 'kleo_theme_options_load', 110 );
-function kleo_theme_options_load() {
-    if ( is_admin() ) {
-        //Options panel
-        if (!class_exists('ReduxFramework') && file_exists(KLEO_DIR . '/options/framework.php')) {
-            require_once(KLEO_DIR . '/options/framework.php');
-        }
-        require_once(KLEO_LIB_DIR . '/options.php');
+if ( is_admin() ) {
+    //Options panel
+    if (!class_exists('ReduxFramework') && file_exists(KLEO_DIR . '/options/framework.php')) {
+        require_once(KLEO_DIR . '/options/framework.php');
     }
 }
+if (is_admin() || is_customize_preview()) {
+    require_once(KLEO_LIB_DIR . '/options.php');
+}
+
 
 
 /***************************************************
@@ -376,6 +417,7 @@ function kleo_prepare_title( $post_id = null ) {
 	}
 
 	//hide breadcrumb?
+    $title_arr['show_breadcrumb'] = true;
 	if(sq_option('breadcrumb_status', 1) == 0) {
 		$title_arr['show_breadcrumb'] = false;
 	}
@@ -558,7 +600,7 @@ function kleo_get_search_menu_item() {
     <div class="kleo-search-wrap searchHidden" id="ajax_search_container">
     <form class="form-inline" id="ajax_searchform" action="<?php echo $action; ?>" data-context="<?php echo $context;?>">
         <?php echo $hidden;?>
-        <input name="<?php echo $input_name;?>" class="ajax_s form-control" autocomplete="off" type="text" value="<?php if ( isset($_REQUEST['s']) ) { echo $_REQUEST['s']; } ?>" placeholder="<?php _e( "Start typing to search...", "kleo_framework" );?>">
+        <input name="<?php echo $input_name;?>" class="ajax_s form-control" autocomplete="off" type="text" value="<?php if ( isset($_REQUEST['s']) ) { echo esc_attr($_REQUEST['s']); } ?>" placeholder="<?php _e( "Start typing to search...", "kleo_framework" );?>">
         <span class="kleo-ajax-search-loading"><i class="icon-spin6 animate-spin"></i></span>
     </form>
     <div class="kleo_ajax_results"></div>
@@ -578,12 +620,19 @@ if(!function_exists('kleo_ajax_search'))
 	function kleo_ajax_search()
 	{
 		//if "s" input is missing exit
-		if( empty( $_REQUEST['s'] ) ) die();
+		if( empty( $_REQUEST['s'] ) && empty( $_REQUEST['bbp_search'] ) ) die();
+
+		if( ! empty( $_REQUEST['bbp_search'] ) ) {
+			$search_string = $_REQUEST['bbp_search'];
+		} else {
+			$search_string = $_REQUEST['s'];
+		}
 
 		$output = "";
         $context = "any";
 		$defaults = array(
             'numberposts' => 4,
+			'posts_per_page' => 20,
             'post_type' => 'any',
             'post_status' => 'publish',
             'post_password' => '',
@@ -598,8 +647,8 @@ if(!function_exists('kleo_ajax_search'))
 
 		$defaults =  apply_filters( 'kleo_ajax_query_args', $defaults);
 
-		$query = http_build_query( $defaults );
-		$posts = get_posts( $query );
+		$the_query = new WP_Query( $defaults );
+		$posts = $the_query->get_posts();
 
         $members = array();
         $members['total'] = 0;
@@ -609,15 +658,15 @@ if(!function_exists('kleo_ajax_search'))
 
 
         if ( function_exists( 'bp_is_active' ) && ( $context == "any" || in_array( "members", $context ) ) ) {
-            $members = bp_core_get_users(array('search_terms' => $_REQUEST['s'], 'per_page' => $defaults['numberposts'], 'populate_extras' => false));
+            $members = bp_core_get_users(array('search_terms' => $search_string, 'per_page' => $defaults['numberposts'], 'populate_extras' => false));
         }
 
 		if ( function_exists( 'bp_is_active' ) && bp_is_active("groups") && ( $context == "any" || in_array( "groups", $context ) ) ) {
-			$groups = groups_get_groups(array('search_terms' => $_REQUEST['s'], 'per_page' => $defaults['numberposts'], 'populate_extras' => false));
+			$groups = groups_get_groups(array('search_terms' => $search_string, 'per_page' => $defaults['numberposts'], 'populate_extras' => false));
 		}
 
-        if ( class_exists( 'bbPress' ) && ( $context == "any" || in_array( "forums", $context ) ) ) {
-            $forums = kleo_bbp_get_replies( $_REQUEST['s'] );
+        if ( class_exists( 'bbPress' ) && ( $context == "any" || in_array( "forum", $context ) ) ) {
+            $forums = kleo_bbp_get_replies( $search_string );
         }
 
 
@@ -659,7 +708,7 @@ if(!function_exists('kleo_ajax_search'))
                 $output .= "</div>";
                 $output .= "</div>";
             }
-            $output .= "<a class='ajax_view_all' href='" . bp_get_members_directory_permalink() . "?s=" . $_REQUEST['s'] . "'>" . __('View member results','kleo_framework') . "</a>";
+            $output .= "<a class='ajax_view_all' href='" . bp_get_members_directory_permalink() . "?s=" . $search_string . "'>" . __('View member results','kleo_framework') . "</a>";
             $output .= "</div>";
         }
 
@@ -679,7 +728,7 @@ if(!function_exists('kleo_ajax_search'))
 				$output .= "</div>";
 				$output .= "</div>";
 			}
-			$output .= "<a class='ajax_view_all' href='" . bp_get_groups_directory_permalink() . "?s=" . $_REQUEST['s'] . "'>" . __('View group results','kleo_framework') . "</a>";
+			$output .= "<a class='ajax_view_all' href='" . bp_get_groups_directory_permalink() . "?s=" . $search_string . "'>" . __('View group results','kleo_framework') . "</a>";
 			$output .= "</div>";
 		}
 
@@ -701,7 +750,13 @@ if(!function_exists('kleo_ajax_search'))
                 } else {
                     $output .= "<hr>";
                 }
+				$count = 0;
                 foreach ($post_type as $post) {
+
+					$count++;
+					if ($count > 4) {
+						continue;
+					}
                     $format = get_post_format( $post->ID );
                     if ( $img_url = kleo_get_post_thumbnail_url( $post->ID ) ) {
                         $image = aq_resize( $img_url, 44, 44, true, true, true );
@@ -721,8 +776,8 @@ if(!function_exists('kleo_ajax_search'))
 
                     $excerpt = "";
 
-                    if (!empty($post->post_content)) {
-                        $excerpt = char_trim(trim(strip_tags(strip_shortcodes($post->post_content))), 40, "...");
+                    if ( ! empty($post->post_content) ) {
+                        $excerpt = char_trim( trim(strip_tags(strip_shortcodes($post->post_content))), 40, "..." );
                     }
                     $link = apply_filters('kleo_custom_url', get_permalink($post->ID));
                     $classes = "format-" . $format;
@@ -741,29 +796,35 @@ if(!function_exists('kleo_ajax_search'))
                 $output .= '</div>';
             }
 
-            $output .= "<a class='ajax_view_all' href='" . home_url( '/' ) . '?s=' . $_REQUEST['s'] . "'>" . __('View all results', 'kleo_framework') . "</a>";
+            $output .= "<a class='ajax_view_all' href='" . home_url( '/' ) . '?s=' . $search_string . "'>" . __('View all results', 'kleo_framework') . "</a>";
         }
 
         /* Forums topics search */
         if( ! empty( $forums ) ) {
             $output .= '<div class="kleo-ajax-part kleo-ajax-type-forums">';
             $output .= '<h4><span>' . __("Forums", 'kleo_framework') . '</span></h4>';
-            foreach ( $forums as $fk => $forum ) {
-                $image = "<i class='icon icon-chat-1'></i>";
 
-                $output .= "<div class ='kleo_ajax_entry'>";
-                $output .= "<div class='ajax_search_image'>$image</div>";
-                $output .= "<div class='ajax_search_content'>";
-                $output .= "<a href='" . $forum['url'] . "' class='search_title'>";
-                $output .= $forum['name'];
-                $output .= "</a>";
-                //$output .= "<span class='search_excerpt'>";
-                //$output .= $latest_activity;
-                //$output .= "</span>";
-                $output .= "</div>";
-                $output .= "</div>";
+			$i = 0;
+            foreach ( $forums as $fk => $forum ) {
+
+				$i++;
+				if ($i <= 4 ) {
+					$image = "<i class='icon icon-chat-1'></i>";
+
+					$output .= "<div class ='kleo_ajax_entry'>";
+					$output .= "<div class='ajax_search_image'>$image</div>";
+					$output .= "<div class='ajax_search_content'>";
+					$output .= "<a href='" . $forum['url'] . "' class='search_title'>";
+					$output .= $forum['name'];
+					$output .= "</a>";
+					//$output .= "<span class='search_excerpt'>";
+					//$output .= $latest_activity;
+					//$output .= "</span>";
+					$output .= "</div>";
+					$output .= "</div>";
+				}
             }
-            $output .= "<a class='ajax_view_all' href='" . bbp_get_search_url() . "?bbp_search=" . $_REQUEST['s'] . "'>" . __('View forum results','kleo_framework') . "</a>";
+            $output .= "<a class='ajax_view_all' href='" . bbp_get_search_url() . "?bbp_search=" . $search_string . "'>" . __('View forum results','kleo_framework') . "</a>";
             $output .= "</div>";
         }
 
@@ -968,8 +1029,6 @@ if (!function_exists('kleo_contact_form')) {
 	add_shortcode('kleo_contact_form', 'kleo_contact_form');
 }
 
-add_action('wp_ajax_kleo_sendmail', 'kleo_sendmail');
-add_action('wp_ajax_nopriv_kleo_sendmail', 'kleo_sendmail');
 
 if (!function_exists('kleo_sendmail')): 
 	function kleo_sendmail()
@@ -1052,7 +1111,7 @@ if (!function_exists('kleo_sendmail')):
 		}
 		else
 		{
-			printf($error_tpl, __("Unknown error ocurred. Please try again!",'kleo_framework') );
+			printf($error_tpl, __("Unknown error occurred. Please try again!",'kleo_framework') );
 		}
 		 die();
 	}
@@ -1068,6 +1127,8 @@ function kleo_show_contact_form()
 }
 
 if(sq_option('contact_form',1) == 1) {
+	add_action('wp_ajax_kleo_sendmail', 'kleo_sendmail');
+	add_action('wp_ajax_nopriv_kleo_sendmail', 'kleo_sendmail');
 	add_action('kleo_after_footer', 'kleo_show_contact_form');
 }
 
@@ -1155,23 +1216,29 @@ if ( ! function_exists( 'kleo_has_shortcode' ) ) {
 	}
 }
 
-if (!function_exists('kleo_icons_array')) {
-	function kleo_icons_array() {
+if ( ! function_exists( 'kleo_icons_array' ) ) {
+    function kleo_icons_array( $prefix = '' ) {
 
-		$icons= array('');
+        // Get any existing copy of our transient data
+        if ( false === ( $icons = get_transient( 'kleo_font_icons' ) ) ) {
 
-		$icons_json = file_get_contents( KLEO_LIB_DIR . '/assets/font-icons.json');
-		if ($icons_json) {
-			$arr = json_decode($icons_json, true);
-			foreach($arr['glyphs'] as $icon) 
-			{
-				$icons[$icon['css']] = $icon['css'];
-				asort($icons);
-			}
-		}
+            // It wasn't there, so regenerate the data and save the transient
+            $icons= array('');
+            $icons_json = file_get_contents( KLEO_LIB_DIR . '/assets/font-icons.json' );
+            if ( $icons_json ) {
+                $arr = json_decode( $icons_json, true );
+                foreach($arr['glyphs'] as $icon)
+                {
+                    $icons[$prefix . $icon['css']] = $icon['css'];
+                    asort($icons);
+                }
+            }
 
-		return $icons;
-	}
+            set_transient( 'kleo_font_icons', $icons );
+        }
+
+        return $icons;
+    }
 }
 
 if ( ! function_exists( 'kleo_post_nav' ) ) :
@@ -1249,7 +1316,18 @@ function kleo_postmeta_enabled() {
 function kleo_postmedia_enabled( $media_option = 'blog_media_status', $default = 1 ) {
 
 
+    global $conditional_thumb;
+    global $wp_query;
+
 	if ( ! is_singular() ) {
+
+        //check for shortcode thumbnail condition
+        if ( isset( $conditional_thumb ) ) {
+            if( $wp_query->current_post > ( $conditional_thumb - 1 ) ) {
+                return false;
+            }
+        }
+
 		return 1;
 	}
 
@@ -1462,41 +1540,42 @@ if(function_exists('get_term_meta')) {
 
 /***************************************************
 :: Add custom HTML to page header set from Page edit
-***************************************************/
+ ***************************************************/
 
 add_action( 'kleo_before_main', 'kleo_header_content', 8 );
 
 function kleo_header_content() {
-	if (! is_singular() ) {
-		return false;
-	}
-	$page_header = get_cfield('header_content');
-	if( $page_header != '' ) {
-		echo '<section class="kleo-page-header container-wrap main-color">';
-		echo do_shortcode( $page_header );
-		echo '</section>';
-	}
+    if ( is_singular() || is_home() ) {
+        $page_header = get_cfield('header_content');
+        if( $page_header != '' ) {
+            echo '<section class="kleo-page-header container-wrap main-color">';
+            echo do_shortcode( html_entity_decode( $page_header) );
+            echo '</section>';
+        }
+    } else {
+        return false;
+    }
 }
 
 
 
 /***************************************************
 :: Add custom HTML to bottom page set from Page edit
-***************************************************/
+ ***************************************************/
 
 add_action( 'kleo_after_main_content', 'kleo_bottom_content', 12 );
 
 function kleo_bottom_content() {
-	if (! is_singular() ) {
-		return false;
-	}
-	
-	$page_bottom = get_cfield('bottom_content');
-	if( $page_bottom != '' ) {
-		echo '<div class="kleo-page-bottom">';
-		echo do_shortcode( $page_bottom );
-		echo '</div>';
-	}
+    if ( is_singular() || is_home() ) {
+        $page_bottom = get_cfield('bottom_content');
+        if( $page_bottom != '' ) {
+            echo '<div class="kleo-page-bottom">';
+            echo do_shortcode( html_entity_decode($page_bottom) );
+            echo '</div>';
+        }
+    }else{
+        return false;
+    }
 }
 
 
@@ -1880,7 +1959,7 @@ function kleo_get_requested_url() {
     $url  = is_ssl() ? 'https://' : 'http://';
     $url .= $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
-    return apply_filters( 'kleo_get_requested_url', $url );
+    return apply_filters( 'kleo_get_requested_url', esc_url($url) );
 }
 
 
@@ -1929,4 +2008,192 @@ function kleo_bp_replace_placeholders( $output ) {
     $output = apply_filters( 'kleo_bp_replace_placeholders', $output, $initial_output );
 
     return $output;
+}
+
+
+
+/***************************************************
+:: Custom redirect from Theme options - Miscellaneous
+ ***************************************************/
+
+if ( sq_option('login_redirect', 'default') == 'custom' && sq_option( 'login_redirect_custom', '' ) != '' ) {
+    add_filter( 'login_redirect', 'kleo_custom_redirect', 12 );
+}
+
+function kleo_custom_redirect() {
+
+    $redirect_to = sq_option( 'login_redirect_custom', '' );
+
+    return $redirect_to;
+}
+
+if ( ! function_exists('kleo_get_post_media')) {
+    /**
+     * Return post media by format
+     *
+     * @param $post_format
+     * @param $options
+     * @return string
+     *
+     * @since 3.0
+     */
+    function kleo_get_post_media($post_format = 'standard', $options = array())
+    {
+
+        global $kleo_config;
+
+        if (isset($options['icons']) && $options['icons']) {
+            $icons = true;
+        } else {
+            $icons = false;
+        }
+
+        if (isset($options['media_width']) && isset($options['media_height'])) {
+            $media_width = $options['media_width'];
+            $media_height = $options['media_height'];
+        } else {
+            $media_width = $kleo_config['post_gallery_img_width'];
+            $media_height = $kleo_config['post_gallery_img_height'];
+        }
+
+        $output = '';
+
+        switch ($post_format) {
+
+            case 'video':
+
+                //oEmbed video
+                $video = get_cfield('embed');
+                // video bg self hosted
+                $bg_video_args = array();
+                $k_video = '';
+
+                if (get_cfield('video_mp4')) {
+                    $bg_video_args['mp4'] = get_cfield('video_mp4');
+                }
+                if (get_cfield('video_ogv')) {
+                    $bg_video_args['ogv'] = get_cfield('video_ogv');
+                }
+                if (get_cfield('video_webm')) {
+                    $bg_video_args['webm'] = get_cfield('video_webm');
+                }
+
+                if (!empty($bg_video_args)) {
+                    $attr_strings = array(
+                        'preload="none"'
+                    );
+
+                    if (get_cfield('video_poster')) {
+                        $attr_strings[] = 'poster="' . get_cfield('video_poster') . '"';
+                    }
+
+                    $k_video .= '<div class="kleo-video-wrap"><video ' . join(' ', $attr_strings) . ' controls="controls" class="kleo-video" style="width: 100%; height: 100%;">';
+
+                    $source = '<source type="%s" src="%s" />';
+                    foreach ($bg_video_args as $video_type => $video_src) {
+                        $video_type = wp_check_filetype($video_src, wp_get_mime_types());
+                        $k_video .= sprintf($source, $video_type['type'], esc_url($video_src));
+                    }
+
+                    $k_video .= '</video></div>';
+
+                    $output .= $k_video;
+                } // oEmbed
+                elseif (!empty($video)) {
+                    global $wp_embed;
+                    $output .= apply_filters('kleo_oembed_video', $video);
+                }
+
+                break;
+
+            case 'audio':
+
+                $audio = get_cfield('audio');
+
+                if (!empty($audio)) {
+                    $output .=
+                        '<div class="post-audio">' .
+                        '<audio preload="none" class="kleo-audio" id="audio_' . get_the_ID() . '" style="width:100%;" src="' . $audio . '"></audio>' .
+                        '</div>';
+                }
+                break;
+
+            case 'gallery':
+
+                $slides = get_cfield('slider');
+
+                $output .= '<div class="kleo-banner-slider">'
+                    . '<div class="kleo-banner-items" >';
+
+                if ( $slides ) {
+                    foreach ($slides as $slide) {
+                        if ($slide) {
+                            $image = aq_resize($slide, $media_width, $media_height, true, true, true);
+                            //small hack for non-hosted images
+                            if (!$image) {
+                                $image = $slide;
+                            }
+                            $output .= '<article>
+								<a href="' . $slide . '" data-rel="modalPhoto[inner-gallery]">
+									<img src="' . $image . '" alt="' . get_the_title() . '">'
+                                . kleo_get_img_overlay()
+                                . '</a>
+							</article>';
+                        }
+                    }
+                }
+
+                $output .= '</div>'
+                    . '<a href="#" class="kleo-banner-prev"><i class="icon-angle-left"></i></a>'
+                    . '<a href="#" class="kleo-banner-next"><i class="icon-angle-right"></i></a>'
+                    . '<div class="kleo-banner-features-pager carousel-pager"></div>'
+                    . '</div>';
+
+                break;
+
+
+            case 'aside':
+                if ($icons) {
+                    $output .= '<div class="post-format-icon"><i class="icon icon-doc"></i></div>';
+                }
+                break;
+
+            case 'link':
+                if ($icons) {
+                    $output .= '<div class="post-format-icon"><i class="icon icon-link"></i></div>';
+                }
+                break;
+
+            case 'quote':
+                if ($icons) {
+                    $output .= '<div class="post-format-icon"><i class="icon icon-quote-right"></i></div>';
+                }
+                break;
+
+            case 'image':
+            default:
+                if (kleo_get_post_thumbnail_url() != '') {
+                    $output .= '<div class="post-image">';
+
+                    $img_url = kleo_get_post_thumbnail_url();
+                    $image = aq_resize($img_url, $media_width, $media_height, true, true, true);
+                    if (!$image) {
+                        $image = $img_url;
+                    }
+                    $output .= '<a href="' . get_permalink() . '" class="element-wrap">'
+                        . '<img src="' . $image . '" alt="' . get_the_title() . '">'
+                        . kleo_get_img_overlay()
+                        . '</a>';
+
+                    $output .= '</div><!--end post-image-->';
+                } elseif ($icons) {
+                    $post_icon = $post_format == 'image' ? 'picture' : 'doc';
+                    $output .= '<div class="post-format-icon"><i class="icon icon-' . $post_icon . '"></i></div>';
+                }
+
+                break;
+        }
+
+        return $output;
+    }
 }

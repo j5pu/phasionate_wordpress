@@ -43,7 +43,7 @@ $col = 1;
 		<header class="title">
 			<h3><?php echo $title; ?></h3>
 			<?php if ( function_exists( 'bp_is_active' ) && sq_option( 'woo_buddypress_menus' , 1 ) == 1 ) { ?>
-				<a href="<?php echo get_permalink( wc_get_page_id( 'myaccount' ) ) . wc_get_endpoint_url( 'edit-address', $name ); ?>" class="edit"><?php _e( 'Edit', 'woocommerce' ); ?></a>
+                <a href="<?php echo wc_get_endpoint_url( 'edit-address', $name, get_permalink( wc_get_page_id( 'myaccount' ) ) ) ?>" class="edit"><?php _e( 'Edit', 'woocommerce' ); ?></a>
 			<?php } else { ?>
 				<a href="<?php echo wc_get_endpoint_url( 'edit-address', $name ); ?>" class="edit"><?php _e( 'Edit', 'woocommerce' ); ?></a>
 			<?php } ?>

@@ -786,10 +786,10 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 #buddypress .dir-form {
 	clear: both;
 }
-#buddypress #group-settings-form img {
+#buddypress #group-settings-form img.avatar-crop-preview {
 	width: 50px;
 }
-#buddypress #group-settings-form .jcrop-holder img, 
+/*#buddypress #group-settings-form .jcrop-holder img,
 #buddypress #group-settings-form #avatar-crop-pane img,
 #buddypress #group-settings-form #avatar-to-crop
 {
@@ -798,7 +798,7 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 
 #buddypress .avatar-crop-pane img {
 	width: auto;
-}
+}*/
 #buddypress #groups-list {
 }
 #buddypress #groups-list li {
@@ -925,6 +925,8 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 	padding: 30px 0 20px;
 	border-style: solid;
 	border-width: 1px;
+	display: inline-block;
+	width: 100%;
 }
 #buddypress #friend-list li div.item-avatar,
 #buddypress #member-list li div.item-avatar,
@@ -1044,7 +1046,9 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 }
 .buddypress .kleo-online-status {
 	right: 0;
-	bottom: 20px;
+    bottom: 20px;
+    width: 16px;
+    height: 16px;
 }
 #buddypress .kleo-members-carousel .kleo-online-status {
 	right: 7%;
@@ -1368,7 +1372,7 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 	width: 100%;
 	border: 1px solid #e5e5e5;
 }
-#buddypress button,
+#buddypress button:not(.multiselect),
 .buddypress a.button,
 #buddypress a.button,
 #buddypress input[type=submit],
@@ -1390,6 +1394,9 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 	height: 30px;
 	line-height: 30px;
 	transition: all 0.4s ease-in-out 0s;
+}
+#buddypress button:not(.multiselect) {
+    padding: 3px 6px;
 }
 #buddypress #subnav a.group-create {
 	vertical-align: middle;
@@ -1923,49 +1930,88 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 	width: 100%;
 }
 .buddypress div#item-header .toggle-header {
-	display: inline-block;
 	position: absolute;
-	cursor: pointer;
-	padding-left: 10px;
-	right: 5px;
-	/*top: 66px;*/
+	right: 10px;
 	top: 10px;
-	color: #bbb;
-	text-align: center;
 	transition: all 0.5s ease-in-out 0s;
-	background: none !important;
+    text-align: right;
+	z-index: 5;
 }
-
 .buddypress div#item-header .toggle-header .bp-toggle-less,
 .buddypress div#item-header .toggle-header .bp-toggle-more {
-	padding: 5px 10px;
-	border-radius: 3px;
-	transition: all 0.5s ease-in-out 0s;
-	background: #fff;
-	border: 1px solid #e5e5e5;
-	text-transform: uppercase;
-	font-size: 12px;
+    text-transform: uppercase;
+    font-size: 12px;
+    white-space: nowrap;
+    text-indent: -10em;
+    cursor: pointer;
+    line-height: 30px !important;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    width: 40px;
+    overflow: hidden;
+    display: inline-block
 }
+.buddypress.is-user-profile div#item-header .toggle-header .bp-toggle-less,
+.buddypress.is-user-profile div#item-header .toggle-header .bp-toggle-more {
+    color: rgba(255,255,255,0.7) !important;
+}
+.buddypress div#item-header .toggle-header .bp-toggle-more,
+.buddypress.bp-header-small div#item-header .toggle-header .bp-toggle-less {
+    display: none;
+}
+.buddypress.bp-header-small div#item-header .toggle-header .bp-toggle-more {
+    display: inline-block !important;
+}
+
 .buddypress div#item-header .toggle-header .bp-toggle-less:hover,
 .buddypress div#item-header .toggle-header .bp-toggle-more:hover {
-	background-color: #f7f7f7;
+    width: 140px;
 }
-.buddypress.bp-header-small div#item-header .toggle-header .bp-toggle-less,
-.buddypress.bp-header-small div#item-header .toggle-header .bp-toggle-more {
-	border: none;
-}
-body.buddypress.is-user-profile div#item-header .toggle-header .bp-toggle-less,
-body.buddypress.is-user-profile div#item-header .toggle-header .bp-toggle-more {
-	border: 1px solid rgba(102,102,102,0.4);
-}
-body.is-user-profile div#item-header .toggle-header .bp-toggle-less:hover,
-body.is-user-profile div#item-header .toggle-header .bp-toggle-more:hover {
-	background-color: rgba(255,255,255,0.2) !important;
+.buddypress.is-user-profile div#item-header .toggle-header .bp-toggle-less:hover,
+.buddypress.is-user-profile div#item-header .toggle-header .bp-toggle-more:hover {
+    background-color: transparent !important;
+    color: rgba(255,255,255,0.9) !important;
 }
 .buddypress div#item-header .toggle-header .bp-toggle-more {}
-body.is-user-profile .toggle-header .bp-toggle-less,
-body.is-user-profile .toggle-header .bp-toggle-more {
-	background: none !important;
+
+.buddypress div#item-header .toggle-header .bp-toggle-less:before,
+.buddypress div#item-header .toggle-header .bp-toggle-more:before {
+    display: inline-block;
+    font: 16px 'fontello';
+    text-indent: 0;
+    float: right;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px !important;
+    line-height: 30px;
+    margin-left: 10px;
+    text-align: center;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.buddypress.is-user-profile div#item-header .toggle-header .bp-toggle-less:before,
+.buddypress.is-user-profile div#item-header .toggle-header .bp-toggle-more:before {
+    background: rgba(0,0,0,0.1);
+    color: rgba(255,255,255,0.5);
+}
+.buddypress div#item-header .toggle-header .bp-toggle-less:before {
+    content: "\e82c";
+}
+.buddypress div#item-header .toggle-header .bp-toggle-more:before {
+    content: "\e828";
+}
+
+.buddypress.is-user-profile div#item-header .toggle-header .bp-toggle-less:hover:before,
+.buddypress.is-user-profile div#item-header .toggle-header .bp-toggle-more:hover:before {
+    color: rgba(255,255,255,0.9);
 }
 
 .buddypress div#item-header div#item-header-content {}
@@ -2032,6 +2078,7 @@ body.is-user-profile.bp-header-small #item-header .toggle-header { top : 67px;}
 	/*margin: 15px 0 5px 0;*/
 	/*padding-bottom: 10px;*/
 	font-size: 14px;
+	word-wrap: break-word;
   /*line-height: 30px;*/
 }
 .buddypress div#item-header div#item-actions {
@@ -2044,48 +2091,48 @@ body.is-user-profile.bp-header-small #item-header .toggle-header { top : 67px;}
 	line-height: 32px;
 }
 
-#buddypress div#item-header div.group-admins {
+.buddypress div#item-header div.group-admins {
 	text-align: right;
 }
-#buddypress div#item-header div.group-admins h3 {
+.buddypress div#item-header div.group-admins h3 {
 	display: inline-block;
 }
-#buddypress div#item-header div.group-mods {
+.buddypress div#item-header div.group-mods {
 	text-align: left;
 }
-#buddypress div#item-header div.group-mods h3 {
+.buddypress div#item-header div.group-mods h3 {
 	float: left;
 	display: inline-block;
 }
-#buddypress div#item-header ul#group-admins {
+.buddypress div#item-header ul#group-admins {
 	float: right;
 	padding-left: 10px;
 }
-#buddypress div#item-header ul#group-admins li {
+.buddypress div#item-header ul#group-admins li {
 	margin: 2px;
 }
-#buddypress div#item-header .group-admins.col-sm-12 {
+.buddypress div#item-header .group-admins.col-sm-12 {
     text-align: center;
 }
-#buddypress div#item-header .group-admins.col-sm-12 ul#group-admins {
+.buddypress div#item-header .group-admins.col-sm-12 ul#group-admins {
     display: inline;
     float: none;
 		text-align: center;
 }
-#buddypress div#item-header .group-admins.col-sm-12 ul li {
+.buddypress div#item-header .group-admins.col-sm-12 ul li {
     display: inline-block;
     float: none;
     list-style: none outside none;
 }
-#buddypress div#item-header ul#group-mods {
+.buddypress div#item-header ul#group-mods {
 	float: left;
 	padding-left: 10px;
 }
-#buddypress div#item-header ul#group-mods li {
+.buddypress div#item-header ul#group-mods li {
 	margin: 2px;
 }
 
-#buddypress div#item-header ul {
+.buddypress div#item-header ul {
 	margin-bottom: 15px;
 	overflow: hidden;
 }
@@ -2094,12 +2141,12 @@ body.is-user-profile.bp-header-small #item-header .toggle-header { top : 67px;}
 #buddypress div#item-header ul hr {
 	display: none;
 }
-#buddypress div#item-header ul li {
+.buddypress div#item-header ul li {
 	float: right;
 	list-style: none;
 }
-#buddypress div#item-header ul img.avatar,
-#buddypress div#item-header ul.avatars img.avatar {
+.buddypress div#item-header ul img.avatar,
+.buddypress div#item-header ul.avatars img.avatar {
 	height: 30px;
 	width: 30px !important;
 	border-radius: 100%;
@@ -2530,7 +2577,7 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 #buddypress li.friend-tab:nth-child(2) img.avatar {
     margin-right: 6px;
 }
-#buddypress div.messages .thread-avatar {
+#buddypress #message-threads .thread-avatar {
 	border-radius: 3px;
 	border-style: solid;
 	border-width: 5px;
@@ -2542,7 +2589,7 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 	width: 60px;
 	height: 60px;
 }
-#buddypress div.messages .thread-avatar img.avatar {
+#buddypress #message-threads .thread-avatar img.avatar {
 	margin: 0 10px 0 0;
 }
 #buddypress ul.mesage-item {
@@ -2605,7 +2652,25 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 #buddypress div.thread-info .thread-excerpt {
 	
 }
-#buddypress div.thread-otions {
+#buddypress div.thread-options .thread-star  {
+    display: inline-block;
+    margin-left: 5px;
+}
+.message-action-star span.icon::before,
+.message-action-unstar span.icon::before {
+    font-family: "fontello";
+    font-size: 16px;
+}
+.message-action-unstar span.icon::before {
+    color: #fcdd77;
+    content: "\E811";
+}
+.message-action-star span.icon::before {
+    content: "\E812";
+}
+#buddypress div.thread-options .thread-star .bp-screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute;
 }
 #buddypress #message-threads {
 	margin-bottom: 10px;
@@ -2842,12 +2907,24 @@ body.register #buddypress div.page ul {
 	font-style: italic;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    #buddypress div.profile  { display: block; }
+}
+
 /*--------------------------------------------------------------
 3.11 - Widgets
 --------------------------------------------------------------*/
-
+#buddypress .widget.buddypress #groups-list {
+    padding: 0;
+}
+#buddypress .widget.buddypress #groups-list li {
+    text-align: left;
+}
 .widget.buddypress div.item-avatar {
 	float: left;
+}
+#buddypress .widget.buddypress #groups-list .item-avatar {
+    border: none;
 }
 .widget.buddypress div.item-avatar img.avatar {
 	float: left;
@@ -2860,6 +2937,8 @@ body.register #buddypress div.page ul {
 .widget.buddypress div.item-title {
 	font-weight: bold;
 	line-height: 16px;
+	-ms-word-wrap: break-word;
+	word-wrap: break-word;
 }
 .widget.buddypress span.activity {
 	display: inline-block;
@@ -2873,6 +2952,9 @@ body.register #buddypress div.page ul {
 
 .widget.buddypress div.item{
 	margin-left: 50px;
+}
+#buddypress .widget.buddypress #groups-list .item {
+    padding: 0;
 }
 .widget.buddypress div.item-meta {
 	line-height: 16px;
@@ -3007,6 +3089,12 @@ body.register #buddypress div.page ul {
 User avatar in menu
 */
 .kleo-bp-user-avatar img {width: 25px;}
+
+/* Avatar */
+.bp-uploader-window .drag-drop {
+    border: none;
+    padding: 0;
+}
 
 
 /*--------------------------------------------------------------
@@ -3162,9 +3250,9 @@ User avatar in menu
 	}
 	#buddypress ul.item-list li div.action {
 		clear: left;
-		float: left;
+		/*float: left;*/
 		margin-top: 0;
-		margin-left: 70px;
+		/*margin-left: 70px;*/
 		position: relative;
 		top: 0;
 		right: 0;

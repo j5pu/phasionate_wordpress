@@ -25,11 +25,12 @@ get_header(); ?>
 <?php
 
 //remove title in main content area since it is handled by Buddypress setting in Theme options - Buddypress 
-remove_action('kleo_before_main_content', 'kleo_title_main_content');
+remove_action( 'kleo_before_main_content', 'kleo_title_main_content' );
 
 $title_arr = array();
 
-if( sq_option( 'bp_title_location', 'breadcrumb' ) != 'breadcrumb' ) {
+if( in_array( sq_option( 'bp_title_location', 'breadcrumb' ), array( 'disabled', 'main' ) ) ||
+    ( sq_option( 'bp_title_location', 'breadcrumb' ) == 'default' && sq_option( 'title_location', 'breadcrumb' ) == 'main' ) ) {
 	$title_arr['show_title'] = false;
 }
 
@@ -114,6 +115,25 @@ else
 
 <?php endif; ?>
 
+<?php if( sq_option( 'bp_full_group', 0 ) == 1 && bp_is_single_item() && bp_is_groups_component() ): ?>
+
+    <?php if ( bp_has_groups() ) : while ( bp_groups() ) : bp_the_group(); ?>
+
+    <section class="alternate-color bp-full-width-profile">
+        <div id="item-header" role="complementary">
+
+            <?php bp_get_template_part( 'groups/single/group-header' ); ?>
+
+        </div>
+        <!-- #item-header -->
+    </section>
+
+     <?php endwhile; endif; ?>
+
+<?php endif; ?>
+
+
+
 <?php get_template_part('page-parts/general-before-wrap'); ?>
 
 <?php
@@ -124,7 +144,7 @@ if ( have_posts() ) :
 	<div class="row">
 		<div class="col-sm-12">
 			
-			<?php if (sq_option('bp_title_location','breadcrumb') == 'main') : ?>
+			<?php if ( sq_option( 'bp_title_location', 'breadcrumb' ) == 'main' OR ( sq_option( 'bp_title_location', 'breadcrumb' ) == 'default' && sq_option( 'title_location', 'breadcrumb' ) == 'main' ) ) :  ?>
 			<h1 class="page-title text-center" style="font-size:20px;"><?php echo $title; ?></h1>
 			<?php endif;?>
 			

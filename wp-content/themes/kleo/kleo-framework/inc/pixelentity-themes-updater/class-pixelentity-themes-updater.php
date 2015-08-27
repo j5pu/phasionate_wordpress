@@ -31,7 +31,7 @@ if (!class_exists("Pixelentity_Themes_Updater")) {
 
 			
 			$api = new Envato_Protected_API($this->username,$this->apikey);
-			add_filter("http_request_args",array(&$this,"http_timeout"),10,1);
+			//add_filter("http_request_args",array(&$this,"http_timeout"),10,1);
 			$purchased = $api->wp_list_themes(true);
 
 			$installed = wp_get_themes();
@@ -62,7 +62,7 @@ if (!class_exists("Pixelentity_Themes_Updater")) {
 				}
 			}
 
-			remove_filter("http_request_args",array(&$this,"http_timeout"));
+			//remove_filter("http_request_args",array(&$this,"http_timeout"));
 
 			return $updates;
 		}

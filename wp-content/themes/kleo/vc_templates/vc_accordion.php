@@ -6,7 +6,7 @@ extract(shortcode_atts(array(
     'el_class' => '',
     'collapsible' => 'no',
     'active_tab' => '1',
-		'icons_position' => 'left'
+    'icons_position' => 'left'
 ), $atts));
 
 global $kleo_acc_id, $kleo_acc_active_tab, $kleo_acc_count;

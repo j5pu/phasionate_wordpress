@@ -75,6 +75,7 @@ class Breadcrumb_Trail
 
         $defaults = array(
             'container' => 'div',
+            'item_tag' => 'span',
             'separator' => '&#47;',
             'before' => '',
             'after' => '',
@@ -126,7 +127,7 @@ class Breadcrumb_Trail
             $vocabulary = '';
             if( $this->args['rich_snippet'] === true )
             {
-                $vocabulary = ' itemscope itemtype="http://data-vocabulary.org/Breadcrumb"';
+                $vocabulary = ' xmlns:v="http://rdf.data-vocabulary.org/#"';
             }
 
             /* Open the breadcrumb trail containers. */
@@ -147,15 +148,27 @@ class Breadcrumb_Trail
             //array_push($this->items, '<span class="trail-end">' . array_pop($this->items) . '</span>');
 
             /* Format the separator. */
-            $separator = (!empty($this->args['separator']) ? '<span class="sep">' . $this->args['separator'] . '</span>' : '<span class="sep">/</span>');
+            $separator = (!empty($this->args['separator']) ? '<span class="sep">' . $this->args['separator'] . '</span>' : '');
 
-            if( $this->args['rich_snippet'] === true )
+            $count = 0;
+            foreach( $this->items as &$link )
             {
-                foreach($this->items as &$link)
-                {
-                    $link = preg_replace('!rel=".+?"|rel=\'.+?\'|!',"", $link);
-                    $link = str_replace('<a ', '<a rel="v:url" property="v:title" ', $link);
-                    $link = '<span typeof="v:Breadcrumb">'.$link.'</span>';
+                $count++;
+                $class = '';
+                if ( count($this->items) == $count ) {
+                    $class = ' class="active"';
+                }
+                if( $this->args['rich_snippet'] === true ) {
+                    $link = preg_replace('!rel=".+?"|rel=\'.+?\'|!', "", $link);
+                    $link = str_replace('<a ', '<a rel="v:url" property="v:title" ', $link, $count_replace);
+                    $micro_data = '';
+                    if ( $count_replace > 0 ) {
+                        $micro_data = ' typeof="v:Breadcrumb"';
+                    }
+                    $link = '<' . $this->args['item_tag'] . $micro_data . $class . '>' . $link . '</' . $this->args['item_tag'] . '>';
+                }
+                else {
+                    $link = '<' . $this->args['item_tag'] . $class . '>' . $link . '</' . $this->args['item_tag'] . '>';
                 }
             }
 
@@ -392,14 +405,17 @@ class Breadcrumb_Trail
 
         /* Get the post ID and post. */
         $post_id = get_queried_object_id();
-        $post = get_page($post_id);
+        $post = get_post($post_id);
 
         /* If the post has parents, add them to the trail. */
-        if (0 < $post->post_parent)
+        if ( isset($post->post_parent) && 0 < $post->post_parent)
             $this->do_post_parents($post->post_parent);
 
         /* Get the page title. */
         $title = get_the_title($post_id);
+        if ( get_cfield( 'custom_title', $post_id ) && get_cfield( 'custom_title', $post_id ) != ''  ) {
+            $title = get_cfield( 'custom_title', $post_id );
+        }
 
         /* Add the posts page item. */
         if (is_paged())
@@ -466,8 +482,14 @@ class Breadcrumb_Trail
             /* Get the post by ID. */
             $post = get_post($post_id);
 
+            $page_title = get_the_title( $post_id );
+
+            if ( get_cfield( 'custom_title', $post_id ) && get_cfield( 'custom_title', $post_id ) != ''  ) {
+                $page_title = get_cfield( 'custom_title', $post_id );
+            }
+
             /* Add the formatted post link to the array of parents. */
-            $parents[] = '<a href="' . get_permalink($post_id) . '" title="' . esc_attr(get_the_title($post_id)) . '">' . get_the_title($post_id) . '</a>';
+            $parents[] = '<a href="' . get_permalink($post_id) . '" title="' . $page_title . '">' . $page_title . '</a>';
 
             /* If there's no longer a post parent, brea out of the loop. */
             if (0 >= $post->post_parent)

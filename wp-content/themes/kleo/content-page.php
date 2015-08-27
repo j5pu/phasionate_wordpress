@@ -42,7 +42,7 @@ if ( get_cfield( 'centered_text' ) == 1 )  {
 
         if ( !empty($bg_video_args) ) {
             $attr_strings = array(
-                    'preload="0"'
+                    'preload="none"'
             );
 
             if (get_cfield( 'video_poster' ) ) {
@@ -76,7 +76,7 @@ if ( get_cfield( 'centered_text' ) == 1 )  {
 
             foreach($slides as $slide) {
                 echo '<article>'
-                    . '<a href="'. $slide .'" data-rel="prettyPhoto[inner-gallery]">'
+                    . '<a href="'. $slide .'" data-rel="modalPhoto[inner-gallery]">'
                     . '<img src="'.$slide.'" alt="">'
                     . kleo_get_img_overlay()
                     . '</a>'

@@ -16,7 +16,13 @@ foreach ($sections as $name => $section) {
 //checks if we have a dark or light background and then creates a stronger version of the main font color for headings
 $section['heading'] = kleo_calc_similar_color($section['text'], (kleo_calc_perceived_brightness($section['bg'], 100) ? 'lighter' : 'darker'), 3);
 
-//check if we have a dark or lighht background and then creates a lighter version of the main font color
+
+//making sure there are no errors
+if (! isset( $section['headings'] )) {
+    $section['headings'] = $section['heading'];
+}
+
+//check if we have a dark or light background and then creates a lighter version of the main font color
 $section['lighter'] = kleo_calc_similar_color($section['bg'], (kleo_calc_perceived_brightness($section['bg'], 100) ? 'lighter' : 'darker'), 4);
 
 // Highlight background color in RBG
@@ -33,6 +39,9 @@ $section["bg_color_rgb"] = kleo_hex_to_rgb($section['bg']);
 
 // Link color in RBG
 $section["link_color_rgb"] = kleo_hex_to_rgb($section['link']);
+
+//check if we have a dark or light background and then create a stronger version of the background color
+$section['mat-color-bg'] = kleo_calc_similar_color($section['bg'], (kleo_calc_perceived_brightness($section['bg'], 50) ? 'lighter' : 'darker'), 1);
 
 /* Use like this
  *
@@ -169,6 +178,8 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #buddypress div.generic-button a,
     .<?php echo $name; ?>-color.bp-full-width-profile div.generic-button a,
     .<?php echo $name; ?>-color #buddypress .portfolio-filter-tabs li a,
+    .<?php echo $name; ?>-color .profile-cover-action a.button:hover,
+    .<?php echo $name; ?>-color .profile-cover-action a.button:before,
 
 /* bbPress */
 .<?php echo $name; ?>-color .bbp-pagination-links a:hover,
@@ -178,7 +189,10 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #rtMedia-queue-list .remove-from-queue,
 .<?php echo $name; ?>-color .rtmedia-container .rtmedia-editor-main dl.tabs dd.active > a,
 .<?php echo $name; ?>-color .rtmedia-activity-container .rtmedia-editor-main dl.tabs dd.active > a,
-.<?php echo $name; ?>-color #buddypress div.rtmedia-activity-container .rtmedia-editor-main dl.tabs dd.active > a {
+.<?php echo $name; ?>-color #buddypress div.rtmedia-activity-container .rtmedia-editor-main dl.tabs dd.active > a,
+
+    /* WooCommerce */
+    .<?php echo $name; ?>-color .kleo-toggle-menu .minicart-buttons .btn-default {
 	color: <?php echo $section['text']; ?>;
 }
 
@@ -210,7 +224,10 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .tabs-style-line > li.active > a,
 .<?php echo $name; ?>-color #buddypress #profile-edit-form ul.button-nav li.current a,
 .<?php echo $name; ?>-color .read-notifications td.notify-text a:hover,
-.<?php echo $name; ?>-color .unread-notifications td.notify-text a:hover {
+.<?php echo $name; ?>-color .unread-notifications td.notify-text a:hover,
+
+    /* WooCommerce */
+    .woocommerce .<?php echo $name; ?>-color .widget_product_categories li.current-cat a {
 	color: <?php echo $section['link']; ?>;
 }
 
@@ -255,10 +272,9 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #rtm-media-options-list ul li .rtmedia-action-buttons:hover,
 
 /* WooCommerce */
-.woocommerce .<?php echo $name; ?>-color .star-rating span:before,
-.woocommerce-page .<?php echo $name; ?>-color .star-rating span:before,
 .woocommerce .<?php echo $name; ?>-color .yith-wcwl-add-to-wishlist a:hover,
-.woocommerce .<?php echo $name; ?>-color li.product figcaption .shop-actions > a.button:hover {
+.woocommerce .<?php echo $name; ?>-color li.product figcaption .shop-actions > a.button:hover,
+    .<?php echo $name; ?>-color .kleo-toggle-menu .quick-view:hover {
 	color: <?php echo $section['link_hover']; ?>;
 }
 
@@ -267,7 +283,6 @@ border-top-color: <?php echo $section['border']; ?>;
 
 /*** BACKGROUND COLOR ***/
 .<?php echo $name; ?>-color,
-.<?php echo $name; ?>-color.social-header, /* without space between classes*/
 .<?php echo $name; ?>-color .kleo-main-header,
 .<?php echo $name; ?>-color .btn-default:hover,
 .<?php echo $name; ?>-color .hr-title abbr,
@@ -295,9 +310,15 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #buddypress #friend-list .friend-inner-list,
 .<?php echo $name; ?>-color #buddypress #member-list .member-inner-list,
 .<?php echo $name; ?>-color #buddypress #members-list .member-inner-list,
-.<?php echo $name; ?>-color #buddypress div#item-header .toggle-header,
 .<?php echo $name; ?>-color #buddypress #groups-list .group-inner-list,
 .<?php echo $name; ?>-color #buddypress .activity-list .activity-avatar,
+
+.<?php echo $name; ?>-color .profile-cover-action a.button:hover,
+.<?php echo $name; ?>-color .profile-cover-action a.button:before,
+.<?php echo $name; ?>-color div#item-header .toggle-header .bp-toggle-less:hover,
+.<?php echo $name; ?>-color div#item-header .toggle-header .bp-toggle-more:hover,
+.<?php echo $name; ?>-color div#item-header .toggle-header .bp-toggle-less:before,
+.<?php echo $name; ?>-color div#item-header .toggle-header .bp-toggle-more:before,
 
 .<?php echo $name; ?>-color #buddypress .standard-form textarea,
 .<?php echo $name; ?>-color #buddypress .standard-form input[type=text],
@@ -334,7 +355,9 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #buddypress div.rtmedia-activity-container .rtmedia-editor-main dl.tabs dd > a,
 
 /* WooCommerce */
-.<?php echo $name; ?>-color .kleo-toggle-menu .kleo-toggle-submenu {
+.<?php echo $name; ?>-color .kleo-toggle-menu .kleo-toggle-submenu,
+    .<?php echo $name; ?>-color .kleo-toggle-menu .minicart-buttons .btn-default,
+    .<?php echo $name; ?>-color .kleo_ajax_results h4 span {
 
 	background-color: <?php echo $section['bg']; ?>;
 }
@@ -390,6 +413,8 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .kleo-tabs .nav .open > a.dropdown-toggle:focus,
 .<?php echo $name; ?>-color .kleo-tabs .tabdrop .dropdown-menu,
 .<?php echo $name; ?>-color .dropdown-menu,
+    .<?php echo $name; ?>-color .kleo-toggle-menu .kleo-toggle-submenu:before,
+    .<?php echo $name; ?>-color #ajax_search_container:before,
 .<?php echo $name; ?>-color #top-social li a,
 .<?php echo $name; ?>-color .top-menu li > a,
 .<?php echo $name; ?>-color .pagination > li > a,
@@ -523,8 +548,11 @@ border-top-color: <?php echo $section['border']; ?>;
 
 /* WooCommerce */
 .<?php echo $name; ?>-color .kleo-toggle-menu .kleo-toggle-submenu,
-.<?php echo $name; ?>-color .kleo-toggle-menu a.remove,
+    .<?php echo $name; ?>-color .kleo-toggle-menu a.remove,
 .<?php echo $name; ?>-color .woocommerce .kleo-cart-totals .totals-wrap,
+    .<?php echo $name; ?>-color .kleo-toggle-menu .minicart-buttons .btn-default,
+    .<?php echo $name; ?>-color .kleo_ajax_results h4,
+    .<?php echo $name; ?>-color .ajax_view_all,
 
 /* Social Article plugin */
 .<?php echo $name; ?>-color #articles-dir-list article.article-container {
@@ -565,6 +593,7 @@ border-top-color: <?php echo $section['border']; ?>;
   border-left-color: <?php echo $section['border']; ?>;
 }
 
+    #header.<?php echo $name; ?>-color .navbar-nav li,
 .<?php echo $name; ?>-color .widget_nav_menu a,
 .<?php echo $name; ?>-color .wpex-widget-recent-posts-li,
 .<?php echo $name; ?>-color .widget_categories li,
@@ -581,6 +610,10 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .pricing-table .panel-heading h3,
 .<?php echo $name; ?>-color .kleo_ajax_entry,
 .<?php echo $name; ?>-color .kleo-toggle-submenu .kleo-submenu-item,
+.<?php echo $name; ?>-color .posts-listing.standard-listing:not(.template-page) .type-post,
+
+.<?php echo $name; ?>-color .news-focus .left-thumb-listing .post-content,
+.<?php echo $name; ?>-color .news-highlight .left-thumb-listing .post-content,
 
 /* Buddypress */
 .<?php echo $name; ?>-color #buddypress div#item-nav,
@@ -607,6 +640,9 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .mejs-controls .mejs-time-rail .mejs-time-loaded {
   background-color: <?php echo $section['border']; ?>;
 }
+    .<?php echo $name; ?>-color.container-wrap.border-bottom.half-section:before {
+    background-color: <?php echo $section['border']; ?> !important;
+    }
 .<?php echo $name; ?>-color .pricing-table .list-group-item:before {
   color: <?php echo $section['border']; ?>;
 }
@@ -718,7 +754,7 @@ border-top-color: <?php echo $section['border']; ?>;
 /* WooCommerce */
 .<?php echo $name; ?>-color .kleo-toggle-menu .minicart-total-checkout,
 .<?php echo $name; ?>-color .kleo-toggle-menu .minicart-buttons,
-.<?php echo $name; ?>-color .kleo-toggle-menu a.remove:hover,
+    .<?php echo $name; ?>-color .kleo-toggle-menu a.remove:hover,
 
 .woocommerce .<?php echo $name; ?>-color .widget_product_search #searchsubmit,
 .woocommerce .<?php echo $name; ?>-color #content input.button,
@@ -733,9 +769,11 @@ border-top-color: <?php echo $section['border']; ?>;
 .woocommerce-page .<?php echo $name; ?>-color input.button {
 	background-color: <?php echo $section['alt_bg']; ?>;
 }
+    .<?php echo $name; ?>-color.container-wrap.half-section {
+    background-color: <?php echo $section['alt_bg']; ?> !important;
+    }
 
-.<?php echo $name; ?>-color .dropdown-menu li,
-#header.<?php echo $name; ?>-color .navbar-nav li {
+.<?php echo $name; ?>-color .dropdown-menu li {
 	border-bottom-color: <?php echo $section['alt_bg']; ?>;
 }
 
@@ -743,7 +781,7 @@ border-top-color: <?php echo $section['border']; ?>;
 
 /* Buddypress */
 .<?php echo $name; ?>-color .bbp_widget_login .bbp-logged-in .user-submit,
-.buddypress .<?php echo $name; ?>-color #item-header-avatar,
+    .buddypress .<?php echo $name; ?>-color #item-header-avatar,
 .<?php echo $name; ?>-color #buddypress .activity-list .activity-avatar,
 .<?php echo $name; ?>-color .bp-login-widget-user-avatar,
 .<?php echo $name; ?>-color #buddypress #friend-list li div.item-avatar,
@@ -754,7 +792,7 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #buddypress .kleo-online-status,
 .<?php echo $name; ?>-color .kleo-members-carousel .kleo-online-status,
 .<?php echo $name; ?>-color #buddypress form.standard-form div#invite-list div.item-avatar,
-.<?php echo $name; ?>-color #buddypress div.messages .thread-avatar {
+.<?php echo $name; ?>-color #buddypress #message-threads .thread-avatar {
 	border-color: <?php echo $section['alt_bg']; ?>;
 }
 
@@ -875,6 +913,9 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .masonry-listing .format-quote,
 .<?php echo $name; ?>-color .masonry-listing .format-quote .post-footer a,
 .<?php echo $name; ?>-color .masonry-listing .format-quote .post-footer a .muted,
+    .<?php echo $name; ?>-color .navbar .nav li a em,
+    .<?php echo $name; ?>-color .widget_nav_menu li a em,
+    .<?php echo $name; ?>-color .news-highlight .posts-listing .label,
 
 /* Buddypress */
 .<?php echo $name; ?>-color #buddypress li span.unread-count,
@@ -935,6 +976,9 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .masonry-listing .format-quote .post-content,
 .<?php echo $name; ?>-color .bordered-icons .feature-item:hover .feature-icon,
 .<?php echo $name; ?>-color .colored-icons.bordered-icons .feature-item:hover .feature-icon,
+    .<?php echo $name; ?>-color .navbar .nav li a em,
+    .<?php echo $name; ?>-color .widget_nav_menu li a em,
+    .<?php echo $name; ?>-color .news-highlight .posts-listing .label,
 
 /* Buddypress */
 .<?php echo $name; ?>-color input[type="radio"]:checked + .radiobox-mark span,
@@ -979,7 +1023,11 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color a.subscription-toggle:before,
 .<?php echo $name; ?>-color .bbp-topics-front ul.super-sticky:after,
 .<?php echo $name; ?>-color .bbp-topics ul.super-sticky:after,
-.<?php echo $name; ?>-color #bbpress-forums li.bbp-body ul.super-sticky {
+.<?php echo $name; ?>-color #bbpress-forums li.bbp-body ul.super-sticky,
+
+    /* WooCommerce */
+    .woocommerce .<?php echo $name; ?>-color .star-rating span:before,
+    .woocommerce-page .<?php echo $name; ?>-color .star-rating span:before {
 	color: <?php echo $section['high_bg']; ?>;
 }
 
@@ -1017,8 +1065,8 @@ border-top-color: <?php echo $section['border']; ?>;
 	border-color: <?php echo $section['high_bg']; ?>;
 }
 
-.popover.bottom .arrow, /* Leave it without $name */
-.popover.bottom .arrow:after, /* Leave it without $name */
+.popover.bottom .arrow,
+.popover.bottom .arrow:after,
 .<?php echo $name; ?>-color .kleo-tabs .tabs-style-line > li.active > a,
 .<?php echo $name; ?>-color .kleo-tabs .tabs-style-line > li.active > a:hover,
 .<?php echo $name; ?>-color .kleo-tabs .tabs-style-line > li.active > a:focus,
@@ -1027,19 +1075,32 @@ border-top-color: <?php echo $section['border']; ?>;
 }
 
 
+<?php if ( $name == 'header' ) { ?>
 
+#main .main-color .<?php echo $name; ?>-color h1,
+#main .main-color .<?php echo $name; ?>-color h2,
+#main .main-color .<?php echo $name; ?>-color h3,
+#main .main-color .<?php echo $name; ?>-color h4,
+#main .main-color .<?php echo $name; ?>-color h5,
+#main .main-color .<?php echo $name; ?>-color h6 {
+    color: <?php echo $section['headings']; ?>;
+}
 
+<?php } else { ?>
 
-
-
-
-/*** FOR DARKER COLORS ***/
 #main .<?php echo $name; ?>-color h1,
 #main .<?php echo $name; ?>-color h2,
 #main .<?php echo $name; ?>-color h3,
 #main .<?php echo $name; ?>-color h4,
 #main .<?php echo $name; ?>-color h5,
-#main .<?php echo $name; ?>-color h6,
+#main .<?php echo $name; ?>-color h6 {
+    color: <?php echo $section['headings']; ?>;
+}
+
+<?php } ?>
+
+
+/*** FOR DARKER COLORS ***/
 .<?php echo $name; ?>-color .btn-default,
 .<?php echo $name; ?>-color .btn-default:hover,
 .<?php echo $name; ?>-color .panel-default .panel-title a,
@@ -1141,38 +1202,19 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color #kleo-ajax-search-loading,
 .<?php echo $name; ?>-color .kleo_ajax_entry .search_excerpt,
 .<?php echo $name; ?>-color .ajax_search_image,
+.<?php echo $name; ?>-color .news-focus .left-thumb-listing .post-date,
+.<?php echo $name; ?>-color .news-highlight .left-thumb-listing .post-date,
 
-<?php /*?>.<?php echo $name; ?>-color input[type="text"]:focus,
-.<?php echo $name; ?>-color input[type="password"]:focus,
-.<?php echo $name; ?>-color input[type="date"]:focus,
-.<?php echo $name; ?>-color input[type="datetime"]:focus,
-.<?php echo $name; ?>-color input[type="datetime-local"]:focus,
-.<?php echo $name; ?>-color input[type="month"]:focus,
-.<?php echo $name; ?>-color input[type="week"]:focus,
-.<?php echo $name; ?>-color input[type="email"]:focus,
-.<?php echo $name; ?>-color input[type="number"]:focus,
-.<?php echo $name; ?>-color input[type="search"]:focus,
-.<?php echo $name; ?>-color input[type="tel"]:focus,
-.<?php echo $name; ?>-color input[type="time"]:focus,
-.<?php echo $name; ?>-color input[type="url"]:focus,
-.<?php echo $name; ?>-color textarea:focus,<?php */?>
 
 /* Buddypress */
-<?php /*?>.<?php echo $name; ?>-color #buddypress div#item-nav ul li a:hover:before,
-.<?php echo $name; ?>-color #buddypress div#item-nav ul li.current a:before,<?php */?>
+
 .<?php echo $name; ?>-color #buddypress div#item-nav .tabdrop .dropdown-menu li a:hover:before,
 .<?php echo $name; ?>-color #buddypress .activity-header .time-since,
 .<?php echo $name; ?>-color .activity-timeline,
-<?php /*?>.<?php echo $name; ?>-color #buddypress div.item-list-tabs ul li a span,<?php */?>
+
 .<?php echo $name; ?>-color #buddypress div#item-nav ul li a:before,
 .<?php echo $name; ?>-color #buddypress div#item-nav .tabdrop .dropdown-menu li a:before,
-<?php /*?>.<?php echo $name; ?>-color #buddypress button,
-.<?php echo $name; ?>-color #buddypress a.button,
-.<?php echo $name; ?>-color #buddypress input[type=submit],
-.<?php echo $name; ?>-color #buddypress input[type=button],
-.<?php echo $name; ?>-color #buddypress input[type=reset],
-.<?php echo $name; ?>-color #buddypress ul.button-nav li a,
-.<?php echo $name; ?>-color #buddypress div.generic-button a,<?php */?>
+
 .<?php echo $name; ?>-color #buddypress a.button.fav,
 .<?php echo $name; ?>-color #buddypress .comment-reply-link,
 .<?php echo $name; ?>-color #rtMedia-queue-list tr td:first-child:before,
@@ -1200,13 +1242,19 @@ border-top-color: <?php echo $section['border']; ?>;
 /* WooCommerce */
 .woocommerce .<?php echo $name; ?>-color ul.products li.product .price del,
 .woocommerce-page .<?php echo $name; ?>-color ul.products li.product .price del,
-.<?php echo $name; ?>-color .kleo-toggle-menu a.remove,
+.<?php echo $name; ?>-color .kleo_ajax_results h4,
+.<?php echo $name; ?>-color .kleo-toggle-menu .quick-view,
+.<?php echo $name; ?>-color .ajax_not_found,
 
 /* Social Article plugin */
 .<?php echo $name; ?>-color .article-content .author-options .edit:hover:before,
 .<?php echo $name; ?>-color .article-content .author-options .delete:hover:before {
 	color: <?php echo $section['lighter']; ?>;
 }
+
+<?php if ( $name == 'header' ) { ?>
+    #header.<?php echo $name; ?>-color .form-control::-moz-placeholder,
+<?php } ?>
 
 /* Buddypress */
 .<?php echo $name; ?>-color #buddypress #whats-new:focus {
@@ -1294,8 +1342,11 @@ border-top-color: <?php echo $section['border']; ?>;
  	border-color: rgba(<?php echo $section['bg_color_rgb']['r']; ?>,<?php echo $section['bg_color_rgb']['g']; ?>,<?php echo $section['bg_color_rgb']['b']; ?>, 0.2);
 }
 
-
-
+<?php if ( $name == 'header' && sq_option('top_bar_darker', 1) == 1 ) { ?>
+    .<?php echo $name; ?>-color.social-header {
+    background-color: <?php echo $section['mat-color-bg']; ?>;
+    }
+<?php } ?>
 
 
 
@@ -1340,24 +1391,6 @@ border-top-color: <?php echo $section['border']; ?>;
 }
 
 
-
-/*** TEMPORARY ***/
-section.custom-color h1,
-section.custom-color h2,
-section.custom-color h3,
-section.custom-color h4,
-section.custom-color h5,
-section.custom-color h6 {
-	color: inherit !important;
-}
-
-section.custom-color .hr-title {
-	border: none !important;
-}
-section.custom-color .hr-title abbr {
-	background-color: transparent !important;
-}
-
 .<?php echo $name; ?>-color.custom-color .hr-title abbr {
 	color: <?php echo $section['lighter']; ?>;
 }
@@ -1365,11 +1398,14 @@ section.custom-color .hr-title abbr {
 .alternate-color .masonry-listing .post-content {
 	background-color: #fff;
  }
-
-
-
 <?php
+$extra_section_css = apply_filters( 'kleo_dynamic_' . $name , '', $section );
+if ( $extra_section_css != '' ) {
+    echo $extra_section_css;
 }
+
+} /* end foreach section */
+
 }
 /* Body Background */
 if ( sq_option( 'site_style' )  == 'boxed' ) {

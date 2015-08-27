@@ -1,32 +1,34 @@
 <div id="buddypress">
 
-	<?php if ( bp_has_groups() ) : while ( bp_groups() ) : bp_the_group(); ?>
+    <?php if ( bp_has_groups() ) : while ( bp_groups() ) : bp_the_group(); ?>
 
 	<?php do_action( 'bp_before_group_home_content' ); ?>
 	
-  <div class="row">
-  
-  	<div class="col-sm-12">
-      <div id="item-header" role="complementary">
-        <?php bp_get_template_part( 'groups/single/group-header' ); ?>
-      </div><!-- #item-header -->
-    </div>
+    <div class="row">
+
+        <?php if( sq_option( 'bp_full_group', 0 ) == 0 ): ?>
+            <div class="col-sm-12">
+              <div id="item-header" role="complementary">
+                <?php bp_get_template_part( 'groups/single/group-header' ); ?>
+              </div><!-- #item-header -->
+            </div>
+        <?php endif;?>
     
-    <div class="col-sm-12">
-      <div id="item-nav">
-        <div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
-          <ul class="responsive-tabs">
-    
-            <?php bp_get_options_nav(); ?>
-    
-            <?php do_action( 'bp_group_options_nav' ); ?>
-    
-          </ul>
+        <div class="col-sm-12">
+          <div id="item-nav">
+            <div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
+              <ul class="responsive-tabs">
+
+                <?php bp_get_options_nav(); ?>
+
+                <?php do_action( 'bp_group_options_nav' ); ?>
+
+              </ul>
+            </div>
+          </div><!-- #item-nav -->
         </div>
-      </div><!-- #item-nav -->
-    </div>
     
-	<div id="item-body" class="col-sm-12">
+    <div id="item-body" class="col-sm-12">
 
 		<?php do_action( 'bp_before_group_body' );
 

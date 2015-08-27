@@ -25,13 +25,6 @@
 				$('.button', importer).attr('disabled','disabled');
 			}
 
-			// attachments
-			if( val == 'all' || val == 'all-agency' ){
-				$('.row-attachments', importer).show();
-			} else {
-				$('.row-attachments', importer).hide();
-			}
-
 			// content
 			if( val == 'content' ){
 				$('.row-content', importer).show();
@@ -47,6 +40,16 @@
 			}
 
 		});
+
+        $('select[name=page], select[name=content], select.import', importer).change(function(){
+            var attach = $(this).find('option:selected').attr('data-attach');
+            if (typeof attach !== typeof undefined && attach !== false) {
+                $('.row-attachments', importer).show();
+            } else {
+                $('.row-attachments', importer).hide();
+            }
+
+        });
 		
 	});
 

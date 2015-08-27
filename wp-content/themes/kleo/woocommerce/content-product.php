@@ -4,37 +4,43 @@
  *
  * Override this template by copying it to yourtheme/woocommerce/content-product.php
  *
- * @author 		WooThemes
- * @package 	WooCommerce/Templates
- * @version     1.6.4
+ * @author  WooThemes
+ * @package WooCommerce/Templates
+ * @version 2.4.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 global $product, $woocommerce_loop;
 
 // Store loop count we're currently on
-if ( empty( $woocommerce_loop['loop'] ) )
+if ( empty( $woocommerce_loop['loop'] ) ) {
 	$woocommerce_loop['loop'] = 0;
+}
 
 // Store column count for displaying the grid
-if ( empty( $woocommerce_loop['columns'] ) )
+if ( empty( $woocommerce_loop['columns'] ) ) {
 	$woocommerce_loop['columns'] = apply_filters( 'loop_shop_columns', 4 );
+}
 
 // Ensure visibility
-if ( ! $product || ! $product->is_visible() )
+if ( ! $product || ! $product->is_visible() ) {
 	return;
+}
 
 // Increase loop count
 $woocommerce_loop['loop']++;
 
 // Extra post classes
 $classes = array();
-if ( 0 == ( $woocommerce_loop['loop'] - 1 ) % $woocommerce_loop['columns'] || 1 == $woocommerce_loop['columns'] )
+if ( 0 == ( $woocommerce_loop['loop'] - 1 ) % $woocommerce_loop['columns'] || 1 == $woocommerce_loop['columns'] ) {
 	$classes[] = 'first';
-if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] )
+}
+if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] ) {
 	$classes[] = 'last';
-
+}
 /* Kleo*/
 if (sq_option('woo_product_animate', 1) == 1 ) {
     $classes[] = 'animated animate-when-almost-visible el-appear';
@@ -50,6 +56,7 @@ else {
 ?>
 <li <?php post_class( $classes ); ?>>
 	<div class="product-loop-inner">
+		<?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
 		<figure class="product-transition-<?php echo $product_transition; ?>">
 			<?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
 
@@ -80,20 +87,8 @@ else {
 			<?php
 				$size = sizeof( get_the_terms( $post->ID, 'product_cat' ) );
 				echo $product->get_categories( ', ', '<span class="posted_in">' . _n( '', '', $size, 'woocommerce' ) . ' ', '</span>' );
-				?>			
+			?>
 			<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-			<p class="por_disenador"><?php
-			$subheadingvalues = get_the_terms( $product->id, 'pa_disenadora');
-
-			if ( $subheadingvalues && ! is_wp_error( $subheadingvalues ) ) {
-	      		foreach ( $subheadingvalues as $subheadingvalue ) {
-	      			?>
-	      			<i>Por <a href="<?php bloginfo('wpurl'); ?>/disenadores/<?php echo $subheadingvalue->slug ?>"><?php echo $subheadingvalue->name ?></a></i>
-	       			<?php
-		        }		
-			}?>
-			</p>
-			
 		</div>
 
 		<?php

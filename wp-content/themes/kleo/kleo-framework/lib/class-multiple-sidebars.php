@@ -50,21 +50,22 @@ class sidebar_generator {
 	public static function init(){
 		//go through each sidebar and register it
 	    $sidebars = sidebar_generator::get_sidebars();
-	    
+
+        global $wp_registered_sidebars;
 
 	    if(is_array($sidebars)){
-			$i = 1;
 			foreach($sidebars as $sidebar){
 				$sidebar_class = sidebar_generator::name_to_class($sidebar);
+                $i = count($wp_registered_sidebars) + 1;
+
 				register_sidebar(array(
 					'name'=>$sidebar,
-										'id' => 'sidebar-'.$i,
-                                        'before_widget' => '<div id="%1$s" class="widgets clearfix %2$s">',
-                                        'after_widget' => '</div>',
-                                        'before_title' => '<h5>',
-                                        'after_title' => '</h5>',
+                    'id' => 'sidebar-' . $i,
+                    'before_widget' => '<div id="%1$s" class="widgets clearfix %2$s">',
+                    'after_widget' => '</div>',
+                    'before_title' => '<h5>',
+                    'after_title' => '</h5>',
 		    	));
-		    	$i++;
 			}
 		}
 	}

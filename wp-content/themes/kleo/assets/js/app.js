@@ -447,8 +447,9 @@ var kleoPage = {
 		kleoPage.carouselItems();
 		kleoPage.bannerSlider();
 		kleoPage.rtMediaslider();
+        kleoPage.newsTicker();
 
-		//activate prettyPhoto
+		//activate magnificPopup
 		kleoPage.magnificPopup();
 
 		//activate html5 video/audio player
@@ -586,6 +587,9 @@ var kleoPage = {
 
             });
         }
+
+        /* Equal column heights fallback */
+        kleoPage.flexFallback();
 	},
     refreshContentTabs: function(el) {
         //carousels
@@ -900,13 +904,18 @@ var kleoPage = {
 	},
 
 	rtMediaslider: function() {
-		
-		$(".rtmedia-activity-container").append('<div class="activity-feed-prev">&nbsp;</div><div class="activity-feed-next">&nbsp;</div>');
+
 		//jQuery('.rtmedia-activity-container').animate({"opacity": "1"}, 700);
 		$('.rtmedia-activity-container').each(function() {
+
+            if ( $(this).find(".rtmedia-list .media-type-photo").length < 1) {
+                return true;
+            }
+            $(this).append('<div class="activity-feed-prev">&nbsp;</div><div class="activity-feed-next">&nbsp;</div>');
+
 			var $prev = $(this).find(".activity-feed-prev");
 			var $next = $(this).find(".activity-feed-next");
-			var thisSliderItems = $(this).find('.large-block-grid-3');
+			var thisSliderItems = $(this).find('.rtmedia-list');
 			
 			thisSliderItems.imagesLoaded( function() {
 				thisSliderItems.carouFredSel({
@@ -952,6 +961,32 @@ var kleoPage = {
 		});
 
 	},
+
+    newsTicker: function() {
+
+        var _newsScroll = {
+            delay: 1000,
+            easing: 'linear',
+            items: 1,
+            duration: 0.07,
+            timeoutDuration: 0,
+            pauseOnHover: 'immediate'
+        };
+        $('.news-ticker').each(function() {
+            $(this).carouFredSel({
+                width: 1000,
+                align: false,
+                items: {
+                    width: 'variable',
+                    /*height: 35,*/
+                    visible: 1
+                },
+                scroll: _newsScroll
+            });
+            $(this).closest('.caroufredsel_wrapper').css('width', '100%');
+        });
+
+    },
 	
 	initPins: function() {
 		
@@ -1002,40 +1037,7 @@ var kleoPage = {
 
 		});
 	 },
-	
-	/***************************************************
-		PrettyPhoto - Replace 'data-rel' with 'rel'
-		'rel' attribute it's not a valid tag anymore
-	***************************************************/
-	prettyPhoto: function() {
-		
-		$('a[data-rel]').each(function() {
-				$(this).attr('rel', $(this).data('rel'));
-		});
 
-		//PrettyPhoto settings
-		$("a[rel^='prettyPhoto']").prettyPhoto({
-				animation_speed: 'fast', /* fast/slow/normal */
-				slideshow: false, /* false OR interval time in ms */
-				autoplay_slideshow: false, /* true/false */
-				opacity: 0.80, /* Value between 0 and 1 */
-				show_title: true, /* true/false */
-				allow_resize: true, /* Resize the photos bigger than viewport. true/false */
-				default_width: 500,
-				default_height: 344,
-				counter_separator_label: '/', /* The separator for the gallery counter 1 "of" 2 */
-				theme: 'pp_default', /* light_rounded / dark_rounded / light_square / dark_square / facebook */
-				hideflash: false, /* Hides all the flash object on a page, set to TRUE if flash appears over prettyPhoto */
-				wmode: 'opaque', /* Set the flash wmode attribute */
-				autoplay: true, /* Automatically start videos: True/False */
-				modal: false, /* If set to true, only the close button will close the window */
-				overlay_gallery: false, /* If set to true, a gallery will overlay the fullscreen image on mouse over */
-				keyboard_shortcuts: true, /* Set to false if you open forms inside prettyPhoto */
-				deeplinking: false,
-				social_tools: false
-		});
-		
-	},
 
 	magnificPopup: function() {
 
@@ -1105,7 +1107,7 @@ var kleoPage = {
         });
 
 		/* Regular popup images */
-		$("a[data-rel^='prettyPhoto'], a[rel^='prettyPhoto'], .article-content a[href$=jpg]:has(img), .article-content a[href$=JPG]:has(img), .article-content a[href$=jpeg]:has(img), .article-content a[href$=JPEG]:has(img), .article-content a[href$=gif]:has(img), .article-content a[href$=bmp]:has(img), .article-content a[href$=png]:has(img)").magnificPopup({
+		$("a[data-rel^='prettyPhoto'], a[rel^='prettyPhoto'], a[rel^='modalPhoto'], a[data-rel^='modalPhoto'], .article-content a[href$=jpg]:has(img), .article-content a[href$=JPG]:has(img), .article-content a[href$=jpeg]:has(img), .article-content a[href$=JPEG]:has(img), .article-content a[href$=gif]:has(img), .article-content a[href$=bmp]:has(img), .article-content a[href$=png]:has(img)").magnificPopup({
 			type: 'image',
 			mainClass: 'mfp-img-pop',
 			gallery:{
@@ -1207,12 +1209,12 @@ var kleoPage = {
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: kleoFramework.ajaxurl,
+                url: kleoFramework.loginUrl,
                 data: {
                     action: 'kleoajaxlogin',
                     log: $('form#login_form #username').val(),
                     pwd: $('form#login_form #password').val(),
-                    remember: ($('form#login_form #rememberme').is(':checked') ? true : false),
+                    rememberme: ($('form#login_form #rememberme').is(':checked') ? true : false),
                     security: $('form#login_form #security').val()
                 },
                 success: function (data) {
@@ -1230,7 +1232,7 @@ var kleoPage = {
 
                 },
                 error: function () {
-                    $('form#login_form', '#login_panel').off('submit');
+                    $('form#login_form, #login_panel').off('submit');
                     $("#login_form").submit();
                 }
             });
@@ -1258,6 +1260,37 @@ var kleoPage = {
             });
             return false;
         });
+    },
+    flexFallback: function() {
+        var s = document.body || document.documentElement, s = s.style;
+        if( s.webkitFlexWrap == '' || s.msFlexWrap == '' || s.flexWrap == '' ) return true;
+
+        var $list		= $( '#main-container > .row' ),
+            $items		= $list.find( '.template-page, .sidebar' ),
+            setHeights	= function()
+            {
+                $items.css( 'height', 'auto' );
+
+                var perRow = Math.floor( $list.width() / $items.width() );
+                if( perRow == null || perRow < 2 ) return true;
+
+                for( var i = 0, j = $items.length; i < j; i += perRow )
+                {
+                    var maxHeight	= 0,
+                        $row		= $items.slice( i, i + perRow );
+
+                    $row.each( function()
+                    {
+                        var itemHeight = parseInt( $( this ).outerHeight() );
+                        if ( itemHeight > maxHeight ) maxHeight = itemHeight;
+                    });
+                    $row.css( 'height', maxHeight );
+                }
+            };
+
+        setHeights();
+        $( window ).on( 'resize', setHeights );
+        $list.find( 'img' ).on( 'load', setHeights );
     }
   
 
@@ -1302,7 +1335,7 @@ var bP = {
         bP.notificationsRead($(this));
         e.preventDefault();
       });
-      if (kleoFramework.bpNotificationsRefresh != '0') {
+      if (kleoFramework.hasOwnProperty('bpNotificationsRefresh') && kleoFramework.bpNotificationsRefresh != '0') {
         bP.notificationsRefresh();
       }
     }
@@ -1671,6 +1704,7 @@ var kleoIsotope = {
                     $(this).closest('ul').find('li').removeClass('selected');
                     $(this).parent('li').addClass('selected');
                     $isoItem.isotope({ filter: filterValue });
+                    $isoItem.find('li:visible').children('div.animate-when-almost-visible').addClass('start-animation');
                     return false;
                 });
             }
@@ -2049,7 +2083,7 @@ var kleoHeader = {
     },
 	
 	enableRetinaLogo: function() {
-		if (window.devicePixelRatio > 1 && kleoFramework.retinaLogo != '') {
+		if ($("#logo_img").length && window.devicePixelRatio > 1 && kleoFramework.retinaLogo != '') {
             var image = $("#logo_img"),
                 imageName = kleoFramework.retinaLogo,
                 imageHeight;

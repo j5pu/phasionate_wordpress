@@ -103,7 +103,7 @@ if (! get_cfield('post_layout') || get_cfield('post_layout') == 'default') {
                                 $image = $slide;
                             }
                             echo '<article>'
-                                . '<a href="'. $slide .'" data-rel="prettyPhoto[inner-gallery]">'
+                                . '<a href="'. $slide .'" data-rel="modalPhoto[inner-gallery]">'
                                     . ' <img src="'.$image.'" alt="">'
                                     . kleo_get_img_overlay()
                                 . '</a>
@@ -144,8 +144,10 @@ if (! get_cfield('post_layout') || get_cfield('post_layout') == 'default') {
     <?php get_template_part( 'page-parts/posts-social-share' ); ?>
 
     <?php
-    // Previous/next post navigation.
-    kleo_post_nav();
+    if ( sq_option( 'portfolio_navigation', 1 ) == 1 ) :
+        // Previous/next post navigation.
+        kleo_post_nav();
+    endif;
     ?>
 
     <?php if ( sq_option( 'portfolio_comments', 0 ) == 1 ) : ?>

@@ -445,7 +445,7 @@ class Featured_Content {
 	 * @since 1.0
 	 */
 	public static function enqueue_scripts() {
-		wp_enqueue_script( 'featured-content-suggest', get_template_directory_uri() . '/featured-content/admin.js', array( 'jquery', 'suggest' ), KLEO_THEME_VERSION, true );
+		wp_enqueue_script( 'featured-content-suggest', get_template_directory_uri() . '/lib/featured-content/admin.js', array( 'jquery', 'suggest' ), KLEO_THEME_VERSION, true );
 	}
 
 	/**

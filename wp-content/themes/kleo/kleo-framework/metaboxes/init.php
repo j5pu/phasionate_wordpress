@@ -58,13 +58,7 @@ class kleo_Meta_Box_Validate {
  * This may need to be filtered for local Window installations.
  * If resources do not load, please check the wiki for details.
  */
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-       //winblows
-    define( 'KLEO_META_BOX_URL', trailingslashit( str_replace( DIRECTORY_SEPARATOR, '/', str_replace( str_replace( '/', DIRECTORY_SEPARATOR, WP_CONTENT_DIR ), WP_CONTENT_URL, dirname(__FILE__) ) ) ) );
-
-} else {
-    define( 'KLEO_META_BOX_URL', apply_filters( 'cmb_meta_box_url', trailingslashit( str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( __FILE__ ) ) ) ) );
-}
+define( 'KLEO_META_BOX_URL', kleo_Meta_Box::get_meta_box_url() );
 
 /**
  * Create meta boxes
@@ -96,6 +90,30 @@ class kleo_Meta_Box {
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_id' ), 10, 2 );
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_page_template' ), 10, 2 );
 	}
+
+    /**
+     * Defines the url which is used to load local resources.
+     * This may need to be filtered for local Window installations.
+     * If resources do not load, please check the wiki for details.
+     * @since  1.0.1
+     * @return string URL to CMB resources
+     */
+    public static function get_meta_box_url() {
+        if ( strtoupper( substr( PHP_OS, 0, 3 ) ) === 'WIN' ) {
+            // Windows
+            $content_dir = str_replace( '/', DIRECTORY_SEPARATOR, WP_CONTENT_DIR );
+            $content_url = str_replace( $content_dir, WP_CONTENT_URL, dirname(__FILE__) );
+            $cmb_url = str_replace( DIRECTORY_SEPARATOR, '/', $content_url );
+        } else {
+            $cmb_url = str_replace(
+                array(WP_CONTENT_DIR, WP_PLUGIN_DIR),
+                array(WP_CONTENT_URL, WP_PLUGIN_URL),
+                dirname( __FILE__ )
+            );
+        }
+        $cmb_url = set_url_scheme( $cmb_url );
+        return trailingslashit( apply_filters('cmb_meta_box_url', $cmb_url ) );
+    }
 
 	function add_post_enctype() {
 		echo '
@@ -715,7 +733,7 @@ add_action( 'admin_enqueue_scripts', 'kleo_cmb_scripts', 10 );
 function kleo_cmb_editor_footer_scripts() { ?>
 	<?php
 	if ( isset( $_GET['cmb_force_send'] ) && 'true' == $_GET['cmb_force_send'] ) {
-		$label = $_GET['cmb_send_label'];
+		$label = esc_attr($_GET['cmb_send_label']);
 		if ( empty( $label ) ) $label="Select File";
 		?>
 		<script type="text/javascript">

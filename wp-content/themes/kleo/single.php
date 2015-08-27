@@ -45,8 +45,10 @@ if(get_cfield( 'related_posts') != '' ) {
 		?>
 
 		<?php
-		// Previous/next post navigation.
-		kleo_post_nav();
+        if ( sq_option( 'post_navigation', 1 ) == 1 ) :
+            // Previous/next post navigation.
+            kleo_post_nav();
+        endif;
 		?>
 
     <!-- Begin Comments -->

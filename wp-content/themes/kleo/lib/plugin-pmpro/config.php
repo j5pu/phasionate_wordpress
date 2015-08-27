@@ -296,24 +296,28 @@ function pmpro_wp_custom()
 {
 	if(!is_admin())
 	{
-		global $post, $pmpro_pages, $pmpro_page_name, $pmpro_page_id, $pmpro_body_classes;		
-		
-		//run the appropriate preheader function
-		foreach($pmpro_pages as $pmpro_page_name => $pmpro_page_id)
-		{						
-			if(!empty($post->post_content) && strpos($post->post_content, "[pmpro_" . $pmpro_page_name . "]") !== false)
-			{
-				//preheader
-				require_once(PMPRO_DIR . "/preheaders/" . $pmpro_page_name . ".php");
-				
-				//add class to body
-				$pmpro_body_classes[] = "pmpro-" . str_replace("_", "-", $pmpro_page_name);
-				
-				//shortcode
-				function pmpro_pages_shortcode($atts, $content=null, $code="")
-				{
-					global $pmpro_page_name;
-					ob_start();
+        global $post, $pmpro_pages, $pmpro_page_name, $pmpro_page_id, $pmpro_body_classes;
+
+        //no pages yet?
+        if(empty($pmpro_pages))
+            return;
+
+        //run the appropriate preheader function
+        foreach($pmpro_pages as $pmpro_page_name => $pmpro_page_id)
+        {
+            if(!empty($post->post_content) && strpos($post->post_content, "[pmpro_" . $pmpro_page_name . "]") !== false)
+            {
+                //preheader
+                require_once(PMPRO_DIR . "/preheaders/" . $pmpro_page_name . ".php");
+
+                //add class to body
+                $pmpro_body_classes[] = "pmpro-" . str_replace("_", "-", $pmpro_page_name);
+
+                //shortcode
+                function pmpro_pages_shortcode($atts, $content=null, $code="")
+                {
+                    global $pmpro_page_name;
+                    ob_start();
 					if(file_exists(get_stylesheet_directory() . "/paid-memberships-pro/pages/" . $pmpro_page_name . ".php"))
 						include(get_stylesheet_directory() . "/paid-memberships-pro/pages/" . $pmpro_page_name . ".php");
 					elseif(file_exists(get_template_directory() . "/paid-memberships-pro/pages/" . $pmpro_page_name . ".php"))

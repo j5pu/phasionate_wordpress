@@ -57,6 +57,8 @@ if (!function_exists('kleo_portfolio_items')) {
                 )
         );
 
+        $portfolio_args = apply_filters( 'portfolio_args', $portfolio_args );
+
         $portfolio_items = new WP_Query( $portfolio_args );
 
 

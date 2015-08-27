@@ -188,6 +188,11 @@ class BP_Legacy extends BP_Theme_Compat {
 			'messages_send_reply'           => 'bp_legacy_theme_ajax_messages_send_reply',
 		);
 
+		// Conditional actions
+		if ( bp_is_active( 'messages', 'star' ) ) {
+			$actions['messages_star'] = 'bp_legacy_theme_ajax_messages_star_handler';
+		}
+
 		/**
 		 * Register all of these AJAX handlers
 		 *
@@ -203,6 +208,13 @@ class BP_Legacy extends BP_Theme_Compat {
 
 		/** Override **********************************************************/
 
+		/**
+		 * Fires after all of the BuddyPress theme compat actions have been added.
+		 *
+		 * @since BuddyPress (1.7.0)
+		 *
+		 * @param BP_Legacy $this Current BP_Legacy instance.
+		 */
 		do_action_ref_array( 'bp_theme_compat_actions', array( &$this ) );
 	}
 
@@ -210,15 +222,16 @@ class BP_Legacy extends BP_Theme_Compat {
 	 * Load the theme CSS
 	 *
 	 * @since BuddyPress (1.7)
+	 * @since BuddyPress (2.3.0) Support custom CSS file named after the current theme or parent theme.
 	 *
 	 * @uses wp_enqueue_style() To enqueue the styles
 	 */
 	public function enqueue_styles()
     {
-        $min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
         // Locate the BP stylesheet
-        $asset = $this->locate_asset_in_stack("buddypress{$min}.css", 'css');
+        $asset = $this->locate_asset_in_stack( "buddypress{$min}.css",     'css' );
 
         // Enqueue BuddyPress-specific styling, if found
         if (isset($asset['location'], $asset['handle'])) {
@@ -255,8 +268,13 @@ class BP_Legacy extends BP_Theme_Compat {
 			wp_enqueue_script( $asset['handle'], $asset['location'], bp_core_get_js_dependencies(), $this->version );
 		}
 
-		// Add words that we need to use in JS to the end of the page
-		// so they can be translated and still used.
+		/**
+		 * Filters core JavaScript strings for internationalization before AJAX usage.
+		 *
+		 * @since BuddyPress (2.0.0)
+		 *
+		 * @param array $value Array of key/value pairs for AJAX usage.
+		 */
 		$params = apply_filters( 'bp_core_get_js_strings', array(
 			'accepted'            => __( 'Accepted', 'buddypress' ),
 			'close'               => __( 'Close', 'buddypress' ),
@@ -294,6 +312,23 @@ class BP_Legacy extends BP_Theme_Compat {
 			// Enqueue script
 			wp_enqueue_script( $asset['handle'] . '-password-verify', $asset['location'], $dependencies, $this->version);
 		}
+
+		// Star private messages
+		if ( bp_is_active( 'messages', 'star' ) && bp_is_user_messages() ) {
+			wp_localize_script( $asset['handle'], 'BP_PM_Star', array(
+				'strings' => array(
+					'text_unstar'  => __( 'Unstar', 'buddypress' ),
+					'text_star'    => __( 'Star', 'buddypress' ),
+					'title_unstar' => __( 'Starred', 'buddypress' ),
+					'title_star'   => __( 'Not starred', 'buddypress' ),
+					'title_unstar_thread' => __( 'Remove all starred messages in this thread', 'buddypress' ),
+					'title_star_thread'   => __( 'Star the first message in this thread', 'buddypress' ),
+				),
+				'is_single_thread' => (int) bp_is_messages_conversation(),
+				'star_counter'     => 0,
+				'unstar_counter'   => 0
+			) );
+	    }
 	}
 
 	/**
@@ -320,58 +355,64 @@ class BP_Legacy extends BP_Theme_Compat {
 	 *
 	 * @since BuddyPress (1.8)
 	 * @access private
-	 * @param string $file A filename like buddypress.cs
-	 * @param string $type css|js
+	 * @param string $file A filename like buddypress.css
+	 * @param string $type Optional. Either "js" or "css" (the default).
+	 * @param string $script_handle Optional. If set, used as the script name in `wp_enqueue_script`.
 	 * @return array An array of data for the wp_enqueue_* function:
 	 *   'handle' (eg 'bp-child-css') and a 'location' (the URI of the
 	 *   asset)
 	 */
-    private function locate_asset_in_stack( $file, $type = 'css' ) {
-        // Child, parent, theme compat
-        $locations = array();
+	private function locate_asset_in_stack( $file, $type = 'css', $script_handle = '' ) {
+		$locations = array();
 
-        // No need to check child if template == stylesheet
-        if ( is_child_theme() ) {
-            $locations['bp-child'] = array(
-                'dir'  => get_stylesheet_directory(),
-                'uri'  => get_stylesheet_directory_uri(),
-                'file' => str_replace( '.min', '', $file )
-            );
-        }
+		// Ensure the assets can be located when running from /src/.
+		if ( defined( 'BP_SOURCE_SUBDIRECTORY' ) && BP_SOURCE_SUBDIRECTORY === 'src' ) {
+			$file = str_replace( '.min', '', $file );
+		}
 
-        $locations['bp-parent'] = array(
-            'dir'  => get_template_directory(),
-            'uri'  => get_template_directory_uri(),
-            'file' => str_replace( '.min', '', $file )
-        );
+		// No need to check child if template == stylesheet
+		if ( is_child_theme() ) {
+			$locations['bp-child'] = array(
+				'dir'  => get_stylesheet_directory(),
+				'uri'  => get_stylesheet_directory_uri(),
+				'file' => str_replace( '.min', '', $file ),
+			);
+		}
 
-        $locations['bp-legacy'] = array(
-            'dir'  => bp_get_theme_compat_dir(),
-            'uri'  => bp_get_theme_compat_url(),
-            'file' => str_replace( '.min', '', $file )
-        );
+		$locations['bp-parent'] = array(
+			'dir'  => get_template_directory(),
+			'uri'  => get_template_directory_uri(),
+			'file' => str_replace( '.min', '', $file ),
+		);
 
-        // Subdirectories within the top-level $locations directories
-        $subdirs = array(
-            'buddypress/' . $type,
-            'community/' . $type,
-            $type,
-        );
+		$locations['bp-legacy'] = array(
+			'dir'  => bp_get_theme_compat_dir(),
+			'uri'  => bp_get_theme_compat_url(),
+			'file' => $file,
+		);
 
-        $retval = array();
+		// Subdirectories within the top-level $locations directories
+		$subdirs = array(
+			'buddypress/' . $type,
+			'community/' . $type,
+			$type,
+		);
 
-        foreach ( $locations as $location_type => $location ) {
-            foreach ( $subdirs as $subdir ) {
-                if ( file_exists( trailingslashit( $location['dir'] ) . trailingslashit( $subdir ) . $location['file'] ) ) {
-                    $retval['location'] = trailingslashit( $location['uri'] ) . trailingslashit( $subdir ) . $location['file'];
-                    $retval['handle']   = $location_type . '-' . $type;
-                    break 2;
-                }
-            }
-        }
+		$retval = array();
 
-        return $retval;
-    }
+		foreach ( $locations as $location_type => $location ) {
+			foreach ( $subdirs as $subdir ) {
+				if ( file_exists( trailingslashit( $location['dir'] ) . trailingslashit( $subdir ) . $location['file'] ) ) {
+					$retval['location'] = trailingslashit( $location['uri'] ) . trailingslashit( $subdir ) . $location['file'];
+					$retval['handle']   = ( $script_handle ) ? $script_handle : "{$location_type}-{$type}";
+
+					break 2;
+				}
+			}
+		}
+
+		return $retval;
+	}
 
 	/**
 	 * Put some scripts in the header, like AJAX url for wp-lists
@@ -479,7 +520,13 @@ class BP_Legacy extends BP_Theme_Compat {
 	 */
 	public function theme_compat_page_templates( $templates = array() ) {
 
-		// Bail if not looking at a directory
+		/**
+		 * Filters whether or not we are looking at a directory to determine if to return early.
+		 *
+		 * @since BuddyPress (2.2.0)
+		 *
+		 * @param bool $value Whether or not we are viewing a directory.
+		 */
 		if ( true === (bool) apply_filters( 'bp_legacy_theme_compat_page_templates_directory_only', ! bp_is_directory() ) ) {
 			return $templates;
 		}
@@ -518,7 +565,16 @@ class BP_Legacy extends BP_Theme_Compat {
 		// Add it to the beginning of the templates array so it takes precedence
 		// over the default hierarchy.
 		if ( ! empty( $page_template ) ) {
-			array_unshift( $templates, $page_template );
+
+			/**
+			 * Check for existence of template before adding it to template
+			 * stack to avoid accidentally including an unintended file.
+			 *
+			 * @see: https://buddypress.trac.wordpress.org/ticket/6190
+			 */
+			if ( '' !== locate_template( $page_template ) ) {
+				array_unshift( $templates, $page_template );
+			}
 		}
 
 		return $templates;
@@ -649,15 +705,15 @@ function bp_legacy_theme_ajax_querystring( $query_string, $object ) {
 		$just_posted = wp_parse_id_list( $_POST['exclude_just_posted'] );
 		$qs[] = 'exclude=' . implode( ',', $just_posted );
 	}
-	
+
 	// to get newest activities
 	if ( ! empty( $_POST['offset'] ) ) {
 		$qs[] = 'offset=' . intval( $_POST['offset'] );
 	}
-	
+
 	$object_search_text = bp_get_search_default_text( $object );
  	if ( ! empty( $_POST['search_terms'] ) && $object_search_text != $_POST['search_terms'] && 'false' != $_POST['search_terms'] && 'undefined' != $_POST['search_terms'] )
-        $qs[] = 'search_terms=' . urlencode( $_POST['search_terms'] );
+		$qs[] = 'search_terms=' . urlencode( $_POST['search_terms'] );
 
 	// Now pass the querystring to override default values.
 	$query_string = empty( $qs ) ? '' : join( '&', (array) $qs );
@@ -682,6 +738,19 @@ function bp_legacy_theme_ajax_querystring( $query_string, $object ) {
 	if ( isset( $_BP_COOKIE['bp-' . $object . '-extras'] ) )
 		$object_extras = $_BP_COOKIE['bp-' . $object . '-extras'];
 
+	/**
+	 * Filters the AJAX query string for the component loops.
+	 *
+	 * @since BuddyPress (1.7.0)
+	 *
+	 * @param string $query_string        The query string we are working with.
+	 * @param string $object              The type of page we are on.
+	 * @param string $object_filter       The current object filter.
+	 * @param string $object_scope        The current object scope.
+	 * @param string $object_page         The current object page.
+	 * @param string $object_search_terms The current object search terms.
+	 * @param string $object_extras       The current object extras.
+	 */
 	return apply_filters( 'bp_legacy_theme_ajax_querystring', $query_string, $object, $object_filter, $object_scope, $object_page, $object_search_terms, $object_extras );
 }
 
@@ -715,7 +784,7 @@ function bp_legacy_theme_object_template_loader() {
 	 */
 	if ( ! bp_current_action() )
 		bp_update_is_directory( true, bp_current_component() );
-	
+
 	$template_part = $object . '/' . $object . '-loop';
 
 	// The template part can be overridden by the calling JS function
@@ -800,6 +869,15 @@ function bp_legacy_theme_activity_template_loader() {
 	ob_start();
 	bp_get_template_part( 'activity/activity-loop' );
 	$result['contents'] = ob_get_contents();
+
+	/**
+	 * Filters the feed URL for when activity is requested via AJAX.
+	 *
+	 * @since BuddyPress (1.7.0)
+	 *
+	 * @param string $feed_url URL for the feed to be used.
+	 * @param string $scope    Scope for the activity request.
+	 */
 	$result['feed_url'] = apply_filters( 'bp_legacy_theme_activity_feed_url', $feed_url, $scope );
 	ob_end_clean();
 
@@ -814,7 +892,7 @@ function bp_legacy_theme_activity_template_loader() {
  */
 function bp_legacy_theme_post_update() {
 	$bp = buddypress();
-	
+
 	// Bail if not a POST action
 	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
 		return;
@@ -837,6 +915,8 @@ function bp_legacy_theme_post_update() {
 			$activity_id = groups_post_update( array( 'content' => $_POST['content'], 'group_id' => $_POST['item_id'] ) );
 
 	} else {
+
+		/** This filter is documented in bp-activity/bp-activity-actions.php */
 		$activity_id = apply_filters( 'bp_activity_custom_update', false, $_POST['object'], $_POST['item_id'], $_POST['content'] );
 	}
 
@@ -894,15 +974,15 @@ function bp_legacy_theme_new_activity_comment() {
 		exit( '-1' );
 	}
 
-    $feedback = __( 'There was an error posting your reply. Please try again.', 'buddypress' );
+	$feedback = __( 'There was an error posting your reply. Please try again.', 'buddypress' );
 
-    if ( empty( $_POST['content'] ) ) {
-        exit( '-1<div id="message" class="error bp-ajax-message"><p>' . esc_html__( 'Please do not leave the comment area blank.', 'buddypress' ) . '</p></div>' );
-    }
+	if ( empty( $_POST['content'] ) ) {
+		exit( '-1<div id="message" class="error bp-ajax-message"><p>' . esc_html__( 'Please do not leave the comment area blank.', 'buddypress' ) . '</p></div>' );
+	}
 
-    if ( empty( $_POST['form_id'] ) || empty( $_POST['comment_id'] ) || ! is_numeric( $_POST['form_id'] ) || ! is_numeric( $_POST['comment_id'] ) ) {
-        exit( '-1<div id="message" class="error bp-ajax-message"><p>' . esc_html( $feedback ) . '</p></div>' );
-    }
+	if ( empty( $_POST['form_id'] ) || empty( $_POST['comment_id'] ) || ! is_numeric( $_POST['form_id'] ) || ! is_numeric( $_POST['comment_id'] ) ) {
+		exit( '-1<div id="message" class="error bp-ajax-message"><p>' . esc_html( $feedback ) . '</p></div>' );
+	}
 
 	$comment_id = bp_activity_new_comment( array(
 		'activity_id' => $_POST['form_id'],
@@ -910,14 +990,14 @@ function bp_legacy_theme_new_activity_comment() {
 		'parent_id'   => $_POST['comment_id'],
 	) );
 
-    if ( ! $comment_id ) {
-        if ( ! empty( $bp->activity->errors['new_comment'] ) && is_wp_error( $bp->activity->errors['new_comment'] ) ) {
-            $feedback = $bp->activity->errors['new_comment']->get_error_message();
-            unset( $bp->activity->errors['new_comment'] );
-        }
+	if ( ! $comment_id ) {
+		if ( ! empty( $bp->activity->errors['new_comment'] ) && is_wp_error( $bp->activity->errors['new_comment'] ) ) {
+			$feedback = $bp->activity->errors['new_comment']->get_error_message();
+			unset( $bp->activity->errors['new_comment'] );
+		}
 
-        exit( '-1<div id="message" class="error bp-ajax-message"><p>' . esc_html( $feedback ) . '</p></div>' );
-    }
+		exit( '-1<div id="message" class="error bp-ajax-message"><p>' . esc_html( $feedback ) . '</p></div>' );
+	}
 
 	// Load the new activity item into the $activities_template global
 	bp_has_activities( 'display_comments=stream&hide_spam=false&show_hidden=true&include=' . $comment_id );
@@ -927,7 +1007,7 @@ function bp_legacy_theme_new_activity_comment() {
 		$activities_template->activity = new stdClass();
 		$activities_template->activity->id              = $activities_template->activities[0]->item_id;
 		$activities_template->activity->current_comment = $activities_template->activities[0];
-		
+
 		// Because the whole tree has not been loaded, we manually
 		// determine depth
 		$depth = 1;
@@ -973,12 +1053,13 @@ function bp_legacy_theme_delete_activity() {
 	if ( ! bp_activity_user_can_delete( $activity ) )
 		exit( '-1' );
 
-	// Call the action before the delete so plugins can still fetch information about it
+	/** This action is documented in bp-activity/bp-activity-actions.php */
 	do_action( 'bp_activity_before_action_delete_activity', $activity->id, $activity->user_id );
 
 	if ( ! bp_activity_delete( array( 'id' => $activity->id, 'user_id' => $activity->user_id ) ) )
 		exit( '-1<div id="message" class="error bp-ajax-message"><p>' . __( 'There was a problem when deleting. Please try again.', 'buddypress' ) . '</p></div>' );
 
+	/** This action is documented in bp-activity/bp-activity-actions.php */
 	do_action( 'bp_activity_action_delete_activity', $activity->id, $activity->user_id );
 	exit;
 }
@@ -1009,12 +1090,13 @@ function bp_legacy_theme_delete_activity_comment() {
 	if ( empty( $_POST['id'] ) || ! is_numeric( $_POST['id'] ) )
 		exit( '-1' );
 
-	// Call the action before the delete so plugins can still fetch information about it
+	/** This action is documented in bp-activity/bp-activity-actions.php */
 	do_action( 'bp_activity_before_action_delete_activity', $_POST['id'], $comment->user_id );
 
-    if ( ! bp_activity_delete_comment( $comment->item_id, $comment->id ) )
-        exit( '-1<div id="message" class="error bp-ajax-message"><p>' . __( 'There was a problem when deleting. Please try again.', 'buddypress' ) . '</p></div>' );
+	if ( ! bp_activity_delete_comment( $comment->item_id, $comment->id ) )
+		exit( '-1<div id="message" class="error bp-ajax-message"><p>' . __( 'There was a problem when deleting. Please try again.', 'buddypress' ) . '</p></div>' );
 
+	/** This action is documented in bp-activity/bp-activity-actions.php */
 	do_action( 'bp_activity_action_delete_activity', $_POST['id'], $comment->user_id );
 	exit;
 }
@@ -1052,13 +1134,14 @@ function bp_legacy_theme_spam_activity() {
 	// Check nonce
 	check_admin_referer( 'bp_activity_akismet_spam_' . $activity->id );
 
-	// Call an action before the spamming so plugins can modify things if they want to
+	/** This action is documented in bp-activity/bp-activity-actions.php */
 	do_action( 'bp_activity_before_action_spam_activity', $activity->id, $activity );
 
 	// Mark as spam
 	bp_activity_mark_as_spam( $activity );
 	$activity->save();
 
+	/** This action is documented in bp-activity/bp-activity-actions.php */
 	do_action( 'bp_activity_action_spam_activity', $activity->id, $activity->user_id );
 	exit;
 }
@@ -1106,7 +1189,7 @@ function bp_legacy_theme_unmark_activity_favorite() {
 }
 
 /**
- * Fetches full an activity's full, non-excerpted content via a POST request.
+ * Fetches an activity's full, non-excerpted content via a POST request.
  * Used for the 'Read More' link on long activity items.
  *
  * @return string HTML
@@ -1127,10 +1210,19 @@ function bp_legacy_theme_get_single_activity_content() {
 	if ( empty( $activity ) )
 		exit; // @todo: error?
 
+	/**
+	 * Fires before the return of an activity's full, non-excerpted content via a POST request.
+	 *
+	 * @since BuddyPress (1.7.0)
+	 *
+	 * @param string $activity Activity content. Passed by reference.
+	 */
 	do_action_ref_array( 'bp_legacy_theme_get_single_activity_content', array( &$activity ) );
 
 	// Activity content retrieved through AJAX should run through normal filters, but not be truncated
 	remove_filter( 'bp_get_activity_content_body', 'bp_activity_truncate_entry', 5 );
+
+	/** This filter is documented in bp-activity/bp-activity-template.php */
 	$content = apply_filters( 'bp_get_activity_content_body', $activity->content );
 
 	exit( $content );
@@ -1180,7 +1272,9 @@ function bp_legacy_theme_ajax_invite_user() {
 
 		$user = new BP_Core_User( $friend_id );
 
-		$uninvite_url = bp_is_current_action( 'create' ) ? bp_get_root_domain() . '/' . bp_get_groups_root_slug() . '/create/step/group-invites/?user_id=' . $friend_id : bp_get_group_permalink( $group ) . 'send-invites/remove/' . $friend_id;
+		$uninvite_url = bp_is_current_action( 'create' )
+			? bp_get_groups_directory_permalink() . 'create/step/group-invites/?user_id=' . $friend_id
+			: bp_get_group_permalink( $group )    . 'send-invites/remove/' . $friend_id;
 
 		echo '<li id="uid-' . esc_attr( $user->id ) . '">';
 		echo $user->avatar_thumb;
@@ -1419,40 +1513,78 @@ function bp_legacy_theme_ajax_messages_send_reply() {
 
 	if ( !empty( $result ) ) {
 
-		// Get the zebra line classes correct on ajax requests
+		// pretend we're in the message loop
 		global $thread_template;
 
 		bp_thread_has_messages( array( 'thread_id' => (int) $_REQUEST['thread_id'] ) );
 
+		// set the current message to the 2nd last
+		$thread_template->message = end( $thread_template->thread->messages );
+		$thread_template->message = prev( $thread_template->thread->messages );
+
+		// set current message to current key
+		$thread_template->current_message = key( $thread_template->thread->messages );
+
+		// now manually iterate message like we're in the loop
 		bp_thread_the_message();
 
-		if ( $thread_template->message_count % 2 == 1 ) {
-			$class = 'odd';
-		} else {
-			$class = 'even alt';
-		} ?>
+		// manually call oEmbed
+		// this is needed because we're not at the beginning of the loop
+		bp_messages_embed()
+	?>
 
-		<div class="message-box new-message <?php echo $class; ?>">
+		<div class="message-box new-message <?php bp_the_thread_message_css_class(); ?>">
 			<div class="message-metadata">
-				<?php do_action( 'bp_before_message_meta' ); ?>
+				<?php
+
+				/**
+				 * Fires before the single message header is displayed.
+				 *
+				 * @since BuddyPress (1.1.0)
+				 */
+				do_action( 'bp_before_message_meta' ); ?>
 				<?php echo bp_loggedin_user_avatar( 'type=thumb&width=30&height=30' ); ?>
 
 				<strong><a href="<?php echo bp_loggedin_user_domain(); ?>"><?php bp_loggedin_user_fullname(); ?></a> <span class="activity"><?php printf( __( 'Sent %s', 'buddypress' ), bp_core_time_since( bp_core_current_time() ) ); ?></span></strong>
 
-				<?php do_action( 'bp_after_message_meta' ); ?>
+				<?php
+
+				/**
+				 * Fires after the single message header is displayed.
+				 *
+				 * @since BuddyPress (1.1.0)
+				 */
+				do_action( 'bp_after_message_meta' ); ?>
 			</div>
 
-			<?php do_action( 'bp_before_message_content' ); ?>
+			<?php
+
+			/**
+			 * Fires before the message content for a private message.
+			 *
+			 * @since BuddyPress (1.1.0)
+			 */
+			do_action( 'bp_before_message_content' ); ?>
 
 			<div class="message-content">
-				<?php echo stripslashes( apply_filters( 'bp_get_the_thread_message_content', $_REQUEST['content'] ) ); ?>
+				<?php bp_the_thread_message_content(); ?>
 			</div>
 
-			<?php do_action( 'bp_after_message_content' ); ?>
+			<?php
+
+			/**
+			 * Fires after the message content for a private message.
+			 *
+			 * @since BuddyPress (1.1.0)
+			 */
+			do_action( 'bp_after_message_content' ); ?>
 
 			<div class="clear"></div>
 		</div>
 	<?php
+		// clean up the loop
+		bp_thread_messages();
+
 	} else {
 		echo "-1<div id='message' class='error'><p>" . __( 'There was a problem sending that reply. Please try again.', 'buddypress' ) . '</p></div>';
 	}
@@ -1544,39 +1676,79 @@ function bp_legacy_theme_ajax_messages_delete() {
  * @return string HTML.
  */
 function bp_legacy_theme_ajax_messages_autocomplete_results() {
-    $limit = isset( $_GET['limit'] ) ? absint( $_GET['limit'] )          : (int) apply_filters( 'bp_autocomplete_max_results', 10 );
-    $term  = isset( $_GET['q'] )     ? sanitize_text_field( $_GET['q'] ) : '';
 
-    // Include everyone in the autocomplete, or just friends?
-    if ( bp_is_current_component( bp_get_messages_slug() ) ) {
-        $only_friends = ( buddypress()->messages->autocomplete_all === false );
-    } else {
-        $only_friends = true;
-    }
+	/**
+	 * Filters the max results default value for ajax messages autocomplete results.
+	 *
+	 * @since BuddyPress (1.5.0)
+	 *
+	 * @param int $value Max results for autocomplete. Default 10.
+	 */
+	$limit = isset( $_GET['limit'] ) ? absint( $_GET['limit'] )          : (int) apply_filters( 'bp_autocomplete_max_results', 10 );
+	$term  = isset( $_GET['q'] )     ? sanitize_text_field( $_GET['q'] ) : '';
 
-    $suggestions = bp_core_get_suggestions( array(
-        'limit'        => $limit,
-        'only_friends' => $only_friends,
-        'term'         => $term,
-        'type'         => 'members',
-    ) );
+	// Include everyone in the autocomplete, or just friends?
+	if ( bp_is_current_component( bp_get_messages_slug() ) ) {
+		$only_friends = ( buddypress()->messages->autocomplete_all === false );
+	} else {
+		$only_friends = true;
+	}
 
-    if ( $suggestions && ! is_wp_error( $suggestions ) ) {
-        foreach ( $suggestions as $user ) {
+	$suggestions = bp_core_get_suggestions( array(
+		'limit'        => $limit,
+		'only_friends' => $only_friends,
+		'term'         => $term,
+		'type'         => 'members',
+	) );
 
-            // Note that the final line break acts as a delimiter for the
-            // autocomplete javascript and thus should not be removed
-            printf( '<span id="%s" href="#"></span><img src="%s" style="width: 15px"> &nbsp; %s (%s)' . "\n",
-                esc_attr( 'link-' . $user->ID ),
-                esc_url( $user->image ),
-                esc_html( $user->name ),
-                esc_html( $user->ID )
-            );
-        }
-    }
+	if ( $suggestions && ! is_wp_error( $suggestions ) ) {
+		foreach ( $suggestions as $user ) {
 
-    exit;
+			// Note that the final line break acts as a delimiter for the
+			// autocomplete JavaScript and thus should not be removed
+			printf( '<span id="%s" href="#"></span><img src="%s" style="width: 15px"> &nbsp; %s (%s)' . "\n",
+				esc_attr( 'link-' . $user->ID ),
+				esc_url( $user->image ),
+				esc_html( $user->name ),
+				esc_html( $user->ID )
+			);
+		}
+	}
+
+	exit;
 }
+
+/**
+ * AJAX callback to set a message's star status.
+ *
+ * @since BuddyPress (2.3.0)
+ */
+function bp_legacy_theme_ajax_messages_star_handler() {
+	if ( false === bp_is_active( 'messages', 'star' ) || empty( $_POST['message_id'] ) ) {
+		return;
+	}
+
+	// Check nonce
+	check_ajax_referer( 'bp-messages-star-' . (int) $_POST['message_id'], 'nonce' );
+
+	// Check capability
+	if ( ! is_user_logged_in() || ! bp_core_can_edit_settings() ) {
+		return;
+	}
+
+	if ( true === bp_messages_star_set_action( array(
+		'action'     => $_POST['star_status'],
+		'message_id' => (int) $_POST['message_id'],
+		'bulk'       => ! empty( $_POST['bulk'] ) ? true : false
+	 ) ) ) {
+		echo '1';
+		die();
+	}
+
+	echo '-1';
+	die();
+}
+
 
 /*
  :: Custom functions
@@ -1789,7 +1961,9 @@ function kleo_bp_add_profile_navigation() {
 		</nav><!-- .navigation -->
 	<?php endif;
 }
-add_action('bp_after_member_body', 'kleo_bp_add_profile_navigation');
+if ( sq_option( 'member_navigation', 1 ) == 1 ) :
+    add_action('bp_after_member_body', 'kleo_bp_add_profile_navigation');
+endif;
 
 /**
  * Get next profile link

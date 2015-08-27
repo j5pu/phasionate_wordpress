@@ -1,19 +1,20 @@
 <?php
-$output = $title = $el_class = $open = $css_animation = $span_closed_data = '';
+$output = $title = $el_class = $open = $css_animation = $el_id = $span_closed_data = '';
 extract(shortcode_atts(array(
     'title' => __("Click to toggle", "js_composer"),
     'el_class' => '',
     'open' => 'false',
-		'icon' => '',
-		'icon_closed' => '',
-		'icon_position' => 'to-left',
-		'tooltip' => '',
-		'tooltip_position' => '',
-		'tooltip_title' => '',
-		'tooltip_text' => '',
-		'tooltip_action' => 'hover',
-		'animation' => '',
-    'css_animation' => ''
+    'icon' => '',
+    'icon_closed' => '',
+    'icon_position' => 'to-left',
+    'tooltip' => '',
+    'tooltip_position' => '',
+    'tooltip_title' => '',
+    'tooltip_text' => '',
+    'tooltip_action' => 'hover',
+    'animation' => '',
+    'css_animation' => '',
+    'el_id' => ''
 ), $atts));
 
 $el_class = $this->getExtraClass($el_class);
@@ -59,14 +60,13 @@ $css_class .= $icon_position;
 
 $elem_id = kleo_vc_elem_increment();
 
-$output .= '<div class="panel panel-default panel-toggle '.$css_class.'">
+$output .= '<div class="panel panel-default panel-toggle '.$css_class.'"' .
+    (isset( $el_id ) && ! empty( $el_id ) ? " id='" . esc_attr( $el_id ) . "'" : "") . '>
 		<div class="panel-heading">
 			<div class="panel-title">
-				<a class="accordion-toggle" data-toggle="collapse" href="#acc-'.$elem_id.'-d">
-					'.$title.'
-					<span class="icon-closed'.$icon_closed.'"'.$span_closed_data.'></span> 
-					<span class="icon-opened'.($open != ' in' ? ' hide ' : ' ').$icon.'"></span>
-
+				<a class="accordion-toggle" data-toggle="collapse" href="#acc-' . $elem_id . '-d">' . $title .
+                    '<span class="icon-closed'.$icon_closed.'"'.$span_closed_data.'></span>
+                    <span class="icon-opened'.($open != ' in' ? ' hide ' : ' ').$icon.'"></span>
 				</a>
 			</div>
 		</div>

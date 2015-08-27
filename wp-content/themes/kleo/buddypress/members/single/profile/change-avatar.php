@@ -1,19 +1,22 @@
-
 <div class="hr-title hr-full hr-double"><abbr><?php _e( 'Change Profile Photo', 'buddypress' ); ?></abbr></div>
-		<div class="gap-10"></div>
-    
-<?php do_action( 'bp_before_profile_avatar_upload_content' ); ?>
+<div class="gap-10"></div>
+
+<?php
+
+/**
+* Fires before the display of profile avatar upload content.
+*
+* @since BuddyPress (1.1.0)
+*/
+do_action( 'bp_before_profile_avatar_upload_content' ); ?>
 
 <?php if ( !(int)bp_get_option( 'bp-disable-avatar-uploads' ) ) : ?>
-
-
 
 <figure class="callout-blockquote light">
     <blockquote>
         <p><?php _e( 'Your profile photo will be used on your profile and throughout the site. If there is a <a href="http://gravatar.com">Gravatar</a> associated with your account email we will use that, or you can upload an image from your computer.', 'buddypress' ); ?></p>
     </blockquote>
 </figure>
-
 
 	<form action="#item-nav" method="post" id="avatar-upload-form" class="standard-form" enctype="multipart/form-data">
 
@@ -22,23 +25,23 @@
 			<?php wp_nonce_field( 'bp_avatar_upload' ); ?>
             <p><?php _e( 'Click below to select a JPG, GIF or PNG format photo from your computer and then click \'Upload Image\' to proceed.', 'buddypress' ); ?></p>
 			
-      <div class="row">
-      <div class="col-sm-6">
-			<p id="avatar-upload">
-				<input type="file" name="file" id="file" /><br />
-				<input type="submit" name="upload" id="upload" value="<?php _e( 'Upload Image', 'buddypress' ); ?>" />
-				<input type="hidden" name="action" id="action" value="bp_avatar_upload" />
-			</p></div><br />
+            <div class="row">
+                <div class="col-sm-6">
+                    <p id="avatar-upload">
+                        <input type="file" name="file" id="file" /><br />
+                        <input type="submit" name="upload" id="upload" value="<?php _e( 'Upload Image', 'buddypress' ); ?>" />
+                        <input type="hidden" name="action" id="action" value="bp_avatar_upload" />
+                    </p>
+                </div>
+                <br>
 
-
-			<div class="col-sm-6">
-			<?php if ( bp_get_user_has_avatar() ) : ?>
-                <p><?php _e( "If you'd like to delete your current profile photo but not upload a new one, please use the delete profile photo button.", 'buddypress' ); ?></p>
-                <p><a class="button edit" href="<?php bp_avatar_delete_link(); ?>" title="<?php esc_attr_e( 'Delete Profile Photo', 'buddypress' ); ?>"><?php _e( 'Delete My Profile Photo', 'buddypress' ); ?></a></p>
-			<?php endif; ?>
-      </div>
-      
-      </div><!--end row-->
+                <div class="col-sm-6">
+                <?php if ( bp_get_user_has_avatar() ) : ?>
+                    <p><?php _e( "If you'd like to delete your current profile photo but not upload a new one, please use the delete profile photo button.", 'buddypress' ); ?></p>
+                    <p><a class="button edit" href="<?php bp_avatar_delete_link(); ?>" title="<?php esc_attr_e( 'Delete Profile Photo', 'buddypress' ); ?>"><?php _e( 'Delete My Profile Photo', 'buddypress' ); ?></a></p>
+                <?php endif; ?>
+                </div>
+            </div><!--end row-->
 
 		<?php endif; ?>
 
@@ -66,10 +69,27 @@
 
 	</form>
 
+    <?php
+    if ( version_compare( BP_VERSION, '2.3', '>=' ) ) {
+        /**
+         * Load the Avatar UI templates
+         *
+         * @since  BuddyPress (2.3.0)
+         */
+        bp_avatar_get_templates();
+    } ?>
+
 <?php else : ?>
 
     <p><?php _e( 'Your profile photo will be used on your profile and throughout the site. To change your profile photo, please create an account with <a href="http://gravatar.com">Gravatar</a> using the same email address as you used to register with this site.', 'buddypress' ); ?></p>
 
 <?php endif; ?>
 
-<?php do_action( 'bp_after_profile_avatar_upload_content' ); ?>
+<?php
+
+/**
+ * Fires after the display of profile avatar upload content.
+ *
+ * @since BuddyPress (1.1.0)
+ */
+do_action( 'bp_after_profile_avatar_upload_content' ); ?>

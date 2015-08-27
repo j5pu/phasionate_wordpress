@@ -88,15 +88,17 @@ if ( ! empty ( $_SERVER[ 'HTTP_X_REQUESTED_WITH' ] ) &&
                     <?php
                     if ( bp_has_groups () ) : while ( bp_groups () ) : bp_the_group () ;
                             ?>
-												<div class="row">
-													<div class="col-sm-12">
-                            <div id="item-header">
+                        <div class="row">
 
-                                <?php bp_get_template_part ( 'groups/single/group-header' ) ; ?>
+                            <?php if( sq_option( 'bp_full_group', 0 ) == 0 ): ?>
+                            <div class="col-sm-12">
+                                <div id="item-header">
+                                    <?php bp_get_template_part ( 'groups/single/group-header' ) ; ?>
+                                </div><!--#item-header-->
+                            </div>
+                            <?php endif;?>
 
-                            </div><!--#item-header-->
-													</div>
-													<div class="col-sm-12">
+                            <div class="col-sm-12">
                             <div id="item-nav">
                                 <div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
                                     <ul class="responsive-tabs">

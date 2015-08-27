@@ -1,22 +1,23 @@
 <?php
 
-$output = $el_class = $image = $img_size = $img_link = $img_link_target = $img_link_large = $title = $alignment = $css_animation = $css = '';
+$output = $el_class = $image = $img_size = $img_link = $img_link_target = $img_link_large = $title = $alignment = $full_width = $css_animation = $css = '';
 
-extract( shortcode_atts( array(
+extract(shortcode_atts(array(
     'title' => '',
     'image' => $image,
-		'img_size' => 'thumbnail',
+    'img_size' => 'thumbnail',
     'img_link_large' => false,
     'img_link' => '',
     'link' => '',
     'img_link_target' => '_self',
     'alignment' => 'left',
-		'style' => '',
-		'border_color' => '',
+    'style' => '',
+    'border_color' => '',
+    'full_width' => '',
     'el_class' => '',
-		'animation' => '',
+    'animation' => '',
     'css_animation' => '',
-		'css' => ''
+    'css' => ''
 ), $atts));
 
 $style = ( $style != '' ) ? $style : '';
@@ -72,6 +73,10 @@ if ( $animation != '' ) {
 }
 
 $css_class .= ' element-'.$alignment.' text-'.$alignment;
+
+if ( $full_width != '' ) {
+    $css_class .= ' img-full-width';
+}
 
 $output .= "\n\t" . '<div class="' . $css_class . '">';
 $output .= "\n\t\t" . '<div class="wpb_wrapper">';

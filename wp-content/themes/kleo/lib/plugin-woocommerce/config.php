@@ -248,15 +248,16 @@ if ( ! function_exists( 'kleo_woocommerce_before_content' ) )
 {
 	// WooCommerce layout overrides
 	add_action( 'woocommerce_before_main_content', 'kleo_woocommerce_before_content', 10 );
-	function kleo_woocommerce_before_content() 
-	{
+	function kleo_woocommerce_before_content() {
 		//title section
 		$title_arr = array();
 		$shop_id = wc_get_page_id( 'shop' );
 
         $title_arr['show_title'] = true;
+
         //hide breadcrumb?
-        if(sq_option('breadcrumb_status', 1) == 0) {
+        $title_arr['show_breadcrumb'] = true;
+        if( sq_option( 'breadcrumb_status', 1 ) == 0 ) {
             $title_arr['show_breadcrumb'] = false;
         }
 		
@@ -298,7 +299,7 @@ if ( ! function_exists( 'kleo_woocommerce_before_content' ) )
 		}
 
 		remove_action('kleo_before_main_content', 'kleo_title_main_content');
-		if (sq_option('title_location', 'breadcrumb') == 'breadcrumb') {
+		if ( sq_option('title_location', 'breadcrumb') == 'breadcrumb' || get_cfield( 'title_checkbox', $shop_id ) == 1 ) {
 			add_filter('woocommerce_show_page_title',  '__return_false');
 		}
 		get_template_part('page-parts/general-before-wrap');
@@ -311,7 +312,7 @@ if ( ! function_exists( 'kleo_woocommerce_after_content' ) )
 	add_action( 'woocommerce_after_main_content', 'kleo_woocommerce_after_content', 20 );
 	function kleo_woocommerce_after_content() 
 	{
-			get_template_part('page-parts/general-after-wrap');
+        get_template_part('page-parts/general-after-wrap');
 	}
 }
 
@@ -377,7 +378,7 @@ function kleo_shop_header() {
     $page_header = get_cfield( 'header_content', $shop_id );
     if( $page_header != '' ) {
         echo '<section class="kleo-shop-header container-wrap main-color">';
-        echo do_shortcode( $page_header );
+        echo do_shortcode( html_entity_decode( $page_header ) );
         echo '</section>';
     }
 }
@@ -404,7 +405,7 @@ function kleo_woo_bottom_content() {
     $page_bottom = get_cfield( 'bottom_content', $shop_id );
     if( $page_bottom != '' ) {
         echo '<div class="kleo-page-bottom">';
-        echo do_shortcode( $page_bottom );
+        echo do_shortcode( html_entity_decode( $page_bottom ) );
         echo '</div>';
     }
 }
@@ -826,9 +827,9 @@ function kleo_product_nav( $same_cat = false ) {
 	<?php
 }
 endif;
-
-add_action('kleo_after_main', 'kleo_product_nav', 11);
-
+if ( sq_option( 'woo_product_navigation', 1 ) == 1 ) :
+    add_action('kleo_after_main', 'kleo_product_nav', 11);
+endif;
 
 
 /***************************************************
@@ -939,7 +940,7 @@ if (!function_exists('kleo_woo_get_mini_cart')) {
 
 			$cart_output .= '</div>';
 			
-			$cart_output .= '<div class="minicart-total-checkout">' . 'Precio Total' . ' ' . $cart_total . '</div>';
+			$cart_output .= '<div class="minicart-total-checkout">' . __( 'Cart Subtotal', 'kleo_framework' ) . ' ' . $cart_total . '</div>';
 
 			$cart_output .= '<div class="minicart-buttons">';
 
@@ -1450,7 +1451,7 @@ if ( function_exists( 'bp_is_active' ) && is_user_logged_in() && sq_option( 'woo
 		global $bp;
 		bp_core_new_subnav_item(
 			array(
-				'name' => __('My Orders', 'woocommerce'),
+				'name' => __('My Orders', 'kleo_framework'),
 				'slug' => 'my-orders',
 				'parent_url' => $bp->loggedin_user->domain  . $bp->bp_nav['orders']['slug'] . '/',
 				'parent_slug' => $bp->bp_nav['orders']['slug'],
@@ -1461,7 +1462,7 @@ if ( function_exists( 'bp_is_active' ) && is_user_logged_in() && sq_option( 'woo
 
 		bp_core_new_subnav_item(
 			array(
-				'name' => __('My Downloads', 'woocommerce'),
+				'name' => __('My Downloads', 'kleo_framework'),
 				'slug' => 'downloads',
 				'parent_url' => $bp->loggedin_user->domain  . $bp->bp_nav['orders']['slug'] . '/',
 				'parent_slug' => $bp->bp_nav['orders']['slug'],
@@ -1480,7 +1481,7 @@ if ( function_exists( 'bp_is_active' ) && is_user_logged_in() && sq_option( 'woo
 	// Display My Orders screen
 	function kleo_woo_orders_screen_content() {
 		echo '<div class="woocommerce">';
-		wc_get_template( 'myaccount/my-orders.php', array( 'order_count' => 'all' ) );
+        wc_get_template( 'myaccount/my-orders.php' );
 		echo '</div>';
 	}
 
@@ -1505,7 +1506,7 @@ if ( function_exists( 'bp_is_active' ) && is_user_logged_in() && sq_option( 'woo
 		global $bp;
 		bp_core_new_subnav_item(
 			array(
-				'name' => __('Addresses', 'woocommerce'),
+				'name' => __('My Addresses', 'woocommerce'),
 				'slug' => 'my-address',
 				'parent_url' => $bp->loggedin_user->domain  . $bp->bp_nav['settings']['slug'] . '/',
 				'parent_slug' => $bp->bp_nav['settings']['slug'],
@@ -1554,7 +1555,7 @@ if ( function_exists( 'bp_is_active' ) && is_user_logged_in() && sq_option( 'woo
 		global $bp;
 		bp_core_new_subnav_item(
 			array(
-				'name' => __('Account', 'woocommerce'),
+				'name' => __('Account', 'kleo_framework'),
 				'slug' => 'account',
 				'parent_url' => $bp->loggedin_user->domain  . $bp->bp_nav['settings']['slug'] . '/',
 				'parent_slug' => $bp->bp_nav['settings']['slug'],
@@ -1597,7 +1598,7 @@ if ( function_exists( 'bp_is_active' ) && is_user_logged_in() && sq_option( 'woo
 	add_action('woocommerce_view_order', 'kleo_return_to_bp_order_list');
 	function kleo_return_to_bp_order_list() { ?>
 		<?php global $bp; ?>
-		<a href="<?php echo $bp->loggedin_user->domain . 'orders/'; ?>" title="<?php _e('View All Orders','woocommerce'); ?>" class="button"><?php _e('View All Orders','woocommerce'); ?></a>
+		<a href="<?php echo $bp->loggedin_user->domain . 'orders/'; ?>" title="<?php _e('View All Orders','kleo_framework'); ?>" class="button"><?php _e('View All Orders','kleo_framework'); ?></a>
 	<?php }
 
 } else {
@@ -1607,9 +1608,106 @@ if ( function_exists( 'bp_is_active' ) && is_user_logged_in() && sq_option( 'woo
 	function kleo_return_to_wc_order_list()
 	{ ?>
 		<a href="<?php echo get_permalink(get_option('woocommerce_myaccount_page_id')); ?>"
-		   title="<?php _e('View All Orders', 'woocommerce'); ?>"
-		   class="button"><?php _e('My Account', 'woocommerce'); ?></a>
+		   title="<?php _e('View All Orders', 'kleo_framework'); ?>"
+		   class="button"><?php _e('My Account', 'kleo_framework'); ?></a>
 	<?php
 	}
 }
 
+
+/* Compatibility with Woocommerce < 2.4 */
+if ( ! function_exists( 'wc_dropdown_variation_attribute_options' ) ) {
+
+	/**
+	 * Output a list of variation attributes for use in the cart forms.
+	 *
+	 * @param array $args
+	 * @since 2.4.0
+	 */
+	function wc_dropdown_variation_attribute_options( $args = array() ) {
+		$args = wp_parse_args( $args, array(
+			'options'          => false,
+			'attribute'        => false,
+			'product'          => false,
+			'selected' 	       => false,
+			'name'             => '',
+			'id'               => '',
+			'class'            => '',
+			'show_option_none' => __( 'Choose an option', 'woocommerce' )
+		) );
+
+		$options   = $args['options'];
+		$product   = $args['product'];
+		$attribute = $args['attribute'];
+		$name      = $args['name'] ? $args['name'] : 'attribute_' . sanitize_title( $attribute );
+		$id        = $args['id'] ? $args['id'] : sanitize_title( $attribute );
+		$class     = $args['class'];
+
+		if ( empty( $options ) && ! empty( $product ) && ! empty( $attribute ) ) {
+			$attributes = $product->get_variation_attributes();
+			$options    = $attributes[ $attribute ];
+		}
+
+		echo '<select id="' . esc_attr( $id ) . '" class="' . esc_attr( $class ) . '" name="' . esc_attr( $name ) . '" data-attribute_name="attribute_' . esc_attr( sanitize_title( $attribute ) ) . '">';
+
+		if ( $args['show_option_none'] ) {
+			echo '<option value="">' . esc_html( $args['show_option_none'] ) . '</option>';
+		}
+
+		if ( ! empty( $options ) ) {
+			if ( $product && taxonomy_exists( $attribute ) ) {
+				// Get terms if this is a taxonomy - ordered. We need the names too.
+				$terms = wc_get_product_terms( $product->id, $attribute, array( 'fields' => 'all' ) );
+
+				foreach ( $terms as $term ) {
+					if ( in_array( $term->slug, $options ) ) {
+						echo '<option value="' . esc_attr( $term->slug ) . '" ' . selected( sanitize_title( $args['selected'] ), $term->slug, false ) . '>' . apply_filters( 'woocommerce_variation_option_name', $term->name ) . '</option>';
+					}
+				}
+			} else {
+				foreach ( $options as $option ) {
+					// This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
+					$selected = sanitize_title( $args['selected'] ) === $args['selected'] ? selected( $args['selected'], sanitize_title( $option ), false ) : selected( $args['selected'], $option, false );
+					echo '<option value="' . esc_attr( $option ) . '" ' . $selected . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $option ) ) . '</option>';
+				}
+			}
+		}
+
+		echo '</select>';
+	}
+}
+
+
+
+if ( ! function_exists( 'woocommerce_single_variation' ) ) {
+
+	add_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
+
+	/**
+	 * Output placeholders for the single variation.
+	 */
+	function woocommerce_single_variation() {
+		echo '<div class="single_variation"></div>';
+	}
+}
+
+if ( ! function_exists( 'woocommerce_single_variation_add_to_cart_button' ) ) {
+
+	add_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20 );
+
+	/**
+	 * Output the add to cart button for variations.
+	 */
+	function woocommerce_single_variation_add_to_cart_button() {
+		global $product;
+		?>
+		<div class="variations_button">
+			<?php woocommerce_quantity_input( array( 'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( $_POST['quantity'] ) : 1 ) ); ?>
+			<button type="submit" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+			<input type="hidden" name="add-to-cart" value="<?php echo absint( $product->id ); ?>" />
+			<input type="hidden" name="product_id" value="<?php echo absint( $product->id ); ?>" />
+			<input type="hidden" name="variation_id" class="variation_id" value="" />
+		</div>
+		<?php
+	}
+}

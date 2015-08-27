@@ -55,7 +55,7 @@
 
                 if ( !empty( $bg_video_args ) ) {
                     $attr_strings = array(
-                        'preload="0"'
+                        'preload="none"'
                     );
 
                     if (get_cfield( 'video_poster' ) ) {
@@ -107,7 +107,7 @@
                                 $image = $slide;
                             }
                             echo '<article>
-								<a href="'. $slide .'" data-rel="prettyPhoto[inner-gallery]">
+								<a href="'. $slide .'" data-rel="modalPhoto[inner-gallery]">
 									<img src="'.$image.'" alt="'. get_the_title() .'">'
                                 . kleo_get_img_overlay()
                                 . '</a>

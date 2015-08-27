@@ -19,12 +19,20 @@ get_header(); ?>
 
 <?php 
 //Specific class for post listing */
-$blog_type = sq_option('blog_type','masonry');
+$blog_type = sq_option( 'blog_type','masonry' );
 $blog_type = apply_filters( 'kleo_blog_type', $blog_type );
 
 $template_classes = $blog_type . '-listing';
-if (sq_option('blog_archive_meta', 1) == 1) { $template_classes .= ' with-meta'; } else { $template_classes .= ' no-meta'; }
-add_filter('kleo_main_template_classes', create_function('$cls','$cls .=" posts-listing '.$template_classes.'"; return $cls;'));
+if ( sq_option('blog_archive_meta', 1 ) == 1 ) {
+    $template_classes .= ' with-meta';
+} else {
+    $template_classes .= ' no-meta';
+}
+if ( $blog_type == 'standard' && sq_option('blog_standard_meta', 'left' ) == 'inline' ) {
+    $template_classes .= ' inline-meta';
+}
+
+add_filter('kleo_main_template_classes', create_function( '$cls','$cls .=" posts-listing ' . $template_classes.'"; return $cls;' ));
 
 
 /***************************************************
@@ -57,6 +65,10 @@ else {
 if ( get_option( 'page_for_posts' ) ) {
 	$blogpage_id = get_option('page_for_posts');
 	$page_title = get_the_title( $blogpage_id );
+
+    if ( get_cfield( 'custom_title', $blogpage_id ) && get_cfield( 'custom_title', $blogpage_id ) != ''  ) {
+        $page_title = get_cfield( 'custom_title', $blogpage_id );
+    }
 
 	if( get_cfield( 'title_checkbox', $blogpage_id ) == 1 ) {
 		$title_arr['show_title'] = false;

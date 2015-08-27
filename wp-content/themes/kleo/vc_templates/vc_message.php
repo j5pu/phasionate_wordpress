@@ -15,8 +15,8 @@
  * @var string $message_box_color
  * @var string $icon_type
  */
-$defaultFont = 'fontawesome';
-$defaultIconClass = 'fa fa-info-circle';
+$defaultFont = 'fontello';
+$defaultIconClass = 'icon-info-circled';
 //$this->convert..
 $atts = $this->convertAttributesToMessageBox2( $atts );
 $defaults = array(
@@ -54,6 +54,7 @@ $elementClass = preg_replace( array( '/\s+/', '/^\s|\s$/' ), array( ' ', '' ), i
 
 // Pick up icons
 $iconClass = isset( ${"icon_" . $icon_type} ) ? ${"icon_" . $icon_type} : $defaultIconClass;
+
 switch ( $color ) {
     case 'info':
         $icon_type = 'fontawesome';
@@ -90,6 +91,10 @@ switch ( $color ) {
     case 'alert-custom':
     default:
         break;
+}
+
+if( $icon_type == 'fontello' ) {
+    $iconClass = 'icon-' . $iconClass;
 }
 
 // Enqueue needed font for icon element

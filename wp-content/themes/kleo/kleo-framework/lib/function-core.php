@@ -1,110 +1,110 @@
 <?php
-
 //Theme options
-if (!function_exists('sq_option')):
-    
-	//array with theme options
-	global $kleo_options;
-	$kleo_options = get_option('kleo_'.KLEO_DOMAIN);
+if ( ! function_exists( 'sq_option' ) ) {
 
-	/**
-	 * Function to get options in front-end
-	 * @param int $option The option we need from the DB
-	 * @param string $default If $option doesn't exist in DB return $default value
-	 * @return string
-	 */
-	function sq_option($option=false, $default=false)
-	{
-		if($option === FALSE)
-		{
-			return FALSE;
-		}
-		global $kleo_options;
+    //array with theme options
+    global $kleo_options;
+    $kleo_options = get_option( 'kleo_' . KLEO_DOMAIN );
 
-		if(isset($kleo_options[$option]) && $kleo_options[$option] !== '')
-		{
-			return $kleo_options[$option];
-		}
-		else
-		{
-			return $default;
-		}
-	}
-	
-	/**
-	 * Function to get url options in front-end
-	 * @param int $option The option we need from the DB
-	 * @param string $default If $option doesn't exist in DB return $default value
-	 * @return string
-	 */
-	function sq_option_url($option=false, $default=false)
-	{
-		if($option === FALSE)
-		{
-			return FALSE;
-		}
-		global $kleo_options;
-		
-		if(isset($kleo_options[$option]['url']) && $kleo_options[$option]['url'] !== '')
-		{
-			return $kleo_options[$option]['url'];
-		}
-		else
-		{
-			return $default;
-		}
-	}
-	
-endif;
+    /**
+     * Function to get options in front-end
+     * @param int $option The option we need from the DB
+     * @param string $default If $option doesn't exist in DB return $default value
+     * @return string
+     */
+    function sq_option( $option = false, $default = false ) {
+        $output_data = FALSE;
 
-/**
- * Get styling options structured on sections
- * @global array $kleo_options
- * @return array
- */
-function kleo_style_options()
-{
-	global $kleo_options;
-	$sections = array();
-	if ( isset( $kleo_options ) && ! empty( $kleo_options ) ) {
-		foreach ( $kleo_options as $key => $option ) {
-			if( substr( $key, 0, 4 ) === "st__" ) {
-				$data = explode('__',$key);
-				$sections[$data[1]][$data[2]] = $option;
-			}
-		}
-	}
-	return $sections;
+        if ( $option === FALSE ) {
+            return $output_data;
+        }
+
+        global $kleo_options;
+
+        if ( isset($kleo_options[$option]) && $kleo_options[$option] !== '' ) {
+            $output_data = $kleo_options[$option];
+        } else {
+            $output_data = $default;
+        }
+
+        return apply_filters( 'sq_option', $output_data, $option );
+    }
 }
 
+if ( ! function_exists( 'sq_option_url' ) ) {
+    /**
+     * Function to get url options in front-end
+     * @param int $option The option we need from the DB
+     * @param string $default If $option doesn't exist in DB return $default value
+     * @return string
+     */
+    function sq_option_url($option = false, $default = false)
+    {
+        if ($option === FALSE) {
+            return FALSE;
+        }
+        global $kleo_options;
+
+        if (isset($kleo_options[$option]['url']) && $kleo_options[$option]['url'] !== '') {
+            return $kleo_options[$option]['url'];
+        } else {
+            return $default;
+        }
+    }
+}
+
+
+if (! function_exists('kleo_style_options')) {
+    /**
+     * Get styling options structured on sections
+     * @global array $kleo_options
+     * @return array
+     */
+    function kleo_style_options()
+    {
+        global $kleo_options;
+        $kleo_options = apply_filters( 'kleo_options', $kleo_options );
+
+        $sections = array();
+        if ( isset( $kleo_options ) && !empty( $kleo_options ) ) {
+            foreach ($kleo_options as $key => $option) {
+                if (substr($key, 0, 4) === "st__") {
+                    $data = explode('__', $key);
+                    $sections[$data[1]][$data[2]] = $option;
+                }
+            }
+        }
+        return apply_filters( 'kleo_style_options', $sections );
+    }
+}
 
 
 
 /*
  * Retrieve custom field
  */
-if( !function_exists( 'get_cfield' ) ) :
-	
-	function get_cfield( $meta = NULL, $id = NULL ) {
-		if( $meta === NULL ) {
-			return false;
-		}
+if( ! function_exists( 'get_cfield' ) ) {
 
-		if ( $id === NULL ) {
-			$id = get_the_ID();
-		}
+    function get_cfield( $meta = NULL, $id = NULL ) {
+        if( $meta === NULL ) {
+            return false;
+        }
 
-        if ( ! $id && is_home() && get_option( 'page_for_posts' ) ) {
+        if ( ! $id && ! in_the_loop() && is_home() && get_option( 'page_for_posts' ) ) {
             $id = get_option( 'page_for_posts' );
+        }
+
+        if ( $id === NULL ) {
+            $id = get_the_ID();
         }
 
         if ( ! $id ) {
             return false;
         }
 
-		return get_post_meta( $id, '_kleo_' . $meta, true );
-	}
-endif;
+        return get_post_meta( $id, '_kleo_' . $meta, true );
+    }
+}
 
 /*
  * Echo the custom field
@@ -292,47 +292,29 @@ function kleo_pagination( $pages = '', $echo = true ) {
 	}
 
 	$pagenum_link = remove_query_arg( array_keys( $query_args ), $pagenum_link );
-
-    if ( is_search() ) {
-        //Pongo esto aqu� porque en el search formaba mal la url
-        $pagenum = explode( '/', $pagenum_link);
-        $pagenum_link = 'http://'.$pagenum[2].'/';
-    }
-
 	$pagenum_link = trailingslashit( $pagenum_link ) . '%_%';
 
 	$format  = $GLOBALS['wp_rewrite']->using_index_permalinks() && ! strpos( $pagenum_link, 'index.php' ) ? 'index.php/' : '';
-	//$format .= $GLOBALS['wp_rewrite']->using_permalinks() ? user_trailingslashit( 'page/%#%', 'paged' ) : '?paged=%#%';
-    $format .= $GLOBALS['wp_rewrite']->using_permalinks() ? user_trailingslashit( '%#%', 'paged' ) : '?paged=%#%';
+	$format .= $GLOBALS['wp_rewrite']->using_permalinks() ? user_trailingslashit( 'page/%#%', 'paged' ) : '?paged=%#%';
 
-		// Set up paginated links.
+	// Set up paginated links.
 	$links = paginate_links( array(
 		'base'     => $pagenum_link,
 		'format'   => $format,
 		'total'    => $pages,
 		'current'  => $paged,
-		'mid_size' => 1,
+		'mid_size' => 2,
 		'add_args' => array_map( 'urlencode', $query_args ),
 		'prev_text' => __( '&laquo;', 'kleo_framework' ),
 		'next_text' => __( '&raquo;', 'kleo_framework' ),
 		'type' => 'array'
 	) );
-	if ($paged > 1){
-		$links[1] = "<a class='page-numbers' href='".get_category_link( get_query_var('cat'))."'>1</a>";
-		if ($paged == 2){
-			$links[0] = "<a class='prev page-numbers' href='".get_category_link( get_query_var('cat'))."'>&laquo;</a>";
-		}
-	}
+
 	if ( $links ) {
         $output .= '<nav class="pagination-nav clear" role="navigation">'
             . '<ul class="pagination">';
 
-        $category = get_category_link(get_query_var('cat'));
-
         foreach ($links as $link) {
-        	if ($paged==1){
-        		$link = str_replace( $category, $category."page/",  $link);
-        	}
             $output .= '<li>' . $link . '</li>';
         }
 
@@ -349,14 +331,14 @@ function kleo_pagination( $pages = '', $echo = true ) {
 }
 endif;
 
-
-
-function get_attachment_id_from_url($url) {
-    global $wpdb;
-    $query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$url'";
-    return $wpdb->get_var($query);
-}
-
+// Return attachment id from url
+if(!function_exists('kleo_get_attachment_id_from_url')):
+    function kleo_get_attachment_id_from_url($url) {
+        global $wpdb;
+        $query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$url'";
+        return $wpdb->get_var($query);
+    }
+endif;
 
 if(!function_exists('kleo_title')):
 	/**
@@ -465,17 +447,17 @@ if(!function_exists('kleo_calc_perceived_brightness'))
 	{
 		$rgba = kleo_hex_to_rgb($color);
 	
-		$brighntess = sqrt(
+		$brightness = sqrt(
 	      $rgba['r'] * $rgba['r'] * 0.241 + 
 	      $rgba['g'] * $rgba['g'] * 0.691 + 
 	      $rgba['b'] * $rgba['b'] * 0.068);
 	      
 		if($compare)
 		{
-			$brighntess = $brighntess < $compare ? true : false;
+			$brightness = $brightness < $compare ? true : false;
 		}
 
-		return $brighntess;
+		return $brightness;
 	}
 }
 
@@ -563,23 +545,23 @@ if(!function_exists('kleo_calc_similar_color'))
 	}
 }
 
-if (!function_exists('kleo_generate_dynamic_css')):
+if ( ! function_exists( 'kleo_generate_dynamic_css' ) ):
 	function kleo_generate_dynamic_css()
 	{
 		global $kleo_config;
 		$dynamic_css = get_template_directory() . '/assets/css/dynamic.php';
 		
 		ob_start(); // Capture all output (output buffering)
-		require($dynamic_css); // Generate CSS
+		require( $dynamic_css ); // Generate CSS
 		$css = ob_get_clean(); // Get generated CSS (output buffering)
 		$css = kleo_compress($css);
 		
-		if (!is_dir($kleo_config['custom_style_path'])) {
+		if ( ! is_dir( $kleo_config['custom_style_path'] ) ) {
 			// dir doesn't exist, make it
-			mkdir($kleo_config['custom_style_path']);
+			wp_mkdir_p( $kleo_config['custom_style_path'] );
 		}
 		
-		file_put_contents(trailingslashit($kleo_config['custom_style_path']) . 'dynamic.css', $css, LOCK_EX); // Save it
+		file_put_contents( trailingslashit( $kleo_config['custom_style_path'] ) . 'dynamic.css', $css, LOCK_EX ); // Save it
 	}
 endif;
 
@@ -686,4 +668,31 @@ function kleo_get_post_thumbnail_url( $post_id = null ) {
     }
 
     return $image_url;
+}
+
+
+if ( ! function_exists( 'kleo_parse_multi_attribute' ) ) {
+    /**
+     * Parse string like "title:Hello world|weekday:Monday" to array('title' => 'Hello World', 'weekday' => 'Monday')
+     *
+     * @param $value
+     * @param array $default
+     *
+     * @return array
+     */
+    function kleo_parse_multi_attribute($value, $default = array())
+    {
+        $result = $default;
+        $params_pairs = explode('|', $value);
+        if (!empty($params_pairs)) {
+            foreach ($params_pairs as $pair) {
+                $param = preg_split('/\:/', $pair);
+                if (!empty($param[0]) && isset($param[1])) {
+                    $result[$param[0]] = rawurldecode($param[1]);
+                }
+            }
+        }
+
+        return $result;
+    }
 }

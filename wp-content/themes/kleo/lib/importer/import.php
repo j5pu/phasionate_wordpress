@@ -86,13 +86,12 @@ class kleoImport {
         if ( !empty( $old_sidebars ) ) {
             $sidebars_data = array_merge( $sidebars_data, $old_sidebars );
         }
-        update_option('sbg_sidebars', $sidebars_data );
+        update_option( 'sbg_sidebars', $sidebars_data );
 
         //widgets
         $file_path 	= KLEO_LIB_URI . '/importer/demo/widget_data.json';
         $file_data 	= wp_remote_get( $file_path );
         $data 		= $file_data['body'];
-// 		print_r($data);
 		$this->import_widget_data( $data );
 	}
 	
@@ -139,6 +138,24 @@ class kleoImport {
 							}
 							break;
 
+                        case 'all-geodirectory':
+							// Geo Directory Demo Data ---------------------------------
+							$this->import_content( 'pages/home-geodirectory.xml.gz' );
+
+                            //widgets
+                            $file_path 	= KLEO_LIB_URI . '/importer/demo/widget_data_geodirectory.json';
+                            $file_data 	= wp_remote_get( $file_path );
+                            $data 		= $file_data['body'];
+                            $this->import_widget_data( $data );
+
+							// set home & blog page
+							$home = get_page_by_title( 'Home Business Directory' );
+							if( $home->ID && $blog->ID ) {
+								update_option('show_on_front', 'page');
+								update_option('page_on_front', $home->ID); // Front Page
+							}
+							break;
+
                         case 'all-agency':
                             // Full Agency Demo Data ---------------------------------
                             $this->import_content( 'all-agency.xml.gz' );
@@ -152,6 +169,19 @@ class kleoImport {
                                 update_option('show_on_front', 'page');
                                 update_option('page_on_front', $home->ID); // Front Page
                                 update_option('page_for_posts', $blog->ID); // Blog Page
+                            }
+                            break;
+
+                        case 'all-news':
+                            // Full News Demo Data ---------------------------------
+                            $this->import_content( 'all-news.xml.gz' );
+
+                            // set home & blog page
+                            $home = get_page_by_title( 'Home News Magazine' );
+
+                            if( $home->ID ) {
+                                update_option('show_on_front', 'page');
+                                update_option('page_on_front', $home->ID); // Front Page
                             }
                             break;
 
@@ -194,8 +224,16 @@ class kleoImport {
 							// Widgets ----------------------------------------
 							$this->import_widget();
 							break;
-							
-						default:
+
+                        case 'widgets-geodirectory':
+                            // Widgets ----------------------------------------
+                            $file_path 	= KLEO_LIB_URI . '/importer/demo/widget_data_geodirectory.json';
+                            $file_data 	= wp_remote_get( $file_path );
+                            $data 		= $file_data['body'];
+                            $this->import_widget_data( $data );
+                            break;
+
+                        default:
 							// Empty select.import
 							$this->error = __('Please select data to import.','kleo_framework');
 							break;
@@ -225,14 +263,24 @@ class kleoImport {
 
             <h3 style="margin-bottom: 0;">Please read:</h3>
             <p>
-                - Don't do the import twice since it will duplicate all your content.<br>
+                - Don't do the import twice since <strong>it will duplicate all your content</strong>.<br>
                 - Importing Widgets will remove any existing widgets assigned to your sidebars.<br>
-                - Importing All the demo content will take some time so be patient.<br><br>
+                - Importing All the demo content will take some time so be patient. A better option is to import by content type or just what pages you need.<br>
                 - <strong>Revolution Sliders are not imported in this page</strong>. Activate the plugin and click Import Slider from <a target="_blank" href="<?php echo admin_url();?>/admin.php?page=revslider">Revolution Slider</a>.<br>
                 Exported sliders can be found in the package downloaded inside the Demo content folder<br><br>
                 - <strong>Not all images are imported</strong> so you need to add your own. See also <a target="_blank" href="http://seventhqueen.com/support/documentation/kleo#section-background">Changing Section backgrounds</a> documentation.<br>
             </p>
-
+            <p>
+                <strong>Note on some page demos:</strong><br>
+                - News Magazine <br>
+					&nbsp;&nbsp;&nbsp;&nbsp; - Revslider 5.x: Import Revolution Slider: news-magazine.zip. <br>
+					&nbsp;&nbsp;&nbsp;&nbsp; - Revslider 4.x: Import from old_revslider_4.x folder news-magazine.zip and news-template-for-news-sliders.zip. <br>
+					&nbsp;&nbsp;&nbsp;&nbsp; - Please edit the imported slider template and <strong>choose your post categories</strong> for it to work.<br>
+                - Get Connected demos &nbsp;>>&nbsp; It requires BP Profile Search plugin<br>
+                - Material Design Colors &nbsp;>>&nbsp; We used: Theme options - Styling options - Header - Color Preset - Deep Purple/Amber<br>
+                - Home Sensei eLearning &nbsp;>>&nbsp; Uses Sensei plugin and MailChimp for WordPress plugin for the bottom form.<br>
+                - GeoDirectory: Please read the <a target="_blank" href="http://seventhqueen.com/support/documentation/kleo#geo-directory">documentation</a>.
+            </p>
 
 	
 			<form action="" method="post">
@@ -248,11 +296,14 @@ class kleoImport {
 						<td>
 							<select name="import" class="import">
 								<option value="">-- Select --</option>
-								<option value="all">All from Main Demo</option>
-								<option value="all-agency">All from Agency Multisite</option>
-								<option value="content">By content type</option>
+								<option data-attach="yes" value="all">All from Main Demo</option>
+								<option data-attach="yes" value="all-agency">All from Agency MultiSite</option>
+								<option data-attach="yes" value="all-news">All from News Magazine(Home page + posts)</option>
+                                <option value="all-geodirectory">All from GeoDirectory(Home + widgets)</option>
+                                <option value="content">By content type</option>
 								<option value="page">Specific Page</option>
 								<option value="widgets">Widgets</option>
+								<option value="widgets-geodirectory">Widgets - Geodirectory</option>
                                 <option value="menu">Menu</option>
 							</select>
 						</td>
@@ -265,7 +316,7 @@ class kleoImport {
 						<td>
 							<select name="content">
 								<option value="">-- All --</option>
-								<option value="pages">Pages</option>
+								<option data-attach="yes" value="pages">Pages</option>
 								<option value="posts">Posts</option>
 								<option value="clients">Clients</option>
 								<option value="portfolio">Portfolio</option>
@@ -282,6 +333,15 @@ class kleoImport {
 							<select name="page">
 								<option value="home-community">Home Default(Community)</option>
 								<option value="home-pinterest">Home Pinterest</option>
+                                <option data-attach="yes" value="home-news-magazine">Home News Magazine</option>
+                                <option data-attach="yes" value="home-material">Home Material Design</option>
+                                <option data-attach="yes" value="home-get-connected">Home Get Connected</option>
+                                <option data-attach="yes" value="home-get-connected-vertical">Home Get Connected Vertical</option>
+                                <option data-attach="yes" value="home-product-landing">Home Product Landing Page</option>
+                                <option data-attach="yes" value="home-mobile-app">Home Mobile App</option>
+                                <option data-attach="yes" value="home-resume">Home Resume</option>
+                                <option data-attach="yes" value="home-sensei">Home Sensei e-Learning</option>
+                                <option value="home-geodirectory">Home Business Directory</option>
 								<option value="home-elearning">Home e-Learning</option>
 								<option value="home-portfolio-full">Home Portfolio Full-Width</option>
 								<option value="home-shop">Home Shop</option>
@@ -321,6 +381,7 @@ class kleoImport {
 	
 	/** ---------------------------------------------------------------------------
 	 * Parse JSON import file
+     * @param $json_data
 	 * http://wordpress.org/plugins/widget-settings-importexport/
 	 * ---------------------------------------------------------------------------- */
 	function import_widget_data( $json_data ) {
@@ -454,4 +515,3 @@ class kleoImport {
 }
 
 $kleo_import = new kleoImport;
-?>

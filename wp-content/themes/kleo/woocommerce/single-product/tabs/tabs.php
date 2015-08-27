@@ -2,12 +2,14 @@
 /**
  * Single Product tabs
  *
- * @author 		WooThemes
- * @package 	WooCommerce/Templates
- * @version     2.0.0
+ * @author  WooThemes
+ * @package WooCommerce/Templates
+ * @version 2.4.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Filter tabs and allow third parties to add their own
@@ -39,8 +41,6 @@ if ( ! empty( $tabs ) ) : ?>
 					</div>
 				</div>
 			<?php endforeach; ?>
-	
-				
 	</div>
 
 <?php endif; ?>

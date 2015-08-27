@@ -32,7 +32,7 @@
             }
         }
 		
-		switch ($kleo_post_format) {
+		switch ( $kleo_post_format ) {
 			
 			case 'video':
 
@@ -54,7 +54,7 @@
 
 				if ( !empty( $bg_video_args ) ) {
 					$attr_strings = array(
-							'preload="0"'
+							'preload="none"'
 					);
 
                     if (get_cfield( 'video_poster' ) ) {
@@ -106,7 +106,7 @@
 								$image = $slide;
 							}
 							echo '<article>
-								<a href="'. $slide .'" data-rel="prettyPhoto[inner-gallery]">
+								<a href="'. $slide .'" data-rel="modalPhoto[inner-gallery]">
 									<img src="'.$image.'" alt="'. get_the_title() .'">'
 									. kleo_get_img_overlay()
 								. '</a>
@@ -194,7 +194,7 @@
 			<small>
 				<?php do_action('kleo_post_footer');?>
 
-				<a href="<?php the_permalink();?>"><span class="muted pull-right"><?php _e("Read more","kleo_framework");?></span></a>
+				<a href="<?php the_permalink();?>"><span class="muted pull-right"><?php _e( "Read more","kleo_framework" );?></span></a>
 			</small>
 		</div><!--end post-footer-->
 

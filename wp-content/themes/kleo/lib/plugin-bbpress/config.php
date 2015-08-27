@@ -120,3 +120,17 @@ if ( ! function_exists( 'kleo_bbpress_favorites_fix' ) ) {
     }
     add_filter('bbp_after_has_topics_parse_args', 'kleo_bbpress_favorites_fix', 999);
 }
+
+/*
+ * Add Buddypress @mentions if enabled
+ */
+if ( !is_admin() ) {
+    function kleo_bp_mentions( $retval = false ) {
+        if ( function_exists( 'buddypress' ) && ( is_bbpress() || bp_is_group() ) ) {
+            $retval = true;
+        }
+
+        return $retval;
+    }
+    add_filter( 'bp_activity_maybe_load_mentions_scripts', 'kleo_bp_mentions' );
+}

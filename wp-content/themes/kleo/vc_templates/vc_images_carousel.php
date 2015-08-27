@@ -45,11 +45,11 @@ if ($max_items == '1') {
 if($hide_pagination_control != 'yes') {
 	$data_attr .= ' data-pager=".kleo-carousel-features-pager"';
 }
-$data_attr .= ' data-min-items="'.$min_items.'"';
-$data_attr .= ' data-max-items="'.$max_items.'"';
-$data_attr .= ' data-autoplay="'.$autoplay.'"';
-$data_attr .= ' data-speed="'.$speed.'"';
-$data_attr .= ' data-scroll-fx="'.$scroll_fx.'"';
+$data_attr .= ' data-min-items="' . $min_items . '"';
+$data_attr .= ' data-max-items="' . $max_items . '"';
+$data_attr .= ' data-autoplay="' . $autoplay . '"';
+$data_attr .= ' data-speed="' . $speed . '"';
+$data_attr .= ' data-scroll-fx="' . $scroll_fx . '"';
 $data_attr .= ' data-items-height="variable"';
 
 ?>
@@ -79,7 +79,7 @@ $data_attr .= ' data-items-height="variable"';
 						?>
 
 						<?php if ($onclick == 'link_image'): ?>
-								<a class="prettyphoto" href="<?php echo $p_img_large[0] ?>" <?php echo ' rel="prettyPhoto[rel-'.rand().']"' ?>>
+								<a href="<?php echo $p_img_large[0] ?>" <?php echo ' rel="modalPhoto[rel-'.rand().']"' ?>>
 										<?php echo $thumbnail; if ($max_items != '1') { echo kleo_get_img_overlay(); } ?>
 								</a>
 						<?php elseif($onclick == 'custom_link' && isset( $custom_links[$i] ) && $custom_links[$i] != ''): ?>

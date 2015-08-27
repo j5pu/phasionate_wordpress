@@ -47,7 +47,7 @@ if ( $attachment_ids  ) {
 
 		$image_link = wp_get_attachment_url( $attachment_id );
         $image_src = wp_get_attachment_image_src( $attachment_id, 'shop_single' );
-        $image_link = $image_src[0];
+       // $image_link = $image_src[0];
 
 		if ( ! $image_link )
 			continue;
