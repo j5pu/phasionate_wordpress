@@ -297,24 +297,34 @@ function posts_home(){
 
 	while ( have_posts() ) : the_post();
 		if($c>0){ 
-		//if($c>0){
 			$category = get_the_category();
 			foreach ($category as $struct ) {
 				if ( $struct->cat_name == 'Streetstyle'){
 					$category[0] = $struct;
 				}
 			}
-			echo '<div class="portada_posts">';
-			$link = get_permalink();
-			$title = get_the_title();
-			
+
+			if ($c>1 && $c%2 == 0){
+				echo '<div class="portada_posts portada_posts_left">';
+				$link = get_permalink();
+				$title = get_the_title();
+			}else if($c>1 && $c%2 !== 0){
+				echo '<div class="portada_posts portada_posts_right">';
+				$link = get_permalink();
+				$title = get_the_title();
+			}else{
+				echo '<div class="portada_posts">';
+				$link = get_permalink();
+				$title = get_the_title();				
+			}
+
 			if ($c==1) {
-				echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $post_id, 'large' ).'</a>';
+				echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $post_id, 'full' ).'</a>';
 			}else{	
 				echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $post_id, 'medium' ).'</a>';
 			}
-			echo '<div class="hr-title hr-long"><abbr><a href="'.get_category_link($category[0]->term_id ).'">'.$category[0]->cat_name.'</a></div>';			
-			echo '<h5><a href="'.$link.'">'.$title.'</a></h5>';
+			//echo '<div class="hr-title hr-long"><abbr><a href="'.get_category_link($category[0]->term_id ).'">'.$category[0]->cat_name.'</a></div>';			
+			echo '<h5 style="text-transform: uppercase; margin-top: 10px;"><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '<div class="pt-cv-content"><small>'.get_the_excerpt().'</small></div>';
 			echo '</div>';
 			//Mirar los post que ya han salido y cargararlo en la variable de wordpress que permite obviar los que se han mostrado
@@ -327,7 +337,7 @@ function posts_home(){
 			echo '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- Banner Home entre los post (3 y 4) -->
 <ins class="adsbygoogle"
-     style="display:block; margin: 1% 2% 1%;"
+     style="display:block; margin-right: 10px; clear: both;"
      data-ad-client="ca-pub-9006336585437783"
      data-ad-slot="2858578552"
      data-ad-format="auto"></ins>
@@ -336,7 +346,7 @@ function posts_home(){
 </script>';
 		}
 		if($c==7){
-			echo '<a style="text-align: center; display: block; margin: 1% 2% 1%;" href="https://www.bogadia.com/sorteos/concurso-de-disenadoras/"><img src="https://www.bogadia.com/wp-content/uploads/tienda/banner-sorteo-tienda.jpg" alt="Sorteo de bolso - Tienda Bogadia"/></a>';
+			echo '<a style="text-align: center; display: block; margin: 10px 10px 10px 0px; clear: both;" href="https://www.bogadia.com/sorteos/concurso-de-disenadoras/"><img src="https://www.bogadia.com/wp-content/uploads/tienda/banner-sorteo-tienda.jpg" alt="Sorteo de bolso - Tienda Bogadia"/></a>';
 		}
 	/*
 		//Seccion tracdelight
@@ -388,10 +398,8 @@ function losmaspoupulares(){
 			echo '<div class="portada_posts">';
 			$link = get_permalink($most_viewed->ID);
 			$title = get_the_title($most_viewed->ID);			
-			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $most_viewed->ID, 'large' ).'</a>';
-			//echo '<div class="hr-title hr-long"><abbr><a href="'.get_category_link($category[0]->term_id ).'">'.$category[0]->cat_name.'</a></div>';
-			echo '<div class="hr-title hr-long"><abbr><a href="'.$link.'">'.$category[0]->cat_name.'</a></div>';
-			echo '<h5><a href="'.$link.'">'.$title.'</a></h5>';
+			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $most_viewed->ID, 'medium' ).'</a>';
+			echo '<h5 style="text-transform: uppercase; margin-top: 10px;><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '<div class="pt-cv-content"><small>'.$most_viewed->post_excerpt.'</small></div>';
 			echo '</div>';
 			wp_reset_query();
@@ -432,7 +440,7 @@ function losmasvotados(){
 			$title = get_the_title($likes_post->ID);			
 			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'</a>';
 			echo '<div class="hr-title hr-long"><abbr><a href="'.get_category_link($category[0]->term_id ).'">'.$category[0]->cat_name.'</a></div>';
-			echo '<h5><a href="'.$link.'">'.$title.'</a></h5>';
+			echo '<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '<div class="pt-cv-content"><small>'.$likes_post->post_excerpt.'</small></div>';
 			echo '</div>';
 			wp_reset_query();
@@ -468,11 +476,11 @@ function losmaspoupularessidebar(){
 				$count_output = " <span class='item-likes-count'>($count)</span>";
 			}			
 			$category = get_the_category($likes_post->ID);
-			echo '<div class="portada_posts">';
+			echo '<div class="portada_posts" style="display: table;">';
 			$link = get_permalink($likes_post->ID);
 			$title = get_the_title($likes_post->ID);			
 			$classTitle = "lessFontSize";
-			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
+			echo '<a style="vertical-align: middle; display: table-cell; width: 100px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
 			echo '</div>';
 			wp_reset_query();
 		}
@@ -508,11 +516,11 @@ function losmasvotadossidebar(){
 				$count_output = " <span class='item-likes-count'>($count)</span>";
 			}			
 			$category = get_the_category($likes_post->ID);
-			echo '<div class="portada_posts">';
+			echo '<div class="portada_posts" style="display: table;">';
 			$link = get_permalink($likes_post->ID);
 			$title = get_the_title($likes_post->ID);		
 			$classTitle = "lessFontSize";
-			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
+			echo '<a style="vertical-align: middle; display: table-cell;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
 			echo '</div>';
 			wp_reset_query();
 		}
@@ -545,11 +553,11 @@ function losultimossidebar(){
 				$count_output = " <span class='item-likes-count'>($count)</span>";
 			}			
 			$category = get_the_category($last_post->ID);
-			echo '<div class="portada_posts">';
+			echo '<div class="portada_posts" style="display: table;">';
 			$link = get_permalink($last_post->ID);
 			$title = get_the_title($last_post->ID);		
 			$classTitle = "lessFontSize";
-			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
+			echo '<a style="vertical-align: middle; display: table-cell; width: 100px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
 			echo '</div>';
 			wp_reset_query();
 		}
@@ -590,11 +598,11 @@ function relatedpostsidebar(){
 					$count_output = " <span class='item-likes-count'>($count)</span>";
 				}			
 				$category = get_the_category($related_post->ID);
-				echo '<div class="portada_posts">';
+				echo '<div class="portada_posts" style="display: table;">';
 				$link = get_permalink($related_post->ID);
 				$title = get_the_title($related_post->ID);		
 				$classTitle = "lessFontSize";
-				echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $related_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
+				echo '<a style="vertical-align: middle; display: table-cell;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $related_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
 				echo '</div>';
 				wp_reset_query();
 			}
@@ -636,12 +644,13 @@ function populares_Categoria_Sidebar( $atts ){
 				$count_output = " <span class='item-likes-count'>($count)</span>";
 			}			
 			$category = get_the_category($last_post->ID);
-			echo '<div class="portada_posts">';
+			echo '<div class="portada_posts" style="display: table-row;">';
 			$link = get_permalink($last_post->ID);
 			$title = get_the_title($last_post->ID);		
 			$classTitle = "lessFontSize";
-			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
+			echo '<a style="width: 100px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
 			echo '</div>';
+			echo '</br>';
 			wp_reset_query();
 		}
 
@@ -678,12 +687,13 @@ function lasUltimasNoticiasSidebar(){
 				$count_output = " <span class='item-likes-count'>($count)</span>";
 			}			
 			$category = get_the_category($last_post->ID);
-			echo '<div class="portada_posts">';
+			echo '<div class="portada_posts" style="display: table-row;">';
 			$link = get_permalink($last_post->ID);
 			$title = get_the_title($last_post->ID);		
 			$classTitle = "lessFontSize";
-			echo '<a  class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'medium' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
+			echo '<a style="width: 112px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';			
 			echo '</div>';
+			echo '</br>';
 			wp_reset_query();
 		}
 
@@ -961,7 +971,7 @@ function promo_post( $atts ){
 	if ( $current_url != $atts['post_url'] ){
 		echo $atts['title_widget'];
 		?>
-		<a rel="nofollow" href="<?php echo $atts['post_url']; ?>" ><img src="<?php echo $atts['img_src']; ?>" alt="Post promocionado Bogadia"/></a>
+		<a rel="nofollow" href="<?php echo $atts['post_url']; ?>" ><img style="width: 250px; display: block; margin: 0px auto;" src="<?php echo $atts['img_src']; ?>" alt="Post promocionado Bogadia"/></a>
 		<?php
 	}
 }
@@ -1362,7 +1372,7 @@ function um_profile_share_header( $user_id ){
 	<?php
 }
 
-/**
+/*
 
 -----BORRA ESTE COMENTARIO UNA VEZ HECHOS ESTOS PASOS
 	QUEDA COMENTADA PARA CUANDO SE CAMBIEN LOS DIRECTORIOS 

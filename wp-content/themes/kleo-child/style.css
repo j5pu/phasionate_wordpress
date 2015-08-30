@@ -105,20 +105,19 @@ white-space: nowrap;
 
 body.home .portada_posts:nth-child(1)
 {
-	width: 95.9%;
-	margin-bottom: 0%;
+	width: 98.2%;
 	height: auto;
+	margin: 8px auto;
 }
 
 
 .portada_posts {
-	width: 46%;
+	width: 47%;
 	box-sizing: border-box;
 	max-height: 50%;
 	display: inline-block;
 	vertical-align: top;
-	border: 1px solid #ffe0e0;
-	margin: 1% 2% 1%;
+	margin: 2% 1%;
 	padding-bottom: 0px;
 	height: 300px;
 }
@@ -306,7 +305,7 @@ body {
 }
 
 .header-color .navbar-toggle:hover .icon-bar {
-	background-color: #ff6666;
+	background-color: #d17b83;
 }
 
 small.news-time {
@@ -334,7 +333,7 @@ section.container-wrap.main-title.alternate-color.border-bottom {
 }
 
 .alternate-color .breadcrumb a:hover {
-	color:#ff6666;
+	color:#d17b83;
 }
 
 
@@ -384,7 +383,7 @@ section.container-wrap.main-title.alternate-color.border-bottom {
 }
 
 #footer a:hover i, #footer a:hover, #socket a:hover {
-	color:#ff6666 !important;
+	color:#d17b83 !important;
 }
 
 #footer ul, #footer .widget-title, #footer .textwidget {
@@ -426,7 +425,7 @@ div.footer-home-text {
 }
 
 .news-num{
-	color: #ff6666;
+	color: #d17b83;
 	font-size: 7rem;
 	float: left;
 	margin-right: 12px;
@@ -670,7 +669,7 @@ body #footer{
 }
 
 .kleo-main-header .nav > li.active > a {
-	color: #ff6666;
+	color: #d17b83;
 	box-shadow: none;
 }
 #header .kleo-main-header .container{
@@ -699,7 +698,7 @@ body:not(.home) #main .sidebar-main {
 }
 
 .number{
-	color:#FF6666;
+	color:#d17b83;
 	font-size: 4rem;
 	margin-right: 13px;
 	position: relative;
@@ -785,7 +784,7 @@ transition:0.5s;
 
 #authorarea h2:hover{
 font-size: 23px;
-color:#ff6666 !important;
+color:#d17b83 !important;
 }
 
 #authorarea img {
@@ -951,9 +950,6 @@ margin: 0;
 }
 home .shopping .wpb_column.column_container {
 padding-left: 30px !important;
-}
-.home div.col-sm-4.sidebar-main {
-padding:0 30px 0 15px !important;
 }
 
 .home div#footer {
@@ -1213,10 +1209,10 @@ strong.logo {
 
 //inicio rositas
 .pagination-sticky #newer-nav, .pagination-sticky #older-nav, .kleo-go-top,  {
-	background: rgba(255, 102, 102, 0.5)!important;
+	background: rgba(209, 123, 131, 0.5)!important;
 }
 .pagination-sticky #older-nav:hover, .pagination-sticky #newer-nav:hover, .kleo-go-top:hover {
-	background: #ff6666 !important;
+	background: #d17b83 !important;
 }
 
 .kleo-main-header .nav > li > a:hover {
@@ -1224,11 +1220,11 @@ strong.logo {
 }
 
 .hover-element:hover, .pagination-sticky {
-	background: rgba(255, 102, 102, 0.5) !important;
+	background: rgba(209, 123, 131, 0.3) !important;
 }
 
 .kleo-carousel-container .carousel-arrow .carousel-prev:hover, .kleo-carousel-container .carousel-arrow .carousel-next:hover, .kleo-carousel-container .gal-carrow .carousel-prev:hover, .kleo-carousel-container .gal-carrow .carousel-next:hover,.kleo-carousel-container .gal-carrow .carousel-prev:hover  {
-	background: rgba(255, 102, 102, 0.75)!important;
+	background: rgba(209, 123, 131, 0.75)!important;
 }
 
 .kleo-carousel-container:hover .carousel-arrow .carousel-next,.kleo-carousel-container:hover .carousel-arrow .carousel-prev,.pagination-sticky #newer-nav, .pagination-sticky #older-nav, .kleo-go-top  {
@@ -1237,13 +1233,13 @@ strong.logo {
 	background: black !important;
 }
 .kleo-carousel-container:hover .carousel-arrow .carousel-next, .kleo-carousel-container:hover .carousel-arrow .carousel-prev{
-	background: rgba(255, 102, 102, 0.5)!important;
+	background: rgba(209, 123, 131; 0.5)!important;
 }
 .kleo-carousel-container .carousel-arrow .carousel-next:hover, .kleo-carousel-container .carousel-arrow .carousel-prev:hover{
-	background: rgba(255, 102, 102, 0.75)!important;
+	background: rgba(209, 123, 131, 0.75)!important;
 }
 .kleo-carousel-container .carousel-arrow .carousel-next, .kleo-carousel-container .carousel-arrow .carousel-prev{
-	background: rgba(255, 102, 102, 0.25)!important;
+	background: rgba(209, 123, 131, 0.25)!important;
 }
 
 .icon-up-open-big:before {
@@ -1260,11 +1256,11 @@ strong.logo {
 
 
 .tp-rightarrow.default, .tp-leftarrow.default{
-	background: rgba(255, 102, 102, .5);
+	background: rgba(209, 123, 131, .5);
 }
 
 .tp-rightarrow.default:hover, .tp-leftarrow.default:hover{
-	background: rgba(255, 102, 102, .75);
+	background: rgba(209, 123, 131, .75);
 }
 
 .single-post .tp-leftarrow.tparrows.default.custom{
@@ -1312,7 +1308,7 @@ strong.logo {
 }
 
 .header-color a:hover, .header-color #top-social li a:hover, .header-color .top-menu li > a:hover, .header-color .navbar-nav .dropdown-menu li a:hover, .header-color .sidebar ul li a:hover, .header-color #buddypress .activity-list li.load-more a:hover, .manage-members .header-color .member-name:hover, .manage-members .header-color .member-name a:hover, .header-color #rtm-media-options-list ul li .rtmedia-action-buttons:hover, .woocommerce .header-color .star-rating span:before, .woocommerce-page .header-color .star-rating span:before, .woocommerce .header-color .yith-wcwl-add-to-wishlist a:hover, .woocommerce .header-color li.product figcaption .shop-actions > a.button:hover, #main .main-color h5.post-title a:hover,#footer .logo a:hover {
-	color: #ff6666;
+	color: #d17b83;
 }
 //fin rositas
 
@@ -1473,7 +1469,7 @@ width:30%;
 /*grilla bloggers*/
 
 .gallery-caption {
-	background-color: rgba(255, 102, 102, 0.5) !important;
+	background-color: rgba(209, 123, 131, 0.5) !important;
 	height:100%;
 	max-height: none;
 	transition: .3s linear;
@@ -1515,15 +1511,14 @@ body:not(.home) {
 
 ::-webkit-scrollbar-track {
     background-color:#222;
-    /*box-shadow: -1px -1px 0 rgba(255, 102, 102, 0.25),1px -1px 0 rgba(255, 102, 102, 0.25),-1px 1px 0 rgba(255, 102, 102, 0.25),1px 1px 0 rgba(255, 102, 102, 0.25);*/
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 102, 102, 0.5);      
+    background: rgba(209, 123, 131, 0.5);      
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(255, 102, 102, 0.25);
+    background: rgba(209, 123, 131, 0.25);
 }
 /*Fin scroll custom */
 
@@ -1555,14 +1550,14 @@ button.trigger span {
 	overflow: scroll;
 	width: 70px;
 	height: 65px;
-	background: rgba(255, 102, 102, 0.5) !important;
+	background: rgba(209, 123, 131, 0.5) !important;
 	color: white;
 	text-shadow: none;
 	border-radius: 5px;
 	}
 
 button.trigger span:hover {
-	background: rgba(255, 102, 102, 0.8) !important;
+	background: rgba(209, 123, 131, 0.8) !important;
 }
 
 button.trigger span::before {
@@ -1573,7 +1568,7 @@ button.trigger span::before {
 }
 
 div.no-search{
-	color: #ff6666;
+	color: #d17b83;
 	font-size: 7rem;
 	margin: 0 auto;
 	text-align: center;
@@ -1586,7 +1581,7 @@ div.no-search{
 */
 .carousel-prev, .carousel-next {
 	display:block !important;
-	background: rgba(255, 102, 102, 0.5)!important;
+	background: rgba(209, 123, 131, 0.5)!important;
 }
 
 .carousel-arrow .carousel-next{
@@ -1617,7 +1612,7 @@ div.no-search{
 }
 
 .container-full .template-page.col-sm-12 {
-	padding: 20px 15px !important;
+	padding: 7px 0px !important;
 }
 .navbar-toggle {
 	margin-top: 5px;
@@ -2859,7 +2854,7 @@ left: auto !important;
 }
 
 .sidebar {
-	padding: 20px 15px !important;
+	padding: 20px 5px !important;
 }
 .page-boxed, .kleo-main-header {
 	max-width: 100% !important;
@@ -3311,8 +3306,7 @@ left: auto !important;
 /* Modificaciones Sidebar adaptacion de lo MasVotados -shortcode[MasVotadosSidebar]*/
 .widgets-container .portada_posts{
 	width: 100% !important;
-	height: 80px;
-	margin:	0;
+	height: 60px;
 	border:none;
 }
 .widgets-container .portada_posts .pt-cv-content{
@@ -3329,7 +3323,7 @@ left: auto !important;
 }
 .widgets-container .portada_posts img{
 	float: left;
-	width: 100px !important;
+	width: 112px !important;
 }
 /* Fin Modificaciones Sidebar adaptacion de lo MasVotados -shortcode[MasVotadosSidebar]*/
 
@@ -3874,7 +3868,7 @@ body.page.page-id-15897 .page-title {
 	float: left; 
 	margin: 0px 10px; 
 	width: 210px; 
-	background: #ff6666; 
+	background: #d17b83; 
 	padding: 16px 20px !important;
 	color: #FFF !important;
 	text-align: center;
@@ -4234,7 +4228,7 @@ div.um .um-profile-body.reviews .um-reviews-item:nth-child(1){
 		border-radius: 5px;
 		height: 135px;		
 		clear: both;
-		background-color: rgba(255, 102, 102, 0.1);
+		background-color: rgba(209, 123, 131, 0.1);
 		width: 100%;
 	}
 	.top_portada_mayo .um-reviews-widget-name {
@@ -4422,7 +4416,7 @@ div.um .um-form div.um-reviews-post .um-reviews-content textarea {
 
 /*Ménú accceso personalizado*/
 #header.header-color .navbar-nav .menu_acceso {
-	border: 1px solid rgb(255, 102, 102);
+	border: 1px solid rgb(209, 123, 131);
 	border-radius: 4px;
 	transition: all ease-in-out 0.3s;
 	-webkit-transition: all ease-in-out 0.3s;
@@ -5740,4 +5734,22 @@ li.product figcaption .shop-actions > a.button:hover{
 }
 .shipping-calculator-button {
 	display: none;
+}
+
+/*Retoque del sidebar*/
+.page-boxed .sidebar-right .inner-content {
+	padding-left: 5px;
+    padding-right: 5px;
+}
+/*Cajas de la Home*/
+.portada_posts_left {
+	   margin-left: 0px;
+	   float: left;
+}
+.portada_posts_right {
+	margin-right: 12px;
+    float: right;
+}
+.main-color a:hover, .main-color #top-social li a:hover, .main-color .top-menu li > a:hover, .main-color .navbar-nav .dropdown-menu li a:hover, .main-color .sidebar ul li a:hover, .main-color .wrap-canvas-menu .widget_nav_menu .offcanvas-menu .dropdown-menu > li > a:hover, .main-color .wrap-canvas-menu .widget_nav_menu .offcanvas-menu .dropdown-menu > li > a:focus, .main-color #buddypress .activity-list li.load-more a:hover, .manage-members .main-color .member-name:hover, .manage-members .main-color .member-name a:hover, .main-color #rtm-media-options-list ul li .rtmedia-action-buttons:hover, .woocommerce .main-color .yith-wcwl-add-to-wishlist a:hover, .woocommerce .main-color li.product figcaption .shop-actions > a.button:hover, .main-color .kleo-toggle-menu .quick-view:hover {
+	color: #d17b83 !important;
 }
