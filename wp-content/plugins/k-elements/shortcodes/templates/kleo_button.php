@@ -10,7 +10,7 @@ extract(shortcode_atts(array(
     'target' => '_self',
     'href' => '',
     'el_class' => '',
-    'title' => __('Text on the button', "kleo_framework"),
+    'title' => 'Text on the button',
     'title_alt' => "",
     'special' => '',
     'tooltip' => '',
@@ -66,7 +66,7 @@ $target = ( $target != '' ) ? ' target="'.$target.'"' : '';
 $style = ( $style != '' ) ? ' btn-'.$style : '';
 $size = ( $size != '' ) ? ' btn-'.$size : '';
 $icon = str_replace( 'icon-', '', $icon );
-$icon = ( $icon != '' && $icon != 'none' ) ? '<i class="icon-' . $icon . '"></i> ' : '';
+$icon = ( $icon != '' && $icon != 'none' && $icon != '0' ) ? '<i class="icon-' . $icon . '"></i> ' : '';
 $type = $type != '' ? ' btn-' . $type : "";
 $special = $special != '' ? " btn-special" : "";
 $el_class = ( $el_class != '' ) ? ' ' . trim( $el_class ) : '';

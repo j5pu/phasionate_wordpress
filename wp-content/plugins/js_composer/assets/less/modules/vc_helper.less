@@ -1,7 +1,7 @@
 .vc_helper {
     width: auto !important;
     height: auto !important;
-    box-sizing: border-box;
+    .box-sizing(border-box);
     z-index: 1006;
     position: absolute;
     padding: 4px 15px 4px 30px;
@@ -16,10 +16,6 @@
     .vc_element-icon {
         display: inline-block;
         margin: 0 8px 0 0;
-        width: 32px;
-        height: 32px;
-        background-image: url(@vc_elements_icons_sprite);
-        background-repeat: no-repeat;
         vertical-align: middle;
     }
     &.vc_helper-vc_row {
@@ -29,5 +25,8 @@
     &.vc_helper-vc_column {
         border: 1px solid #F9B418;
         background-color: #F9B418;
+    }
+    &-tab {
+      width: auto !important;
     }
 }

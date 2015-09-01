@@ -4,25 +4,28 @@
 Plugin Name: K Elements
 Plugin URL: http://seventhqueen.com/
 Description: WordPress elements using easy to add shortcodes
-Version: 3.0
+Version: 3.0.7
 Author: SeventhQueen
 Author URI: http://seventhqueen.com/
+Domain Path: /languages
+Text Domain: k-elements
 */
 
 // =============================================================================
 // TABLE OF CONTENTS
 // -----------------------------------------------------------------------------
 //   01. Define Constants
-//   02. Require Files
-//   03. Enqueue Assets
+//	 02. Load textdomain
+//   03. Require Files
+//   04. Enqueue Assets
 // =============================================================================
+
 
 // Define Constants
 // =============================================================================
 
-
 if ( ! defined( 'K_ELEM_VERSION' ) ) {
-	define( 'K_ELEM_VERSION', '3.0' );
+	define( 'K_ELEM_VERSION', '3.0.7' );
 }
 
 // Plugin Folder Path
@@ -39,6 +42,16 @@ if ( ! defined( 'K_ELEM_PLUGIN_URL' ) ) {
 if ( ! defined( 'K_ELEM_PLUGIN_FILE' ) ) {
 	define( 'K_ELEM_PLUGIN_FILE', __FILE__ );
 }
+
+
+// Load textdomain
+// =============================================================================
+
+add_action( 'plugins_loaded', 'k_elements_load_textdomain' );
+function k_elements_load_textdomain() {
+	load_plugin_textdomain( 'k-elements', false, dirname(plugin_basename(__FILE__)) . "/languages/" );
+}
+
 
 
 // Require Files

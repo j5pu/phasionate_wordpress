@@ -24,7 +24,7 @@ extract(shortcode_atts(array(
     'target' => '_self'
 ), $atts));
 
-if ( $icon != '' ) {
+if ( $icon != '' && $icon != '0') {
 
     $icon = str_replace( 'icon-', '', $icon );
 

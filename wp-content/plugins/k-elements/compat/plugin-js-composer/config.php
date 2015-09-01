@@ -1498,6 +1498,14 @@ function kleo_vc_manipulate_shortcodes() {
 	
 
 	/* TABS */
+	vc_map_update("vc_tabs",
+		array(
+			"name" => "Kleo Tabs",
+			'category'    => __( "Content", 'js_composer' ),
+			"deprecated" => null,
+			"content_element" => true
+		)
+	);
 	vc_remove_param( 'vc_tabs', 'interval' );
 	vc_remove_param( 'vc_tabs', 'title' );
 	vc_remove_param( 'vc_tabs', 'el_class' );
@@ -1587,6 +1595,14 @@ function kleo_vc_manipulate_shortcodes() {
 
 
     /* Tours */
+	vc_map_update("vc_tour",
+		array(
+			"name" => "Kleo Tour",
+			'category'    => __( "Content", 'js_composer' ),
+			"deprecated" => null,
+			"content_element" => true
+		)
+	);
     vc_remove_param( 'vc_tour', 'el_class' );
     vc_add_param('vc_tour',array(
         "type" => "dropdown",
@@ -1603,6 +1619,14 @@ function kleo_vc_manipulate_shortcodes() {
     vc_add_param( 'vc_tour', $el_class );
 	
 	/* Accordion */
+	vc_map_update("vc_accordion",
+		array(
+			"name" => "Kleo Accordion",
+			'category'    => __( "Content", 'js_composer' ),
+			"deprecated" => null,
+			"content_element" => true
+		)
+	);
 	vc_remove_param( 'vc_accordion', 'interval' );
 	vc_remove_param( 'vc_accordion', 'title' );
 	vc_remove_param( 'vc_accordion', 'el_class' );

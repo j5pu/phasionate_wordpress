@@ -19,7 +19,7 @@ extract( shortcode_atts( array(
 		'icon' => '',
 		'icon_size' => '',
 		'position' => 'center',
-		'text' => false,
+		'text' => '',
 		
 ), $atts ) );
 
@@ -38,7 +38,7 @@ if ($double) {
 }
 
 $text_inside = '';
-if( $icon != '' ) {
+if( $icon != '' && $icon != '0'  ) {
 	$icon = 'icon-' . str_replace( "icon-", "", $icon );
 	if ( $icon_size != '' ) {
 		$icon .= ' icon-' . $icon_size;
