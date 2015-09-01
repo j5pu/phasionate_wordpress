@@ -63,7 +63,7 @@ if ( have_posts() ) :
                 <div class="post-content animated animate-when-almost-visible el-appear">
 
                     <div class="article-media clearfix">
-                        <?php if ( ( $kleo_post_format == 'image' || ( $kleo_post_format === false && has_post_thumbnail() ) ) && $count == 1 ) {
+                        <?php if ( ( $kleo_post_format == 'image' || $kleo_post_format == 'gallery' || ( $kleo_post_format === false && has_post_thumbnail() ) ) && $count == 1 ) {
                             echo $category;
                         } ?>
                         <?php echo kleo_get_post_media( $kleo_post_format ); ?>

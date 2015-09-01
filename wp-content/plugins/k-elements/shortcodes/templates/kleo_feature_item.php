@@ -14,7 +14,7 @@ $output = $icon = $icon_size = $icon_position = $class = '';
 extract( shortcode_atts( array(
 		'title' => '',
 		'icon' => '',
-		'icon_size' => '',
+		'icon_size' => 'default',
 		'icon_position' => 'left',
 		'class' => ''
 ), $atts ) );

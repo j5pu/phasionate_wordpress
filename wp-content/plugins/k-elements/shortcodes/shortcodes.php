@@ -1419,7 +1419,7 @@ add_shortcode('kleo_bbp_header_search', 'kleo_bbp_header_search_func');
 function kleo_bbp_header_search_func($atts, $content = null) {
 
     if (!class_exists('bbPress')) {
-        return __('You need to install bbPress plugin to enable this shortcode!', 'kleo_framework');
+        return __('You need to install bbPress plugin to enable this shortcode!', 'k-elements');
     }
 
     $forum_id = $el_class = $placeholder = $text_color = $bg_color = '';

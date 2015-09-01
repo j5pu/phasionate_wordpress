@@ -63,10 +63,10 @@ if ( function_exists('bp_is_active') && bp_is_active('groups') ) {
 	}
 	else
 	{
-		$output = __("No groups were found at the moment. Please come back later.","kleo_framework");
+		$output = __("No groups were found at the moment. Please come back later.","k-elements");
 	} 
 }
 else
 {
-	$output = __("This shortcode must have Buddypress installed to work.","kleo_framework");
+	$output = __("This shortcode must have Buddypress installed to work.","k-elements");
 } 			

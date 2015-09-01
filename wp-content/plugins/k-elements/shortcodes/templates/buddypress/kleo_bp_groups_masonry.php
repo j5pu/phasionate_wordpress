@@ -86,12 +86,12 @@ if ( function_exists('bp_is_active') && bp_is_active('groups') ) {
 	}
 	else
 	{
-		$output .= '<div class="alert alert-info">' . __( 'There are no groups to display. Please try again soon.', 'kleo_framework' ) . '</div>';
+		$output .= '<div class="alert alert-info">' . __( 'There are no groups to display. Please try again soon.', 'k-elements' ) . '</div>';
 	}
 
 }
 else
 {
-	$output = __("This shortcode must have Buddypress installed to work.","kleo_framework");
+	$output = __("This shortcode must have Buddypress installed to work.","k-elements");
 }
 
