@@ -2,8 +2,7 @@
 /**
  */
 define( 'SLIDE_TITLE', __( "Slide", "js_composer" ) );
-require_once vc_path_dir( 'SHORTCODES_DIR', 'vc-tabs.php' );
-
+require_once vc_path_dir('SHORTCODES_DIR', 'vc-tabs.php');
 class WPBakeryShortCode_VC_Tour extends WPBakeryShortCode_VC_Tabs {
 	protected $predefined_atts = array(
 		'tab_id' => SLIDE_TITLE,

@@ -1,15 +1,9 @@
 <?php
-/**
- * Shortcode attributes
- * @var $atts
- * @var $el_class
- * Shortcode class
- * @var $this WPBakeryShortCode
- */
-$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
-extract( $atts );
+$output = $el_class = $width = '';
+extract( shortcode_atts( array(
+	'el_class' => '',
+), $atts ) );
 
-$css = $this->getExtraClass( $el_class );
+$el_class = $this->getExtraClass( $el_class );
 
-echo '<div class="vc_items' . esc_attr( $css ) . '">' . __( 'Item', 'js_composer' ) . '</div>';
-echo $this->endBlockComment( $this->getShortcode() );
+echo '<div class="vc_items' . $el_class . '">' . __( 'Item', "js_composer" ) . '</div>';

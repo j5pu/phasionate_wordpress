@@ -34,6 +34,6 @@ if ( function_exists('bp_is_active') && bp_is_active('activity') ) {
 }
 else
 {
-	$output = __("This shortcode must have Buddypress installed and activity component activated.","k-elements");
+	$output = __("This shortcode must have Buddypress installed and activity component activated.","kleo_framework");
 }
 

@@ -28,7 +28,7 @@ $output .= <<<EOT
 <script>
 jQuery(window).load(function(){
 
-    jQuery.when( jQuery('#particles-js').parentsUntil('section').css({position: 'static'}), jQuery('#particles-js').closest('.wpb_column').siblings().css( {"z-index" : "1", "position": "relative"} ), jQuery('#particles-js').siblings().css( {"z-index" : "1", "position": "relative"} ) ).then(function() {
+    jQuery.when( jQuery('#particles-js').parentsUntil('section').css({position: 'static'}), jQuery('#particles-js').closest('.wpb_column').siblings().css( {"z-index" : "1", "position": "relative"} ) ).then(function() {
 
         particlesJS("particles-js", {
           "particles": {

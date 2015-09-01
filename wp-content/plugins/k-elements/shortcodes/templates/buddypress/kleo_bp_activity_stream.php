@@ -96,7 +96,7 @@ if ( function_exists('bp_is_active') && bp_is_active('activity') ) {
 					endwhile;
 				$output .= '</ul>';
 			}else{
-				$output .= '<div class="alert alert-info">' . __("Right now there is no activity to show", "k-elements") .'</div>'  ;
+				$output .= '<div class="alert alert-info">Right now there is no activity to show</div>';
 			}
 
 			if( $show_button =='yes' ){
@@ -109,6 +109,6 @@ if ( function_exists('bp_is_active') && bp_is_active('activity') ) {
 }
 else
 {
-	$output = __("This shortcode must have Buddypress installed and activity component activated.","k-elements");
+	$output = __("This shortcode must have Buddypress installed and activity component activated.","kleo_framework");
 }
 

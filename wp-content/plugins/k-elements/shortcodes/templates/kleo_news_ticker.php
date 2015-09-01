@@ -10,7 +10,7 @@
  */
 
 if ( ! function_exists( 'vc_build_loop_query' )) {
-    $output = __('Visual composer must be installed', 'k-elements');
+    $output = 'Visual composer must be installed';
 }
 
 $output = $args = $my_query = $output_inside = '';
