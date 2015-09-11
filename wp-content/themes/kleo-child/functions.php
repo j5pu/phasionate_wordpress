@@ -324,7 +324,7 @@ function posts_home(){
 				echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $post_id, 'medium' ).'</a>';
 			}
 			//echo '<div class="hr-title hr-long"><abbr><a href="'.get_category_link($category[0]->term_id ).'">'.$category[0]->cat_name.'</a></div>';			
-			echo '<h5 style="text-transform: uppercase; margin-top: 10px;"><a href="'.$link.'">'.$title.'</a></h5>';
+			echo '<h5 style="margin-top: 10px;"><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '<div class="pt-cv-content"><small>'.get_the_excerpt().'</small></div>';
 			echo '</div>';
 			//Mirar los post que ya han salido y cargararlo en la variable de wordpress que permite obviar los que se han mostrado
