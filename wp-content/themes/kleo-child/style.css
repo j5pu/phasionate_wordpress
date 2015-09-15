@@ -296,8 +296,7 @@ li:hover>a.next.page-numbers:before, li:hover>a.prev.page-numbers:before {
 
 body {
 	background-image:none;
-	background-color: rgb(247, 247, 247);
-	background-color: #222;
+	background-color: #222 !important;
 }
 
 #socket{
@@ -670,7 +669,7 @@ body #footer{
 
 .kleo-main-header .nav > li.active > a {
 	color: #d17b83;
-	box-shadow: none;
+	box-shadow: none !important;
 }
 #header .kleo-main-header .container{
 	max-width: 100%;
