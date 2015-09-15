@@ -3,18 +3,32 @@
 
 //Fontello icons array
 if ( ! function_exists( 'kleo_icons_array' ) ) {
-    function kleo_icons_array( $prefix = '' ) {
+    function kleo_icons_array( $prefix = '', $before = array( '' ) ) {
 
-        $icons= array('');
+        // Get any existing copy of our transient data
+        $transient_name = 'kleo_font_icons_' . $prefix . implode( '', $before );
 
-        $icons_json = file_get_contents( KLEO_LIB_DIR . '/assets/font-icons.json');
-        if ( $icons_json ) {
-            $arr = json_decode( $icons_json, true );
-            foreach($arr['glyphs'] as $icon)
-            {
-                $icons[$prefix . $icon['css']] = $icon['css'];
+        if ( false === ( $icons = get_transient( $transient_name ) ) ) {
+
+            // It wasn't there, so regenerate the data and save the transient
+            $icons = $before;
+
+            $icons_json = file_get_contents( THEME_DIR . '/assets/font/config.json' );
+            if ( is_child_theme() && file_exists( CHILD_THEME_DIR . '/assets/css/fontello.css' )) {
+                $icons_json = CHILD_THEME_DIR . '/assets/config.json';
+            }
+
+            if ( $icons_json ) {
+                $arr = json_decode( $icons_json, true );
+                foreach($arr['glyphs'] as $icon)
+                {
+                    $icons[$prefix . $icon['css']] = $icon['css'];
+                }
                 asort($icons);
             }
+
+            // set transient for one day
+            set_transient( $transient_name, $icons, 86400 );
         }
 
         return $icons;
@@ -438,4 +452,21 @@ if ( ! function_exists('kleo_get_post_media')) {
 
         return $output;
     }
+}
+
+
+/**
+ * @param $content
+ * @param bool $autop
+ *
+ * @since 4.2
+ * @return string
+ */
+function kleo_remove_wpautop( $content, $autop = false ) {
+
+    if ( $autop ) {
+        $content = preg_replace( '/<\/?p\>/', "", $content );
+    }
+
+    return do_shortcode( shortcode_unautop( $content ) );
 }

@@ -20,5 +20,5 @@ if ($icon != '') {
 	$icon = '<i class="icon-'.$icon.'"></i> ';
 }
 
-$output .= '<li>'.$icon.do_shortcode( $content ).'</li>';
+$output .= '<li>' . $icon . kleo_remove_wpautop( $content, true ) . '</li>';
 

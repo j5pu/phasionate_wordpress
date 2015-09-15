@@ -22,15 +22,15 @@ extract( shortcode_atts( array(
 $class = ( $class != '' ) ? 'kleo-block feature-item list-el-animated ' . esc_attr( $class ) : 'kleo-block feature-item list-el-animated';
 
 $icon = str_replace( 'icon-', '', $icon );
-$icon = ($icon !='') ? ' icon-' . $icon : '';
+$icon = ( $icon !='' ) ? ' icon-' . $icon : '';
 
-$class .= ($icon_size !='') ? " ".$icon_size.'-icons-size' : '';
+$class .= ($icon_size !='') ? " " . $icon_size . '-icons-size' : '';
 $class .= ($icon_position == 'center') ? " center-icons" : '';
 
 
-$output .= '<div class="'.$class.'">';
-$output .= '<span class="feature-icon el-appear'.$icon.'"></span>';
-$output .= '<h3 class="feature-title">'.$title.'</h3>';
-$output .= '<div class="feature-text">'.do_shortcode( $content ) .'</div>';
+$output .= '<div class="' . $class . '">';
+$output .= '<span class="feature-icon el-appear' . $icon . '"></span>';
+$output .= '<h3 class="feature-title">' . $title . '</h3>';
+$output .= '<div class="feature-text">' . do_shortcode( $content ) . '</div>';
 $output .= '</div>';
 

@@ -8,8 +8,8 @@
     $(document).ready(function() {
 
         /* Change VC icon elements to reflect theme shortcodes in shortcode modal*/
-        $(document).on('change', '#vc_properties-panel', function() {
-            var myElem = $(this).find('.wpb_el_type_iconpicker[data-param_name=icon_fontello], .wpb_el_type_iconpicker[data-param_name=icon],  .wpb_el_type_iconpicker[data-param_name=icon_closed]');
+        $(document).on('change', '.vc_properties-list', function() {
+            var myElem = $(this).find('.wpb_el_type_iconpicker');
 
             if ( myElem.length ) {
                 myElem.find(".fip-icons-container i, .selected-icon i").each(function() {

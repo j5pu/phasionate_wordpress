@@ -444,13 +444,17 @@ var kleoPage = {
 		kleoPage.removeOverflowHidden();
 		
 		//image sliders
-		kleoPage.carouselItems();
-		kleoPage.bannerSlider();
-		kleoPage.rtMediaslider();
-        kleoPage.newsTicker();
+        if( $.fn.carouFredSel ) {
+            kleoPage.carouselItems();
+            kleoPage.bannerSlider();
+            kleoPage.rtMediaslider();
+            kleoPage.newsTicker();
+        }
 
 		//activate magnificPopup
-		kleoPage.magnificPopup();
+        if( $.fn.magnificPopup ) {
+            kleoPage.magnificPopup();
+        }
 
 		//activate html5 video/audio player
 		if($.fn.kleo_enable_media && $.fn.mediaelementplayer) {
@@ -708,15 +712,15 @@ var kleoPage = {
 				});
                 thisSliderItems.swipe({
                     excludedElements: "",
+                    threshold: 40,
                     swipeLeft: function() {
                         thisSliderItems.trigger('next', 1);
-                    },
+                        setTimeout(function(){ thisSliderItems.trigger('updateSizes'); }, 600);
+                },
                     swipeRight: function() {
                         thisSliderItems.trigger('prev', 1);
+                        setTimeout(function(){ thisSliderItems.trigger('updateSizes'); }, 600);
                     },
-                    tap: function(event, target) {
-                        $(target).trigger('click');
-                    }
                 });
 			});
 		});
@@ -766,7 +770,6 @@ var kleoPage = {
 						max: $currentCrslPrnt.data("max-items")
 					};
 			}
-
 			// Apply common carousel options
 			$currentCrsl.imagesLoaded( function() {
 				$currentCrsl.carouFredSel({
@@ -795,15 +798,16 @@ var kleoPage = {
 				}).visible();
                 $currentCrsl.swipe({
                     excludedElements: "",
+                    threshold: 40,
                     swipeLeft: function() {
                         $currentCrsl.trigger('next', 1);
+                        setTimeout(function(){ $currentCrsl.trigger('updateSizes'); }, 600);
                     },
                     swipeRight: function() {
                         $currentCrsl.trigger('prev', 1);
+                        setTimeout(function(){ $currentCrsl.trigger('updateSizes'); }, 600);
+
                     },
-                    tap: function(event, target) {
-                        $(target).trigger('click');
-                    }
                 });
 			});
 		});
@@ -850,15 +854,15 @@ var kleoPage = {
 					});
                     $thumbsCarousel.swipe({
                         excludedElements: "",
+                        threshold: 40,
                         swipeLeft: function() {
                             $thumbsCarousel.trigger('next', 1);
+                            setTimeout(function(){ $thumbsCarousel.trigger('updateSizes'); }, 600);
                         },
                         swipeRight: function() {
                             $thumbsCarousel.trigger('prev', 1);
+                            setTimeout(function(){ $thumbsCarousel.trigger('updateSizes'); }, 600);
                         },
-                        tap: function(event, target) {
-                            $(target).trigger('click');
-                        }
                     });
 				});
 			});
@@ -888,15 +892,15 @@ var kleoPage = {
                 });
                 $('.kleo-gallery-image').swipe({
                     excludedElements: "",
+                    threshold: 40,
                     swipeLeft: function() {
                         $('.kleo-gallery-image').trigger('next', 1);
+                        setTimeout(function(){ $('.kleo-gallery-image').trigger('updateSizes'); }, 600);
                     },
                     swipeRight: function() {
                         $('.kleo-gallery-image').trigger('prev', 1);
+                        setTimeout(function(){ $('.kleo-gallery-image').trigger('updateSizes'); }, 600);
                     },
-                    tap: function(event, target) {
-                        $(target).trigger('click');
-                    }
                 });
             });
 		}
@@ -947,15 +951,15 @@ var kleoPage = {
 				});
                 thisSliderItems.swipe({
                     excludedElements: "",
+                    threshold: 40,
                     swipeLeft: function() {
                         thisSliderItems.trigger('next', 1);
+                        setTimeout(function(){ thisSliderItems.trigger('updateSizes'); }, 600);
                     },
                     swipeRight: function() {
                         thisSliderItems.trigger('prev', 1);
+                        setTimeout(function(){ thisSliderItems.trigger('updateSizes'); }, 600);
                     },
-                    tap: function(event, target) {
-                        $(target).trigger('click');
-                    }
                 });
 			});
 		});
@@ -1484,7 +1488,7 @@ var kleoShop = {
 	},
 	
 	setSelected: function(element) {
-		$(".woocommerce-main-image img").attr('src', element.attr('href')).parent("a").attr("href", element.attr('href'));
+		$(".woocommerce-main-image img").attr('src', element.attr('href')).parent("a").attr("href", element.attr('data-big-img'));
 		$(".kleo-woo-gallery a.zoom").removeClass('selected');
 		element.addClass('selected');
 		kleoShop.updateGalleryItems(element);

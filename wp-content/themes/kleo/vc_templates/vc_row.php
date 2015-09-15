@@ -188,11 +188,11 @@ switch ( $type ) {
 		if ( ! empty( $position ) ) {
 			$style[] = 'background-position: ' . join(' ', $position);
 		}
-		
 
-		if ( $bg_repeat ) {
-			$style[] = 'background-repeat: ' . $bg_repeat;
-		}
+        if ($bg_repeat == '' ) {
+            $bg_repeat = 'no-repeat';
+        }
+        $style[] = 'background-repeat: ' . $bg_repeat;
 
         if ( $bg_color ) {
             $style[] = 'background-color: ' . $bg_color;

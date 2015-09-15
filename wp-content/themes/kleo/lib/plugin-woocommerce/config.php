@@ -1122,10 +1122,19 @@ add_filter('wp_nav_menu_args', 'kleo_woo_set_custom_menu', 11);
 
 /* Append dynamic CSS */
 function kleo_woo_dynamic_css() {
-    echo '.percentage-badge { color: ' . sq_option( 'woo_percent_color', '#fff' ) . ' !important; background: ' . sq_option( 'woo_percent_bg', '#000' ) . ' !important; }';
+	$h1 = sq_option('font_h1');
+	$extra_style = '';
+    $extra_style .= '.percentage-badge { color: ' . sq_option( 'woo_percent_color', '#fff' ) . ' !important; background: ' . sq_option( 'woo_percent_bg', '#000' ) . ' !important; }';
+	$extra_style .= 'body.single-product span.page-title { font-family: ' . $h1['font-family'] . ' !important; font-weight: ' . $h1['font-weight'] . ' !important; display:block; font-size: 26px; line-height: 34px; margin: 0; }';
+	return $extra_style;
 }
-add_action( 'kleo_add_dynamic_style', 'kleo_woo_dynamic_css' );
+add_filter( 'kleo_add_dynamic_style', 'kleo_woo_dynamic_css' );
 
+function kleo_dynamic_alternate_func($output, $section){
+	$output .= 'body.single-product span.page-title { color: '.$section['headings'].'; }';
+	return $output;
+}
+add_filter( 'kleo_dynamic_alternate', 'kleo_dynamic_alternate_func', 10, 2 );
 
 
 /* Visual composer integration */
@@ -1711,3 +1720,11 @@ if ( ! function_exists( 'woocommerce_single_variation_add_to_cart_button' ) ) {
 		<?php
 	}
 }
+
+function kleo_title_args_singular_product( $args ){
+	if( is_singular( 'product' ) ){
+		$args['heading'] = 'span';
+	}
+	return $args;
+}
+add_filter('kleo_title_args', 'kleo_title_args_singular_product');

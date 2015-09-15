@@ -7,7 +7,7 @@ extract(shortcode_atts(array(
     'font_size' => '',
     'font_weight' => '',
     'animation' => '',
-    'css_animation' => '',
+    'css_animation' => 'right-to-left',
     'css' => ''
 ), $atts));
 

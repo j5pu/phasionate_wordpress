@@ -1,24 +1,61 @@
 <?php
-$output = $title = $el_class = $open = $css_animation = $el_id = $span_closed_data = '';
-extract(shortcode_atts(array(
-    'title' => __("Click to toggle", "js_composer"),
-    'el_class' => '',
-    'open' => 'false',
-    'icon' => '',
-    'icon_closed' => '',
-    'icon_position' => 'to-left',
-    'tooltip' => '',
-    'tooltip_position' => '',
-    'tooltip_title' => '',
-    'tooltip_text' => '',
-    'tooltip_action' => 'hover',
-    'animation' => '',
-    'css_animation' => '',
-    'el_id' => ''
-), $atts));
+/**
+ * Shortcode attributes
+ * @var $atts
+ * @var $title
+ * @var $el_class
+ * @var $style
+ * @var $color
+ * @var $size
+ * @var $open
+ * @var $css_animation
+ * @var $el_id
+ * @var $content - shortcode content
+ * @var $css
+ *
+ * KLEO ADDED
+ * @var $icon_closed
+ * @var $icon_position
+ * @var $tooltip
+ * @var $tooltip_position
+ * @var $tooltip_title
+ * @var $tooltip_text
+ * @var $tooltip_action
+ * @var $animation
+ *
+ * Shortcode class
+ * @var $this WPBakeryShortCode_VC_Toggle
+ */
 
-$el_class = $this->getExtraClass($el_class);
-$css_class = $el_class;
+$output = $span_closed_data = '';
+
+$inverted = false;
+$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
+extract( $atts );
+
+
+/* compat */
+if ( empty( $css ) ) {
+	$css = '';
+}
+
+/**
+ * @since 4.4
+ */
+$elementClass = array(
+	'base' => apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'vc_toggle', $this->settings['base'], $atts ),
+	//'style' => 'vc_toggle_' . $style,
+	//'color' => ( $color ) ? 'vc_toggle_color_' . $color : '',
+	//'inverted' => ( $inverted ) ? 'vc_toggle_color_inverted' : '',
+	//'size' => ( $size ) ? 'vc_toggle_size_' . $size : '',
+	//'open' => ( $open === 'true' ) ? 'vc_toggle_active' : '',
+	'extra' => $this->getExtraClass( $el_class ),
+	//'css_animation' => $this->getCSSAnimation( $css_animation ),
+);
+
+$class_to_filter = trim( implode( ' ', $elementClass ) );
+$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' );
+$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
 $open = ( $open == 'true' ) ? ' in' : ' collapse';
 

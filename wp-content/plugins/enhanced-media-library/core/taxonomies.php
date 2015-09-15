@@ -369,44 +369,45 @@ if( ! function_exists( 'wpuxss_eml_dropdown_cats' ) ) {
         
         global $current_screen; 
         
-        if ( ! is_admin() ) {
+        if ( ! is_admin() || empty( $output ) ) {
             return $output;
         }
         
         $media_library_mode = get_user_option( 'media_library_mode' ) ? get_user_option( 'media_library_mode' ) : 'grid';
         
-        if ( isset( $current_screen ) && 'upload' === $current_screen->base && 'list' === $media_library_mode )
-        {
-            $whole_select = $output;
-            
-            $options_array = array();
-            while ( strlen( $whole_select ) >= 7 && false !== ( $option_pos = strpos( $whole_select, '<option', 7 ) ) )
-            {
-                $options_array[] = substr($whole_select, 0, $option_pos);
-                $whole_select = substr($whole_select, $option_pos);
-            }
-            $options_array[] = $whole_select;
-            
-            $new_output = ''; 
-            
-            if ( isset( $r['show_option_in'] ) && $r['show_option_in'] ) 
-            {
-                $show_option_in = $r['show_option_in'];
-                $selected = ( 'in' === strval($r['selected']) ) ? " selected='selected'" : '';
-                $new_output .= "\t<option value='in'$selected>$show_option_in</option>\n";
-            }
-        
-            if ( isset( $r['show_option_not_in'] ) && $r['show_option_not_in'] ) 
-            {
-                $show_option_not_in = $r['show_option_not_in'];
-                $selected = ( 'not_in' === strval($r['selected']) ) ? " selected='selected'" : '';
-                $new_output .= "\t<option value='not_in'$selected>$show_option_not_in</option>\n";
-            }
-            
-            array_splice( $options_array, 2, 0, $new_output );
-            
-            $output = implode('', $options_array);
+        if ( ! isset( $current_screen ) || 'upload' !== $current_screen->base || 'list' !== $media_library_mode ) {
+             return $output;
         }
+        
+        $whole_select = $output;
+        $options_array = array();
+        
+        while ( strlen( $whole_select ) >= 7 && false !== ( $option_pos = strpos( $whole_select, '<option', 7 ) ) )
+        {
+            $options_array[] = substr($whole_select, 0, $option_pos);
+            $whole_select = substr($whole_select, $option_pos);
+        }
+        $options_array[] = $whole_select;
+        
+        $new_output = ''; 
+        
+        if ( isset( $r['show_option_in'] ) && $r['show_option_in'] ) 
+        {
+            $show_option_in = $r['show_option_in'];
+            $selected = ( 'in' === strval($r['selected']) ) ? " selected='selected'" : '';
+            $new_output .= "\t<option value='in'$selected>$show_option_in</option>\n";
+        }
+    
+        if ( isset( $r['show_option_not_in'] ) && $r['show_option_not_in'] ) 
+        {
+            $show_option_not_in = $r['show_option_not_in'];
+            $selected = ( 'not_in' === strval($r['selected']) ) ? " selected='selected'" : '';
+            $new_output .= "\t<option value='not_in'$selected>$show_option_not_in</option>\n";
+        }
+        
+        array_splice( $options_array, 2, 0, $new_output );
+        
+        $output = implode('', $options_array);
         
         return $output;
     }

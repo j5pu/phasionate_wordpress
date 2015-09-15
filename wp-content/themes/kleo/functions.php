@@ -1287,12 +1287,17 @@ if (!function_exists('kleo_frontend_files')):
             wp_enqueue_script( 'comment-reply' );
         }
 
+        if ( is_child_theme() && file_exists( get_stylesheet_directory_uri() . '/assets/css/fontello.css' )) {
+            $fonts_path = get_stylesheet_directory_uri() . '/assets/css/fontello.css';
+        } else {
+            $fonts_path = get_template_directory_uri() . '/assets/css/fontello.css';
+        }
 
         // Register the styles
         wp_register_style( 'bootstrap', get_template_directory_uri() . '/assets/css/bootstrap' . $min . '.css', array(), KLEO_THEME_VERSION, 'all' );
         wp_register_style( 'kleo-app', get_template_directory_uri() . '/assets/css/app' . $min . '.css', array(), KLEO_THEME_VERSION, 'all' );
         wp_register_style( 'magnific-popup', get_template_directory_uri() . '/assets/js/plugins/magnific-popup/magnific.css', array(), KLEO_THEME_VERSION, 'all' );
-        wp_register_style( 'kleo-fonts', get_template_directory_uri() . '/assets/css/fontello.css', array(), KLEO_THEME_VERSION, 'all' );
+        wp_register_style( 'kleo-fonts', $fonts_path, array(), KLEO_THEME_VERSION, 'all' );
         wp_register_style( 'kleo-style', CHILD_THEME_URI . '/style.css', array(), KLEO_THEME_VERSION, 'all' );
         wp_register_style( 'kleo-rtl', get_template_directory_uri() . '/rtl.css', array(), KLEO_THEME_VERSION, 'all' );
 
@@ -1409,7 +1414,7 @@ if ( ! is_admin() ) {
         //write the file if isn't there
         if ( ! file_exists ( trailingslashit( $kleo_config['custom_style_path'] ) . 'dynamic.css' ) ) {
             add_filter( 'kleo_add_dynamic_style', array( $kleo_theme, 'add_font_css' ) );
-            kleo_generate_dynamic_css();
+            add_action('after_setup_theme', 'kleo_generate_dynamic_css', 999 );
         }
 
         add_action( 'wp_enqueue_scripts', 'kleo_load_dynamic_css' );
@@ -1640,7 +1645,7 @@ if (!function_exists('kleo_lost_password_ajax')) {
                 require_once ABSPATH . WPINC . '/class-phpass.php';
                 $wp_hasher = new PasswordHash( 8, true );
             }
-            $hashed = $wp_hasher->HashPassword( $key );
+            $hashed = time() . ':' . $wp_hasher->HashPassword( $key );
             $wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user_login ) );
 
             $message = __('Someone requested that the password be reset for the following account:') . "\r\n\r\n";

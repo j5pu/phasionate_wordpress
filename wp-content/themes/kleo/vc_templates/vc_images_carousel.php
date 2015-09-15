@@ -14,9 +14,10 @@ extract(shortcode_atts(array(
     'hide_pagination_control' => '',
     'hide_prev_next_buttons' => '',
     'animation' => '',
-    'css_animation' => '',
+    'css_animation' => 'right-to-left',
     'speed' => '5000',
-    'scroll_fx' => 'scroll'
+    'scroll_fx' => 'scroll',
+	'css' => ''
 ), $atts));
 
 $data_attr = '';
@@ -29,7 +30,10 @@ if ( $onclick == 'custom_link' ) { $custom_links = explode( ',', $custom_links);
 
 $images = explode( ',', $images);
 $i = -1;
-$css_class =  apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'kleo-gallery kleo-carousel-container dot-carousel'.$el_class, $this->settings['base']);
+
+$class_to_filter = 'kleo-gallery kleo-carousel-container dot-carousel';
+$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
+$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
 $el_animation = '';
 if ( $animation != '' ) {

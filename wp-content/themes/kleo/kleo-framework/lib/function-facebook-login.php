@@ -1,13 +1,23 @@
 <?php
 
-function kleo_fb_head(){
+function kleo_fb_head() {
+
+    if ( is_user_logged_in()) {
+        return false;
+    }
+
 	?>
 	<div id="fb-root"></div>
 	<?php
 }
 
 
-function kleo_fb_footer(){
+function kleo_fb_footer() {
+
+    if ( is_user_logged_in()) {
+        return false;
+    }
+
 ?>
     <script>
         // Additional JS functions here
@@ -157,12 +167,13 @@ function kleo_fb_loginform_script()
 		</style>';
 }
 
-add_action( 'kleo_after_body', 'kleo_fb_head' );
-add_action( 'login_head', 'kleo_fb_head' );
-add_action( 'login_head', 'kleo_fb_loginform_script' );
-add_action( 'wp_footer', 'kleo_fb_footer' );
-add_action( 'login_footer', 'kleo_fb_footer' );
-
+if ( sq_option( 'facebook_login', 0 ) == 1 ) {
+    add_action('kleo_after_body', 'kleo_fb_head');
+    add_action('login_head', 'kleo_fb_head');
+    add_action('login_head', 'kleo_fb_loginform_script');
+    add_action('wp_footer', 'kleo_fb_footer');
+    add_action('login_footer', 'kleo_fb_footer');
+}
 
 
 function kleo_fb_intialize(){
@@ -332,7 +343,9 @@ function kleo_fb_intialize(){
         'message' => __( 'Login successful, redirecting...','kleo_framework' )
     )));
 }
-add_action( 'init', 'kleo_fb_intialize' );
+if ( ! is_admin() ) {
+    add_action( 'init', 'kleo_fb_intialize' );
+}
 
 
         
@@ -353,7 +366,7 @@ endif;
 
 
 //display Facebook avatar
-if(sq_option('facebook_avatar', 1) == 1) {
+if( sq_option('facebook_avatar', 1) == 1 ) {
 	//show Facebook avatar in WP
 	add_filter('get_avatar', 'kleo_fb_show_avatar', 5, 5);
 	//show Facebook avatar in Buddypress

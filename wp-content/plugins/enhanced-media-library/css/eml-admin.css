@@ -85,6 +85,10 @@ body.eml-media-css .attachments-browser .media-toolbar .spinner {
 body.eml-media-css .attachments-browser .uploader-inline {
     margin-bottom: 0;
 }
+body.eml-media-css .attachments-browser .instructions {
+    display: block;
+}
+
 
 @media only screen and (max-width: 1200px) {
     

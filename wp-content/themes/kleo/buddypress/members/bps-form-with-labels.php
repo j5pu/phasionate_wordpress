@@ -7,15 +7,19 @@
  *
  */
 
-$F = bps_escaped_request_data ();
+$F = bps_escaped_form_data ();
 
 $toggle_id = 'bps_toggle'. $F->id;
 $form_id = 'bps_'. $F->location. $F->id;
 
-//if ($F->location != 'directory')  echo "<div id='buddypress'>";
-
-if ($F->location == 'directory')
+if ($F->location != 'directory')
 {
+    $action = $F->action;
+    echo "<div id='buddypress'>";
+}
+else
+{
+    $action = parse_url ($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     ?>
     <div class="item-list-tabs bps_header">
         <ul>
@@ -48,9 +52,15 @@ echo "<form action='$F->action' method='$F->method' id='$form_id' class='bps-for
 $j = 0;
 foreach ($F->fields as $f)
 {
+    if ($f->display == 'hidden')
+    {
+        echo "<input type='hidden' name='$f->code' value='$f->value'>\n";
+        continue;
+    }
+
     $name = sanitize_title ($f->name);
     $alt = ($j++ % 2)? 'alt': '';
-    $class = "form-group editfield field_$f->id field_$name $alt";
+    $class = "editfield field_$f->id field_$name $alt";
 
     if ($f->display != 'range') {
         $class .= ' form-group';
@@ -89,14 +99,15 @@ foreach ($F->fields as $f)
             echo "<label for='$f->code'>$f->label</label>\n";
             echo "<select name='$f->code' id='$f->code' class='form-control'>\n";
 
-            $select_all = esc_attr (apply_filters ('bps_select_all', $f->label, $f));
-            if (is_string ($select_all))
-                echo "<option  value=''>$select_all</option>\n";
+            $no_selection = apply_filters ('bps_field_selectbox_no_selection', $f->label, $f);
+            if (is_string ($no_selection)) {
+                echo "<option  value=''>$no_selection</option>\n";
+            }
 
-            foreach ($f->options as $option => $selected)
+            foreach ($f->options as $key => $label)
             {
-                $selected = $selected? "selected='selected'": "";
-                echo "<option $selected value='$option'>$option</option>\n";
+                $selected = in_array ($key, $f->values)? "selected='selected'": "";
+                echo "<option $selected value='$key'>$label</option>\n";
             }
             echo "</select>\n";
             break;
@@ -105,10 +116,10 @@ foreach ($F->fields as $f)
             echo "<label for='$f->code'>$f->label</label>\n";
             echo "<select name='{$f->code}[]' id='$f->code' multiple='multiple' class='form-control'>\n";
 
-            foreach ($f->options as $option => $selected)
+            foreach ($f->options as $key => $label)
             {
-                $selected = $selected? "selected='selected'": "";
-                echo "<option $selected value='$option'>$option</option>\n";
+                $selected = in_array ($key, $f->values)? "selected='selected'": "";
+                echo "<option $selected value='$key'>$label</option>\n";
             }
             echo "</select>\n";
             break;
@@ -118,11 +129,11 @@ foreach ($F->fields as $f)
             echo "<label>$f->label</label>\n";
             echo "<div id='$f->code'>\n";
 
-            foreach ($f->options as $option => $checked)
+            foreach ($f->options as $key => $label)
             {
-                $checked = $checked? "checked='checked'": "";
+                $checked = in_array ($key, $f->values)? "checked='checked'": "";
                 echo "<div class='radio'>\n";
-                echo "<label><input $checked type='radio' name='$f->code' value='$option'>$option</label>\n";
+                echo "<label><input $checked type='radio' name='$f->code' value='$key'>$label</label>\n";
                 echo "</div>\n";
             }
 
@@ -134,11 +145,11 @@ foreach ($F->fields as $f)
 
             echo "<label>$f->label</label>\n";
 
-            foreach ($f->options as $option => $checked)
+            foreach ($f->options as $key => $label)
             {
-                $checked = $checked? "checked='checked'": "";
+                $checked = in_array ($key, $f->values)? "checked='checked'": "";
                 echo "<div class='checkbox'>\n";
-                echo "<label><input $checked type='checkbox' name='{$f->code}[]' value='$option'>$option</label>\n";
+                echo "<label><input $checked type='checkbox' name='{$f->code}[]' value='$key'>$label</label>\n";
                 echo "</div>\n";
             }
 
@@ -159,6 +170,6 @@ echo "<input type='hidden' name='bp_profile_search' value='$F->id'>\n";
 echo '<a href="#" class="btn btn-highlight form-submit">'. __("Search") . '</a>';
 echo "</form>\n";
 
-//if ($F->location != 'directory')  echo "</div>\n";
+if ($F->location != 'directory')  echo "</div>\n";
 
 // BP Profile Search - end of template

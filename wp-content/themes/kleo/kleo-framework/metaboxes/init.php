@@ -420,7 +420,9 @@ class kleo_Meta_Box {
                     $image_url = $meta;
                     if ( isset( $field['bg_options'] ) && $field['bg_options'] == 'yes' ) {
                         echo '<input class="cmb_upload_file" type="' . $input_type_url . '" size="45" id="' . $field['id'] . '" name="' . $field['id'] . '[url]" value="'. (is_array($meta) && isset($meta['url']) ? $meta['url'] : '') .'" />';
-                        $image_url = $meta['url'];
+                        if( is_array( $meta ) && isset( $meta['url'] ) ){
+							$image_url = $meta['url'];
+						}
                     } else {
                         echo '<input class="cmb_upload_file" type="' . $input_type_url . '" size="45" id="', $field['id'] . '" name="' . $field['id'] . '" value="' . $meta . '" />';
                     }

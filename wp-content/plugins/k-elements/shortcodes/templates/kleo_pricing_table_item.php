@@ -16,7 +16,7 @@ extract( shortcode_atts( array(
     'price' => '',
     'popular' => '',
     'features' => '',
-    'button_label' => '',
+    'button_label' => 'Select',
     'link' => '',
     'class' => ''
 ), $atts ) );

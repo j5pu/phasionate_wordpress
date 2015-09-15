@@ -70,7 +70,9 @@ $el_class .= " " . $post_layout . '-listing';
         <?php if ( $show_switcher  == 'yes' ) : ?>
 
             <?php
-            $switcher_layouts = explode( ',',$switcher_layouts );
+            if(!is_array($switcher_layouts)){
+                $switcher_layouts = explode( ',',$switcher_layouts );
+            }
             kleo_view_switch( $switcher_layouts, $post_layout, get_the_ID() );
             ?>
 

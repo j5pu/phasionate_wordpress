@@ -1,5 +1,5 @@
 <?php
-define('KLEO_THEME_VERSION', '3.0.7');
+define( 'KLEO_THEME_VERSION', '3.0.8' );
 
 /* Configuration array */
 global $kleo_config;
@@ -87,7 +87,7 @@ $theme_args = array(
 				'slug'			=> 'js_composer', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/js_composer.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '4.6.2', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '4.7', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -97,7 +97,7 @@ $theme_args = array(
 				'slug'			=> 'revslider', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/revslider.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '5.0.4.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '5.0.8', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -107,7 +107,7 @@ $theme_args = array(
 				'slug'			=> 'k-elements', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/k-elements.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '3.0.7', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '3.0.8', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -180,7 +180,7 @@ $theme_args = array(
             'name'                  => 'BP Profile Search', // The plugin name
             'slug'                  => 'bp-profile-search', // The plugin slug (typically the folder name)
             'required'              => false, // If false, the plugin is only 'recommended' instead of required
-            'version'               => '4.2.2', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+            'version'               => '4.3.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
             'force_activation'      => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
             'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
             'external_url'          => '', // If set, overrides default API URL and points to an external URL
@@ -225,7 +225,12 @@ function kleo_theme_functions() {
 		require_once( KLEO_LIB_DIR . '/plugin-pmpro/config.php' );
 	}
 
-    // Compatibility with GeoDirectory plugin
+	// Visual composer compatibility
+	if( function_exists( 'vc_set_as_theme' ) ) {
+		require_once( KLEO_LIB_DIR . '/plugin-vc/config.php' );
+	}
+
+	// Compatibility with GeoDirectory plugin
     if( defined( 'GEODIRECTORY_VERSION' ) ) {
         require_once( KLEO_LIB_DIR . '/plugin-geodirectory/config.php' );
     }
@@ -1217,29 +1222,39 @@ if ( ! function_exists( 'kleo_has_shortcode' ) ) {
 }
 
 if ( ! function_exists( 'kleo_icons_array' ) ) {
-    function kleo_icons_array( $prefix = '' ) {
+	function kleo_icons_array( $prefix = '', $before = array( '' ) ) {
 
-        // Get any existing copy of our transient data
-        if ( false === ( $icons = get_transient( 'kleo_font_icons' ) ) ) {
+		// Get any existing copy of our transient data
+		$transient_name = 'kleo_font_icons_' . $prefix . implode( '', $before );
 
-            // It wasn't there, so regenerate the data and save the transient
-            $icons= array('');
-            $icons_json = file_get_contents( KLEO_LIB_DIR . '/assets/font-icons.json' );
-            if ( $icons_json ) {
-                $arr = json_decode( $icons_json, true );
-                foreach($arr['glyphs'] as $icon)
-                {
-                    $icons[$prefix . $icon['css']] = $icon['css'];
-                    asort($icons);
-                }
-            }
+		if ( false === ( $icons = get_transient( $transient_name ) ) ) {
 
-            set_transient( 'kleo_font_icons', $icons );
-        }
+			// It wasn't there, so regenerate the data and save the transient
+			$icons = $before;
 
-        return $icons;
-    }
+			$icons_json = file_get_contents( THEME_DIR . '/assets/font/config.json' );
+			if ( is_child_theme() && file_exists( CHILD_THEME_DIR . '/assets/css/fontello.css' )) {
+				$icons_json = CHILD_THEME_DIR . '/assets/config.json';
+			}
+
+			if ( $icons_json ) {
+				$arr = json_decode( $icons_json, true );
+				foreach($arr['glyphs'] as $icon)
+				{
+					$icons[$prefix . $icon['css']] = $icon['css'];
+				}
+				asort($icons);
+			}
+
+			// set transient for one day
+			set_transient( $transient_name, $icons, 86400 );
+		}
+
+		return $icons;
+	}
 }
+
+
 
 if ( ! function_exists( 'kleo_post_nav' ) ) :
 /**
@@ -1591,6 +1606,7 @@ if ( class_exists( 'RTMedia' ) ) {
 		//wp_dequeue_style('rtmedia-font-awesome');
 		wp_dequeue_style('rtmedia-magnific');
 		wp_dequeue_script('rtmedia-magnific');
+		wp_dequeue_script('rtmedia-touchswipe');
 	}
 
     add_filter( 'body_class', 'kleo_rtmedia_class');

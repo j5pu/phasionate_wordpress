@@ -624,7 +624,7 @@ section.container-wrap.half-section .col-sm-6:nth-child(2) {
 .title-single {
 	padding-bottom: 10px;
 }
-.main-title h1 {
+.main-title .page-title {
 	font-size: 26px;
 	line-height: 34px;
 	margin: 0;

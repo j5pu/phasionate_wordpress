@@ -313,7 +313,7 @@ class ShareaholicAdmin {
     if(isset($_POST['reset_settings'])
       && $_POST['reset_settings'] == 'Y'
       && check_admin_referer($action, 'nonce_field')) {
-      ShareaholicUtilities::destroy_settings();
+      ShareaholicUtilities::reset_settings();
       echo "<div class='updated settings_updated'><p><strong>"
         . sprintf(__('Settings successfully reset. Refresh this page to complete the reset.', 'shareaholic'))
         . "</strong></p></div>";
@@ -480,6 +480,17 @@ class ShareaholicAdmin {
     
     if (function_exists('wp_mail')){
       wp_mail($to, $subject, $message, $headers);
+    }
+  }
+
+  public static function admin_notices() {
+    global $pagenow;
+    if ($pagenow == 'options-permalink.php') {
+      $css_class = 'error';
+      $message = 'WARNING: changing the permalink structure will reset the share counts for your pages.';
+      echo "<div class='$css_class'><p style='font-weight: bold;'>";
+      _e($message, 'Shareaholic');
+      echo '</p></div>';
     }
   }
 }

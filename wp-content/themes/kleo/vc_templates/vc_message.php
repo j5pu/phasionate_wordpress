@@ -1,39 +1,38 @@
 <?php
 /**
- * @var $this WPBakeryShortCode_VC_Message
- * @var array $atts
+ * Shortcode attributes
  *
- * @var string $el_class
- * @var string $style
- * @var string $shape
- * @var string $type
- * @var string $color
- * @var string $css_animation
- * @var string $message_box_type
- * @var string $message_box_style
- * @var string $message_box_shape
- * @var string $message_box_color
- * @var string $icon_type
+ * @todo add $icon_... defaults
+ * @todo add $icon_typicons and etc
+ *
+ * @var $atts
+ * @var $el_class
+ * @var $message_box_style
+ * @var $style
+ * @var $color
+ * @var $message_box_color
+ * @var $css_animation
+ * @var $icon_type
+ * @var $icon_fontawesome
+ * @var $content - shortcode content
+ * @var $css
+ *
+ * KLEO ADDED
+ * @var $animation
+ *
+ * Shortcode class
+ * @var $this WPBakeryShortCode_VC_Message
  */
-$defaultFont = 'fontello';
-$defaultIconClass = 'icon-info-circled';
-//$this->convert..
-$atts = $this->convertAttributesToMessageBox2( $atts );
-$defaults = array(
-    'el_class' => '',
-    'message_box_style' => 'classic',
-    'style' => 'rounded', // dye to backward compatibility message_box_shape
-    'color' => '', //message_box_type due to backward compatibility
-    'message_box_color' => 'alert-info',
-    'css_animation' => '',
-    'icon_type' => $defaultFont,
-    'icon_fontawesome' => $defaultIconClass,
-    'animation' => '',
-    'css_animation' => ''
-);
 
-$atts = vc_shortcode_attribute_parse( $defaults, $atts );
+$atts = $this->convertAttributesToMessageBox2( $atts );
+$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
+
+/* backward compatibility */
+if ( empty( $css ) ) {
+    $css = '';
+}
+
 
 $css_anim_class = '';
 if ( $animation != '' ) {
@@ -46,15 +45,16 @@ $elementClass = array(
     'style' => 'vc_message_box-' . $message_box_style,
     'shape' => 'vc_message_box-' . $style,
     'color' => ( strlen( $color ) > 0 && strpos( 'alert', $color ) === false ) ? 'vc_color-' . $color : 'vc_color-' . $message_box_color,
-    'extra' => $this->getExtraClass( $el_class ),
     'css_animation' => $css_anim_class,
-);
-$elementClass = preg_replace( array( '/\s+/', '/^\s|\s$/' ), array( ' ', '' ), implode( ' ', $elementClass ) );
 
+);
+
+$class_to_filter = preg_replace( array( '/\s+/', '/^\s|\s$/' ), array( ' ', '' ), implode( ' ', $elementClass ) );
+$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
+$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
 // Pick up icons
 $iconClass = isset( ${"icon_" . $icon_type} ) ? ${"icon_" . $icon_type} : $defaultIconClass;
-
 switch ( $color ) {
     case 'info':
         $icon_type = 'fontawesome';
@@ -98,11 +98,11 @@ if( $icon_type == 'fontello' ) {
 }
 
 // Enqueue needed font for icon element
-if ( 'pixelicons' != $icon_type ) {
+if ( 'pixelicons' !== $icon_type ) {
     vc_icon_element_fonts_enqueue( $icon_type );
 }
 ?>
-<div class="<?php echo esc_attr( $elementClass ); ?>">
+<div class="<?php echo esc_attr( $css_class ); ?>">
     <div class="vc_message_box-icon"><i class="<?php echo esc_attr( $iconClass ); ?>"></i>
     </div><?php echo wpb_js_remove_wpautop( $content, true );
     ?></div>

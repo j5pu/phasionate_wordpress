@@ -3,7 +3,7 @@ Contributors: webbistro
 Tags: media library, taxonomy, taxonomies, mime, mime type, attachment, media category, media categories, media tag, media tags, media taxonomy, media taxonomies, media filter, media organizer, file types, media types, media uploader, custom, media management, attachment management, files management, ux, user experience, wp-admin, admin, categories, category, filter,  image, images, media, upload
 Requires at least: 4.0
 Tested up to: 4.3
-Stable tag: 2.0.4.7
+Stable tag: 2.0.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -141,6 +141,17 @@ Right now it is possible via WP_Query ([example of the code](http://wordpress.or
 
 == Changelog ==
 
+= 2.0.4.8 =
+*Release Date - September 14, 2015*
+
+= Bugfixes =
+* The bug with empty taxonomy drop down fixed
+* WordPress 4.3 gallery's template issue fixed [Support Request](https://wordpress.org/support/topic/unable-to-remove-images-from-gallery)
+* The bug with plugin's folder name fixed (PRO only)
+* Minor WP 4.3 CSS compatibility issues fixed
+
+
+&nbsp;
 = 2.0.4.7 =
 *Release Date - August 11, 2015*
 

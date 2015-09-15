@@ -12,7 +12,7 @@
 
 extract( shortcode_atts( array(
 		'el_class' => '',
-		'type' => '3',
+		'type' => '1',
 		'colored_icons' => '',
 		'bordered_icons' => '',
 		'style' => '',

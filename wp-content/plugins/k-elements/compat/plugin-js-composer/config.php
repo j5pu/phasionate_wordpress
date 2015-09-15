@@ -41,12 +41,7 @@ vc_remove_element("vc_wp_pages");
 vc_remove_element("vc_wp_text");
 vc_remove_element("vc_wp_links");
 vc_remove_element("vc_wp_rss");
-//vc_remove_element( "vc_text_separator" );
-//vc_remove_element( "vc_separator" );
-//vc_remove_element( "vc_googleplus" );
-//vc_remove_element("vc_tour");
 vc_remove_element("vc_button");
-//vc_remove_element("vc_button2");
 vc_remove_element("vc_posts_slider");
 vc_remove_element("vc_cta_button");
 vc_remove_element("vc_cta_button2");
@@ -62,7 +57,7 @@ function kleo_css_classes_for_vc_row_and_vc_column( $class_string, $tag ) {
 	if($tag=='vc_row' || $tag=='vc_row_inner') {
 			$class_string = str_replace('vc_row-fluid', 'row', $class_string);
 	}
-	if($tag=='vc_column' || $tag=='vc_column_inner') {
+	elseif($tag=='vc_column' || $tag=='vc_column_inner') {
 			$class_string = str_replace('vc_span2', 'col-sm-2', $class_string);
 			$class_string = str_replace('vc_span3', 'col-sm-3', $class_string);
 			$class_string = str_replace('vc_span4', 'col-sm-4', $class_string);
@@ -77,6 +72,14 @@ function kleo_css_classes_for_vc_row_and_vc_column( $class_string, $tag ) {
 			$class_string = str_replace('wpb_column', 'kleo_column', $class_string);
 			
 	}
+
+	return $class_string;
+}
+
+function kleo_css_classes_for_elements( $class_string, $tag ) {
+	if ( $tag == 'vc_widget_sidebar' ) {
+		$class_string .= ' sidebar';
+	}
 	return $class_string;
 }
 
@@ -84,9 +87,10 @@ function kleo_css_classes_for_vc_row_and_vc_column( $class_string, $tag ) {
  * Disabled class changes and replaced with custom column template in theme for performance
  */
 function kleo_vc_replace_classes() {
-	if ( defined( 'KLEO_THEME_VERSION' ) &&  KLEO_THEME_VERSION <= 20140430 ) {
+	if ( defined( 'KLEO_THEME_VERSION' ) &&  KLEO_THEME_VERSION <= '3.0' ) {
 		add_filter('vc_shortcodes_css_class', 'kleo_css_classes_for_vc_row_and_vc_column', 10, 2);
 	}
+	add_filter('vc_shortcodes_css_class', 'kleo_css_classes_for_elements', 10, 2);
 }
 add_action( 'after_setup_theme', 'kleo_vc_replace_classes', 12 );
 
@@ -1065,6 +1069,9 @@ function kleo_vc_manipulate_shortcodes() {
 	/* Toggle */
 	vc_map_update('vc_toggle', array('name' => 'Toggle', 'description' => 'Add a Toggle element', 'weight' => 6));
 	vc_remove_param( 'vc_toggle', 'color' );
+	vc_remove_param( 'vc_toggle', 'style' );
+	vc_remove_param( 'vc_toggle', 'size' );
+	vc_remove_param( 'vc_toggle', 'inverted' );
 	vc_remove_param( 'vc_toggle', 'css_animation' );
 	vc_remove_param('vc_toggle','el_class');
 
@@ -1171,6 +1178,7 @@ function kleo_vc_manipulate_shortcodes() {
             '3' => '3',
             '2' => '2'
         ),
+		"std" => "6",
         "dependency" => array(
             "element" => "type",
             "value" => "grid"
@@ -4013,7 +4021,7 @@ function kleo_vc_iconpicker_fontello( $icons ) {
     $arranged_icons = array();
 
     if ( $fontello_icons ) {
-        foreach($fontello_icons as $k => $icon) {
+        foreach( $fontello_icons as $k => $icon ) {
             $arranged_icons[][$k] = $icon;
         }
     }
