@@ -82,7 +82,7 @@ function showStaff(){
 		</div>
 	</div>        
 
-	<h2>FOTOGRAFÍA:</h2>
+	<!--<h2>FOTOGRAFÍA:</h2>-->
 
 <?php
 
