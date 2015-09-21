@@ -1,0 +1,82 @@
+.contest-block {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #990000;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    padding: 5px;
+    display: inline-block;
+}
+
+/* TITLE */
+
+.contest-block-title {
+    text-align: center;
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 8px;
+}
+
+.contest-block-description {
+    text-align: center;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+/* BUTTON */
+.fv_button {
+    text-align: center;
+}
+
+#action_button {
+    font-size: 1em;
+    outline: 0;
+    border: 0;
+    background: #D8D8D8;
+    color: #555;
+    padding: 7px 10px;
+    margin: 5px 0 0 0;
+    border-radius: 3px;
+    vertical-align: middle;
+    cursor: pointer;
+    max-width: 99%;
+}
+
+#action_button:hover {
+    background: #2e4c79;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* VOTES count */
+
+.contest-block-votes {
+    text-align: center;
+    font-size: 14px;
+}
+
+.contest-block-votes-count {
+    color: #990033;
+    font-size: 16px;
+    font-weight: bolder;
+    text-align: center;
+    color: #990000;
+}
+
+/* IMAGE */
+
+.contest-block img {
+    border-radius: 4px;
+    box-shadow: 0.5px 0.5px 1px 1px rgba(20, 20, 10, 0.298);
+}
+
+.contest-block img:hover {
+    box-shadow: 0px 0px 2px 2.5px rgba(255, 0, 0, 0.2);
+}
+
+.fv-pagination .current {
+    /* selected number */
+    background-color: #D8D8D8;
+    border-color: #D8D8D8;
+}

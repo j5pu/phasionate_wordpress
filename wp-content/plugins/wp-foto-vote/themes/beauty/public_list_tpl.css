@@ -1,0 +1,100 @@
+.sv_unit {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #990000;
+	margin-bottom: 15px;
+	margin-right: 10px;
+	padding: 5px;
+	display: inline-block;
+}
+
+.sv_title {
+	text-align: center;
+	font-size: 16px;
+        max-width: 165px;
+}
+/* -    -       -    -*/
+
+.fv_button {
+	text-align: center;
+}
+
+.fv_button #action_button {
+	display:block;
+	width:190px;
+	height:35px;
+	position:relative;
+	margin:0 auto;
+	padding:0;
+	border:0;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	background-color:#b20143;
+	background-image:url(img/button.png);
+	background-position:0 0;
+	background-repeat:repeat-x;
+	color:#ffffff;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:16px;
+	font-weight:normal;
+	font-style:normal;
+	line-height:35px;
+	cursor:pointer;
+	text-align:center;
+	white-space:nowrap;
+}
+.fv_button #action_button:hover {
+    background-position:0 bottom;
+}
+
+.fv_button #action_button:active {
+	background-image:none;
+}
+.fv_button #action_button .hand {
+	padding:0 23px 0 0;
+	background-image:url(img/icon-hand.png);
+	background-position:right 1px;
+	background-repeat:no-repeat;
+	font-style:normal;
+	}
+        
+        
+/* -    -       -    -*/
+        
+
+.sv_votes {
+	text-align: center;
+	font-size: 14px;
+}
+
+.sv_votes span { 
+    color:#990033; 
+    font-size: 16px;      
+    font-weight: bolder;
+    text-align: center;
+    color: #990000;
+}
+
+/* IMAGE */
+
+.sv_unit img {
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -khtml-border-radius: 4px;
+        box-shadow: 0.5px 0.5px 1px 1px rgba(20, 20, 10, 0.298);
+}
+.sv_unit img:hover{
+        box-shadow: 0px 0px 2px 2.5px rgba(255, 0, 0, 0.2);
+}
+
+
+
+.fv-pagination .current {
+    /* selected number */
+    background-color: #990000;
+    border-color: #990000;
+}
