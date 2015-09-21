@@ -112,7 +112,7 @@ body.home .portada_posts:nth-child(1)
 
 
 .portada_posts {
-	width: 47%;
+	width: 46%;
 	box-sizing: border-box;
 	max-height: 50%;
 	display: inline-block;
