@@ -5752,3 +5752,9 @@ li.product figcaption .shop-actions > a.button:hover{
 .main-color a:hover, .main-color #top-social li a:hover, .main-color .top-menu li > a:hover, .main-color .navbar-nav .dropdown-menu li a:hover, .main-color .sidebar ul li a:hover, .main-color .wrap-canvas-menu .widget_nav_menu .offcanvas-menu .dropdown-menu > li > a:hover, .main-color .wrap-canvas-menu .widget_nav_menu .offcanvas-menu .dropdown-menu > li > a:focus, .main-color #buddypress .activity-list li.load-more a:hover, .manage-members .main-color .member-name:hover, .manage-members .main-color .member-name a:hover, .main-color #rtm-media-options-list ul li .rtmedia-action-buttons:hover, .woocommerce .main-color .yith-wcwl-add-to-wishlist a:hover, .woocommerce .main-color li.product figcaption .shop-actions > a.button:hover, .main-color .kleo-toggle-menu .quick-view:hover {
 	color: #d17b83 !important;
 }
+
+/*Personalizar página PPL - LOS 5 LUGARES DONDE ES MÁS PROBABLE CONOCER AL AMOR DE TU VIDA*/
+.page-id-24954 body:not(.single-post) h1.page-title {
+	background-color: inherit;
+    color: inherit;
+}
