@@ -5754,7 +5754,7 @@ li.product figcaption .shop-actions > a.button:hover{
 }
 
 /*Personalizar página PPL - LOS 5 LUGARES DONDE ES MÁS PROBABLE CONOCER AL AMOR DE TU VIDA*/
-.page-id-24954 body:not(.single-post) h1.page-title {
-	background-color: inherit;
-    color: inherit;
+.page-id-24954 h1 {
+	background-color: inherit !important;
+    color: inherit !important;
 }
