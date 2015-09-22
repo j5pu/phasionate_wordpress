@@ -39,6 +39,9 @@ kleo_switch_layout('right');
 
 	<?php get_template_part( 'page-parts/posts-social-share' ); ?>
 
+	<!-- WP-PostRating - Muestra las estrellas para valorar el post -->
+	<?php if(function_exists('the_ratings')) { the_ratings(); } ?>
+	
 	<?php 
 	$cats = get_the_category();
 	$cat_name = $cats[0]->name;
@@ -56,9 +59,6 @@ kleo_switch_layout('right');
 		}
 	}
 	?>
-
-	<!-- WP-PostRating - Muestra las estrellas para valorar el post -->
-	<?php if(function_exists('the_ratings')) { the_ratings(); } ?>
 
 	<?php
 	global $not_post_in;
