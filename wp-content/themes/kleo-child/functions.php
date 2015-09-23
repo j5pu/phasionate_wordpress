@@ -504,10 +504,10 @@ function losmasvotadossidebar(){
 			'numberposts' => 4,
 			'orderby' => 'meta_value',
 			'order' => 'DESC',
-			'meta_key' => '_item_likes',
+			'meta_key' => 'ratings_average',
 			'post_type' => 'post',
 			'post_status' => 'publish',			
-			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 months ago') // Muestra los post más leidos solo del último mes.	
+			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 months ago') // Muestra los post más votados solo del último mes.	
 		);	
 	$likes_posts = get_posts($likes_posts_args);
 		foreach( $likes_posts as $likes_post ) {
