@@ -504,10 +504,10 @@ function losmasvotadossidebar(){
 			'numberposts' => 4,
 			'orderby' => 'meta_value',
 			'order' => 'DESC',
-			'meta_key' => 'ratings_average',
+			'meta_key' => '_item_likes',
 			'post_type' => 'post',
 			'post_status' => 'publish',			
-			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 months ago') // Muestra los post más votados solo del último mes.	
+			'date_query' => array('column' => 'post_date_gmt', 'after' => '3 months ago') // Muestra los post más leidos solo del último mes.	
 		);	
 	$likes_posts = get_posts($likes_posts_args);
 		foreach( $likes_posts as $likes_post ) {
@@ -521,11 +521,11 @@ function losmasvotadossidebar(){
 			$link = get_permalink($likes_post->ID);
 			$title = get_the_title($likes_post->ID);		
 			$classTitle = "lessFontSize";
-			echo '<a style="width: 100px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
+			echo '<a style="vertical-align: middle; display: table-cell;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
 			echo '</div>';
-			echo '</br>';
 			wp_reset_query();
 		}
+
 }
 add_shortcode( 'MasVotadosSidebar', 'losmasvotadossidebar' );
 
