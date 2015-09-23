@@ -236,24 +236,6 @@ class WPSEO_OpenGraph {
 		 */
 		$title = trim( apply_filters( 'wpseo_opengraph_title', $title ) );
 
-		$category = get_the_category(); 
-		$cat_name = $cats[0]->name;
-		foreach ($category as $struct ) {
-			if ( $struct->cat_name == 'Streetstyle'){
-				$cat_name = $struct->cat_name;
-			}
-		}
-		if ($cat_name == 'Streetstyle'){
-			if (isset($_GET['nm_st'])){
-				$name = $_GET['nm_st'];
-				$name = str_replace("_"," ",$name);
-				$this->og_tag( 'og:title', $name.' en '.$title );
-			}else{
-				$this->og_tag( 'og:title', $title );
-			}
-			return true;
-		}
-
 		if ( is_string( $title ) && $title !== '' ) {
 			if ( $echo !== false ) {
 				$this->og_tag( 'og:title', $title );
@@ -282,26 +264,6 @@ class WPSEO_OpenGraph {
 		 * @api string $unsigned Canonical URL
 		 */
 		$url = apply_filters( 'wpseo_opengraph_url', WPSEO_Frontend::get_instance()->canonical( false ) );
-
-		$category = get_the_category(); 
-		$cat_name = $cats[0]->name;
-		foreach ($category as $struct ) {
-			if ( $struct->cat_name == 'Streetstyle'){
-				$cat_name = $struct->cat_name;
-			}
-		}
-		if ($cat_name == 'Streetstyle'){
-			if (isset($_GET['ph'])){
-				$img = $_GET['ph'];
-				$nm_st = $_GET['nm_st'];
-				$final_url = $url.'?ph='.$img.'&nm_st='.$nm_st;
-				$this->og_tag( 'og:url', esc_url( $final_url ) );
-				return true;
-			}else{
-				$this->og_tag( 'og:url', esc_url( $url ) );
-				return true;
-			}
-		}
 
 		if ( is_string( $url ) && $url !== '' ) {
 			$this->og_tag( 'og:url', esc_url( $url ) );
@@ -518,24 +480,6 @@ class WPSEO_OpenGraph {
 	 */
 	public function image( $image = false ) {
 		$opengraph_images = new WPSEO_OpenGraph_Image( $this->options, $image );
-
-		$category = get_the_category(); 
-		$cat_name = $cats[0]->name;
-		foreach ($category as $struct ) {
-			if ( $struct->cat_name == 'Streetstyle'){
-				$cat_name = $struct->cat_name;
-			}
-		}
-		if ($cat_name == 'Streetstyle'){
-			if (isset($_GET['ph'])){
-				$img_ruta = $_GET['ph'];
-				$img = get_site_url().'/wp-content/uploads/'.utf8_decode($img_ruta);
-				$this->og_tag( 'og:image:width', 200 );
-				$this->og_tag( 'og:image:height', 200 );
-				$this->og_tag( 'og:image', esc_url( $img ) );
-				return true;
-			}
-		}
 
 		foreach ( $opengraph_images->get_images() as $img ) {
 			$this->og_tag( 'og:image', esc_url( $img ) );
