@@ -597,7 +597,7 @@ var kleoPage = {
 	},
     refreshContentTabs: function(el) {
         //carousels
-        $('.kleo-carousel').trigger('updateSizes');
+        $('.kleo-carousel, .kleo-banner-items').trigger('updateSizes');
         //masonry
         kleoIsotope.init();
         //google maps
@@ -1910,7 +1910,7 @@ var kleoHeader = {
 		
 		// Activate Hover menu
 		if (kleoIsotope.viewport().width > 992) {
-			$('#header .js-activated').dropdownHover().dropdown();
+			$('#header .js-activated').dropdownHover({delay: 100}).dropdown();
 		}
 		$('.js-activated').off('click');
 		
@@ -2270,24 +2270,23 @@ var kleoHeader = {
 	},
   
 	dropdownToggle: function() {
-		
+
 		$(".navbar").on("mouseenter", ".kleo-toggle-menu", function() {
-			clearTimeout($(this).data('timeout'));
+            clearTimeout($(this).data('timeout'));
+            $('.kleo-toggle-submenu').fadeOut(50);
+
 			$(this).find('.kleo-toggle-submenu').fadeIn(50);
-			//$(this).addClass('active');
+
 		});
 		$(".navbar").on("mouseleave", ".kleo-toggle-menu", function() {
-        var $this = $(this);
-				var t = setTimeout(function() {
-					$this.find('.kleo-toggle-submenu').fadeOut(50);
-					//$(this).removeClass('active');
-				}, 400);
-				$(this).data('timeout', t);
+            var $this = $(this);
+            var t = setTimeout(function() {
+                $this.find('.kleo-toggle-submenu').fadeOut(50);
+            }, 400);
+            $(this).attr('data-timeout', t);
 		});
 		
 	}
-	
-	
 };
 
 

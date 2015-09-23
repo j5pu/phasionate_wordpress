@@ -1,5 +1,5 @@
 <?php
-define( 'KLEO_THEME_VERSION', '3.0.8' );
+define( 'KLEO_THEME_VERSION', '3.0.9' );
 
 /* Configuration array */
 global $kleo_config;
@@ -87,7 +87,7 @@ $theme_args = array(
 				'slug'			=> 'js_composer', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/js_composer.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '4.7', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '4.7.1.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -97,7 +97,7 @@ $theme_args = array(
 				'slug'			=> 'revslider', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/revslider.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '5.0.8', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '5.0.8.5', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL

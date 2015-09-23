@@ -62,9 +62,7 @@ foreach ($F->fields as $f)
 	$alt = ($j++ % 2)? 'alt': '';
 	$class = "editfield field_$f->id field_$name $alt";
 
-	if ($f->display != 'range') {
-		$class .= ' form-group';
-	}
+	$class .= ' form-group';
 
 	echo "<div class='$class'>\n";
 
