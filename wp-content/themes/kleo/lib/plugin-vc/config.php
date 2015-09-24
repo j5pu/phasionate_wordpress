@@ -38,3 +38,19 @@ if ( ! function_exists( 'vc_stringify_attributes' ) ) {
         return implode(' ', $atts);
     }
 }
+
+if (! function_exists('vc_map_get_attributes')) {
+    /**
+     * @param $tag - shortcode tag
+     * @param $atts - shortcode attributes
+     *
+     * @return array - return merged values with provided attributes ( 'a'=>1,'b'=>2 + 'b'=>3,'c'=>4 == 'a'=>1,'b'=>3 )
+     *
+     * @see vc_shortcode_attribute_parse - return union of provided attributes ( 'a'=>1,'b'=>2 + 'b'=>3,'c'=>4 == 'a'=>1,
+     *     'b'=>3, 'c'=>4 )
+     */
+    function vc_map_get_attributes( $tag, $atts = array() ) {
+        return shortcode_atts( vc_map_get_defaults( $tag ), $atts, $tag );
+    }
+
+}

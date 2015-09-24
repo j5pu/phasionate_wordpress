@@ -575,6 +575,8 @@ class WC_Shortcodes {
 			'meta_query'          => WC()->query->get_meta_query()
 		);
 
+		ob_start();
+
 		add_filter( 'posts_clauses', array( __CLASS__, 'order_by_rating_post_clauses' ) );
 
 		$return = self::product_loop( $query_args, $atts, 'top_rated_products' );
@@ -779,7 +781,7 @@ class WC_Shortcodes {
 	 */
 	public static function related_products( $atts ) {
 		$atts = shortcode_atts( array(
-			'per_page' => '4',
+			'posts_per_page' => '4',
 			'columns'        => '4',
 			'orderby'        => 'rand'
 		), $atts );

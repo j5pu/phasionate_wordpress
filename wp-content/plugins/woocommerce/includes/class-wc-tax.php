@@ -239,11 +239,9 @@ class WC_Tax {
 		$rates          = self::find_rates( $args );
 		$shipping_rates = array();
 
-		if ( is_array( $rates ) ) {
-			foreach ( $rates as $key => $rate ) {
-				if ( 'yes' === $rate['shipping'] ) {
-					$shipping_rates[ $key ] = $rate;
-				}
+		foreach ( $rates as $key => $rate ) {
+			if ( 'yes' === $rate['shipping'] ) {
+				$shipping_rates[ $key ] = $rate;
 			}
 		}
 

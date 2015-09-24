@@ -43,7 +43,7 @@ if (!class_exists("Pixelentity_Themes_Updater")) {
 			}
 
 			foreach ($purchased as $theme) {
-				if (isset($filtered[$theme->theme_name])) {
+				if (isset($theme->theme_name) && isset($filtered[$theme->theme_name])) {
 					// gotcha, compare version now
 					$current = $filtered[$theme->theme_name];
 					if (version_compare($current->Version, $theme->version, '<')) {

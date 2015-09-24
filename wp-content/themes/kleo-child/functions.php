@@ -425,7 +425,8 @@ function losmasvotados(){
 			'order' => 'DESC',
 			'meta_key' => '_item_likes',
 			'post_type' => 'post',
-			'post_status' => 'publish'			
+			'post_status' => 'publish'
+			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 month ago') // Muestra los post más leidos solo del último mes.			
 		);	
 	$likes_posts = get_posts($likes_posts_args);
 		foreach( $likes_posts as $likes_post ) {

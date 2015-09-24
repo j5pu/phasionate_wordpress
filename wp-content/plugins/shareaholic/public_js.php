@@ -38,7 +38,11 @@ class ShareaholicPublicJS {
     $output = '';
 
     if (ShareaholicUtilities::get_env() === 'staging') {
-      $output = "data-shr-environment='stage' data-shr-assetbase='//cdn-staging-shareaholic.s3.amazonaws.com/v2/'";
+      $output = <<< DOC
+        shr.setAttribute('data-shr-environment', 'stage');
+        shr.setAttribute('data-shr-assetbase', '//cdn-staging-shareaholic.s3.amazonaws.com/v2/');
+        shr.src = '//cdn-staging-shareaholic.s3.amazonaws.com/assets/pub/shareaholic.js';
+DOC;
     }
 
     return $output;

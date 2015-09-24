@@ -694,9 +694,8 @@ class WC_AJAX {
 
 				} elseif ( isset( $attribute_values[ $i ] ) ) {
 
-					// Text based, possibly separated by pipes (WC_DELIMITER). Preserve line breaks in non-variation attributes.
-					$values = $is_variation ? wc_clean( $attribute_values[ $i ] ) : implode( "\n", array_map( 'wc_clean', explode( "\n", $attribute_values[ $i ] ) ) );
-					$values = implode( ' ' . WC_DELIMITER . ' ', wc_get_text_attributes( $values ) );
+					// Text based, separate by pipe
+					$values = implode( ' ' . WC_DELIMITER . ' ', array_map( 'wc_clean', explode( WC_DELIMITER, wp_unslash( $attribute_values[ $i ] ) ) ) );
 
 					// Custom attribute - Add attribute to array and set the values
 					$attributes[ sanitize_title( $attribute_names[ $i ] ) ] = array(
@@ -806,7 +805,6 @@ class WC_AJAX {
 			$variation_data['image']          = $variation_data['_thumbnail_id'] ? wp_get_attachment_thumb_url( $variation_data['_thumbnail_id'] ) : '';
 			$variation_data['shipping_class'] = $shipping_classes && ! is_wp_error( $shipping_classes ) ? current( $shipping_classes )->term_id : '';
 			$variation_data['menu_order']     = $variation->menu_order;
-			$variation_data['_stock']         = wc_stock_amount( $variation_data['_stock'] );
 
 			// Get tax classes
 			$tax_classes           = WC_Tax::get_tax_classes();
@@ -2369,7 +2367,7 @@ class WC_AJAX {
 			}
 
 			$key_id      = absint( $_POST['key_id'] );
-			$description = sanitize_text_field( wp_unslash( $_POST['description'] ) );
+			$description = sanitize_text_field( $_POST['description'] );
 			$permissions = ( in_array( $_POST['permissions'], array( 'read', 'write', 'read_write' ) ) ) ? sanitize_text_field( $_POST['permissions'] ) : 'read';
 			$user_id     = absint( $_POST['user'] );
 
@@ -2716,7 +2714,7 @@ class WC_AJAX {
 	 * @param  array $data
 	 */
 	private static function variation_bulk_action_variable_regular_price( $variations, $data ) {
-		if ( ! isset( $data['value'] ) ) {
+		if ( empty( $data['value'] ) ) {
 			return;
 		}
 
@@ -2742,7 +2740,7 @@ class WC_AJAX {
 	 * @param  array $data
 	 */
 	private static function variation_bulk_action_variable_sale_price( $variations, $data ) {
-		if ( ! isset( $data['value'] ) ) {
+		if ( empty( $data['value'] ) ) {
 			return;
 		}
 

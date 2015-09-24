@@ -354,6 +354,9 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .rtmedia-activity-container .rtmedia-editor-main dl.tabs dd > a,
 .<?php echo $name; ?>-color #buddypress div.rtmedia-activity-container .rtmedia-editor-main dl.tabs dd > a,
 
+/* WPML */
+.<?php echo $name; ?>-color .submenu-languages,
+
 /* WooCommerce */
 .<?php echo $name; ?>-color .kleo-toggle-menu .kleo-toggle-submenu,
     .<?php echo $name; ?>-color .kleo-toggle-menu .minicart-buttons .btn-default,
