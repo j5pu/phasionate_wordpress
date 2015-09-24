@@ -45,17 +45,13 @@ class WC_Cache_Helper {
 	 * This prevents caching of the wrong data for this request.
 	 */
 	public static function geolocation_ajax_redirect() {
-		if ( 'geolocation_ajax' === get_option( 'woocommerce_default_customer_address' ) && ! is_checkout() && ! is_cart() && ! is_account_page() && ! is_ajax() && empty( $_POST ) ) {
+		if ( 'geolocation_ajax' === get_option( 'woocommerce_default_customer_address' ) && ! is_checkout() && ! is_ajax() ) {
 			$location_hash = self::geolocation_ajax_get_location_hash();
 			$current_hash  = isset( $_GET['v'] ) ? wc_clean( $_GET['v'] ) : '';
 			if ( empty( $current_hash ) || $current_hash !== $location_hash ) {
 				global $wp;
 
 				$redirect_url = trailingslashit( home_url( $wp->request ) );
-
-				if ( ! empty( $_SERVER['QUERY_STRING'] ) ) {
-					$redirect_url = add_query_arg( $_SERVER['QUERY_STRING'], '', $redirect_url );
-				}
 
 				if ( ! get_option( 'permalink_structure' ) ) {
 					$redirect_url = add_query_arg( $wp->query_string, '', $redirect_url );
@@ -151,7 +147,7 @@ class WC_Cache_Helper {
 			self::nocache();
 		} elseif ( is_array( $wc_page_uris ) ) {
 			foreach( $wc_page_uris as $uri ) {
-				if ( stristr( $_SERVER['REQUEST_URI'], $uri ) ) {
+				if ( strstr( $_SERVER['REQUEST_URI'], $uri ) ) {
 					self::nocache();
 					break;
 				}

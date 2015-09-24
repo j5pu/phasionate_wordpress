@@ -62,7 +62,7 @@ if ( $customer_orders ) : ?>
 						<?php
 							$actions = array();
 
-							if ( $order->needs_payment() ) {
+							if ( in_array( $order->get_status(), apply_filters( 'woocommerce_valid_order_statuses_for_payment', array( 'pending', 'failed' ), $order ) ) ) {
 								$actions['pay'] = array(
 									'url'  => $order->get_checkout_payment_url(),
 									'name' => __( 'Pay', 'woocommerce' )

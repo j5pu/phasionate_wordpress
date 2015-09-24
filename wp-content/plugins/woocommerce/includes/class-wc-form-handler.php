@@ -168,30 +168,19 @@ class WC_Form_Handler {
 
 		$user->first_name   = $account_first_name;
 		$user->last_name    = $account_last_name;
+		$user->user_email   = $account_email;
 
 		// Prevent emails being displayed, or leave alone.
 		$user->display_name = is_email( $current_user->display_name ) ? $user->first_name : $current_user->display_name;
 
-		// Handle required fields
-		$required_fields = apply_filters( 'woocommerce_save_account_details_required_fields', array(
-			'account_first_name' => __( 'First Name', 'woocommerce' ),
-			'account_last_name'  => __( 'Last Name', 'woocommerce' ),
-			'account_email'      => __( 'Email address', 'woocommerce' ),
-		) );
-
-		foreach ( $required_fields as $field_key => $field_name ) {
-			if ( empty( $_POST[ $field_key ] ) ) {
-				wc_add_notice( '<strong>' . esc_html( $field_name ) . '</strong> ' . __( 'is a required field.', 'woocommerce' ), 'error' );
-			}
+		if ( empty( $account_first_name ) || empty( $account_last_name ) ) {
+			wc_add_notice( __( 'Please enter your name.', 'woocommerce' ), 'error' );
 		}
 
-		if ( $account_email ) {
-			if ( ! is_email( $account_email ) ) {
-				wc_add_notice( __( 'Please provide a valid email address.', 'woocommerce' ), 'error' );
-			} elseif ( email_exists( $account_email ) && $account_email !== $current_user->user_email ) {
-				wc_add_notice( __( 'This email address is already registered.', 'woocommerce' ), 'error' );
-			}
-			$user->user_email = $account_email;
+		if ( empty( $account_email ) || ! is_email( $account_email ) ) {
+			wc_add_notice( __( 'Please provide a valid email address.', 'woocommerce' ), 'error' );
+		} elseif ( email_exists( $account_email ) && $account_email !== $current_user->user_email ) {
+			wc_add_notice( __( 'This email address is already registered.', 'woocommerce' ), 'error' );
 		}
 
 		if ( ! empty( $pass1 ) && ! wp_check_password( $pass_cur, $current_user->user_pass, $current_user->ID ) ) {
@@ -201,15 +190,19 @@ class WC_Form_Handler {
 
 		if ( ! empty( $pass_cur ) && empty( $pass1 ) && empty( $pass2 ) ) {
 			wc_add_notice( __( 'Please fill out all password fields.', 'woocommerce' ), 'error' );
+
 			$save_pass = false;
 		} elseif ( ! empty( $pass1 ) && empty( $pass_cur ) ) {
 			wc_add_notice( __( 'Please enter your current password.', 'woocommerce' ), 'error' );
+
 			$save_pass = false;
 		} elseif ( ! empty( $pass1 ) && empty( $pass2 ) ) {
 			wc_add_notice( __( 'Please re-enter your password.', 'woocommerce' ), 'error' );
+
 			$save_pass = false;
 		} elseif ( ( ! empty( $pass1 ) || ! empty( $pass2 ) ) && $pass1 !== $pass2 ) {
 			wc_add_notice( __( 'New passwords do not match.', 'woocommerce' ), 'error' );
+
 			$save_pass = false;
 		}
 
@@ -273,7 +266,9 @@ class WC_Form_Handler {
 			$order_id   = absint( $wp->query_vars['order-pay'] );
 			$order      = wc_get_order( $order_id );
 
-			if ( $order->id == $order_id && $order->order_key == $order_key && $order->needs_payment() ) {
+			$valid_order_statuses = apply_filters( 'woocommerce_valid_order_statuses_for_payment', array( 'pending', 'failed' ), $order );
+
+			if ( $order->id == $order_id && $order->order_key == $order_key && $order->has_status( $valid_order_statuses ) ) {
 
 				// Set customer location to order location
 				if ( $order->billing_country ) {
@@ -389,16 +384,9 @@ class WC_Form_Handler {
 				WC()->cart->remove_cart_item( $cart_item_key );
 
 				$product = wc_get_product( $cart_item['product_id'] );
+				$undo    = WC()->cart->get_undo_url( $cart_item_key );
 
-				$item_removed_title = apply_filters( 'woocommerce_cart_item_removed_title', $product ? $product->get_title() : __( 'Item', 'woocommerce' ), $cart_item );
-
-				// Don't show undo link if removed item is out of stock.
-				if ( $product->is_in_stock() && $product->has_enough_stock( $cart_item['quantity'] ) ) {
-					$undo = WC()->cart->get_undo_url( $cart_item_key );
-					wc_add_notice( sprintf( __( '%s removed. %sUndo?%s', 'woocommerce' ), $item_removed_title, '<a href="' . esc_url( $undo ) . '">', '</a>' ) );
-				} else {
-					wc_add_notice( sprintf( __( '%s removed.', 'woocommerce' ), $item_removed_title ) );
-				}
+				wc_add_notice( sprintf( __( '%s removed. %sUndo?%s', 'woocommerce' ), apply_filters( 'woocommerce_cart_item_removed_title', $product ? $product->get_title() : __( 'Item', 'woocommerce' ), $cart_item ), '<a href="' . esc_url( $undo ) . '">', '</a>' ) );
 			}
 
 			$referer  = wp_get_referer() ? remove_query_arg( array( 'remove_item', 'add-to-cart', 'added-to-cart' ), add_query_arg( 'removed_item', '1', wp_get_referer() ) ) : WC()->cart->get_cart_url();

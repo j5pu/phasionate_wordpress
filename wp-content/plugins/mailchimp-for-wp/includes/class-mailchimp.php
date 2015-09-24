@@ -58,13 +58,10 @@ class MC4WP_MailChimp {
 						'interest_groupings' => array()
 					);
 
-					// only get interest groupings if list has some
-					if( $list->stats->grouping_count > 0 ) {
-						// get interest groupings
-						$groupings_data = $api->get_list_groupings( $list->id );
-						if ( $groupings_data ) {
-							$lists["{$list->id}"]->interest_groupings = array_map( array( $this, 'strip_unnecessary_grouping_properties' ), $groupings_data );
-						}
+					// get interest groupings
+					$groupings_data = $api->get_list_groupings( $list->id );
+					if ( $groupings_data ) {
+						$lists["{$list->id}"]->interest_groupings = array_map( array( $this, 'strip_unnecessary_grouping_properties' ), $groupings_data );
 					}
 
 				}

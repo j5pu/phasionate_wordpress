@@ -289,14 +289,12 @@ class WC_Settings_Products extends WC_Settings_Page {
 				),
 
 				array(
-					'title'    => __( 'Notification Recipient(s)', 'woocommerce' ),
-					'desc'     => __( 'Enter recipients (comma separated) that will recieve this notification.', 'woocommerce' ),
+					'title'    => __( 'Notification Recipient', 'woocommerce' ),
+					'desc'     => '',
 					'id'       => 'woocommerce_stock_email_recipient',
-					'type'     => 'text',
+					'type'     => 'email',
 					'default'  => get_option( 'admin_email' ),
-					'css'      => 'width: 250px;',
-					'autoload' => false,
-					'desc_tip' => true
+					'autoload' => false
 				),
 
 				array(

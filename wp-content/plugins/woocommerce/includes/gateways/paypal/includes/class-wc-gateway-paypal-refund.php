@@ -64,8 +64,6 @@ class WC_Gateway_Paypal_Refund {
 			)
 		);
 
-		WC_Gateway_Paypal::log( 'Refund Response: ' . print_r( $response, true ) );
-
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
