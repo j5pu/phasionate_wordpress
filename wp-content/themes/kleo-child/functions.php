@@ -345,9 +345,9 @@ function posts_home(){
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>';
 		}
-		if($c==7){
-			echo '<a style="text-align: center; display: block; margin: 10px 10px 10px 0px; clear: both;" href="https://www.bogadia.com/sorteos/concurso-de-disenadoras/"><img src="https://www.bogadia.com/wp-content/uploads/tienda/banner-sorteo-tienda.jpg" alt="Sorteo de bolso - Tienda Bogadia"/></a>';
-		}
+		//if($c==7){
+		//	echo '<a style="text-align: center; display: block; margin: 10px 10px 10px 0px; clear: both;" href="https://www.bogadia.com/sorteos/concurso-de-disenadoras/"><img src="https://www.bogadia.com/wp-content/uploads/tienda/banner-sorteo-tienda.jpg" alt="Sorteo de bolso - Tienda Bogadia"/></a>';
+		//}
 	/*
 		//Seccion tracdelight
 		if($c==6){
