@@ -630,7 +630,7 @@ function populares_Categoria_Sidebar( $atts ){
 			'meta_key' => 'views',
 			'post_type' => 'post',
 			'post_status' => 'publish', 
-			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 month ago'), // Muestra los post más leidos solo del último mes.	
+			'date_query' => array('column' => 'post_date_gmt', 'after' => '3 month ago'), // Muestra los post más leidos solo del último mes.	
 			'cat' => $id_cat			
 		);	
 	?>
