@@ -598,12 +598,13 @@ function relatedpostsidebar(){
 					$count_output = " <span class='item-likes-count'>($count)</span>";
 				}			
 				$category = get_the_category($related_post->ID);
-				echo '<div class="portada_posts" style="display: table;">';
+				echo '<div class="portada_posts" style="display: table-row;">';
 				$link = get_permalink($related_post->ID);
 				$title = get_the_title($related_post->ID);		
 				$classTitle = "lessFontSize";
-				echo '<a style="vertical-align: middle; display: table-cell;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $related_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
+				echo '<a style="width: 100px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $related_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
 				echo '</div>';
+				echo '</br>';
 				wp_reset_query();
 			}
 		}
