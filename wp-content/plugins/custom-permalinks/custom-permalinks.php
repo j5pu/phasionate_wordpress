@@ -4,12 +4,13 @@ Plugin Name: Custom Permalinks
 Plugin URI: http://atastypixel.com/blog/wordpress/plugins/custom-permalinks/
 Donate link: http://atastypixel.com/blog/wordpress/plugins/custom-permalinks/
 Description: Set custom permalinks on a per-post basis
-Version: 0.7.20
+Version: 0.7.21
 Author: Michael Tyson
 Author URI: http://atastypixel.com/blog
+Text Domain: custom-permalinks
 */
 
-/*  Copyright 2008 Michael Tyson <mike@tyson.id.au>
+/*  Copyright 2008-2015 Michael Tyson <michael@atastypixel.com>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -301,7 +302,7 @@ function custom_permalink_get_sample_permalink_html($html, $id, $new_title, $new
   ob_end_clean();
     
     if ( 'publish' == $post->post_status ) {
-        $view_post = 'page' == $post->post_type ? __('View Page') : __('View Post');
+        $view_post = 'page' == $post->post_type ? __('View Page', 'custom-permalinks') : __('View Post', 'custom-permalinks');
   }
   
   if ( preg_match("@view-post-btn.*?href='([^']+)'@s", $html, $matches) ) {
@@ -313,7 +314,7 @@ function custom_permalink_get_sample_permalink_html($html, $id, $new_title, $new
         }
     }
 
-  return '<strong>' . __('Permalink:') . "</strong>\n" . $content .
+  return '<strong>' . __('Permalink:', 'custom-permalinks') . "</strong>\n" . $content .
        ( isset($view_post) ? "<span id='view-post-btn'><a href='$permalink' class='button button-small' target='_blank'>$view_post</a></span>\n" : "" );
 }
 
@@ -335,7 +336,7 @@ function custom_permalinks_post_options() {
   
   ?>
   <div class="postbox closed">
-  <h3><?php _e('Custom Permalink', 'custom-permalink') ?></h3>
+  <h3><?php _e('Custom Permalink', 'custom-permalinks') ?></h3>
   <div class="inside">
   <?php custom_permalinks_form($permalink, custom_permalinks_original_post_link($post_id)); ?>
   </div>
@@ -361,7 +362,7 @@ function custom_permalinks_page_options() {
   
   ?>
   <div class="postbox closed">
-  <h3><?php _e('Custom Permalink', 'custom-permalink') ?></h3>
+  <h3><?php _e('Custom Permalink', 'custom-permalinks') ?></h3>
   <div class="inside">
   <?php custom_permalinks_form($permalink, custom_permalinks_original_page_link($post_id)); ?>
   </div>
@@ -413,7 +414,7 @@ function custom_permalinks_form($permalink, $original="", $renderContainers=true
   <?php if ( $renderContainers ) : ?>
   <table class="form-table" id="custom_permalink_form">
   <tr>
-    <th scope="row"><?php _e('Custom Permalink', 'custom-permalink') ?></th>
+    <th scope="row"><?php _e('Custom Permalink', 'custom-permalinks') ?></th>
     <td>
   <?php endif; ?>
       <?php echo home_url() ?>/
@@ -425,7 +426,7 @@ function custom_permalinks_form($permalink, $original="", $renderContainers=true
       </span>
   <?php if ( $renderContainers ) : ?>
       <br />
-      <small><?php _e('Leave blank to disable', 'custom-permalink') ?></small>
+      <small><?php _e('Leave blank to disable', 'custom-permalinks') ?></small>
       
     </td>
   </tr>
@@ -607,7 +608,7 @@ function custom_permalinks_options_page() {
     <th scope="row" class="check-column"><input type="checkbox" name="revert[]" value="<?php echo $row['id'] ?>" /></th>
     <td><strong><a class="row-title" href="<?php echo htmlspecialchars($row['editlink']) ?>"><?php echo htmlspecialchars($row['title']) ?></a></strong></td>
     <td><?php echo htmlspecialchars($row['type']) ?></td>
-    <td><a href="<?php echo $row['permalink'] ?>" target="_blank" title="Visit <?php echo htmlspecialchars($row['title']) ?>">
+    <td><a href="<?php echo $row['permalink'] ?>" target="_blank" title="<?php printf(__('Visit %s', 'custom-permalinks'), htmlspecialchars($row['title'])) ?>">
       <?php echo htmlspecialchars(urldecode($row['permalink'])) ?>
       </a>
     </td>
