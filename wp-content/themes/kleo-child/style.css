@@ -5759,15 +5759,3 @@ li.product figcaption .shop-actions > a.button:hover{
     color: #444444 !important;
     text-transform: none !important;
 }
-/*PPL Reebok*/
-.display-reebok-mobile {
-	display: none;		
-}	
-@media (max-width: 640px) {
-	.display-reebok-desktop {
-		display: none;
-	}
-	.display-reebok-mobile {
-		display: block;		
-	}	
-}
