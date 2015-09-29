@@ -503,7 +503,7 @@ function losmasvotadossidebar(){
 			'numberposts' => 4,
 			'orderby' => 'meta_value',
 			'order' => 'DESC',
-			'meta_key' => '_item_likes',
+			'meta_key' => 'ratings_average',
 			'post_type' => 'post',
 			'post_status' => 'publish',			
 			'date_query' => array('column' => 'post_date_gmt', 'after' => '3 months ago') // Muestra los post más leidos solo del último mes.	
@@ -512,7 +512,7 @@ function losmasvotadossidebar(){
 		foreach( $likes_posts as $likes_post ) {
 			$count_output = '';
 			if( $display_count ) {
-				$count = get_post_meta( $likes_post->ID, '_item_likes', true);
+				$count = get_post_meta( $likes_post->ID, 'ratings_average', true);
 				$count_output = " <span class='item-likes-count'>($count)</span>";
 			}			
 			$category = get_the_category($likes_post->ID);
@@ -520,7 +520,7 @@ function losmasvotadossidebar(){
 			$link = get_permalink($likes_post->ID);
 			$title = get_the_title($likes_post->ID);		
 			$classTitle = "lessFontSize";
-			echo '<a style="vertical-align: middle; display: table-cell;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
+			echo '<a style="vertical-align: middle; display: table-cell;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
 			echo '</div>';
 			wp_reset_query();
 		}
@@ -549,7 +549,7 @@ function losultimossidebar(){
 		foreach( $lasts_posts as $last_post ) {
 			$count_output = '';
 			if( $display_count ) {
-				$count = get_post_meta( $last_post->ID, '_item_likes', true);
+				$count = get_post_meta( $last_post->ID, 'ratings_average', true);
 				$count_output = " <span class='item-likes-count'>($count)</span>";
 			}			
 			$category = get_the_category($last_post->ID);
@@ -557,7 +557,7 @@ function losultimossidebar(){
 			$link = get_permalink($last_post->ID);
 			$title = get_the_title($last_post->ID);		
 			$classTitle = "lessFontSize";
-			echo '<a style="vertical-align: middle; display: table-cell; width: 100px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
+			echo '<a style="vertical-align: middle; display: table-cell; width: 100px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
 			echo '</div>';
 			wp_reset_query();
 		}
