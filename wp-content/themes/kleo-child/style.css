@@ -5759,3 +5759,189 @@ li.product figcaption .shop-actions > a.button:hover{
     color: #444444 !important;
     text-transform: none !important;
 }
+
+.bogaregistro_imagen{
+	/*        position: absolute;
+            top: 0%;
+            left: 0%;*/
+	z-index: -100;
+	max-width: none;
+}
+
+.bogaform{
+	background: rgb(255, 255, 255); /* Fall-back for browsers that don't                      support rgba */
+	background: rgba(255, 255, 255, 0.8);
+	padding: 10px;
+	-webkit-box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
+	box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
+}
+
+#image_wrapper{
+	overflow:hidden;
+}
+
+.bogaregistro{
+	position: absolute;
+}
+
+#bogaregistro_texto{
+	color: white;
+	margin: 40px 25%;
+}
+
+#bogaregistro_text_main{
+	text-shadow: 1px 1px black;
+}
+
+.bogaregistro_marco{
+	position: relative;
+	overflow:hidden;
+}
+
+/*.bogaregistro_imagen{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    z-index: -100;
+}*/
+
+.kleo-facebook-connect{
+	margin-top: 30px;
+	margin-bottom: -10px;
+}
+
+body.registration #signup_submit {
+	margin-right: 15px;
+	margin-bottom: 15px;
+	width: 100%;
+	height: 100%;
+	background-color: darkseagreen;
+}
+
+
+@media screen and (max-width: 711px) {
+	.bogaregistro_marco{
+		height: 1150px;
+	}
+
+	/*    #bogaregistro_texto {
+            position: absolute;
+        }*/
+
+	.bogaregistro {
+		top: 0%;
+		left: 8%;
+	}
+
+	#bogaregistro_texto{
+		color: white;
+		margin: 0 25% 150px;
+	}
+
+	#bogaregistro_text_main{
+		text-shadow: 1px 1px black;
+		font-size: 42px !important;
+	}
+	.bogaform{
+		background: rgba(255, 255, 255, 0.75);
+	}
+	.bogaregistro_imagen{
+		width: 1400px;
+
+		top: -5%;
+		position: absolute;
+	}
+}
+
+
+@media screen and (max-width: 499px){
+	.bogaregistro_imagen{
+		left: -39%;
+	}
+}
+@media screen and (min-width: 500px) and (max-width: 710px){
+	.bogaregistro_imagen{
+		left: -5%;
+	}
+}
+@media screen and (min-width: 711px) and (max-width: 990px){
+	.bogaregistro_imagen{
+		width: 1100px !important;
+	}
+	.bogaregistro_marco{
+		height: 1030px;
+	}
+	#bogaregistro_texto {
+		margin: 40px 3% !important;
+	}
+}
+@media screen and (min-width: 991px) and (max-width: 1200px){
+	.bogaregistro_imagen{
+		width: 1200px !important;
+	}
+	.bogaregistro_marco{
+		height: 1030px;
+	}
+	#bogaregistro_texto {
+		margin: 40px 16% !important;
+	}
+}
+
+@media screen and (min-width: 1201px) and (max-width: 1400px){
+	.bogaregistro_imagen{
+		width: 1400px !important;
+	}
+	.bogaregistro_marco{
+		height: 1030px;
+	}
+	#bogaregistro_texto {
+		margin: 40px 19% !important;
+	}
+}
+
+@media screen and (min-width: 1401px) and (max-width: 1700px){
+	.bogaregistro_imagen{
+		width: 1700px !important;
+	}
+	.bogaregistro_marco{
+		height: 1030px;
+	}
+}
+
+@media screen and (min-width: 712px){
+	.bogaregistro {
+		top: 3%;
+		right: 5%;
+	}
+
+	/*
+    #bogaregistro_texto {
+        top: 3%;
+        right: 15%;
+        position: absolute;
+    }
+    */
+	#bogaregistro_texto{
+		margin: 40px 25%;
+	}
+
+	#bogaregistro_text_main{
+		font-size: 100px !important;
+	}
+	.bogaform{
+		background: rgba(255, 255, 255, 0.8);
+	}
+	.bogaregistro_marco{
+		height: 1030px;
+	}
+}
+
+@media screen and (min-width: 1701px){
+	.bogaregistro_imagen{
+		max-width: 100% !important;
+	}
+	.bogaregistro_marco{
+		height: 1030px;
+	}
+}
