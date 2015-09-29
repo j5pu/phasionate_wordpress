@@ -383,7 +383,7 @@ function losmaspoupulares(){
 			'meta_key' => 'views',
 			'post_type' => 'post',
 			'post_status' => 'publish', 
-			'date_query' => array('column' => 'post_date_gmt', 'after' => '3 month ago') // Muestra los post más leidos solo del último mes.
+			'date_query' => array('column' => 'post_date_gmt', 'after' => '2 month ago') // Muestra los post más leidos solo del último mes.
 		);
 		$most_viewed = get_posts($args);
 	//aqui hacemos lo de siempre, y pintamos el Html, según los resultados
@@ -398,7 +398,7 @@ function losmaspoupulares(){
 			echo '<div class="portada_posts">';
 			$link = get_permalink($most_viewed->ID);
 			$title = get_the_title($most_viewed->ID);			
-			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $most_viewed->ID, 'medium' ).'</a>';
+			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $most_viewed->ID, 'thumbnail' ).'</a>';
 			echo '<h5 style="text-transform: uppercase; margin-top: 10px;><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '<div class="pt-cv-content"><small>'.$most_viewed->post_excerpt.'</small></div>';
 			echo '</div>';
@@ -423,7 +423,7 @@ function losmasvotados(){
 			'numberposts' => 4,
 			'orderby' => 'meta_value',
 			'order' => 'DESC',
-			'meta_key' => '_item_likes',
+			'meta_key' => 'ratings_average',
 			'post_type' => 'post',
 			'post_status' => 'publish'			
 		);	
@@ -431,14 +431,14 @@ function losmasvotados(){
 		foreach( $likes_posts as $likes_post ) {
 			$count_output = '';
 			if( $display_count ) {
-				$count = get_post_meta( $likes_post->ID, '_item_likes', true);
+				$count = get_post_meta( $likes_post->ID, 'ratings_average', true);
 				$count_output = " <span class='item-likes-count'>($count)</span>";
 			}			
 			$category = get_the_category($likes_post->ID);
 			echo '<div class="portada_posts">';
 			$link = get_permalink($likes_post->ID);
 			$title = get_the_title($likes_post->ID);			
-			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $likes_post->ID, 'medium' ).'</a>';
+			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'</a>';
 			echo '<div class="hr-title hr-long"><abbr><a href="'.get_category_link($category[0]->term_id ).'">'.$category[0]->cat_name.'</a></div>';
 			echo '<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '<div class="pt-cv-content"><small>'.$likes_post->post_excerpt.'</small></div>';
@@ -469,6 +469,7 @@ function losmaspoupularessidebar(){
 			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 month ago') // Muestra los post más leidos solo del último mes.	
 		);	
 	$likes_posts = get_posts($likes_posts_args);
+		echo '<h4 class="widget-title">Lo más visto</h4>';
 		foreach( $likes_posts as $likes_post ) {
 			$count_output = '';
 			if( $display_count ) {
@@ -480,7 +481,7 @@ function losmaspoupularessidebar(){
 			$link = get_permalink($likes_post->ID);
 			$title = get_the_title($likes_post->ID);			
 			$classTitle = "lessFontSize";
-			echo '<a style="vertical-align: middle; display: table-cell; width: 100px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
+			echo '<a style="vertical-align: middle; display: table-cell; width: 100px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
 			echo '</div>';
 			wp_reset_query();
 		}
@@ -506,9 +507,10 @@ function losmasvotadossidebar(){
 			'meta_key' => 'ratings_average',
 			'post_type' => 'post',
 			'post_status' => 'publish',			
-			'date_query' => array('column' => 'post_date_gmt', 'after' => '3 months ago') // Muestra los post más leidos solo del último mes.	
+			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 months ago') // Muestra los post más leidos solo del último mes.	
 		);	
 	$likes_posts = get_posts($likes_posts_args);
+		echo '<h4 class="widget-title">Más votados</h4>';
 		foreach( $likes_posts as $likes_post ) {
 			$count_output = '';
 			if( $display_count ) {
@@ -546,6 +548,7 @@ function losultimossidebar(){
 			'post_status' => 'publish'				
 		);	
 	$lasts_posts = get_posts($lasts_posts_args);
+		echo '<h4 class="widget-title">Los últimos</h4>';
 		foreach( $lasts_posts as $last_post ) {
 			$count_output = '';
 			if( $display_count ) {
