@@ -43,10 +43,10 @@ if ( have_posts() ) :
 			<div style="max-width: 1024px; min-height: 620px; margin: 0px auto 20px; padding: 20px;">			
 				<div class="part-left">
 					<div class="part-left-text">Suscríbete a nuestra newsletter antes del <span style="color: #c64040; font-size: 22px;">14 de septiembre</span> y entrarás en el <span style="color: #c64040; font-size: 22px;">sorteo</span> de un bolso de la firma <span style="font-size: 22px;">PARFOIS</span>.<br>Así de sencillo. ¿A qué esperas?</div>
-					<img class="bolso-sorteo-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/bolso_parfois-gris.jpg" alt="Bolso Parfois" />
+					<img class="bolso-sorteo-newsletter" src="https://www.bogadia.com/wp-content/uploads/newsletter/sorteo-elizabeth-motita.png" alt="Bolso Parfois" />
 					<a target="_blank" class="bases-legales-sorteo-newsletter" title="Bases legales Concurso Newsletter Bogadia" href="https://www.bogadia.com/wp-content/uploads/pdf/Bases_legales_Concurso_Newsletter.pdf">Bases legales</a>
 				</div>
-				<img class="img-bolso-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/modelo-bolso-gris.jpg" alt="Bolso Parfois" />	
+				<img class="img-bolso-newsletter" src="https://www.bogadia.com/wp-content/uploads/newsletter/sorteo-elizabeth-motita-modelo.png" alt="Bolso Parfois" />	
 				<div class="part-right">
 					<div style="color: #902828; text-align: center; font-family: 'Expletus Sans', cursive; font-size: 28px; border-bottom: 1px solid black; padding-bottom: 20px; margin-bottom: 20px;">NEWSLETTER</div>			
 					<!-- Begin MailChimp Signup Form -->
