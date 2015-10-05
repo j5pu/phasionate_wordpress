@@ -36,13 +36,13 @@ if ( have_posts() ) :
         <?php get_template_part( 'page-parts/posts-social-share' ); ?>
 			<div class="div-newsletter">
 				<div style="max-width: 1024px; margin: 0px auto; padding: 0px 15px;">
-					<h2 class="title-newsletter">¡Suscríbete a nuestra <span style="color: #c64040;">NEWSLETTER</span> y podrás <span class="size-title-newsletter">ganar</span> un bolso <span class="size-title-newsletter">PARFOIS!</span></h2>
+					<h2 class="title-newsletter">¡Suscríbete a nuestra <span style="color: #c64040;">NEWSLETTER</span> y podrás <span class="size-title-newsletter">ganar</span> una crema de <span class="size-title-newsletter">Elizabeth Arden!</span></h2>
 					<img class="arrow-newsletter" src="https://www.bogadia.com/wp-content/uploads/2015/08/arrow.png" alt="flecha" />
 				</div>
 			</div>
 			<div style="max-width: 1024px; min-height: 620px; margin: 0px auto 20px; padding: 20px;">			
 				<div class="part-left">
-					<div class="part-left-text">Suscríbete a nuestra newsletter antes del <span style="color: #c64040; font-size: 22px;">14 de septiembre</span> y entrarás en el <span style="color: #c64040; font-size: 22px;">sorteo</span> de un bolso de la firma <span style="font-size: 22px;">PARFOIS</span>.<br>Así de sencillo. ¿A qué esperas?</div>
+					<div class="part-left-text">Suscríbete a nuestra newsletter antes del <span style="color: #c64040; font-size: 22px;">8 de noviembre</span> y entrarás en el <span style="color: #c64040; font-size: 22px;">sorteo</span> de una crema de <span style="font-size: 22px;">Elizabeth Arden</span>.<br>Así de sencillo. ¿A qué esperas?</div>
 					<img class="bolso-sorteo-newsletter" src="https://www.bogadia.com/wp-content/uploads/newsletter/sorteo-elizabeth-motita.jpg" alt="Bolso Parfois" />
 					<a target="_blank" class="bases-legales-sorteo-newsletter" title="Bases legales Concurso Newsletter Bogadia" href="https://www.bogadia.com/wp-content/uploads/pdf/Bases_legales_Concurso_Newsletter.pdf">Bases legales</a>
 				</div>
