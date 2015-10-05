@@ -398,7 +398,7 @@ function losmaspoupulares(){
 			echo '<div class="portada_posts">';
 			$link = get_permalink($most_viewed->ID);
 			$title = get_the_title($most_viewed->ID);			
-			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $most_viewed->ID, 'thumbnail' ).'</a>';
+			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $most_viewed->ID, 'medium' ).'</a>';
 			echo '<h5 style="text-transform: uppercase; margin-top: 10px;><a href="'.$link.'">'.$title.'</a></h5>';
 			echo '<div class="pt-cv-content"><small>'.$most_viewed->post_excerpt.'</small></div>';
 			echo '</div>';
