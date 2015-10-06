@@ -5755,15 +5755,15 @@ li.product figcaption .shop-actions > a.button:hover{
 	color: #d17b83 !important;
 }
 
+#main .main-color h1 {
+	color: white !important;
+}
+
 /*Personalizar página PPL - LOS 5 LUGARES DONDE ES MÁS PROBABLE CONOCER AL AMOR DE TU VIDA*/
 .page-id-24954 h1, .page-id-25600 h1 {
 	background-color: inherit !important;
     color: #444444 !important;
     text-transform: none !important;
-}
-
-#main .main-color h1 {
-	color: white !important;
 }
 
 .bogaregistro_imagen{
