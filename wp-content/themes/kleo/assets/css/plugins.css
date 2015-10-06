@@ -51,6 +51,7 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 16. Mycred
 17. TS Visual composer extend
 18. BuddyPress Group Email Subscription
+19. Revolution Slider
 */
 
 
@@ -2476,4 +2477,13 @@ ul.multiselect-container {
     .bps-form .btn-group, .bps-form .btn-group button, .bps-form .input-range {
         width: 100%;
     }
+}
+
+
+/* --------------------------------------------------
+	19. Revolution Slider
+----------------------------------------------------- */
+body.offcanvas-left .rev_slider_wrapper.fullscreen-container,
+body.offcanvas-right .rev_slider_wrapper.fullscreen-container {
+	left:0 !important;
 }

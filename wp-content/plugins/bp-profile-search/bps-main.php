@@ -3,14 +3,13 @@
 Plugin Name: BP Profile Search
 Plugin URI: http://www.dontdream.it/bp-profile-search/
 Description: Search your BuddyPress Members Directory.
-Version: 4.3.1
+Version: 4.4
 Author: Andrea Tarantini
 Author URI: http://www.dontdream.it/
-Text Domain: bps
-Domain Path: /languages
+Text Domain: bp-profile-search
 */
 
-define ('BPS_VERSION', '4.3.1');
+define ('BPS_VERSION', '4.4');
 include 'bps-functions.php';
 
 $addons = array ('bps-custom.php');
@@ -23,7 +22,7 @@ foreach ($addons as $addon)
 add_action ('plugins_loaded', 'bps_translate');
 function bps_translate ()
 {
-	load_plugin_textdomain ('bps', false, basename (dirname (__FILE__)). '/languages');
+	load_plugin_textdomain ('bp-profile-search');
 }
 
 add_filter ('bp_get_template_stack', 'bps_template_stack', 20);
@@ -70,7 +69,7 @@ function bps_row_meta ($links, $file)
 {
 	if ($file == plugin_basename (__FILE__))
 	{
-		$settings_link = '<a href="'. admin_url ('edit.php?post_type=bps_form'). '">'. __('Settings', 'buddypress'). '</a>';
+		$settings_link = '<a href="'. admin_url ('edit.php?post_type=bps_form'). '">'. __('Settings'). '</a>';
 		array_unshift ($links, $settings_link);
 	}
 	return $links;
@@ -88,9 +87,9 @@ function bps_meta ($form)
 	$default['field_range'] = array ();
 	$default['directory'] = 'No';
 	$default['template'] = bps_default_template ();
-	$default['header'] = __('<h4>Advanced Search</h4>', 'bps');
+	$default['header'] = __('<h4>Advanced Search</h4>', 'bp-profile-search');
 	$default['toggle'] = 'Enabled';
-	$default['button'] = __('Hide/Show Form', 'bps');
+	$default['button'] = __('Hide/Show Form', 'bp-profile-search');
 	$default['method'] = 'POST';
 	$default['action'] = 0;
 	$default['searchmode'] = 'LIKE';
@@ -108,14 +107,14 @@ function bps_post_type ()
 	(
 		'labels' => array
 		(
-			'name' => __('Profile Search Forms', 'bps'),
-			'singular_name' => __('Profile Search Form', 'bps'),
-			'all_items' => __('Profile Search', 'bps'),
-			'add_new' => __('Add New', 'bps'),
-			'add_new_item' => __('Add New Form', 'bps'),
-			'edit_item' => __('Edit Form', 'bps'),
-			'not_found' => __('No forms found.', 'bps'),
-			'not_found_in_trash' => __('No forms found in Trash.', 'bps'),
+			'name' => __('Profile Search Forms', 'bp-profile-search'),
+			'singular_name' => __('Profile Search Form', 'bp-profile-search'),
+			'all_items' => __('Profile Search', 'bp-profile-search'),
+			'add_new' => __('Add New', 'bp-profile-search'),
+			'add_new_item' => __('Add New Form', 'bp-profile-search'),
+			'edit_item' => __('Edit Form', 'bp-profile-search'),
+			'not_found' => __('No forms found.', 'bp-profile-search'),
+			'not_found_in_trash' => __('No forms found in Trash.', 'bp-profile-search'),
 		),
 		'show_ui' => true,
 		'show_in_menu' => 'users.php',
@@ -158,12 +157,12 @@ function bps_add_columns ($columns)
 	return array
 	(
 		'cb' => '<input type="checkbox" />',
-		'title' => __('Form', 'bps'),
-		'fields' => __('Fields', 'bps'),
-		'action' => __('Directory', 'bps'),
-		'directory' => __('Add to Directory', 'bps'),
-		'widget' => __('Widget', 'bps'),
-		'shortcode' => __('Shortcode', 'bps'),
+		'title' => __('Form', 'bp-profile-search'),
+		'fields' => __('Fields', 'bp-profile-search'),
+		'action' => __('Directory', 'bp-profile-search'),
+		'directory' => __('Add to Directory', 'bp-profile-search'),
+		'widget' => __('Widget', 'bp-profile-search'),
+		'shortcode' => __('Shortcode', 'bp-profile-search'),
 	);
 }
 
@@ -175,8 +174,8 @@ function bps_columns ($column, $post_id)
 
 	$options = bps_meta ($post_id);
 	if ($column == 'fields')  echo count ($options['field_name']);
-	else if ($column == 'action')  echo $options['action']? get_the_title ($options['action']): '<strong style="color:red;">'. __('undefined', 'bps'). '</strong>';
-	else if ($column == 'directory')  _e($options['directory'], 'bps');
+	else if ($column == 'action')  echo $options['action']? get_the_title ($options['action']): '<strong style="color:red;">'. __('undefined', 'bp-profile-search'). '</strong>';
+	else if ($column == 'directory')  _e($options['directory'], 'bp-profile-search');
 	else if ($column == 'widget')  echo bps_get_widget ($post_id);
 	else if ($column == 'shortcode')  echo "[bps_display form=$post_id]";
 }
@@ -226,24 +225,24 @@ function bps_orderby ($vars)
 add_action ('add_meta_boxes', 'bps_add_meta_boxes');
 function bps_add_meta_boxes ()
 {
-	add_meta_box ('bps_fields_box', __('Form Fields', 'bps'), 'bps_fields_box', 'bps_form', 'normal');
-	add_meta_box ('bps_attributes', __('Form Attributes', 'bps'), 'bps_attributes', 'bps_form', 'side');
-	add_meta_box ('bps_directory', __('Add to Directory', 'bps'), 'bps_directory', 'bps_form', 'side');
-	add_meta_box ('bps_searchmode', __('Text Search Mode', 'bps'), 'bps_searchmode', 'bps_form', 'side');
+	add_meta_box ('bps_fields_box', __('Form Fields', 'bp-profile-search'), 'bps_fields_box', 'bps_form', 'normal');
+	add_meta_box ('bps_attributes', __('Form Attributes', 'bp-profile-search'), 'bps_attributes', 'bps_form', 'side');
+	add_meta_box ('bps_directory', __('Add to Directory', 'bp-profile-search'), 'bps_directory', 'bps_form', 'side');
+	add_meta_box ('bps_searchmode', __('Text Search Mode', 'bp-profile-search'), 'bps_searchmode', 'bps_form', 'side');
 }
 
 function bps_directory ($post)
 {
 	$options = bps_meta ($post->ID);
 ?>
-	<p><strong><?php _e('Add to Directory', 'bps'); ?></strong></p>
-	<label class="screen-reader-text" for="directory"><?php _e('Add to Directory', 'bps'); ?></label>
+	<p><strong><?php _e('Add to Directory', 'bp-profile-search'); ?></strong></p>
+	<label class="screen-reader-text" for="directory"><?php _e('Add to Directory', 'bp-profile-search'); ?></label>
 	<select name="options[directory]" id="directory">
-		<option value='Yes' <?php selected ($options['directory'], 'Yes'); ?>><?php _e('Yes', 'bps'); ?></option>
-		<option value='No' <?php selected ($options['directory'], 'No'); ?>><?php _e('No', 'bps'); ?></option>
+		<option value='Yes' <?php selected ($options['directory'], 'Yes'); ?>><?php _e('Yes', 'bp-profile-search'); ?></option>
+		<option value='No' <?php selected ($options['directory'], 'No'); ?>><?php _e('No', 'bp-profile-search'); ?></option>
 	</select>
 
-	<p><strong><?php _e('Form Template', 'bps'); ?></strong></p>
+	<p><strong><?php _e('Form Template', 'bp-profile-search'); ?></strong></p>
 	<select name="options[template]" id="template">
 <?php
 	$templates =  bps_templates ();
@@ -256,19 +255,19 @@ function bps_directory ($post)
 ?>
 	</select>
 
-	<p><strong><?php _e('Form Header', 'bps'); ?></strong></p>
-	<label class="screen-reader-text" for="header"><?php _e('Form Header', 'bps'); ?></label>
+	<p><strong><?php _e('Form Header', 'bp-profile-search'); ?></strong></p>
+	<label class="screen-reader-text" for="header"><?php _e('Form Header', 'bp-profile-search'); ?></label>
 	<textarea name="options[header]" id="header" class="large-text code" rows="4"><?php echo $options['header']; ?></textarea>
 
-	<p><strong><?php _e('Toggle Form', 'bps'); ?></strong></p>
-	<label class="screen-reader-text" for="toggle"><?php _e('Toggle Form', 'bps'); ?></label>
+	<p><strong><?php _e('Toggle Form', 'bp-profile-search'); ?></strong></p>
+	<label class="screen-reader-text" for="toggle"><?php _e('Toggle Form', 'bp-profile-search'); ?></label>
 	<select name="options[toggle]" id="toggle">
-		<option value='Enabled' <?php selected ($options['toggle'], 'Enabled'); ?>><?php _e('Enabled', 'bps'); ?></option>
-		<option value='Disabled' <?php selected ($options['toggle'], 'Disabled'); ?>><?php _e('Disabled', 'bps'); ?></option>
+		<option value='Enabled' <?php selected ($options['toggle'], 'Enabled'); ?>><?php _e('Enabled', 'bp-profile-search'); ?></option>
+		<option value='Disabled' <?php selected ($options['toggle'], 'Disabled'); ?>><?php _e('Disabled', 'bp-profile-search'); ?></option>
 	</select>
 
-	<p><strong><?php _e('Toggle Form Button', 'bps'); ?></strong></p>
-	<label class="screen-reader-text" for="button"><?php _e('Toggle Form Button', 'bps'); ?></label>
+	<p><strong><?php _e('Toggle Form Button', 'bp-profile-search'); ?></strong></p>
+	<label class="screen-reader-text" for="button"><?php _e('Toggle Form Button', 'bp-profile-search'); ?></label>
 	<input type="text" name="options[button]" id="button" value="<?php echo esc_attr ($options['button']); ?>" />
 <?php
 }
@@ -277,15 +276,15 @@ function bps_attributes ($post)
 {
 	$options = bps_meta ($post->ID);
 ?>
-	<p><strong><?php _e('Form Method', 'bps'); ?></strong></p>
-	<label class="screen-reader-text" for="method"><?php _e('Form Method', 'bps'); ?></label>
+	<p><strong><?php _e('Form Method', 'bp-profile-search'); ?></strong></p>
+	<label class="screen-reader-text" for="method"><?php _e('Form Method', 'bp-profile-search'); ?></label>
 	<select name="options[method]" id="method">
-		<option value='POST' <?php selected ($options['method'], 'POST'); ?>><?php _e('POST', 'bps'); ?></option>
-		<option value='GET' <?php selected ($options['method'], 'GET'); ?>><?php _e('GET', 'bps'); ?></option>
+		<option value='POST' <?php selected ($options['method'], 'POST'); ?>><?php _e('POST', 'bp-profile-search'); ?></option>
+		<option value='GET' <?php selected ($options['method'], 'GET'); ?>><?php _e('GET', 'bp-profile-search'); ?></option>
 	</select>
 
-	<p><strong><?php _e('Form Action (Results Directory)', 'bps'); ?></strong></p>
-	<label class="screen-reader-text" for="action"><?php _e('Form Action (Results Directory)', 'bps'); ?></label>
+	<p><strong><?php _e('Form Action (Results Directory)', 'bp-profile-search'); ?></strong></p>
+	<label class="screen-reader-text" for="action"><?php _e('Form Action (Results Directory)', 'bp-profile-search'); ?></label>
 <?php
 	$bp_pages = array ();
 	$default = 0;
@@ -308,8 +307,8 @@ function bps_searchmode ($post)
 	$options = bps_meta ($post->ID);
 ?>
 	<select name="options[searchmode]" id="searchmode">
-		<option value='LIKE' <?php selected ($options['searchmode'], 'LIKE'); ?>><?php _e('LIKE', 'bps'); ?></option>
-		<option value='EQUAL' <?php selected ($options['searchmode'], 'EQUAL'); ?>><?php _e('SAME', 'bps'); ?></option>
+		<option value='LIKE' <?php selected ($options['searchmode'], 'LIKE'); ?>><?php _e('LIKE', 'bp-profile-search'); ?></option>
+		<option value='EQUAL' <?php selected ($options['searchmode'], 'EQUAL'); ?>><?php _e('SAME', 'bp-profile-search'); ?></option>
 	</select>
 <?php
 }
@@ -335,12 +334,12 @@ function bps_updated_messages ($messages)
 	$messages['bps_form'] = array
 	(
 		 0 => 'message 0',
-		 1 => __('Form updated.', 'bps'),
+		 1 => __('Form updated.', 'bp-profile-search'),
 		 2 => 'message 2',
 		 3 => 'message 3',
 		 4 => 'message 4',
 		 5 => 'message 5',
-		 6 => __('Form created.', 'bps'),
+		 6 => __('Form created.', 'bp-profile-search'),
 		 7 => 'message 7',
 		 8 => 'message 8',
 		 9 => 'message 9',
@@ -356,9 +355,9 @@ function bps_bulk_updated_messages ($bulk_messages, $bulk_counts)
 	(
 		'updated'   => 'updated',
 		'locked'    => 'locked',
-		'deleted'   => _n('%s form permanently deleted.', '%s forms permanently deleted.', $bulk_counts['deleted'], 'bps'),
-		'trashed'   => _n('%s form moved to the Trash.', '%s forms moved to the Trash.', $bulk_counts['trashed'], 'bps'),
-		'untrashed' => _n('%s form restored from the Trash.', '%s forms restored from the Trash.', $bulk_counts['untrashed'], 'bps'),
+		'deleted'   => _n('%s form permanently deleted.', '%s forms permanently deleted.', $bulk_counts['deleted'], 'bp-profile-search'),
+		'trashed'   => _n('%s form moved to the Trash.', '%s forms moved to the Trash.', $bulk_counts['trashed'], 'bp-profile-search'),
+		'untrashed' => _n('%s form restored from the Trash.', '%s forms restored from the Trash.', $bulk_counts['untrashed'], 'bp-profile-search'),
 	);
 	return $bulk_messages;
 }

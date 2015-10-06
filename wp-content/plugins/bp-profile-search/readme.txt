@@ -3,7 +3,7 @@ Contributors: dontdream
 Tags: buddypress, directory, member, members, user, users, friend, friends, profile, profiles, search, filter
 Requires at least: 3.6
 Tested up to: 4.3
-Stable tag: 4.3.1
+Stable tag: 4.4
 
 Let visitors search your BuddyPress Members Directory and their Friends list.
 
@@ -79,10 +79,10 @@ After you build your search form, you can display it:
 
 == Changelog ==
 
+= 4.4 =
+* Updated to use WP language packs
 = 4.3.1 =
 * Fixed rendering of hidden fields in form templates
-
-Note: If you are using a modified 4.2.x or 4.3 template, you have to edit and update it to the 4.3.1 template structure before upgrading. If you haven't modified the built-in templates instead, you can upgrade safely.
 = 4.3 =
 * Updated templates to better support custom field types
 * Updated [documentation](http://dontdream.it/bp-profile-search/custom-profile-field-types/) for custom field types authors
@@ -202,7 +202,7 @@ Note: If you are using a modified 4.2.x or 4.3 template, you have to edit and up
 == Upgrade Notice ==
 
 = 4.3 =
-Note: If you are using a modified 4.2.x or 4.3 template, you have to edit and update it to the 4.3.1 template structure before upgrading. If you haven't modified the built-in templates instead, you can upgrade safely.
+Note: If you, or your theme, are using a modified 4.2.x or 4.3 template, you have to edit and update it to the current template structure before upgrading. If you haven't modified the built-in templates instead, you can upgrade safely.
 
 = 4.1 =
 Note: If you are upgrading from version 4.0.x, you have to update your existing forms with your Directory page selection. Go to *Users -> Profile Search*, *Edit* each form, select its *Form Action (Results Directory)* and *Update*.

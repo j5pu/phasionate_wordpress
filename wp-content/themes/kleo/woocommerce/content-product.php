@@ -56,7 +56,6 @@ else {
 ?>
 <li <?php post_class( $classes ); ?>>
 	<div class="product-loop-inner">
-		<?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
 		<figure class="product-transition-<?php echo $product_transition; ?>">
 			<?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
 

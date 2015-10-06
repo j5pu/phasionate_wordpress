@@ -48,7 +48,7 @@ function bps_display_form ($form, $template='', $location='')
 {
 	if (!function_exists ('bp_has_profile'))
 	{
-		printf ('<p class="bps_error">'. __('%s: The BuddyPress Extended Profiles component is not active.', 'bps'). '</p>',
+		printf ('<p class="bps_error">'. __('%s: The BuddyPress Extended Profiles component is not active.', 'bp-profile-search'). '</p>',
 			'<strong>BP Profile Search '. BPS_VERSION. '</strong>');
 		return false;
 	}
@@ -56,7 +56,7 @@ function bps_display_form ($form, $template='', $location='')
 	$meta = bps_meta ($form);
 	if (empty ($meta['field_name']))
 	{
-		printf ('<p class="bps_error">'. __('%s: Form %d was not found, or has no fields.', 'bps'). '</p>',
+		printf ('<p class="bps_error">'. __('%s: Form %d was not found, or has no fields.', 'bp-profile-search'). '</p>',
 			'<strong>BP Profile Search '. BPS_VERSION. '</strong>', $form);
 		return false;
 	}
@@ -67,7 +67,7 @@ function bps_display_form ($form, $template='', $location='')
 
 	echo "\n<!-- BP Profile Search $version $form $template $location -->\n";
 	$found = bp_get_template_part ($template);
-	if (!$found)  printf ('<p class="bps_error">'. __('%s: The form template "%s" was not found.', 'bps'). '</p>',
+	if (!$found)  printf ('<p class="bps_error">'. __('%s: The form template "%s" was not found.', 'bp-profile-search'). '</p>',
 		'<strong>BP Profile Search '. BPS_VERSION. '</strong>', $template);
 	echo "\n<!-- BP Profile Search $version $form $template $location - end -->\n";
 
@@ -88,7 +88,7 @@ function bps_display_filters ()
 
 	echo "\n<!-- BP Profile Search $version $form $template $location -->\n";
 	$found = bp_get_template_part ($template);
-	if (!$found)  printf ('<p class="bps_error">'. __('%s: The filters template "%s" was not found.', 'bps'). '</p>',
+	if (!$found)  printf ('<p class="bps_error">'. __('%s: The filters template "%s" was not found.', 'bp-profile-search'). '</p>',
 		'<strong>BP Profile Search '. BPS_VERSION. '</strong>', $template);
 	echo "\n<!-- BP Profile Search $version $form $template $location - end -->\n";
 
@@ -245,12 +245,7 @@ function bps_show_directory ($attr, $content)
 
 	if (!function_exists ('bp_has_profile'))
 	{
-		printf ('<p class="bps_error">'. __('%s: The BuddyPress Extended Profiles component is not active.', 'bps'). '</p>',
-			'<strong>BP Profile Search '. BPS_VERSION. '</strong>');
-	}
-	else if (current_theme_supports ('buddypress'))
-	{
-		printf ('<p class="bps_error">'. __('%s: Multiple directories are not supported for this theme.', 'bps'). '</p>',
+		printf ('<p class="bps_error">'. __('%s: The BuddyPress Extended Profiles component is not active.', 'bp-profile-search'). '</p>',
 			'<strong>BP Profile Search '. BPS_VERSION. '</strong>');
 	}
 	else
@@ -258,7 +253,7 @@ function bps_show_directory ($attr, $content)
 		$template = isset ($attr['template'])? $attr['template']: 'members/index';
 
 		$found = bp_get_template_part ($template);
-		if (!$found)  printf ('<p class="bps_error">'. __('%s: The directory template "%s" was not found.', 'bps'). '</p>',
+		if (!$found)  printf ('<p class="bps_error">'. __('%s: The directory template "%s" was not found.', 'bp-profile-search'). '</p>',
 			'<strong>BP Profile Search '. BPS_VERSION. '</strong>', $template);
 	}
 
@@ -269,8 +264,8 @@ class bps_widget extends WP_Widget
 {
 	function __construct ()
 	{
-		$widget_ops = array ('description' => __('A Profile Search form.', 'bps'));
-		parent::__construct ('bps_widget', __('Profile Search', 'bps'), $widget_ops);
+		$widget_ops = array ('description' => __('A Profile Search form.', 'bp-profile-search'));
+		parent::__construct ('bps_widget', __('Profile Search', 'bp-profile-search'), $widget_ops);
 	}
 
 	function widget ($args, $instance)
@@ -303,11 +298,11 @@ class bps_widget extends WP_Widget
 		$template = isset ($instance['template'])? $instance['template']: '';
 ?>
 	<p>
-		<label for="<?php echo $this->get_field_id ('title'); ?>"><?php _e('Title:', 'bps'); ?></label>
+		<label for="<?php echo $this->get_field_id ('title'); ?>"><?php _e('Title:', 'bp-profile-search'); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id ('title'); ?>" name="<?php echo $this->get_field_name ('title'); ?>" type="text" value="<?php echo esc_attr ($title); ?>" />
 	</p>
 	<p>
-		<label for="<?php echo $this->get_field_id ('form'); ?>"><?php _e('Form:', 'bps'); ?></label>
+		<label for="<?php echo $this->get_field_id ('form'); ?>"><?php _e('Form:', 'bp-profile-search'); ?></label>
 <?php
 		$posts = get_posts (array ('post_type' => 'bps_form', 'orderby' => 'ID', 'order' => 'ASC', 'nopaging' => true));
 		if (count ($posts))
@@ -326,12 +321,12 @@ class bps_widget extends WP_Widget
 		else
 		{
 			echo '<br/>';
-			_e('You have not created any form yet.', 'bps');
+			_e('You have not created any form yet.', 'bp-profile-search');
 		}
 ?>
 	</p>
 	<p>
-		<label for="<?php echo $this->get_field_id ('template'); ?>"><?php _e('Template:', 'bps'); ?></label>
+		<label for="<?php echo $this->get_field_id ('template'); ?>"><?php _e('Template:', 'bp-profile-search'); ?></label>
 <?php
 		$templates = bps_templates ();
 		echo "<select class='widefat' id='{$this->get_field_id ('template')}' name='{$this->get_field_name ('template')}'>";

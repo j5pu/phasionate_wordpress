@@ -18,9 +18,9 @@
 			if ($f->min === '' && $f->max === '')  break;
 			$filters .= "<strong>$f->label:</strong>";
 			if ($f->min !== '')
-				$filters .= " <strong>". __('min', 'bps'). "</strong> $f->min";
+				$filters .= " <strong>". __('min', 'bp-profile-search'). "</strong> $f->min";
 			if ($f->max !== '')
-				$filters .= " <strong>". __('max', 'bps'). "</strong> $f->max";
+				$filters .= " <strong>". __('max', 'bp-profile-search'). "</strong> $f->max";
 			$filters .= "<br>\n";
 			break;
 
