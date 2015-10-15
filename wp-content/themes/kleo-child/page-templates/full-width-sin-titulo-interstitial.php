@@ -18,13 +18,6 @@ article {
 }
 </style>
 
-<?php
-//create full width template
-kleo_switch_layout('right');
-?>
-
-<?php get_template_part('page-parts/general-before-wrap-no-title'); ?>
-
 <!-- AdSpeed.com Tag 8.0.2 for [Ad] Swarovski - Laterales 120x600 -->
 <div style="float: left; margin-right: 20px; width: 121px;">
 <script type="text/javascript">var asdate=new Date();var q='&tz='+asdate.getTimezoneOffset()/60 +'&ck='+(navigator.cookieEnabled?'Y':'N') +'&jv='+(navigator.javaEnabled()?'Y':'N') +'&scr='+screen.width+'x'+screen.height+'x'+screen.colorDepth +'&z='+Math.random() +'&ref='+escape(document.referrer.substr(0,255)) +'&uri='+escape(document.URL.substr(0,255));document.write('<ifr'+'ame width="121" height="600" src="http://g.adspeed.net/ad.php?do=html&aid=243394&oid=19457&wd=121&ht=600&target=_blank'+q+'" frameborder="0" scrolling="no" allowtransparency="true" hspace="0" vspace="0"></ifr'+'ame>');</script>
@@ -32,6 +25,14 @@ kleo_switch_layout('right');
 </noscript>
 </div>
 <!-- AdSpeed.com End -->
+
+<?php
+//create full width template
+kleo_switch_layout('right');
+?>
+
+<?php get_template_part('page-parts/general-before-wrap-no-title'); ?>
+
 <?php
 if ( have_posts() ) :
     // Start the Loop.
@@ -58,6 +59,8 @@ if ( have_posts() ) :
 endif;
 ?>
 
+<?php get_template_part('page-parts/general-after-wrap'); ?>
+
 <!-- AdSpeed.com Tag 8.0.2 for [Ad] Swarovski - Laterales 120x600 -->
 <div style="float: right; margin-right: 20px; width: 121px;">
 <script type="text/javascript">var asdate=new Date();var q='&tz='+asdate.getTimezoneOffset()/60 +'&ck='+(navigator.cookieEnabled?'Y':'N') +'&jv='+(navigator.javaEnabled()?'Y':'N') +'&scr='+screen.width+'x'+screen.height+'x'+screen.colorDepth +'&z='+Math.random() +'&ref='+escape(document.referrer.substr(0,255)) +'&uri='+escape(document.URL.substr(0,255));document.write('<ifr'+'ame width="121" height="600" src="http://g.adspeed.net/ad.php?do=html&aid=243394&oid=19457&wd=121&ht=600&target=_blank'+q+'" frameborder="0" scrolling="no" allowtransparency="true" hspace="0" vspace="0"></ifr'+'ame>');</script>
@@ -65,7 +68,5 @@ endif;
 </noscript>
 </div>
 <!-- AdSpeed.com End -->
-
-<?php get_template_part('page-parts/general-after-wrap'); ?>
 
 <?php get_footer(); ?>
