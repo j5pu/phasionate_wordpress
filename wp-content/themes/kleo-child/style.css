@@ -5958,13 +5958,13 @@ body.registration #signup_submit {
 	right: -1px; 
 	z-index: 9;
 }
-@media screen and (min-width: 1324px){
+@media screen and (max-width: 1324px){
 	.bannerleft {
 		left: 0px;
 	}
 }
 
-@media screen and (min-width: 1240px){
+@media screen and (max-width: 1240px){
 	.bannerleft, .bannerright {
 		display: none;
 	}
