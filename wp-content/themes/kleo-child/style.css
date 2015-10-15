@@ -5946,3 +5946,26 @@ body.registration #signup_submit {
 		height: 1030px;
 	}
 }
+
+.bannerleft {
+	position: fixed; 
+	z-index: 9; 
+	left: 39px;
+}
+.bannerright {
+	position: fixed; 
+	top: 50px; 
+	right: -1px; 
+	z-index: 9;
+}
+@media screen and (min-width: 1324px){
+	.bannerleft {
+		left: 0px;
+	}
+}
+
+@media screen and (min-width: 1240px){
+	.bannerleft, .bannerright {
+		display: none;
+	}
+}
