@@ -13,10 +13,6 @@
 get_header(); ?>
 
 <style type="text/css">
-article {
-    float: left;
-}
-</style>
 
 <?php
 //create full width template
