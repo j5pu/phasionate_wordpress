@@ -42,7 +42,7 @@ if ( have_posts() ) :
 			</div>
 			<div style="max-width: 1024px; min-height: 620px; margin: 0px auto 20px; padding: 20px;">			
 				<div class="part-left">
-					<div class="part-left-text">Suscríbete a nuestra newsletter antes del <span style="color: #c64040; font-size: 22px;">8 de noviembre</span> y entrarás en el <span style="color: #c64040; font-size: 22px;">sorteo</span> de una crema de <span style="font-size: 22px;">Elizabeth Arden</span>.<br>Así de sencillo. ¿A qué esperas?</div>
+					<div class="part-left-text">Suscríbete a nuestra newsletter antes del <span style="color: #c64040; font-size: 22px;">30 noviembre</span> y entrarás en el <span style="color: #c64040; font-size: 22px;">sorteo</span> de una crema de <span style="font-size: 22px;">Elizabeth Arden</span>.<br>Así de sencillo. ¿A qué esperas?</div>
 					<img class="bolso-sorteo-newsletter" src="https://www.bogadia.com/wp-content/uploads/newsletter/sorteo-elizabeth-motita.jpg" alt="Bolso Parfois" />
 					<a target="_blank" class="bases-legales-sorteo-newsletter" title="Bases legales Concurso Newsletter Bogadia" href="https://www.bogadia.com/wp-content/uploads/pdf/Bases_legales_Concurso_Newsletter.pdf">Bases legales</a>
 				</div>
