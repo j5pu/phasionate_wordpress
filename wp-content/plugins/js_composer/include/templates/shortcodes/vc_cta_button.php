@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Shortcode attributes
  * @var $atts
@@ -15,6 +16,7 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Cta_button
  */
+$color = $icon = $size = $target = $href = $target = $call_text = $position = $el_class = $css_animation = '';
 $output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -32,7 +34,7 @@ $icon = ( '' !== $icon && 'none' !== $icon ) ? ' ' . $icon : '';
 $i_icon = ( '' !== $icon ) ? ' <i class="icon"> </i>' : '';
 
 $color = ( '' !== $color ) ? ' wpb_' . $color : '';
-$size = ( '' !== $size && $size !== 'wpb_regularsize' ) ? ' wpb_' . $size : ' ' . $size;
+$size = ( '' !== $size && 'wpb_regularsize' !== $size ) ? ' wpb_' . $size : ' ' . $size;
 
 $a_class = '';
 if ( '' !== $el_class ) {

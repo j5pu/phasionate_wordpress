@@ -1,4 +1,5 @@
 <?php
+require_once vc_path_dir( 'SHORTCODES_DIR', 'vc-custom-heading.php' );
 
 class WPBakeryShortCode_VC_Gitem_Post_Data extends WPBakeryShortCode_VC_Custom_heading {
 	/**

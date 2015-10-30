@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Shortcode attributes
  * @var $atts
@@ -8,6 +9,7 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_Rev_Slider_Vc
  */
+$title = $alias = $el_class = '';
 $output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );

@@ -195,7 +195,7 @@
                 <small>
                     <?php do_action('kleo_post_footer');?>
 
-                    <a href="<?php the_permalink();?>"><span class="muted pull-right"><?php _e("Read more","kleo_framework");?></span></a>
+                    <a href="<?php the_permalink();?>"><span class="muted pull-right"><?php esc_html_e("Read more","kleo_framework");?></span></a>
                 </small>
             </div><!--end post-footer-->
         </div>

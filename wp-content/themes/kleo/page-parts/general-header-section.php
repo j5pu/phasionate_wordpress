@@ -96,7 +96,7 @@ $primary_menu = wp_nav_menu( array(
                             }
                             ?>
                             <button type="button" <?php echo $mobile_menu_atts;?>>
-                                <span class="sr-only"><?php _e("Toggle navigation",'kleo_framework');?></span>
+                                <span class="sr-only"><?php esc_html_e("Toggle navigation",'kleo_framework');?></span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>

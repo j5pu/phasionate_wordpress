@@ -1287,7 +1287,8 @@ if (!function_exists('kleo_frontend_files')):
             wp_enqueue_script( 'comment-reply' );
         }
 
-        if ( is_child_theme() && file_exists( get_stylesheet_directory_uri() . '/assets/css/fontello.css' )) {
+
+        if ( is_child_theme() && file_exists( get_stylesheet_directory() . '/assets/css/fontello.css' )) {
             $fonts_path = get_stylesheet_directory_uri() . '/assets/css/fontello.css';
         } else {
             $fonts_path = get_template_directory_uri() . '/assets/css/fontello.css';
@@ -1414,7 +1415,7 @@ if ( ! is_admin() ) {
         //write the file if isn't there
         if ( ! file_exists ( trailingslashit( $kleo_config['custom_style_path'] ) . 'dynamic.css' ) ) {
             add_filter( 'kleo_add_dynamic_style', array( $kleo_theme, 'add_font_css' ) );
-            add_action('after_setup_theme', 'kleo_generate_dynamic_css', 999 );
+            add_action( 'after_setup_theme', 'kleo_generate_dynamic_css', 999 );
         }
 
         add_action( 'wp_enqueue_scripts', 'kleo_load_dynamic_css' );

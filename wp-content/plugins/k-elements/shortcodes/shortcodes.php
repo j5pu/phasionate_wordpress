@@ -1274,7 +1274,7 @@ if ( ! function_exists( 'kleo_restrict_func' ) ) {
     function kleo_restrict_func( $atts, $content = null )
     {
         $a = shortcode_atts( array(
-            'type' => '',
+            'type' => 'user',
         ), $atts );
 
         if ( is_user_logged_in() && $a['type'] == 'user')

@@ -61,7 +61,7 @@ class sidebar_generator {
 				register_sidebar(array(
 					'name'=>$sidebar,
                     'id' => 'sidebar-' . $i,
-                    'before_widget' => '<div id="%1$s" class="widgets clearfix %2$s">',
+                    'before_widget' => '<div id="%1$s" class="widget clearfix %2$s">',
                     'after_widget' => '</div>',
                     'before_title' => '<h5>',
                     'after_title' => '</h5>',

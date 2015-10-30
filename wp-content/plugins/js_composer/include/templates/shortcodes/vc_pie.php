@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Shortcode attributes
  * @var $atts
@@ -13,7 +14,7 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_Vc_Pie
  */
-$title = '';
+$title = $el_class = $value = $units = $color = $custom_color = $label_value = $css = '';
 $atts = $this->convertOldColorsToNew( $atts );
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -37,7 +38,7 @@ $colors = array(
 	'purple' => '#b97ebb',
 	'black' => '#2a2a2a',
 	'grey' => '#ebebeb',
-	'white' => '#ffffff'
+	'white' => '#ffffff',
 );
 
 if ( 'custom' === $color ) {

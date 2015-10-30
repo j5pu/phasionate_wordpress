@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Shortcode attributes
  * @var $atts
@@ -10,6 +11,7 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Column
  */
+$el_class = $width = $css = $offset = '';
 $output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );

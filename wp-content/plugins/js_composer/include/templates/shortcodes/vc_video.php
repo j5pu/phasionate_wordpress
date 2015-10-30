@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Shortcode attributes
  * @var $atts
@@ -9,6 +10,7 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Video
  */
+$title = $link = $el_class = $css = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 

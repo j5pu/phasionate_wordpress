@@ -431,6 +431,7 @@
 					next();
 				} )
 				.queue( function ( next ) {
+					$targetContent.attr( 'style', '' );
 					$targetContent.css( {
 						position: 'absolute', // Optional if #myDiv is already absolute
 						visibility: 'hidden',
@@ -458,7 +459,14 @@
 				} )
 				.queue( function ( next ) {
 					var height = $targetContent.data( 'vcHeight' );
-					$targetContent.animate( { 'height': height }, that.getAnimationDurationMilliseconds() );
+					$targetContent.animate( { 'height': height }, {
+						duration: that.getAnimationDurationMilliseconds(),
+						complete: function () {
+							if (!$targetContent.data('events')) {
+								$targetContent.attr( 'style', '' );
+							}
+						}
+					} );
 					$targetContent.css( {
 						'padding-top': '',
 						'padding-bottom': ''
@@ -693,9 +701,9 @@
 
 		hash = window.location.hash;
 		if ( hash ) {
-			$targetElement = $( '.vc_tta-accordion ' + hash + '.vc_tta-panel' );
+			$targetElement = $( hash );
 			if ( $targetElement.length ) {
-				$accordion = $targetElement.find( '[data-vc-accordion]' );
+				$accordion = $targetElement.find( '[data-vc-accordion][href='+hash+'],[data-vc-accordion][data-vc-target='+hash+']' );
 				if ( $accordion.length ) {
 					setTimeout( function () {
 						$( 'html, body' ).animate( {

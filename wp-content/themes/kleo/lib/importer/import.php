@@ -351,6 +351,8 @@ class kleoImport {
 								<option value="home-simple">Home Simple</option>
 								<option value="home-xmas">Merry Christmas</option>
 								<option value="home-new-year">Happy New Year</option>
+								<option value="happy-halloween">Happy Halloween</option>
+								<option value="spooky-halloween">Spooky Halloween</option>
 								<option value="contact-us">Contact us</option>
 								<option value="no-breadcrumb">No Breadcrumb Page</option>
 								<option value="poi-pins">POIs and Pins</option>

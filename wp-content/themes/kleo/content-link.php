@@ -21,13 +21,13 @@ if( is_single() && get_cfield( 'centered_text' ) == 1 ) { $post_class .= ' text-
 			<span class="post-meta">
 				<?php kleo_entry_meta();?>
 			</span>
-			<?php edit_post_link( __( 'Edit', 'kleo_framework' ), '<span class="edit-link">', '</span>' ); ?>
+			<?php edit_post_link( esc_html__( 'Edit', 'kleo_framework' ), '<span class="edit-link">', '</span>' ); ?>
 		</div><!--end article-meta-->
 	<?php endif;?>
 	
 	<div class="article-content">
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'kleo_framework' ) ); ?>
-		<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'kleo_framework' ), 'after' => '</div>' ) ); ?>
+		<?php the_content( esc_html__( 'Continue reading <span class="meta-nav">&rarr;</span>', 'kleo_framework' ) ); ?>
+		<?php wp_link_pages( array( 'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'kleo_framework' ), 'after' => '</div>' ) ); ?>
 	</div><!--end article-content-->
 	
 </article>

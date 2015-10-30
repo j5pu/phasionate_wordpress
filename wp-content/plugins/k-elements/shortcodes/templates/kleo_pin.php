@@ -12,8 +12,8 @@
 
 $output = '';
 extract(shortcode_atts(array(
-		'type' => 'circle',
-    'icon' => '', //only for icon type
+		'type' => 'icon',
+		'icon' => '', //only for icon type
 		'top' => '',
 		'bottom' => '',
 		'left' => '',
@@ -31,8 +31,8 @@ extract(shortcode_atts(array(
 $inners_span = '';
 $data_attr = '';
 
-$class = esc_attr($el_class);
-$class .= ' kleo-pin-'.$type;
+$class = esc_attr( $el_class );
+$class .= ' kleo-pin-' . $type;
 
 if($type == 'icon' && $icon != '') {
 	$inners_span = '<i class="icon-'.$icon.'"></i>';
