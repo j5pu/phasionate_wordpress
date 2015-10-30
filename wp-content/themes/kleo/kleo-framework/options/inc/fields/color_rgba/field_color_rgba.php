@@ -277,17 +277,13 @@ if( !class_exists( 'ReduxFramework_color_rgba' ) ) {
                 $style .= $mode . ':' . $color_val . ';';
                 
                 if ( ! empty( $this->field['output'] ) && is_array( $this->field['output'] ) ) {
-                    if (!empty($color_val)) {
-                        $css = Redux_Functions::parseCSS( $this->field['output'], $style, $color_val );
-                        $this->parent->outputCSS .= $css;
-                    }
+                    $css = Redux_Functions::parseCSS( $this->field['output'], $style, $color_val );
+                    $this->parent->outputCSS .= $css;
                 }
 
                 if ( ! empty( $this->field['compiler'] ) && is_array( $this->field['compiler'] ) ) {
-                    if (!empty($color_val)) {
-                        $css = Redux_Functions::parseCSS( $this->field['compiler'], $style, $color_val );
-                        $this->parent->compilerCSS .= $css ;
-                    }
+                    $css = Redux_Functions::parseCSS( $this->field['compiler'], $style, $color_val );
+                    $this->parent->compilerCSS .= $css ;
                 }
             }
         }

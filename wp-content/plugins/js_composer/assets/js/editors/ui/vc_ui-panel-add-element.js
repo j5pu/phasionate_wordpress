@@ -15,8 +15,7 @@
 				'click [data-vc-ui-element="button-close"]': 'hide',
 				'click [data-vc-ui-element="panel-tab-control"]': 'filterElements',
 				'click .vc_shortcode-link': 'createElement',
-				'keyup #vc_elements_name_filter': 'filterElements',
-				'search #vc_elements_name_filter': 'filterElements'
+				'keyup #vc_elements_name_filter': 'filterElements'
 			},
 			render: function ( model, prepend ) {
 				if ( ! _.isUndefined( vc.ShortcodesBuilder ) ) {

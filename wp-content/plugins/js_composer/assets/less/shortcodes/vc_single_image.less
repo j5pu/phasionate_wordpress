@@ -10,10 +10,6 @@
 }
 
 .wpb_single_image {
-  a {
-    border: none;
-    outline: none;
-  }
   img {
     vertical-align: top;
     height: auto;
@@ -111,7 +107,7 @@
     text-align: left;
   }
 
-  .vc_box_shadow_3d {
+  .vc_box_shadow_3d_wrap {
     position: relative;
     z-index: 0;
     display: inline-block;
@@ -144,13 +140,15 @@
 
   .vc_figure {
     display: inline-block;
-    vertical-align: top;
-    margin: 0;
+    text-align: center;
+
+    .vc_single_image-wrapper {
+      margin-bottom: 0.5em;
+    }
   }
 
   .vc_figure-caption {
-    margin-top: .2em;
-    font-size: .8em;
+    text-align: center;
   }
 
   .vc_box_border_variants(_blue, @blue);

@@ -160,25 +160,25 @@ _.extend( vc, {
 					if (
 						(
 							// check rule 'not_empty'
-							_.isBoolean( rules.not_empty ) && true === rules.not_empty && isDependedEmpty
+						_.isBoolean( rules.not_empty ) && true === rules.not_empty && isDependedEmpty
 						) ||
 						(
 							// check rule 'is_empty'
-							_.isBoolean( rules.is_empty ) && true === rules.is_empty && ! isDependedEmpty
+						_.isBoolean( rules.is_empty ) && true === rules.is_empty && ! isDependedEmpty
 						) ||
 						(
 							// check rule 'value'
-							rules.value && ! _.intersection( (
-									_.isArray( rules.value ) ? rules.value : [ rules.value ]),
-								(_.isArray( dependedValue ) ? dependedValue : [ dependedValue ] )
-							).length
+						rules.value && ! _.intersection( (
+								_.isArray( rules.value ) ? rules.value : [ rules.value ]),
+							(_.isArray( dependedValue ) ? dependedValue : [ dependedValue ] )
+						).length
 						) ||
 						(
 							// check rule 'value_not_equal_to'
-							rules.value_not_equal_to && _.intersection( (
-									_.isArray( rules.value_not_equal_to ) ? rules.value_not_equal_to : [ rules.value_not_equal_to ] ),
-								(_.isArray( dependedValue ) ? dependedValue : [ dependedValue ])
-							).length
+						rules.value_not_equal_to && _.intersection( (
+								_.isArray( rules.value_not_equal_to ) ? rules.value_not_equal_to : [ rules.value_not_equal_to ] ),
+							(_.isArray( dependedValue ) ? dependedValue : [ dependedValue ])
+						).length
 						)
 					) {
 						paramsDependencies[ key ].failed = true;
@@ -195,10 +195,10 @@ _.extend( vc, {
 					// We need to save it anyway. #93627986
 				} else if (
 					( // add value if it is not same as default
-						! _.isUndefined( paramsMap.defaults[ key ] ) && paramsMap.defaults[ key ] !== value
+					! _.isUndefined( paramsMap.defaults[ key ] ) && paramsMap.defaults[ key ] !== value
 					) || (
 						// or if no defaults exists -> add value if it is not empty
-						_.isUndefined( paramsMap.defaults[ key ] ) && '' !== value
+					_.isUndefined( paramsMap.defaults[ key ] ) && '' !== value
 					) || (
 						// Or it is required to save always
 					! _.isUndefined( paramSettings.save_always ) && true === paramSettings.save_always )
@@ -292,7 +292,7 @@ _.extend( vc, {
 	};
 
 	vc.CloneModel = function ( builder, model, parent_id, child_of_clone ) {
-		vc.clone_index /= 10;
+		vc.clone_index = vc.clone_index / 10;
 		var newOrder,
 			params,
 			tag,
@@ -432,40 +432,42 @@ _.extend( vc, {
 				vc.events.trigger( 'shortcodeView:ready:' + this.model.get( 'id' ), this.model );
 			}, this ) );
 		},
-		/**
-		 * @deprecated since 4.8 should be used vc_user_access
-		 * @returns {boolean}
-		 */
 		hasUserAccess: function () {
-			return true; // vc_user_access should be used.
+			var shortcodeTag;
+
+			shortcodeTag = this.model.get( 'shortcode' );
+			if ( - 1 < _.indexOf( [
+					"vc_row",
+					"vc_column",
+					"vc_row_inner",
+					"vc_column_inner"
+				], shortcodeTag ) ) {
+				return true; // we cannot block controls for these shortcodes;
+			}
+
+			if ( ! _.every( vc.roles.current_user, function ( role ) {
+					return ! (! _.isUndefined( vc.roles[ role ] ) && ! _.isUndefined( vc.roles[ role ][ 'shortcodes' ] ) && _.isUndefined( vc.roles[ role ][ 'shortcodes' ][ shortcodeTag ] ));
+				} ) ) {
+				return false;
+			}
+			return true;
 		},
 		addControls: function () {
-			var shortcodeTag, $controls_el, allAccess, editAccess, template, parent, data;
-			shortcodeTag = this.model.get( 'shortcode' );
-			$controls_el = $( '#vc_controls-template-' + shortcodeTag );
-
+			var shortcodeTag = this.model.get( 'shortcode' );
+			var $controls_el = $( '#vc_controls-template-' + shortcodeTag );
+			var template = $controls_el.length ? $controls_el.html() : this._getDefaultTemplate(),
+				parent = vc.shortcodes.get( this.model.get( 'parent_id' ) ),
+				data = {
+					name: vc.getMapped( shortcodeTag ).name,
+					tag: shortcodeTag,
+					parent_name: parent ? vc.getMapped( parent.get( 'shortcode' ) ).name : '',
+					parent_tag: parent ? parent.get( 'shortcode' ) : ''
+				};
+			this.$controls = $( _.template( template, data, vc.template_options ).trim() ).addClass( 'vc_controls' );
 			// check user role to add controls
-			allAccess = vc_user_access().shortcodeAll( shortcodeTag );
-			editAccess = vc_user_access().shortcodeEdit( shortcodeTag );
-
-			template = $controls_el.length ? $controls_el.html() : this._getDefaultTemplate();
-			parent = vc.shortcodes.get( this.model.get( 'parent_id' ) );
-			data = {
-				name: vc.getMapped( shortcodeTag ).name,
-				tag: shortcodeTag,
-				parent_name: parent ? vc.getMapped( parent.get( 'shortcode' ) ).name : '',
-				parent_tag: parent ? parent.get( 'shortcode' ) : '',
-				can_edit: editAccess,
-				can_all: allAccess,
-				state: vc_user_access().getState('shortcodes'),
-				allowAdd: null
-			};
-			this.$controls = $( _.template( template,
-				data,
-				_.extend( {},
-					vc.template_options,
-					{ evaluate: /\{#([\s\S]+?)#}/g } ) ).trim() ).addClass( 'vc_controls' );
-
+			if ( ! this.hasUserAccess() ) {
+				this.$controls.find( '.vc_control-btn:not(.vc_element-move)' ).remove();
+			}
 			this.$controls.appendTo( this.$el );
 			this.$controls_buttons = this.$controls.find( '> :first' );
 		},
@@ -564,7 +566,7 @@ _.extend( vc, {
 	} );
 	vc.FrameView = Backbone.View.extend( {
 		events: {
-			'click [data-vc-element="add-element-action"]': 'addElement',
+			'click .vc_add-element-action': 'addElement',
 			'click #vc_no-content-add-text-block': 'addTextBlock',
 			'click #vc_templates-more-layouts': 'openTemplatesWindow',
 			'click .vc_template[data-template_unique_id] > .wpb_wrapper': 'loadDefaultTemplate'
@@ -615,14 +617,12 @@ _.extend( vc, {
 			vc.frame_window.vc_iframe.setSortable( vc.app );
 		},
 		render: function () {
-			if ( false !== vc_user_access().getState( 'post_settings' ) ) {
-				vc.$title = $( vc.$frame.get( 0 ).contentWindow.document ).find( 'h1:contains("' + ( vc.title || vc.no_title_placeholder ).replace( /"/g,
-						'\\"' ) + '")' );
-				vc.$title.click( function ( e ) {
-					e.preventDefault();
-					vc.post_settings_view.render().show();
-				} );
-			}
+			vc.$title = $( vc.$frame.get( 0 ).contentWindow.document ).find( 'h1:contains("' + ( vc.title || vc.no_title_placeholder ).replace( /"/g,
+				'\\"' ) + '")' );
+			vc.$title.click( function ( e ) {
+				e.preventDefault();
+				vc.post_settings_view.render().show();
+			} );
 			// there because need to be initialized when content already created.
 			vc.events.off( 'shortcodes:add', vc.atts.addShortcodeIdParam, this ).bind( 'shortcodes:add',
 				vc.atts.addShortcodeIdParam,

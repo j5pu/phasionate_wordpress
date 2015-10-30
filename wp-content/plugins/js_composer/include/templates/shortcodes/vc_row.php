@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Shortcode attributes
  * @var $atts
@@ -18,7 +17,6 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Row
  */
-$el_class = $full_height = $full_width = $content_placement = $parallax = $parallax_image = $css = $el_id = $video_bg = $video_bg_url = $video_bg_parallax = '';
 $output = $after_output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -71,15 +69,15 @@ if ( ! empty( $parallax ) ) {
 	wp_enqueue_script( 'vc_jquery_skrollr_js' );
 	$wrapper_attributes[] = 'data-vc-parallax="1.5"'; // parallax speed
 	$css_classes[] = 'vc_general vc_parallax vc_parallax-' . $parallax;
-	if ( false !== strpos( $parallax, 'fade' ) ) {
+	if ( strpos( $parallax, 'fade' ) !== false ) {
 		$css_classes[] = 'js-vc_parallax-o-fade';
 		$wrapper_attributes[] = 'data-vc-parallax-o-fade="on"';
-	} elseif ( false !== strpos( $parallax, 'fixed' ) ) {
+	} elseif ( strpos( $parallax, 'fixed' ) !== false ) {
 		$css_classes[] = 'js-vc_parallax-o-fixed';
 	}
 }
 
-if ( ! empty( $parallax_image ) ) {
+if ( ! empty ( $parallax_image ) ) {
 	if ( $has_video_bg ) {
 		$parallax_image_src = $parallax_image;
 	} else {

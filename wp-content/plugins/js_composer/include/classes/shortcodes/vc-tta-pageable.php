@@ -1,5 +1,5 @@
 <?php
-VcShortcodeAutoloader::getInstance()->includeClass( 'WPBakeryShortCode_VC_Tta_Tabs' );
+VcShortcodeAutoloader::getInstance()->includeClass( 'WPBakeryShortCode_VC_Tta_Accordion' );
 
 class WPBakeryShortCode_VC_Tta_Pageable extends WPBakeryShortCode_VC_Tta_Tabs {
 
@@ -40,4 +40,5 @@ class WPBakeryShortCode_VC_Tta_Pageable extends WPBakeryShortCode_VC_Tta_Tabs {
 	public function getParamTabsList( $atts, $content ) {
 		return '';
 	}
+
 }

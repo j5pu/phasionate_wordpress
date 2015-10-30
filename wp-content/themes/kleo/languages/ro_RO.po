@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Kleo v3.0.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: Thu Oct 22 2015 18:59:51 GMT+0300 (EEST)\n"
+"PO-Revision-Date: Fri Sep 18 2015 13:58:57 GMT+0300 (EEST)\n"
 "Last-Translator: admin user <abe@seventhqueen.com>\n"
 "Language-Team: \n"
 "Language: Romanian\n"
@@ -36,7 +36,7 @@ msgstr ""
 #: bbpress/loop-search.php:40
 #: functions.php:684
 msgid "Author"
-msgstr "Autor"
+msgstr ""
 
 #: bbpress/form-user-edit.php:103
 #: bbpress/form-user-register.php:28

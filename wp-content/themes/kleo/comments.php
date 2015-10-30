@@ -21,7 +21,7 @@ if ( post_password_required() || ! comments_open() ) {
 	<div class="container">
 		<div id="comments" class="comments-area">
 
-            <div class="hr-title hr-long"><abbr><?php comments_number(esc_html__('0 Comments', "kleo_framework"), esc_html__('1 Comment', "kleo_framework"), __('% Comments', "kleo_framework") ); ?></abbr></div>
+            <div class="hr-title hr-long"><abbr><?php comments_number(__('0 Comments', "kleo_framework"), __('1 Comment', "kleo_framework"), __('% Comments', "kleo_framework") ); ?></abbr></div>
 
 			<?php if ( have_comments() ) : ?>
 			<div id="comments-list">
@@ -30,8 +30,8 @@ if ( post_password_required() || ! comments_open() ) {
 
 				<div id="comments-nav-above" class="comments-navigation" role="navigation">
 					<div class="paginated-comments-links clearfix">
-						<?php paginate_comments_links(array('type'=>'list','prev_text'=> esc_html__('Previous', 'kleo_framework'),
-						'next_text'    => esc_html__('Next', 'kleo_framework'))); ?></div>
+						<?php paginate_comments_links(array('type'=>'list','prev_text'=> __('Previous', 'kleo_framework'),
+						'next_text'    => __('Next', 'kleo_framework'))); ?></div>
 				</div><!-- #comments-nav-above -->
 				<?php endif; // Check for comment navigation. ?>
 				<ol>
@@ -40,13 +40,13 @@ if ( post_password_required() || ! comments_open() ) {
 
 				<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : ?>
 				<div id="comments-nav-below" class="comments-navigation" role="navigation">
-					<div class="paginated-comments-links comments-links-after clearfix"><?php paginate_comments_links(array('type'=>'list','prev_text'=> esc_html__('Previous', 'kleo_framework'),
-						'next_text'    => esc_html__('Next', 'kleo_framework'))); ?></div>
+					<div class="paginated-comments-links comments-links-after clearfix"><?php paginate_comments_links(array('type'=>'list','prev_text'=> __('Previous', 'kleo_framework'),
+						'next_text'    => __('Next', 'kleo_framework'))); ?></div>
 				</div><!-- #comments-nav-below -->
 				<?php endif; // Check for comment navigation. ?>
 
 				<?php if ( ! comments_open() ) : ?>
-				<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'kleo_framework' ); ?></p>
+				<p class="no-comments"><?php _e( 'Comments are closed.', 'kleo_framework' ); ?></p>
 				<?php endif; ?>
         
                 <div class="activity-timeline"></div>

@@ -36,9 +36,7 @@ class WPBakeryShortCode_VC_Gitem extends WPBakeryShortCodesContainer {
 	}
 
 	public function mainHtmlBlockParams( $width, $i ) {
-		$sortable = ( vc_user_access_check_shortcode_all( $this->shortcode ) ? 'wpb_sortable' : $this->nonDraggableClass );
-
-		return 'data-element_type="' . $this->settings['base'] . '" class="' . $this->settings['base'] . '-shortcode ' . $sortable . ' wpb_content_holder vc_shortcodes_container"' . $this->customAdminBlockParams();
+		return 'data-element_type="' . $this->settings["base"] . '" class="' . $this->settings['base'] . '-shortcode wpb_sortable wpb_content_holder vc_shortcodes_container"' . $this->customAdminBlockParams();
 	}
 
 	public function itemGrid() {
@@ -74,26 +72,19 @@ class WPBakeryShortCode_VC_Gitem extends WPBakeryShortCodesContainer {
 		}
 
 		$buttons = array();
-		$editAccess = vc_user_access_check_shortcode_edit( $this->shortcode );
-		$allAccess = vc_user_access_check_shortcode_all( $this->shortcode );
+
 		foreach ( $controls as $control ) {
 			switch ( $control ) {
 				case 'add':
-					if ( $allAccess ) {
-						$buttons[] = '<a class="vc_control-btn vc_control-btn-add" href="#" title="' . __( 'Add to this grid item', 'js_composer' ) . '" data-vc-control="add"><i class="vc_icon"></i></a>';
-					}
+					$buttons[] = '<a class="vc_control-btn vc_control-btn-add" href="#" title="' . __( 'Add to this grid item', 'js_composer' ) . '" data-vc-control="add"><i class="vc_icon"></i></a>';
 					break;
 
 				case 'edit':
-					if ( $editAccess ) {
-						$buttons[] = '<a class="vc_control-btn vc_control-btn-edit" href="#" title="' . __( 'Edit this grid item', 'js_composer' ) . '" data-vc-control="edit"><i class="vc_icon"></i></a>';
-					}
+					$buttons[] = '<a class="vc_control-btn vc_control-btn-edit" href="#" title="' . __( 'Edit this grid item', 'js_composer' ) . '" data-vc-control="edit"><i class="vc_icon"></i></a>';
 					break;
 
 				case 'delete':
-					if ( $allAccess ) {
-						$buttons[] = '<a class="vc_control-btn vc_control-btn-delete" href="#" title="' . __( 'Delete this grid item ', 'js_composer' ) . '" data-vc-control="delete"><i class="vc_icon"></i></a>';
-					}
+					$buttons[] = '<a class="vc_control-btn vc_control-btn-delete" href="#" title="' . __( 'Delete this grid item ', 'js_composer' ) . '" data-vc-control="delete"><i class="vc_icon"></i></a>';
 					break;
 			}
 		}

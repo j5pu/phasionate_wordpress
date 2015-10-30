@@ -1,15 +1,10 @@
 <?php
-
 /**
  * Build and enqueue js/css for automapper settings tab.
  * @since 4.5
  */
 function vc_automapper_init() {
-	vc_user_access()
-		->wpAny( 'manage_options' )
-		->part( 'settings' )
-		->can( 'vc-automapper-tab' )
-		->get() && vc_automapper()->build();
+	vc_automapper()->build();
 }
 
 /**

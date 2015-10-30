@@ -2,7 +2,6 @@
 /**
  * @deprecated 4.4
  */
-_deprecated_file( 'panel_templates_editor.tpl.php', '4.4', 'panel_templates.tpl.php', ' will be removed in 4.9' );
 ?>
 <div id="vc_templates-editor" class="vc_panel vc_templates-editor" style="display: none;">
 	<div class="vc_panel-heading">
@@ -26,7 +25,7 @@ _deprecated_file( 'panel_templates_editor.tpl.php', '4.4', 'panel_templates.tpl.
 						<li class="vc_edit-form-tab-control"><a class="vc_edit-form-link"
 						                                        href="#tabs-templates-tabs-1"><?php _e( 'My templates', 'js_composer' ); ?></a>
 						</li>
-						<?php if ( $templates_exists ) :  ?>
+						<?php if ( $templates_exists ): ?>
 							<li class="vc_edit-form-tab-control"><a class="vc_edit-form-link"
 							                                        href="#tabs-templates-tabs-2"><?php _e( 'Default templates', 'js_composer' ); ?></a>
 							</li>
@@ -55,7 +54,7 @@ _deprecated_file( 'panel_templates_editor.tpl.php', '4.4', 'panel_templates.tpl.
 							</ul>
 						</div>
 					</div>
-					<?php if ( $templates_exists ) :  ?>
+					<?php if ( $templates_exists ): ?>
 						<div class="vc_edit-form-tab" id="tabs-templates-tabs-2" data-vc-ui-element="panel-edit-element-tab">
 							<div class="vc_col-sm-12 vc_column inside">
 
@@ -63,7 +62,7 @@ _deprecated_file( 'panel_templates_editor.tpl.php', '4.4', 'panel_templates.tpl.
 								<span
 									class="description"><?php _e( 'Append default template to the current layout', 'js_composer' ); ?></span>
 								<ul id="vc_default-template-list" class="wpb_templates_list">
-									<?php foreach ( $templates as $key => $template ) :  ?>
+									<?php foreach ( $templates as $key => $template ): ?>
 										<li class="wpb_template_li" data-vc-ui-element="template">
 											<a href="#" data-template_name="<?php echo $key ?>"
 											   data-vc-ui-element="template-title"><?php echo $template['name'] ?></a>

@@ -185,7 +185,7 @@ abstract class WC_Settings_API {
 			$this->settings[ $key ] = isset( $form_fields[ $key ]['default'] ) ? $form_fields[ $key ]['default'] : '';
 		}
 
-		if ( ! is_null( $empty_value ) && empty( $this->settings[ $key ] ) && '' === $this->settings[ $key ] ) {
+		if ( ! is_null( $empty_value ) && empty( $this->settings[ $key ] ) ) {
 			$this->settings[ $key ] = $empty_value;
 		}
 
@@ -846,10 +846,16 @@ abstract class WC_Settings_API {
 	 * @return string
 	 */
 	public function validate_password_field( $key ) {
+
 		$text  = $this->get_option( $key );
 		$field = $this->get_field_key( $key );
-		$value = wp_kses_post( trim( stripslashes( $_POST[ $field ] ) ) );
-		return $value;
+		$value = trim( stripslashes( $_POST[ $field ] ) );
+
+		if ( isset( $_POST[ $field ] ) ) {
+			$text = wp_kses_post( $value );
+		}
+
+		return $text === $value ? $text : '';
 	}
 
 	/**

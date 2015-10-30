@@ -38,8 +38,7 @@
 		build: function ( shortcodes, callback ) {
 			this.ajax( {
 					action: 'vc_load_shortcode',
-					shortcodes: shortcodes,
-					_vcnonce: window.vcAdminNonce
+					shortcodes: shortcodes
 				},
 				vc.frame_window.location.href ).done( function ( html ) {
 					_.each( $( html ), function ( block ) {
@@ -215,8 +214,7 @@
 						string: shortcode,
 						tag: tag
 					}
-				],
-				_vcnonce: window.vcAdminNonce
+				]
 			}, vc.frame_window.location.href ).done( function ( html ) {
 				var old_view;
 				old_view = model.view;
@@ -241,7 +239,7 @@
 				url: url || vc.admin_ajax,
 				type: 'POST',
 				dataType: 'html',
-				data: _.extend( { post_id: vc.post_id, vc_inline: true, _vcnonce: window.vcAdminNonce }, data ),
+				data: _.extend( { post_id: vc.post_id, vc_inline: true }, data ),
 				context: this
 			} );
 		},

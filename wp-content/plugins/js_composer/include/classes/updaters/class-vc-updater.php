@@ -1,5 +1,4 @@
 <?php
-
 /**
  * WPBakery Visual Composer updater
  *

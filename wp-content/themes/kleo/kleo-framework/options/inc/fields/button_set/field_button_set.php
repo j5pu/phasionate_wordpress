@@ -117,10 +117,7 @@
                     } else {
                         $multi_suffix = "";
                         $type         = "radio";
-
-                        if ( is_scalar( $this->value ) ) {
-                            $selected = checked( $this->value, $k, false );
-                        }
+                        $selected     = checked( $this->value, $k, false );
                     }
 
                     echo '<input data-id="' . $this->field['id'] . '" type="' . $type . '" id="' . $this->field['id'] . '-buttonset' . $k . '" name="' . $this->field['name'] . $this->field['name_suffix'] . $multi_suffix . '" class="buttonset-item ' . $this->field['class'] . '" value="' . $k . '" ' . $selected . '/>';

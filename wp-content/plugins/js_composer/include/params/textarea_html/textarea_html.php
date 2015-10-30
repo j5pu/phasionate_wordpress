@@ -1,5 +1,4 @@
 <?php
-
 global $vc_html_editor_already_is_use;
 $vc_html_editor_already_is_use = false;
 /**
@@ -12,7 +11,7 @@ $vc_html_editor_already_is_use = false;
 function vc_textarea_html_form_field( $settings, $value ) {
 	global $vc_html_editor_already_is_use;
 	$output = '';
-	if ( false !== $vc_html_editor_already_is_use ) {
+	if ( $vc_html_editor_already_is_use !== false ) {
 		$output .= '<textarea name="'
 		           . $settings['param_name']
 		           . '" class="wpb_vc_param_value wpb-textarea '
@@ -27,7 +26,7 @@ function vc_textarea_html_form_field( $settings, $value ) {
 		wp_editor( '', 'wpb_tinymce_' . $settings['param_name'], array(
 			'editor_class' => 'wpb-textarea visual_composer_tinymce ' . $settings['param_name'] . ' ' . $settings['type'],
 			'media_buttons' => true,
-			'wpautop' => false,
+			'wpautop' => false
 		) );
 		$output_value = ob_get_contents();
 		ob_end_clean();

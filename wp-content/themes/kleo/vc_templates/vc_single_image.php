@@ -29,11 +29,8 @@
  * @var $this WPBakeryShortCode_VC_Single_image
  */
 
-$animation = $full_width = '';
-
-$title = $source = $image = $custom_src = $onclick = $img_size = $external_img_size = $external_border_color =
-$caption = $img_link_large = $link = $img_link_target = $alignment = $el_class = $css_animation = $style = $external_style = $border_color = $css = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
+
 extract( $atts );
 
 $default_src = vc_asset_url( 'vc/no_image.png' );
@@ -59,10 +56,9 @@ if ( empty( $onclick ) && isset( $img_link_large ) && 'yes' === $img_link_large 
 
 if ( 'external_link' === $source ) {
     $style = $external_style;
-    $border_color = $external_border_color;
 }
 
-$border_color = ( '' !== $border_color ) ? ' vc_box_border_' . $border_color : '';
+$border_color = ( $border_color !== '' ) ? ' vc_box_border_' . $border_color : '';
 
 $img = false;
 
@@ -208,18 +204,13 @@ if ( vc_has_class( 'prettyphoto', $el_class ) ) {
     $el_class = vc_remove_class( 'prettyphoto', $el_class );
 }
 
-$wrapperClass = 'vc_single_image-wrapper ' . $style . ' ' . $border_color;
+$html = ( 'vc_box_shadow_3d' === $style ) ? '<span class="vc_box_shadow_3d_wrap">' . $img['thumbnail'] . '</span>' : $img['thumbnail'];
+$html = '<div class="vc_single_image-wrapper ' . $style . ' ' . $border_color . '">' . $html . '</div>';
 
 if ( $link ) {
     $a_attrs['href'] = $link;
     $a_attrs['target'] = $img_link_target;
-    if ( ! empty( $a_attrs['class'] ) ) {
-        $wrapperClass .= ' ' . $a_attrs['class'];
-        unset( $a_attrs['class'] );
-    }
-    $html = '<a ' . vc_stringify_attributes( $a_attrs ) . ' class="' . $wrapperClass . '">' . $img['thumbnail'] . '</a>';
-} else {
-    $html = '<div class="' . $wrapperClass . '">' . $img['thumbnail'] . '</div>';
+    $html = '<a ' . vc_stringify_attributes( $a_attrs ) . '>' . $html . '</a>';
 }
 
 $class_to_filter = 'wpb_single_image wpb_content_element vc_align_' . $alignment;
@@ -239,22 +230,25 @@ $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter
 if ( in_array( $source, array( 'media_library', 'featured_image' ) ) && 'yes' === $add_caption ) {
     $post = get_post( $img_id );
     $caption = $post->post_excerpt;
-} else {
-    if ( 'external_link' === $source ) {
-        $add_caption = 'yes';
-    }
+} else if ( 'external_link' === $source ) {
+    $add_caption = 'yes';
 }
 
-if ( 'yes' == $add_caption && '' !== $caption ) {
-    $html .= '<figcaption class="vc_figure-caption">' . esc_html( $caption ) . '</figcaption>';
+if ( 'yes' === $add_caption && '' !== $caption ) {
+    $html = '
+		<figure class="vc_figure">
+			' . $html . '
+			<figcaption class="vc_figure-caption">' . esc_html( $caption ) . '</figcaption>
+		</figure>
+	';
 }
 
 $output = '
 	<div class="' . esc_attr( trim( $css_class ) ) . '">
+		<div class="wpb_wrapper">
 			' . wpb_widget_title( array( 'title' => $title, 'extraclass' => 'wpb_singleimage_heading' ) ) . '
-			<figure class="wpb_wrapper vc_figure">
-			    ' . $html . '
-            </figure>
+			' . $html . '
+		</div>
 	</div>
 ';
 

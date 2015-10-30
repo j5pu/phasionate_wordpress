@@ -49,7 +49,7 @@ if ( $social_share != 1 && $like_status != 1 ) {
 	<div class="container">
 		<div class="share-links">
       
-            <div class="hr-title hr-long"><abbr><?php esc_html_e("Share this", "kleo_framework"); ?></abbr></div>
+            <div class="hr-title hr-long"><abbr><?php _e("Share this", "kleo_framework"); ?></abbr></div>
 
             <?php if ( $like_status == 1 ) : ?>
 

@@ -1,14 +1,12 @@
 <?php
-
 define( 'TAB_TITLE', __( 'Tab', 'js_composer' ) );
-require_once vc_path_dir( 'SHORTCODES_DIR', 'vc-column.php' );
 
 class WPBakeryShortCode_VC_Tab extends WPBakeryShortCode_VC_Column {
 	protected $controls_css_settings = 'tc vc_control-container';
 	protected $controls_list = array( 'add', 'edit', 'clone', 'delete' );
 	protected $predefined_atts = array(
 		'tab_id' => '',
-		'title' => '',
+		'title' => ''
 	);
 	protected $controls_template_file = 'editors/partials/backend_controls_tab.tpl.php';
 
@@ -21,9 +19,7 @@ class WPBakeryShortCode_VC_Tab extends WPBakeryShortCode_VC_Column {
 	}
 
 	public function mainHtmlBlockParams( $width, $i ) {
-		$sortable = ( vc_user_access_check_shortcode_all( $this->shortcode ) ? 'wpb_sortable' : $this->nonDraggableClass );
-
-		return 'data-element_type="' . $this->settings['base'] . '" class="wpb_' . $this->settings['base'] . ' ' . $sortable . ' wpb_content_holder"' . $this->customAdminBlockParams();
+		return 'data-element_type="' . $this->settings["base"] . '" class="wpb_' . $this->settings['base'] . ' wpb_sortable wpb_content_holder"' . $this->customAdminBlockParams();
 	}
 
 	public function containerHtmlBlockParams( $width, $i ) {
@@ -33,6 +29,17 @@ class WPBakeryShortCode_VC_Tab extends WPBakeryShortCode_VC_Column {
 	public function getColumnControls( $controls, $extended_css = '' ) {
 		return $this->getColumnControlsModular( $extended_css );
 	}
+}
+
+/**
+ * @param $settings
+ * @param $value
+ *
+ * @deprecated due to without prefix
+ * @return string
+ */
+function tab_id_settings_field( $settings, $value ) {
+	return vc_tab_id_settings_field( $settings, $value );
 }
 
 /**

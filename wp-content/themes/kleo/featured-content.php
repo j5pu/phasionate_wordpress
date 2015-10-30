@@ -41,11 +41,7 @@ else
 		do_action( 'kleo_featured_posts_before' );
 
 		echo $before_featured;
-
-		global $wp_query;
-		$in_the_loop = $wp_query->in_the_loop;
-		$wp_query->in_the_loop = true;
-
+		
 		$featured_posts = kleo_get_featured_posts();
 		foreach ( (array) $featured_posts as $order => $post ) :
 			setup_postdata( $post );
@@ -58,8 +54,6 @@ else
 				get_template_part( 'page-parts/post-content-carousel');
 			}
 		endforeach;
-
-		$wp_query->in_the_loop = $in_the_loop;
 
 		echo $after_featured;
 		

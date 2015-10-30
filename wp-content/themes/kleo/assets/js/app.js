@@ -449,9 +449,6 @@ var kleoPage = {
             kleoPage.bannerSlider();
             kleoPage.rtMediaslider();
             kleoPage.newsTicker();
-            $(document).on('click', '.news-focus .nav-tabs a', function(){
-                kleoPage.bannerSlider();
-            });
         }
 
 		//activate magnificPopup
@@ -2482,7 +2479,7 @@ $.fn.kleo_enable_media = function(options) {
 
         });
 	});
-};
+}
 
 $.fn.visible = function() {
 	return this.css('visibility', 'visible');

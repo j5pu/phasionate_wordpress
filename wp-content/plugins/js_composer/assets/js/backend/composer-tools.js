@@ -258,10 +258,7 @@ function vc_cta_button_param_target_callback() {
 function vc_grid_exclude_dependency_callback() {
 	var $ = jQuery;
 	var exclude_el = $( '.wpb_vc_param_value[name=exclude]', this.$content );
-	var exclude_obj = exclude_el.data( 'vc-param-object' );
-	if ( undefined === exclude_obj ) {
-		return false;
-	}
+	var exclude_obj = exclude_el.data( 'object' );
 	var post_type_object = $( 'select.wpb_vc_param_value[name="post_type"]', this.$content );
 	var val = post_type_object.val();
 	exclude_obj.source_data = function ( request, response ) {
@@ -287,10 +284,7 @@ function vcGridFilterExcludeCallBack() {
 	$filterBy = $( '.wpb_vc_param_value[name=filter_source]', this.$content );
 	defaultValue = $filterBy.val();
 	$exclude = $( '.wpb_vc_param_value[name=exclude_filter]', this.$content );
-	autocomplete = $exclude.data( 'vc-param-object' );
-	if(undefined === autocomplete) {
-		return false;
-	}
+	autocomplete = $exclude.data( 'object' );
 	$filterBy.change( function () {
 		var $this = $( this );
 		defaultValue !== $this.val() && autocomplete.clearValue();
@@ -429,7 +423,7 @@ function vc_wpautop( pee ) {
 		} );
 	}
 
-	pee += '\n\n';
+	pee = pee + '\n\n';
 	pee = pee.replace( /<br \/>\s*<br \/>/gi, '\n\n' );
 	pee = pee.replace( new RegExp( '(<(?:' + blocklist + ')(?: [^>]*)?>)', 'gi' ), '\n$1' );
 	pee = pee.replace( new RegExp( '(</(?:' + blocklist + ')>)', 'gi' ), '$1\n\n' );
@@ -606,23 +600,6 @@ vc.events.on( 'shortcodes:vc_row:add:param:name:parallax shortcodes:vc_row:updat
 			}
 		}
 	} );
-
-/**
- * BC for single image
- *
- * If we have 'link' attribute, but 'onclick' is empty, set 'onclick' to 'custom_link'
- *
- * @since 4.8
- */
-vc.events.on( 'shortcodes:vc_single_image:sync shortcodes:vc_single_image:add', function ( model ) {
-	var params = model.get( 'params' );
-
-	if ( params.link && ! params.onclick ) {
-		params.onclick = 'custom_link';
-		model.save( { params: params } );
-	}
-} );
-
 /**
  * console.log for every browser
  *

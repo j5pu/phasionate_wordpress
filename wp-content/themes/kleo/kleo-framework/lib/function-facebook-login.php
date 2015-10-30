@@ -176,15 +176,15 @@ if ( sq_option( 'facebook_login', 0 ) == 1 ) {
 }
 
 
-function kleo_fb_intialize() {
+function kleo_fb_intialize(){
+
+    @error_reporting( 0 ); // Don't break the JSON result
+    header( 'Content-type: application/json' );
 
     /* If not our action, bail out */
     if (! isset($_POST['action']) || ( isset($_POST['action']) && $_POST['action'] != 'fb_intialize' ) ) {
         return false;
     }
-
-    @error_reporting( 0 ); // Don't break the JSON result
-    header( 'Content-type: application/json' );
 
     if ( is_user_logged_in() ) {
         die(json_encode(array('error' => __('You are already logged in.', 'kleo_framework'))));

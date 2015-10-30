@@ -1,5 +1,4 @@
 <?php
-
 /**
  * WPBakery Visual Composer front end editor
  *
@@ -12,15 +11,7 @@
  *
  * @since 4.3
  */
-class Vc_Add_Element_Box implements Vc_Render {
-	/**
-	 * Enable show empty message
-	 *
-	 * @since 4.8
-	 * @var bool
-	 */
-	protected $show_empty_message = false;
-
+Class Vc_Add_Element_Box implements Vc_Render {
 	/**
 	 * @param $params
 	 *
@@ -28,11 +19,11 @@ class Vc_Add_Element_Box implements Vc_Render {
 	 */
 	protected function getIcon( $params ) {
 		$data = '';
-		if ( isset( $params['is_container'] ) && true === $params['is_container'] ) {
+		if ( isset( $params['is_container'] ) && $params['is_container'] === true ) {
 			$data = ' data-is-container="true"';
 		}
 
-		return '<i class="vc_general vc_element-icon' . ( ! empty( $params['icon'] ) ? ' ' . sanitize_text_field( $params['icon'] ) : '' ) . '"' . $data . '></i> ';
+		return '<i class="vc_element-icon' . ( ! empty( $params['icon'] ) ? ' ' . sanitize_text_field( $params['icon'] ) : '' ) . '"' . $data . '></i> ';
 	}
 
 	/**
@@ -47,26 +38,26 @@ class Vc_Add_Element_Box implements Vc_Render {
 			return '';
 		}
 		$output = $class = $class_out = $data = $category_css_classes = '';
-		if ( ! empty( $params['class'] ) ) {
-			$class_ar = $class_at_out = explode( ' ', $params['class'] );
+		if ( ! empty( $params["class"] ) ) {
+			$class_ar = $class_at_out = explode( " ", $params["class"] );
 			for ( $n = 0; $n < count( $class_ar ); $n ++ ) {
-				$class_ar[ $n ] .= '_nav';
-				$class_at_out[ $n ] .= '_o';
+				$class_ar[ $n ] .= "_nav";
+				$class_at_out[ $n ] .= "_o";
 			}
-			$class = ' ' . implode( ' ', $class_ar );
-			$class_out = ' ' . implode( ' ', $class_at_out );
+			$class = ' ' . implode( " ", $class_ar );
+			$class_out = ' ' . implode( " ", $class_at_out );
 		}
 		if ( isset( $params['_category_ids'] ) ) {
 			foreach ( $params['_category_ids'] as $id ) {
 				$category_css_classes .= ' js-category-' . $id;
 			}
 		}
-		if ( isset( $params['is_container'] ) && true === $params['is_container'] ) {
+		if ( isset( $params['is_container'] ) && $params['is_container'] === true ) {
 			$data .= ' data-is-container="true"';
 		}
 		$data .= ' data-vc-ui-element="add-element-button"';
 		$description = ! empty( $params['description'] ) ? '<i class="vc_element-description">' . htmlspecialchars( $params['description'] ) . '</i>' : '';
-		$output .= '<li data-element="' . $params['base'] . '" class="wpb-layout-element-button vc_col-xs-12 vc_col-sm-4 vc_col-md-3 vc_col-lg-2' . ( isset( $params['deprecated'] ) ? ' vc_element-deprecated' : '' ) . $category_css_classes . $class_out . '"' . $data . '><div class="vc_el-container"><a id="' . $params['base'] . '" data-tag="' . $params['base'] . '" class="dropable_el vc_shortcode-link' . $class . '" href="#" data-vc-clickable>' . $this->getIcon( $params ) . htmlspecialchars( __( stripslashes( $params['name'] ), 'js_composer' ) ) . $description . '</a></div></li>';
+		$output .= '<li data-element="' . $params['base'] . '" class="wpb-layout-element-button vc_col-xs-12 vc_col-sm-4 vc_col-md-3 vc_col-lg-2' . ( isset( $params['deprecated'] ) ? ' vc_element-deprecated' : '' ) . $category_css_classes . $class_out . '"' . $data . '><div class="vc_el-container"><a id="' . $params['base'] . '" data-tag="' . $params['base'] . '" class="dropable_el vc_shortcode-link' . $class . '" href="#" data-vc-clickable>' . $this->getIcon( $params ) . htmlspecialchars( __( stripslashes( $params["name"] ), "js_composer" ) ) . $description . '</a></div></li>';
 
 		return $output;
 	}
@@ -90,21 +81,13 @@ class Vc_Add_Element_Box implements Vc_Render {
 	public function getControls() {
 		$output = '<ul class="wpb-content-layouts">';
 		/** @var array $element */
-		$buttons_count = 0;
 		foreach ( $this->shortcodes() as $element ) {
-			if ( isset( $element['content_element'] ) && false === $element['content_element'] ) {
+			if ( isset( $element['content_element'] ) && $element['content_element'] === false ) {
 				continue;
 			}
-			$button = $this->renderButton( $element );
-			if ( ! empty( $button ) ) {
-				$buttons_count ++;
-			}
-			$output .= $button;
+			$output .= $this->renderButton( $element );
 		}
 		$output .= '</ul>';
-		if ( 0 === $buttons_count ) {
-			$this->show_empty_message = true;
-		}
 
 		return apply_filters( 'vc_add_element_box_buttons', $output );
 	}
@@ -123,31 +106,8 @@ class Vc_Add_Element_Box implements Vc_Render {
 		vc_include_template( 'editors/popups/vc_ui-panel-add-element.tpl.php', array(
 			'box' => $this,
 			'template_variables' => array(
-				'categories' => $this->getCategories(),
-			),
+				'categories' => $this->getCategories()
+			)
 		) );
-	}
-
-	/**
-	 * Render icon for shortcode
-	 *
-	 * @param $params
-	 *
-	 * @since 4.8
-	 * @return string
-	 */
-	public function renderIcon( $params ) {
-		return $this->getIcon( $params );
-	}
-
-	/**
-	 * @return boolean
-	 */
-	public function isShowEmptyMessage() {
-		return $this->show_empty_message;
-	}
-
-	public function getPartState() {
-		return vc_user_access()->part( 'shortcodes' )->getState();
 	}
 }

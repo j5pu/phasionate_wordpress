@@ -146,16 +146,8 @@ img {
 	height: auto;
 	-ms-interpolation-mode: bicubic;
 }
-.img-full-width,
-.img-full-width .vc_figure,
-.img-full-width .vc_single_image-wrapper,
-.img-full-width a,
 .img-full-width img {
 	width: 100% !important;
-}
-.vbottom { vertical-align: bottom; }
-div.wpb_single_image .vc_figure .vc_single_image-wrapper {
-	margin-bottom: 0;
 }
 img[alt] {
 	font-size: 82%;
@@ -1035,9 +1027,6 @@ a .link-icon {
 	margin-bottom: 0;
 	border: none;
 }
-#header .navbar {
-	min-height: 0;
-}
 
 .navbar-header, .kleo-main-header .navbar-collapse > ul > li > a,
 .header-banner{
@@ -1472,6 +1461,9 @@ a .link-icon {
 	background-color: rgba(0,0,0, 0.6);
 	border-color: transparent;
 }
+.navbar-transparent .navbar-nav .dropdown-menu li a {
+	color: #fff !important;
+}
 
 .navbar-transparent .navbar-toggle .icon-bar {
 	background-color: #fff !important;
@@ -1481,10 +1473,6 @@ a .link-icon {
 }
 .navbar-transparent .sticky-wrapper {height:auto !important;}
 
-.navbar-transparent:not(.kleo-navbar-fixed) #header {
-	position: absolute;
-	width: 100%;
-}
 
 /* Fixed Header */
 .kleo-navbar-fixed .kleo-main-header  {
@@ -2527,10 +2515,6 @@ article .article-meta .edit-link:after {
     /*padding: 0 0 20px;*/
 }
 
-.posts-listing .archive-description {
-	padding-bottom:20px;
-}
-
 img.attachment-kleo-full-width {
 	width: 100%;
 }
@@ -2633,9 +2617,6 @@ img.attachment-kleo-full-width {
 }
 .posts-listing.standard-listing.with-meta .article-title {
 	margin-left: 130px;
-}
-.posts-listing .post-item {
-	width:100%;
 }
 .tpl-3ll article .article-meta,
 .tpl-3lr article .article-meta,
@@ -7060,22 +7041,15 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
     margin-left: 0;
     text-align: center;
 }
-.box-style,
-.box-style .one-by-one-animated {
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-
-	-webkit-flex-wrap: wrap;
-	-ms-flex-wrap: wrap;
-	flex-wrap: wrap;
+.box-style {
+    overflow: hidden;
 }
 .box-style .feature-item {
     text-align: center;
     padding: 20px;
-}
-.box-style .col-xs-12 {
-	display: flex;
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+    vertical-align: middle;
 }
 .box-style .feature-item.default-icons-size .feature-icon,
 .box-style .feature-item.big-icons-size .feature-icon {
@@ -8351,12 +8325,6 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 .template-page.col-sm-12 .kleo-isotope > li {width:24.9%;}
 .template-page.col-sm-12 .section-container.container-full .kleo-masonry-item,
 .template-page.col-sm-12 .section-container.container-full .kleo-isotope > li {width:16.6%;}
-
-@media (min-width: 992px) {
-	.navbar-transparent .navbar-nav .dropdown-menu li a {
-		color: #fff !important;
-	}
-}
 
 @media (min-width: 1440px) {
     .kleo-isotope > .kleo-masonry-item,
