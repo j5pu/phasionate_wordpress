@@ -692,10 +692,6 @@ body:not(.home) #main .sidebar-main {
 	/*border-right: 20px solid #222 ;*/
 }
 
-#main .sidebar{
-	padding-top:5px !important;
-}
-
 .number{
 	color:#d17b83;
 	font-size: 4rem;
