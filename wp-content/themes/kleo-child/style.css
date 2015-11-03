@@ -678,11 +678,9 @@ body #footer{
 
 
 /*Estilos sidebar*/
-.sidebar>div>div {
-	padding-top: 9px !important;
-/*border-bottom: 1px solid #e5e5e5;
-padding-bottom: 20px;
-*/}
+.sidebar {
+	padding-top: 17px !important;
+}
 
 body:not(.home) #main .sidebar-main {
 	border-left: 0px solid #222;
@@ -1882,6 +1880,9 @@ and (max-device-width : 320px)
 	font-size: 20px;
 	line-height: 20px;
 	}
+	.sidebar {
+		padding-top: 30px !important;
+	}
 }
 
 @media (min-width: 768px) and (max-width: 991px){
@@ -2848,9 +2849,6 @@ left: auto !important;
 	border-right-width: 0px;
 }
 
-.sidebar {
-	padding: 20px 5px !important;
-}
 .page-boxed, .kleo-main-header {
 	max-width: 100% !important;
 }
