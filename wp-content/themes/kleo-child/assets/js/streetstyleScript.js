@@ -549,7 +549,7 @@ function ownResize(){
 				.append($('<span>').attr({class: 'kleo-facebook'})
 					.append($('<a>').attr({class: 'post_share_facebook'}).on('click', function(){ javascript:window.open(this.href, //http://www.facebook.com/sharer.php?u=https://www.facebook.com/photo.php?fbid=481019152029911
 					'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;}).attr('href', "http://www.facebook.com/sharer.php?u=" + encodeURIComponent(location_url) )
-						.append($('<i class="fa fa-facebook">'))
+						.append($('<i class="fa fa-facebook"></i>'))
 						))
 				.append($('<span>').attr({class: 'kleo-twitter'})
 					.append($('<a>').attr({class: 'post_share_twitter'}).on('click', function(){ javascript:window.open(this.href,
