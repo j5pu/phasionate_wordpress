@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Foto Vote 2.1\n"
 "POT-Creation-Date: 2015-09-02 11:23+0200\n"
-"PO-Revision-Date: 2015-11-06 13:50+0100\n"
+"PO-Revision-Date: 2015-11-06 15:26+0100\n"
 "Last-Translator: Maxim <support@wp-vote.net>\n"
 "Language-Team: pablo@mnopi.com\n"
 "Language: es_ES\n"
@@ -716,9 +716,8 @@ msgid ""
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:248
-#, fuzzy
 msgid "User email title - email share"
-msgstr "Neues Foto hochgeladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:249
 #, php-format
@@ -731,9 +730,8 @@ msgid ""
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:251
-#, fuzzy
 msgid "Admin email title - new photo uploaded"
-msgstr "Informiere mich wenn ein neues Foto hochgeladen wurde"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:252
 #, php-format
@@ -745,9 +743,8 @@ msgid ""
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:256
-#, fuzzy
 msgid "Contest list"
-msgstr "Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:257
 #, php-format
@@ -832,7 +829,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_contests_list.php:79
 msgid "Disabled"
-msgstr "Deaktivieren"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_contests_list.php:107
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_tr.php:26
@@ -848,7 +845,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_contests_list.php:109
 msgid "Vote log"
-msgstr "Log (Votes)"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_contests_list.php:155
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:5
@@ -856,7 +853,7 @@ msgstr "Log (Votes)"
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:14
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_photos_list_form.php:36
 msgid "Name"
-msgstr "Name"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_contests_list.php:156
 msgid "Contestants count"
@@ -878,7 +875,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_contests_list.php:161
 msgid "Upload photos"
-msgstr "Hochladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:42
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:215
@@ -887,12 +884,12 @@ msgstr "Hochladen"
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-votes-analytic.php:10
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:6
 msgid "Contest"
-msgstr "Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:44
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-votes-analytic.php:12
 msgid "Filter by Contest"
-msgstr "Filtern nach Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:51
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-votes-analytic.php:19
@@ -902,24 +899,21 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:54
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-votes-analytic.php:23
-#, fuzzy
 msgid "Select contest"
-msgstr "Neuen Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:56
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-votes-analytic.php:25
-#, fuzzy
 msgid "Filter by photo"
-msgstr "Filtern nach Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:216
 msgid "competitor"
-msgstr "Mitbewerber"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:217
-#, fuzzy
 msgid "IP address / Country / Evercookie UID"
-msgstr "IP Adresse / Land"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:218
 msgid "Fraud score"
@@ -933,20 +927,20 @@ msgstr ""
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:10
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:9
 msgid "User id"
-msgstr "Benutzer"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:221
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:61
 msgid "changed"
-msgstr "geändert"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:222
 msgid "browser"
-msgstr "Browser"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:223
 msgid "refer"
-msgstr "Bezug"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:299
 msgid "Vote rows deleted (this did`t affects photo votes count)."
@@ -957,20 +951,18 @@ msgid "Row deleted (this did`t affects photo votes count)."
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/class-widget.php:47
-#, fuzzy
 msgid "Photo contest gallery"
-msgstr "Foto Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/class-widget.php:49
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/class-widget.php:54
-#, fuzzy
 msgid "Shows list photos from selected contest."
-msgstr "Foto für den Wettbewerb hochladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/class-widget.php:114
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/class-widget.php:121
 msgid "Photo contest"
-msgstr "Foto Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:3
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:3
@@ -979,9 +971,8 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:8
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:8
-#, fuzzy
 msgid "Select contest:"
-msgstr "Neuen Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:15
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:15
@@ -990,9 +981,8 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:19
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:19
-#, fuzzy
 msgid "Items count:"
-msgstr "Zahl der Stimmen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:37
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:44
@@ -1001,9 +991,8 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:48
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:52
-#, fuzzy
 msgid "Link to contest page:"
-msgstr "Geben Wettbewerb Namen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:50
 msgid "Don`t forgot http://, as example \"http://test.com/contest/\""
@@ -1011,9 +1000,8 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:54
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:57
-#, fuzzy
 msgid "Design:"
-msgstr "Design"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/widget.php:23
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/widget.php:22
@@ -1021,9 +1009,8 @@ msgid "View"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/class-widget.php:51
-#, fuzzy
 msgid "Photo contest list"
-msgstr "Foto Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:37
 msgid "Show thumbnails?"
@@ -1039,9 +1026,8 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/widget.php:28
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_photos_list_form.php:44
-#, fuzzy
 msgid "Votes"
-msgstr "Abstimmen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/share.php:76
 msgid "We are not put your data to others."
@@ -1062,21 +1048,20 @@ msgid "Pin it"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/share_new.php:106
-#, fuzzy
 msgid "Share and vote"
-msgstr "Führende Abstimmung:"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/upload.php:50
 msgid "Login"
-msgstr "Login"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/upload.php:50
 msgid "or"
-msgstr "Vier"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/upload.php:50
 msgid "register"
-msgstr "registrieren"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/contests_list/default/list.php:32
 msgid "not active"
@@ -1108,9 +1093,8 @@ msgid "Description"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:62
-#, fuzzy
 msgid "Comments"
-msgstr "commentar"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:80
 msgid "Share"
@@ -1166,17 +1150,16 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:72
 msgid "Log cleared."
-msgstr "Log geleert."
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:80
-#, fuzzy
 msgid "Tables cleared."
-msgstr "Log geleert."
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:123
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-contests_page.php:6
 msgid "Photo contests"
-msgstr "Foto Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:124
 msgid "Moderation"
@@ -1185,7 +1168,7 @@ msgstr ""
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:125
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:413
 msgid "Settings"
-msgstr "Einstellungen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:126
 msgid "Form builder"
@@ -1197,12 +1180,11 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:128
 msgid "Votes log"
-msgstr "Log (Votes)"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:129
-#, fuzzy
 msgid "Votes analytic"
-msgstr "Zahl der Stimmen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:130
 msgid "Subscribers list"
@@ -1217,8 +1199,6 @@ msgid ""
 "You can change, but if the number of votes in the database would be another "
 "<br/> (someone vote in the editing page), <br/> changes will not be saved."
 msgstr ""
-"Änderbar, aber die Summe in der Datenbank würde abweichen <br/> (Jemand "
-"stimmt in der Admin-Seite ab), <br/> Änderungen werden nicht gespeichert."
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:173
 msgid ""
@@ -1226,9 +1206,6 @@ msgid ""
 "information and notes to photos.<br/> If specified as `email;text`, user can "
 "take<br/> notification, when photo has been approved."
 msgstr ""
-"Diese Seite wird nicht angezeigt wenn Fotos geladen werden, <br/> "
-"spezifiziere Kontakt-Informationen der Fotos.<br/>Wenn festgelegt als `email;"
-"text`, werden Benutzer<br/>informiert wenn Fotos akzeptiert wurden."
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:174
 msgid ""
@@ -1237,8 +1214,6 @@ msgid ""
 "thumbnail - if its size is 150*150 <br/> plugin will automatically insert "
 "the full image in the `image` field"
 msgstr ""
-"Bild Grösse 150*150px (falls höher definiert, mit einer grossen Anzahl an "
-"Teilnehmern<br/>muss mit langen Ladezeiten gerechnet werden)."
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:175
 msgid "Similarly remove all ip addresses, voted in this contest?"
@@ -1246,7 +1221,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:176
 msgid "Cleared"
-msgstr "Log geleert."
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:178
 msgid ""
@@ -1254,9 +1229,8 @@ msgid ""
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:179
-#, fuzzy
 msgid "Votes reseted!"
-msgstr "Wettbewerb gelöscht."
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:181
 msgid ""
@@ -1265,14 +1239,12 @@ msgid ""
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:182
-#, fuzzy
 msgid "Contestant and photo deleted!"
-msgstr "Wettbewerb gelöscht."
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:183
-#, fuzzy
 msgid "Contestant approved!"
-msgstr "Wettbewerb gespeichert."
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:184
 msgid "Saved!"
@@ -1295,9 +1267,8 @@ msgid "Rotating to *A* degrees start!"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:190
-#, fuzzy
 msgid "Full photo"
-msgstr "Hochladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:191
 msgid "On modearation"
@@ -1314,7 +1285,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-contests_page.php:14
 msgid "Contest deleted."
-msgstr "Wettbewerb gelöscht."
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-contests_page.php:31
 msgid "Create contest, copy shortcode and insert it into the page/post text."
@@ -1325,11 +1296,8 @@ msgid "- for shows contests list"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:75
-#, fuzzy
 msgid "Voting log / can be cleared on the page, where you can edit contest"
 msgstr ""
-"Vote-Log (15 Einträge) / Kann auf der Seite geleert werden wo der Wettbewerb "
-"bearbeitet wird"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:78
 msgid ""
@@ -1385,21 +1353,18 @@ msgid "last 360 days"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-moderation-list.php:27
-#, fuzzy
 msgid "Moderation users uploaded photos"
-msgstr "Informiere mich per Email wenn ein Benutzer ein Foto hochlädt"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:6
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:63
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_voting.php:5
-#, fuzzy
 msgid "Voting"
-msgstr "Abstimmung"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:8
-#, fuzzy
 msgid "Upload notify"
-msgstr "Informationen laden"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:9
 msgid "Additional"
@@ -1411,13 +1376,12 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:26
 msgid "Configuration saved."
-msgstr "Einstellungen gespeichert."
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:58
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:282
-#, fuzzy
 msgid "Save all Changes"
-msgstr "Speichere die Änderungen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:63
 msgid ""
@@ -1429,13 +1393,10 @@ msgid "Clear all plugin data in database."
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:32
-#, fuzzy
 msgid ""
 "Log subscribers (15 entries) / can clear on the page, where you can edit a "
 "poll (post)"
 msgstr ""
-"Vote-Log (15 Einträge) / Kann auf der Seite geleert werden wo der Wettbewerb "
-"bearbeitet wird"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:33
 msgid ""
@@ -1449,11 +1410,11 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:13
 msgid "Translation saved."
-msgstr "Übersetzung gespeichert."
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:20
 msgid "Translating messages"
-msgstr "Meldungen übersetzen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:23
 msgid "Please don't use double quotes (\") !"
@@ -1465,16 +1426,15 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:70
 msgid "Save Changes"
-msgstr "Speichere die Änderungen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:73
 msgid "Are you sure to reset translation?"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:73
-#, fuzzy
 msgid "Reset translation."
-msgstr "Übersetzung gespeichert."
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-votes-analytic.php:6
 msgid ""
@@ -1490,11 +1450,11 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:4
 msgid "New contest"
-msgstr "Neuen Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:174
 msgid "Save changes"
-msgstr "Speichere die Änderungen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:182
 msgid "Shortcode, to show contest on page/post:"
@@ -1513,18 +1473,16 @@ msgid "Shortcode, to show only leaders block:"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:197
-#, fuzzy
 msgid "Export all photos to csv"
-msgstr "Foto für den Wettbewerb hochladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:199
 msgid "Import CSV to Google Drive"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:211
-#, fuzzy
 msgid "Clear ip list for this contest"
-msgstr "Foto für den Wettbewerb hochladen:"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:216
 msgid "Reset all votes in this contest"
@@ -1541,9 +1499,8 @@ msgid "Save"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:232
-#, fuzzy
 msgid "Save contest settings"
-msgstr "Foto Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:234
 msgid "Tip: this button only saves settings at left."
@@ -1551,12 +1508,11 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:263
 msgid "Enter contest name"
-msgstr "Geben Wettbewerb Namen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:276
-#, fuzzy
 msgid "Contestants"
-msgstr "Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:284
 msgid "Add one photo"
@@ -1575,9 +1531,8 @@ msgid "Save contest for editing contestants!"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/form-builder.php:2
-#, fuzzy
 msgid "Upload form builder"
-msgstr "Position des Upload-Formulares"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/form-builder.php:4
 msgid ""
@@ -1603,7 +1558,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:116
 msgid "Clear log"
-msgstr "Log leeren"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:137
 msgid "WordPress Environment"
@@ -1698,9 +1653,8 @@ msgid "MySQL Version"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:266
-#, fuzzy
 msgid "Max Upload Size"
-msgstr "Informationen laden"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:271
 msgid "Default Timezone is UTC"
@@ -1737,9 +1691,9 @@ msgid ""
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:325
-#, fuzzy, php-format
+#, php-format
 msgid "Error: %s"
-msgstr "Log (Fehler)"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:327
 #, php-format
@@ -1747,9 +1701,8 @@ msgid "Status code: %s"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:10
-#, fuzzy
 msgid "Setup Tutorial"
-msgstr "Installations Anleitung &amp; Demo"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:45
 msgid "Addons"
@@ -1781,7 +1734,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:84
 msgid "Support &amp; Reviews"
-msgstr "Support &amp; Meinungen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:92
 msgid "Need customization or freelance developer? Write to"
@@ -1789,15 +1742,13 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:99
 msgid "Need support? Write to"
-msgstr "Support benötigt? Schreibe an"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:106
 msgid ""
 "Your feedback and review are both important, <a href=\"http://wp-vote.net/"
 "testimonials/\" target=\"_blank\">write you testimonial</a>!"
 msgstr ""
-"Ihre Meinung ist wichtig: <a href=\"http://wp-vote.net/testimonials/\" "
-"target=\"_blank\">Schreiben Sie uns ein Feedback</a>!"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:4
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:4
@@ -1806,12 +1757,12 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:7
 msgid "Votes count"
-msgstr "Zahl der Stimmen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:8
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:7
 msgid "Upload info"
-msgstr "Informationen laden"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:9
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:8
@@ -1821,7 +1772,7 @@ msgstr ""
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:11
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:10
 msgid "User ip"
-msgstr "Benutzer ip"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:12
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:78
@@ -1854,14 +1805,12 @@ msgid "rotate left"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:4
-#, fuzzy
 msgid "Editing contestant:"
-msgstr "Wettbewerb bearbeiten"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:4
-#, fuzzy
 msgid "Adding contestant:"
-msgstr "Wettbewerb bearbeiten"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:5
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_photos_list_form.php:27
@@ -1881,9 +1830,8 @@ msgid "(shows in photos list)"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:31
-#, fuzzy
 msgid "Full description"
-msgstr "Hochladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:31
 msgid "(shows in single contest photo page)"
@@ -1903,7 +1851,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:54
 msgid "Contest image"
-msgstr "Bilderwettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:55
 msgid "(Use full image, thumbnail get`s automatically)"
@@ -1922,9 +1870,8 @@ msgid "To draft"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_other.php:4
-#, fuzzy
 msgid "Other settings"
-msgstr "Einstellungen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_other.php:8
 msgid "Contest list settings"
@@ -1935,9 +1882,8 @@ msgid "Page, where contest are placed"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_other.php:16
-#, fuzzy
 msgid "Select page"
-msgstr "Motiv auswählen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_other.php:35
 msgid "(need, only if you uses contest_list shortcode)"
@@ -1952,14 +1898,12 @@ msgid "Did`t shows in photos list, only as cover image."
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_upload.php:5
-#, fuzzy
 msgid "Upload settings"
-msgstr "Hochladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_upload.php:13
-#, fuzzy
 msgid "Upload form theme"
-msgstr "Position des Upload-Formulares"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_upload.php:27
 msgid "The maximum number of one user upload photos"
@@ -1967,7 +1911,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_upload.php:27
 msgid "Maximum number of pictures uploaded by each user in this competition."
-msgstr "Maximale Anzahl an Bildern pro Benutzer für diesen Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_upload.php:33
 msgid "Moderation type"
@@ -1992,9 +1936,8 @@ msgid ""
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_upload.php:44
-#, fuzzy
 msgid "Photo upload enabled"
-msgstr "Neues Foto hochgeladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_upload.php:47
 msgid ""
@@ -2003,9 +1946,8 @@ msgid ""
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_upload.php:53
-#, fuzzy
 msgid "Upload date start"
-msgstr "Hochladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_upload.php:55
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_upload.php:63
@@ -2015,34 +1957,27 @@ msgid "year-month-day h:m:s"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_upload.php:60
-#, fuzzy
 msgid "Upload date finish"
-msgstr "Informationen laden"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_upload.php:61
 msgid "When time end, upload from will be hidden"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:4
-#, fuzzy
 msgid "Vote / design settings"
-msgstr "Foto Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:11
 msgid "Title contest for soc. networks "
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:12
-#, fuzzy
 msgid ""
 "*name* will be replaced by name of the contestant.<br /> Only works for "
 "Vkontakte, Twitter and Pinterest, <br /> others socials take title from "
 "title page. <br /> <br /> If not specified - the name of the contestant taken"
 msgstr ""
-"*name* wird durch den Namen des Teilnehmers ersetzt.<br/>Funktioniert nur "
-"für Vkontakte, Twitter und Pinterest.<br/>Andere Soziale Medien verwenden "
-"den Seiten Titel.<br/><br/>Falls nicht festgelegt wird der Name des "
-"Teilnehmers verwendet."
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:17
 msgid "Description contest for soc. networks"
@@ -2055,9 +1990,6 @@ msgid ""
 "description page. <br /> <br /> If not specified - soc. networks use at its "
 "discretion"
 msgstr ""
-"*name* wird durch den Namen des Teilnehmers ersetzt.<br/>Funktioniert nur "
-"für Vkontakte und Twitter.<br/>Verwende die Beschreibung der Seite.<br/><br/"
-">Falls nicht festgelegt werden social Netzwerke verwendet."
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:24
 msgid "Picture for social networks"
@@ -2068,13 +2000,10 @@ msgid ""
 "Only works for Vkontakte and Pinterest.<br /><br /> If not specified - is "
 "taken from field `Image`"
 msgstr ""
-"Funktioniert nur für Vkontakte und Pinterest.<br/><br/>Falls nicht "
-"festgelegt wird es vom `Image` verwendet"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:36
-#, fuzzy
 msgid "If you want show countdown timer, check this option"
-msgstr "Falls nicht definiert, verwende Standart-Einstellung"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:39
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:200
@@ -2086,81 +2015,69 @@ msgstr "Falls nicht definiert, verwende Standart-Einstellung"
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:217
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:218
 msgid "No show"
-msgstr "Nicht anzeigen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:46
 msgid "Lightbox theme"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:54
-#, fuzzy
 msgid "Photo sorting"
-msgstr "Foto Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:54
 msgid "Output order of pictures on the page"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:78
-#, fuzzy
 msgid ""
 "When time ends, vote buttons will be hidden,<br/> and user can only see "
 "results"
 msgstr ""
-"Wenn die Zeit abgelaufen ist werden die Vote-Button nicht mehr angezeigt<br/"
-">und Benutzer sehen nur noch die Resultate"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:87
 msgid "Frequency of voting"
-msgstr "Frequenz des Votings"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:87
 msgid "Select type of voting - how many user can vote in contest"
-msgstr "Wähle die Art des Votings - wie Benutzer abstimmen können"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:90
-#, fuzzy
 msgid "Once for one photo for all time"
-msgstr "Einmal für den Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:91
-#, fuzzy
 msgid "Once for 2 photos for all time"
-msgstr "Einmal für den Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:92
-#, fuzzy
 msgid "Once for 3 photos for all time"
-msgstr "Einmal für den Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:93
-#, fuzzy
 msgid "Once for 10 photos for all time"
-msgstr "Einmal für den Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:94
 msgid "For each photo once"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:95
-#, fuzzy
 msgid "For one photo once for 24 hours"
-msgstr "Einmal alle 24 Stunden"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:96
-#, fuzzy
 msgid "For 2 photos once for 24 hours"
-msgstr "Einmal alle 24 Stunden"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:97
-#, fuzzy
 msgid "For 3 photos once for 24 hours"
-msgstr "Einmal alle 24 Stunden"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:98
-#, fuzzy
 msgid "For all photos once for 24 hours"
-msgstr "Einmal alle 24 Stunden"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:101
 msgid "how ofter user can vote"
@@ -2171,10 +2088,8 @@ msgid "Contest security type"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:113
-#, fuzzy
 msgid "Select - how secure contest voting process?"
 msgstr ""
-"Wähle ob die Social Media Buttons nach dem Abstimmen angezeigt werden sollen"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_photos_list_form.php:26
 msgid "Adding photos:"
@@ -2217,28 +2132,23 @@ msgstr ""
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:99
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_voting.php:17
 msgid "Yes"
-msgstr "Ja"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_additional.php:20
-#, fuzzy
 msgid "Photos"
-msgstr "Foto Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_additional.php:24
 msgid "On deleting contest photo delete image from hosting?"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_additional.php:25
-#, fuzzy
 msgid "If you not need photos after contest, check this."
 msgstr ""
-"Falls die Social-Buttons nach dem abstimmen nicht dargestellt werden sollen, "
-"auswählen"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_additional.php:27
-#, fuzzy
 msgid "Enable"
-msgstr "Deaktivieren"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_additional.php:35
 msgid "Updating key"
@@ -2257,9 +2167,8 @@ msgid "Key expiration date: "
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_additional.php:57
-#, fuzzy
 msgid "Error: "
-msgstr "Log (Fehler)"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_additional.php:65
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_additional.php:69
@@ -2375,26 +2284,23 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:5
 msgid "Design"
-msgstr "Design"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:9
-#, fuzzy
 msgid "Contest block design"
-msgstr "Wettbewerbs-Breite (mind. 180 px)"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:11
-#, fuzzy
 msgid "Select how your contest block will looks."
 msgstr ""
-"Wähle ob die Social Media Buttons nach dem Abstimmen angezeigt werden sollen"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:27
 msgid "Contest block width (min. 180 px.)"
-msgstr "Wettbewerbs-Breite (mind. 180 px)"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:29
 msgid "Change to fit the width of the voting blocks your site"
-msgstr "Ändern damit die Briete des Wettbewerbs in Ihre Seite passt"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:39
 msgid ""
@@ -2443,9 +2349,8 @@ msgid ""
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:63
-#, fuzzy
 msgid "Change to fit the width of the contest list blocks your site"
-msgstr "Ändern damit die Briete des Wettbewerbs in Ihre Seite passt"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:73
 msgid ""
@@ -2464,16 +2369,12 @@ msgid ""
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:107
-#, fuzzy
 msgid "Hide votes count?"
-msgstr "Zahl der Stimmen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:109
-#, fuzzy
 msgid "If you don`t want show to users votes count, check it"
 msgstr ""
-"Falls die Social-Buttons nach dem abstimmen nicht dargestellt werden sollen, "
-"auswählen"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:115
 msgid "Hide"
@@ -2530,24 +2431,19 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:192
 msgid "Show social buttons after voting?"
-msgstr "Social Buttons nach dem Abstimmen anzeigen?"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:194
-#, fuzzy
 msgid "If you don't want see a social buttons after voting - check it"
 msgstr ""
-"Falls die Social-Buttons nach dem abstimmen nicht dargestellt werden sollen, "
-"auswählen"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:204
 msgid "How social buttons not show?"
-msgstr "Social Buttons werden nicht angezeigt?"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:206
-#, fuzzy
 msgid "Select - how social buttons not show after voting"
 msgstr ""
-"Wähle ob die Social Media Buttons nach dem Abstimmen angezeigt werden sollen"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:212
 msgid "Vkontake"
@@ -2601,12 +2497,11 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:246
 msgid "Break photos into pages"
-msgstr "Fotos auf mehrere Seiten aufteilen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:249
-#, fuzzy
 msgid "Per page"
-msgstr "Auf der Seite"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:254
 msgid "Pagination type"
@@ -2628,51 +2523,47 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:288
 msgid "Voting leaders"
-msgstr "Führende Fotos"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:292
 msgid "Hide vote leaders block"
-msgstr "Führende Fotos verbergen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:294
 msgid "Check option, if you don`t want to show voting leaders"
 msgstr ""
-"Diese Option wählen wenn die führenden Fotos nicht zu Oberst angezeigt "
-"werden sollen"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:305
 msgid "How many leaders show in page?"
-msgstr "Wie viele führende Fotos sollen angezeigt werden?"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:307
 msgid "Select count of voting leaders"
-msgstr "Wähle die Anzahl an führenden Fotos"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:314
 msgid "Three"
-msgstr "Drei"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:315
 msgid "Two"
-msgstr "Zwei"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:316
 msgid "One"
-msgstr "Eines"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:317
 msgid "Four"
-msgstr "Vier"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:323
-#, fuzzy
 msgid "Leaders block type?"
-msgstr "Führende Abstimmung:"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:325
-#, fuzzy
 msgid "Select - how to display contest leaders?"
-msgstr "Wähle ein Design für den Wettbewerb"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:332
 msgid "Text"
@@ -2692,24 +2583,22 @@ msgid "works not in all themes."
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:345
-#, fuzzy
 msgid "Lightbox settings"
-msgstr "Hochladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:349
 msgid "Disable plugin lightbox?"
-msgstr "Lightbox Plugin deaktivieren"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:351
-#, fuzzy
 msgid ""
 "If you have some conflicts with you standard lightbox(image preview plugin), "
 "check it"
-msgstr "Falls Probleme mit dem bestehenden Lightbox Plugin bestehen, auswählen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:357
 msgid "Disable"
-msgstr "Deaktivieren"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:362
 msgid "Lightbox title format?"
@@ -2737,17 +2626,15 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:5
 msgid "Uploading"
-msgstr "Hochladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:9
-#, fuzzy
 msgid "Only logged in users can upload photos:"
-msgstr "Nur autorisierte Benutzer können Fotos hochladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:11
-#, fuzzy
 msgid "Allow upload photos only authorized users"
-msgstr "Erlaube nur autorisierten Benutzern ein Foto hochzuladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:22
 msgid "Show default login form, if user not logged in:"
@@ -2758,9 +2645,8 @@ msgid "You may need add some styles for it looks better"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:39
-#, fuzzy
 msgid "Limit photo upload by email"
-msgstr "Neues Foto hochgeladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:41
 msgid ""
@@ -2773,9 +2659,8 @@ msgid "(need check \"show in upload form email field\")"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:51
-#, fuzzy
 msgid "Limit photo upload by ip"
-msgstr "Neues Foto der Seite hinzugefügt"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:53
 msgid ""
@@ -2784,9 +2669,8 @@ msgid ""
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:63
-#, fuzzy
 msgid "Limit photo upload by cookie"
-msgstr "Neues Foto hochgeladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:65
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:77
@@ -2800,9 +2684,8 @@ msgid "(Not works in ie)"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:75
-#, fuzzy
 msgid "Limit photo upload by user id"
-msgstr "Neues Foto der Seite hinzugefügt"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:83
 msgid ""
@@ -2810,9 +2693,8 @@ msgid ""
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:89
-#, fuzzy
 msgid "Limit uploaded photo size"
-msgstr "Neues Foto hochgeladen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:91
 msgid ""
@@ -2826,9 +2708,8 @@ msgid "Enter a valid max size in kilobytes, 1024 Kb = 1 Mb."
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:103
-#, fuzzy
 msgid "Resize images"
-msgstr "Motiv auswählen"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_form.php:105
 msgid ""
@@ -2867,51 +2748,47 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:4
 msgid "Notify me, when new photo uploaded"
-msgstr "Informiere mich wenn ein neues Foto hochgeladen wurde"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:6
 msgid "Notify to email, when users upload photo"
-msgstr "Informiere mich per Email wenn ein Benutzer ein Foto hochlädt"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:17
 msgid "Email to notify me"
-msgstr "Informiere mich per Email"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:19
 msgid "Email"
-msgstr "Email"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:25
 msgid "If not set, uses email from site options."
-msgstr "Falls nicht definiert, verwende Standart-Einstellung"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:31
 msgid "Users"
-msgstr "Benutzer"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:35
-#, fuzzy
 msgid "Notify users, when photo approved or deleted"
-msgstr "Informiere Benutzer wenn ein Foto akzeptiert wurde"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:37
-#, fuzzy
 msgid "Send notification to user, when it photo approved or deleted"
-msgstr "Sende eine Notifikation an Benutzer wenn ein Photo akzeptiert wurde"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:43
 msgid "on plublishing or deleting photo"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:47
-#, fuzzy
 msgid "Notify users, when photo uploaded"
-msgstr "Informiere Benutzer wenn ein Foto akzeptiert wurde"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:49
-#, fuzzy
 msgid "Send notification to user, when it photo uploaded"
-msgstr "Sende eine Notifikation an Benutzer wenn ein Photo akzeptiert wurde"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:60
 msgid "Notify users from email"
@@ -2922,18 +2799,16 @@ msgid "If not set, wordpress set`s from email<br/> like wordpress@domain.com"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:73
-#, fuzzy
 msgid "Notify users from name"
-msgstr "Informiere Benutzer wenn ein Foto akzeptiert wurde"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:75
 msgid "If not set using `Wordpress`"
 msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:87
-#, fuzzy
 msgid "Log emails"
-msgstr "Email"
+msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_upload_notify.php:91
 msgid "Log all emails"
