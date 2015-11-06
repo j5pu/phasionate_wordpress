@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Foto Vote 2.1\n"
 "POT-Creation-Date: 2015-09-02 11:23+0200\n"
-"PO-Revision-Date: 2015-11-05 15:55+0100\n"
+"PO-Revision-Date: 2015-11-06 13:50+0100\n"
 "Last-Translator: Maxim <support@wp-vote.net>\n"
 "Language-Team: pablo@mnopi.com\n"
 "Language: es_ES\n"
@@ -403,11 +403,11 @@ msgstr "Título de lideres"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:150
 msgid "Vote text in button"
-msgstr "Vote text in button"
+msgstr "Texto de voto en botón"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:152
 msgid "Vote text in image preview"
-msgstr "Vote text in image preview"
+msgstr "Texto de voto en imagen previa"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:153
 msgid "Other photo title in image preview (in some themes)"
@@ -424,140 +424,132 @@ msgstr "Resumen de paginación (por favor no eliminar %s)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:156
 msgid "Infinity scroll: Button text"
-msgstr ""
+msgstr "Scroll infinito: Texto del boton"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:159
 msgid "Toolbar"
-msgstr ""
+msgstr "Herramientas"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:160
-#, fuzzy
 msgid "Gallery tab title"
-msgstr "Führende Abstimmung:"
+msgstr "Título de pestaña de galería"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:161
-#, fuzzy
 msgid "Upload tab title"
-msgstr "Position des Upload-Formulares"
+msgstr "Título de pestaña de subir"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:162
-#, fuzzy
 msgid "Sorting title"
-msgstr "Abstimmung"
+msgstr "Título de clasificación"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:163
-#, fuzzy
 msgid "Sorting > newest"
-msgstr "Führende Fotos"
+msgstr "Clasificación> Más reciente"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:164
-#, fuzzy
 msgid "Sorting > oldest"
-msgstr "Führende Fotos"
+msgstr "Clasificación> más antigua"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:165
 msgid "Sorting > popular"
-msgstr ""
+msgstr "Clasificación> Más populares"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:166
 msgid "Sorting > unpopular"
-msgstr ""
+msgstr "Clasificación> Menos populares"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:167
 msgid "Sorting > random"
-msgstr ""
+msgstr "Clasificación> Aleatorio"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:171
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:35
 msgid "Timer"
-msgstr ""
+msgstr "Tiempo"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:172
 msgid "Timer > Days leave"
-msgstr ""
+msgstr "Tiempo > Días restantes"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:173
 msgid "Timer > Hours leave"
-msgstr ""
+msgstr "Tiempo > Horas restantes"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:174
 msgid "Timer > Minutes leave"
-msgstr ""
+msgstr "Tiempo > Minutos restantes"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:175
 msgid "Timer > Seconds leave"
-msgstr ""
+msgstr "Tiempo > Segundos restantes"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:178
-#, fuzzy
 msgid "Dialog messages"
-msgstr "Meldungen übersetzen"
+msgstr "Mensaje de dialogo"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:179
 msgid "Title > Go share"
-msgstr ""
+msgstr "Título > Compartir"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:180
 msgid "Title > Voting in process"
-msgstr ""
+msgstr "Título > Voto en proceso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:181
 msgid "Msg with preloader > Voting in process"
-msgstr ""
+msgstr "Mensaje con precarga > Voto en proceso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:182
 msgid "Title > vote counted (1-2 words)"
-msgstr ""
+msgstr "Título > voto contado (1-2 palabras)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:183
 msgid "Title > vote not counted (1-2 words)"
-msgstr ""
+msgstr "Título > voto no contado (1-2 palabras)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:184
-#, fuzzy
 msgid "Msg > vote counted"
-msgstr "Zahl der Stimmen"
+msgstr "Mensaje > voto contado"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:185
-#, fuzzy
 msgid "Msg > the contest has ended"
-msgstr "Wettbewerbs Einstellungen"
+msgstr "Mensaje > el concurso ha finalizado"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:186
-#, fuzzy
 msgid "Msg > user already voted"
-msgstr "Sie haben Ihre Stimme bereits abgegeben."
+msgstr "Mensaje > el usuario ya ha votado"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:187
 msgid ""
 "Msg > 24 hours not passed <small>Use *hours_leave* for show when user can "
 "vote</small>"
 msgstr ""
+"Mensaje > no han pasado 24 horas <small>Usa *hours_leave* para mostrar "
+"cuando puede votar el usuario</small>"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:188
 msgid "Msg > Your are not authorized"
-msgstr ""
+msgstr "Mensaje > No estas autorizado"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:189
 msgid "SubTitle > Register in site and vote"
-msgstr ""
+msgstr "Subtítulo > Registrate y vota"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:190
 msgid "Msg > error"
-msgstr ""
+msgstr "Mensaje > error"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:191
 msgid "Message under title with call to share"
-msgstr ""
+msgstr "Mensaje en el título con llamada a compartir"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:194
 msgid "Subscription form"
-msgstr ""
+msgstr "Formulario de suscripción"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:195
-#, fuzzy
 msgid "Msg > your need enter data"
-msgstr "Zur Abstimmung Sie müssen Daten eingeben sind"
+msgstr "Mensaje > necesitas introducir datos"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:196
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:197
@@ -565,13 +557,13 @@ msgstr "Zur Abstimmung Sie müssen Daten eingeben sind"
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:205
 #, php-format
 msgid "Field `%s` caption"
-msgstr ""
+msgstr "Campo `%s` subtítulo"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:196
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:204
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:62
 msgid "name"
-msgstr ""
+msgstr "nombre"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:197
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:205
@@ -581,122 +573,113 @@ msgstr "Email"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:200
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:218
-#, fuzzy
 msgid "Email share"
-msgstr "IP Adresse"
+msgstr "Compartir email"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:201
 msgid "Title > email share"
-msgstr ""
+msgstr "Título > compartir email"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:202
 msgid "Msg > emails send"
-msgstr ""
+msgstr "Mensaje > enviar emails"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:206
-#, fuzzy
 msgid "Emails list"
-msgstr "Email"
+msgstr "Lista de emails"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:207
 msgid "Submit text"
-msgstr ""
+msgstr "Enviar texto"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:210
 msgid "Social authorization"
-msgstr ""
+msgstr "Autorización social"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:211
 msgid "Soc. authorization title"
-msgstr ""
+msgstr "Título de autorización social"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:214
 msgid "Vote with Facebook Share"
-msgstr ""
+msgstr "Vota compartiendo en Facebook"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:215
 msgid "Msg > for vote please share in FB"
-msgstr ""
+msgstr "Mensaje > para votar comparte en FB"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:218
 msgid "Vote with reCAPTCHA"
-msgstr ""
+msgstr "Vota con reCAPTCHA"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:219
 msgid "Title > Solve reCAPTCHA please!"
-msgstr ""
+msgstr "Título > Resuelve reCAPTCHA, por favor"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:220
 msgid "Msg > Seems you do it wrong!"
-msgstr ""
+msgstr "Mensaje > Parece que hay un error"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:223
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:7
-#, fuzzy
 msgid "Upload form"
-msgstr "Informationen laden"
+msgstr "Subir"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:224
-#, fuzzy
 msgid "Upload form title"
-msgstr "Position des Upload-Formulares"
+msgstr "Subir título"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:225
-#, fuzzy
 msgid "Upload form button text"
-msgstr "Position des Upload-Formulares"
+msgstr "Subir texto del botón"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:226
-#, fuzzy
 msgid "User must be logged for upload"
-msgstr "Sie müssen für den Upload Foto in Wettbewerb angemeldet sein."
+msgstr "El usuario debe iniciar sesión para subir"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:230
-#, fuzzy
 msgid "Upload messages"
-msgstr "Meldungen übersetzen"
+msgstr "Subir mensajes"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:231
-#, fuzzy
 msgid "Photo upload error"
-msgstr "Neues Foto hochgeladen"
+msgstr "Error al subir foto"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:232
 msgid "Photo upload waring, if not file passed"
-msgstr ""
+msgstr "Advertencia, el archivo no es válido"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:233
 msgid "User already downloaded photo"
-msgstr ""
+msgstr "El usuario ya ha descargado esta foto"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:234
 msgid ""
 "User photo is bigger than limit <small>(%LIMIT_SIZE% will be replaced into "
 "`limit value` in megabytes)</small>"
 msgstr ""
+"La foto del usuario sobrepasa el límite de tamaño <small>(%LIMIT_SIZE% será "
+"reemplazado en  `limit value` en megabytes)</small>"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:235
 msgid "User email is invalid."
-msgstr ""
+msgstr "Email de usuario inválido"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:236
-#, fuzzy
 msgid "Photo is uploaded"
-msgstr "Neues Foto hochgeladen"
+msgstr "La foto se ha subido"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:237
-#, fuzzy
 msgid "Photo is uploaded by admin"
-msgstr "Neues Foto hochgeladen"
+msgstr "La foto ha sido subida por el administrador"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:240
 msgid "Notify mail messages"
-msgstr ""
+msgstr "Notificación de mensajes por email"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:241
-#, fuzzy
 msgid "User email title - photo uploaded"
-msgstr "Neues Foto hochgeladen"
+msgstr "Título de email del usuario - foto subida"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:242
 #, php-format
