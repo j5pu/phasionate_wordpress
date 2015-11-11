@@ -42,24 +42,26 @@
 									<?php /***** Basic Account Details ******/ ?>
 
 									<h4><?php _e( 'Account Details', 'buddypress' ); ?></h4>
-									<div style="width: 50%; float: left;">
-										<label style="width: 100%;" for="signup_username"><?php _e( 'Username', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
-										<?php do_action( 'bp_signup_username_errors' ); ?>
-										<input style="width: 100%;" type="text" name="signup_username" id="signup_username" value="<?php bp_signup_username_value(); ?>" />
+									<div>
+										<div style="width: 48%; float: left;">
+											<label style="width: 100%;" for="signup_username"><?php _e( 'Username', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
+											<?php do_action( 'bp_signup_username_errors' ); ?>
+											<input style="width: 100%;" type="text" name="signup_username" id="signup_username" value="<?php bp_signup_username_value(); ?>" />
 
-										<label style="width: 100%;" for="signup_email"><?php _e( 'Email Address', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
-										<?php do_action( 'bp_signup_email_errors' ); ?>
-										<input style="width: 100%;" type="text" name="signup_email" id="signup_email" value="<?php bp_signup_email_value(); ?>" />
-									</div>
-									<div style="width: 50%; float: right;">
-										<label style="width: 100%;" for="signup_password"><?php _e( 'Choose a Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
-										<?php do_action( 'bp_signup_password_errors' ); ?>
-										<input style="width: 100%;" type="password" name="signup_password" id="signup_password" value="" class="password-entry" />
-										<div id="pass-strength-result"></div>
+											<label style="width: 100%;" for="signup_email"><?php _e( 'Email Address', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
+											<?php do_action( 'bp_signup_email_errors' ); ?>
+											<input style="width: 100%;" type="text" name="signup_email" id="signup_email" value="<?php bp_signup_email_value(); ?>" />
+										</div>
+										<div style="width: 48%; float: right;">
+											<label style="width: 100%;" for="signup_password"><?php _e( 'Choose a Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
+											<?php do_action( 'bp_signup_password_errors' ); ?>
+											<input style="width: 100%;" type="password" name="signup_password" id="signup_password" value="" class="password-entry" />
+											<div id="pass-strength-result"></div>
 
-										<label for="signup_password_confirm"><?php _e( 'Confirm Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
-										<?php do_action( 'bp_signup_password_confirm_errors' ); ?>
-										<input type="password" name="signup_password_confirm" id="signup_password_confirm" value="" class="password-entry-confirm" />
+											<label style="width: 100%;" for="signup_password_confirm"><?php _e( 'Confirm Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
+											<?php do_action( 'bp_signup_password_confirm_errors' ); ?>
+											<input style="width: 100%;" type="password" name="signup_password_confirm" id="signup_password_confirm" value="" class="password-entry-confirm" />
+										</div>
 									</div>
 									<?php do_action( 'bp_account_details_fields' ); ?>
 
