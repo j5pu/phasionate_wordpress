@@ -146,8 +146,19 @@ img {
 	height: auto;
 	-ms-interpolation-mode: bicubic;
 }
+.img-full-width,
+.img-full-width .vc_figure,
+.img-full-width .vc_single_image-wrapper,
+.img-full-width a,
 .img-full-width img {
 	width: 100% !important;
+}
+.vbottom { vertical-align: bottom; }
+.wpb_single_image .vc_figure {
+	max-width: 100% !important;
+}
+div.wpb_single_image .vc_figure .vc_single_image-wrapper {
+	margin-bottom: 0;
 }
 img[alt] {
 	font-size: 82%;
@@ -1027,6 +1038,9 @@ a .link-icon {
 	margin-bottom: 0;
 	border: none;
 }
+#header .navbar {
+	min-height: 0;
+}
 
 .navbar-header, .kleo-main-header .navbar-collapse > ul > li > a,
 .header-banner{
@@ -1461,9 +1475,6 @@ a .link-icon {
 	background-color: rgba(0,0,0, 0.6);
 	border-color: transparent;
 }
-.navbar-transparent .navbar-nav .dropdown-menu li a {
-	color: #fff !important;
-}
 
 .navbar-transparent .navbar-toggle .icon-bar {
 	background-color: #fff !important;
@@ -1473,6 +1484,10 @@ a .link-icon {
 }
 .navbar-transparent .sticky-wrapper {height:auto !important;}
 
+.navbar-transparent:not(.kleo-navbar-fixed) #header {
+	position: absolute;
+	width: 100%;
+}
 
 /* Fixed Header */
 .kleo-navbar-fixed .kleo-main-header  {
@@ -2515,6 +2530,10 @@ article .article-meta .edit-link:after {
     /*padding: 0 0 20px;*/
 }
 
+.posts-listing .archive-description {
+	padding-bottom:20px;
+}
+
 img.attachment-kleo-full-width {
 	width: 100%;
 }
@@ -2617,6 +2636,9 @@ img.attachment-kleo-full-width {
 }
 .posts-listing.standard-listing.with-meta .article-title {
 	margin-left: 130px;
+}
+.posts-listing .post-item {
+	width:100%;
 }
 .tpl-3ll article .article-meta,
 .tpl-3lr article .article-meta,
@@ -6984,6 +7006,13 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
     text-align: left;
 }
 
+.box-style .feature-item {
+	width: 100%;
+}
+.box-style, .box-style .one-by-one-animated {
+	width: 100%;
+}
+
 .bordered-icons .feature-item.big-icons-size .feature-icon {
     width: 87px;
     height: 87px;
@@ -7041,15 +7070,22 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
     margin-left: 0;
     text-align: center;
 }
-.box-style {
-    overflow: hidden;
+.box-style,
+.box-style .one-by-one-animated {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 .box-style .feature-item {
     text-align: center;
     padding: 20px;
-    margin-bottom: -99999px;
-    padding-bottom: 99999px;
-    vertical-align: middle;
+}
+.box-style .col-xs-12 {
+	display: flex;
 }
 .box-style .feature-item.default-icons-size .feature-icon,
 .box-style .feature-item.big-icons-size .feature-icon {
@@ -7112,6 +7148,7 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
     .bordered-icons .feature-item.default-icons-size .feature-text {
         margin: 0 0 20px 0;
     }
+	.feature-item.default-icons-size.center-icons .feature-icon,
 	.feature-item.big-icons-size.center-icons .feature-icon {
 		left: auto;
 		margin: 0 auto 30px;
@@ -8325,6 +8362,12 @@ Tags: clean, responsive, creative, minimal, modern, landing page, bootstrap 3
 .template-page.col-sm-12 .kleo-isotope > li {width:24.9%;}
 .template-page.col-sm-12 .section-container.container-full .kleo-masonry-item,
 .template-page.col-sm-12 .section-container.container-full .kleo-isotope > li {width:16.6%;}
+
+@media (min-width: 992px) {
+	.navbar-transparent .navbar-nav .dropdown-menu li a {
+		color: #fff !important;
+	}
+}
 
 @media (min-width: 1440px) {
     .kleo-isotope > .kleo-masonry-item,
@@ -9815,4 +9858,55 @@ blockquote cite {
     top: 0;
     left: 0;
     height: 100%;
+}
+
+
+/* Knowledgebase Category Listing style */
+
+h4.kb-section-name {
+	border-bottom: 1px solid #eee;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+}
+
+h4.kb-section-name i.icon {
+	margin-right: 10px;
+}
+
+.kb-wall-list, .kb-archive-listing {
+	list-style: none;
+	padding:0;
+	margin:0 0 30px 0;
+}
+
+.kb-wall-list > li, .kb-archive-listing > li {
+	margin-bottom: 10px;
+}
+.kb-archive > div:nth-child(3n+1){
+	clear:both;
+}
+
+.kb-wall-list i.icon {
+	margin-right: 5px;
+}
+
+.kb-view-more {
+	margin-top: 10px;
+}
+
+.kb-view-more a.btn-default {
+	background: transparent;
+}
+
+.kb-archive-listing li {
+	margin-bottom:25px;
+}
+
+.kb-archive-listing h2{
+	font-size:20px;
+}
+
+.kb-archive-listing h2 i.icon{
+	margin-right: 10px;
+	font-size:18px;
 }

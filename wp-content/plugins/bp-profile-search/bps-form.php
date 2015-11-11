@@ -181,6 +181,14 @@ function bps_set_request_data ($form, $location)
 		}
 	}
 
+	$ts = new stdClass;
+	$ts->display = 'hidden';
+	$ts->code = 'text_search';
+	$ts->value = $meta['searchmode'];
+	$ts->name = $ts->label = $ts->description = '';
+	$ts->values = $ts->options = array ();
+	$F->fields[] = $ts;
+
 	$bps_request_data = $F;
 	return true;
 }

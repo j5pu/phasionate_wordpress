@@ -48,15 +48,15 @@ get_header();
 
 					<?php
 						the_content();
-						wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'kleo_framework' ), 'after' => '</div>' ) );
+						wp_link_pages( array( 'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'kleo_framework' ), 'after' => '</div>' ) );
 					?>
 				</div><!-- .entry-content -->
 			</article><!-- #post-## -->
 
 			<nav id="image-navigation" class="navigation image-navigation">
 				<div class="nav-links">
-				<?php previous_image_link( false, '<div class="previous-image">' . __( 'Previous Image', 'kleo_framework' ) . '</div>' ); ?>
-				<?php next_image_link( false, '<div class="next-image">' . __( 'Next Image', 'kleo_framework' ) . '</div>' ); ?>
+				<?php previous_image_link( false, '<div class="previous-image">' . esc_html__( 'Previous Image', 'kleo_framework' ) . '</div>' ); ?>
+				<?php next_image_link( false, '<div class="next-image">' . esc_html__( 'Next Image', 'kleo_framework' ) . '</div>' ); ?>
 				</div><!-- .nav-links -->
 			</nav><!-- #image-navigation -->
 

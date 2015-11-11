@@ -40,6 +40,10 @@ add_filter('kleo_main_template_classes', create_function('$cls','$cls .=" posts-
 
 <?php get_template_part('page-parts/general-before-wrap'); ?>
 
+<?php if ( category_description() ) : ?>
+    <div class="archive-description"><?php echo category_description(); ?></div>
+<?php endif; ?>
+
 <?php if ( have_posts() ) : ?>
 
     <?php if (sq_option('blog_switch_layout', 0) == 1 ) : /* Blog Layout Switcher */ ?>

@@ -3,13 +3,13 @@
 Plugin Name: BP Profile Search
 Plugin URI: http://www.dontdream.it/bp-profile-search/
 Description: Search your BuddyPress Members Directory.
-Version: 4.4
+Version: 4.4.1
 Author: Andrea Tarantini
 Author URI: http://www.dontdream.it/
 Text Domain: bp-profile-search
 */
 
-define ('BPS_VERSION', '4.4');
+define ('BPS_VERSION', '4.4.1');
 include 'bps-functions.php';
 
 $addons = array ('bps-custom.php');
@@ -307,8 +307,9 @@ function bps_searchmode ($post)
 	$options = bps_meta ($post->ID);
 ?>
 	<select name="options[searchmode]" id="searchmode">
-		<option value='LIKE' <?php selected ($options['searchmode'], 'LIKE'); ?>><?php _e('LIKE', 'bp-profile-search'); ?></option>
-		<option value='EQUAL' <?php selected ($options['searchmode'], 'EQUAL'); ?>><?php _e('SAME', 'bp-profile-search'); ?></option>
+		<option value='LIKE' <?php selected ($options['searchmode'], 'LIKE'); ?>><?php _e('contains', 'bp-profile-search'); ?></option>
+		<option value='EQUAL' <?php selected ($options['searchmode'], 'EQUAL'); ?>><?php _e('is', 'bp-profile-search'); ?></option>
+		<option value='ISLIKE' <?php selected ($options['searchmode'], 'ISLIKE'); ?>><?php _e('is like', 'bp-profile-search'); ?></option>
 	</select>
 <?php
 }

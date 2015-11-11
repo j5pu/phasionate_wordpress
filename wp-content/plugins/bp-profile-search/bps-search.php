@@ -110,11 +110,20 @@ function bps_search ($request)
 				case 'url':
 					$value = str_replace ('&', '&amp;', $value);
 					$escaped = '%'. bps_esc_like ($value). '%';
-					$meta = bps_meta ($request['bp_profile_search']);
-					if ($meta['searchmode'] != 'EQUAL')
+					switch ($request['text_search'])
+					{
+					default:	// contains
 						$sql .= $wpdb->prepare ("AND value LIKE %s", $escaped);
-					else
+						break;
+					case 'ISLIKE':
+						$value = str_replace ('\\\\%', '\\%', $value);
+						$value = str_replace ('\\\\_', '\\_', $value);
 						$sql .= $wpdb->prepare ("AND value LIKE %s", $value);
+						break;
+					case 'EQUAL':
+						$sql .= $wpdb->prepare ("AND value = %s", $value);
+						break;
+					}
 					break;
 
 				case 'number':

@@ -709,9 +709,9 @@ function kleo_cmb_scripts( $hook ) {
 	// only enqueue our scripts/styles on the proper pages
 	if ( $hook == 'post.php' || $hook == 'post-new.php' || $hook == 'page-new.php' || $hook == 'page.php' ) {
 		// scripts required for cmb
-		$cmb_script_array = array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'media-upload', 'thickbox' );
+		$cmb_script_array = array( 'jquery' );
 		// styles required for cmb
-		$cmb_style_array = array( 'thickbox' );
+		$cmb_style_array = array( );
 		// if we're 3.5 or later, user wp-color-picker
 		if ( 3.5 <= $wp_version ) {
 			$cmb_script_array[] = 'wp-color-picker';
@@ -721,11 +721,10 @@ function kleo_cmb_scripts( $hook ) {
 			$cmb_script_array[] = 'farbtastic';
 			$cmb_style_array[] = 'farbtastic';
 		}
-		wp_register_script( 'cmb-timepicker', KLEO_META_BOX_URL . 'js/jquery.timePicker.min.js' );
 		wp_register_script( 'kleo-cmb-scripts', KLEO_META_BOX_URL . 'js/cmb.js', $cmb_script_array, '0.9.1' );
 		wp_localize_script( 'kleo-cmb-scripts', 'cmb_ajax_data', array( 'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ), 'post_id' => get_the_ID() ) );
-		wp_enqueue_script( 'cmb-timepicker' );
 		wp_enqueue_script( 'kleo-cmb-scripts' );
+		wp_enqueue_script('media-upload');
 		wp_register_style( 'cmb-styles', KLEO_META_BOX_URL . 'style.css', $cmb_style_array );
 		wp_enqueue_style( 'cmb-styles' );
 	}

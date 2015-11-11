@@ -1,5 +1,5 @@
 <?php
-define( 'KLEO_THEME_VERSION', '3.0.10' );
+define( 'KLEO_THEME_VERSION', '3.1.1' );
 
 /* Configuration array */
 global $kleo_config;
@@ -87,7 +87,7 @@ $theme_args = array(
 				'slug'			=> 'js_composer', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/js_composer.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '4.7.4', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '4.8.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -97,7 +97,7 @@ $theme_args = array(
 				'slug'			=> 'revslider', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/revslider.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '5.0.8.5', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '5.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -107,7 +107,7 @@ $theme_args = array(
 				'slug'			=> 'k-elements', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/k-elements.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '3.0.8', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '3.1.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -1234,7 +1234,7 @@ if ( ! function_exists( 'kleo_icons_array' ) ) {
 
 			$icons_json = file_get_contents( THEME_DIR . '/assets/font/config.json' );
 			if ( is_child_theme() && file_exists( CHILD_THEME_DIR . '/assets/css/fontello.css' )) {
-				$icons_json = CHILD_THEME_DIR . '/assets/config.json';
+				$icons_json = file_get_contents( CHILD_THEME_DIR . '/assets/config.json' );
 			}
 
 			if ( $icons_json ) {
@@ -1916,6 +1916,22 @@ function kleo_post_grid_layout( $layout = '', $identifier = '' ) {
     if ( isset($_COOKIE[$cookie_name]) && $_COOKIE[$cookie_name] != '' ) {
         $layout = $_COOKIE[$cookie_name];
     }
+
+	if( function_exists('get_term_meta') ) {
+		if ( is_category() ) {
+
+			global $kleo_config;
+			$layouts = $kleo_config['blog_layouts'];
+			$category = get_category( get_query_var('cat') );
+			$category_meta = get_term_meta( $category->term_id, 'kleo_category_display_type' );
+
+			if (isset($category_meta[0]) && isset($layouts[$category_meta[0]])) {
+				$layout = $category_meta[0];
+			}
+
+		}
+	}
+
     return $layout;
 }
 add_filter( 'kleo_blog_type', 'kleo_post_grid_layout', 10, 2 );
@@ -2213,3 +2229,86 @@ if ( ! function_exists('kleo_get_post_media')) {
         return $output;
     }
 }
+
+
+/***************************************************
+:: Custom taxonomy category template
+ ***************************************************/
+
+if( function_exists('get_term_meta') ) {
+
+	function kleo_category_display_type_form( $category = false ) {
+
+		global $kleo_config;
+		$layouts = array_merge( $kleo_config['blog_layouts'], array( 'kb' => 'Knowledge Base' ) );
+		$category_layout = '';
+
+		if( $category ) {
+			$category_id = $category->term_id;
+			$category_meta = get_term_meta($category_id, 'kleo_category_display_type');
+			if ( isset( $category_meta[0] ) && isset( $layouts[$category_meta[0]] ) ) {
+				$category_layout = $category_meta[0];
+			}
+		}
+
+		?>
+		<tr class="form-field">
+			<th scope="row" valign="top"><label for="kleo_category_display_type"><?php _e( 'Display type', 'kleo_framework' ); ?></label></th>
+			<td>
+				<div class="form-field term-meta-wrap">
+					<select id="kleo_category_display_type" name="kleo_category_display_type">
+						<option value=""><?php _e( 'Use default display type', 'kleo_framework' ); ?></option>
+						<?php foreach( $layouts as $layout => $layout_name ) { ?>
+							<option value="<?php echo esc_attr( $layout ); ?>" <?php echo ( $layout == $category_layout ? 'selected="selected"' : '' ); ?>><?php echo esc_html( $layout_name ); ?></option>
+						<?php } ?>
+					</select>
+					<p class="description"><?php _e( 'The "Display type" will override the default display layout for each category in part.','kleo_framework' ); ?></p>
+				</div>
+			</td>
+		</tr>
+		<?php
+
+	}
+	add_action( 'category_add_form_fields', 'kleo_category_display_type_form' );
+	add_action( 'category_edit_form_fields', 'kleo_category_display_type_form' );
+
+	function kleo_category_display_type_save( $category_id ) {
+
+		if ( isset( $_POST['kleo_category_display_type'] ) ) {
+
+			global $kleo_config;
+			$layouts = array_merge( $kleo_config['blog_layouts'], array( 'kb' => 'Knowledge Base' ) );
+			$category_layout = esc_attr( $_POST['kleo_category_display_type'] );
+
+			if( isset( $layouts[$category_layout] ) ) {
+				update_term_meta( $category_id, 'kleo_category_display_type', $category_layout );
+			}else{
+				delete_term_meta( $category_id, 'kleo_category_display_type' );
+			}
+
+		}
+
+	}
+	add_action( 'created_category', 'kleo_category_display_type_save' );
+	add_action( 'edited_category', 'kleo_category_display_type_save' );
+
+	function kleo_category_display_type_template( $template ) {
+		if ( is_category() ) {
+
+			$category = get_category( get_query_var('cat') );
+			$category_meta = get_term_meta( $category->term_id, 'kleo_category_display_type' );
+
+			if ( isset( $category_meta[0] ) && $category_meta[0] == 'kb' && locate_template( 'page-parts/posts-layout-kb.php' ) ) {
+				return locate_template( 'page-parts/posts-layout-kb.php' );
+			}
+
+		}
+		return $template;
+	}
+	add_filter( 'template_include', 'kleo_category_display_type_template' );
+
+}
+
+
+
+

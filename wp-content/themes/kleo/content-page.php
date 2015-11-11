@@ -109,7 +109,7 @@ if ( get_cfield( 'centered_text' ) == 1 )  {
 
     <div class="article-content">
         <?php the_content(); ?>
-        <?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'kleo_framework' ), 'after' => '</div>' ) ); ?>
+        <?php wp_link_pages( array( 'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'kleo_framework' ), 'after' => '</div>' ) ); ?>
     </div><!--end article-content-->
 
     <?php //edit_post_link( __( 'Edit', 'kleo_framework' ), '<span class="edit-link clearfix">', '</span>' ); ?>

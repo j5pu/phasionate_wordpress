@@ -70,7 +70,7 @@ jQuery(document).ready(function ($) {
 		$('#' + formfield + '_id').val("");
 	});
 
-	$('.cmb_upload_button').live('click', function (event) {
+	$(document).on('click', '.cmb_upload_button', function (event) {
         /*
 		var buttonLabel;
 		formLabel = $(this).attr("data-label");
@@ -131,7 +131,7 @@ jQuery(document).ready(function ($) {
        
 	});
 
-	$('.cmb_remove_file_button').live('click', function () {
+	$(document).on('click', '.cmb_remove_file_button', function () {
 		formfield = $(this).attr('rel');
 		$('input#' + formfield).val('');
 		$('input#' + formfield + '_id').val('');
