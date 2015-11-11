@@ -56,12 +56,12 @@ if( is_single() && get_cfield( 'centered_text' ) == 1 ) { $post_class .= ' text-
 	<?php if ( !is_single() ) : // Only display Excerpts for Search ?>
 
 			<?php echo kleo_excerpt(50); ?>
-            <p class="kleo-continue"><a class="btn btn-default" href="<?php the_permalink()?>"><?php _e("Continue reading", 'kleo_framework');?></a></p>
+            <p class="kleo-continue"><a class="btn btn-default" href="<?php the_permalink()?>"><?php esc_html_e("Continue reading", 'kleo_framework');?></a></p>
 
 	<?php else : ?>
 
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'kleo_framework' ) ); ?>
-		<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'kleo_framework' ), 'after' => '</div>' ) ); ?>
+		<?php the_content( esc_html__( 'Continue reading <span class="meta-nav">&rarr;</span>', 'kleo_framework' ) ); ?>
+		<?php wp_link_pages( array( 'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'kleo_framework' ), 'after' => '</div>' ) ); ?>
 
 	<?php endif; ?>
 					

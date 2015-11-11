@@ -178,6 +178,9 @@ switch ( $type ) {
 
             $style[] = 'background-image: url(' . esc_url($bg_image_path[0]) . ')';
         }
+		if ( $bg_color ) {
+			$style[] = 'background-color: ' . $bg_color;
+		}
 
 		$position = array();
         if ( $bg_position != 'top' || $bg_position_horizontal != 'left' ) {
@@ -193,10 +196,6 @@ switch ( $type ) {
             $bg_repeat = 'no-repeat';
         }
         $style[] = 'background-repeat: ' . $bg_repeat;
-
-        if ( $bg_color ) {
-            $style[] = 'background-color: ' . $bg_color;
-        }
 		
 		if ( $enable_parallax && '' != $parallax_speed ) {
 

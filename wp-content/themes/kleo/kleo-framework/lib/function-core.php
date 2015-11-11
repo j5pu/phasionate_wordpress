@@ -561,7 +561,7 @@ if ( ! function_exists( 'kleo_generate_dynamic_css' ) ):
 			wp_mkdir_p( $kleo_config['custom_style_path'] );
 		}
 		
-		file_put_contents( trailingslashit( $kleo_config['custom_style_path'] ) . 'dynamic.css', $css, LOCK_EX ); // Save it
+		file_put_contents( trailingslashit( $kleo_config['custom_style_path'] ) . 'dynamic.css', $css ); // Save it
 	}
 endif;
 

@@ -11,7 +11,7 @@ $args=array(
 if (is_singular('post')) {
 
     //related text
-    $related_text = __("Related Articles", "kleo_framework");
+    $related_text = esc_html__("Related Articles", "kleo_framework");
 
     $categories = get_the_category($post->ID);
 
@@ -28,7 +28,7 @@ if (is_singular('post')) {
 else {
 
     //related text
-    $related_text = __("Related", "kleo_framework");
+    $related_text = esc_html__("Related", "kleo_framework");
 
     global $post;
     $categories = get_object_taxonomies($post);

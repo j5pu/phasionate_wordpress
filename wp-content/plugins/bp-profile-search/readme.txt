@@ -1,9 +1,9 @@
 === BP Profile Search ===
 Contributors: dontdream
 Tags: buddypress, directory, member, members, user, users, friend, friends, profile, profiles, search, filter
-Requires at least: 3.6
+Requires at least: 3.8
 Tested up to: 4.3
-Stable tag: 4.4
+Stable tag: 4.4.1
 
 Let visitors search your BuddyPress Members Directory and their Friends list.
 
@@ -15,7 +15,7 @@ You can insert the search forms in a Members directory, in a sidebar or widget a
 
 When visitors click the *Search* button, they are redirected to your form's Members directory that shows their search results. The *All Members* tab shows all the results, while the *My Friends* tab shows the results found among your visitor's friends.
 
-Requires at least BuddyPress 1.8 -- Tested up to BuddyPress 2.3.3
+Requires at least BuddyPress 1.8 -- Tested up to BuddyPress 2.3
 
 == Installation ==
 
@@ -55,12 +55,13 @@ With this option you can insert your search form in its Members Directory page. 
 
 = Text Search Mode =
 
-With this option you can select your text search mode, between:
+With this option you can select your text search mode. The modes are:
 
-* LIKE: a search for *John* finds *John*, *Johnson*, *Long John Silver*, and so on
-* SAME: a search for *John* finds *John* only
+* *contains*: a search for *John* finds *John*, *Johnson*, *Long John Silver*, and so on
+* *is*: a search for *John* finds *John* only
+* *is like*: same as above, but with optional wildcard characters
 
-In both modes, two wildcard characters are available:
+In the last mode, the allowed wildcard characters are:
 
 * Percent sign (%): matches any text, or no text at all
 * Underscore (_): matches any single character
@@ -77,8 +78,18 @@ After you build your search form, you can display it:
 
 (*) Replace 'id' with your actual form ID, and 'tpl' with the name of the form template you want to use.
 
+== Screenshots ==
+
+1. The Profile Search Forms admin page
+2. The Edit Form admin page
+3. Configuration of a Profile Search widget
+4. The Members Directory page with a Profile Search widget
+5. The Members Directory page with search results
+
 == Changelog ==
 
+= 4.4.1 =
+* Fixed bug in wildcard searching
 = 4.4 =
 * Updated to use WP language packs
 = 4.3.1 =

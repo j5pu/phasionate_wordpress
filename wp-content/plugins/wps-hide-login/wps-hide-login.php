@@ -5,7 +5,7 @@ Plugin URI: https://github.com/Tabrisrp/wps-hide-login
 Description: Change your login url and remove access to wp-login.php page | Change votre url de connexion et supprime l'accès à la page wp-login.php (sécurité augmentée)
 Author: WPServeur
 Author URI: http://profiles.wordpress.org/tabrisrp/
-Version: 1.1.2
+Version: 1.1.3
 Text Domain: wps-hide-login
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -208,7 +208,7 @@ if ( defined( 'ABSPATH' )
 
 			$out .= '<h3>' . __( 'WPS Hide Login', 'wps-hide-login') . '</h3>';
 			$out .= '<p>' . __( 'This option allows you to set a networkwide default, which can be overridden by individual sites. Simply go to to the site’s permalink settings to change the url.', 'wps-hide-login' ) . '</p>';
-			$out .= '<p>' . sprintf( __( 'Need help? Try the <a href="%s" target="_blank">support forum</a>.', 'wps-hide-login' ), 'http://wordpress.org/support/plugin/wps-hide-login/' ) . '</p>';
+			$out .= '<p>' . sprintf( __( 'Need help? Try the <a href="%1$s" target="_blank">support forum</a>. This plugin is kindly brought to you by <a href="%2$s" target="_blank">WPServeur</a>.', 'wps-hide-login' ), 'http://wordpress.org/support/plugin/wps-hide-login/', 'https://www.wpserveur.net' ) . '</p>';
 			$out .= '<table class="form-table">';
 				$out .= '<tr valign="top">';
 					$out .= '<th scope="row"><label for="whl_page">' . __( 'Networkwide default', 'wps-hide-login' ) . '</label></th>';
@@ -284,7 +284,7 @@ if ( defined( 'ABSPATH' )
 			if ( ! is_multisite()
 				|| is_super_admin() ) {
 
-				$out .= '<p>' . sprintf( __( 'Need help? Try the <a href="%s" target="_blank">support forum</a>.', 'wps-hide-login' ), 'http://wordpress.org/support/plugin/wps-hide-login/' ) . '</p>';
+				$out .= '<p>' . sprintf( __( 'Need help? Try the <a href="%1$s" target="_blank">support forum</a>. This plugin is kindly brought to you by <a href="%2$s" target="_blank">WPServeur</a>.', 'wps-hide-login' ), 'http://wordpress.org/support/plugin/wps-hide-login/', 'https://www.wpserveur.net' ) . '</p>';
 
 			}
 
@@ -392,7 +392,9 @@ if ( defined( 'ABSPATH' )
 
 				status_header(404);
                 nocache_headers();
-                include( get_404_template() );
+                if ( get_404_template() ) {
+                    include( get_404_template() );
+                }
                 exit;
 			}
 

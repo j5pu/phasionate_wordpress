@@ -26,7 +26,7 @@ class Kleo_Recent_Posts_widget extends WP_Widget {
 		$limit = $instance['limit'];
 		$length = (int)( $instance['length'] );
 		$thumb = isset($instance['thumb']) ? $instance['thumb'] : '';
-		$excerpt = $instance['excerpt'];
+		$excerpt = isset($instance['excerpt']) ? $instance['excerpt'] : '' ;
 		$cat = $instance['cat'];
 		$post_type = $instance['post_type'];
 
