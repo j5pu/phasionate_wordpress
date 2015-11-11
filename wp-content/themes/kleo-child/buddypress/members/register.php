@@ -28,9 +28,6 @@
 
 						<?php do_action( 'template_notices' ); ?>
 
-						<p><?php _e( 'Registering for this site is easy. Just fill in the fields below, and we\'ll get a new account set up for you in no time.', 'buddypress' ); ?></p>
-
-
 							<div class="row">
 
 								<div class="col-sm-6">
@@ -41,7 +38,6 @@
 
 									<?php /***** Basic Account Details ******/ ?>
 
-									<h4><?php _e( 'Account Details', 'buddypress' ); ?></h4>
 									<div>
 										<div style="width: 48%; float: left;">
 											<label style="width: 100%;" for="signup_username"><?php _e( 'Username', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
