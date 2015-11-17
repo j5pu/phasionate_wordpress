@@ -73,10 +73,6 @@ $primary_menu = wp_nav_menu( array(
 				<div class="container">   
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<div class="navbar-header">
-						<strong style="display: none;" class="logo_bogaclub">
-							<a href="<?php echo home_url();?>">BOGACLUB</a>
-						</strong>
-						
 						<div class="kleo-mobile-switch">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
 								<span class="sr-only"><?php _e("Toggle navigation",'kleo_framework');?></span>
@@ -123,6 +119,9 @@ $primary_menu = wp_nav_menu( array(
 					echo $primary_menu;
 					?>
 				</div><!--end container-->
+				<strong style="display: none;" class="logo_bogaclub">
+					<a href="<?php echo home_url();?>">BOGACLUB</a>
+				</strong>
 			</div>
 			<?php
 			/* Añade submenu si encuentra clase woocommerce en el body
