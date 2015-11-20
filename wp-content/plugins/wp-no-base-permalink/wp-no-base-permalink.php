@@ -3,7 +3,7 @@
  * Plugin Name: WP No Base Permalink
  * Plugin URI: https://wordpress.org/plugins/wp-no-base-permalink/
  * Description: Removes category base or tag base (optional) from your category or tag permalinks and removes parents categories from your category permalinks (optional). Compatible with WPML Plugin and WordPress Multisite.
- * Version: 0.3
+ * Version: 0.3.1
  * Author: Sergio P.A. ( 23r9i0 )
  * Author URI: http://dsergio.com/
  * License: GPLv2 or later
@@ -22,18 +22,25 @@ class WP_No_Base_Permalink {
 	private static $_options;
 
 	public static function on_activation() {
-		add_option( 'wp_no_base_permalink_flush', 1 );
+		$default = array( 'disabled-category-base' => '1' );
+
 		if ( $options = get_option( 'wp_no_base_permalink' ) ) {
+			if ( get_option( 'wp_no_base_permalink_version' ) ) {
+				$options = array_merge( $options, $default );
+				delete_option( 'wp_no_base_permalink_version' );
+			}
+
 			if ( $update = self::_update_options( $options ) ) {
 				update_option( 'wp_no_base_permalink', $update );
 			} else {
 				delete_option( 'wp_no_base_permalink' );
 			}
+
 		} else {
-			update_option( 'wp_no_base_permalink', array( 'disabled-category-base' => true ) );
+			update_option( 'wp_no_base_permalink', $default );
 		}
 
-		delete_option( 'wp_no_base_permalink_version' );
+		update_option( 'wp_no_base_permalink_flush', 1 );
 	}
 
 	public static function on_deactivation() {
@@ -416,7 +423,7 @@ class WP_No_Base_Permalink {
 	}
 
 	private static function _update_options( $current ) {
-		$update = array();
+		$update   = array();
 		$defaults = array(
 			'disabled-category-base',
 			'old-category-redirect',
@@ -435,38 +442,25 @@ class WP_No_Base_Permalink {
 					if ( $redirect = explode( ',', $current[ $option ] ) ) {
 						foreach ( $redirect as $k => &$r ) {
 							$r = trim( trim( $r ), '/' );
-							if (
-								( 'old-category-redirect' === $option && 'category' === $r ) ||
-								( 'old-tag-redirect' === $option && 'tag' === $r )
-							) {
-								$r = '';
-							}
+							if ( '' === $r || ( 'old-category-redirect' === $option && 'category' === $r ) || ( 'old-tag-redirect' === $option && 'tag' === $r ) )
+								unset( $redirect[ $k ] );
 						}
 
-						$redirect = array_filter( $redirect, function( $value ) {
-							return ( '' !== trim( $value ) );
-						} );
 						if ( count( $redirect ) )
-							$update[ $option ] = array_map( 'trim', $redirect );
+							$update[ $option ] = $redirect;
 					}
-
 					break;
 
 				case 'disabled-category-base':
 				case 'remove-parents-categories':
 				case 'disabled-tag-base':
-					if (
-						( is_numeric( $current[ $option ] ) && 1 === absint( $current[ $option ] ) ) ||
-						( is_bool( $current[ $option ] ) && $current[ $option ] )
-					) {
-						$update[ $option ] = true;
-					}
-
+					if ( is_numeric( $current[ $option ] ) && '1' === $current[ $option ] )
+						$update[ $option ] = $current[ $option ];
 					break;
 			}
 		}
 
-		return $update;
+		return count( $update ) ? $update : false;
 	}
 }
 endif;
