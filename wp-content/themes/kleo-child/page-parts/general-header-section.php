@@ -120,7 +120,7 @@ $primary_menu = wp_nav_menu( array(
 					?>
 				</div><!--end container-->
 				<strong style="display: none;" class="logo_bogaclub">
-					<a href="<?php echo home_url();?>">BOGACLUB</a>
+					<a href="#">BOGACLUB</a>
 				</strong>
 			</div>
 			<?php
