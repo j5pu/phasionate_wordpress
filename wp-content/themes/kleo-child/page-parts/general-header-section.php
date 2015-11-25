@@ -120,7 +120,7 @@ $primary_menu = wp_nav_menu( array(
 					?>
 				</div><!--end container-->
 				<strong style="display: none;" class="logo_bogaclub">
-					<a href="#">BOGACLUB</a>
+					<a href="https://www.bogadia.com/bogaclub/argo-5dic#bogaclub">BOGACLUB</a>
 				</strong>
 			</div>
 			<?php
