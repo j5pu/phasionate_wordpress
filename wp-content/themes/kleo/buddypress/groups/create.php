@@ -1,12 +1,39 @@
-<?php do_action( 'bp_before_create_group_page' ); ?>
+<?php
+/**
+ * BuddyPress - Groups Create
+ *
+ * @package BuddyPress
+ * @subpackage bp-legacy
+ */
+
+/**
+ * Fires at the top of the groups creation template file.
+ *
+ * @since 1.7.0
+ */
+do_action( 'bp_before_create_group_page' ); ?>
 
 <div id="buddypress">
 
-	<?php do_action( 'bp_before_create_group_content_template' ); ?>
+	<?php
+
+	/**
+	 * Fires before the display of group creation content.
+	 *
+	 * @since 1.6.0
+	 */
+	do_action( 'bp_before_create_group_content_template' ); ?>
 
 	<form action="<?php bp_group_creation_form_action(); ?>" method="post" id="create-group-form" class="standard-form" enctype="multipart/form-data">
 
-		<?php do_action( 'bp_before_create_group' ); ?>
+		<?php
+
+		/**
+		 * Fires before the display of group creation.
+		 *
+		 * @since 1.2.0
+		 */
+		do_action( 'bp_before_create_group' ); ?>
 
 		<div class="item-list-tabs no-ajax" id="group-create-tabs" role="navigation">
 			<ul>
@@ -16,14 +43,24 @@
 			</ul>
 		</div>
 
-		<?php do_action( 'template_notices' ); ?>
+		<?php
+
+		/** This action is documented in bp-templates/bp-legacy/buddypress/activity/index.php */
+		do_action( 'template_notices' ); ?>
 
 		<div class="item-body" id="group-create-body">
 
 			<?php /* Group creation step 1: Basic group details */ ?>
 			<?php if ( bp_is_group_creation_step( 'group-details' ) ) : ?>
 
-				<?php do_action( 'bp_before_group_details_creation_step' ); ?>
+				<?php
+
+				/**
+				 * Fires before the display of the group details creation step.
+				 *
+				 * @since 1.1.0
+				 */
+				do_action( 'bp_before_group_details_creation_step' ); ?>
 
 				<div>
 					<label for="group-name"><?php _e( 'Group Name (required)', 'buddypress' ); ?></label>
@@ -36,6 +73,12 @@
 				</div>
 
 				<?php
+
+				/**
+				 * Fires after the display of the group details creation step.
+				 *
+				 * @since 1.1.0
+				 */
 				do_action( 'bp_after_group_details_creation_step' );
 				do_action( 'groups_custom_group_fields_editable' ); // @Deprecated
 
@@ -46,7 +89,14 @@
 			<?php /* Group creation step 2: Group settings */ ?>
 			<?php if ( bp_is_group_creation_step( 'group-settings' ) ) : ?>
 
-				<?php do_action( 'bp_before_group_settings_creation_step' ); ?>
+				<?php
+
+				/**
+				 * Fires before the display of the group settings creation step.
+				 *
+				 * @since 1.1.0
+				 */
+				do_action( 'bp_before_group_settings_creation_step' ); ?>
 
 				<h4><?php _e( 'Privacy Options', 'buddypress' ); ?></h4>
 
@@ -125,7 +175,14 @@
 
 				<?php endif; ?>
 
-				<?php do_action( 'bp_after_group_settings_creation_step' ); ?>
+				<?php
+
+				/**
+				 * Fires after the display of the group settings creation step.
+				 *
+				 * @since 1.1.0
+				 */
+				do_action( 'bp_after_group_settings_creation_step' ); ?>
 
 				<?php wp_nonce_field( 'groups_create_save_group-settings' ); ?>
 
@@ -134,10 +191,16 @@
 			<?php /* Group creation step 3: Avatar Uploads */ ?>
 			<?php if ( bp_is_group_creation_step( 'group-avatar' ) ) : ?>
 
-				<?php do_action( 'bp_before_group_avatar_creation_step' ); ?>
+				<?php
+
+				/**
+				 * Fires before the display of the group avatar creation step.
+				 *
+				 * @since 1.1.0
+				 */
+				do_action( 'bp_before_group_avatar_creation_step' ); ?>
 
 				<?php if ( 'upload-image' == bp_get_avatar_admin_step() ) : ?>
-
 					<div class="left-menu">
 
 						<?php bp_new_group_avatar(); ?>
@@ -148,13 +211,24 @@
                         <p><?php _e( "Upload an image to use as a profile photo for this group. The image will be shown on the main group page, and in search results.", 'buddypress' ); ?></p>
 
 						<p>
-							<input type="file" name="file" id="file" /><br />
-							<input type="submit" name="upload" id="upload" value="<?php _e( 'Upload Image', 'buddypress' ); ?>" />
+							<label for="file" class="bp-screen-reader-text"><?php _e( 'Select an image', 'buddypress' ); ?></label>
+							<input type="file" name="file" id="file" />
+							<input type="submit" name="upload" id="upload" value="<?php esc_attr_e( 'Upload Image', 'buddypress' ); ?>" />
 							<input type="hidden" name="action" id="action" value="bp_avatar_upload" />
 						</p>
 
                         <p><?php _e( 'To skip the group profile photo upload process, hit the "Next Step" button.', 'buddypress' ); ?></p>
 					</div><!-- .main-column -->
+
+					<?php
+					if ( version_compare( BP_VERSION, '2.3', '>=' ) ) {
+						/**
+						 * Load the Avatar UI templates
+						 *
+						 * @since  BuddyPress (2.3.0)
+						 */
+						bp_avatar_get_templates();
+					} ?>
 
 				<?php endif; ?>
 
@@ -179,16 +253,61 @@
 
                 <?php endif; ?>
 
-				<?php do_action( 'bp_after_group_avatar_creation_step' ); ?>
+				<?php
+
+				/**
+				 * Fires after the display of the group avatar creation step.
+				 *
+				 * @since 1.1.0
+				 */
+				do_action( 'bp_after_group_avatar_creation_step' ); ?>
 
 				<?php wp_nonce_field( 'groups_create_save_group-avatar' ); ?>
 
 			<?php endif; ?>
 
-			<?php /* Group creation step 4: Invite friends to group */ ?>
+			<?php /* Group creation step 4: Cover image */ ?>
+			<?php if ( bp_is_group_creation_step( 'group-cover-image' ) ) : ?>
+
+				<?php
+
+				/**
+				 * Fires before the display of the group cover image creation step.
+				 *
+				 * @since 2.4.0
+				 */
+				do_action( 'bp_before_group_cover_image_creation_step' ); ?>
+
+				<div id="header-cover-image"></div>
+
+				<p><?php _e( 'The Cover Image will be used to customize the header of your group.', 'buddypress' ); ?></p>
+
+				<?php bp_attachments_get_template_part( 'cover-images/index' ); ?>
+
+				<?php
+
+				/**
+				 * Fires after the display of the group cover image creation step.
+				 *
+				 * @since 2.4.0
+				 */
+				do_action( 'bp_after_group_cover_image_creation_step' ); ?>
+
+				<?php wp_nonce_field( 'groups_create_save_group-cover-image' ); ?>
+
+			<?php endif; ?>
+
+			<?php /* Group creation step 5: Invite friends to group */ ?>
 			<?php if ( bp_is_group_creation_step( 'group-invites' ) ) : ?>
 
-				<?php do_action( 'bp_before_group_invites_creation_step' ); ?>
+				<?php
+
+				/**
+				 * Fires before the display of the group invites creation step.
+				 *
+				 * @since 1.1.0
+				 */
+				do_action( 'bp_before_group_invites_creation_step' ); ?>
 
 				<?php if ( bp_is_active( 'friends' ) && bp_get_total_friend_count( bp_loggedin_user_id() ) ) : ?>
 
@@ -255,13 +374,36 @@
 
 				<?php wp_nonce_field( 'groups_create_save_group-invites' ); ?>
 
-				<?php do_action( 'bp_after_group_invites_creation_step' ); ?>
+				<?php
+
+				/**
+				 * Fires after the display of the group invites creation step.
+				 *
+				 * @since 1.1.0
+				 */
+				do_action( 'bp_after_group_invites_creation_step' ); ?>
 
 			<?php endif; ?>
 
-			<?php do_action( 'groups_custom_create_steps' ); // Allow plugins to add custom group creation steps ?>
+			<?php
 
-			<?php do_action( 'bp_before_group_creation_step_buttons' ); ?>
+			/**
+			 * Fires inside the group admin template.
+			 *
+			 * Allows plugins to add custom group creation steps.
+			 *
+			 * @since 1.1.0
+			 */
+			do_action( 'groups_custom_create_steps' ); ?>
+
+			<?php
+
+			/**
+			 * Fires before the display of the group creation step buttons.
+			 *
+			 * @since 1.1.0
+			 */
+			do_action( 'bp_before_group_creation_step_buttons' ); ?>
 
 			<?php if ( 'crop-image' != bp_get_avatar_admin_step() ) : ?>
 
@@ -270,49 +412,84 @@
 					<?php /* Previous Button */ ?>
 					<?php if ( !bp_is_first_group_creation_step() ) : ?>
 
-						<input type="button" value="<?php _e( 'Back to Previous Step', 'buddypress' ); ?>" id="group-creation-previous" name="previous" onclick="location.href='<?php bp_group_creation_previous_link(); ?>'" />
+						<input type="button" value="<?php esc_attr_e( 'Back to Previous Step', 'buddypress' ); ?>" id="group-creation-previous" name="previous" onclick="location.href='<?php bp_group_creation_previous_link(); ?>'" />
 
 					<?php endif; ?>
 
 					<?php /* Next Button */ ?>
 					<?php if ( !bp_is_last_group_creation_step() && !bp_is_first_group_creation_step() ) : ?>
 
-						<input type="submit" value="<?php _e( 'Next Step', 'buddypress' ); ?>" id="group-creation-next" name="save" />
+						<input type="submit" value="<?php esc_attr_e( 'Next Step', 'buddypress' ); ?>" id="group-creation-next" name="save" />
 
 					<?php endif;?>
 
 					<?php /* Create Button */ ?>
 					<?php if ( bp_is_first_group_creation_step() ) : ?>
 
-						<input type="submit" value="<?php _e( 'Create Group and Continue', 'buddypress' ); ?>" id="group-creation-create" name="save" />
+						<input type="submit" value="<?php esc_attr_e( 'Create Group and Continue', 'buddypress' ); ?>" id="group-creation-create" name="save" />
 
 					<?php endif; ?>
 
 					<?php /* Finish Button */ ?>
 					<?php if ( bp_is_last_group_creation_step() ) : ?>
 
-						<input type="submit" value="<?php _e( 'Finish', 'buddypress' ); ?>" id="group-creation-finish" name="save" />
+						<input type="submit" value="<?php esc_attr_e( 'Finish', 'buddypress' ); ?>" id="group-creation-finish" name="save" />
 
 					<?php endif; ?>
 				</div>
 
 			<?php endif;?>
 
-			<?php do_action( 'bp_after_group_creation_step_buttons' ); ?>
+			<?php
+
+			/**
+			 * Fires after the display of the group creation step buttons.
+			 *
+			 * @since 1.1.0
+			 */
+			do_action( 'bp_after_group_creation_step_buttons' ); ?>
 
 			<?php /* Don't leave out this hidden field */ ?>
 			<input type="hidden" name="group_id" id="group_id" value="<?php bp_new_group_id(); ?>" />
 
-			<?php do_action( 'bp_directory_groups_content' ); ?>
+			<?php
+
+			/**
+			 * Fires and displays the groups directory content.
+			 *
+			 * @since 1.1.0
+			 */
+			do_action( 'bp_directory_groups_content' ); ?>
 
 		</div><!-- .item-body -->
 
-		<?php do_action( 'bp_after_create_group' ); ?>
+		<?php
+
+		/**
+		 * Fires after the display of group creation.
+		 *
+		 * @since 1.2.0
+		 */
+		do_action( 'bp_after_create_group' ); ?>
 
 	</form>
 
-	<?php do_action( 'bp_after_create_group_content_template' ); ?>
+	<?php
+
+	/**
+	 * Fires after the display of group creation content.
+	 *
+	 * @since 1.6.0
+	 */
+	do_action( 'bp_after_create_group_content_template' ); ?>
 
 </div>
 
-<?php do_action( 'bp_after_create_group_page' ); ?>
+<?php
+
+/**
+ * Fires at the bottom of the groups creation template file.
+ *
+ * @since 1.7.0
+ */
+do_action( 'bp_after_create_group_page' ); ?>

@@ -64,6 +64,9 @@ jq(document).ready( function() {
 		});
 		jq('#aw-whats-new-submit').prop('disabled', false);
 
+		jq( this ).parent().addClass( 'active' );
+		jq( '#whats-new-content' ).addClass( 'active' );
+
 		var $whats_new_form = jq('form#whats-new-form'),
 			$activity_all = jq( '#activity-all' );
 
@@ -90,33 +93,63 @@ jq(document).ready( function() {
 		jq(".rtmedia-container").css('visibility', 'visible');
 	});
 
-	/* On blur, shrink if it's empty */
-	$whats_new.blur( function(){
-		if ( document.activeElement !== this ) {
-			if (!this.value.match(/\S+/)) {
-				this.value = '';
+	/* For the "What's New" form, do the following on focusout. */
+	jq( '#whats-new-form' ).on( 'focusout', function( e ) {
+		var elem = jq( this );
+
+		// Let child hover actions passthrough.
+		// This allows click events to go through without focusout.
+		setTimeout( function () {
+			if ( ! elem.find(':hover').length ) {
+				// Do not slide up if textarea has content.
+				if ( '' !== $whats_new.val() ) {
+					return;
+				}
+
 				jq('#whats-new-options').animate({
-					height:'40px'
+					height:'0px'
 				});
 				jq('form#whats-new-form textarea').animate({
 					height:'50px'
 				});
 				jq('#aw-whats-new-submit').prop('disabled', true);
+
+				jq( '#whats-new-content' ).removeClass( 'active' );
+				$whats_new.parent().removeClass( 'active' );
+
+				/* Kleo added */
+				jq(".rtmedia-container").css('height', 'auto');
+				jq(".rtmedia-container").css('visibility', 'visible');
 			}
 
-			/* Kleo added */
-			jq(".rtmedia-container").css('height', 'auto');
-			jq(".rtmedia-container").css('visibility', 'visible');
-		}
-	});
+		}, 0 );
+	} );
 
 	/* New posts */
 	jq('#aw-whats-new-submit').on( 'click', function() {
 		var last_date_recorded = 0,
 			button = jq(this),
-			form   = button.closest('form#whats-new-form');
+			form   = button.closest('form#whats-new-form'),
+            inputs = {}, post_data;
 
-		form.children().each( function() {
+		// Get all inputs and organize them into an object {name: value}
+		jq.each( form.serializeArray(), function( key, input ) {
+			// Only include public extra data
+			if ( '_' !== input.name.substr( 0, 1 ) && 'whats-new' !== input.name.substr( 0, 9 ) ) {
+				if ( ! inputs[ input.name ] ) {
+					inputs[ input.name ] = input.value;
+				} else {
+					// Checkboxes/dropdown list can have multiple selected value
+					if ( ! jq.isArray( inputs[ input.name ] ) ) {
+						inputs[ input.name ] = new Array( inputs[ input.name ], input.value );
+					} else {
+						inputs[ input.name ].push( input.value );
+					}
+				}
+			}
+		} );
+
+		form.find( '*' ).each( function() {
 			if ( jq.nodeName(this, 'textarea') || jq.nodeName(this, 'input') ) {
 				jq(this).prop( 'disabled', true );
 			}
@@ -155,7 +188,7 @@ jq(document).ready( function() {
 			object = jq('#whats-new-post-object').val();
 		}
 
-		jq.post( ajaxurl, {
+		post_data = jq.extend( {
 			action: 'post_update',
 			'cookie': bp_get_cookies(),
 			'_wpnonce_post_update': jq('#_wpnonce_post_update').val(),
@@ -164,10 +197,10 @@ jq(document).ready( function() {
 			'item_id': item_id,
 			'since': last_date_recorded,
 			'_bp_as_nonce': jq('#_bp_as_nonce').val() || ''
-		},
-		function(response) {
+		}, inputs );
 
-			form.children().each( function() {
+		jq.post( ajaxurl, post_data, function( response ) {
+			form.find( '*' ).each( function() {
 				if ( jq.nodeName(this, 'textarea') || jq.nodeName(this, 'input') ) {
 					jq(this).prop( 'disabled', false );
 				}
@@ -218,6 +251,7 @@ jq(document).ready( function() {
 				jq('li.new-update').hide().slideDown( 300 );
 				jq('li.new-update').removeClass( 'new-update' );
 				jq('#whats-new').val('');
+				form.get(0).reset();
 
 				// reset vars to get newest activities
 				newest_activities = '';
@@ -231,6 +265,7 @@ jq(document).ready( function() {
 				height:'50px'
 			});
 			jq('#aw-whats-new-submit').prop('disabled', true).removeClass('loading');
+			jq( '#whats-new-content' ).removeClass( 'active' );
 		});
 
 		/* Kleo added */
@@ -458,6 +493,8 @@ jq(document).ready( function() {
 					path: '/'
 				} );
 				jq('#buddypress ul.activity-list').append(response.contents);
+
+				/* KLEO Added */
 				jq('body').trigger('bpActivityLoaded');
 
 				target.parent().hide();
@@ -1848,12 +1885,12 @@ function bp_init_activity() {
 		path: '/'
 	} );
 
-	if ( null !== jq.cookie('bp-activity-filter') && jq('#activity-filter-select').length ) {
+	if ( undefined !== jq.cookie('bp-activity-filter') && jq('#activity-filter-select').length ) {
 		jq('#activity-filter-select select option[value="' + jq.cookie('bp-activity-filter') + '"]').prop( 'selected', true );
 	}
 
 	/* Activity Tab Set */
-	if ( null !== jq.cookie('bp-activity-scope') && jq('.activity-type-tabs').length ) {
+	if ( undefined !== jq.cookie('bp-activity-scope') && jq('.activity-type-tabs').length ) {
 		jq('.activity-type-tabs li').each( function() {
 			jq(this).removeClass('selected');
 		});
@@ -1864,11 +1901,11 @@ function bp_init_activity() {
 /* Setup object scope and filter based on the current cookie settings for the object. */
 function bp_init_objects(objects) {
 	jq(objects).each( function(i) {
-		if ( null !== jq.cookie('bp-' + objects[i] + '-filter') && jq('#' + objects[i] + '-order-select select').length ) {
+		if ( undefined !== jq.cookie('bp-' + objects[i] + '-filter') && jq('#' + objects[i] + '-order-select select').length ) {
 			jq('#' + objects[i] + '-order-select select option[value="' + jq.cookie('bp-' + objects[i] + '-filter') + '"]').prop( 'selected', true );
 		}
 
-		if ( null !== jq.cookie('bp-' + objects[i] + '-scope') && jq('div.' + objects[i]).length ) {
+		if ( undefined !== jq.cookie('bp-' + objects[i] + '-scope') && jq('div.' + objects[i]).length ) {
 			jq('.item-list-tabs li').each( function() {
 				jq(this).removeClass('selected');
 			});
@@ -1933,6 +1970,7 @@ function bp_filter_request( object, filter, scope, target, search_terms, page, e
 			jq('html,body').animate({scrollTop: top.offset().top}, 'slow', function() {
 				jq(target).fadeOut( 100, function() {
 					jq(this).html(response);
+
 					/* KLEO added */
 					jq(this).fadeIn(100, function(){
 						jq("body").trigger('gridloaded');
@@ -1944,6 +1982,7 @@ function bp_filter_request( object, filter, scope, target, search_terms, page, e
 			jq(target).fadeOut( 100, function() {
 				jq(this).html(response);
 				jq(this).fadeIn(100, function(){
+					/* KLEO added */
 					jq("body").trigger('gridloaded');
 				});
 		 	});
@@ -1956,12 +1995,16 @@ function bp_filter_request( object, filter, scope, target, search_terms, page, e
 /* Activity Loop Requesting */
 function bp_activity_request(scope, filter) {
 	/* Save the type and filter to a session cookie */
-	jq.cookie( 'bp-activity-scope', scope, {
-		path: '/'
-	} );
-	jq.cookie( 'bp-activity-filter', filter, {
-		path: '/'
-	} );
+	if ( null !== scope ) {
+		jq.cookie('bp-activity-scope', scope, {
+			path: '/'
+		});
+	}
+	if ( null !== filter ) {
+		jq.cookie('bp-activity-filter', filter, {
+			path: '/'
+		});
+	}
 	jq.cookie( 'bp-activity-oldestpage', 1, {
 		path: '/'
 	} );
@@ -2004,7 +2047,7 @@ function bp_activity_request(scope, filter) {
 		});
 
 		/* Update the feed link */
-		if ( null !== response.feed_url ) {
+		if ( undefined !== response.feed_url ) {
 			jq('.directory #subnav li.feed a, .home-page #subnav li.feed a').attr('href', response.feed_url);
 		}
 
@@ -2076,7 +2119,7 @@ function checkAll() {
  * Deselects any select options or input options for the specified field element.
  *
  * @param {String} container HTML ID of the field
- * @since BuddyPress (1.2.0)
+ * @since  1.2.0
  */
 function clear( container ) {
 	container = document.getElementById( container );

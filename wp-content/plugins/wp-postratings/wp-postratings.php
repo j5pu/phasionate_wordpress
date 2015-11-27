@@ -3,7 +3,7 @@
 Plugin Name: WP-PostRatings
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Adds an AJAX rating system for your WordPress blog's post/page.
-Version: 1.82
+Version: 1.83.1
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 Text Domain: wp-postratings
@@ -32,11 +32,14 @@ Text Domain: wp-postratings
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 ### Version
-define( 'WP_POSTRATINGS_VERSION', 1.82 );
+define( 'WP_POSTRATINGS_VERSION', 1.83 );
 
 ### Define Image Extension
-if( ! defined( 'RATINGS_IMG_EXT' ) ) {
-	define( 'RATINGS_IMG_EXT', apply_filters( 'wp_postratings_image_extension', 'gif' ) );
+add_action( 'init', 'postratings_init' );
+function postratings_init() {
+	if( ! defined( 'RATINGS_IMG_EXT' ) ) {
+		define( 'RATINGS_IMG_EXT', apply_filters( 'wp_postratings_image_extension', 'gif' ) );
+	}
 }
 
 ### Create Text Domain For Translations
@@ -84,7 +87,7 @@ function the_ratings($start_tag = 'div', $custom_id = 0, $display = true) {
 	$postratings_ajax_style = get_option('postratings_ajax_style');
 	if(intval($postratings_ajax_style['loading']) == 1) {
 		$loading = '<' . $start_tag . ' id="post-ratings-' . $ratings_id . '-loading" class="post-ratings-loading">
-			<img src="' . plugins_url('wp-postratings/images/loading.gif') . '" width="16" height="16" alt="' . __( 'Loading...', 'wp-postratings' ) . '" title="' . __( 'Loading...', 'wp-postratings' ) . '" class="post-ratings-image" />' . __( 'Loading...', 'wp-postratings' ) . '</' . $start_tag . '>';
+			<img src="' . plugins_url('wp-postratings/images/loading.gif') . '" width="16" height="16" class="post-ratings-image" />' . __( 'Loading...', 'wp-postratings' ) . '</' . $start_tag . '>';
 	} else {
 		$loading = '';
 	}
@@ -191,8 +194,8 @@ function ratings_scripts_admin($hook_suffix) {
 
 
 ### Function: Display Ratings Results
-function the_ratings_results($post_id, $new_user = 0, $new_score = 0, $new_average = 0, $type = 0) {
-	if($new_user == 0 && $new_score == 0 && $new_average == 0) {
+function the_ratings_results( $post_id, $new_user = 0, $new_score = 0, $new_average = 0, $type = 0 ) {
+	if( $new_user === 0 && $new_score === 0 && $new_average === 0 ) {
 		$post_ratings_data = null;
 	} else {
 		$post_ratings_data = new stdClass();
@@ -201,13 +204,13 @@ function the_ratings_results($post_id, $new_user = 0, $new_score = 0, $new_avera
 		$post_ratings_data->ratings_average = $new_average;
 	}
 	// Display The Contents
-	if($type == 1) {
-		$template_postratings_text = stripslashes(get_option('postratings_template_permission'));
+	if( $type === 1 ) {
+		$template_postratings_text = stripslashes( get_option( 'postratings_template_permission' ) );
 	} else {
-		$template_postratings_text = stripslashes(get_option('postratings_template_text'));
+		$template_postratings_text = stripslashes( get_option( 'postratings_template_text' ) );
 	}
 	// Return Post Ratings Template
-	return expand_ratings_template($template_postratings_text, $post_id, $post_ratings_data);
+	return expand_ratings_template( $template_postratings_text, $post_id, $post_ratings_data );
 }
 
 
@@ -222,7 +225,7 @@ function the_ratings_vote($post_id, $new_user = 0, $new_score = 0, $new_average 
     $post_ratings_data->ratings_average = $new_average;
   }
 	// If No Ratings, Return No Ratings templae
-	if(get_post_meta($post_id, 'ratings_users', true) == 0) {
+	if( intval( get_post_meta($post_id, 'ratings_users', true ) ) === 0 ) {
 		$template_postratings_none = stripslashes(get_option('postratings_template_none'));
 		// Return Post Ratings Template
 		return expand_ratings_template($template_postratings_none, $post_id, $post_ratings_data);
@@ -295,7 +298,7 @@ function check_rated( $post_id ) {
 			break;
 	}
 
-	$rated = apply_filters( 'wp_postratings_check_rated', $rated );
+	$rated = apply_filters( 'wp_postratings_check_rated', $rated, $post_id );
 
 	return $rated;
 }
@@ -392,38 +395,43 @@ function comment_author_ratings($comment_author_specific = '', $display = true) 
 
 
 ### Function:  Display Comment Author Ratings
-//add_filter('comment_text', 'comment_author_ratings_filter');
+add_filter('comment_text', 'comment_author_ratings_filter');
 function comment_author_ratings_filter($comment_text) {
 	global $comment, $comment_authors_ratings;
+
 	$output = '';
-	if(!is_feed() && !is_admin()) {
-		if(get_comment_type() == 'comment') {
-			$post_ratings_images = '';
-			$ratings_image = get_option('postratings_image');
-			$ratings_max = intval(get_option('postratings_max'));
-			$ratings_custom = intval(get_option('postratings_customrating'));
-			$comment_author = get_comment_author();
-			$comment_author_rating = intval($comment_authors_ratings[$comment_author]);
-			if($comment_author_rating == 0) {
-				$comment_author_rating = intval($comment_authors_ratings[get_comment_author_IP()]);
-			}
-			if($comment_author_rating != 0) {
-				// Display Rated Images
-				if($ratings_custom && $ratings_max == 2) {
-					if($comment_author_rating > 0) {
-						$comment_author_rating = '+'.$comment_author_rating;
-					}
+	$display_comment_author_ratings = apply_filters( 'wp_postratings_display_comment_author_ratings', false );
+
+	if( $display_comment_author_ratings ) {
+		if(!is_feed() && !is_admin()) {
+			if( ! empty( $comment ) && get_comment_type() === 'comment' ) {
+				$post_ratings_images = '';
+				$ratings_image = get_option('postratings_image');
+				$ratings_max = intval(get_option('postratings_max'));
+				$ratings_custom = intval(get_option('postratings_customrating'));
+				$comment_author = get_comment_author();
+				$comment_author_rating = intval($comment_authors_ratings[$comment_author]);
+				if($comment_author_rating == 0) {
+					$comment_author_rating = intval($comment_authors_ratings[get_comment_author_IP()]);
 				}
-				$image_alt = sprintf(__('%s gives a rating of %s', 'wp-postratings'), $comment_author, $comment_author_rating);
-				$post_ratings_images = get_ratings_images_comment_author($ratings_custom, $ratings_max, $comment_author_rating, $ratings_image, $image_alt);
+				if($comment_author_rating != 0) {
+					// Display Rated Images
+					if($ratings_custom && $ratings_max == 2) {
+						if($comment_author_rating > 0) {
+							$comment_author_rating = '+'.$comment_author_rating;
+						}
+					}
+					$image_alt = sprintf(__('%s gives a rating of %s', 'wp-postratings'), $comment_author, $comment_author_rating);
+					$post_ratings_images = get_ratings_images_comment_author($ratings_custom, $ratings_max, $comment_author_rating, $ratings_image, $image_alt);
+				}
+				$output .= '<div class="post-ratings-comment-author">';
+				if($post_ratings_images != '') {
+					$output .= get_comment_author().' ratings for this post: '.$post_ratings_images;
+				} else {
+					$output .= get_comment_author().' did not rate this post.';
+				}
+				$output .= '</div>';
 			}
-			$output .= '<div class="post-ratings-comment-author">';
-			if($post_ratings_images != '') {
-				$output .= get_comment_author().' ratings for this post: '.$post_ratings_images;
-			} else {
-				$output .= get_comment_author().' did not rate this post.';
-			}
-			$output .= '</div>';
 		}
 	}
 	return $comment_text.$output;
@@ -764,12 +772,7 @@ function ratings_most_fields($content) {
 }
 function ratings_most_join($content) {
 	global $wpdb;
-	$content .= " LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID";
-	return $content;
-}
-function ratings_most_where($content) {
-	global $wpdb;
-	$content .= " AND $wpdb->postmeta.meta_key = 'ratings_users'";
+	$content .= " LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID AND $wpdb->postmeta.meta_key = 'ratings_users'";
 	return $content;
 }
 function ratings_most_orderby($content) {
@@ -789,17 +792,16 @@ function ratings_highest_fields($content) {
 }
 function ratings_highest_join($content) {
 	global $wpdb;
-	$content .= " LEFT JOIN $wpdb->postmeta AS t1 ON t1.post_id = $wpdb->posts.ID LEFT JOIN $wpdb->postmeta As t2 ON t1.post_id = t2.post_id";
-	return $content;
-}
-function ratings_highest_where($content) {
 	$ratings_max = intval(get_option('postratings_max'));
 	$ratings_custom = intval(get_option('postratings_customrating'));
+
+	$content .= " LEFT JOIN $wpdb->postmeta AS t1 ON t1.post_id = $wpdb->posts.ID";
 	if($ratings_custom && $ratings_max == 2) {
-		$content .= " AND t1.meta_key = 'ratings_score' AND t2.meta_key = 'ratings_users'";
+		$content .= " AND t1.meta_key = 'ratings_score'";
 	} else {
-		$content .= " AND t1.meta_key = 'ratings_average' AND t2.meta_key = 'ratings_users'";
+		$content .= " AND t1.meta_key = 'ratings_average'";
 	}
+	$content .= " LEFT JOIN $wpdb->postmeta As t2 ON t1.post_id = t2.post_id AND t2.meta_key = 'ratings_users'";
 	return $content;
 }
 function ratings_highest_orderby($content) {
@@ -827,29 +829,23 @@ function ratings_sorting($local_wp_query) {
 	if($local_wp_query->get('r_sortby') == 'most_rated') {
 		add_filter('posts_fields', 'ratings_most_fields');
 		add_filter('posts_join', 'ratings_most_join');
-		add_filter('posts_where', 'ratings_most_where');
 		add_filter('posts_orderby', 'ratings_most_orderby');
 		remove_filter('posts_fields', 'ratings_highest_fields');
 		remove_filter('posts_join', 'ratings_highest_join');
-		remove_filter('posts_where', 'ratings_highest_where');
 		remove_filter('posts_orderby', 'ratings_highest_orderby');
 	} elseif($local_wp_query->get('r_sortby') == 'highest_rated') {
 		add_filter('posts_fields', 'ratings_highest_fields');
 		add_filter('posts_join', 'ratings_highest_join');
-		add_filter('posts_where', 'ratings_highest_where');
 		add_filter('posts_orderby', 'ratings_highest_orderby');
 		remove_filter('posts_fields', 'ratings_most_fields');
 		remove_filter('posts_join', 'ratings_most_join');
-		remove_filter('posts_where', 'ratings_most_where');
 		remove_filter('posts_orderby', 'ratings_most_orderby');
 	} else {
 		remove_filter('posts_fields', 'ratings_highest_fields');
 		remove_filter('posts_join', 'ratings_highest_join');
-		remove_filter('posts_where', 'ratings_highest_where');
 		remove_filter('posts_orderby', 'ratings_highest_orderby');
 		remove_filter('posts_fields', 'ratings_most_fields');
 		remove_filter('posts_join', 'ratings_most_join');
-		remove_filter('posts_where', 'ratings_most_where');
 		remove_filter('posts_orderby', 'ratings_most_orderby');
 	}
 }
@@ -954,7 +950,7 @@ function postratings_page_general_stats($content) {
 	if($stats_display['ratings'] == 1) {
 		$content .= '<p><strong>'.__('WP-PostRatings', 'wp-postratings').'</strong></p>'."\n";
 		$content .= '<ul>'."\n";
-		$content .= '<li>'.sprintf(_n('<strong>%s</strong> user casted his vote.', '<strong>%s</strong> users casted their vote.', get_ratings_users(false), 'wp-postratings'), number_format_i18n(get_ratings_users(false))).'</li>'."\n";
+		$content .= '<li>'.sprintf(_n('%s user casted his vote.', '%s users casted their vote.', get_ratings_users(false), 'wp-postratings'), '<strong>'.number_format_i18n(get_ratings_users(false)).'</strong>').'</li>'."\n";
 		$content .= '</ul>'."\n";
 	}
 	return $content;
@@ -1248,7 +1244,7 @@ function expand_ratings_template($template, $post_data, $post_ratings_data = nul
 
 	// Google Rich Snippet
 	$ratings_options['richsnippet'] = isset( $ratings_options['richsnippet'] ) ? $ratings_options['richsnippet'] : 1;
-	if( $ratings_options['richsnippet'] && ( is_single() || is_page() ) && $is_main_loop && $post_ratings_average > 0 ) {
+	if( $ratings_options['richsnippet'] && ( is_single() || is_page() ) && $is_main_loop ) {
 		$itemtype = apply_filters( 'wp_postratings_schema_itemtype', 'itemscope itemtype="http://schema.org/Article"' );
 
 		if( empty( $post_excerpt ) ) {
@@ -1264,12 +1260,17 @@ function expand_ratings_template($template, $post_data, $post_ratings_data = nul
 				$post_meta .= '<meta itemprop="image" content="' . $thumbnail[0] . '" />';
 			}
 		}
-		$ratings_meta = '<div style="display: none;" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
-		$ratings_meta .= '<meta itemprop="bestRating" content="' . $ratings_max . '" />';
-		$ratings_meta .= '<meta itemprop="worstRating" content="1" />';
-		$ratings_meta .= '<meta itemprop="ratingValue" content="' . $post_ratings_average . '" />';
-		$ratings_meta .= '<meta itemprop="ratingCount" content="' . $post_ratings_users . '" />';
-		$ratings_meta .= '</div>';
+
+		$ratings_meta = '';
+		if( $post_ratings_average > 0 ) {
+			$ratings_meta .= '<div style="display: none;" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
+			$ratings_meta .= '<meta itemprop="bestRating" content="' . $ratings_max . '" />';
+			$ratings_meta .= '<meta itemprop="worstRating" content="1" />';
+			$ratings_meta .= '<meta itemprop="ratingValue" content="' . $post_ratings_average . '" />';
+			$ratings_meta .= '<meta itemprop="ratingCount" content="' . $post_ratings_users . '" />';
+			$ratings_meta .= '</div>';
+		}
+
 
 		$value = empty( $itemtype ) ? $value . $ratings_meta : $value . $post_meta . $ratings_meta;
 	}

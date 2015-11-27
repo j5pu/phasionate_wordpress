@@ -40,14 +40,11 @@ $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 
 
 /* KLEO ADDED */
-switch ( $inner_container ) {
-	case 'yes' :
-		$container_start = '<div class="section-container container">';
-		$container_end   = '</div>';
-		break;
-	default :
-		$container_start = '';
-		$container_end   = '';
+$container_start = '';
+$container_end   = '';
+if ( $inner_container == 'yes' ) {
+	$container_start = '<div class="section-container container">';
+	$container_end   = '</div>';
 }
 
 $output .= '<div ' . implode( ' ', $wrapper_attributes ) . '>' . $container_start;

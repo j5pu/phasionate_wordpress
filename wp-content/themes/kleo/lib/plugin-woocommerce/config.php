@@ -920,17 +920,23 @@ if (!function_exists('kleo_woo_get_mini_cart')) {
 
 			foreach ($woocommerce->cart->cart_contents as $cart_item_key => $cart_item) {
 
-				$cart_product = $cart_item['data']; 
-				$product_title = $cart_product->get_title();
+				$cart_product = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+
+				$product_title  = $cart_product->get_title();
 				$product_short_title = (strlen($product_title) > 25) ? substr($product_title, 0, 22) . '...' : $product_title;
+				$product_short_title = apply_filters( 'woocommerce_cart_item_name', $product_short_title, $cart_item, $cart_item_key );
+
+				$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $cart_product->get_image(), $cart_item, $cart_item_key );
+				$product_price = apply_filters( 'woocommerce_cart_item_price', woocommerce_price($cart_product->get_price()), $cart_item, $cart_item_key );
+				$product_quantity = apply_filters( 'woocommerce_cart_item_quantity', $cart_item['quantity'], $cart_item_key, $cart_item );
 
 				if ($cart_product->exists() && $cart_item['quantity']>0) {
 					$cart_output .= '<div class="cart-product clearfix">';
-					$cart_output .= '<figure><a class="cart-product-img" href="'.get_permalink($cart_item['product_id']).'">'.$cart_product->get_image().'</a></figure>';                      
+					$cart_output .= '<figure><a class="cart-product-img" href="'.get_permalink($cart_item['product_id']).'">'.$thumbnail.'</a></figure>';
 					$cart_output .= '<div class="cart-product-details">';
-					$cart_output .= '<div class="cart-product-title"><a href="'.get_permalink($cart_item['product_id']).'">' . apply_filters('woocommerce_cart_widget_product_title', $product_short_title, $cart_product) . '</a></div>';
-					$cart_output .= '<div class="cart-product-price">' . __("Price", "woocommerce") . ' ' . woocommerce_price($cart_product->get_price()) . '</div>';
-					$cart_output .= '<div class="cart-product-quantity">' . __('Quantity', 'woocommerce') . ' ' . $cart_item['quantity'] . '</div>';
+					$cart_output .= '<div class="cart-product-title"><a href="'.get_permalink($cart_item['product_id']).'">' . $product_short_title . '</a></div>';
+					$cart_output .= '<div class="cart-product-price">' . __("Price", "woocommerce") . ' ' . $product_price . '</div>';
+					$cart_output .= '<div class="cart-product-quantity">' . __('Quantity', 'woocommerce') . ' ' . $product_quantity . '</div>';
 					$cart_output .= '</div>';
 					$cart_output .= kleo_woo_get_quickview_button( $cart_item['product_id'], false );
 					$cart_output .= apply_filters( 'woocommerce_cart_item_remove_link', sprintf('<a href="%s" class="remove" title="%s">&times;</a>', esc_url( $woocommerce->cart->get_remove_url( $cart_item_key ) ), __('Remove this item', 'woocommerce') ), $cart_item_key );

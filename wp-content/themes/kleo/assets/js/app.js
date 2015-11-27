@@ -488,12 +488,11 @@ var kleoPage = {
 		$('.panel-collapse').on('show.bs.collapse', function () {
 			$(".panel-heading a[href='#"+$(this).attr('id')+"'] span.icon-opened").removeClass("hide");
 			$(".panel-heading a[href='#"+$(this).attr('id')+"'] span.icon-closed").addClass("hide");
-			;
-		})
+		});
 		$('.panel-collapse').on('hide.bs.collapse', function () {
 			$(".panel-heading a[href='#"+$(this).attr('id')+"'] span.icon-opened").addClass("hide");
 			$(".panel-heading a[href='#"+$(this).attr('id')+"'] span.icon-closed").removeClass("hide");
-		})
+		});
 				
 		//Tabs and accordions triggers
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function () {
@@ -503,6 +502,12 @@ var kleoPage = {
 		$('.panel-collapse').on('shown.bs.collapse', function () {
 			kleoPage.refreshContentTabs(this);
 		});
+
+        /* for VC tabs */
+        $( document ).on( 'show.vc.tab', function() {
+            kleoPage.refreshContentTabs(this);
+        } );
+
         //tours
         if ($('.wpb_tour').length) {
             $('.tour_next_slide').click(function() {
@@ -527,7 +532,7 @@ var kleoPage = {
                     var active = tabs.filter('.active');
                     var next = active.next('li').length? active.next('li').find('a') : tabs.filter(':first-child').find('a');
                     next.tab('show');
-                }
+                };
                 if ($this.data("interval") != 0) {
                     var interval = $this.data("interval");
                     var tabCycle = setInterval( tourChange, interval * 1000 )
@@ -1436,7 +1441,7 @@ var bP = {
   
   }
 	
-}
+};
 
 /***************************************************
  Woocommerce
@@ -2375,47 +2380,47 @@ $(".kleo-quick-contact-wrapper").click(function (event) {
         window.event.cancelBubble = true;
     }
 });
-    $("html").click(function () {
-        $(this).find("#kleo-quick-contact").fadeOut(300);
-        $('.kleo-quick-contact-link').removeClass('quick-contact-active');
-    });
+$("html").click(function () {
+    $(this).find("#kleo-quick-contact").fadeOut(300);
+    $('.kleo-quick-contact-link').removeClass('quick-contact-active');
+});
 
-    $('.kleo-quick-contact-link').on('click', function () {
-        if (!$(this).hasClass('quick-contact-active')) {
-            $('#kleo-quick-contact').fadeIn(300);
-            $(this).addClass('quick-contact-active');
-        } else {
-            $('#kleo-quick-contact').fadeOut(300);
-            $(this).removeClass('quick-contact-active');
-        }
-        return false;
-    });
-
-    $('.kleo-contact-form').submit(ajaxSubmit);
-    function ajaxSubmit() {
-        var thiss = $(this);
-        var customerForm = thiss.serialize();
-        thiss.find(".kleo-contact-success").html('');
-        thiss.find(".kleo-contact-loading").show();
-
-        $.ajax({
-            type: "POST",
-            url: kleoFramework.ajaxurl,
-            data: customerForm,
-            success: function (data) {
-                thiss.find(".kleo-contact-loading").hide();
-                thiss.find(".kleo-contact-success").html(data);
-                if (thiss.find(".mail-success").length) {
-                    thiss.find("input[type=text], input[type=email], textarea").val('');
-                }
-            },
-            error: function (errorThrown) {
-                alert(errorThrown);
-            }
-        });
-        return false;
-
+$('.kleo-quick-contact-link').on('click', function () {
+    if (!$(this).hasClass('quick-contact-active')) {
+        $('#kleo-quick-contact').fadeIn(300);
+        $(this).addClass('quick-contact-active');
+    } else {
+        $('#kleo-quick-contact').fadeOut(300);
+        $(this).removeClass('quick-contact-active');
     }
+    return false;
+});
+
+$('.kleo-contact-form').submit(ajaxSubmit);
+function ajaxSubmit() {
+    var thiss = $(this);
+    var customerForm = thiss.serialize();
+    thiss.find(".kleo-contact-success").html('');
+    thiss.find(".kleo-contact-loading").show();
+
+    $.ajax({
+        type: "POST",
+        url: kleoFramework.ajaxurl,
+        data: customerForm,
+        success: function (data) {
+            thiss.find(".kleo-contact-loading").hide();
+            thiss.find(".kleo-contact-success").html(data);
+            if (thiss.find(".mail-success").length) {
+                thiss.find("input[type=text], input[type=email], textarea").val('');
+            }
+        },
+        error: function (errorThrown) {
+            alert(errorThrown);
+        }
+    });
+    return false;
+
+}
 
 
 $.fn.kleo_enable_media = function(options) {

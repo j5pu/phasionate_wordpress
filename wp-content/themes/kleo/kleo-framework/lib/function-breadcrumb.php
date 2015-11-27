@@ -522,7 +522,37 @@ class Breadcrumb_Trail
 
         /* Add the terms of the taxonomy for this post. */
         if (!empty($this->args['post_taxonomy'][$post_type]))
-            $this->items[] = get_the_term_list($post_id, $this->args['post_taxonomy'][$post_type], '', ', ', '');
+            $this->add_post_terms( $post_id, $this->args['post_taxonomy'][$post_type] );
+    }
+
+    /**
+     * Adds a post's terms from a specific taxonomy to the items array.
+     *
+     * @since  1.0.0
+     * @access protected
+     * @param  int     $post_id  The ID of the post to get the terms for.
+     * @param  string  $taxonomy The taxonomy to get the terms from.
+     * @return void
+     */
+    protected function add_post_terms( $post_id, $taxonomy ) {
+
+        // Get the post categories.
+        $terms = get_the_terms( $post_id, $taxonomy );
+
+        // Check that categories were returned.
+        if ( $terms && ! is_wp_error( $terms ) ) {
+
+            // Sort the terms by ID and get the first category.
+            usort( $terms, '_usort_terms_by_ID' );
+            $term = get_term( $terms[0], $taxonomy );
+
+            // If the category has a parent, add the hierarchy to the trail.
+            if ( 0 < $term->parent )
+                $this->do_term_parents( $term->parent, $taxonomy );
+
+            // Add the category archive link to the trail.
+            $this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_term_link( $term, $taxonomy ) ), $term->name );
+        }
     }
 
     /**
@@ -1043,6 +1073,7 @@ class Breadcrumb_Trail
 
         /* If we have parent terms, reverse the array to put them in the proper order for the trail. */
         if (!empty($parents))
+            $parents = array_reverse( $parents );
             $this->items = array_merge($this->items, $parents);
     }
 

@@ -332,15 +332,16 @@ function kleo_pagination( $pages = '', $echo = true ) {
 endif;
 
 // Return attachment id from url
-if(!function_exists('kleo_get_attachment_id_from_url')):
-    function kleo_get_attachment_id_from_url($url) {
-        global $wpdb;
-        $query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$url'";
-        return $wpdb->get_var($query);
-    }
-endif;
+if( ! function_exists( 'kleo_get_attachment_id_from_url' ) ) {
+	function kleo_get_attachment_id_from_url( $url )
+	{
+		global $wpdb;
+		$query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$url'";
+		return $wpdb->get_var($query);
+	}
+}
 
-if(!function_exists('kleo_title')):
+if( ! function_exists( 'kleo_title' ) ):
 	/**
 	 *  Return the Page title string
 	 */
@@ -435,7 +436,7 @@ if(!function_exists('kleo_title')):
 endif;
 
 
-if(!function_exists('kleo_calc_perceived_brightness'))
+if( ! function_exists( 'kleo_calc_perceived_brightness' ) )
 {
 	/**
 	 *  calculates if a color is dark or light, 

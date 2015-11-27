@@ -1,29 +1,61 @@
+<?php
+/**
+ * BuddyPress - Members Home
+ *
+ * @package BuddyPress
+ * @subpackage bp-legacy
+ */
+
+?>
+
 <div id="buddypress">
 
-	<?php do_action( 'bp_before_member_home_content' ); ?>
+    <?php
+
+    /**
+     * Fires before the display of member home content.
+     *
+     * @since 1.2.0
+     */
+    do_action( 'bp_before_member_home_content' ); ?>
   
   <div class="row">
-
 
       <?php if( sq_option( 'bp_full_profile', 0 ) == 0 ): ?>
       <div class="col-sm-12">
           <div id="item-header" role="complementary">
 
-              <?php bp_get_template_part('members/single/member-header') ?>
+              <?php
+              /**
+               * If the cover image feature is enabled, use a specific header
+               */
+              if ( version_compare( BP_VERSION, '2.4', '>=' ) && bp_displayed_user_use_cover_image_header() ) :
+                  bp_get_template_part( 'members/single/cover-image-header' );
+              else :
+                  bp_get_template_part( 'members/single/member-header' );
+              endif;
+              ?>
 
           </div>
           <!-- #item-header -->
       </div>
       <?php endif ?>
 
-
       <div class="col-sm-12">
           <div id="item-nav">
               <div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
                   <ul class="responsive-tabs">
+
                       <?php bp_get_displayed_user_nav(); ?>
 
-                      <?php do_action('bp_member_options_nav'); ?>
+                      <?php
+
+                      /**
+                       * Fires after the display of member options navigation.
+                       *
+                       * @since 1.2.4
+                       */
+                      do_action( 'bp_member_options_nav' ); ?>
 
                   </ul>
               </div>
@@ -31,11 +63,16 @@
           <!-- #item-nav -->
       </div>
 
-
       <div id="item-body" role="main" class="col-sm-12">
 
+          <?php
 
-          <?php do_action('bp_before_member_body');
+          /**
+           * Fires before the display of member body content.
+           *
+           * @since 1.2.0
+           */
+          do_action( 'bp_before_member_body' );
 
           if (bp_is_user_activity() || !bp_current_component()) :
               bp_get_template_part('members/single/activity');
@@ -70,6 +107,11 @@
 
           endif;
 
+          /**
+           * Fires after the display of member body content.
+           *
+           * @since 1.2.0
+           */
           do_action('bp_after_member_body'); ?>
 
       </div>
@@ -78,7 +120,14 @@
   </div>
     <!-- end .row -->
 
-    <?php do_action('bp_after_member_home_content'); ?>
+    <?php
+
+    /**
+     * Fires after the display of member home content.
+     *
+     * @since 1.2.0
+     */
+    do_action( 'bp_after_member_home_content' ); ?>
 
 
 </div><!-- #buddypress -->

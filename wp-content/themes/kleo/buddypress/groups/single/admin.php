@@ -1,3 +1,12 @@
+<?php
+/**
+ * BuddyPress - Groups Admin
+ *
+ * @package BuddyPress
+ * @subpackage bp-legacy
+ */
+
+?>
 <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
 	<ul>
 		<?php bp_group_admin_tabs(); ?>
@@ -8,11 +17,11 @@
 
     <?php
 
-    /**
-     * Fires inside the group admin form and before the content.
-     *
-     * @since BuddyPress (1.1.0)
-     */
+	/**
+	 * Fires inside the group admin form and before the content.
+	 *
+	 * @since 1.1.0
+	 */
     do_action( 'bp_before_group_admin_content' ); ?>
 
 <?php /* Edit Group Details */ ?>
@@ -23,7 +32,7 @@
     /**
      * Fires before the display of group admin details.
      *
-     * @since BuddyPress (1.1.0)
+     * @since 1.1.0
      */
     do_action( 'bp_before_group_details_admin' ); ?>
 
@@ -38,7 +47,7 @@
     /**
      * Fires after the group description admin details.
      *
-     * @since BuddyPress (1.0.0)
+     * @since 1.0.0
      */
     do_action( 'groups_custom_group_fields_editable' ); ?>
 
@@ -53,7 +62,7 @@
     /**
      * Fires after the display of group admin details.
      *
-     * @since BuddyPress (1.1.0)
+     * @since 1.1.0
      */
     do_action( 'bp_after_group_details_admin' ); ?>
 
@@ -70,7 +79,7 @@
     /**
      * Fires before the group settings admin display.
      *
-     * @since BuddyPress (1.1.0)
+     * @since 1.1.0
      */
     do_action( 'bp_before_group_settings_admin' ); ?>
 
@@ -152,7 +161,7 @@
     /**
      * Fires after the group settings admin display.
      *
-     * @since BuddyPress (1.1.0)
+     * @since 1.1.0
      */
     do_action( 'bp_after_group_settings_admin' ); ?>
 
@@ -169,6 +178,7 @@
             <p><?php _e("Upload an image to use as a profile photo for this group. The image will be shown on the main group page, and in search results.", 'buddypress' ); ?></p>
 
 			<p>
+				<label for="file" class="bp-screen-reader-text"><?php _e( 'Select an image', 'buddypress' ); ?></label>
 				<input type="file" name="file" id="file" />
 				<input type="submit" name="upload" id="upload" value="<?php esc_attr_e( 'Upload Image', 'buddypress' ); ?>" />
 				<input type="hidden" name="action" id="action" value="bp_avatar_upload" />
@@ -220,6 +230,35 @@
 
 <?php endif; ?>
 
+<?php /* Group Cover image Settings */ ?>
+<?php if ( bp_is_group_admin_screen( 'group-cover-image' ) ) : ?>
+
+    <h4><?php _e( 'Change Cover Image', 'buddypress' ); ?></h4>
+
+    <?php
+
+    /**
+     * Fires before the display of profile cover image upload content.
+     *
+     * @since 2.4.0
+     */
+    do_action( 'bp_before_group_settings_cover_image' ); ?>
+
+    <p><?php _e( 'The Cover Image will be used to customize the header of your group.', 'buddypress' ); ?></p>
+
+    <?php bp_attachments_get_template_part( 'cover-images/index' ); ?>
+
+    <?php
+
+    /**
+     * Fires after the display of group cover image upload content.
+     *
+     * @since 2.4.0
+     */
+    do_action( 'bp_after_group_settings_cover_image' ); ?>
+
+<?php endif; ?>
+
 <?php /* Manage Group Members */ ?>
 <?php if ( bp_is_group_admin_screen( 'manage-members' ) ) : ?>
 
@@ -228,7 +267,7 @@
     /**
      * Fires before the group manage members admin display.
      *
-     * @since BuddyPress (1.1.0)
+     * @since 1.1.0
      */
     do_action( 'bp_before_group_manage_members_admin' ); ?>
 	

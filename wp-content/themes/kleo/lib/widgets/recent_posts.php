@@ -31,83 +31,91 @@ class Kleo_Recent_Posts_widget extends WP_Widget {
 		$post_type = $instance['post_type'];
 
 		global $post;
-		echo $before_widget;
- 
-		if ( ! empty( $title ) ) {
-			echo $before_title . $title . $after_title;
-		}
 
 		$args = array(
             'numberposts' => $limit,
             'cat' => $cat,
-            'post_type' => $post_type
+            'post_type' => $post_type,
+			'suppress_filters' => false
 		);
 
 		$kleo_recent_posts = get_posts( $args );
-        
-		?>
 
-		<div>
-			
-			<ul class='news-widget-wrap'>
+		if ( ! empty( $kleo_recent_posts ) ) {
 
-				<?php foreach( $kleo_recent_posts as $post ) : setup_postdata( $post ); ?>
-					<li class="news-content">
-						<a class="news-link" href="<?php the_permalink(); ?>">
-							<?php if( $thumb == 1 ) : /* Display author image */ ?>
+			echo $before_widget;
 
-								<span class="news-thumb"><?php echo get_avatar( get_the_author_meta('ID'), 40 ); ?></span>
-								<span class="news-headline"><?php the_title(); ?><small class="news-time"><?php echo get_the_date();?></small></span>
+			if ( ! empty( $title ) ) {
+				echo $before_title . $title . $after_title;
+			}
 
-                                <?php if ( $excerpt == 1 ) { ?>
-                                    <span class="news-excerpt"><?php echo kleo_excerpt( $length, false ); ?></span>
-                                <?php } ?>
+			?>
 
-                            <?php elseif ( $thumb == 2 ) : /* Display post thumbnail */ ?>
-                                <?php
-                                $img_url = kleo_get_post_thumbnail_url();
-                                if ( $img_url != '' ) {
-                                    $image = aq_resize( $img_url, 44, 44, true, true, true );
-                                    if( ! $image ) {
-                                        $image = $img_url;
-                                    }
-                                    $html_img = '<img src="' . $image . '" alt="" title="">';
-                                }
-                                else {
-                                    $html_img = '';
-                                }
+			<div>
 
-                                ?>
-                                <span class="news-thumb"><?php echo $html_img; ?></span>
-                                <span class="news-headline"><?php the_title(); ?><small class="news-time"><?php echo get_the_date();?></small></span>
+				<ul class='news-widget-wrap'>
 
-                                <?php if ( $excerpt == 1 ) { ?>
-                                    <span class="news-excerpt"><?php echo kleo_excerpt( $length, false ); ?></span>
-                                <?php } ?>
+					<?php foreach ( $kleo_recent_posts as $post ) : setup_postdata( $post ); ?>
+						<li class="news-content">
+							<a class="news-link" href="<?php the_permalink(); ?>">
+								<?php if ( $thumb == 1 ) : /* Display author image */ ?>
 
-                            <?php else : ?>
+									<span class="news-thumb"><?php echo get_avatar( get_the_author_meta( 'ID' ), 40 ); ?></span>
+									<span class="news-headline"><?php the_title(); ?>
+										<small class="news-time"><?php echo get_the_date(); ?></small></span>
 
-								<span><?php the_title(); ?><small class="news-time"><?php echo get_the_date();?></small></span>
+									<?php if ( $excerpt == 1 ) { ?>
+										<span class="news-excerpt"><?php echo kleo_excerpt( $length, false ); ?></span>
+									<?php } ?>
 
-                                <?php if ( $excerpt == 1 ) { ?>
-                                    <span class="news-excerpt"><?php echo kleo_excerpt( $length, false ); ?></span>
-                                <?php } ?>
+								<?php elseif ( $thumb == 2 ) : /* Display post thumbnail */ ?>
+									<?php
+									$img_url = kleo_get_post_thumbnail_url();
+									if ( $img_url != '' ) {
+										$image = aq_resize( $img_url, 44, 44, true, true, true );
+										if ( ! $image ) {
+											$image = $img_url;
+										}
+										$html_img = '<img src="' . $image . '" alt="" title="">';
+									} else {
+										$html_img = '';
+									}
 
-							<?php endif; ?>
-							
-						</a>
-		
-					</li>
-				<?php endforeach; wp_reset_postdata(); ?>
+									?>
+									<span class="news-thumb"><?php echo $html_img; ?></span>
+									<span class="news-headline"><?php the_title(); ?>
+										<small class="news-time"><?php echo get_the_date(); ?></small></span>
 
-			</ul>
+									<?php if ( $excerpt == 1 ) { ?>
+										<span class="news-excerpt"><?php echo kleo_excerpt( $length, false ); ?></span>
+									<?php } ?>
 
-		</div>
+								<?php else : ?>
 
-		<?php
+									<span><?php the_title(); ?>
+										<small class="news-time"><?php echo get_the_date(); ?></small></span>
 
-		echo $after_widget;
-		
+									<?php if ( $excerpt == 1 ) { ?>
+										<span class="news-excerpt"><?php echo kleo_excerpt( $length, false ); ?></span>
+									<?php } ?>
+
+								<?php endif; ?>
+
+							</a>
+
+						</li>
+					<?php endforeach;
+					wp_reset_postdata(); ?>
+
+				</ul>
+
+			</div>
+
+			<?php
+
+			echo $after_widget;
+
+		}
 	}
 
 	/**

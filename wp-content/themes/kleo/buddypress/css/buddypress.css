@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------
-Hello, this is the BuddyPress Legacy stylesheet.
+BuddyPress styling
 
 ----------------------------------------------------------------
 >>> TABLE OF CONTENTS:
@@ -772,9 +772,18 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 	width:80%;
 }
 #buddypress div#group-dir-search input[type=text],
+#buddypress .groups-members-search input[type=text],
 #buddypress div#members-dir-search input[type=text] {
 	width:100%;
 	height: 31px;
+}
+#buddypress .groups-members-search input[type=text] {
+	border: none;
+}
+#buddypress .groups-members-search #search-members-form {
+	box-shadow: none;
+	margin-left: 5px;
+	margin-top: 5px;
 }
 
 #buddypress div#group-dir-search input[type=text]:focus,
@@ -1571,6 +1580,19 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 #buddypress .wp-editor-wrap input[type=reset] {
 	padding: 0 10px 1px;
 }
+
+.bp-screen-reader-text {
+	position: absolute;
+	margin: -1px;
+	padding: 0;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	border: 0;
+	word-wrap: normal !important;
+}
+
 /*--------------------------------------------------------------
 3.6 - Ajax Loading
 --------------------------------------------------------------*/
@@ -2515,6 +2537,7 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 }
 
 
+
 /*--------------------------------------------------------------
 3.9 - Private Messaging Threads
 --------------------------------------------------------------*/
@@ -2789,7 +2812,8 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 	color: #777;
 }
 #buddypress div.message-search input[type=submit],
-#buddypress div.dir-search input[type=submit] {
+#buddypress div.dir-search input[type=submit],
+#buddypress .groups-members-search input[type=submit] {
 	border: none;
 	text-indent: -9999em;
 	background: url(../../assets/img/sprite.png) no-repeat;

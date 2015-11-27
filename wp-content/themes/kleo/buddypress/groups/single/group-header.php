@@ -1,9 +1,11 @@
 <?php
 
-do_action( 'bp_before_group_header' );
-
-?>
-
+/**
+ * Fires before the display of a group's header.
+ *
+ * @since 1.2.0
+ */
+do_action( 'bp_before_group_header' ); ?>
 
 
 <div id="item-header-avatar" class="rounded">
@@ -25,22 +27,42 @@ do_action( 'bp_before_group_header' );
     <div class="row">
     <?php if ( bp_group_is_visible() ) : ?>
         <div class="group-admins <?php if ( bp_group_has_moderators() ) { echo 'col-sm-6'; } else { echo 'col-sm-12'; } ?>">
+
         <h3><?php _e( 'Group Admins', 'buddypress' ); ?></h3>
 
         <?php bp_group_list_admins();
 
+        /**
+         * Fires after the display of the group's administrators.
+         *
+         * @since 1.1.0
+         */
         do_action( 'bp_after_group_menu_admins' );
+
         ?>
         </div>
         <?php
         if ( bp_group_has_moderators() ) : ?>
             <div class="group-mods col-xs-6 col-sm-6">
 
-            <?php do_action( 'bp_before_group_menu_mods' ); ?>
+
+            <?php
+            /**
+             * Fires before the display of the group's moderators, if there are any.
+             *
+             * @since 1.1.0
+             */
+
+            do_action( 'bp_before_group_menu_mods' ); ?>
             <h3><?php _e( 'Group Mods' , 'buddypress' ); ?></h3>
 
             <?php bp_group_list_mods();
 
+            /**
+             * Fires after the display of the group's moderators, if there are any.
+             *
+             * @since 1.1.0
+             */
             do_action( 'bp_after_group_menu_mods' );
             ?>
             </div>
@@ -70,6 +92,13 @@ do_action( 'bp_before_group_header' );
 </div><!-- #item-header-content -->
 
 <?php
+
+/**
+ * Fires after the display of a group's header.
+ *
+ * @since 1.2.0
+ */
 do_action( 'bp_after_group_header' );
-do_action( 'template_notices' );
-?>
+
+/** This action is documented in bp-templates/bp-legacy/buddypress/activity/index.php */
+do_action( 'template_notices' ); ?>
