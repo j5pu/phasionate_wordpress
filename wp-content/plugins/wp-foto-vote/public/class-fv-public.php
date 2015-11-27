@@ -47,60 +47,32 @@ class FV_Public {
 	 * @var      string    $version    The version of this plugin.
 	 */
 	public function __construct( $name, $version ) {
-
 		$this->name = $name;
 		$this->version = $version;
-
 	}
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
-	 *
+	 * @param   object $contest
+	 * @param   bool $single
+     *
 	 * @since    2.2.073
 	 */
-	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in FV_Public_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The FV_Public_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		//wp_enqueue_style( $this->name, plugin_dir_url( __FILE__ ) . 'css/wsds-public.css', array(), $this->version, 'all' );
-
-	}
-
-	/**
-	 * Register the stylesheets for the public-facing side of the site.
-	 * @param $contest
-	 * @since    2.2.073
-	 */
-	public function enqueue_required_scripts($contest, $single = false) {
-
+	public function enqueue_required_scripts($contest, $single = false)
+    {
 		/**
 		 * Loads libraries, that needs always
 		 *
 		 */
+        wp_enqueue_script('fv_evercookie', fv_min_url( FV::$ASSETS_URL . 'evercookie/js/evercookie.js'), array(), FV::VERSION, true );
+        wp_enqueue_script('fv_modal', fv_min_url( FV::$ASSETS_URL . 'js/fv_modal.js'), array('jquery'), FV::VERSION, true );
 
-        //wp_enqueue_script('fv_imagesloaded', plugins_url( FV::SLUG . '/assets/js/imagesloaded.pkgd.min.js'), array('jquery'), FV::VERSION );
-        wp_enqueue_script('fv_evercookie', plugins_url( FV::SLUG . '/assets/evercookie/js/evercookie.js'), false, FV::VERSION, true );
-        wp_enqueue_script('fv_modal', plugins_url( FV::SLUG . '/assets/js/fv_modal.js'), array('jquery'), FV::VERSION, true );
-
-        //wp_enqueue_script('fv_bpopup', plugins_url( FV::SLUG . '/assets/js/jquery.bpopup.js'), array('jquery'), FV::VERSION, true );
-        wp_enqueue_script('fv_lib_js', plugins_url( FV::SLUG . '/assets/js/fv_lib.js'), array('jquery'), FV::VERSION, true );
-        wp_enqueue_script('fv_main_js', plugins_url( FV::SLUG . '/assets/js/fv_main.js'), array('jquery', 'fv_evercookie', 'fv_modal', 'fv_lib_js'), FV::VERSION, true );
-        wp_enqueue_script('fv_upload_js', plugins_url( FV::SLUG . '/assets/js/fv_upload.js'), array('jquery', 'fv_lib_js'), FV::VERSION, true );
+        wp_enqueue_script('fv_lib_js', fv_min_url(FV::$ASSETS_URL . 'js/fv_lib.js'), array('jquery'), FV::VERSION, true );
+        wp_enqueue_script('fv_main_js', FV::$ASSETS_URL . 'js/fv_main.js', array('jquery', 'fv_evercookie', 'fv_modal', 'fv_lib_js'), FV::VERSION, true );
 
         if ( !$single && FvFunctions::lazyLoadEnabled( FvFunctions::ss('theme', 'pinterest') ) ) {
-            wp_enqueue_script('fv_lazyload_js', plugins_url( FV::SLUG . '/assets/vendor/jquery.lazyload.min.js'), array('jquery', 'fv_main_js'), FV::VERSION, true );
+            wp_enqueue_script('fv_lazyload_js', fv_min_url(FV::$ASSETS_URL . 'vendor/jquery.unveil.js'), array('jquery', 'fv_main_js'), FV::VERSION, true );
         }
-
 	}
 
 
@@ -113,13 +85,14 @@ class FV_Public {
     {
         if ( get_option('fotov-fb-apikey', '') ) {
             // output FB init code with apikey and blog language localization
-            wp_enqueue_script('fv_facebook', plugins_url( FV::SLUG . '/assets/js/fv_facebook_load.js'), array('jquery'), FV::VERSION );
+            /*wp_enqueue_script('fv_facebook', plugins_url( FV::SLUG . '/assets/js/fv_facebook_load.js'), array('jquery'), FV::VERSION );
             // output init data
             $fb_js_arr = array(
                 'appId' => get_option('fotov-fb-apikey', ''),
                 'language' => str_replace('_', '_', get_bloginfo('language'))
             );
-            wp_localize_script('fv_facebook', 'fv_fb', $fb_js_arr );
+            wp_localize_script('fv_facebook', 'fv_fb', $fb_js_arr );*/
+            include FV::$THEMES_ROOT . 'fb_init.php';
         }
 
     }
@@ -151,13 +124,13 @@ class FV_Public {
      * @since    2.2.082
      *
      * @param object $contest
-     * @param array $public_translated_messages
+     * @param string $type
      * @return void
      */
-    public function countdown_load( $contest, $public_translated_messages )
+    public function countdown_load( $contest, $type )
     {
         // Run action, param - theme name
-        do_action( 'fv/load_countdown/' . $contest->timer, $contest->date_start, $contest->date_finish, $public_translated_messages );
+        do_action( 'fv/load_countdown/' . $type, $contest->date_start, $contest->date_finish, fv_get_public_translation_messages() );
     }
 
 
@@ -165,8 +138,9 @@ class FV_Public {
      * Show shortcode content
      * @since    2.2.073
      *
-     * @param array $atts
-     * @return string       Html code
+     * @param   array $atts
+     *
+     * @return  string Html code
      */
     public function shortcode($atts)
     {
@@ -190,9 +164,12 @@ class FV_Public {
                 $this->show_contest($atts);
             }
         }
+        // If need remove whitespaces
+        if ( FvFunctions::ss('remove-newline', false) ) {
+            return str_replace( array("\r\n","\n","\r", '           ','      '),"",ob_get_clean() );
+        }
         return ob_get_clean();
     }
-
 
     /**
      * Show shortcode countdown by Contest
@@ -205,23 +182,29 @@ class FV_Public {
     {
         ob_start();
         if ( isset($atts['contest_id']) && $atts['contest_id'] > 0 ) {
+            if ( empty($atts['type']) ) {
+                $atts['type'] = 'default';
+            }
+
             $my_db = new FV_DB();
             $contest = $my_db->getContest((int)$atts['contest_id']);
             if ( is_object($contest) ) {
-                $this->countdown_load( $contest, fv_get_public_translation_messages() );
+                $this->countdown_load( $contest, sanitize_title($atts['type']) );
             }
         }
 
-        $output = ob_get_contents();
-        ob_end_clean();
-        return $output;
+        if ( FvFunctions::ss('remove-newline', false) ) {
+            $output = str_replace( array("\r\n","\n","\r"),"",ob_get_clean() );
+        }
+        return ob_get_clean();
     }
 
     /**
      * Show shortcode countdown by Contest
      * @since    2.2.084
      *
-     * @param array         $atts
+     * @param array         $args
+     *
      * @return string       Html code
      */
     public function shortcode_leaders($args)
@@ -234,7 +217,7 @@ class FV_Public {
             if ( !is_object($contest) ) {
                 return '';
             }
-            wp_enqueue_style('fv_main_css', fv_css_url(FV::$ASSETS_URL . '/css/fv_main.css'), false, FV::VERSION, 'all');
+            wp_enqueue_style('fv_main_css', fv_min_url(FV::$ASSETS_URL . 'css/fv_main.css'), false, FV::VERSION, 'all');
 
             ob_start();
             $default_template_data = array();
@@ -280,7 +263,9 @@ class FV_Public {
             $default_template_data["public_translated_messages"] = fv_get_public_translation_messages();
 
             // Show voting leaders
+            // TODO - remove settings check here
             if (!get_option('fotov-leaders-hide', false)) {
+                $my_db = new FV_DB;
                 $most_voted_template_data["most_voted"] = apply_filters( FV::PREFIX . 'most_voted_data', $my_db->getMostVotedItems($contest->id, get_option('fotov-leaders-count', 3)) );
 
                 FvFunctions::render_template( FV::$THEMES_ROOT . "/most_voted.php", array_merge($default_template_data, $most_voted_template_data), false, "most_voted"  );
@@ -299,6 +284,8 @@ class FV_Public {
      * @since 2.2.06
      *
      * @param array $atts
+     * @param mixed $contestObj
+     *
      * @return string
      */
     public function shortcode_upload_form($atts , $contestObj = false)
@@ -331,15 +318,22 @@ class FV_Public {
                 $public_translated_messages = fv_get_public_translation_messages();
 
 
-                wp_enqueue_style('fv_main_css', fv_css_url(FV::$ASSETS_URL . '/css/fv_main.css'), false, FV::VERSION, 'all');
+                wp_enqueue_style('fv_main_css', fv_min_url(FV::$ASSETS_URL . 'css/fv_main.css'), false, FV::VERSION, 'all');
                 //wp_enqueue_style('fv_font_css', fv_css_url(FV::$ASSETS_URL . '/icommon/fv_fonts.css'), false, FV::VERSION, 'all');
 
-                wp_enqueue_script('fv_lib_js', FV::$ASSETS_URL . '/js/fv_lib.js', array('jquery'), FV::VERSION, true);
-                wp_enqueue_script('fv_upload_js', FV::$ASSETS_URL . '/js/fv_upload.js', array('jquery', 'fv_lib_js'), FV::VERSION );
+                wp_enqueue_script('fv_lib_js', fv_min_url(FV::$ASSETS_URL . 'js/fv_lib.js'), array('jquery'), FV::VERSION, true);
+                wp_enqueue_script('fv_upload_js', fv_min_url(FV::$ASSETS_URL . 'js/fv_upload.js'), array('jquery', 'fv_lib_js'), FV::VERSION );
 
                 $output_data = array();
                 $output_data['ajax_url'] = admin_url('admin-ajax.php');
+                $output_data['limit_dimensions'] = FvFunctions::ss('upload-limit-dimensions', 'no');
+                $output_data['limit_val'] = FvFunctions::ss('upl-limit-dimensions', array());
                 $output_data['lang']['download_invaild_email'] = $public_translated_messages['download_invaild_email'];
+                $output_data['lang']['dimensions_err'] = $public_translated_messages['upload_dimensions_err'];
+                $output_data['lang']['dimensions_smaller'] = $public_translated_messages['upload_dimensions_smaller'];
+                $output_data['lang']['dimensions_bigger'] = $public_translated_messages['upload_dimensions_bigger'];
+                $output_data['lang']['dimensions_height'] = $public_translated_messages['upload_dimensions_height'];
+                $output_data['lang']['dimensions_width'] = $public_translated_messages['upload_dimensions_width'];
 
                 // out data to script
                 wp_localize_script( 'fv_upload_js', 'fv_upload', apply_filters('fv/public/show_upload_form/js_data', $output_data) );
@@ -387,12 +381,11 @@ class FV_Public {
     /**
      * show_toolbar
      *
-     * @param object $contest
-     * @param bool $upload_enabled
-     * @param array $p_translated_messages
-     * @return void
+     * @param   object $contest
+     * @param   bool $upload_enabled
+     * @return  void
      *
-     * @output string       Html code
+     * @output  string       Html code
      */
     public function show_toolbar($contest, $upload_enabled)
     {
@@ -402,6 +395,7 @@ class FV_Public {
         } else {
             $fv_sorting = $contest->sorting;
         }
+
         include FV::$THEMES_ROOT . 'toolbar.php';
 
         wp_add_inline_style('fv_main_css',
@@ -415,8 +409,8 @@ class FV_Public {
     /**
      * Shortcode :: Show one contest item
      *
-     * @param array $atts
-     * @return void
+     * @param   array $atts
+     * @return  void
      *
      */
     public function show_contestant($atts)
@@ -448,7 +442,7 @@ class FV_Public {
                     $theme = FvFunctions::ss('theme', 'pinterest');
             }
 
-            wp_enqueue_style('fv_main_css', fv_css_url(FV::$ASSETS_URL . '/css/fv_main.css'), false, FV::VERSION, 'all');
+            wp_enqueue_style('fv_main_css', fv_min_url(FV::$ASSETS_URL . 'css/fv_main.css'), false, FV::VERSION, 'all');
             wp_enqueue_style('fv_main_css_tpl', FvFunctions::get_theme_url ( $theme, 'public_item_tpl.css' ), false, FV::VERSION, 'all');
             //wp_enqueue_style('fv_font_css', fv_css_url(FV::$ASSETS_URL . '/icommon/fv_fonts.css'), false, FV::VERSION, 'all');
 
@@ -554,7 +548,7 @@ class FV_Public {
             // прописываем переменные
             $output_data = array(
                 'wp_lang' => get_bloginfo('language'),
-                'user_lang' => fv_get_user_lang('en', $langs),
+                'user_lang' => fv_get_user_lang('en', $langs),      // Need for google Sharing
                 'post_id' => $post->ID,
                 'contest_id' => $contest->id,
                 'vo' . 'te_u' => $drow,
@@ -568,20 +562,33 @@ class FV_Public {
                 'voting_frequency' => $contest->voting_frequency,
                 'security_type' => $contest->security_type,
                 'contest_enabled' => (bool)$konurs_enabled,
+                'fast_ajax' => FvFunctions::ss('fast-ajax', true) == true,
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'some_str' => wp_create_nonce('fv_vote'),
                 'plugin_url' => plugins_url('wp-foto-vote'),
                 'single' => true,
+                'fv_appId' => get_option('fotov-fb-apikey', ''),
                 'recaptcha_key' => FvFunctions::ss('recaptcha-key', 5),
+                'recaptcha_session' => FvFunctions::ss('recaptcha-session', false),
                 'soc_shows' => array(
-                    "fb" => ( !get_option('fotov-voting-noshow-fb', false) ) ? "inline" : "none",
-                    "tw" => ( !get_option('fotov-voting-noshow-tw', false) ) ? "inline" : "none",
-                    "vk" => ( !get_option('fotov-voting-noshow-vk', false) ) ? "inline" : "none",
-                    "ok" => ( !get_option('fotov-voting-noshow-ok', false) ) ? "inline" : "none",
-                    "pi" => ( !get_option('fotov-voting-noshow-pi', false) ) ? "inline" : "none",
-                    "gp" => ( !get_option('fotov-voting-noshow-gp', false) ) ? "inline" : "none",
-                    "email" => ( !get_option('fotov-voting-noshow-email', false) && FvFunctions::ss('recaptcha-key', false, 5) !== false ) ? "inline" : "none",
-                )
+                    "fb" => ( !FvFunctions::ss('voting-noshow-fb', false) ) ? "inline" : "none",
+                    "tw" => ( !FvFunctions::ss('voting-noshow-tw', false) ) ? "inline" : "none",
+                    "vk" => ( !FvFunctions::ss('voting-noshow-vk', false) ) ? "inline" : "none",
+                    "ok" => ( !FvFunctions::ss('voting-noshow-ok', false) ) ? "inline" : "none",
+                    "pi" => ( !FvFunctions::ss('voting-noshow-pi', false) ) ? "inline" : "none",
+                    "gp" => ( !FvFunctions::ss('voting-noshow-gp', false) ) ? "inline" : "none",
+                    "email" => ( !FvFunctions::ss('voting-noshow-email', false) && FvFunctions::ss('recaptcha-key', false, 5) !== false ) ? "inline" : "none",
+                ),
+                'soc_counter' => FvFunctions::ss('soc-counter', false),
+                'soc_counters' => array(
+                    "fb" => FvFunctions::ss('soc-counter-fb', false),
+                    "tw" => FvFunctions::ss('soc-counter-tw', false),
+                    "pi" => FvFunctions::ss('soc-counter-pi', false),
+                    "gp" => FvFunctions::ss('soc-counter-gp', false),
+                    "vk" => FvFunctions::ss('soc-counter-vk', false),
+                    "ok" => FvFunctions::ss('soc-counter-ok', false),
+                    "mm" => FvFunctions::ss('soc-counter-mm', false),
+                ),
             );
 
             $output_data['lang'] = fv_prepare_public_translation_to_js($public_translated_messages);
@@ -589,24 +596,25 @@ class FV_Public {
             // out data to script
             wp_localize_script('fv_main_js', 'fv', apply_filters('fv_contest_item_js_data', $output_data) );
 
-            include FV::$THEMES_ROOT . 'share_new.php';
+            include_once FV::$THEMES_ROOT . 'share_new.php';
 
             do_action('fv_after_contest_item', $theme);
     }
 
 
-
     /**
      * Shortcode :: Show all contest items
      *
-     * @param array $args
-     * @param bool $AJAX_ACTION     If do AJAX pagination
-     * @return void
-     * @output string       Html code
+     * @param   array $args
+     * @param   bool $AJAX_ACTION     If do AJAX pagination
+     *
+     * @return  void
+     * @output  string       Html code
      */
     public function show_contest($args, $AJAX_ACTION = false)
     {
         //FvDebug::add('test');
+        //Debug_Bar_Extender::instance()->start( 'show_contest' );
 
         global $contest_id;
         $contest_id = $args['id'];
@@ -633,14 +641,14 @@ class FV_Public {
         $show_toolbar = FvFunctions::ss('show-toolbar', false);
 
         if ( !$AJAX_ACTION ) {
-            wp_enqueue_style('fv_main_css', fv_css_url(FV::$ASSETS_URL . '/css/fv_main.css'), false, FV::VERSION, 'all');
+            wp_enqueue_style('fv_main_css', fv_min_url(FV::$ASSETS_URL . 'css/fv_main.css'), false, FV::VERSION, 'all');
             //wp_enqueue_style('fv_font_css', fv_css_url(FV::$ASSETS_URL . '/icommon/fv_fonts.css'), false, FV::VERSION, 'all');
             wp_enqueue_style('fv_main_css_tpl',  FvFunctions::get_theme_url ( $theme, 'public_list_tpl.css' ), false, FV::VERSION, 'all');
 
             $this->enqueue_required_scripts($contest);
         }
 
-        if ( !fv_photo_in_new_page($theme) && !$AJAX_ACTION  ){
+        if ( !fv_photo_in_new_page($theme) && !$AJAX_ACTION && !get_option('fotov-voting-no-lightbox', false) ){
             // load lightbox assets
             $this->lightbox_load( $contest->lightbox_theme, $theme );
         }
@@ -697,7 +705,6 @@ class FV_Public {
             $this->show_toolbar($contest, $upload_enabled);
         }
 
-
         if ( $upload_enabled && !$AJAX_ACTION ) {
             FvPublicAjax::upload_photo($contest);
             echo $this->shortcode_upload_form( array( 'show_opened'=>$show_toolbar, 'tabbed'=>$show_toolbar ), $contest );
@@ -709,14 +716,13 @@ class FV_Public {
         IF ( !$AJAX_ACTION ) :
             echo '<div class="fv_contest_container tabbed_c">';
 
-            if ( ($contest->timer !== 'no') && $konurs_enabled) {
-                $this->countdown_load($contest, $public_translated_messages);
-                //FvFunctions::render_template( FV::$THEMES_ROOT . "/TIMER/" . $contest->timer . ".php", $timer_template_data, false, "timer"  );
+            if ( $contest->timer !== 'no') {
+                $this->countdown_load($contest, $contest->timer);
             }
         ENDIF;
 
-            if (is_array($photos) && count($photos) > 0) {
-
+            if (is_array($photos) && count($photos) > 0)
+            {
 
                 //$thumb_size = fv_get_image_sizes(get_option('fotov-image-size', 'thumbnail'));
 
@@ -754,6 +760,7 @@ class FV_Public {
                     }
 
                 echo '</div>';
+
                 /* ======= Remove and secure params passed for script ========== */
                 foreach ($photos as $key => $unit) {
                         $photos[$key]->user_id = FvFunctions::userHash($photos[$key]->user_id);
@@ -786,10 +793,10 @@ class FV_Public {
                     $drow = $drow . $word[$numb];
             }
 
-            $link = get_permalink($post->ID);
+            /*$link = get_permalink($post->ID);
             if (substr($link, -1) != '/')
                     $link .= '/';
-            $photos['link'] = $link;
+            $photos['link'] = $link;*/
 
             echo '<div style="clear: both;"></div>';
 
@@ -818,23 +825,36 @@ class FV_Public {
                 'data' => $photos,
                 'voting_frequency' => $contest->voting_frequency,
                 'security_type' => $contest->security_type,
-                'no_lightbox' => get_option('fotov-voting-no-lightbox', false),
+                'no_lightbox' => FvFunctions::ss('voting-no-lightbox', false),
                 'contest_enabled' => (bool)$konurs_enabled,
+                'fast_ajax' => FvFunctions::ss('fast-ajax', true) == true,
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'some_str' => wp_create_nonce('fv_vote'),
                 'plugin_url' => plugins_url('wp-foto-vote'),
                 'lazy_load' => FvFunctions::lazyLoadEnabled($theme),
+                'fv_appId' => get_option('fotov-fb-apikey', ''),
                 'recaptcha_key' => $recaptcha_key,
+                'recaptcha_session' => FvFunctions::ss('recaptcha-session', false),
                 'cache_support' => ( defined('WP_DEBUG') && FvFunctions::ss('cache-support') ) ? true : false, //
                 'soc_shows' => array(
-                    "fb" => ( !get_option('fotov-voting-noshow-fb', false) ) ? "inline" : "none",
-                    "tw" => ( !get_option('fotov-voting-noshow-tw', false) ) ? "inline" : "none",
-                    "vk" => ( !get_option('fotov-voting-noshow-vk', false) ) ? "inline" : "none",
-                    "ok" => ( !get_option('fotov-voting-noshow-ok', false) ) ? "inline" : "none",
-                    "pi" => ( !get_option('fotov-voting-noshow-pi', false) ) ? "inline" : "none",
-                    "gp" => ( !get_option('fotov-voting-noshow-gp', false) ) ? "inline" : "none",
-                    "email" => ( !get_option('fotov-voting-noshow-email', false) && $recaptcha_key !== false ) ? "inline" : "none",
-                )
+                    "fb" => ( !FvFunctions::ss('voting-noshow-fb') ) ? "inline" : "none",
+                    "tw" => ( !FvFunctions::ss('voting-noshow-tw') ) ? "inline" : "none",
+                    "vk" => ( !FvFunctions::ss('voting-noshow-vk') ) ? "inline" : "none",
+                    "ok" => ( !FvFunctions::ss('voting-noshow-ok') ) ? "inline" : "none",
+                    "pi" => ( !FvFunctions::ss('voting-noshow-pi') ) ? "inline" : "none",
+                    "gp" => ( !FvFunctions::ss('voting-noshow-gp') ) ? "inline" : "none",
+                    "email" => ( !FvFunctions::ss('voting-noshow-email') && $recaptcha_key !== false ) ? "inline" : "none",
+                ),
+                'soc_counter' => FvFunctions::ss('soc-counter', false),
+                'soc_counters' => array(
+                    "fb" => FvFunctions::ss('soc-counter-fb', false),
+                    "tw" => FvFunctions::ss('soc-counter-tw', false),
+                    "pi" => FvFunctions::ss('soc-counter-pi', false),
+                    "gp" => FvFunctions::ss('soc-counter-gp', false),
+                    "vk" => FvFunctions::ss('soc-counter-vk', false),
+                    "ok" => FvFunctions::ss('soc-counter-ok', false),
+                    "mm" => FvFunctions::ss('soc-counter-mm', false),
+                ),
             );
 
             // прописываем переменные
@@ -843,12 +863,14 @@ class FV_Public {
 
             // out data to script
             wp_localize_script( 'fv_main_js', 'fv', apply_filters('fv_show_contest_js_data', $output_data) );
+            unset($output_data);
 
             do_action('fv_after_contest_list', $theme);
 
             include FV::$THEMES_ROOT . 'share_new.php';
 
         ENDIF;
+        //Debug_Bar_Extender::instance()->end( 'show_contest' );
     }
 
     /**
@@ -864,36 +886,54 @@ class FV_Public {
     {
         $fv_block_width = intval( get_option('fotov-block-width', FV_CONTEST_BLOCK_WIDTH) );
         do_action('fv_before_shows_loop', $theme);
-        foreach ($photos as $key => $unit) {
+
+        $thumb_size = array(
+            'width' => get_option('fotov-image-width', 220),
+            'height' => get_option('fotov-image-height', 220),
+            'crop' => get_option('fotov-image-hardcrop', false) == '' ? false : true,
+        );
+
+        foreach ($photos as $key => $photo) {
             $template_data = array();
-            $template_data["photo"] = $unit;
-            $template_data["id"] = $unit->id;
-            $template_data["name"] = $unit->name;
+            $template_data["photo"] = $photo;
+            $template_data["id"] = $photo->id;
+            $template_data["name"] = $photo->name;
 
-            $template_data["description"] = $unit->description;
-            $template_data["additional"] = $unit->description;
+            $template_data["description"] = $photo->description;
+            $template_data["additional"] = $photo->description;
 
-            if ( empty($unit->description) && !empty($unit->additional) ) {
-                $template_data["additional"] = $unit->additional;
+            if ( empty($photo->description) && !empty($photo->additional) ) {
+                $template_data["additional"] = $photo->additional;
             }
-            $template_data["votes"] = $unit->votes_count;
-            $template_data["upload_info"] = $unit->upload_info;
+            $template_data["votes"] = $photo->votes_count;
+            $template_data["upload_info"] = $photo->upload_info;
 
             if ( fv_photo_in_new_page($theme) ) {
-                $template_data["image_full"] = $default_template_data["page_url"]  . '=' . $unit->id;
+                $template_data["image_full"] = $default_template_data["page_url"]  . '=' . $photo->id;
             } else {
-                $template_data["image_full"] = FvFunctions::getPhotoFull($unit);
+                $template_data["image_full"] = FvFunctions::getPhotoFull($photo);
             }
-            $template_data["thumbnail"] = FvFunctions::getPhotoThumbnailArr($unit);
-            //wp_get_attachment_image_src($unit->image_id, $thumb_size['name']);
-            //var_dump( $template_data["thumbnail"] );
+            $template_data["thumbnail"] = FvFunctions::getPhotoThumbnailArr($photo, $thumb_size);
+
+            //wp_get_attachment_image_src($photo->image_id, $thumb_size['name']);
             if ( $template_data["thumbnail"][1] == 0 ) {
                 $template_data["thumbnail"][1] = '';
             }
+            if ( $template_data["thumbnail"][2] == 0 ) {
+                $template_data["thumbnail"][2] = '';
+            }
             // If pic width more than block width
             if ( $template_data["thumbnail"][1] > $fv_block_width && $theme != 'flickr' ) {
+
+                if ( $template_data["thumbnail"][2] > 0 ) {
+                    // Scale height
+                    $template_data["thumbnail"][2] = round( $template_data["thumbnail"][2] / ($template_data["thumbnail"][1] / $fv_block_width) );
+                }
                 $template_data["thumbnail"][1] = $fv_block_width;
+
             }
+            $template_data["data_title"] = FvFunctions::getLightboxTitle($photo, $default_template_data['public_translated_messages']['vote_count_text']);
+
             $template_data["leaders"] = false;
             $template_data["fv_block_width"] = $fv_block_width;
 
@@ -931,7 +971,7 @@ class FV_Public {
         //* merge incoming $args with $defaults
         $args = wp_parse_args($args, $defaults);
 
-        wp_enqueue_style('fv_main_css', fv_css_url(FV::$ASSETS_URL . '/css/fv_main.css'), false, FV::VERSION, 'all');
+        wp_enqueue_style('fv_main_css', fv_min_url(FV::$ASSETS_URL . 'css/fv_main.css'), false, FV::VERSION, 'all');
         //wp_enqueue_style('fv_font_css', plugins_url('wp-foto-vote/assets/icommon/fv_fonts.css'), false, FV::VERSION, 'all');
         wp_enqueue_style('fv_list_css_tpl',  FV::$THEMES_ROOT_URL . 'contests_list/'.$args['theme'].'/assets/contests_list.css', false, FV::VERSION, 'all');
 
@@ -979,7 +1019,6 @@ class FV_Public {
             return;
         }
 
-        //var_dump( $contests );
         //FvFunctions::dump( $contests );
 
 
@@ -989,10 +1028,10 @@ class FV_Public {
             $CONTEST->cover_image_url = '';
 
             $thumb_params = array(
-                FvFunctions::ss('list-thumb-width', 200),
-                FvFunctions::ss('list-thumb-height', 200),
-                'quality' => FvFunctions::ss('list-thumb-quality', 80),
-                'bfi_thumb' => true,
+                'width' => FvFunctions::ss('list-thumb-width', 200),
+                'height' => FvFunctions::ss('list-thumb-height', 200),
+                'crop' => FvFunctions::ss('list-thumb-crop', true),
+                'size_name' => 'fv-thumb-list',
             );
 
             if ( empty($CONTEST->cover_image) ) {
@@ -1002,9 +1041,10 @@ class FV_Public {
                     ->order('ASC')
                     ->findRow();
 
-                $CONTEST->cover_image_url = wp_get_attachment_image_src( $first_photo->image_id, $thumb_params );
+                $CONTEST->cover_image_url = FvFunctions::getContestThumbnailArr( $first_photo->image_id, $thumb_params, $first_photo->url );
+                    //wp_get_attachment_image_src( , $thumb_params );
             } else {
-                $CONTEST->cover_image_url = wp_get_attachment_image_src( $CONTEST->cover_image, $thumb_params );
+                $CONTEST->cover_image_url = FvFunctions::getContestThumbnailArr( $CONTEST->cover_image, $thumb_params );
             }
 
             switch ( $args['type'] ) {
@@ -1060,5 +1100,4 @@ class FV_Public {
 
 
     }
-
 }

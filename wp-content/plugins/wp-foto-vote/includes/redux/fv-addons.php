@@ -192,7 +192,8 @@ if (!class_exists('Redux_Framework_fv_addons')) {
                 'output_tag' => false,
                 'compiler' => false,
                 'page_icon' => 'icon-themes',
-                'page_permissions' => 'manage_options',
+                'page_permissions' => get_option('fv-needed-capability', 'edit_pages'),
+                //'page_permissions' => 'manage_options', *TODO
                 'save_defaults' => true,
                 'show_import_export' => false,
                 'transient_time' => '3600',

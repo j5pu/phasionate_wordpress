@@ -26,7 +26,7 @@
 	text-align: center;
 }
 
-.fv_button #action_button {
+.fv_button .fv_vote {
 	display:block;
 	min-width:170px;
 	height:35px;
@@ -48,18 +48,16 @@
 	text-align:center;
 	white-space:nowrap;
 }
-.fv_button #action_button:hover, .fv_button #action_button:active {
+.fv_button .fv_vote:hover,
+.fv_button .fv_vote:active {
 	background:#DC143C;
 }
 
-.fv_button #action_button .hand {
+.fv_button .fv_vote .hand {
 	padding:0 23px 0 0;
-	background-image:url(img/icon-hand.png);
-	background-position:right 1px;
-	background-repeat:no-repeat;
+	background:url(img/icon-hand.png) right 1px no-repeat;
 	font-style:normal;
-	}
-        
+}
         
 /* -    -       -    -*/
         
@@ -67,6 +65,7 @@
 .contest-block-votes {
 	text-align: center;
 	font-size: 14px;
+    margin-bottom: 2px;
 }
 
 .contest-block-votes-count {
@@ -76,6 +75,10 @@
     text-align: center;
     color: #990000;
 }
+a.fv-small-action-btn:hover {
+    background-color: rgba(162, 48, 48, 0.84);
+}
+
 
 /* IMAGE */
 
@@ -94,4 +97,10 @@
     /* selected number */
     background-color: #DC143C;
     border-color: #DC143C;
+}
+
+@media(max-width: 480px) {
+    .contest-block {
+        max-width: 100%;
+    }
 }

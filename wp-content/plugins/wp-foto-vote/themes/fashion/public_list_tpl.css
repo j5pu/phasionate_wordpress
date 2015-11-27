@@ -5,20 +5,20 @@
     border-color: rgb(228, 192, 87);
 }
 
-.grid {
+.fv_contest_container .grid {
     list-style: none;
     margin: 0 auto !important;
     padding: 0 !important;
     width: 100%;
 }
 
-.grid:after {
+.fv_contest_container .grid:after {
     display: table;
     content: " ";
     clear: both;
 }
 
-.grid li {
+.fv_contest_container .grid li {
     display: block;
     float: left;
     opacity: 0;
@@ -28,20 +28,20 @@
     min-width: 200px;
 }
 
-.grid li.shown,
-.grid li {
+.fv_contest_container .grid li.shown,
+.fv_contest_container .grid li {
     opacity: 1;
     list-style: none !important;
 }
 
-.grid li a,
-.grid li img {
+.fv_contest_container .grid li a,
+.fv_contest_container .grid li img {
     outline: none;
     border: none;
     display: block;
 }
 
-.grid li img {
+.fv_contest_container .grid li img {
     transition: 0.3s all ease-in-out;
     -moz-transition: 0.3s all ease-in-out;
     -ms-transition: 0.3s all ease-in-out;
@@ -89,46 +89,11 @@
     width: 100%;
 }
 
-.btn-caption {
-    position: absolute;
-    top: 20px;
-    width: 100%;
-    cursor: pointer;
-}
-
-#grid .btn-caption span {
-    color: #ffffff;
-}
-
-.btn-caption span {
-    display: inline-block;
-    padding: 10px;
-    width: 30px;
-    height: 30px;
-    background-color: rgba(0, 0, 0, 0.1);
-    margin-left: 20px;
-    box-sizing: content-box;
-}
-
-.btn-caption span i {
-    text-align: center;
-    display: block;
-    font-size: 24px;
-    line-height: 30px;
-}
-
 .animated-1 {
     -webkit-animation-duration: 0.9s !important;
     animation-duration: 0.9s !important;
     -webkit-animation-fill-mode: both !important;
     animation-fill-mode: both !important;
-}
-
-.btn-permalink, .btn-preview, .btn-lb {
-    transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out;
-    border-radius: 100%;
 }
 
 #grid .caption-title {
@@ -231,7 +196,7 @@
 .post-image {
     width: 100%;
     height: 100%;
-    min-height: 250px;
+    min-height: 280px;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -370,27 +335,24 @@
     display: inline-block !important;
 }
 
-.btn-caption {
+.btn-captions {
     position: absolute;
     top: 20px;
     width: 100%;
     cursor: pointer;
+    color: white;
 }
 
-.btn-caption span {
+.btn-captions .caption-btn {
+    color: #ffffff;
     display: inline-block;
     padding: 10px;
     width: 30px;
     height: 30px;
     background-color: rgba(0, 0, 0, 0.1);
-    margin-left: 20px;
+    margin-left: 10px;
 
     box-sizing: content-box;
-}
-
-.btn-permalink,
-.btn-preview,
-.btn-lb {
     transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
@@ -400,13 +362,21 @@
     -webkit-border-radius: 100%;
     -ms-border-radius: 100%;
     -o-border-radius: 100%;
+
+    vertical-align: top;
 }
 
-.btn-caption span i {
+.btn-captions .caption-btn i {
     text-align: center;
     display: block;
     font-size: 24px;
     line-height: 30px;
+}
+
+.btn-captions i.fv-share-counter {
+    font-size: 13px;
+    word-break: keep-all;
+    white-space: nowrap;
 }
 
 /* link buttons option */

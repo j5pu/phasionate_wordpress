@@ -7,13 +7,7 @@
 
     <tr valign="top" class="important">
         <th scope="row"><?php _e('Contest block design', 'fv') ?></th>
-        <td class="tooltip">
-            <div class="box" title="<?php _e('Select how your contest block will looks.', 'fv') ?>" data-tipped-options="position: 'top'">
-                <span class="dashicons dashicons-info"></span>
-                <div class='position topleft'><i></i></div>
-            </div>
-        </td>
-
+        <?php echo fv_get_td_tooltip_code( __('Select how your contest block will looks.', 'fv') ); ?>
         <td>
             <select name="fv[theme]" class="form-control">
                 <?php foreach (fv_get_themes_arr() as $key => $theme_title): ?>
@@ -35,42 +29,44 @@
             <input type="number" name="fotov-block-width" value="<?php echo get_option('fotov-block-width', FV_CONTEST_BLOCK_WIDTH); ?>" min="0" max="1000"/> px.
         </td>
     </tr>
-    <tr valign="top" class="important">
-        <th scope="row"><?php _e('Thumbnail image size <small>(used <a href="https://github.com/bfintal/bfi_thumb">BFI Thumb lib</a>, changes on the fly)</small>', 'fv') ?> </th>
-        <td class="tooltip">
-            <div class="box" title="<?php _e('Thumbnails size in photos list, better not much more than `Contest block size`', 'fv') ?>" data-tipped-options="position: 'top'">
-                <span class="dashicons dashicons-info"></span>
-                <div class='position topleft'><i></i></div>
-            </div>
-        </td>
-        <td> width:<input type="number" name="fotov-image-width" value="<?php echo get_option('fotov-image-width', 220); ?>" min="0" max="1200"/> px. /
-            height:<input type="number" name="fotov-image-height" value="<?php echo get_option('fotov-image-height', 220); ?>" min="0" max="1200"/> px.
-            / <?php _e('jpeg quality', 'fv') ?>(0-100)
-            <input type="number" name="fv[thumb-quality]" value="<?php echo FvFunctions::ss('thumb-quality', 80); ?>" min="10" max="100"/> %
-            <br/>
-            <?php _e('If you not need hard crop size, then set up one size to 0, as example 280*0 will not crop image by height.', 'fv') ?><br/>
-            <small><?php _e('If you used Dropbox or Cloudinary, use this option for set hard crop:', 'fv') ?></small>
-            <?php fv_get_tooltip_code(__('It means thumbnail size will be 100% equal (if checked) <br/>or proportional on the larger side.', 'fv')) ?>:
-            <input type="checkbox" name="fotov-image-hardcrop" <?php echo checked( get_option('fotov-image-hardcrop', false), "on" ); ?>/>
-            <br/><small><?php _e('Decrease image quality will decrease it size.', 'fv') ?></small>
 
+    <tr valign="top" class="important">
+        <th scope="row"><?php _e('Thumbnail retrieving type:', 'fv') ?></th>
+        <?php echo fv_get_td_tooltip_code( __('Function, that used for retrieving thumbnail image.', 'fv') ); ?>
+        <td>
+            <select name="fv[thumb-retrieving]" class="form-control">
+                <option value="plugin_default" <?php selected( FvFunctions::ss('thumb-retrieving', 'plugin_default'), 'plugin_default' ); ?>>Plugin default (1 sql query per image)</option>
+                <option value="wordpress_default" <?php selected( FvFunctions::ss('thumb-retrieving', 'plugin_default'), 'wordpress_default' ); ?>>Wordpress default (2 sql queries per image)</option>
+            </select>
+            <br/><small>If you have some problems with "Plugin default" try "Wordpress" </small>
+            <br/><small><strong>Note:</strong> If you installed and activated
+                <a href="https://jetpack.me/support/photon/" target="_blank">Jetpack + Photon module</a>,
+                than it will be used by default.</small>
+        </td>
+    </tr>
+
+    <tr valign="top" class="important">
+        <th scope="row"><?php _e('Thumbnail image size <small>(changes on the fly; each changing creates new file for each contestant, because of this not change this often)</small>', 'fv') ?> </th>
+        <?php echo fv_get_td_tooltip_code( __('Thumbnails size in photos list, better not much more than `Contest block size`', 'fv') ); ?>
+        <td> width: <input type="number" name="fotov-image-width" value="<?php echo get_option('fotov-image-width', 220); ?>" min="0" max="1200"/> px. /
+            height: <input type="number" name="fotov-image-height" value="<?php echo get_option('fotov-image-height', 999); ?>" min="0" max="1200"/> px. /
+            hard crop: <input type="checkbox" name="fotov-image-hardcrop" <?php echo checked( get_option('fotov-image-hardcrop', false), 'on' ); ?>/>
+            <br/>
+            <small><?php _e('In hard crop means that thumbnail size will be 100% equal (if checked) or proportional (if unchecked) on the larger side.', 'fv'); ?><br/>
+            <?php _e('If you want fit just to one side, then set up one size to 999, as example 280*999 will not crop image by height (best way for Pinterest theme).', 'fv') ?></small>
         </td>
     </tr>
 
     <tr valign="top" class="important">
         <th scope="row"><?php _e('List contest block width (min. 180 px.) <small>Can be overridden in `fv_contests_list` shortcode</small>', 'fv') ?> </th>
-        <td class="tooltip">
-            <div class="box" title="<?php _e('Change to fit the width of the contest list blocks your site', 'fv') ?>" data-tipped-options="position: 'top'">
-                <span class="dashicons dashicons-info"></span>
-                <div class='position topleft'><i></i></div>
-            </div>
-        </td>
+        <?php echo fv_get_td_tooltip_code( __('Change to fit the width of the contest list blocks your site', 'fv') ); ?>
         <td>
             <input type="number" name="fv[list-block-width]" value="<?php echo FvFunctions::ss('list-block-width', FV_CONTEST_BLOCK_WIDTH); ?>" min="0" max="1000"/> px.
         </td>
     </tr>
+
     <tr valign="top">
-        <th scope="row"><?php _e('Contest list thumbnail image size <small>(used <a href="https://github.com/bfintal/bfi_thumb">BFI Thumb lib</a>, changes on the fly)</small>', 'fv') ?> </th>
+        <th scope="row"><?php _e('Contest list thumbnail image size <small>(changes on the fly)</small>', 'fv') ?> </th>
         <td class="tooltip">
             <div class="box" title="<?php _e('Thumbnails size in photos list, better not much more than `Contest block size`', 'fv') ?>" data-tipped-options="position: 'top'">
                 <span class="dashicons dashicons-info"></span>
@@ -79,9 +75,15 @@
         </td>
         <td> width:<input type="number" name="fv[list-thumb-width]" value="<?php echo FvFunctions::ss('list-thumb-width', 200); ?>" min="0" max="1200"/> px. /
             height:<input type="number" name="fv[list-thumb-height]" value="<?php echo FvFunctions::ss('list-thumb-height', 200); ?>" min="0" max="1200"/> px.
-            / <?php _e('jpeg quality', 'fv') ?>(0-100)
-            <input type="number" name="fv[list-thumb-quality]" value="<?php echo FvFunctions::ss('list-thumb-quality', 80); ?>" min="10" max="100"/> %
-            <br/><?php _e('If you not need hard crop size, then set up one size to 0, as example 280*0 will not crop image by height.', 'fv') ?><br/>
+            / hard crop: <input type="checkbox" name="fv[list-thumb-crop]" <?php echo checked( FvFunctions::ss('list-thumb-crop', true) ); ?>/>
+            <small><?php _e('In hard crop means that thumbnail size will be 100% equal (if checked) or proportional (if unchecked) on the larger side.', 'fv'); ?></small>
+        </td>
+    </tr>
+    <tr valign="top" class="no-padding">
+        <td colspan="3">
+            <hr/>
+            <input type="submit" class="button-primary" value="<?php _e('Save all Changes', 'fv') ?>" /> &nbsp;<small>You can save here, if not wan't scroll to bottom.</small><br>
+            <hr/>
         </td>
     </tr>
 
@@ -99,18 +101,13 @@
         </td>
         <td>
             <input type="checkbox" name="fv[lazy-load]" <?php echo ( FvFunctions::ss('lazy-load') ) ? 'checked' : ''; ?>/> <?php _e('Yes', 'fv') ?>
-            &nbsp;<small>(Not works in Pinterest, Flikr and Fashion theme)</small>
+            &nbsp;<small>(Not works in Fashion theme)</small>
         </td>
     </tr>
 
     <tr valign="top">
         <th scope="row"><?php _e('Hide votes count?', 'fv') ?></th>
-        <td class="tooltip">
-            <div class="box" title="<?php _e('If you don`t want show to users votes count, check it', 'fv') ?>" data-tipped-options="position: 'top'">
-                <span class="dashicons dashicons-info"></span>
-                <div class='position topleft'><i></i></div>
-            </div>
-        </td>
+        <?php echo fv_get_td_tooltip_code( __('If you don`t want show to users votes count, check it.', 'fv') ); ?>
         <td>
             <input type="checkbox" name="fv[hide-votes]" <?php echo ( FvFunctions::ss('hide-votes') ) ? 'checked' : ''; ?>/> <?php _e('Hide', 'fv') ?>
             <small>(Don`t remember also remove votes count from "Lightbox title format")</small>
@@ -119,12 +116,7 @@
 
     <tr valign="top">
         <th scope="row"><?php _e('Enable cache support?', 'fv') ?></th>
-        <td class="tooltip">
-            <div class="box" title="<?php _e('If you using cache plugins, after refresh page votes will not changes.<br/> For fix this plugin will AJAX update votes on page after it loaded.', 'fv') ?>" data-tipped-options="position: 'top'">
-                <span class="dashicons dashicons-info"></span>
-                <div class='position topleft'><i></i></div>
-            </div>
-        </td>
+        <?php echo fv_get_td_tooltip_code( __('If you using cache plugins, after refresh page votes will not changes.<br/> For fix this plugin will AJAX update votes on page after it loaded.', 'fv') ); ?>
         <td>
             <input type="checkbox" name="fv[cache-support]" <?php echo ( FvFunctions::ss('cache-support') ) ? 'checked' : ''; ?>/> <?php _e('Yes', 'fv') ?>
             &nbsp; <small>(Does not works, if in wp-config.php not defined "WP_CACHE")</small>
@@ -137,12 +129,7 @@
 
     <tr valign="top" class="important">
         <th scope="row"><?php _e('Show toolbar (under contest)?', 'fv') ?></th>
-        <td class="tooltip">
-            <div class="box" title="<?php _e('If want allow user change photos order and it looks good on your design, then enable it.', 'fv') ?>" data-tipped-options="position: 'top'">
-                <span class="dashicons dashicons-info"></span>
-                <div class='position topleft'><i></i></div>
-            </div>
-        </td>
+        <?php echo fv_get_td_tooltip_code( __('If want allow user change photos order and it looks good on your design, then enable it.', 'fv') ); ?>
         <td>
             <input type="checkbox" name="fv[show-toolbar]" <?php checked( FvFunctions::ss('show-toolbar', false) ); ?>/> <?php _e('Yes', 'fv') ?>
         </td>
@@ -151,7 +138,7 @@
     <tr valign="top">
         <th scope="row"><?php _e('Toolbar background color', 'fv') ?></th>
         <?php echo fv_get_td_tooltip_code( __('Toolbar background color', 'fv') ); ?>
-        <td class="colorpicker">
+        <td class="fv-colorpicker">
             <input type="text" name="fv[toolbar-bg-color]" class="color" value="<?php echo FvFunctions::ss('toolbar-bg-color', '#232323', 7); ?>"/>
             Select color <button type="button" onclick="fv_reset_color(this, '#232323');">reset</button>
         </td>
@@ -160,7 +147,7 @@
     <tr valign="top">
         <th scope="row"><?php _e('Toolbar text / links color', 'fv') ?></th>
         <?php echo fv_get_td_tooltip_code( __('Text and link color placed on Toolbar', 'fv') ); ?>
-        <td class="colorpicker">
+        <td class="fv-colorpicker">
             <input type="text" name="fv[toolbar-text-color]" class="color" value="<?php echo FvFunctions::ss('toolbar-text-color', '#FFFFFF', 7); ?>"/>
             Select color <button type="button" onclick="fv_reset_color(this, '#FFFFFF');">reset</button>
         </td>
@@ -169,7 +156,7 @@
     <tr valign="top">
         <th scope="row"><?php _e('Toolbar active links background', 'fv') ?></th>
         <?php echo fv_get_td_tooltip_code( __('Link active background color placed on Toolbar', 'fv') ); ?>
-        <td class="colorpicker">
+        <td class="fv-colorpicker">
             <input type="text" name="fv[toolbar-link-abg-color]" class="color" value="<?php echo FvFunctions::ss('toolbar-link-abg-color', '#454545', 7); ?>"/>
             Select color <button type="button" onclick="fv_reset_color(this, '#454545');">reset</button>
         </td>
@@ -178,44 +165,9 @@
     <tr valign="top">
         <th scope="row"><?php _e('Toolbar select color', 'fv') ?></th>
         <?php echo fv_get_td_tooltip_code( __('Input and select fields placed on Toolbar background color', 'fv') ); ?>
-        <td class="colorpicker">
+        <td class="fv-colorpicker">
             <input type="text" name="fv[toolbar-select-color]" class="color" value="<?php echo FvFunctions::ss('toolbar-select-color', '#1f7f5c', 7); ?>"/>
             Select color <button type="button" onclick="fv_reset_color(this, '#1f7f5c');">reset</button>
-        </td>
-    </tr>
-
-    <tr valign="top" class="no-padding">
-        <td colspan="3"><hr/></td>
-    </tr>
-
-    <tr valign="top">
-        <th scope="row"><?php _e('Show social buttons after voting?', 'fv') ?></th>
-        <td class="tooltip">
-            <div class="box" title="<?php _e("If you don't want see a social buttons after voting - check it", 'fv') ?>" data-tipped-options="position: 'top'">
-                <span class="dashicons dashicons-info"></span>
-                <div class='position topleft'><i></i></div>
-            </div>
-        </td>
-        <td>
-            <input type="checkbox" name="fotov-voting-noshow-social" <?php echo ( get_option('fotov-voting-noshow-social', false) ) ? 'checked' : ''; ?>/> <?php _e('No show', 'fv') ?>
-        </td>
-    </tr>
-    <tr valign="top">
-        <th scope="row"><?php _e('How social buttons not show?', 'fv') ?></th>
-        <td class="tooltip">
-            <div class="box" title="<?php _e('Select - how social buttons not show after voting', 'fv') ?>" data-tipped-options="position: 'top'">
-                <span class="dashicons dashicons-info"></span>
-                <div class='position topleft'><i></i></div>
-            </div>
-        </td>
-        <td class="socials">
-            <span><?php _e('Vkontake', 'fv') ?>:</span> <input type="checkbox" name="fotov-voting-noshow-vk" <?php echo ( get_option('fotov-voting-noshow-vk', false) ) ? 'checked' : ''; ?>/> <?php _e('No show', 'fv') ?> <br />
-            <span><?php _e('Facebook', 'fv') ?>:</span>  <input type="checkbox" name="fotov-voting-noshow-fb" <?php echo ( get_option('fotov-voting-noshow-fb', false) ) ? 'checked' : ''; ?>/> <?php _e('No show', 'fv') ?> <br />
-            <span><?php _e('Twitter', 'fv') ?>:</span>  <input type="checkbox" name="fotov-voting-noshow-tw" <?php echo ( get_option('fotov-voting-noshow-tw', false) ) ? 'checked' : ''; ?>/> <?php _e('No show', 'fv') ?> <br />
-            <span><?php _e('Odnoklasniki', 'fv') ?>:</span>  <input type="checkbox" name="fotov-voting-noshow-ok" <?php echo ( get_option('fotov-voting-noshow-ok', false) ) ? 'checked' : ''; ?>/> <?php _e('No show', 'fv') ?> <br />
-            <span><?php _e('Google+', 'fv') ?>:</span>  <input type="checkbox" name="fotov-voting-noshow-gp" <?php echo ( get_option('fotov-voting-noshow-gp', false) ) ? 'checked' : ''; ?>/> <?php _e('No show', 'fv') ?> <br />
-            <span><?php _e('Pinterest', 'fv') ?>:</span>  <input type="checkbox" name="fotov-voting-noshow-pi" <?php echo ( get_option('fotov-voting-noshow-pi', false) ) ? 'checked' : ''; ?>/> <?php _e('No show', 'fv') ?> <br />
-            <span><?php _e('Email share', 'fv') ?>:</span>  <input type="checkbox" name="fotov-voting-noshow-email" <?php echo ( get_option('fotov-voting-noshow-email', false) ) ? 'checked' : ''; ?>/> <?php _e('No show', 'fv') ?> <small><?php _e('Required <a href="#0" onclick="jQuery(\'a[data-content=\x22additional\x22]\').click();">ReCaptcha Api key</a>', 'fv') ?></small>
         </td>
     </tr>
 
@@ -233,7 +185,7 @@
         </td>
         <td>
             <input type="checkbox" name="fotov-photo-in-new-page" <?php echo ( get_option('fotov-photo-in-new-page', false) ) ? 'checked' : ''; ?>/> <?php _e('Yes', 'fv') ?>
-            <small><?php _e('(Now works only in `new_year`, `flickr` and `default` theme) and not compatible with Ajax pagination', 'fv') ?></small>
+            <small><?php _e('(Now works only in `new_year`, `flickr` and `default` theme) and not compatible with "Ajax" and "Infinity" pagination', 'fv') ?></small>
         </td>
     </tr>
 
@@ -361,14 +313,14 @@
     <tr valign="top">
         <th scope="row"><?php _e('Lightbox title format?', 'fv') ?></th>
         <td class="tooltip">
-            <div class="box" title="<?php _e('You can change text, that show in lightbox', 'fv') ?>" data-tipped-options="position: 'top'">
+            <div class="box" title="<?php _e('You can change text, that shows in lightbox', 'fv') ?>" data-tipped-options="position: 'top'">
                 <span class="dashicons dashicons-info"></span>
                 <div class='position topleft'><i></i></div>
             </div>
         </td>
         <td>
             <input name="fv[lightbox-title-format]" class="all-options" value="<?php echo ( isset($settings['lightbox-title-format']) ) ? $settings['lightbox-title-format'] : '{name} <br/>{votes}'; ?>"/> <br/>
-            <small>You can use {name}, {votes}, {description}</small>
+            <small>You can use {name}, {votes}, {description}, {full_description}</small>
         </td>
     </tr>
 

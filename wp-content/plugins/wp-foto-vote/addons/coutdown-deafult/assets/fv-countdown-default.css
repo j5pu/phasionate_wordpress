@@ -1,9 +1,7 @@
 /* ==========================
-    Coutdown
+    Default Countdown
 ============================= */
-
-
-.fv_time{
+.fv-countdown{
     display: block;
     margin: 0 auto;
     padding: 5px 0 5px;
@@ -12,10 +10,18 @@
     width: 390px;
 }
 
-.fv_time *{vertical-align: top;}
+.fv-countdown--title {
+    font-weight: bold;
+    font-size: 110%;
+    padding: 0;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
 
-.fv_time ins,
-.fv_time .clock{
+.fv-countdown *{vertical-align: top;}
+
+.fv-countdown ins,
+.fv-countdown .clock{
     position: relative;
     top: 10px;
     width: 40px;
@@ -26,13 +32,13 @@
     background: transparent url(../images/sprites.png) no-repeat -260px -154px;
 }
 
-.fv_time .clock{margin-right: 7px;}
+.fv-countdown .clock{margin-right: 7px;}
 
-.fv_time ins{width: 10px;}
+.fv-countdown ins{width: 10px;}
 
-.fv_time ins{background-position: -300px -154px;}
+.fv-countdown ins{background-position: -300px -154px;}
 
-.fv_time .etitle{
+.fv-countdown .etitle{
     position: absolute;
     width: 110px;
     text-align: center;
@@ -116,10 +122,10 @@
 ================================ */
 
 @media (max-width: 480px) {
-    .fv_time .clock{
+    .fv-countdown .clock{
         display: none;
     }
-    .fv_time {
+    .fv-countdown {
         margin: 0 -14px 0 -14px;
         overflow: visible;
         width: 300px;

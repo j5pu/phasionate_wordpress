@@ -92,6 +92,8 @@ var FvModal = {
             this.voteRecaptchaID = grecaptcha.render('sw-vote-g-recaptcha', {
                 'sitekey' : fv.recaptcha_key,
                 'callback' : fv_recaptcha_ready
+                //'hl' : 'en'
+                //https://developers.google.com/recaptcha/docs/language
             });
         } else {
             grecaptcha.reset( this.voteRecaptchaID );
@@ -103,7 +105,7 @@ var FvModal = {
         this.openWidget("vote-recaptcha");
 
         // Wrong warning
-        if ( typeof(wrong) != "undefined" ) {
+        if ( typeof(wrong) != "undefined" && wrong == true ) {
             this.showNotification("info", "", fv.lang.msg_recaptcha_wrong, 0, 0);
         } else {
             this.hideNotification();
@@ -161,7 +163,7 @@ var FvModal = {
 	goStartSocialAuthorization: function () {
 		this.setTitle(fv.lang.title_not_voted);
 
-		jQuery(this.selector).width( this.modalWidthDefault );
+		jQuery(this.selector).width( this.modalWidthDefault + 60 );
 
 		this.openWidget("social-authorization");
 

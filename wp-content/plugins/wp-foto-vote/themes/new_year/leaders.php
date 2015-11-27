@@ -2,7 +2,9 @@
     defined('ABSPATH') or die("No script kiddies please!");
 ?>
 <div class="fv_leaders">
-<?php $i = 1; foreach ($most_voted as $key => $unit): 
+<?php
+    $most_voted = fv_new_year_most_voted($contestant->contest_id);
+    $i = 1; foreach ($most_voted as $key => $unit):
 	$thumbnail = FvFunctions::getPhotoThumbnailArr($unit, "medium");
     //wp_get_attachment_image_src($unit->image_id, "medium");
 	if ( !get_option('fotov-photo-in-new-page', false) ) {
@@ -18,13 +20,13 @@
 	?>
 		<div class="fv_constest_item contest-block" <?php echo $style; ?>>
 			 <div class="fv_photo">
-				  <div class="fv_photo_votes"> 
-						<?php if ($konurs_enabled): ?>  
-								  + <span class="sv_votes_<?php echo $unit->id ?>"><?php echo $unit->votes_count ?></span>             
-						<?php endif; ?>               
-						<a style="display: none;" href="#" class="fv_vote" onclick="sv_vote(<?php echo $unit->id ?>); return false;"></a>
-				  </div>
-				  <a name="<?php echo 'photo-'.$unit->id; ?>" class="<?php if( !get_option('fotov-photo-in-new-page', false) ): ?> fv_lightbox nolightbox <?php endif; ?>" rel="fw" 
+                 <?php if( $hide_votes == false ): ?>
+                     <div class="fv_photo_votes">
+                         <i class="fvicon-heart3"></i><span class="fv-votes sv_votes_<?php echo $unit->id ?>"><?php echo $unit->votes_count ?></span>
+                     </div>
+                 <?php endif; ?>
+
+				  <a name="<?php echo 'photo-'.$unit->id; ?>" class="<?php if( !get_option('fotov-photo-in-new-page', false) ): ?> fv_lightbox nolightbox <?php endif; ?>" rel="fw"
 					  href="<?php echo $image_full ?>" title="<?php echo htmlspecialchars(stripslashes($unit->name)) ?>" style="cursor: pointer;">
 						<img src="<?php echo $thumbnail[0] ?>" />
 				  </a>

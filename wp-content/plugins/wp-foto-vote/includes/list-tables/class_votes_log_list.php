@@ -131,7 +131,7 @@ class FV_List_Votes_Log extends FV_WP_List_Table
             case 'soc_network':
                 return "<a href='{$item->soc_profile}' target='_blank' title='see profile'>" . $item->$column_name . ' / ' . $item->soc_uid . "</a>";
             case 'ip':
-                return "<a href='http://whatismyipaddress.com/ip/{$item->$column_name}' title='more info' target='_blank'>{$item->$column_name}</a> / {$item->country} / {$item->uid}";
+                return "<a href='http://whatismyipaddress.com/ip/{$item->$column_name}' title='more info' target='_blank'>{$item->$column_name}</a> / {$item->country} / {$item->uid} / {$item->b_plugins}";
             case 'vote_id':
                 return $item->$column_name . ' / ' . $item->competitor_name;
             case 'score':
@@ -216,7 +216,7 @@ class FV_List_Votes_Log extends FV_WP_List_Table
             'cb' => '<input type="checkbox" />', //Render a checkbox instead of text
             'contest_id' => __('Contest', 'fv'),
             'vote_id' => __('competitor', 'fv'),
-            'ip' => __('IP address / Country / Evercookie UID', 'fv'),
+            'ip' => __('IP address / Country / Evercookie UID / Browser plugins', 'fv'),
             'score' => __('Fraud score', 'fv'),
             'soc_network' => __('Soc. network/ Soc. user id', 'fv'),
             'user_id' => __('User id', 'fv'),

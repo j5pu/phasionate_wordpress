@@ -36,7 +36,7 @@ defined('ABSPATH') or die("No script kiddies please!");
                     </div>
 
                     <span class="inline-icons">
-                        <a data-track="favorite" href="#" class="fave-star-inline canfave fv_vote" id="action_button" onclick="sv_vote(<?php echo $unit->id ?>); return false;">
+                        <a data-track="favorite" href="#" class="fave-star-inline canfave fv_vote" onclick="sv_vote(<?php echo $unit->id ?>); return false;">
                             <snap class="fvicon fvicon-star3"></snap> <span class="fave-count count sv_votes_<?php echo $unit->id ?>"><?php echo $unit->votes_count ?></span>
                         </a>
                         <a href="#0" onclick="jQuery('a[name=photo-<?php echo $unit->id ?>]')[0].click(); return false;" class="lightbox-inline">

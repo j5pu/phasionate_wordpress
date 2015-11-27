@@ -29,7 +29,51 @@
     text-align: center;
 }
 
-#action_button {
+
+.fv_button .fv_vote  {
+    font-size: 18px;
+    font-weight: 500;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    padding: 3px 17px;
+    line-height: 25px;
+    background: transparent;
+    border: 2px solid #b20000;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    position: relative;
+    color: #990000;
+    margin: 5px 0 3px 0;
+}
+
+.fv_button .fv_vote:hover {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 3px 32px 3px 12px !important;
+}
+.fv_button .fv_vote:hover:after {
+    opacity: 1;
+    margin-left: 0;
+}
+.fv_button .fv_vote:after {
+    font-size: 16px;
+    line-height: 25px;
+    content: "\e607";
+    font-family: 'icomoon_fv';
+    opacity: 0;
+    position: absolute;
+    margin-left: -25px;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    top: 5px;
+    right: 10px;
+}
+/*
+.fv_button .fv_vote {
     font-size: 1em;
     outline: 0;
     border: 0;
@@ -43,11 +87,11 @@
     max-width: 99%;
 }
 
-#action_button:hover {
+.fv_button .fv_vote:hover {
     background: #2e4c79;
     color: #fff;
     cursor: pointer;
-}
+}*/
 
 /* VOTES count */
 
@@ -79,4 +123,14 @@
     /* selected number */
     background-color: #D8D8D8;
     border-color: #D8D8D8;
+}
+
+.fv_contest_container .fv-infinite-load {
+    color: #b20000;
+}
+
+@media(max-width: 480px) {
+    .contest-block {
+        max-width: 100%;
+    }
 }

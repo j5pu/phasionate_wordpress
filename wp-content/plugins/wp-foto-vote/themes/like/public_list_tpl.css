@@ -78,30 +78,43 @@
 
 /* full image button */
 
-.contest-block:hover .fv_lightbox {
+.contest-block:hover .fv_lightbox,
+.contest-block:hover .fv-share-counter
+{
     display: block;
     opacity: 0.9;
 }
-.contest-block .fv_lightbox {
+.contest-block a.fv_lightbox,
+.contest-block a.fv-share-counter
+{
     display: none;    
     color: #fff;
     position: absolute;
-    right: 8px;
     top: 8px;
     font-size: 22px;
     line-height: 22px;
-    
-    padding: 4px;
+
+    padding: 4.5px 4px 4px 4px;
     text-decoration: none;
-    background-color: #cccccc;
+    background-color: rgba(62, 62, 62, 0.65);
     border-radius: 14%;
-    
     
     transition: 0.3s all ease-in-out;
     -moz-transition: 0.3s all ease-in-out;
     -ms-transition: 0.3s all ease-in-out;
     -o-transition: 0.3s all ease-in-out;
     -webkit-transition: 0.3s all ease-in-out;    
+}
+
+.contest-block .fv_lightbox {
+    right: 8px;
+}
+.contest-block .fv-share-counter {
+    right: 42px;
+    color: #fff;
+}
+.fv_svotes {
+    display: inline-block;
 }
 
 /* animation */
@@ -140,8 +153,6 @@
 	text-align:center;
 	white-space:nowrap;
 }
-
-
 
 @keyframes sonarWave {
     from {

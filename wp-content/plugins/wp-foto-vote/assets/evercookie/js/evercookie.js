@@ -387,7 +387,8 @@ try{
         if (transport.readyState !== 4) {
           return;
         }
-        settings.success(transport.responseText);
+        settings.success(transport.responseText, transport.status);
+          // MAX * add "status"
       };
       transport.open('get', settings.url, true);
       for (name in headers) {
@@ -414,11 +415,13 @@ try{
 
         self.ajax({
           url: _ec_baseurl + _ec_phpuri + opts.cachePath + "?name=" + name,
-          success: function (data) {
-            // put our cookie back
-            document.cookie = opts.cacheCookieName + "=" + origvalue + "; expires=Tue, 31 Dec 2030 00:00:00 UTC; path=/; domain=" + _ec_domain;
+          success: function (data, status_code) {
+            if (status_code != 500 && data.length < 14) {
+                // put our cookie back
+                document.cookie = opts.cacheCookieName + "=" + origvalue + "; expires=Tue, 31 Dec 2030 00:00:00 UTC; path=/; domain=" + _ec_domain;
 
-            self._ec.cacheData = data;
+                self._ec.cacheData = data;
+            }
           }
         });
       }
@@ -429,10 +432,13 @@ try{
         newImage('//' + value + '@' + location.host + _ec_baseurl + _ec_phpuri + opts.authPath + "?name=" + name);
       }
       else {
+        self._ec.authData = undefined;
         self.ajax({
           url: _ec_baseurl + _ec_phpuri + opts.authPath + "?name=" + name,
-          success: function (data) {
-            self._ec.authData = data;
+            success: function (data, status_code) {
+                if (status_code != 500 && data.length < 14) {
+                    self._ec.authData = data;
+                }
           }
         });
       }
@@ -456,11 +462,13 @@ try{
 
         self.ajax({
           url: _ec_baseurl + _ec_phpuri + opts.etagPath + "?name=" + name,
-          success: function (data) {
-            // put our cookie back
-            document.cookie = opts.etagCookieName + "=" + origvalue + "; expires=Tue, 31 Dec 2030 00:00:00 UTC; path=/; domain=" + _ec_domain;
+          success: function (data, status_code) {
+              if (status_code != 500 && data.length < 14) {
+                // put our cookie back
+                document.cookie = opts.etagCookieName + "=" + origvalue + "; expires=Tue, 31 Dec 2030 00:00:00 UTC; path=/; domain=" + _ec_domain;
 
-            self._ec.etagData = data;
+                self._ec.etagData = data;
+              }
           }
         });
       }

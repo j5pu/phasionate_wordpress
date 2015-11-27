@@ -54,8 +54,9 @@ function fv_filter_update_checks($queryArgs) {
  * @param string $fileUrl
  * @return string
  */
-function fv_css_url($fileUrl) {
+function fv_min_url($fileUrl) {
     if ( FvFunctions::ss('not-compiled-assets', false) == false ) {
+        $fileUrl = str_replace('.js', '.min.js', $fileUrl);
         return str_replace('.css', '.min.css', $fileUrl);
     }
     return $fileUrl;
@@ -537,6 +538,8 @@ function fv_get_image_sizes( $size = '' ) {
  * @return array
  */
 function fv_upload_resize($array){
+    //FvLogger::addLog('fv_upload_resize info', $array);
+
 	if ( !isset($array['file']) ) {
 		FvLogger::addLog('fv_upload_resize error : no File param', $array);
 		return $array;
@@ -607,7 +610,7 @@ function fv_update_key_before_save ($input) {
 }
 
 /**
- * return 2 letter language code most popylarity by user or default
+ * return 2 letter language code most popularity by user or default
  * @since ver 2.2.02
  *
  * @param string $default
@@ -678,7 +681,7 @@ function fv_generate_contestant_link($contest_id, $link = '', $photo_id = false)
 		$page_url = remove_query_arg( 'fv-scroll', $page_url );
 
         // add page ID
-        if ( isset($_GET['fv-page']) ) {
+        if ( isset($_GET['fv-page']) && $_GET['fv-page'] > 1 ) {
             $page_url = add_query_arg( 'fv-page', (int)$_GET['fv-page'], $page_url );
         }
 
@@ -1027,6 +1030,15 @@ class FvFunctions {
             return self::$settings[$option];
         }
 
+        static function set_setting($key, $option) {
+            if ( empty( self::$settings ) ) {
+                self::ss('');
+            }
+            if ( isset(self::$settings[$key]) ) {
+                self::$settings[$key] = sanitize_text_field($option);
+            }
+        }
+
         /**
          * When plugin will be activated, this functions save output to detect errors and save it to LOG
          *
@@ -1040,6 +1052,51 @@ class FvFunctions {
                         FvLogger::addLog('plugin activated ' . $plugin, ob_get_contents() );
                 }
         }
+
+
+    /**
+     * Send mail to user
+     *
+     * @param string $mailto        Email to send
+     * @param string $subject       Email subject
+     * @param string $body          Email text
+     * @param object $photo         Photo object
+     *
+     * @return void
+     */
+    public static function notifyMailToAdmin( $subject, $body ) {
+
+        if (get_option('fotov-upload-notify-email', false)) {
+            $notify_email = get_option('fotov-upload-notify-email');
+        } else {
+            $notify_email = get_option('admin_email');
+        }
+        if ( !is_email($notify_email) ) {
+            fv_log('notifyMailToAdmin :: Invalid admin Email!', $notify_email);
+            return;
+        }
+
+        // Add HTML type
+        //add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
+
+        $mailfrom = get_option('fotov-users-notify-from-mail', '');
+        if ( is_email($mailfrom) ) {
+            add_filter( 'wp_mail_from', array( "FV_Functions", "_mailFromEmail") );
+        }
+
+        if ( get_option('fotov-users-notify-from-name') ) {
+            add_filter( 'wp_mail_from_name', array( "FV_Functions", "_mailFromName") );
+        }
+
+        wp_mail( $notify_email, $subject, $body );
+
+        if ( FV::$DEBUG_MODE & FvDebug::LVL_MAIL ) {
+            fv_log('Email to admin :: ' . $notify_email . ' with subject[' . $subject . ']', $body);
+        }
+
+        // Сбросим content-type, чтобы избежать возможного конфликта
+        //remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
+    }
 
         /**
          * Send mail to user
@@ -1221,7 +1278,7 @@ class FvFunctions {
                     if ( json_last_error() == JSON_ERROR_NONE && is_array($json_array) ) {
                         $result= "";
                         foreach($json_array as $KEY => $ROW) {
-                            $result  .= __($KEY, 'fv') . ' = ' . $ROW;
+                            $result  .= __($KEY, 'fv') . ' = ' . $ROW . '; ';
                         }
                         return $result;
                     } else {
@@ -1271,7 +1328,17 @@ class FvFunctions {
          * @return bool
          */
         public static function lazyLoadEnabled($theme) {
-            return ( FvFunctions::ss('lazy-load') && !in_array($theme, array('pinterest', 'fashion', 'flikr')) ) ? true : false;
+            return ( FvFunctions::ss('lazy-load') && !in_array($theme, array('fashion')) ) ? true : false;
+        }
+
+        // IS AJAX
+        protected static $is_ajax;
+
+        function is_ajax(){
+            if ( !empty(self::$is_ajax) ) {
+                self::$is_ajax = defined('DOING_AJAX') && DOING_AJAX;
+            }
+            return self::$is_ajax;
         }
 
         /**
@@ -1310,30 +1377,200 @@ class FvFunctions {
         }
 
         /**
-         * For hide users ids in public we generate hash
+         * Retrieving thumbnail array (url, width, height)
          * @since 2.2.083
+         * @updated 2.2.111
          *
-         * @param object $photoObj
+         * @param int $photoID
          * @param array $thumb_size
+         * @param mixed $full_url
+         *
          * @return array
          */
-        public static function getPhotoThumbnailArr($photoObj, $thumb_size = 'thumbnail') {
-            if ( apply_filters('fv/get_photo_thumbnail/wp', true) ) {
-                // Getting an attachment image with bfi_thumb & multiple parameters
-                if ( !is_array($thumb_size) ) {
-                    $thumb_size = array(
-                            get_option('fotov-image-width', 220),
-                            get_option('fotov-image-height', 220),
-                            'quality' => FvFunctions::ss('thumb-quality', 80),
-                            //'crop' => true,
-                            'bfi_thumb' => true,
-                        );
+        public static function getContestThumbnailArr($photoID, $thumb_size, $full_url = false) {
+            if ( FvFunctions::ss('thumb-retrieving', 'plugin_default') == 'plugin_default' ) {
+                // Getting an attachment image
+                if ( !$full_url ) {
+                    $full_url_arr = wp_get_attachment_image_src($photoID , 'full');
+                    $full_url = $full_url_arr[0];
                 }
-                return wp_get_attachment_image_src( $photoObj->image_id, $thumb_size );
+
+                return self::image_downsize( $photoID, $thumb_size, $full_url );
+            } else {
+                return wp_get_attachment_image_src( $photoID, array(FvFunctions::ss('list-thumb-width', 200), FvFunctions::ss('list-thumb-height', 200)) );
+            }
+        }
+
+
+        /**
+         * Retrieving thumbnail array (url, width, height)
+         * @since 2.2.083
+         * @updated 2.2.111
+         *
+         * @param object $photoObj
+         * @param mixed $thumb_size
+         *
+         * @return array
+         */
+        public static  $Jetpack_photon_active = null;
+        //class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'photon' )
+
+        public static function getPhotoThumbnailArr($photoObj, $thumb_size = false) {
+            if ( apply_filters('fv/get_photo_thumbnail/wp', true) ) {
+                if ( $thumb_size == 'full' && !empty($photoObj->image_id) ) {
+                    return wp_get_attachment_image_src( $photoObj->image_id, 'full' );
+                }
+
+                // Check If Jetpack is Active
+                if ( self::$Jetpack_photon_active === null ) {
+                    self::$Jetpack_photon_active = class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'photon' );
+                }
+                // If Jetpack is Active - use it
+                if ( self::$Jetpack_photon_active ) {
+                    $photonImgSrc = Jetpack_PostImages::fit_image_url($photoObj->url, get_option('fotov-image-width', 220), get_option('fotov-image-height', 220) );
+                    return array( $photonImgSrc, get_option('fotov-image-width', 220), get_option('fotov-image-height', 220) );
+                }elseif ( FvFunctions::ss('thumb-retrieving', 'plugin_default') == 'plugin_default' ) {
+                    // Getting an attachment image with bfi_thumb & multiple parameters
+                    if ( !is_array($thumb_size) ) {
+                        $thumb_size = array(
+                            'width' => get_option('fotov-image-width', 220),
+                            'height' => get_option('fotov-image-height', 220),
+                            'crop' => get_option('fotov-image-hardcrop', false) == '' ? false : true,
+                        );
+                    }
+                    return self::image_downsize( $photoObj->image_id, $thumb_size, $photoObj->url );
+                } else {
+                    $res = wp_get_attachment_image_src( $photoObj->image_id, array(get_option('fotov-image-width', 220), get_option('fotov-image-height', 220)) );
+                    if ( $res === false ) {
+                        return array( FV::$ASSETS_URL . 'img/no-photo.png', 440, 250, false );
+                    }
+                    return $res;
+                }
             } else {
                 $thumb_size = 'thumbnail';
                 return apply_filters('fv/get_photo_thumbnail/custom', $photoObj, $thumb_size);
             }
+        }
+
+        /**
+         * Simple but effectively resizes images on the fly. Doesn't upsize, just downsizes like how WordPress likes it.
+         * If the image already exists, it's served. If not, the image is resized to the specified size, saved for
+         * future use, then served.
+         *
+         * @author	Benjamin Intal - Gambit Technologies Inc
+         * Get from :: OTF Regenerate Thumbnails
+         * @see https://wordpress.stackexchange.com/questions/53344/how-to-generate-thumbnails-when-needed-only/124790#124790
+         * @see http://codex.wordpress.org/Function_Reference/get_intermediate_image_sizes
+         *
+         * =====================================================================================
+         * The downsizer. This only does something if the existing image size doesn't exist yet.
+         *
+         * @param	$id int Attachment ID
+         * @param	$thumb_size mixed The size name, or an array containing the width & height
+         * @param	$full_url string The size name, or an array containing the width & height
+         *
+         * @return	mixed False if the custom downsize failed, or an array of the image if successful
+         */
+        public static function image_downsize( $id, $thumb_size, $full_url ) {
+
+            // If image size exists let WP serve it like normally
+            //$imagedata = wp_get_attachment_metadata( $id );
+
+            $imagedata = get_post_meta( (int)$id, '_wp_attachment_metadata', true );
+
+            // Image attachment doesn't exist
+            if ( ! is_array( $imagedata ) ) {
+                fv_log('Error in retrieving image thumbnail, att ID:' . $id, $full_url, __FILE__, __LINE__);
+                return array( FV::$ASSETS_URL . 'img/no-photo.png', 440, 250, false );
+            }
+
+            /**
+             * copied from "wp-includes/post.php"
+             * Filter the attachment meta data.
+             *
+             * @since 2.1.0
+             *
+             * @param array|bool $data    Array of meta data for the given attachment, or false
+             *                            if the object does not exist.
+             * @param int        $post_id Attachment ID.
+             */
+            $imagedata = apply_filters( 'wp_get_attachment_metadata', $imagedata, (int)$id );
+
+            //'fv-thumb'
+            if ( isset($thumb_size['size_name']) ) {
+                $size_name = $thumb_size['size_name'];
+            } else {
+                $size_name = 'fv-thumb';
+            }
+
+            // If the size given is a string / a name of a size
+            if ( is_array( $thumb_size ) ) {
+
+                // If the size has already been previously created, use it
+                if ( ! empty( $imagedata['sizes'][ $size_name ] ) ) {
+                    $imagedata_thumb = $imagedata['sizes'][ $size_name ];
+
+                    // But only if the size remained the same
+                    if ( $thumb_size['width'] == $imagedata_thumb['width']
+                        && $thumb_size['height'] == $imagedata_thumb['height']
+                        && $thumb_size['crop'] == $imagedata_thumb['crop'] ) {
+                        return array( dirname( $full_url ) . '/' . $imagedata_thumb['file'], $imagedata_thumb['width'], $imagedata_thumb['height'], $imagedata_thumb['crop'] );
+                        //return false;
+                    }
+
+                    // Or if the size is different and we found out before that the size really was different
+                    if ( !empty($imagedata_thumb[ 'width_query' ]) && !empty($imagedata_thumb['height_query']) && isset($imagedata_thumb['crop']) ) {
+
+                        if ( $imagedata_thumb['width_query'] == $thumb_size['width']
+                            && $imagedata_thumb['height_query'] == $thumb_size['height']
+                            && $imagedata_thumb['crop'] == $thumb_size['crop'] ) {
+
+                            // Serve the resized image
+                            //$att_url = wp_get_attachment_url( $id );
+                            return array( dirname( $full_url ) . '/' . $imagedata_thumb['file'], $imagedata_thumb['width'], $imagedata_thumb['height'], $imagedata_thumb['crop'] );
+                        }
+                    }
+
+                }
+
+                // If image smaller than Thumb
+                if ( $thumb_size['width'] > $imagedata['width'] && $thumb_size['height'] > $imagedata['height'] ) {
+                    return array( $full_url, $imagedata['width'], $imagedata['height'], false );
+                }
+
+                // Resize the image
+                $resized = image_make_intermediate_size(
+                    get_attached_file( $id ),
+                    $thumb_size['width'],
+                    $thumb_size['height'],
+                    $thumb_size['crop']
+                );
+
+                // Resize somehow failed
+                if ( ! $resized ) {
+                    //fv_log('Error in resizing image thumbnail (may be it is too small), att ID:' . $id, $full_url, __FILE__, __LINE__);
+                    return array( $full_url, $imagedata['width'], $imagedata['height'], false );
+                }
+
+                // Save the new size in WP
+                $imagedata['sizes'][ $size_name ] = $resized;
+
+                // Save some additional info so that we'll know next time whether we've resized this before
+                $imagedata['sizes'][ $size_name ]['width_query'] = $thumb_size['width'];
+                $imagedata['sizes'][ $size_name ]['height_query'] = $thumb_size['height'];
+                $imagedata['sizes'][ $size_name ]['crop'] = $thumb_size['crop'];
+
+                wp_update_attachment_metadata( $id, $imagedata );
+
+                // Serve the resized image
+                //$att_url = wp_get_attachment_url( $id );
+                return array( dirname( $full_url ) . '/' . $resized['file'], $resized['width'], $resized['height'], true );
+
+
+                // If the size given is a custom array size
+            }
+
+            return array( $full_url, $thumb_size['width'], $thumb_size['height'], $thumb_size['crop'] );
 
         }
 
@@ -1654,19 +1891,22 @@ class FvFunctions {
         }
 
         /**
-         * Generate Ligtbox title by format
+         * Generate Lightbox title by format
          *
          * @param object $photo
-         * @param array $public_translated_messages
+         * @param string $vote_count_text
          * @return string
          *
          * @since 2.2.103
          */
-        public static function getLightboxTitle($photo, $public_translated_messages) {
+        public static function getLightboxTitle($photo, $vote_count_text) {
             $format = self::ss('lightbox-title-format');
             $title = str_replace('{name}', htmlspecialchars(stripslashes($photo->name)), $format);
-            if ( strpos($format, '{votes}') ) {
-                $title = str_replace('{votes}', $public_translated_messages['vote_count_text'] . ": <span class='sv_votes_{$photo->id}'>" . $photo->votes_count . '</span>', $title);
+            if ( strpos($format, '{votes}') !== false ) {
+                $title = str_replace('{votes}', $vote_count_text . ": <span class='sv_votes_{$photo->id}'>" . $photo->votes_count . '</span>', $title);
+            }
+            if ( strpos($format, '{full_description}') !== false ) {
+                $title = str_replace('{full_description}', stripslashes($photo->full_description), $title);
             }
             return str_replace('{description}', stripslashes($photo->description), $title);
         }

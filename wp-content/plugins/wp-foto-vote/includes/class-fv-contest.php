@@ -302,7 +302,10 @@ class FV_Contest
 
             do_action('fv/delete_photo', $contestant);
 
-            // delete image from hosting
+            // To leave Contestant
+            //ModelCompetitors::query()->update( array( 'status'=> ST_DRAFT ), $contestant->id );
+
+            // delete Contestant + may be Image from hosting
             if ( $contestant && $my_db->deleteCompItem($id) && get_option('fv-image-delete-from-hosting', false) ) {
                 // in not registered some hooks
                 if ( has_action( 'fv/admin/delete_photo_attachment' ) === false ) {

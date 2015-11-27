@@ -1,13 +1,25 @@
 /* Magnage Columns and Thumb Shapes */
+(function() {
 
-var msnry;
-
-(function ($) {
+//FvLib.addHook('doc_ready', function() {
     jQuery(window).resize(function () {
-        jQuery("#grid .wrap-post").each(function () {
+        fashion_load();
+    });
 
-            var gridW = jQuery('#grid').width();
+    // using Math.round() in result will be uneven!
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
+    var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+        navigator.userAgent && !navigator.userAgent.match('CriOS');
+
+    var fashion_load = function () {
+        var photos_count = jQuery("#grid .wrap-post").length;
+        var gridW = jQuery('#grid').width();
+
+        jQuery("#grid .wrap-post").each(function (KEY) {
+/*
             // CASE COL 6
             if (jQuery(this).hasClass('column-6')) {
 
@@ -82,7 +94,19 @@ var msnry;
                 }
 
             }
+             // CASE COL 2
+             if (jQuery(this).hasClass('column-2')) {
 
+                 if (gridW > 280) {
+                 jQuery(this).css('width', '');
+                 }
+
+                 if (gridW < 280) {
+                 jQuery(this).css('width', '100%');
+                 }
+
+             }
+*/
             // CASE COL 3
             if (jQuery(this).hasClass('column-3')) {
 
@@ -91,20 +115,7 @@ var msnry;
                 }
 
                 if (gridW < 420 && gridW > 280) {
-                    jQuery(this).css('width', '50%');
-                }
-
-                if (gridW < 280) {
                     jQuery(this).css('width', '100%');
-                }
-
-            }
-
-            // CASE COL 2
-            if (jQuery(this).hasClass('column-2')) {
-
-                if (gridW > 280) {
-                    jQuery(this).css('width', '');
                 }
 
                 if (gridW < 280) {
@@ -117,7 +128,7 @@ var msnry;
 
             var itemW = jQuery(this).width();
 
-
+/*
             if (jQuery(this).hasClass('pr-thumb-land')) {
 
                 var itemH = itemW / 3 * 2;
@@ -126,7 +137,7 @@ var msnry;
                 jQuery('.post-image', jQuery(this)).css('height', itemH + 'px');
 
             }
-
+*/
             if (jQuery(this).hasClass('pr-thumb-port')) {
 
                 var itemH = (itemW / 3 * 4) + getRandomInt(0, 40);
@@ -171,26 +182,30 @@ var msnry;
                 jQuery('.btn-caption span').css('margin', '');
             }
 
+            if ( KEY + 1 == photos_count ) {
+                // initialize Masonry
+                if ( isSafari ) {
+                    setTimeout(function (){
+                        new Masonry(document.querySelector('ul#grid'), {
+                            //columnWidth: 200,
+                            columnWidth: '.wrap-post',
+                            itemSelector: 'li'
+                        });
+                    },650);
+                } else {
+                    new Masonry(document.querySelector('ul#grid'), {
+                        //columnWidth: 200,
+                        columnWidth: '.wrap-post',
+                        itemSelector: 'li'
+                    });
+                }
+            }
+
         });
-    });
+        //jQuery(window).trigger('resize');
 
-    // using Math.round() in result will be uneven!
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    var fashion_load = function () {
-        jQuery(window).trigger('resize');
-        var container = document.querySelector('ul#grid')
-
-        // initialize Masonry after all images have loaded
-        imagesLoaded(container, function () {
-            msnry = new Masonry(container, {
-                //columnWidth: 200,
-                columnWidth: '.wrap-post',
-                itemSelector: 'li'
-            });
-        });
+        /*imagesLoaded(container, function () {
+        });*/
     }
 
     fashion_load();
@@ -203,4 +218,5 @@ var msnry;
     }
     FvLib.addFilter('fv/fv_ajax_go_to_page/infinite_selector', fashion_infinite_selector, 10, 1);
 
-})(jQuery);
+//});
+})();

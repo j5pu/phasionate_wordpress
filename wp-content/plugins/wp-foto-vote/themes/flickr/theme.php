@@ -34,15 +34,14 @@ class FvTheme extends FvThemeBase {
 
     public static function assets_item() {
         parent::assets_item();
-        wp_enqueue_script('fv_exif', FV::$ASSETS_URL . 'js/exif.js', array() , '1.0', true);
-        wp_enqueue_script('fv_theme_flickr', FvFunctions::get_theme_url ( self::THEME, 'assets/fv_theme_flickr.js' ), array( 'jquery' ) , '1.0');
+        wp_enqueue_script('fv_exif', FV::$ASSETS_URL . 'js/exif.js', array() , FV::VERSION, true);
+        wp_enqueue_script('fv_theme_flickr', FvFunctions::get_theme_url ( self::THEME, 'assets/fv_theme_flickr.js' ), array( 'jquery' ) , FV::VERSION);
     }
 
     public static function assets_list() {
         parent::assets_list();
-        wp_enqueue_script('fv_theme_flickr_flex', FvFunctions::get_theme_url ( self::THEME, 'assets/jquery.flex-images.js' ), array( 'jquery' ) , '1.0');
         //wp_enqueue_style('fv_theme_flickr_flex', FvFunctions::get_theme_url ( self::THEME, 'assets/jquery.flex-images.css' ) );
-        wp_enqueue_script('fv_theme_flickr', FvFunctions::get_theme_url ( self::THEME, 'assets/fv_theme_flickr.js' ), array( 'jquery' ) , '1.0');
+        wp_enqueue_script('fv_theme_flickr', FvFunctions::get_theme_url ( self::THEME, 'assets/fv_theme_flickr.js' ), array( 'jquery' ) , FV::VERSION);
     }
 
     public static function single_item_template_data_filter($template_data) {

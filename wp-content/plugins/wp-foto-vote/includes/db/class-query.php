@@ -155,6 +155,7 @@ class FvQuery {
 		  }
 		  }
 		 */
+        $this->checkDbErrors();
 		return $results;
 	}
 	
@@ -187,7 +188,7 @@ class FvQuery {
 		);
 		$r = $wpdb->get_row($sql, OBJECT);
 
-		self::checkDbErrors();
+		$this->checkDbErrors();
 		return $r;
 	}
 
@@ -286,10 +287,10 @@ class FvQuery {
 				}
 			}
 		} elseif (is_numeric($condition)) {
-			$condition_data = array('id' => $data['id']);
+			$condition_data = array('id' => (int)$data['id']);
 			$condition_format = '%d';
-		} elseif ( $condition === false ) {
-			$condition_data = array('id' => $data['id']);
+		} elseif ( $condition === false && isset($data[$this->primary_key]) ) {
+			$condition_data = array($this->primary_key => (int)$data[$this->primary_key]);
 			$condition_format = array('%d');
 		}
 		// do Query
@@ -840,7 +841,6 @@ class FvQuery {
             $qurey_res = apply_filters('wporm_query', "SELECT {$what} FROM `{$table}` t {$join_sql} {$where}{$group}{$order}{$limit}{$offset};", $this->model);
         }
 
-        $this->checkDbErrors();
         return $qurey_res;
 	}
 	

@@ -22,11 +22,13 @@
 .widget-fv-list-class .contestant-list li {
 	clear: both;
 	list-style: none;
+    margin-bottom: 10px;
 }
-.widget-fv-list-class .contestant-list li .contestant-content:after {
+.widget-fv-list-class .contestant-list li:after {
 	clear: both;
 	float: none;
 	content: ' ';
+    display: table;
 }
 
 /* ========================= GALLERY ============================ */

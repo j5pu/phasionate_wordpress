@@ -1,5 +1,5 @@
-<ul class="fv_toolbar">
-    <div class="fv_toolbar--container">
+<div class="fv_toolbar--container">
+    <ul class="fv_toolbar">
         <li>
             <a href="#0" class="tabbed_a active" data-target=".fv_contest_container">
                 <i class="fvicon-images"></i> <?php echo fv_get_transl_msg('toolbar_title_gallery'); ?>
@@ -25,5 +25,5 @@
                 <?php endforeach; ?>
             </select>
         </li>
-    </div>
-</ul>
+    </ul>
+</div>

@@ -45,6 +45,9 @@ class FV_Admin_Export
                     case 'subscribers_list':
                         self::export_subscribers_list();
                         break;
+                    default:
+                        do_action('fv/admin/export_data/custom', $type);
+                        break;
                 }
 
         } catch(Exception $ex) {
@@ -65,20 +68,26 @@ class FV_Admin_Export
         self::output_header($filename);
         $fp= fopen('php://output', 'w');
 
+        //add BOM to fix UTF-8 in Excel
+        fputs($fp, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
+
         $data = ModelCompetitors::query()->where("contest_id", $contest_id)->find();
 
-        $earr = array('Photo name', 'User email', 'Votes count', 'Upload info','Added date', 'User id', 'Status');
+        $earr = array('Photo name', 'Description', 'Photo full url', 'User email', 'Votes count', 'Upload info', 'Added date', 'User id', 'User ip','Status');
         fputcsv( $fp, $earr, get_option('fv-export-delimiter', ';') );
 
         foreach ($data as $fields)
         {
             $earr = array(
                 $fields->name,
+                $fields->description,
+                $fields->url,
                 $fields->user_email,
                 $fields->votes_count,
-                FvFunctions::showUploadInfo($fields->unpload_info),
+                FvFunctions::showUploadInfo($fields->upload_info),
                 date("Y-m-d H:i", $fields->added_date),
                 $fields->user_id,
+                $fields->user_ip,
                 fv_get_status_name($fields->status)
             );
             fputcsv( $fp, $earr, get_option('fv-export-delimiter', ';') );
@@ -99,6 +108,9 @@ class FV_Admin_Export
         $filename = 'fv_log_' . date('d-m-y') . '-from_' . $datefrom . '_days.csv';
         self::output_header($filename);
         $fp= fopen('php://output', 'w');
+
+        //add BOM to fix UTF-8 in Excel
+        fputs($fp, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
 
         // получаем первый массив
         $my_db = new FV_DB;
@@ -133,6 +145,9 @@ class FV_Admin_Export
         self::output_header($filename);
         $fp= fopen('php://output', 'w');
 
+        //add BOM to fix UTF-8 in Excel
+        fputs($fp, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
+
         // получаем первый массив
         $my_db = new FV_DB;
 
@@ -161,6 +176,7 @@ class FV_Admin_Export
     {
         header( "Content-Type: text/csv;charset=utf-8" );
         header( "Content-Disposition: attachment;filename=\"$filename\"" );
+        header( "Content-Transfer-Encoding: binary" );
         header( "Pragma: no-cache" );
         header( "Expires: 0" );
     }

@@ -41,7 +41,7 @@
 
 <!-- show_photo_size -->
 <p>
-    <label for="<?php echo $this->get_field_id('show_photo_size'); ?>"><?php _e('Thumbnail width:', 'fv'); ?></label>
+    <label for="<?php echo $this->get_field_id('show_photo_size'); ?>"><?php _e('Thumbnail size:', 'fv'); ?></label>
     <input id="<?php echo $this->get_field_id('show_photo_size'); ?>" name="<?php echo $this->get_field_name('show_photo_size'); ?>" type="text" value="<?php echo $show_photo_size; ?>" size="3" /> px.<br />
     <small><?php _e('more than 25 px.', 'fv'); ?></small>
 </p>

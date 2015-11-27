@@ -11,16 +11,22 @@
                 </div>
         </div>
         <div class="fv_photo" style="width: <?php echo $image[1] + 10 ?>px;">
-                <div class="go_vote_text"><?php echo $public_translated_messages['vote_button_text']; ?></div>
                 <div class="fv_photo_votes">
                         <a href="#" onclick="sv_vote(<?php echo $contestant->id ?>); return false;">
                             <?php if( $hide_votes == false ): ?>
-                                + <span class="sv_votes_<?php echo $contestant->id ?>"><?php echo $contestant->votes_count ?></span>
+                                <i class="fvicon-heart3"></i> <span class="sv_votes_<?php echo $contestant->id ?>"><?php echo $contestant->votes_count ?></span>
                             <?php else: ?>
-                                + 1
+                                <i class="fvicon-heart3"></i>
                             <?php endif; ?>
                         </a>
                 </div>
+                <?php if( FvFunctions::ss('soc-counter', false) ): ?>
+                    <div class="fv-svotes-container">
+                        <a href="#0" class="fv-svotes-a" onclick="FvModal.goShare(<?php echo $contestant->id ?>); return false;" title="<?php echo $public_translated_messages['shares_count_text']; ?>">
+                            <i class="fvicon-share"></i> <span class="fv-soc-votes fv_svotes_<?php echo $contestant->id ?>">0</span>
+                        </a>
+                    </div>
+                <?php endif; ?>
 
                 <img src="<?php echo $image[0] ?>"/>
 

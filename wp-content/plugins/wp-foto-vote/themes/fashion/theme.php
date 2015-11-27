@@ -6,9 +6,8 @@ if ( defined('DOING_AJAX') && DOING_AJAX == TRUE && FvFunctions::ss('pagination-
     return;
 }
 
-//wp_enqueue_script('fv_main_imagesloaded', plugins_url('wp-foto-vote/assets/js/imagesloaded.pkgd.min.js'), array('jquery'), '1.0');
 wp_enqueue_script('masonry');
-wp_enqueue_script('fv_theme_fashion', FvFunctions::get_theme_url ( $theme, 'fv_theme_fashion.js' ), array( 'jquery' ) , '1.0');
+wp_enqueue_script('fv_theme_fashion', FvFunctions::get_theme_url ( $theme, 'fv_theme_fashion.js' ), array( 'jquery', 'fv_lib_js', 'masonry' ), FV::VERSION);
 
 
 add_action('fv_before_shows_loop',  'fv_fashion_before_show');

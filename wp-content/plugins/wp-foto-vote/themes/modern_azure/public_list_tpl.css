@@ -27,7 +27,7 @@
     text-align: center;
 }
 
-.fv_button #action_button {
+.fv_button .fv_vote {
     display: block;
     width: 97%;
     height: 35px;
@@ -50,11 +50,12 @@
     white-space: nowrap;
 }
 
-.fv_button #action_button:hover, .fv_button #action_button:active {
+.fv_button .fv_vote:hover,
+.fv_button .fv_vote:active {
     background: #3CAFC5;
 }
 
-.fv_button #action_button .hand {
+.fv_button .fv_vote .hand {
     padding: 0 23px 0 0;
     background: url(img/icon-hand.png) right 1px no-repeat;
     font-style: normal;
@@ -92,4 +93,15 @@
     /* selected number */
     background-color: #39a5bb;
     border-color: #39a5bb;
+}
+
+
+@media (max-width: 468px) {
+    .contest-block img {
+        height: auto !important;
+        width: 100% !important;
+    }
+    .contest-block {
+        width: 100% !important;
+    }
 }

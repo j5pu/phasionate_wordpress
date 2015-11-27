@@ -1,4 +1,4 @@
-.sv_unit{
+.contest-block{
     margin: 0 10px 20px 10px !important;
     padding: 5px;
     display: inline-block;    
@@ -12,31 +12,28 @@
     transition: all .3s ease-in-out;
 }
 
-.sv_unit:hover{
+.contest-block:hover{
     box-shadow: 0px 0px 12px 0px #CCC;
 }
 
-.sv_unit .unit_pic a {
+.contest-block--img-wrap a {
     display: inline-block;
     margin-top: 10px;
-    min-width: 180px;
-    /*height: 200px;*/
+    min-width: 81%;
 }
 
 /* IMAGE */
 
+.contest-block--img-wrap img {padding:0px; background:#fff; }
 
-/*.unit_pic {height: 168px; }*/
-.unit_pic img {padding:0px; background:#fff; }
-
-.sv_unit img {
+.contest-block--img-wrap img {
         box-shadow: 0.1px 0.1px 1px 1.3px rgba(0, 0, 150, 0.2);
 }
-.sv_unit img:hover{
+.contest-block--img-wrap img:hover{
         box-shadow: 0px 0px 2px 2.5px rgba(0, 10, 205, 0.2);
 }
 
-.sv_unit .sv_title{
+.contest-block .sv_title{
     padding-left: 10px;
     padding-right: 10px;
     margin-top: 10px;
@@ -46,7 +43,7 @@
     font-size: 16px;
 }
 
-.sv_unit .sv_title .sv_name{
+.contest-block .sv_title .sv_name{
     font-size: 14px;
     float:left;
     font-weight: 700;
@@ -54,13 +51,13 @@
 }
 
 .sv_votes {
-    width:20px;
+    width:26px;
     float: right;
 }
 
 .sv_votes span {
     color: #d02e2e;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 20px;
 }
 
@@ -72,7 +69,7 @@
     padding: 2px 0 10px 0;
 }
 
-#action_button {
+.fv_button .fv_vote {
     background-color: #7CBDDE;
 
     background-repeat: repeat-x;
@@ -92,13 +89,21 @@
     border: none;
     display: inline;
     box-sizing: border-box;
+    vertical-align: middle;
 }
 
-#action_button:hover {
+.fv_button .fv_vote:hover {
     background-repeat: repeat-x;
     background-image: -moz-linear-gradient(top, #7EBBD9, #3A9BCC);
     background-image: -ms-linear-gradient(top, #7EBBD9, #3A9BCC);
     background-image: -webkit-linear-gradient(top, #7EBBD9, #3A9BCC);
     background-image: -o-linear-gradient(top, #7EBBD9, #3A9BCC);
     background-image: linear-gradient(top, #7EBBD9, #3A9BCC);
+}
+
+
+@media(max-width: 480px) {
+    .contest-block {
+        max-width: 99%;
+    }
 }

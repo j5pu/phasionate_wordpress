@@ -36,7 +36,7 @@ Settings icons
     content: '\e086';
 }
 
-#fv-setting-page .fv-tabs-navigation a[data-content='upload_form']::before {
+#fv-setting-page .fv-tabs-navigation a[data-content='upload']::before {
     content: "\e07b";
 }
 

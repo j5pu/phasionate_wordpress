@@ -63,7 +63,7 @@
 	margin-right: 50px;
 }
 
-#fv_constest_item input#action_button {
+#fv_constest_item .fv_button .fv_vote {
 	background-color: #7CBDDE;
 
 	background-repeat: repeat-x;
@@ -147,4 +147,9 @@
 #fv_constest_item .fv_description {
 	padding: 5px;
 	margin: 0 20px;
+}
+
+#fv_constest_item .fv-small-action-btn {
+    float: right;
+    margin-right: 10px;
 }

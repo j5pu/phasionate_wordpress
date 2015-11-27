@@ -1,10 +1,9 @@
-
 .fv_upload_simple-rounded .fv_wrapper input,
 .fv_upload_simple-rounded .fv_wrapper textarea {
     border: solid 1px #999 !important;
     padding: 5px !important;
     font-size: 18px !important;
-
+    color: black;
 }
 
 .fv_upload_simple-rounded .fv_wrapper input.invalid {
@@ -27,7 +26,9 @@
     }
 }
 
-.fv_upload_simple-rounded input[type='radio'], .fv_upload_simple-rounded input[type='checkbox'], #fv_upload_form select {
+.fv_upload_simple-rounded input[type='radio'],
+.fv_upload_simple-rounded input[type='checkbox'],
+.fv_upload_simple-rounded select {
     width: auto;
 }
 
@@ -42,7 +43,8 @@
     color: #660000;
 }
 
-.fv_upload_simple-rounded  .field, .fv_upload_simple-rounded .field label{
+.fv_upload_simple-rounded  .field,
+.fv_upload_simple-rounded .field label{
     margin-bottom: 4px;
 }
 
@@ -123,13 +125,14 @@
     font-size:16px;
 }
 
-.fv_upload_simple-rounded .fv_wrapper .textarea, .fv_upload_simple-rounded .fv_wrapper textarea{
+.fv_upload_simple-rounded .fv_wrapper .textarea,
+.fv_upload_simple-rounded .fv_wrapper textarea{
     width:500px;
     height:100px;
 }
 
 
-.fv_upload_simple-rounded #action_button {
+.fv_upload_simple-rounded .fv-upload-btn {
     font-size: 20px;
     font-weight: 500;
     -moz-border-radius: 3px;
@@ -164,7 +167,7 @@
 
 }
 
-.fv_upload_simple-rounded #action_button:hover {
+.fv_upload_simple-rounded .fv-upload-btn:hover {
     background: rgba(0, 0, 0, 0.05);
     padding: 5px 34px 5px 14px !important;
     background-color: #f2555b;
@@ -177,11 +180,11 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f2555b, endColorstr=#ed1c24);
     cursor: pointer; cursor: hand;
 }
-.fv_upload_simple-rounded #action_button:hover:after {
+.fv_upload_simple-rounded .fv-upload-btn:hover:after {
     opacity: 1;
     margin-left: 0;
 }
-.fv_upload_simple-rounded #action_button:after {
+.fv_upload_simple-rounded .fv-upload-btn:after {
     font-size: 20px;
     line-height: 30px;
     content: "\e63f";
@@ -209,3 +212,15 @@
 .fv_upload .fv_form_filed h3, .fv_form_filed .note{ color: #425768; }
 .fv_upload .qt_static h3{ color: #354247; }
 .fv_upload .fv_form_filed .wrapper{ color: #666666; }
+
+
+@media ( max-width:768px ) {
+    .fv_upload_simple-rounded .fv-file-wrapper .form-control-short {
+        margin-left: 0px !important;
+    }
+
+    .fv_upload_simple-rounded .fv-file-wrapper {
+        margin-bottom: 10px;
+        margin-top: 4px;
+    }
+}

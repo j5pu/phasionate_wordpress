@@ -65,21 +65,34 @@ function FvAddon_CoutdownDeafultRun(){
             add_action( 'fv/load_countdown/default', array($this, 'run'), 10, 3 );
 		}
 
-        public function run($contest_date_start, $contest_date_finish, $public_translated_messages) {
+        public function run($contest_date_start, $contest_date_finish) {
             wp_enqueue_style('fv_coutdown-deafult', $this->addonUrl . 'assets/fv-countdown-default.css', false, self::VER, 'all');
-            wp_enqueue_script('fv_coutdown-deafult', $this->addonUrl . 'assets/fv-countdown-default.js', array('jquery'), self::VER);
+            wp_enqueue_script('fv_lib_js', fv_min_url(FV::$ASSETS_URL . 'js/fv_lib.js'), array('jquery'), FV::VERSION, true );
+            wp_enqueue_script('fv_coutdown-deafult', fv_min_url($this->addonUrl . 'assets/fv-countdown-default.js'), array('jquery', 'fv_lib_js'), self::VER);
 
-            $date_diff = strtotime($contest_date_finish) - current_time('timestamp', 0);
-            $days_leave = round($date_diff / 86400);
-            $hours_leave = floor( ($date_diff % 86400) / (60 * 60) );
-            $minutes_leave = floor( ($date_diff % 86400) % (60 * 60) / 60 );
-            $secs_leave = floor( ($date_diff % 86400) % (60 * 60) % 60 );
+            if ( $this->_get_opt('count_until', 'end') == 'end' ) {
+                // Count until date ends
+                $date_diff = strtotime($contest_date_finish) - current_time('timestamp', 0);
+            } else {
+                // Count until date start
+                $date_diff = strtotime($contest_date_start) - current_time('timestamp', 0);
+            }
+
+            if ( $date_diff > 0 ) {
+                $days_leave = floor($date_diff / 86400);
+                $hours_leave = floor( ($date_diff % 86400) / (60 * 60) );
+                $minutes_leave = floor( ($date_diff % 86400) % (60 * 60) / 60 );
+                $secs_leave = floor( ($date_diff % 86400) % (60 * 60) % 60 );
+            } else {
+                $days_leave = $hours_leave = $minutes_leave = $secs_leave = 0;
+            }
+
 
             include_once 'views/default.php';
         }
 
         public function register($countdowns) {
-            $countdowns['default'] = 'Default';
+            $countdowns['default'] = 'Default [fv_countdown contest_id="*" type="default"]';
             return $countdowns;
         }
 
@@ -94,26 +107,7 @@ function FvAddon_CoutdownDeafultRun(){
 			parent::admin_init();			
 			// There you can load plugin textdomain as example
             add_filter( 'fv/countdown/list', array($this, 'register'), 10, 1 );
-		}		
-
-		/**
-		 * Enqueue addon public script and styles
-		 *
-		 * @since 2.2.083 / 0.1
-		 *
-		 */
-		public function public_assets_scripts() 
-		{
 		}
-		
-		/**
-		 * Enqueue addon public styles
-		 *
-		 * @since 2.2.083 / 0.1
-		 */
-		public function public_assets_styles() {
-			//wp_enqueue_style( $this->slug . '_css', FV_CV_URL . '/assets/fv_confirm-vote.css', false, self::VER, 'all');
-		}						
 		
 		/**
 		 * Dynamically add Addon settings section
@@ -124,40 +118,46 @@ function FvAddon_CoutdownDeafultRun(){
 		{
 		
 			//$sections = array();
-            /*
+
 			$sections[] = array(
-				'title' => __('Confirm vote', $this->mu_slug),
-				'desc' => __('<p class="description">This addon enable confirm modal window before vote.</p>', $this->mu_slug),
-				'icon' => 'el-icon-check',
+				'title' => __('Coutdown deafult', $this->mu_slug),
+				'description' => 'Countdown count time until contest end.',
+				'icon' => 'el-icon-time',
 				// Leave this as a blank section, no options just some intro text set above.
 				'fields' => array(
 					array(
-						'id'        => $this->slug . '_enabled',
-						'type'      => 'switch',
-						'title'     => __('Enable confirm before vote?', $this->mu_slug),
-						//'subtitle'  => __('', $this->mu_slug),
-						'default'   => true,
-					),													
-					array(
-						'id'       => $this->slug . '_confirm_title',
-						'type'     => 'text',
-						'title'    => __('Title - confirm vote', $this->mu_slug),
-						'subtitle' => __('Enter success modal title (1-2 word)', $this->mu_slug),
-						'validate' => 'not_empty',
-						'default'  => 'Confirm your vote'
+						'id'        => $this->slug . '_text_before',
+						'type'      => 'text',
+                        'title'     => 'Text before countdown?',
+                        'desc'     => 'You can use standard post tags (a,p,strong,div,small).',
+                        'default'   => 'Contest will ends in:',
+                    ),
+                    array(
+						'id'        => $this->slug . '_count_until',
+						'type'      => 'radio',
+						'title'     => __('Count time until contest start or end?', $this->mu_slug),
+                        'desc'     => 'Note - if time will me < 0, than countdown will shows 0-0-0-0.',
+                        //Must provide key => value pairs for radio options
+                        'options'  => array(
+                            'end' => 'Contest end',
+                            'start' => 'Contest start',
+                        ),
+						'default'   => 'end',
 					),
-					array(
-						'id'       => $this->slug . '_confirm_msg',
-						'type'     => 'text',
-						'title'    => __('Message - confirm vote', $this->mu_slug),
-						'subtitle' => __('Enter success modal title', $this->mu_slug),
-						'validate' => 'not_empty',
-						'default'  => 'Are you sure to vote for this entry?'
-					),									
-				
+                    array(
+						'id'        => $this->slug . '_days_count',
+						'type'      => 'radio',
+						'title'     => __('How many digit show for days?', $this->mu_slug),
+                        //Must provide key => value pairs for radio options
+                        'options'  => array(
+                            '2' => '2 digit (for < 99 days)',
+                            '3' => '3 digit (for > 99 days)',
+                        ),
+						'default'   => 2,
+					),
 				)
 			);
-            */
+
 			return $sections;
 		}
 
@@ -183,6 +183,6 @@ function FvAddon_CoutdownDeafultRun(){
 	}
 	
 	/** Instantiate the class */
-	$fvAddon_65482 = FvAddon_CoutdownDeafult::get_instance();
+	FvAddon_CoutdownDeafult::get_instance();
 	
 }	// Function :: END

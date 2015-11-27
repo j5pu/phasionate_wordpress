@@ -49,13 +49,3 @@
     <input type="text" placeholder="http://test.com/contest/" value="<?php echo $link; ?>" name="<?php echo $this->get_field_name('link'); ?>" id="<?php echo $this->get_field_id('link'); ?>" class="widefat" />
 	 <small><?php _e('Don`t forgot http://, as example "http://test.com/contest/"', 'fv'); ?></small>
 </p>
-<!-- Design 
-<p>
-    <label for="<?php echo $this->get_field_id('design'); ?>"><?php _e('Design:', 'fv'); ?></label>
-    <select name="<?php echo $this->get_field_name('design'); ?>" id="<?php echo $this->get_field_id('design'); ?>" class="widefat">
-        <?php foreach ( array('default','white','black','red') as $design_item) : ?>
-        <option value="<?php echo $design_item ?>" <?php selected($design_item, $design); ?>><?php echo $design_item ?></option>
-        <?php endforeach; ?>        
-    </select>
-</p>
--->

@@ -1,9 +1,18 @@
 <table class="form-table">
 
+    <!-- ============ Not compiled BLOCK ============ -->
+    <tr valign="top">
+        <th scope="row"><?php _e('Remove all "new-line" codes in html?', 'fv') ?></th>
+        <?php echo fv_get_td_tooltip_code( __('If you contest layout looks broken - try this option. Or can be used for little decrease page size.', 'fv') ); ?>
+        <td>
+            <input type="checkbox" name="fv[remove-newline]" <?php echo checked(FvFunctions::ss('remove-newline', false)); ?>/> <?php _e('Yes', 'fv') ?>
+            <br/><small>Example, when you need enable it: <a target="_blank" href="https://yadi.sk/i/6Ycoqwugk7nDy">https://yadi.sk/i/6Ycoqwugk7nDy</a></small>
+        </td>
+    </tr>
 
     <!-- ============ Not compiled BLOCK ============ -->
     <tr valign="top" class="no-padding">
-        <td colspan="3"><h3><?php _e('Scripts & styles', 'fv') ?></h3></td>
+        <td colspan="3"><h3><?php _e('Debug Scripts & styles', 'fv') ?></h3></td>
     </tr>
 
     <tr valign="top" class="important">
@@ -13,7 +22,6 @@
             <input type="checkbox" name="fv[not-compiled-assets]" <?php echo checked(FvFunctions::ss('not-compiled-assets', false)); ?>/> <?php _e('Yes', 'fv') ?>
         </td>
     </tr>
-
 
     <!-- ============ Updating BLOCK ============ -->
     <tr valign="top" class="no-padding">
@@ -51,11 +59,13 @@
                 $key_arr = $defaults;
             }
             ?>
-            <input name="fotov-update-key" class="all-options" value="<?php echo $key_arr['key']; ?>"/> <br/>
+            <input name="fotov-update-key" class="all-options" value="<?php echo $key_arr['key']; ?>"/>
+            <a href="<?php echo admin_url( 'admin.php?page=fv-settings&action=refresh_key#additional' ) ?>" class="button button-secondary button-large">Refresh data for saved key</a> <small>(Edit => Save => Refresh)</small>
+            <br/>
             <small><?php
                 echo ($key_arr['valid']) ?
                     __('Key expiration date: ', 'fv') . $key_arr['expiration'] : __('Error: ', 'fv') . __($key_arr['expiration'], 'fv');
-                ?></small>
+            ?></small>
         </td>
     </tr>
 
@@ -134,8 +144,8 @@
 
         <td>
             <select name="fv-export-delimiter">
-                <option value=";" <?php selected(';', get_option('fv-export-delimiter', ';') ); ?>>;</option>
-                <option value=" " <?php selected('    ', get_option('fv-export-delimiter', ';') ); ?>>tab</option>
+                <option value=";" <?php selected(';', get_option('fv-export-delimiter', ';') ); ?>>; (recommended for Excel)</option>
+                <option value="\t" <?php selected('\t', get_option('fv-export-delimiter', ';') ); ?>>tab</option>
                 <option value="," <?php selected(',', get_option('fv-export-delimiter', ';') ); ?>>,</option>
                 <option value="," <?php selected(':', get_option('fv-export-delimiter', ';') ); ?>>:</option>
             </select>
@@ -177,6 +187,14 @@
         <?php echo fv_get_td_tooltip_code( __('Can be used for little decrease server loading. But all addons will stop works (like circled countdown).', 'fv') ); ?>
         <td>
             <input type="checkbox" name="fv[disable-addons-support]" <?php echo checked(FvFunctions::ss('disable-addons-support', false)); ?>/> <?php _e('Yes', 'fv') ?>
+        </td>
+    </tr>
+
+    <tr valign="top" style="display: none;">
+        <th scope="row"><?php _e('Enable SQL debug?', 'fv') ?>:</th>
+        <?php echo fv_get_td_tooltip_code( __('Will save all plugin SQL queries.', 'fv') ); ?>
+        <td>
+            <input type="checkbox" name="fv[debug-sql]" <?php checked( FvFunctions::ss('debug-sql', false) ); ?>/> <?php _e('Yes', 'fv') ?>
         </td>
     </tr>
 

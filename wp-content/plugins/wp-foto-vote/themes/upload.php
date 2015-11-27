@@ -47,6 +47,9 @@ $randInt = rand(99, 499);
     <?php
     if ( FvFunctions::ss('upload-show-login-form') ):
         wp_login_form();
+        if ( has_action('wordpress_social_login') ) {
+            do_action( 'wordpress_social_login' );
+        }
     endif;
     ?>
 <?php endif;?>

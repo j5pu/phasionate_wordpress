@@ -23,15 +23,15 @@ if ( !class_exists('FvLogger') ) {
 
         static function checkDbErrors($r = null) {
             global $wpdb;
-            /*if ($wpdb->last_query) {
-                FvDebug::get_instance()->addSql($wpdb->last_query, 'fv_db_class');
-            }*/
-            //FvFunctions::dump($wpdb->last_query);
+
+            if ( FV::$DEBUG_MODE & FvDebug::LVL_SQL ) {
+                fv_log('SQL query: ', $wpdb->last_query);
+                fv_log('SQL query result: ', $wpdb->last_result);
+            }
 
             if ( strlen($wpdb->last_error) > 0 ) {
                 self::addLog('Db Error: ', $wpdb->last_error);
                 self::addLog('Error In query: ', $wpdb->last_query);
-                //FvDebug::get_instance()->add($wpdb->last_error, 'Db Error: ');
             }
         }
 

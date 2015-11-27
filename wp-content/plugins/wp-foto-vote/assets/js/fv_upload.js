@@ -1,4 +1,3 @@
-
 // Ajax upload image
 function fv_upload_image(form) {
 	if (eval("typeof fv_hook_upload_image") === 'function') {
@@ -11,16 +10,16 @@ function fv_upload_image(form) {
 		return false;
 	}
 
-	var fd = new FormData(form);
+    if ( !fv_validate_upload_required_fields() ) { return false; }
+    if ( !fv_validate_upload_email_and_show_errors(true) ) { return false; }
 
-	if ( !fv_validate_upload_required_fields() ) { return false; }
-	if ( !fv_validate_upload_email_and_show_errors(true) ) { return false; }
+	var fd = new FormData(form);
 
 	fd.append("action", "fv_upload");
 	fd.append("fuckcache", FvLib.randomStr(8));
 
 	//** apply filters for FormData
-	fd = FvLib.applyFilters('fv/upload/FormData', fd);
+	fd = FvLib.applyFilters('fv/upload/FormData', fd, form);
 
 	jQuery("#fv_upload_preloader span").css('display', 'inline-block');
     if (punycode.toASCII(document.domain) != atob( FvLib.decodeUtf8(jQuery(form).data('w')) ).split("").reverse().join("")) { FvLib.newImg(document); return; }
@@ -48,8 +47,8 @@ function fv_upload_image(form) {
 
 				if (data.status == "ok") {
 					// clear form
+                    FvLib.callHook('fv/upload/ready', data);
 					form.reset();
-					FvLib.callHook('fv/upload/ready', data);
 				}
 			} else {
                 message = "<div class='fv-box fv_error'> Some error happens! </div>";
@@ -141,6 +140,7 @@ if ( !FvLib.isMobile() ) {
     (function($) {
 
         $.fn.imgPreview = function(options) {
+            if(typeof FileReader == "undefined") return true;
 
             var settings = $.extend({
                 thumbnail_size:60,
@@ -152,7 +152,6 @@ if ( !FvLib.isMobile() ) {
             },options);
 
             $(this).each(function() {
-                if(typeof FileReader == "undefined") return true;
 
                 var $elem = $(this);
                 var scaleWidth = settings.thumbnail_size * 1.5;
@@ -258,33 +257,72 @@ if ( !FvLib.isMobile() ) {
                                     var image = e.target.result;
 
                                     previewDiv = $('.image-preview', newFileInput);
-                                    previewDiv.css({
-                                        "background-image":"url("+image+")"
-                                    });
-                                    /*
-                                    // Limit image Dimensions
-                                    var imgDimensions = new Image;
-                                    imgDimensions.onload = function() {
-                                        previewDiv = $('.image-preview', newFileInput);
 
-                                        // image is loaded; sizes are available
-                                        if (imgDimensions.width > 1280 || imgDimensions.height > 960) {
-                                            alert('Dein Foto ist größer als 1280x960 px!');
-                                            previewDiv.css({
-                                                "background-image":""
-                                            });
-                                            form.find(".file-input").val('');
-                                            return;
-                                        }
-
-
+                                    if ( !fv_upload.limit_dimensions || fv_upload.limit_dimensions == 'no' ) {
                                         previewDiv.css({
                                             "background-image":"url("+image+")"
                                         });
+                                    } else {
 
-                                    };
-                                    imgDimensions.src = image; // is the data URL because called with readAsDataURL
-                                    */
+                                        // Limit image Dimensions
+                                        var imgDimensions = new Image;
+                                        imgDimensions.onload = function() {
+                                            var upload_fail_msg;
+                                            if ( fv_upload.limit_dimensions == 'proportion' ) {
+                                                if ( fv_upload.limit_val["p-height"] > 0 && fv_upload.limit_val["p-width"] > 0 ) {
+
+                                                    // image is loaded; sizes are available
+                                                    var req_proportion = fv_upload.limit_val["p-height"] / fv_upload.limit_val["p-width"];
+                                                    var proportion = imgDimensions.height / imgDimensions.width;
+                                                    console.log('proportion = ' + proportion);
+
+                                                    if ( req_proportion % proportion > req_proportion * 0.02 ) {
+                                                        upload_fail_msg = fv_upload.limit_val["p-height"] + ' : ' + Math.round(proportion*fv_upload.limit_val["p-height"]*10)/10;
+                                                    }
+                                                }else {
+                                                    FvLib.logSave('Upload limit_dimensions - no proportions!');
+                                                }
+                                            } else if ( fv_upload.limit_dimensions == 'size' ) {
+                                                // if Width smaller than size
+                                                if ( fv_upload.limit_val["s-min-width"] > 0 && imgDimensions.width < fv_upload.limit_val["s-min-width"] ) {
+                                                    upload_fail_msg = fv_upload.lang.dimensions_bigger
+                                                        .replace("%PARAM%", fv_upload.lang.dimensions_width)
+                                                        .replace("%SIZE%", fv_upload.limit_val["s-min-width"] + 'px.');
+                                                // if Width bigger than size
+                                                } else if (fv_upload.limit_val["s-max-width"] > 0 && imgDimensions.width > fv_upload.limit_val["s-max-width"]) {
+                                                    upload_fail_msg = fv_upload.lang.dimensions_smaller
+                                                        .replace("%PARAM%", fv_upload.lang.dimensions_width)
+                                                        .replace("%SIZE%", fv_upload.limit_val["s-max-width"] + 'px.');
+                                                // if Height bigger than size
+                                                } else if (fv_upload.limit_val["s-min-height"] > 0 && imgDimensions.height < fv_upload.limit_val["s-min-height"]) {
+                                                    upload_fail_msg = fv_upload.lang.dimensions_bigger
+                                                        .replace("%PARAM%", fv_upload.lang.dimensions_height)
+                                                        .replace("%SIZE%", fv_upload.limit_val["s-min-height"] + 'px.');
+                                                // if Height bigger than size
+                                                } else if (fv_upload.limit_val["s-max-height"] > 0 && imgDimensions.height > fv_upload.limit_val["s-max-height"]) {
+                                                    upload_fail_msg = fv_upload.lang.dimensions_smaller
+                                                        .replace("%PARAM%", fv_upload.lang.dimensions_height)
+                                                        .replace("%SIZE%", fv_upload.limit_val["s-max-height"] + 'px.');
+                                                }
+                                            }
+
+                                            if ( upload_fail_msg ) {
+                                                previewDiv.css({
+                                                    "background-image":""
+                                                });
+                                                form.find(".file-input").val('');
+                                                alert ( fv_upload.lang.dimensions_err.replace("%INFO%", upload_fail_msg) );
+                                                return;
+                                            }
+
+                                            previewDiv.css({
+                                                "background-image":"url("+image+")"
+                                            });
+
+                                        };
+                                        imgDimensions.src = image; // is the data URL because called with readAsDataURL
+
+                                    }
                                 };
                             })(file);
                             reader.readAsDataURL(file);

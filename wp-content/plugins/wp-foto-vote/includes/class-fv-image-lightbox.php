@@ -30,8 +30,8 @@ class FvImageLightbox {
      */
     public static function assets ( $theme = '' ) {
 
-        wp_enqueue_script( 'fv-lightbox-imageLightbox-js',  FV::$ASSETS_URL . 'imageLightbox/jQuery.imageLightbox.js', array('jquery'), FV::VERSION, true );
-        wp_enqueue_style( 'fv-lightbox-imageLightbox-css', fv_css_url(FV::$ASSETS_URL . 'imageLightbox/jQuery.imageLightbox.css'), array(), FV::VERSION );
+        wp_enqueue_script( 'fv-lightbox-imageLightbox-js',  fv_min_url(FV::$ASSETS_URL . 'imageLightbox/jQuery.imageLightbox.js'), array('jquery'), FV::VERSION, true );
+        wp_enqueue_style( 'fv-lightbox-imageLightbox-css', fv_min_url(FV::$ASSETS_URL . 'imageLightbox/jQuery.imageLightbox.css'), array(), FV::VERSION );
 
     }
 

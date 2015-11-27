@@ -16,7 +16,19 @@ http://wp-vote.net/instructions/
 
 == Changelog ==
 
-/* VER 2.2.110 - 29/08/2015 */
+/* VER 2.2.120 - 18/11/2015 */
+- [new] Social counter
+- [new] You can limit upload photo dimensions (like photo must be bigger that 1024 * 768 px)
+
+/* VER 2.2.111 - -/09/2015 */
+- [new] A lot little fixes in themes, added Lazy load in Pinterest and Flickr, now grid in this themes generates a lot faster
+- [improvement] Rewritten generating thumbnails from BFI_thumb to more stable and faster https://github.com/gambitph/WP-OTF-Regenerate-Thumbnails
+- [new] Integrated Jetpack Photon module direct support (now it used by default, if enabled) - https://jetpack.me/support/photon/
+- [improvement] Minified JS files
+- [fix] Security fixes in `Cookie + Social Login` voting type
+- [fix] Fallback, if jQuery(document).ready() not works because of JS errors
+
+/* VER 2.2.110 - 21/09/2015 */
 
 - [new] #2 new voting security types - "IP+cookies+evercookie + Recaptcha" and "cookies+evercookie + Recaptcha"
 - [new] #Integrated BFI thumb library (https://github.com/bfintal/bfi_thumb)
@@ -38,6 +50,7 @@ http://wp-vote.net/instructions/
 - [fix] Now possible export max 5000 records
 - [fix] Added indexes for some table fields
 - [fix] Added fallback in FormBuilder page, if jQuery.ready() not works
+- [new] Added debug options for Voting and Upload (save to log information about process)
 
 /* VER 2.2.105f - 21/08/2015 */
 

@@ -11,8 +11,8 @@
         <form>
             <div class="row">
                 <div class="form-group col-sm-18">
-                        <label><?php echo __('Name', 'fv') ?></label>
-                        <input class="form-control" name="form[name]" type="text" value="<?php echo $unit->name ?>" />
+                        <label><?php echo __('Name', 'fv') ?></label> <small>max length - 255 symbols</small>
+                        <input class="form-control" name="form[name]" type="text" value="<?php echo stripslashes($unit->name) ?>" />
                 </div>
 
                 <div class="form-group col-sm-6">
@@ -24,17 +24,17 @@
             <div style="clear: both;"></div>
 
             <div class="form-group">
-                <label> <?php echo __('Short Description', 'fv') ?> </label> <small>max length - 255 symbols <?php echo __('(shows in photos list)', 'fv') ?></small>
-                <input name="form[description]" class="form-control" type="text" value="<?php echo $unit->description ?>" />
+                <label> <?php echo __('Short Description', 'fv') ?> </label> <small>max length - 500 symbols <?php echo __('(shows in photos list)', 'fv') ?></small>
+                <input name="form[description]" class="form-control" type="text" value="<?php echo stripslashes($unit->description) ?>" />
             </div>
             <div class="form-group">
-                <label> <?php echo __('Full description', 'fv') ?> </label> <small>max length - 500 symbols <?php echo __('(shows in single contest photo page)', 'fv') ?></small>
-                <textarea name="form[full_description]" class="form-control" rows="2"><?php echo $unit->full_description ?></textarea>
+                <label> <?php echo __('Full description', 'fv') ?> </label> <small>max length - 1255 symbols <?php echo __('(shows in single contest photo page)', 'fv') ?></small>
+                <textarea name="form[full_description]" class="form-control" rows="2"><?php echo stripslashes($unit->full_description) ?></textarea>
             </div>
 
             <div class="form-group">
-                <label> <?php echo __('Social description', 'fv') ?> </label> <small>max length - 100 symbols <?php echo __('(uses on sharing image into Social networks)', 'fv') ?></small>
-                <input name="form[social_description]" class="form-control" type="text" value="<?php echo $unit->social_description ?>" />
+                <label> <?php echo __('Social description', 'fv') ?> </label> <small>max length - 150 symbols <?php echo __('(uses on sharing image into Social networks)', 'fv') ?></small>
+                <input name="form[social_description]" class="form-control" type="text" value="<?php echo stripslashes($unit->social_description) ?>" />
             </div>
 
             <!--<div class="form-group">

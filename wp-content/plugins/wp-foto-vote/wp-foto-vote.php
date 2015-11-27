@@ -4,7 +4,7 @@
  * Plugin Name:       WP Foto Vote
  * Plugin URI:        http://wp-vote.net/
  * Description:       Simple photo contest plugin with ability to user upload photos. Includes protection from cheating by IP and cookies. User log voting. After the vote invite to share post about contest in Google+, Twitter, Facebook, OK, VKontakte.
- * Version:           2.2.110
+ * Version:           2.2.120
  * Author:            Maxim Kaminsky
  * Author URI:        http://www.maxim-kaminsky.com/
  * Text Domain:       fv
@@ -42,7 +42,7 @@ define('FV_RES_OP_PAGE', '15');
 define('FV_CONTEST_BLOCK_WIDTH', '200');
 define('UPDATE_SERVER_URL', 'http://wp-vote.net/updater/');
 
-define('FV_DB_VERSION', '1.5.14');
+define('FV_DB_VERSION', '1.5.159');
 define('FV_UPDATE_KEY', 'ufOluHsNayLc3E');
 define('FV_UPDATE_KEY_EXPIRATION', '2016-04-01');
 

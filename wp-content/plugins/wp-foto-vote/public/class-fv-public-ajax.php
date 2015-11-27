@@ -135,7 +135,7 @@ class FvPublicAjax {
                     //==================================
 
                     // Checks entered email
-                    if ( get_option('fotov-upload-limit-email', false) && get_option('fotov-upload-form-show-email', false) && !empty($new_photo['user_email']) ) {
+                    if ( get_option('fotov-upload-limit-email', true) && !empty($new_photo['user_email']) ) {
                         //if email vaild find in bd
                         if ( is_email( $new_photo['user_email'] ) ) {
                             $uploadedByEmail = ModelCompetitors::query()->where_all( array('contest_id' => $contest_id, 'user_email' => $new_photo['user_email']) )->find(true);
@@ -189,6 +189,10 @@ class FvPublicAjax {
                     if ( apply_filters( 'fv/public/custom_upload/uses', false, $contest ) === false ) {
                         require_once(ABSPATH . 'wp-admin/includes/admin.php');
 
+                        if ( FvFunctions::ss('upload-custom-folder', false) ) {
+                            // Change Upload dir
+                            add_filter('upload_dir', array('FvPublicAjax', 'filter_upload_dir'));
+                        }
                         // Get all File inputs (NEED for support Multiply File inputs)
                         FOREACH (FvFormHelper::_get_file_inputs() as $INPUT_NAME => $INPUT_params) :
 
@@ -227,6 +231,10 @@ class FvPublicAjax {
                             }
                         ENDFOREACH;
 
+                        if ( FvFunctions::ss('upload-custom-folder', false) ) {
+                            remove_filter('upload_dir', array('FvPublicAjax', 'filter_upload_dir'));
+                        }
+
                     } else {
                         $custom_upload_result = apply_filters('fv/public/custom_upload/run', array(), $new_photo, $contest);
                         //FvLogger::addLog('$custom_upload_result', $custom_upload_result);
@@ -244,7 +252,7 @@ class FvPublicAjax {
 
                     //** IF there not problems
                     IF ( count($err) == 0 ):
-                        $public_translated_messages = apply_filters('fv/public/upload_after_save', $public_translated_messages, $new_photo_data, $photo_id);
+                        $public_translated_messages = apply_filters('fv/public/upload_after_save', $public_translated_messages, $new_photo_data, $inserted_photo_id);
 
                         // Sent Notify Messages to Admin and User
                         if ( !$notify_sent ) {
@@ -302,7 +310,19 @@ class FvPublicAjax {
         if ( isset($photo_data_array['options']) && is_array($photo_data_array['options']) ) {
             $photo_data_array['options'] = maybe_serialize($photo_data_array['options']);
         }
-        return ModelCompetitors::query()->insert($photo_data_array);
+
+        $insert_res = ModelCompetitors::query()->insert($photo_data_array);
+
+        if ( FV::$DEBUG_MODE & FvDebug::LVL_CODE_UPLOAD ) {
+            fv_log('_upload_add_photo_to_db', $photo_data_array, __FILE__, __LINE__);
+            fv_log('_upload_add_photo_to_db INSERT result', $insert_res);
+        }
+
+        if ( $insert_res == 0) {
+            fv_log('_upload_add_photo_to_db :: something wrong, result is 0!', $photo_data_array, __FILE__, __LINE__);
+        }
+
+        return $insert_res;
     }
 
     /**
@@ -333,10 +353,33 @@ class FvPublicAjax {
         // User upload Notify
         if ( get_option('fotov-users-notify-upload', false) ) {
             if ( !empty($new_photo_data['user_email']) && is_email($new_photo_data['user_email']) ) {
-                $mail_body = sprintf($public_translated_messages['mail_upload_user_body'], $contest->name, $new_photo_data["name"], $new_photo_data["user_email"]);
+                $photo_url = urldecode( fv_generate_contestant_link( get_permalink( $post_id ), $contest->id, $inserted_photo_id ) );
+                $mail_body = sprintf($public_translated_messages['mail_upload_user_body'], $contest->name, $new_photo_data["name"], $new_photo_data["user_email"], $photo_url);
                 FvFunctions::notifyMailToUser($new_photo_data['user_email'], $public_translated_messages['mail_upload_user_title'], $mail_body);
             }
         }
+    }
+
+
+    /**
+     * Change WP upload dir to custom
+     * @param array $path_data
+     */
+    public static function filter_upload_dir($path_data)
+    {
+        if (!empty($path_data['error'])) {
+            return $path_data; //error or uploading
+        }
+
+        //remove default subdir (year/month)
+        $path_data['path'] = str_replace($path_data['subdir'], '', $path_data['path']);
+        $path_data['url'] = str_replace($path_data['subdir'], '', $path_data['url']);
+
+        $path_data['subdir'] = '/fv-contest';
+        $path_data['path'] .= '/fv-contest';
+        $path_data['url'] .= '/fv-contest';
+
+        return $path_data;
     }
 
 // END FUNCTION @upload_photo@

@@ -74,6 +74,9 @@ defined('ABSPATH') or die("No script kiddies please!");
         </span>
         <span class="sidebar-image-details">
             <i class="fvicon-star3"></i> <span class="sv_votes_<?php echo $contestant->id ?>"><?php echo $contestant->votes_count ?></span>
+            <?php if( FvFunctions::ss('soc-counter', false) ): ?>
+                &nbsp;<i class="fvicon-share"></i> <span class="fv_svotes_<?php echo $contestant->id ?>" title="<?php echo $public_translated_messages['shares_count_text']; ?>">0</span>
+            <?php endif; ?>
         </span>
         <div class="clearfix"></div>
 

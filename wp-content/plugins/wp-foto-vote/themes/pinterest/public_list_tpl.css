@@ -33,8 +33,7 @@
 .clg-item {
     display:inline-block;
     position:relative;
-    z-index:50;
-    /*width:286px;*/
+    /*z-index:50;*/
     background-color:#fafafa;
     box-shadow:1px 1px 3px 0 rgba(0,0,0,.25);
     -webkit-transition:top 1s ease, left 1s ease;
@@ -76,6 +75,11 @@
         display: block !important;
         opacity: 0.2 !important;
     }
+
+    /*.contest-block, .contest-block .clg-item-head {
+        max-width: 100%;
+        height: auto !important;
+    }*/
 }
 
 .clg-head-view {
@@ -216,7 +220,7 @@ p.clg-info-row {
     text-align: left;
 }
 
-P.clg-info-social {
+p.clg-info-social {
     float:right;
     height:14px;
     margin:4px 0 0 0;
@@ -246,6 +250,10 @@ P.clg-info-social {
     margin-right:4px;
     width:15px;
     height:11px;
+}
+
+.clg-info-social .fvicon-share {
+    font-size:11px;
 }
 
 

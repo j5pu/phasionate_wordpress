@@ -4,7 +4,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 $settings_tabs = array(
     "general" => __("General", 'fv'),
     "voting" => __("Voting", 'fv'),
-    "upload_form" => __("Upload form", 'fv'),
+    "upload" => __("Upload", 'fv'),
     "upload_notify" => __("Upload notify", 'fv'),
     "additional" => __("Additional", 'fv'),
 );
@@ -20,19 +20,18 @@ $settings_tabs = array(
 		__('Data deleted. Reactivate plugin!', 'fv') .
 		'</strong></p></div>';
 	}
-	if (isset($_REQUEST['settings-updated'])) {
-		echo '<div id="setting-error-settings_updated" class="updated settings-error">
-            <p>
-                <strong>' . __('Configuration saved.', 'fv') . '</strong>
-            </p>
-         </div>';
-	}
-	?>
 
-	<div class="fv_content_wrapper">
+	?>
+    <div id="fv-settings-updated" class="updated settings-error" style="display: none;">
+        <p>
+            <strong><?php _e('Configuration saved.', 'fv') ?></strong>
+        </p>
+    </div>
+
+    <div class="fv_content_wrapper">
 
 		<div class="fv_content_cell fv-tabs" id="fv-content">
-            <form method="post" action="options.php">
+            <form method="post" action="options.php" onsubmit="fv_save_settings(this); return false;">
                 <?php settings_fields('fotov-settings-group'); ?>
                 <!-- Tabs -->
                 <nav>
@@ -78,7 +77,7 @@ $settings_tabs = array(
         }
 
 		td.socials span {
-			width: 110px;
+			width: 120px;
 			display: inline-block;
 		}
 		td.upload-additionals span {

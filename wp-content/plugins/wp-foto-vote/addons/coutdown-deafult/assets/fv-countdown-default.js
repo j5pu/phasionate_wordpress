@@ -1,8 +1,8 @@
-jQuery(function() {
-    if ( jQuery('div.fv_time').hasClass('countdownRunned') ) {
+FvLib.addHook('doc_ready', function() {
+    if ( jQuery('div.fv-countdown').hasClass('countdownRunned') ) {
         return;
     }
-    jQuery('div.fv_time').addClass('countdownRunned');
+    jQuery('div.fv-countdown').addClass('countdownRunned');
 
 	if (document.createElement('canvas').getContext) {
 		var image = jQuery('<img />').load(function() {
@@ -170,14 +170,14 @@ jQuery(function() {
 				cf_draw(parseInt(jQuery('span', this).text(), 10), parseInt(jQuery('span', this).text(), 10), canvas, 11);
 			});
 			
-			var seconds_cnt = jQuery('div.fv_time .bl-inner:last'),
-				minutes_cnt = jQuery('div.fv_time .bl-inner:eq(2)'),
-				hourses_cnt = jQuery('div.fv_time .bl-inner:eq(1)'),
-				days_cnt 	= jQuery('div.fv_time .bl-inner:eq(0)');
+			var seconds_cnt = jQuery('div.fv-countdown .bl-inner:last'),
+				minutes_cnt = jQuery('div.fv-countdown .bl-inner:eq(2)'),
+				hourses_cnt = jQuery('div.fv-countdown .bl-inner:eq(1)'),
+				days_cnt 	= jQuery('div.fv-countdown .bl-inner:eq(0)');
 	
 			seconds(parseInt(jQuery('span', seconds_cnt).text(), 10), jQuery('canvas', seconds_cnt)[0]);
 		});
-		image.attr('src',  jQuery('div.fv_time').data('image') );
+		image.attr('src',  jQuery('div.fv-countdown').data('image') );
 	} else {
 		jQuery('div.bl-inner span').show();
 	}

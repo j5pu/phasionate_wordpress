@@ -69,15 +69,16 @@ class FvFormHelper {
         //die();
         $new_photo = array( 'name' => '', 'description' => '', 'full_description' => '', 'user_email' => '', 'upload_info' => '' );
         foreach($structure->fields as $field) {
+
             if ( !isset($form_data[$field->cid]) ) {
                 //FvLogger::addLog('FvFormHelper::_get_photo_email_from_POST field not exists in $form_data - ' . $field->cid);
                 continue;
             }
+            if ( is_array($form_data[$field->cid]) ) {
+                $form_data[$field->cid] = implode(';', $form_data[$field->cid]);
+            }
 
             if ( isset($field->field_options->save_to) && array_key_exists($field->field_options->save_to, $new_photo) ) {
-                if ( is_array($form_data[$field->cid]) ) {
-                    $form_data[$field->cid] = implode(';', $form_data[$field->cid]);
-                }
                 switch ($field->field_options->save_to) {
                     case 'name':
                         if ( strlen($new_photo['name']) > 1 ) { $new_photo['name'] .= '; '; }
@@ -106,7 +107,6 @@ class FvFormHelper {
 
 
         return $new_photo;
-
     }
 
     /**
@@ -140,9 +140,10 @@ class FvFormHelper {
                 $cSectionBreak++;
             endif;
         endforeach;
-        $html .= '</fieldset>';
 
         $html .= apply_filters("fv_upload_form_rules_filer", '', $c);
+
+        $html .= '</fieldset>';
 
         $html .= '<div style="clear:both;overflow:hidden">' .
                     '<button type="submit" class="fv-upload-btn">' .
@@ -241,6 +242,8 @@ class FvFormHelper {
             $required = 'required';
         }
 
+        // Try remove ID attr
+        //id="' . esc_attr($field->id) . '"
         switch ($field->field_type) {
 
             case 'text':
@@ -251,15 +254,15 @@ class FvFormHelper {
                     $pattern = ' pattern=".{' . $field->field_options->minlength . ',' .  $field->field_options->maxlength . '}" ';
                 }
 
-                $html .= '<input class="' . esc_attr($field->class) . '" id="' . esc_attr($field->id) . '" type="text" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field->placeholder) . '" value="' . $data . '" ' . $required . $pattern . '/>' . "\n";
+                $html .= '<input class="' . esc_attr($field->class) . '" type="text" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field->placeholder) . '" value="' . $data . '" ' . $required . $pattern . '/>' . "\n";
                 break;
 
             case 'website':
-                $html .= '<input class="' . esc_attr($field->class) . '" id="' . esc_attr($field->id) . '" type="url" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field->placeholder) . '" value="' . $data . '" ' . $required . '/>' . "\n";
+                $html .= '<input class="' . esc_attr($field->class) . '" type="url" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field->placeholder) . '" value="' . $data . '" ' . $required . '/>' . "\n";
                 break;
 
             case 'email':
-                $html .= '<input autocomplete class="' . esc_attr($field->class) . '" id="' . esc_attr($field->id) . '" type="email" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field->placeholder) . '" value="' . $data . '" ' . $required . '/>' . "\n";
+                $html .= '<input autocomplete="on" class="' . esc_attr($field->class) . '" type="email" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field->placeholder) . '" value="' . $data . '" ' . $required . '/>' . "\n";
                 break;
 
             case 'number':
@@ -275,11 +278,11 @@ class FvFormHelper {
                 if ( isset($field->field_options->units) ) {
                     $units = $field->field_options->units;
                 }
-                $html .= '<div><input style="display: inline-block;" class="' . esc_attr($field->class) . '" id="' . esc_attr($field->id) . '" type="number" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field->placeholder) . '" value="' . $data . '" ' . $required . $min . $max . '/> ' . $units . "</div>\n";
+                $html .= '<div><input style="display: inline-block;" class="' . esc_attr($field->class) . '" type="number" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field->placeholder) . '" value="' . $data . '" ' . $required . $min . $max . '/> ' . $units . "</div>\n";
                 break;
 
             case 'textarea':
-                $html .= '<textarea class="' . esc_attr($field->class) . '" id="' . esc_attr($field->id) . '" rows="5" cols="50" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field->placeholder) . '" ' . $required . '>' . esc_attr($data) . '</textarea>' . "\n";
+                $html .= '<textarea class="' . esc_attr($field->class) . '" rows="5" cols="50" name="' . esc_attr($option_name) . '" placeholder="' . esc_attr($field->placeholder) . '" ' . $required . '>' . esc_attr($data) . '</textarea>' . "\n";
                 break;
 
             case 'checkbox':
@@ -287,7 +290,7 @@ class FvFormHelper {
                 if ($data) {
                     $checked = 'checked="checked"';
                 }
-                $html .= '<input id="' . esc_attr($field->id) . '" type="' . $field->field_type . '" name="' . esc_attr($option_name) . '" ' . $checked . ' ' . $required . '/>' . "\n";
+                $html .= '<input type="' . $field->field_type . '" name="' . esc_attr($option_name) . '" ' . $checked . ' ' . $required . '/>' . "\n";
                 break;
 
             case 'checkbox_multi':
@@ -303,7 +306,7 @@ class FvFormHelper {
                 break;
 
             case 'select':
-                $html .= '<select name="' . esc_attr($option_name) . '" class="' . esc_attr($field->class) . '" id="' . esc_attr($field->id) . '" ' . $required . '>';
+                $html .= '<select name="' . esc_attr($option_name) . '" class="' . esc_attr($field->class) . '" ' . $required . '>';
                 if ( !empty($field->include_blank_option) && $field->include_blank_option) {
                     $html .= '<option ' . selected(true) . ' value="">' . __("Select value", 'fv') . '</option>';
                 }
@@ -315,7 +318,7 @@ class FvFormHelper {
                 break;
 
             case 'select_multi':
-                $html .= '<select name="' . esc_attr($option_name) . '[]" id="' . esc_attr($field->id) . '" multiple="multiple" ' . $required . '>';
+                $html .= '<select name="' . esc_attr($option_name) . '[]" multiple="multiple" ' . $required . '>';
                 foreach ($field->field_options->options as $k => $v) {
                     $selected = false;
                     if (in_array($k, $data)) {

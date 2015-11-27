@@ -123,14 +123,18 @@ abstract class FvAddonBase {
      * @return mixed
      */
     protected function _get_opt($key, $default = '') {
-        global $fv_addons_settings;
-        if ( isset($fv_addons_settings[$this->slug . '_' . $key]) ) {
-            if ( $default == false && empty($fv_addons_settings[$this->slug . '_' . $key]) ) {
+        //global $fv_addons_settings;
+        if ( isset($this->addonsSettings[$this->slug . '_' . $key]) ) {
+            if ( $default == false && empty($this->addonsSettings[$this->slug . '_' . $key]) ) {
                 return false;
             }
-            return $fv_addons_settings[$this->slug . '_' . $key];
+            return $this->addonsSettings[$this->slug . '_' . $key];
         }
         return $default;
+    }
+
+    public function p_get_opt($key, $default = '') {
+        return $this->_get_opt($key, $default);
     }
 
     /**

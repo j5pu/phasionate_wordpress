@@ -34,9 +34,11 @@ class FV_DB
                 $table_competitors_name = $wpdb->prefix . "fv_competitors";
                 $table_votes_name = $wpdb->prefix . "fv_votes";
 
+                //! More - http://wordpress.stackexchange.com/a/78670
                 $sql_pk = '';
                 if ($wpdb->get_var("SHOW TABLES LIKE '$table_contests_name'") != $table_contests_name) {
-                        $sql_pk = ", PRIMARY KEY (`id`)";
+                        $sql_pk = ",
+                          PRIMARY KEY  (id)";
                 }
 
                 $sql = "CREATE TABLE " . $table_contests_name . " (
@@ -73,27 +75,28 @@ class FV_DB
                 // --------------------------------------------------- //
                 $sql_pk = '';
                 //if ($wpdb->get_var("SHOW TABLES LIKE '$table_competitors_name'") != $table_competitors_name) {
-                        $sql_pk = ", PRIMARY KEY (`id`),
-                        KEY `contest_id_a_status` (`contest_id`,`status`),
-                        KEY `votes_count` (`votes_count`) ,
-                        KEY `added_date` (`added_date`) ";
+                        $sql_pk = ",
+                          PRIMARY KEY  (id),
+                        KEY contest_id_a_status (contest_id,status),
+                        KEY votes_count (votes_count) ,
+                        KEY added_date (added_date) ";
                 //}
 
                 $sql = "CREATE TABLE " . $table_competitors_name . " (
                    id int(7) NOT NULL AUTO_INCREMENT,
                    contest_id int(7) NOT NULL,
                    name varchar(255) NOT NULL,
-                   description varchar(255) DEFAULT NULL,
-                   full_description varchar(500) DEFAULT NULL,
-                   social_description varchar(100) DEFAULT NULL,
+                   description varchar(500) DEFAULT NULL,
+                   full_description varchar(1255) DEFAULT NULL,
+                   social_description varchar(150) DEFAULT NULL,
                    additional varchar(255) DEFAULT NULL,
                    url varchar(255) NOT NULL,
                    url_min varchar(255) DEFAULT NULL,
                    options varchar(500) DEFAULT NULL,
                    image_id int(10) NOT NULL,
-                   votes_count int(5) NOT NULL DEFAULT '0',
+                   votes_count int(7) NOT NULL DEFAULT '0',
                    added_date bigint(11) NOT NULL DEFAULT '0',
-                   upload_info varchar(800) DEFAULT NULL,
+                   upload_info varchar(1000) DEFAULT NULL,
                    user_email varchar(100) DEFAULT NULL,
                    user_id int(7) DEFAULT '0',
                    user_ip varchar(45) DEFAULT NULL,
@@ -106,19 +109,20 @@ class FV_DB
                 // --------------------------------------------------- //
                 $sql_pk = '';
                 //if ($wpdb->get_var("SHOW TABLES LIKE '$table_votes_name'") != $table_votes_name) {
-                        $sql_pk = ", PRIMARY KEY (`id`),
-                        KEY `ip` (`ip`),
-                        KEY `uid` (`uid`),
-                        KEY `contest_id_a_changed` (`contest_id`,`changed`),
-                        KEY `vote_id` (`vote_id`) ";
+                        $sql_pk = ",
+                          PRIMARY KEY  (id),
+                        KEY ip (ip),
+                        KEY uid (uid),
+                        KEY contest_id_a_changed (contest_id,changed),
+                        KEY vote_id (vote_id) ";
                 //}
-                //ALTER TABLE  `**_fv_votes` ADD INDEX  `contest_id_a_changed` (  `contest_id` ,  `changed` )
+                //ALTER TABLE  **_fv_votes ADD INDEX  contest_id_a_changed (  contest_id ,  changed )
 
                 $sql = "CREATE TABLE " . $table_votes_name . " (
                     id int(16) NOT NULL AUTO_INCREMENT,
                     contest_id int(10) NOT NULL,
                     post_id int(10) NOT NULL,
-                    vote_id int(4) NOT NULL,
+                    vote_id int(5) NOT NULL,
                     ip varchar(45) NOT NULL,
                     uid varchar(25) NOT NULL,
                     score int(4) NOT NULL,
@@ -148,7 +152,7 @@ class FV_DB
                 $defaults = array('key' => FV_UPDATE_KEY, 'valid' => 1, 'expiration' => FV_UPDATE_KEY_EXPIRATION);
                 $key_arr = get_option('fotov-update-key', false);
                 if (!$key_arr) {
-                    update_option("fotov-update-key", $defaults, false);
+                    add_option("fotov-update-key", $defaults, false, 'no');
                 }
 
                 //delete_option('fotov-translation');
@@ -411,56 +415,6 @@ class FV_DB
                 return $r;
         }
 
-        public function getCompItemsCountByEmail($contest_id, $user_email)
-        {
-                global $wpdb;
-                // вернем количество результатов для пагинации
-                $sql = "SELECT COUNT(id)
-                FROM {$this->table_competitors_name}
-                WHERE `contest_id` = '$contest_id' AND `user_email` = '$user_email'";
-
-                $r = $wpdb->get_var($sql . "; #getCompItemsCountByEmail");
-
-                FvLogger::checkDbErrors($r);
-                return $r;
-        }
-
-        public function getCompItemsCountByIp($contest_id, $user_ip)
-        {
-                global $wpdb;
-                // вернем количество результатов для пагинации
-                $sql = "SELECT COUNT(id)
-                FROM {$this->table_competitors_name}
-                WHERE `contest_id` = '$contest_id' AND `user_ip` = '$user_ip'";
-
-                $r = $wpdb->get_var($sql . "; #getCompItemsCountByIp");
-
-                FvLogger::checkDbErrors($r);
-                return $r;
-        }
-
-        /**
-         * getCompItemsCountByUserId
-         *
-         * @return int count photo by user id
-         *
-         * @param int $contest_id
-         * @param int $user_id
-         */
-        public function getCompItemsCountByUserId($contest_id, $user_id)
-        {
-                global $wpdb;
-                // вернем количество результатов для пагинации
-                $sql = "SELECT COUNT(id)
-                FROM {$this->table_competitors_name}
-                WHERE `contest_id` = '$contest_id' AND `user_id` = '$user_id'";
-
-                $r = $wpdb->get_var($sql . "; #getCompItemsCountByUserId");
-
-                FvLogger::checkDbErrors($r);
-                return $r;
-        }
-
         /**
          *  get most voted items in contest
          *
@@ -512,56 +466,6 @@ class FV_DB
         }
 
         /*
-         * сохраняем изменения
-         */
-
-        public function setCompItem($args)
-        {
-                ///$id, $name, $descr, $soc_descr, $additional, $image, $image_min, $contest_id, $votes_count, $status, $comment = NULL
-                global $wpdb;
-
-                //* Define the array of defaults
-                $defaults = array( //'upload_info'     => '',
-                );
-                //* Define the array of defaults
-                $required = array('id', 'name', 'description', 'additional', 'url', 'image_id', 'contest_id', 'votes_count', 'status',);
-                if ($this->checkRequiredVariables($args, $required)) {
-                        FvLogger::addLog('setCompItem() :: not all required variables exists!');
-                        return false;
-                }
-                //* Parse incomming $args into an array and merge it with $defaults
-                $args = wp_parse_args($args, $defaults);
-
-                //var_dump($args['descr']);
-                //$wpdb->get_results('query', ARRAY_A);
-                $r = $wpdb->update(
-                    $this->table_competitors_name, array(
-                        'name' => $args['name'],
-                        'description' => $args['description'],
-                        'additional' => $args['additional'],
-                        'url' => $args['url'],
-                        'image_id' => $args['image_id'],
-                        'contest_id' => $args['contest_id'],
-                        'votes_count' => $args['votes_count'],
-                        'status' => $args['status'],
-                            //'upload_info' => $args['upload_info']
-                    ), array('ID' => $args['id']), array(
-                        '%s',
-                        '%s',
-                        '%s',
-                        '%s',
-                        '%d',
-                        '%d',
-                        '%d',
-                        '%d',
-                    ), array('%d')
-                );
-
-                FvLogger::checkDbErrors($r);
-                return $r;
-        }
-
-        /*
          * увеличивем счетчик
          */
 
@@ -596,70 +500,6 @@ class FV_DB
                 FvLogger::checkDbErrors($r);
                 return $r;
     }
-
-    /*
-     * добавляем в бд запись
-     */
-
-        public function addCompItem($args)
-        {
-                //$name, $descr, $soc_descr, $additional, $image, $image_min, $contest_id, $votes_count, $status, $comment = NULL, $email = NULL, $user_id = 0
-                global $wpdb;
-
-                //* Define the array of defaults
-                $defaults = array(
-                    'added_date' => current_time('timestamp', 0),       // sets current WP time
-                    'upload_info' => '',
-                    'user_email' => '',
-                    'user_id' => get_current_user_id(),
-                    'user_ip' => '',
-                );
-                //* Define the array of defaults
-                $required = array('name', 'description', 'additional', 'url', 'image_id', 'contest_id', 'votes_count', 'status',);
-                if ($this->checkRequiredVariables($args, $required)) {
-                        FvLogger::addLog('addCompItem() :: not all required variables exists!');
-                        return false;
-                }
-                //* Parse incomming $args into an array and merge it with $defaults
-                $args = wp_parse_args($args, $defaults);
-
-                //$wpdb->get_results('query', ARRAY_A);
-
-                $r = $wpdb->insert(
-                    $this->table_competitors_name, array(
-                        'name' => $args['name'],
-                        'description' => $args['description'],
-                        'additional' => $args['additional'],
-                        'url' => $args['url'],
-                        'image_id' => $args['image_id'],
-                        'contest_id' => $args['contest_id'],
-                        'votes_count' => $args['votes_count'],
-                        'status' => $args['status'],
-                        'added_date' => $args['added_date'],
-                        'upload_info' => $args['upload_info'],
-                        'user_email' => $args['user_email'],
-                        'user_id' => $args['user_id'],
-                        'user_ip' => $args['user_ip'],
-                    ), array(
-                        '%s',
-                        '%s',
-                        '%s',
-                        '%s',
-                        '%d',
-                        '%d',
-                        '%d',
-                        '%d',
-                        '%s',
-                        '%s',
-                        '%s',
-                        '%d',
-                        '%s',
-                    )
-                );
-
-                FvLogger::checkDbErrors($r);
-                return $wpdb->insert_id;;
-        }
 
         /*
          * удалем из бд запись
@@ -866,29 +706,6 @@ class FV_DB
                 );
                 FvLogger::checkDbErrors();
 
-                return $r;
-        }
-
-        public function getCompItemsRand($contest_id, $count = 3)
-        {
-                if ($count < 0) {
-                        $count = 3;
-                }
-                global $wpdb;
-                $sql = $wpdb->prepare(
-                    "SELECT `t0`.* FROM `" . $this->table_competitors_name . "` as `t0`,
-                         (
-                                SELECT `id` AS `sid`
-                                FROM `" . $this->table_competitors_name . "`
-                                ORDER BY RAND()
-                                LIMIT %d
-                            ) tmp
-                        WHERE `t0`.`id` = `tmp`.`sid` and `t0`.`contest_id` = %d;
-                        ", $count, $contest_id
-                );
-
-                $r = $wpdb->get_results($sql);
-                FvLogger::checkDbErrors();
                 return $r;
         }
 

@@ -62,7 +62,7 @@
          ?>
 
          <h3>
-             <span><?php _e('Updating', 'fv') ?></span>
+             <span><?php _e('Updating', 'fv') ?> :: <?php echo FV::VERSION ?></span>
          </h3>
          <div class="inside">
              <div class="gadash-title">
@@ -72,7 +72,13 @@
              </div>
              <div class="gadash-desc">
                  <strong><?php _e('Status: ', 'fv') ?></strong>
-                 <?php echo ($key_arr['valid'])? __('update active until ', 'fv') . $key_arr['expiration'] : __('update inactive - ', 'fv') . __($key_arr['expiration'], 'fv') ; ?>
+                 <?php if ( $key_arr['valid'] ):
+                     echo __('update active until ', 'fv') . $key_arr['expiration'];
+                 else:
+                     echo __('update inactive - ', 'fv') . __($key_arr['expiration'], 'fv') ;
+                     ?>
+                     <br/><a href="http://wp-vote.net/extending_license" target="_blank">Extend license >></a>
+                 <?php endif; ?>
                  <br/><?php echo ($key_arr['key'])? __('<strong>You key</strong>: ', 'fv') . $key_arr['key'] : __('Key not entered!', 'fv'); ?>
              </div>
          </div>

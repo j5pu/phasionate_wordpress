@@ -13881,7 +13881,7 @@ $.scrollWindowTo = function(pos, duration, cb) {
   var Model = Backbone.Model = function(attributes, options) {
     var attrs = attributes || {};
     options || (options = {});
-    this.cid = _.uniqueId('c');
+    this.cid = _.uniqueId('c') + Math.floor((Math.random() * 100) + 1);;
     this.attributes = {};
     if (options.collection) this.collection = options.collection;
     if (options.parse) attrs = this.parse(attrs, options) || {};
@@ -14627,7 +14627,7 @@ $.scrollWindowTo = function(pos, duration, cb) {
   // Creating a Backbone.View creates its initial element outside of the DOM,
   // if an existing element is not provided...
   var View = Backbone.View = function(options) {
-    this.cid = _.uniqueId('view');
+    this.cid = _.uniqueId('view') + Math.floor((Math.random() * 100) + 1);;
     options || (options = {});
     _.extend(this, _.pick(options, viewOptions));
     this._ensureElement();
@@ -15364,7 +15364,7 @@ $.scrollWindowTo = function(pos, duration, cb) {
         constructor: function(attributes, options) {
             var defaults;
             var attrs = attributes || {};
-            this.cid = _.uniqueId('c');
+            this.cid = _.uniqueId('c') + Math.floor((Math.random() * 100) + 1);;
             this.attributes = {};
             if (options && options.collection) this.collection = options.collection;
             if (options && options.parse) attrs = this.parse(attrs, options) || {};

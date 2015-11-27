@@ -73,14 +73,37 @@ class FV_Admin
                     //do_action("shutdown");
                     wp_safe_redirect( admin_url("admin.php?page={$current_page}&clear=true") );
                     die();
-                } elseif ('clear' == $_REQUEST['action'] && $current_page == 'fv-settings') {
-                    // Очищаем лог
-                    $my_db = new FV_DB;
-                    $my_db->clearAllData();
-                    wp_add_notice( __('Tables cleared.', 'fv'), "success" );
-                    //do_action("shutdown");
-                    wp_safe_redirect( admin_url("admin.php?page={$current_page}&clear=true") );
-                    die();
+                } elseif ($current_page == 'fv-settings') {
+                    if ( 'clear' == $_REQUEST['action'] ) {
+                        // Очищаем лог
+                        $my_db = new FV_DB;
+                        $my_db->clearAllData();
+                        wp_add_notice( __('Tables cleared.', 'fv'), "success" );
+                        //do_action("shutdown");
+                        wp_safe_redirect( admin_url("admin.php?page={$current_page}&clear=true") );
+                    } elseif ( 'refresh_key' == $_REQUEST['action'] ) {
+                        $key_data = get_option('fotov-update-key', false);
+                        if ( is_array($key_data) && !empty($key_data['key']) ) {
+                            $r = wp_remote_fopen (UPDATE_SERVER_URL . '?action=get_key_info&slug=wp-foto-vote&license_key=' . $key_data['key']);
+                            $new_key_data = @(array)json_decode($r);
+                            //FvLogger::addLog('fv_update_key_before_save result', $key_data);
+                            if (is_array($new_key_data) && isset($new_key_data['key']) && isset($new_key_data['expiration']) && isset($new_key_data['valid']) ) {
+                                //FvLogger::addLog('fv_update_key_before_save Go Save');
+                                wp_add_notice( __('Key data refreshed!', 'fv'), "success" );
+                                update_option('fotov-update-key', $new_key_data);
+                            } else {
+                                wp_add_notice( __('Can`t refresh key data, some error!', 'fv'), "warning" );
+                                FvLogger::addLog('fv_update_key_before_save (error) : data is not correct!', $new_key_data);
+                                return '';
+                            }
+                        } else {
+                            wp_add_notice( __('Can`t refresh key data, seems it empty!', 'fv'), "warning" );
+                        }
+                        //var_dump($new_key_data);
+                        //die();
+                        wp_safe_redirect( admin_url("admin.php?page={$current_page}#additional") );
+                    }
+                    //die();
                 } elseif ('clear' == $_REQUEST['action'] && $current_page == 'fv-translation') {
                     fv_reset_public_translation();
                     wp_safe_redirect( admin_url("admin.php?page={$current_page}") );
@@ -158,8 +181,8 @@ class FV_Admin
          */
         public function enqueue_scripts()
         {
-            wp_enqueue_script('fv_lib_js', FV::$ASSETS_URL . 'js/fv_lib.js', array('jquery'), '1.0');
-            wp_enqueue_script('fv_admin_js', FV::$ADMIN_URL . 'js/fv_admin.js', array('jquery'), '1.0');
+            wp_enqueue_script('fv_lib_js', fv_min_url(FV::$ASSETS_URL . 'js/fv_lib.js'), array('jquery'), FV::VERSION);
+            wp_enqueue_script('fv_admin_js', FV::$ADMIN_URL . 'js/fv_admin.js', array('jquery'), FV::VERSION);
 
 
             // прописываем переменные
@@ -179,7 +202,7 @@ class FV_Admin
             $fv_lang['reset_votes_ready'] = __('Votes reseted!', 'fv');
 
             $fv_lang['delete_confirmation'] = __('Are you sure? This will delete contestant and may photo from hosting (if you enabled this in settings)!', 'fv');
-            $fv_lang['contestant_and_photo_deleted'] = __('Contestant and photo deleted!', 'fv');
+            $fv_lang['contestant_and_photo_deleted'] = __('Contestant (and may be photo) deleted!', 'fv');
             $fv_lang['contestant_approved'] = __('Contestant approved!', 'fv');
             $fv_lang['saved'] = __('Saved!', 'fv');
             $fv_lang['rotate_confirm'] = __('Are you sure to rotate image and thumbnails?', 'fv');
@@ -215,7 +238,7 @@ class FV_Admin
             self::assets_lib_growl();
 
 
-            wp_enqueue_script('fv_contest_js', FV::$ADMIN_URL . 'js/fv_contest.js', array('jquery'), '1.0');
+            wp_enqueue_script('fv_contest_js', FV::$ADMIN_URL . 'js/fv_contest.js', array('jquery'), FV::VERSION);
             wp_enqueue_style(FV::PREFIX . 'icommon', FV::$ASSETS_URL . 'icommon/fv_fonts.css', false, FV::VERSION, 'all');
         }
 
@@ -241,10 +264,11 @@ class FV_Admin
             self::assets_lib_tooltip();
             self::assets_lib_typoicons();
             self::assets_lib_codemirror();
+            self::assets_lib_growl();
             wp_enqueue_script( 'wp-color-picker' );
             wp_enqueue_style( 'wp-color-picker' );
 
-            wp_enqueue_script('fv_settings_js', FV::$ADMIN_URL . 'js/fv_settings.js', array('jquery'), '1.0', true);
+            wp_enqueue_script('fv_settings_js', FV::$ADMIN_URL . 'js/fv_settings.js', array('jquery'), FV::VERSION, true);
         }
 
         /**
@@ -257,8 +281,8 @@ class FV_Admin
             //wp_enqueue_script('wsds-admin-seetings-js');
             self::assets_lib_typoicons();
             wp_enqueue_style(FV::PREFIX . 'icommon', FV::$ASSETS_URL . 'icommon/fv_fonts.css', false, FV::VERSION, 'all');
-            wp_enqueue_script('fv_formbuilder_vendor', FV::$ADMIN_URL . 'libs/formBuilder/vendor.js', array('jquery'), '1.0', true);
-            wp_enqueue_script('fv_formbuilder', FV::$ADMIN_URL . 'libs/formBuilder/formbuilder.js', array('jquery'), '1.0', true);
+            wp_enqueue_script('fv_formbuilder_vendor', FV::$ADMIN_URL . 'libs/formBuilder/vendor.js', array('jquery'), FV::VERSION, true);
+            wp_enqueue_script('fv_formbuilder', FV::$ADMIN_URL . 'libs/formBuilder/formbuilder.js', array('jquery'), FV::VERSION, true);
             wp_enqueue_style(FV::PREFIX . 'formbuilder', FV::$ADMIN_URL . 'libs/formBuilder/formbuilder.css', false, FV::VERSION, 'all');
             self::assets_lib_growl();
         }
@@ -271,7 +295,7 @@ class FV_Admin
         {
             self::assets_lib_datatable();
             self::assets_lib_growl();
-            wp_enqueue_script('fv_contest_js', FV::$ADMIN_URL . 'js/fv_contest.js', array('jquery'), '1.0');
+            wp_enqueue_script('fv_contest_js', FV::$ADMIN_URL . 'js/fv_contest.js', array('jquery'), FV::VERSION);
         }
 
         /**
@@ -290,7 +314,7 @@ class FV_Admin
         public static function assets_lib_tabs()
         {
             wp_enqueue_style(FV::PREFIX . '_tabs_css', FV::$ADMIN_URL . 'css/fv_tab.css', false, FV::VERSION, 'all');
-            wp_enqueue_script(FV::PREFIX . '_tabs_js', FV::$ADMIN_URL . 'js/fv_tabs.js', array('jquery'), '1.0');
+            wp_enqueue_script(FV::PREFIX . '_tabs_js', FV::$ADMIN_URL . 'js/fv_tabs.js', array('jquery'), FV::VERSION);
         }
 
         /**
@@ -319,8 +343,8 @@ class FV_Admin
         public static function assets_lib_datetimepicker()
         {
             // Jquery Datetimepicker library
-            wp_enqueue_style( FV::PREFIX. 'datetimepicker', plugins_url( FV::SLUG .'/assets/datetimepicker/jquery.datetimepicker.css' ), false, '1.0', 'all' );
-            wp_enqueue_script( FV::PREFIX. 'datetimepicker', plugins_url( FV::SLUG . '/assets/datetimepicker/jquery.datetimepicker.js' ), array('jquery'), '1.0' );
+            wp_enqueue_style( FV::PREFIX. 'datetimepicker', FV::$ADMIN_URL . 'libs/datetimepicker/jquery.datetimepicker.css', false, FV::VERSION, 'all' );
+            wp_enqueue_script( FV::PREFIX. 'datetimepicker', FV::$ADMIN_URL .'libs/datetimepicker/jquery.datetimepicker.min.js', array('jquery'), FV::VERSION );
         }
 
         /**
@@ -329,9 +353,9 @@ class FV_Admin
          */
         public static function assets_lib_boostrap()
         {
-            wp_enqueue_style( FV::PREFIX. 'bootstrap', FV::$ADMIN_URL .'css/vendor/bootstrap.css' , false, '1.0', 'all' );
+            wp_enqueue_style( FV::PREFIX. 'bootstrap', FV::$ADMIN_URL .'css/vendor/bootstrap.css' , false, FV::VERSION, 'all' );
             //wp_enqueue_style( FV::PREFIX. 'bootstrap-theme', FV::$ADMIN_URL .'css/vendor/bootstrap-theme.css' , false, '1.0', 'all' );
-            wp_enqueue_script( FV::PREFIX. 'bootstrap', FV::$ADMIN_URL . 'js/vendor/bootstrap.min.js' , array('jquery'), '1.0' );
+            wp_enqueue_script( FV::PREFIX. 'bootstrap', FV::$ADMIN_URL . 'js/vendor/bootstrap.min.js' , array('jquery'), FV::VERSION );
         }
 
     /**
@@ -354,9 +378,9 @@ class FV_Admin
          */
         public static function assets_lib_jvectormap()
         {
-            wp_enqueue_script('fv_admin_jvectormap', plugins_url(FV::SLUG .'/assets/jquery-jvectormap/jquery-jvectormap-2.0.1.min.js'), array('jquery'), '1.0');
-            wp_enqueue_script('fv_admin_jvectormap-world', plugins_url(FV::SLUG .'/assets/jquery-jvectormap/jquery-jvectormap-world-mill-en.js'), array('jquery'), '1.0');
-            wp_enqueue_style('fv_admin_jvectormap_css', plugins_url(FV::SLUG .'/assets/jquery-jvectormap/jquery-jvectormap-2.0.1.css'), false, '1.0', 'all');
+            wp_enqueue_script('fv_admin_jvectormap',FV::$ADMIN_URL .'libs/jquery-jvectormap/jquery-jvectormap-2.0.1.min.js', array('jquery'), '1.0');
+            wp_enqueue_script('fv_admin_jvectormap-world', FV::$ADMIN_URL .'libs/jquery-jvectormap/jquery-jvectormap-world-mill-en.js', array('jquery'), '1.0');
+            wp_enqueue_style('fv_admin_jvectormap_css', FV::$ADMIN_URL .'libs/jquery-jvectormap/jquery-jvectormap-2.0.1.css', false, '1.0', 'all');
         }
 
         /**
@@ -366,10 +390,10 @@ class FV_Admin
         public static function assets_lib_amstockchart()
         {
 
-            wp_enqueue_script('fv_admin_amstockchart_main', FV::$ASSETS_URL . 'vendor/amstockchart/amcharts.js', array('jquery'), '1.0');
+            wp_enqueue_script('fv_admin_amstockchart_main', FV::$ADMIN_URL . 'libs/amstockchart/amcharts.js', array('jquery'), FV::VERSION);
             //wp_enqueue_script('fv_admin_amstockchart_amstock', FV::$ASSETS_URL . 'vendor/amstockchart/amstock.js', array('fv_admin_amstockchart_main'), '1.0');
-            wp_enqueue_script('fv_admin_amstockchart_serial', FV::$ASSETS_URL . 'vendor/amstockchart/serial.js', array('fv_admin_amstockchart_main'), '1.0');
-            wp_enqueue_style('fv_admin_amstockchart_css', FV::$ASSETS_URL . 'vendor/amstockchart/style.css', false, '1.0', 'all');
+            wp_enqueue_script('fv_admin_amstockchart_serial', FV::$ADMIN_URL . 'libs/amstockchart/serial.js', array('fv_admin_amstockchart_main'), FV::VERSION);
+            wp_enqueue_style('fv_admin_amstockchart_css', FV::$ADMIN_URL . 'libs/amstockchart/style.css', false, FV::VERSION, 'all');
         }
 
     /**

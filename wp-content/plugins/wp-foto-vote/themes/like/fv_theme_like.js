@@ -1,34 +1,42 @@
     /* Theme like == wp foto vote == wp-vote.net == */
-(function ($) {
+FvLib.addHook('doc_ready', function() {
 
     var like_load = function () {
         setTimeout(fv_like_contest_ended, 1000);
 
         function fv_like_contest_ended() {
-            var contest_block_selector = ".contest-block.ended";
             if ( FvLib.isMobile() ) {
-                contest_block_selector= ".contest-block";
+                jQuery(".contest-block").each(function(key, el){
+                    fv_like_center_icon(el);
+                    jQuery(el).addClass('hover');
+                });
+
+            } else {
+                jQuery(".contest-block.ended").each(function(key, el){
+                    jQuery(el).addClass('hover').mouseenter();
+                });
             }
-            jQuery(contest_block_selector).each(function(key, el){
-                jQuery(el).addClass('hover').mouseenter();
-            });
         }
 
         jQuery(".contest-block:not(.centered)").hover(function() {
-             if ( !jQuery(this).hasClass('centered') ) {
-                 //console.log( $heart.height() );
-                 $heart = jQuery('.vote-heart', this);
-                 // for true vertival align - need real height
-                 $heart.height( $heart.css('font-size') );
-                 // center like icon
-                 $heart.css('left', (jQuery(this).width() / 2) - $heart.width() / 2 );
-                 $heart.css('top', (jQuery(this).height() / 2) - $heart.height() / 2 );
-                 // center votes count
-                 //$heart.find('.sv_votes').css('left', (jQuery(this).width() / 2) - $heart.find('.sv_votes').width() / 2 );
-
-                 jQuery(this).addClass('centered');
-             }
+            fv_like_center_icon(this);
          });
+
+        function fv_like_center_icon(block) {
+            if ( !jQuery(block).hasClass('centered') ) {
+                //console.log( $heart.height() );
+                $heart = jQuery('.vote-heart', block);
+                // for true vertival align - need real height
+                $heart.height( $heart.css('font-size') );
+                // center like icon
+                $heart.css('left', (jQuery(block).width() / 2) - $heart.width() / 2 );
+                $heart.css('top', (jQuery(block).height() / 2) - $heart.height() / 2 );
+                // center votes count
+                //$heart.find('.sv_votes').css('left', (jQuery(this).width() / 2) - $heart.find('.sv_votes').width() / 2 );
+
+                jQuery(block).addClass('centered');
+            }
+        }
 
          jQuery(".fv_button").click(function() {
             $block = jQuery(this).closest('.contest-block');
@@ -60,9 +68,8 @@
         }
     }
 
-    jQuery(document).ready(function(){
-        like_load();
-    });
+    like_load();
+
     FvLib.addHook('fv/ajax_go_to_page/ready', like_load, 10);
 
-})(jQuery);
+});

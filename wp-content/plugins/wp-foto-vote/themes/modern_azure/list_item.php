@@ -7,9 +7,10 @@ defined('ABSPATH') or die("No script kiddies please!");
  * $id - PHOTO ID (int)
  * $thumbnail - PHOTO THUMBNAIL SRC (array [0] - src, [1] - width, [2] - height)
  * $image_full - PHOTO FULL SRC (string)
- * $name - PHOTO NAME (string)
- * $description - PHOTO DESCRIPTION (string)
- * $additional - PHOTO ADDITIONAL DESCRIPTION (string), uses as <code> mb_substr($additional, 0, 30, 'UTF-8') </code>
+ * $name - PHOTO NAME (string - max 255)
+ * $description - PHOTO DESCRIPTION (string - max 255)
+ * $photo->full_description - PHOTO FULL DESCRIPTION (string - max 500)
+ * DEPRECATED $additional - PHOTO ADDITIONAL DESCRIPTION (string), uses as <code> mb_substr($additional, 0, 30, 'UTF-8') </code>
  * $votes - PHOTO VOTES COUNT (int)
 *** OTHER ***
  * $leaders - is this leaders block? (bool)
@@ -21,21 +22,21 @@ defined('ABSPATH') or die("No script kiddies please!");
  * $konurs_enabled - IS CONTEST ENABLED (bool)
  * $upload_info - json decoded Upload form fields
  * $hide_votes - NEED HIDE VOTES? (bool)
+ * $data_title - title for lightbox link, must be used as <a data-title="<?php echo $data_title ?>" href="##">##</a>
  */
-
 ?>
-
 <div class="sv_unit contest-block" style="width: <?php echo ( !$leaders )? $fv_block_width . 'px' : $fv_block_width . '%' ; ?>;">
 	<div align="center">
-            <a name="<?php echo ( !$leaders )? 'photo-'.$id : ''; ?>" data-id="<?php echo $id; ?>" class="<?php if( !fv_photo_in_new_page($theme) ): ?> fv_lightbox nolightbox <?php endif; ?>" rel="fw" href="<?php echo $image_full ?>" title="<?php echo htmlspecialchars(stripslashes($name)) . ' <br/>' . $public_translated_messages['vote_count_text'] . ": <span class='sv_votes_{$id}'>" . $votes . '</span>'; ?>" style="cursor: pointer;">
+            <a name="<?php echo ( !$leaders )? 'photo-'.$id : ''; ?>" data-id="<?php echo $id; ?>" class="<?php if( !fv_photo_in_new_page($theme) ): ?> fv_lightbox nolightbox <?php endif; ?>" rel="fw" href="<?php echo $image_full ?>" title="<?php echo htmlspecialchars(stripslashes($name)); ?>" data-title="<?php echo $data_title ?>">
                 <?php 
                     if ( $leaders ) { 
-                        echo sprintf('<img src="%s" class="attachment-thumbnail" />', $thumbnail[0]);
+                        printf('<img src="%s" class="attachment-thumbnail" />', $thumbnail[0]);
                     } else {
-                        if ( !FvFunctions::lazyLoadEnabled($theme) ) {
-                            echo sprintf('<img src="%s" width="%s" class="attachment-thumbnail" />', $thumbnail[0], $thumbnail[1]);
+                        if ( FvFunctions::lazyLoadEnabled($theme) && !(defined('DOING_AJAX') && DOING_AJAX) ) {
+                            printf('<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO4d/fufwAIzQOYASGzMgAAAABJRU5ErkJggg=="
+                                        data-lazy-src="%s" width="%s" height="%s" class="attachment-thumbnail fv-lazy" alt="%s"/>', $thumbnail[0], $thumbnail[1], $thumbnail[2], htmlspecialchars(stripslashes($name)));
                         } else {
-                            echo sprintf('<img src="" data-original="%s" width="%s" class="attachment-thumbnail fv-lazy" />', $thumbnail[0], $thumbnail[1]);
+                            printf('<img src="%s" width="%s" height="%s" class="attachment-thumbnail" alt="%s"/>', $thumbnail[0], $thumbnail[1], $thumbnail[2], htmlspecialchars(stripslashes($name)));
                         }
                     }
                 ?>
@@ -49,13 +50,17 @@ defined('ABSPATH') or die("No script kiddies please!");
                     <?php echo $public_translated_messages['vote_count_text']; ?>:
                     &nbsp;<span class="contest-block-votes-count sv_votes_<?php echo $id ?>"><?php echo $votes ?></span>
                 <?php endif; ?>
-                <a href="#" class="fv-small-action-btn fvicon-share" onclick="FvModal.goShare(<?php echo $id ?>); return false;" ></a>
+                <a href="#" class="fv-small-action-btn fvicon-share" onclick="FvModal.goShare(<?php echo $id ?>); return false;" >
+                    <?php if( FvFunctions::ss('soc-counter', false) ): ?>
+                        <span class="fv-soc-votes fv_svotes_<?php echo $id ?>" title="<?php echo $public_translated_messages['shares_count_text']; ?>">0</span>
+                    <?php endif; ?>
+                </a>
                 <?php do_action('fv/contest_list_item/actions_hook', $photo, $konurs_enabled, $theme); ?>
             </div>
 
             <?php if ($konurs_enabled): ?>
 			<div class="fv_button text-center">
-                    <button class="fv_vote" id="action_button" onclick="sv_vote(<?php echo $id ?>)"><i class="hand"><?php echo $public_translated_messages['vote_button_text']; ?></i></button>
+                    <button class="fv_vote" onclick="sv_vote(<?php echo $id ?>)"><i class="hand"><?php echo $public_translated_messages['vote_button_text']; ?></i></button>
                 </div>    
             <?php endif; ?>         
         <?php endif; ?>         

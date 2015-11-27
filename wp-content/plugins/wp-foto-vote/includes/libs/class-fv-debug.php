@@ -40,23 +40,17 @@ class FvDebug {
     const LVL_ALL = 512;     // 11111
 
     public static function init_lvl() {
-        /*
-        self::$LVL_CODE_VOTE = 1 << 0;
-        self::$LVL_CODE_UPLOAD =  1 << 1;
-        self::$LVL_CODE_TPL =  1 << 2;
 
-        self::$LVL_CODE =  1 << 6;
-
-        self::$LVL_MAIL =  1 << 7;
-
-        self::$LVL_SQL =  1 << 9;
-        self::$LVL_SQL_DATA =  1 << 9;
-
-        self::$LVL_ALL =  self::$LVL_CODE_VOTE | self::$LVL_CODE_UPLOAD | self::$LVL_CODE_TPL
-            | self::$LVL_CODE | self::$LVL_MAIL | self::$LVL_SQL | self::$LVL_SQL_DATA;
-        */
         if ( FvFunctions::ss('debug-vote', false) ) {
             FV::$DEBUG_MODE = FV::$DEBUG_MODE | self::LVL_CODE_VOTE;
+        }
+
+        if ( FvFunctions::ss('debug-upload', false) ) {
+            FV::$DEBUG_MODE = FV::$DEBUG_MODE | self::LVL_CODE_UPLOAD;
+        }
+
+        if ( FvFunctions::ss('debug-sql', false) ) {
+            FV::$DEBUG_MODE = FV::$DEBUG_MODE | self::LVL_SQL;
         }
 
         if ( FvFunctions::ss('log-emails', false) ) {

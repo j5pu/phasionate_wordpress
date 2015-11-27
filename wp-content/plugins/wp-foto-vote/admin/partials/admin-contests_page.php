@@ -15,7 +15,6 @@
                 </p>
              </div>';
         }
-        //var_dump($contest);
     ?>
 
     <div class="fv_content_wrapper">

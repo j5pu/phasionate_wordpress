@@ -1,3 +1,8 @@
 <?php
 
-wp_enqueue_script('fv_theme_fashion', plugins_url('wp-foto-vote/themes/new_year/js/jquery.lettering.js'), array( 'jquery' ) , '1.0');
+function fv_new_year_most_voted ($contest_id) {
+    $my_db = new FV_DB;
+    return apply_filters( FV::PREFIX . 'most_voted_data',
+        $my_db->getMostVotedItems( $contest_id, get_option('fotov-leaders-count', 3) )
+    );
+}

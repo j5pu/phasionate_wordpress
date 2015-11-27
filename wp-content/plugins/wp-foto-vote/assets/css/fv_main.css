@@ -7,11 +7,11 @@
 
 @import "../icommon/fv_fonts.css";
 
-.sv_unit{
+.contest-block{
     min-width: 180px !important;
 }
 
-.sv_unit .attachment-thumbnail{
+.contest-block .attachment-thumbnail{
     max-width: 100%;
 }
 
@@ -443,6 +443,10 @@ nav[role="navigation"] {
 .fv_upload_default .fv_wrapper input.invalid {
     border: solid 1px #C45E5E !important;
 }
+.fv_upload_default .fv_wrapper input:focus,
+.fv_upload_default .fv_wrapper textarea:focus {
+    border-color: #e5e5e5;
+}
 
 .fv_upload_default input[type='text'],
 .fv_upload_default input[type='email'],
@@ -454,19 +458,6 @@ nav[role="navigation"] {
     min-width: 90%;
 }
 
-/* Mobile styles */
-@media ( min-width:768px ) {
-    .fv_upload_default input[type='file'] {
-        min-width: 320px;
-    }
-
-    .fv_upload_default input[type='text'],
-    .fv_upload_default input[type='email'],
-    .fv_upload_default input[type='url']{
-        width: 400px;
-    }
-}
-
 .fv_upload_default input[type='number'] {
     width: 150px;
 }
@@ -476,6 +467,7 @@ nav[role="navigation"] {
 .fv_upload_form select {
     width: auto;
 }
+
 .fv_upload_default .form-control-short {
     width: 300px !important;
 }
@@ -578,7 +570,8 @@ nav[role="navigation"] {
 }
 
 
-.fv_upload_default .fv-upload-btn {
+.fv_upload_default .fv-upload-btn,
+.fv-subscribe-btn {
     font-size: 20px;
     font-weight: 500;
     -moz-border-radius: 3px;
@@ -595,20 +588,25 @@ nav[role="navigation"] {
     transition: all 0.2s;
     position: relative;
     color: #425768;
+    height: auto;
 }
 
-    .fv_upload_default .fv-upload-btn:hover {
+    .fv_upload_default .fv-upload-btn:hover,
+    .fv-subscribe-btn:hover{
         background: rgba(0, 0, 0, 0.05);
         padding: 5px 34px 5px 14px !important;
     }
-    .fv_upload_default .fv-upload-btn:hover:after {
+    .fv_upload_default .fv-upload-btn:hover:after,
+    .fv-subscribe-btn:hover:after {
         opacity: 1;
         margin-left: 0;
     }
-    .fv_upload_default .fv-upload-btn:after {
+    .fv_upload_default .fv-upload-btn:after,
+    .fv-subscribe-btn:after {
+        content: "\e63f";
+
         font-size: 20px;
         line-height: 30px;
-        content: "\e63f";
         font-family: 'icomoon_fv';
         opacity: 0;
         position: absolute;
@@ -619,6 +617,30 @@ nav[role="navigation"] {
         top: 5px;
         right: 5px;
     }
+
+/* Mobile styles */
+@media ( min-width:768px ) {
+    .fv_upload_default input[type='file'] {
+        min-width: 320px;
+    }
+
+    .fv_upload_default input[type='text'],
+    .fv_upload_default input[type='email'],
+    .fv_upload_default input[type='url']{
+        width: 400px;
+    }
+
+}
+@media ( max-width:768px ) {
+    .fv_upload_default .fv-file-wrapper .form-control-short {
+        margin-left: 0px !important;
+    }
+
+    .fv_upload_default .fv-file-wrapper {
+        margin-bottom: 10px;
+        margin-top: 4px;
+    }
+}
 
 /* PRELOADER */
 
@@ -721,7 +743,6 @@ iframe#if, iframe#if_, iframe#if0, iframe#if1, iframe#if2,  iframe#if3,  iframe#
 #_ec_rgb_link{ display:none; }
 
 .text-center { text-align: center; }
-.uLogin { display: none !important; }
 
 .button-vote img {
     padding: 3px;
@@ -875,6 +896,7 @@ iframe#if, iframe#if_, iframe#if0, iframe#if1, iframe#if2,  iframe#if3,  iframe#
     margin: 0;
     padding: 0;
     list-style-type: none;
+    text-align: center;
 }
 
 #modal-widget .sw-options li {
@@ -1029,6 +1051,23 @@ iframe#if, iframe#if_, iframe#if0, iframe#if1, iframe#if2,  iframe#if3,  iframe#
     font-size: 24px;
 }
 
+
+/* sw-mailru */
+.sw-mailru .sw-action {
+    color: #168de2;
+    font-size: 13px;
+}
+
+.sw-mailru .sw-share-button {
+    background-color: #168de2;
+    color: white;
+    line-height: 56px;
+    font-size: 24px;
+}
+.sw-mailru .sw-share-button span{
+    color: #f26d00;
+}
+
 .sw-tumblr .sw-action {
     color: #33506e;
 }
@@ -1097,8 +1136,8 @@ iframe#if, iframe#if_, iframe#if0, iframe#if1, iframe#if2,  iframe#if3,  iframe#
 ======================== */
 
 #modal-widget .sw-email-share textarea{
-    width: 100%;
-    height: 115px;
+    width: 94%;
+    height: 100px;
     margin: 10px 0;
     padding: 15px;
     color: #888;
@@ -1146,6 +1185,9 @@ iframe#if, iframe#if_, iframe#if0, iframe#if1, iframe#if2,  iframe#if3,  iframe#
     box-sizing: border-box;
 }
 
+#modal-widget .sw-email-send {
+    margin-top: 5px;
+}
 
 /*  */
 
@@ -1173,6 +1215,7 @@ iframe#if, iframe#if_, iframe#if0, iframe#if1, iframe#if2,  iframe#if3,  iframe#
     float: left;
     white-space: nowrap;
     width: 277px;
+    box-sizing: border-box;
 }
 
 #modal-widget .frm-field:first-child {
@@ -1332,12 +1375,12 @@ VOTE WITH FACEBOOK SHARE
 ==================================== */
 
 a.fv-small-action-btn {
-    padding: 0;
+    padding: 0px 5px;
     margin: 0;
     display:inline-block;
     position:relative;
-    width:24px;
-    height:24px;
+    width: auto;
+    height: 24px;
     border-radius:5px;
     background-color:#000;
     color: #ffffff;
@@ -1348,13 +1391,25 @@ a.fv-small-action-btn:before {
     position:relative;
     top:3px;
     left:0px;
-    font-size: 18px;
-    line-height: 100%;
+    font-size: 16px;
+    line-height: 18px;
     color: #ffffff;
+    padding:0;
 }
 
 a.fv-small-action-btn:hover {
     background-color: rgb(2, 202, 255);
+}
+
+.fv-small-action-btn .fv-soc-votes {
+    line-height: 24px;
+    display:inline-block;
+    font-family: Helvetica;
+    color: white;
+    font-weight: 300;
+    font-size: 14px;
+    padding-left: 3px;
+    vertical-align: middle;
 }
 
 /* ====================================

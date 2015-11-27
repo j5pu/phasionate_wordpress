@@ -6,11 +6,13 @@ defined('ABSPATH') or die("No script kiddies please!");
  * $id - PHOTO ID (int)
  * $thumbnail - PHOTO THUMBNAIL SRC (array [0] - src, [1] - width, [2] - height)
  * $image_full - PHOTO FULL SRC (string)
- * $name - PHOTO NAME (string)
- * $description - PHOTO DESCRIPTION (string)
- * $additional - PHOTO ADDITIONAL DESCRIPTION (string), uses as <code> mb_substr($additional, 0, 30, 'UTF-8') </code>
- * $votes - PHOTO VOTES COUNT (int)
+ * $name - PHOTO NAME (string - max 255)
+ * $description - PHOTO DESCRIPTION (string - max 255)
+ * $photo->full_description - PHOTO FULL DESCRIPTION (string - max 500)
+ * DEPRECATED $additional - PHOTO ADDITIONAL DESCRIPTION (string), uses as <code> mb_substr($additional, 0, 30, 'UTF-8') </code> * $votes - PHOTO VOTES COUNT (int)
  * $upload_info - json decoded Upload form fields*
+ * $data_title - title for lightbox link, must be used as <a data-title="<?php echo $data_title ?>" href="##">##</a>
+*
 *** OTHER ***
  * $leaders - is this leaders block? (bool)
  * $fv_block_width - contest block width (int)
@@ -20,27 +22,32 @@ defined('ABSPATH') or die("No script kiddies please!");
  * $theme - USED THEME (string)
  * $konurs_enabled - IS CONTEST ENABLED (bool)
  */
+
 ?>
 
 <div class="fv_constest_item contest-block" style="width: <?php echo $fv_block_width . 'px'; ?>;">
     <div class="fv_photo" style="width: <?php echo $thumbnail[1] ?>px;">
-        <div class="go_vote_text"><?php echo $public_translated_messages['vote_button_text']; ?></div>
         <div class="fv_photo_votes">
             <?php if ($konurs_enabled): ?>  
                 <a href="#" class="fv_vote"  onclick="sv_vote(<?php echo $id ?>); return false;">
+                    <i class="fvicon-heart3"></i>
                     <?php if( $hide_votes == false ): ?>
-                    + <span class="sv_votes_<?php echo $id ?>"><?php echo $votes ?></span>
-                    <?php else: ?>
-                        + 1
+                        <span class="fv-votes sv_votes_<?php echo $id ?>"><?php echo $votes ?></span>
                     <?php endif; ?>
                 </a>
-            <?php else: ?>  
-                    + <span class="sv_votes_<?php echo $id ?>"><?php echo $votes ?></span>
+            <?php else: ?>
+                <i class="fvicon-heart3"></i> <span class="fv-votes sv_votes_<?php echo $id ?>"><?php echo $votes ?></span>
             <?php endif; ?>               
         </div>
-		 <a name="<?php echo 'photo-'.$id; ?>"  data-id="<?php echo $id; ?>"  class="<?php if( !fv_photo_in_new_page($theme) ): ?> fv_lightbox nolightbox <?php endif; ?>" rel="fw"
-           href="<?php echo $image_full ?>" title="<?php echo htmlspecialchars(stripslashes($name)) ?>" style="cursor: pointer;">
-            <img src="<?php echo $thumbnail[0] ?>" />
+        <?php if( FvFunctions::ss('soc-counter', false) ): ?>
+            <div class="fv-svotes-container">
+                <a href="#0" class="fv-svotes-a" onclick="FvModal.goShare(<?php echo $id ?>); return false;" title="<?php echo $public_translated_messages['shares_count_text']; ?>">
+                    <i class="fvicon-share"></i> <span class="fv-soc-votes fv_svotes_<?php echo $id ?>">0</span>
+                </a>
+            </div>
+        <?php endif; ?>
+		 <a name="<?php echo 'photo-'.$id; ?>"  data-id="<?php echo $id; ?>"  class="<?php if( !fv_photo_in_new_page($theme) ): ?> fv_lightbox nolightbox noLightbox<?php endif; ?>" rel="fw" href="<?php echo $image_full ?>" title="<?php echo htmlspecialchars(stripslashes($name)) ?>" data-title="<?php echo $data_title ?>">
+            <img src="<?php echo $thumbnail[0] ?>" alt="<?php echo strip_tags($name) ?>"/>
         </a>
     </div>
     
@@ -53,22 +60,22 @@ defined('ABSPATH') or die("No script kiddies please!");
     <div class="fv_social">
         <div class="fv_social_icons">
             <?php if (!get_option('fotov-voting-noshow-vk', false)): ?>
-                <a href="#" onclick="return sv_vote_send('vk', this ,<?php echo $id ?>)" target="_blank"><img src="<?php echo plugins_url('wp-foto-vote/themes/new_year/img/soc-vk.png') ?>" /></a>
+                <a href="#" onclick="return sv_vote_send('vk', this ,<?php echo $id ?>)" target="_blank"><img src="<?php echo plugins_url('wp-foto-vote/themes/new_year/img/soc-vk.png') ?>" alt="Share in VK"/></a>
             <?php endif; ?>
             <?php if (!get_option('fotov-voting-noshow-fb', false)): ?>
-                <a href="#" onclick="return sv_vote_send('fb', this,<?php echo $id ?>)" target="_blank"><img src="<?php echo plugins_url('wp-foto-vote/themes/new_year/img/soc-fb.png') ?>" /></a>
+                <a href="#" onclick="return sv_vote_send('fb', this,<?php echo $id ?>)" target="_blank"><img src="<?php echo plugins_url('wp-foto-vote/themes/new_year/img/soc-fb.png') ?>" alt="Share in Facebook"/></a>
             <?php endif; ?>
             <?php if (!get_option('fotov-voting-noshow-tw', false)): ?>
-                <a href="#" onclick="return sv_vote_send('tw', this,<?php echo $id ?>)" target="_blank"><img src="<?php echo plugins_url('wp-foto-vote/themes/new_year/img/soc-tw.png') ?>" /></a>
+                <a href="#" onclick="return sv_vote_send('tw', this,<?php echo $id ?>)" target="_blank"><img src="<?php echo plugins_url('wp-foto-vote/themes/new_year/img/soc-tw.png') ?>" alt="Share in Twitter"/></a>
             <?php endif; ?>
             <?php if (!get_option('fotov-voting-noshow-ok', false)): ?>
-                <a href="#" onclick="return sv_vote_send('ok', this,<?php echo $id ?>)" target="_blank"><img src="<?php echo plugins_url('wp-foto-vote/themes/new_year/img/soc-ok.png') ?>" /></a>
+                <a href="#" onclick="return sv_vote_send('ok', this,<?php echo $id ?>)" target="_blank"><img src="<?php echo plugins_url('wp-foto-vote/themes/new_year/img/soc-ok.png') ?>" alt="Share in OK"/></a>
             <?php endif; ?>
             <?php if (!get_option('fotov-voting-noshow-gp', false)): ?>
-                <a href="#" onclick="return sv_vote_send('gp', this,<?php echo $id ?>)" target="_blank"><img src="<?php echo plugins_url('wp-foto-vote/themes/new_year/img/soc-gp.png') ?>" /></a>
+                <a href="#" onclick="return sv_vote_send('gp', this,<?php echo $id ?>)" target="_blank"><img src="<?php echo plugins_url('wp-foto-vote/themes/new_year/img/soc-gp.png') ?>" alt="Share in Google+"/></a>
             <?php endif; ?>
             <?php if (!get_option('fotov-voting-noshow-pi', false)): ?>
-                <a href="#" onclick="return sv_vote_send('pi', this,<?php echo $id ?>)" target="_blank"><img src="<?php echo plugins_url('wp-foto-vote/themes/new_year/img/soc-pi.png') ?>" /></a>
+                <a href="#" onclick="return sv_vote_send('pi', this,<?php echo $id ?>)" target="_blank"><img src="<?php echo plugins_url('wp-foto-vote/themes/new_year/img/soc-pi.png') ?>" alt="Share in Pinterest"/></a>
             <?php endif; ?>     
         </div>
     </div>

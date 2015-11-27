@@ -5,33 +5,6 @@ Author: Maxim K
 Author URI: http://maxim-kaminsky.com/
 */
 
-// ==============================================
-// jQuery(document).ready fallback if have some JS errors
-var fvLoaded = false;
-
-jQuery(document).ready(function() {
-    fv_load_admin_once();
-});
-
-// and here's the trick (works everywhere):
-function fv_load_admin_once() {
-    if ( fvLoaded === true ) { return; }
-
-    if ( /in/.test(document.readyState) ) {
-        fv_load_admin_fallback();
-    } else {
-        FvLib.callHook('doc_ready');
-        console.log('FV doc_ready');
-        fvLoaded = true;
-    }
-};
-
-function fv_load_admin_fallback() {
-    setTimeout('fv_load_admin_once()', 900)
-}
-fv_load_admin_fallback();
-// ==============================================
-
 var contestTable = false;
 
 FvLib.addHook('doc_ready', function() {

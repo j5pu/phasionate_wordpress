@@ -30,7 +30,6 @@ defined('ABSPATH') or die("No script kiddies please!");
  */
 class FV
 {
-
         /**
          * The current version of the plugin.
          *
@@ -38,7 +37,7 @@ class FV
          * @access   public
          * @var      const VERSION The current version of the plugin.
          */
-        const VERSION = '2.2.110';
+        const VERSION = '2.2.120';
 
         const NAME = 'fv';
         const PREFIX = 'fv_';
@@ -141,7 +140,6 @@ class FV
          */
         private function load_dependencies()
         {
-
                 /**
                  * The class responsible for orchestrating the actions and filters of the
                  * core plugin.
@@ -154,13 +152,15 @@ class FV
                 require_once self::$INCLUDES_ROOT . 'libs/class-fv-logger.php';
                 require_once self::$INCLUDES_ROOT . 'libs/class-fv-debug.php';
 
+                /**
+                 * Tables lists
+                 */
+                require_once self::$INCLUDES_ROOT . 'libs/class-wp-list-table.php';
+
                 if ( !defined('DOING_AJAX') || DOING_AJAX == FALSE ) {
                     if ( is_admin() )
                     {
-                        /**
-                         * Tables lists
-                         */
-                        require_once self::$INCLUDES_ROOT . 'libs/class-wp-list-table.php';
+
                         require_once self::$INCLUDES_ROOT . 'list-tables/class_contests_list.php';
                         require_once self::$INCLUDES_ROOT . 'list-tables/class_votes_log_list.php';
 
@@ -168,6 +168,8 @@ class FV
                         require_once self::$INCLUDES_ROOT . 'plugin-updates/plugin-update-checker.php';
                     }
 
+                }
+                if ( defined('SHORTINIT') && !SHORTINIT ) {
                     // Widgets
                     require_once self::$INCLUDES_ROOT . 'widget-list/class-widget.php';
                     require_once self::$INCLUDES_ROOT . 'widget-gallery/class-widget.php';
@@ -186,7 +188,7 @@ class FV
                 require_once self::$INCLUDES_ROOT . 'class-fv-theme-base.php';
                 require_once self::$INCLUDES_ROOT . 'class-fv-addon-base.php';
                 require_once self::$INCLUDES_ROOT . 'class-fv-form-helper.php';
-                require_once self::$ADDONS_ROOT . 'class-fv-addons-loader.php';
+                require_once self::$ADDONS_ROOT . 'fv-addons-loader.php';
 
                 /**
                  * The class responsible for working with db
@@ -203,6 +205,7 @@ class FV
                 {
                     require_once self::$ADMIN_ROOT . 'class-fv-admin_ajax.php';
                     require_once self::$ADMIN_ROOT . 'class-fv-admin_export.php';
+                    require_once self::$ADMIN_ROOT . 'fv-admin-helper.php';
                 }
 
                 /**
@@ -213,22 +216,16 @@ class FV
                 require_once self::$PUBLIC_ROOT . '/class-fv-public-ajax.php';
                 require_once self::$PUBLIC_ROOT . '/class-fv-public-vote.php';
 
-                /**
-                 * Redux options framework
-                 */
-                if ( FvFunctions::ss('disable-addons-support', false) == false ) {
-                    require_once self::$INCLUDES_ROOT . 'redux/admin-init.php';
+                if ( defined('SHORTINIT') && !SHORTINIT ) {
+                    /**
+                     * Redux options framework
+                     */
+                    if ( FvFunctions::ss('disable-addons-support', false) == false ) {
+                        require_once self::$INCLUDES_ROOT . 'redux/admin-init.php';
+                    }
                 }
 
-                require_once self::$INCLUDES_ROOT . 'libs/BFI_Thumb.php';
-
-
-                /*if (get_option('fotov-image-width', 0) > 50 && get_option('fotov-image-height', 0) > 50) {
-                        add_image_size( 'fv-thumb', get_option('fotov-image-width', 0), get_option('fotov-image-height', 0), get_option('fotov-image-hardcrop', true) );
-                }*/
-
                 $this->loader = new FV_Loader();
-
         }
 
         /**
@@ -318,13 +315,18 @@ class FV
         {
                 $plugin_public = new FV_Public($this->get_NAME(), $this->get_version());
 
-                $this->loader->add_shortcode("foto_vote", $plugin_public, "shortcode");
-                $this->loader->add_shortcode("fv", $plugin_public, "shortcode");
-                $this->loader->add_shortcode("fv_upload_form", $plugin_public, "shortcode_upload_form");
-                $this->loader->add_shortcode("fv_contests_list", $plugin_public, "shortcode_show_contests_list");
-                $this->loader->add_shortcode("fv_countdown", $plugin_public, "shortcode_countdown");
-                $this->loader->add_shortcode("fv_leaders", $plugin_public, "shortcode_leaders");
+                if ( defined('SHORTINIT') && !SHORTINIT ) {
+                    $this->loader->add_shortcode("foto_vote", $plugin_public, "shortcode");
+                    $this->loader->add_shortcode("fv", $plugin_public, "shortcode");
+                    // This will do nothing but will allow the shortcode to be stripped
+                    //add_shortcode( 'fv', '__return_false' );
+                    //add_filter( 'the_content', array($plugin_public, "run_shortcode"), 9 );
 
+                    $this->loader->add_shortcode("fv_upload_form", $plugin_public, "shortcode_upload_form");
+                    $this->loader->add_shortcode("fv_contests_list", $plugin_public, "shortcode_show_contests_list");
+                    $this->loader->add_shortcode("fv_countdown", $plugin_public, "shortcode_countdown");
+                    $this->loader->add_shortcode("fv_leaders", $plugin_public, "shortcode_leaders");
+                }
 
                 $this->loader->add_action('wp_ajax_vote', 'FvPublicVote', 'vote');
                 $this->loader->add_action('wp_ajax_nopriv_vote', 'FvPublicVote', 'vote');
@@ -362,22 +364,30 @@ class FV
                 // if selected load FB SDK in head loads it with wp_enqueue_scripts
                 // else it's no urgent, and loads it if we really needed it
                 if ( get_option('fv-fb-assets-position', 'footer') == 'head' ) {
-                    $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'fb_assets_and_init', 1 );
+                    $this->loader->add_action( 'wp_head', $plugin_public, 'fb_assets_and_init', 1 );
                 } else {
-                    $this->loader->add_action( 'fv_after_contest_list', $plugin_public, 'fb_assets_and_init' );
-                    $this->loader->add_action( 'fv_after_contest_item', $plugin_public, 'fb_assets_and_init' );
+                    $this->loader->add_action( 'wp_footer', $plugin_public, 'fb_assets_and_init' );
+                    //$this->loader->add_action( 'fv_after_contest_item', $plugin_public, 'fb_assets_and_init' );
                 }
 
                 global $contest_id;
                 add_action('admin_bar_menu', 'fv_add_toolbar_items', 100);
 
-                /*if ( isset($_GET["contest_id"]) ) {
+                if ( isset($_GET["contest_id"]) ) {
+                    if (
+                        strpos($_SERVER["HTTP_USER_AGENT"], "facebookexternalhit/") !== false ||
+                        strpos($_SERVER["HTTP_USER_AGENT"], "Facebot") !== false ||
+                        strpos($_SERVER["HTTP_USER_AGENT"], "visionutils") !== false
+                    ) {
                         # Remove WordPress' canonical links
                         remove_action('wp_head', 'rel_canonical');
-                }*/
+                        add_filter('wpseo_opengraph_url', '__return_null');
+                        add_filter('wpseo_canonical', '__return_null');
 
+                    }
+                }
 
-                FV_Addons_Loader::load();
+                fv_default_addons_load();
         }
 
 
@@ -393,6 +403,7 @@ class FV
                         $my_db = new FV_DB;
                         // upgrade tables
                         $my_db->install();
+                        fv_update_exists_public_translation_messages();
                 }
 
                 // init Addons
@@ -450,5 +461,4 @@ class FV
         {
                 return FV::VERSION;
         }
-
 }

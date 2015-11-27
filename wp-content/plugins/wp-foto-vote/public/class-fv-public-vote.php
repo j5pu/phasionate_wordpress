@@ -29,7 +29,7 @@ class FvPublicVote {
      * @GET-param 'user_country' saved in User browser, for decrease queries count to indicate user country by IP
      * @GET-param 'post_id'     post Id
      * @GET-param 'contest_id'
-     * @GET-param 'uid'         evercokie identification
+     * @GET-param 'uid'         evercookie identification
      * @GET-param 'fv_name'     if uses contest security `default and Subscribe`
      * @GET-param 'fv_email'    if uses contest security `default and Subscribe`
      * @GET-param 'referer'     from what page user open contest page?
@@ -106,7 +106,7 @@ class FvPublicVote {
         }
 
         //** Verify ReCaptcha Response
-        if ( $contest->security_type == "defaultArecaptcha" || $contest->security_type == "cookieArecaptcha" ) {
+        /*if ( $contest->security_type == "defaultArecaptcha" || $contest->security_type == "cookieArecaptcha" ) {
             if ( isset($_POST['recaptcha_response']) ) {
                 $recaptcha_verify = FvFunctions::recaptcha_verify_response($_POST['recaptcha_response'], $ip, FvFunctions::ss('recaptcha-secret-key') );
                 if ( $recaptcha_verify == false ) {
@@ -116,6 +116,36 @@ class FvPublicVote {
                 fv_log('Vote error - recaptcha_response is empty!', $_POST, __FILE__, __LINE__);
                 self::echoVoteRes(99, $user_country, $add_subscription);     // error
             }
+        }*/
+        //** Verify ReCaptcha Response
+        if ( $contest->security_type == "defaultArecaptcha" || $contest->security_type == "cookieArecaptcha" ) {
+            $check_recaptcha_response = true;
+            // if if enabled solve reCAPTCHA once in 30 minutes and have Session then Check it
+            if ( FvFunctions::ss('recaptcha-session', false) ) :
+                if ( isset($_SESSION['fv_recaptcha_session']) && (time() - $_SESSION['fv_recaptcha_session']) < 1800 ) {
+                    $check_recaptcha_response = false;
+                } elseif( !isset($_SESSION['fv_recaptcha_session']) || (time() - $_SESSION['fv_recaptcha_session']) >= 1800 ) {
+                    unset($_SESSION['fv_recaptcha_session']);
+                }
+            ENDIF;
+
+            if ( $check_recaptcha_response ) :
+                if ( isset( $_POST['recaptcha_response']) ) {
+                    $recaptcha_verify = FvFunctions::recaptcha_verify_response( $_POST['recaptcha_response'], $ip, FvFunctions::ss('recaptcha-secret-key') );
+                    if ( $recaptcha_verify == false ) {
+                        self::echoVoteRes(6, $user_country, $add_subscription);  // wrong reCAPTCHA
+                    } elseif ( FvFunctions::ss('recaptcha-session', false) ) {
+                        // Save session if enabled solve reCAPTCHA once in 30 minutes
+                        $_SESSION['fv_recaptcha_session'] = time();
+                    }
+                } elseif ( FvFunctions::ss('recaptcha-session', false) ) {
+                    // if if enabled solve reCAPTCHA, but no have session
+                    self::echoVoteRes(66, $user_country, $add_subscription);  // need  reCAPTCHA
+                } else {
+                    fv_log('Vote error - recaptcha_response is empty!', $_POST, __FILE__, __LINE__);
+                    self::echoVoteRes(99, $user_country, $add_subscription);     // error
+                }
+            ENDIF;
         }
 
         $add_subscription = apply_filters(FV::PREFIX . 'vote_contest_add_subscription', $add_subscription, $contest->security_type, $user_id);
@@ -131,11 +161,12 @@ class FvPublicVote {
         /* Защита */
         $cookies = false;
         $cookie_name = '';
+
         // имя куки, разное при разных типах голосования
-        if ( $contest->voting_frequency !== 'once' ) {
-            $cookie_name = 'vote_post_' . $post_id . '_' . $vote_id;
-        } else {
+        if ( strpos($contest->voting_frequency, 'once') !== false ) {
             $cookie_name = 'vote_post_' . $post_id;
+        } else {
+            $cookie_name = 'vote_post_' . $post_id . '_' . $vote_id;
         }
 
         // check dates
@@ -159,6 +190,10 @@ class FvPublicVote {
             'email' => substr($email, 0, 59),
             'user_id' => $user_id,
         );
+        // Check plugins
+        if ( !empty($_POST['pp']) ) {
+            $ip_data['b_plugins'] = (int)$_POST['pp'];
+        }
 
         $social_condition = false;
         if ( isset($_SESSION['fv_social']) && is_array($_SESSION['fv_social']) ) {
@@ -171,6 +206,10 @@ class FvPublicVote {
                 "soc_uid" => $ip_data["soc_uid"],
             );
             //FvFunctions::dump($ip_data);
+        }
+
+        if ( $contest->security_type == "cookieAsocial" && !is_array($social_condition) ) {
+            self::echoVoteRes(99, $user_country, $add_subscription); // Error
         }
 
         if ( $contest->security_type == "defaultAfb" && !$CHECK ) {
@@ -188,75 +227,95 @@ class FvPublicVote {
 
         $ip_data = apply_filters('fv/vote/ip_data', $ip_data, $contest);
 
-        // Complete query according to Contest Security Type
-        $check_ip_query = ModelVotes::query()->where( "contest_id", $contest->id );
-        if ( $contest->security_type == "defaultAsocial" && is_array($social_condition) ) {
-            $check_ip_query->where_any( array("ip"=>$ip,"uid" => $UID, $social_condition) );
-        } elseif ( $contest->security_type == "cookieAsocial" && is_array($social_condition) ) {
-            $check_ip_query->where_any( array("uid" => $UID, $social_condition ) );
-            //$check_ip = $my_db->getIpInfo(false, $UID, strtotime($contest->date_start), $contest->id, $social_condition);
-        } else if ( $contest->security_type == "cookieAregistered" ) {
-            $check_ip_query->where_any( array("uid" => $UID, "user_id" => $user_id) );
-        } else if ( $contest->security_type == "defaultAfb" && !$CHECK ) {
-            $check_ip_query->where_any( array("ip"=>$ip, "uid" => $UID, "fb_pid" => $ip_data["fb_pid"]) );
-        } else if ( $contest->security_type == "cookieArecaptcha" ) {
-            $check_ip_query->where("uid", $UID);
-        } else {
-            $check_ip_query->where_any( array("ip"=>$ip, "uid" => $UID) );
-            //$check_ip = $my_db->getIpInfo($ip, $UID, strtotime($contest->date_start), $contest->id, $social_condition);
+        $NEED_check_ip_query = true;
+        $check_ip_query = false;
+        $check_ip_query_count = false;
+
+        // ============= CHECK if not empty $UID ::START =============
+        if ( empty($UID) || strpos($UID, '500 Internal') !== false ) {
+            if ($contest->security_type == "cookieArecaptcha") {
+                // Disable QUERY if not have $UID, else will have many records with empty $UID not related with this user
+                $NEED_check_ip_query = false;
+            } else {
+                $UID = 'empty_UID';
+            }
         }
+        // ============= CHECK if not empty $UID ::END =============
 
-        // Check votes count fot this photo
-        $check_ip_query_count = '';
-        // Complete query according to Contest Voting Frequency
-        switch($contest->voting_frequency) {
-            case ("once"):
-                $check_ip_query->where_later( "changed", strtotime($contest->date_start) );
-                break;
-            case ("onceF2"):
-            case ("onceF3"):
-            case ("onceF10"):
-                $check_ip_query->where_later( "changed", strtotime($contest->date_start) );
-                $check_ip_query_count = clone $check_ip_query;
-                $check_ip_query_count->where( "vote_id", $vote_id );
-                break;
-            case ("onceFall"):
-                $check_ip_query->where_later( "changed", strtotime($contest->date_start) )
-                    ->where( "vote_id", $vote_id  );
-                break;
-            case ("24hFonce"):
-                $check_ip_query->where_later( "changed", current_time('timestamp', 0) - 86400 );
-                break;
-            case ("24hF2"):
-            case ("24hF3"):
-                $check_ip_query->where_later( "changed", current_time('timestamp', 0) - 86400 );
-                $check_ip_query_count = clone $check_ip_query;
-                $check_ip_query_count->where( "vote_id", $vote_id );
-                break;
-            case ("24hFall"):
-                $check_ip_query->where_later( "changed", current_time('timestamp', 0) - 86400 )
-                    ->where( "vote_id", $vote_id  );
-                break;
-            default:
-                break;
-        }
+        // ============= if need QUERY to check user :: START =============
+        $NEED_check_ip_query = apply_filters('fv/vote/need_check_ip_query', $NEED_check_ip_query);
+        IF ( $NEED_check_ip_query === TRUE ) :
 
-        // Apply filter to query
-        $check_ip_query = apply_filters('fv/vote/check_ip_query', $check_ip_query,
-            $contest, $vote_id, $ip, $UID, $ip_data);        // Apply filter to query
+            $check_ip_query = ModelVotes::query()->where( "contest_id", $contest->id );
 
-        $check_ip_query_count = apply_filters('fv/vote/check_ip_query_count', $check_ip_query_count, $check_ip_query,
-            $contest, $vote_id, $ip, $UID, $ip_data);
+            // Complete query according to Contest Security Type
+            if ( $contest->security_type == "defaultAsocial" && is_array($social_condition) ) {
+                $check_ip_query->where_any( array("ip"=>$ip,"uid" => $UID, $social_condition) );
+            } elseif ( $contest->security_type == "cookieAsocial" && is_array($social_condition) ) {
+                $check_ip_query->where_any( array("uid" => $UID, $social_condition ) );
+            } else if ( $contest->security_type == "cookieAregistered" ) {
+                $check_ip_query->where_any( array("uid" => $UID, "user_id" => $user_id) );
+            } else if ( $contest->security_type == "defaultAfb" && !$CHECK ) {
+                $check_ip_query->where_any( array("ip"=>$ip, "uid" => $UID, "fb_pid" => $ip_data["fb_pid"]) );
+            } else if ( $contest->security_type == "cookieArecaptcha" ) {
+                $check_ip_query->where("uid", $UID);
+            } else {
+                $check_ip_query->where_any( array("ip"=>$ip, "uid" => $UID) );
+            }
 
-        $check_ip = $check_ip_query->find();
-        // Apply filter to query results
-        $check_ip = apply_filters(FV::PREFIX . 'vote_check_ip', $check_ip,
-            $contest, $user_id, $ip, $UID, $ip_data);
+            // Check votes count fot this photo
+            $check_ip_query_count = '';
+            // Complete query according to Contest Voting Frequency
+            switch($contest->voting_frequency) {
+                case ("once"):
+                    $check_ip_query->where_later( "changed", strtotime($contest->date_start) );
+                    break;
+                case ("onceF2"):
+                case ("onceF3"):
+                case ("onceF10"):
+                    $check_ip_query->where_later( "changed", strtotime($contest->date_start) );
+                    $check_ip_query_count = clone $check_ip_query;
+                    $check_ip_query_count->where( "vote_id", $vote_id );
+                    break;
+                case ("onceFall"):
+                    $check_ip_query->where_later( "changed", strtotime($contest->date_start) )
+                        ->where( "vote_id", $vote_id  );
+                    break;
+                case ("24hFonce"):
+                    $check_ip_query->where_later( "changed", current_time('timestamp', 0) - 86400 );
+                    break;
+                case ("24hF2"):
+                case ("24hF3"):
+                    $check_ip_query->where_later( "changed", current_time('timestamp', 0) - 86400 );
+                    $check_ip_query_count = clone $check_ip_query;
+                    $check_ip_query_count->where( "vote_id", $vote_id );
+                    break;
+                case ("24hFall"):
+                    $check_ip_query->where_later( "changed", current_time('timestamp', 0) - 86400 )
+                        ->where( "vote_id", $vote_id  );
+                    break;
+                default:
+                    break;
+            }
 
-        if ( is_object($check_ip_query_count) ) {
-            $check_ip_count = $check_ip_query_count->find();
-            //var_dump($check_ip_count);
-        }
+            // Apply filter to query
+            $check_ip_query = apply_filters('fv/vote/check_ip_query', $check_ip_query,
+                $contest, $vote_id, $ip, $UID, $ip_data);        // Apply filter to query
+
+            $check_ip_query_count = apply_filters('fv/vote/check_ip_query_count', $check_ip_query_count, $check_ip_query,
+                $contest, $vote_id, $ip, $UID, $ip_data);
+
+            $check_ip = $check_ip_query->find();
+            // Apply filter to query results
+            $check_ip = apply_filters(FV::PREFIX . 'vote_check_ip', $check_ip,
+                $contest, $user_id, $ip, $UID, $ip_data);
+
+            if ( is_object($check_ip_query_count) ) {
+                $check_ip_count = $check_ip_query_count->find();
+                //var_dump($check_ip_count);
+            }
+
+        ENDIF;  // ============= :: END =============
 
         // проверяем куку
         if (  !isset($_COOKIE[$cookie_name])  ) {
@@ -272,7 +331,7 @@ class FvPublicVote {
             // uses for prevent problems with voting frequency
             if ( strpos($contest->voting_frequency, '24h') !== false && $_COOKIE[$cookie_name] > current_time('timestamp', 0) ) {
                 // cookie exists, and is exists database records?
-                if ( is_array($check_ip) && count($check_ip) > 0 ) {
+                if ( (is_array($check_ip) && count($check_ip) > 0) OR !$NEED_check_ip_query ) {
                     $cookies = true;
                 }
             }
@@ -312,7 +371,7 @@ class FvPublicVote {
                     }
         */
 
-        if ( FV::$DEBUG_MODE | FvDebug::LVL_MAIL ) {
+        if ( FV::$DEBUG_MODE & FvDebug::LVL_CODE_VOTE ) {
             // Save Voter data, and later may be log it in `self::echoVoteRes`
             self::$vote_debug_var = $ip_data;
             self::$vote_debug_var['has_cookie'] = $cookies;
@@ -329,77 +388,20 @@ class FvPublicVote {
                 setcookie('fv_subscribed_' . $contest->id, $post_id, strtotime($contest->date_finish));
             }
         } elseif (is_array($check_ip) && !$cookies) {
-
-            // Processing data depending on voting frequency
-            switch($contest->voting_frequency) {
-                case ("once"):
-                    if ( count($check_ip) > 0  ) {
-                        self::echoVoteRes(2, $user_country, $add_subscription); // user was already voted
-                    }
-                    break;
-                case ("onceF2"):
-                    if ( count($check_ip) < 2 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
-                        $can_vote = true;
-                    } else {
-                        self::echoVoteRes(2, $user_country, $add_subscription); // user was already voted
-                    }
-                    break;
-                case ("onceF3"):
-                    if ( count($check_ip) < 3 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
-                        $can_vote = true;
-                    } else {
-                        self::echoVoteRes(2, $user_country, $add_subscription); // user was already voted
-                    }
-                    break;
-                case ("onceF10"):
-                    if ( count($check_ip) < 10 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
-                        $can_vote = true;
-                    } else {
-                        self::echoVoteRes(2, $user_country, $add_subscription); // user was already voted
-                    }
-                    break;
-                case ("onceFall"):
-                    if ( count($check_ip) > 0  ) {
-                        self::echoVoteRes(2, $user_country, $add_subscription); // user was already voted
-                    }
-                    break;
-                case ("24hFonce"):
-                    if ( count($check_ip) > 0 ) {
-                        self::echoVoteRes(3, $user_country, $add_subscription, $hours_leave); // 24 hour not passed
-                    }
-                    break;
-                case ("24hF2"):
-                    if ( count($check_ip) < 2 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
-                        $can_vote = true;
-                    } else {
-                        self::echoVoteRes(3, $user_country, $add_subscription, $hours_leave); // 24 hour not passed
-                    }
-                    break;
-                case ("24hF3"):
-
-                    if ( count($check_ip) < 3 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
-                        $can_vote = true;
-                    } else {
-                        self::echoVoteRes(3, $user_country, $add_subscription, $hours_leave); // 24 hour not passed
-                    }
-                    break;
-                case ("24hFall"):
-                    if ( count($check_ip) > 0  ) {
-                        self::echoVoteRes(3, $user_country, $add_subscription, $hours_leave); // 24 hour not passed
-                    }
-                    break;
-                default:
-                    //var_dump( has_filter('fv/vote/process_custom_frequency') );
-                    if ( has_filter('fv/vote/process_custom_frequency') ) {
-                        if ( !isset($check_ip_count) ) {
-                            $check_ip_count = '';
-                        }
-                        $can_vote = apply_filters('fv/vote/process_custom_frequency', $can_vote, $contest, $check_ip, $check_ip_count, $user_country, $add_subscription, $hours_leave);
-                    } else {
-                        self::echoVoteRes(2, $user_country, $add_subscription); // user was already voted
-                    }
-                    break;
+            if ( !isset($check_ip_count) ) {
+                $check_ip_count = '';
             }
+
+            if ( has_filter('fv/vote/process_custom_frequency') ) {
+                $can_vote = apply_filters('fv/vote/process_custom_frequency', $can_vote, $contest, $check_ip, $check_ip_count, $user_country, $add_subscription, $hours_leave);
+            } else {
+                $code = self::_get_vote_resp_code($contest, $check_ip, $check_ip_count);
+                if ( $code !== TRUE ) {
+                    self::echoVoteRes($code, $user_country, $add_subscription, $hours_leave); // echo response
+                }
+                $can_vote = true;
+            }
+
         } else {
             if ( strpos($contest->voting_frequency, 'once') !== false ){
                 self::echoVoteRes(2, $user_country, $add_subscription); // user was voted
@@ -418,7 +420,8 @@ class FvPublicVote {
                 $ip_data['score'] = '-1';
             }
             // try insert record
-            if ( !ModelVotes::query()->insert($ip_data) ) {
+            $insert_res = ModelVotes::query()->insert($ip_data);
+            if ( $insert_res == 0 ) {
                 fv_log('Voting :: can`t add new ip record to DB', $ip_data);
                 self::echoVoteRes(99, $user_country, $add_subscription); // error
             }
@@ -438,6 +441,81 @@ class FvPublicVote {
 
     /* --------------------------------------------------------------------------- */
 
+    /**
+     * Analyze SQL query result and return can user vote or need END
+     *
+     * @param $contest
+     * @param $check_ip
+     * @param $check_ip_count
+     *
+     * @return int
+     */
+    public static function _get_vote_resp_code($contest, $check_ip, $check_ip_count)
+    {
+
+        // Processing data depending on voting frequency
+        switch($contest->voting_frequency) {
+            case ("once"):
+                if ( count($check_ip) > 0  ) {
+                    return 2; // user was already voted
+                }
+                break;
+            case ("onceF2"):
+                if ( count($check_ip) < 2 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
+                    return TRUE;
+                } else {
+                    return 2; // user was already voted
+                }
+                break;
+            case ("onceF3"):
+                if ( count($check_ip) < 3 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
+                    return TRUE;
+                } else {
+                    return 2; // user was already voted
+                }
+                break;
+            case ("onceF10"):
+                if ( count($check_ip) < 10 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
+                    return TRUE;
+                } else {
+                    return 2; // user was already voted
+                }
+                break;
+            case ("onceFall"):
+                if ( count($check_ip) > 0  ) {
+                    return 2; // user was already voted
+                }
+                break;
+            case ("24hFonce"):
+                if ( count($check_ip) > 0 ) {
+                    return 3; // 24 hour not passed
+                }
+                break;
+            case ("24hF2"):
+                if ( count($check_ip) < 2 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
+                    return TRUE;
+                } else {
+                    return 3; // 24 hour not passed
+                }
+                break;
+            case ("24hF3"):
+
+                if ( count($check_ip) < 3 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
+                    return TRUE;
+                } else {
+                    return 3; // 24 hour not passed
+                }
+                break;
+            case ("24hFall"):
+                if ( count($check_ip) > 0  ) {
+                    return 3; // 24 hour not passed
+                }
+                break;
+            default:
+                return 2; // user was already voted
+                break;
+        }
+    }
 
     /**
      * AJAX :: check, is user already entered data (email+name OR social authorization)
@@ -536,9 +614,9 @@ class FvPublicVote {
      * @output json_array
      */
     static function echoVoteRes ($code, $user_country, $add_subscribsion, $hours_leave = false) {
-        if ( is_int($code) && $code > 1 && (FV::$DEBUG_MODE | FvDebug::LVL_MAIL) ) {
+        if ( is_int($code) && $code > 1 && (FV::$DEBUG_MODE & FvDebug::LVL_CODE_VOTE) ) {
             $codes_description = array(
-                2 => 'Voted',
+                2 => 'Already voted',
                 3 => '24 hours not passed',
                 4 => 'date end',
                 5 => 'not authorized',
@@ -549,14 +627,18 @@ class FvPublicVote {
             $curr_code_description .= isset($codes_description[$code]) ? $codes_description[$code] : 'no description';
 
             fv_log('Unsuccessful Voting attempt :: code ' . $code . $curr_code_description, self::$vote_debug_var);
+            global $wpdb;
+            fv_log('Unsuccessful Voting attempt :: sql ', $wpdb->last_query);
             fv_log( 'curr memory usage (mb):' . (memory_get_usage()/1024/1024) );
         }
 
-        if ( !$hours_leave ) {
-            die( fv_json_encode(array('res' => $code, 'user_country' => $user_country, 'add_subscribsion' => $add_subscribsion)) );
-        } else {
-            die( fv_json_encode(array('res' => $code, 'user_country' => $user_country, 'add_subscribsion' => $add_subscribsion, 'hours_leave' => $hours_leave)) );
+        $response_arr = array('res' => $code, 'user_country' => $user_country, 'add_subscribsion' => $add_subscribsion);
+        if ( $hours_leave !== false ) {
+            $response_arr['hours_leave'] = $hours_leave;
         }
+        $response_arr = apply_filters('fv/vote/echo_res', $response_arr, $code);
+
+        die( fv_json_encode($response_arr) );
     }    
     
 }
