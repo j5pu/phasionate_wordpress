@@ -5764,16 +5764,25 @@ li.product figcaption .shop-actions > a.button:hover{
 }
 
 .bogaform{
-	background: rgb(255, 255, 255); /* Fall-back for browsers that don't                      support rgba */
+	background: rgb(255, 255, 255); /* Fall-back for browsers that don't support rgba */
 	background: rgba(255, 255, 255, 0.8);
 	padding: 10px;
 	-webkit-box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
 	box-shadow: 3px 3px 13px 0px rgba(0,0,0,0.75);
+	border-radius: 10px;
+	width: 50%;
+	float: right;
 }
 
-#image_wrapper{
-	overflow:hidden;
+.bogaform #signup_submit {
+	background: rgba(144,40,40,0.75) !important;
+	color: white !important;
+}
+
+.bogaform #signup_submit:hover {
+	background: rgba(144,40,40,1) !important;
+	color: white !important;
 }
 
 .bogaregistro{
@@ -5782,7 +5791,7 @@ li.product figcaption .shop-actions > a.button:hover{
 
 #bogaregistro_texto{
 	color: white;
-	margin: 40px 25%;
+	margin: 40px 10%;
 }
 
 #bogaregistro_text_main{
@@ -5790,16 +5799,9 @@ li.product figcaption .shop-actions > a.button:hover{
 }
 
 .bogaregistro_marco{
-	position: relative;
-	overflow:hidden;
+	background: url("/phasionate_wordpress/wp-content/themes/kleo-child/img/8943058_xl.jpg");
+	height: 1000px;
 }
-
-/*.bogaregistro_imagen{
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    z-index: -100;
-}*/
 
 .kleo-facebook-connect{
 	margin-bottom: -20px;
@@ -5812,40 +5814,21 @@ body.registration #signup_submit {
 	height: 100%;
 	background-color: darkseagreen;
 }
+#bogaregistro_texto{
+	color: white;
+}
 
+#bogaregistro_text_main{
+	text-shadow: 1px 1px black;
+}
+.bogaform{
+	background: rgba(255, 255, 255, 0.75);
+}
+.bogaregistro_imagen{
+	width: 1400px;
 
-@media screen and (max-width: 711px) {
-	.bogaregistro_marco{
-		height: 1150px;
-	}
-
-	/*    #bogaregistro_texto {
-            position: absolute;
-        }*/
-
-	.bogaregistro {
-		top: 0%;
-		left: 8%;
-	}
-
-	#bogaregistro_texto{
-		color: white;
-		margin: 0 25% 150px;
-	}
-
-	#bogaregistro_text_main{
-		text-shadow: 1px 1px black;
-		font-size: 42px !important;
-	}
-	.bogaform{
-		background: rgba(255, 255, 255, 0.75);
-	}
-	.bogaregistro_imagen{
-		width: 1400px;
-
-		top: -5%;
-		position: absolute;
-	}
+	top: -5%;
+	position: absolute;
 }
 
 
@@ -5863,19 +5846,10 @@ body.registration #signup_submit {
 	.bogaregistro_imagen{
 		width: 1100px !important;
 	}
-	.bogaregistro_marco{
-		height: 1030px;
-	}
-	#bogaregistro_texto {
-		margin: 40px 3% !important;
-	}
 }
 @media screen and (min-width: 991px) and (max-width: 1200px){
 	.bogaregistro_imagen{
 		width: 1200px !important;
-	}
-	.bogaregistro_marco{
-		height: 1030px;
 	}
 	#bogaregistro_texto {
 		margin: 40px 16% !important;
@@ -5886,9 +5860,6 @@ body.registration #signup_submit {
 	.bogaregistro_imagen{
 		width: 1400px !important;
 	}
-	.bogaregistro_marco{
-		height: 1030px;
-	}
 	#bogaregistro_texto {
 		margin: 40px 19% !important;
 	}
@@ -5898,45 +5869,17 @@ body.registration #signup_submit {
 	.bogaregistro_imagen{
 		width: 1700px !important;
 	}
-	.bogaregistro_marco{
-		height: 1030px;
-	}
 }
 
 @media screen and (min-width: 712px){
-	.bogaregistro {
-		top: 3%;
-		right: 5%;
-	}
-
-	/*
-    #bogaregistro_texto {
-        top: 3%;
-        right: 15%;
-        position: absolute;
-    }
-    */
-	#bogaregistro_texto{
-		margin: 40px 25%;
-	}
-
-	#bogaregistro_text_main{
-		font-size: 100px !important;
-	}
 	.bogaform{
 		background: rgba(255, 255, 255, 0.8);
-	}
-	.bogaregistro_marco{
-		height: 1030px;
 	}
 }
 
 @media screen and (min-width: 1701px){
 	.bogaregistro_imagen{
 		max-width: 100% !important;
-	}
-	.bogaregistro_marco{
-		height: 1030px;
 	}
 }
 
@@ -5951,6 +5894,20 @@ body.registration #signup_submit {
 	right: -1px; 
 	z-index: 9;
 }
+.user_email {
+	width: 48%; 
+	float: left;
+}
+.password {
+	width: 48%; 
+	float: right;
+}
+#bogaregistro_texto {
+	margin-top: 70px !important;
+}
+#bogaregistro_text_main{
+	font-size: 100px !important;
+}
 @media screen and (max-width: 1324px){
 	.bannerleft {
 		left: 0px;
@@ -5960,5 +5917,53 @@ body.registration #signup_submit {
 @media screen and (max-width: 1240px){
 	.bannerleft, .bannerright {
 		display: none;
+	}
+}
+@media screen and (max-width: 1570px){
+	.bogaregistro_marco {
+		background-position: -190px -110px;
+	}
+	.bogaform {
+	    width: 60%;
+	}
+}
+@media screen and (max-width: 1570px){
+	.bogaregistro_marco {
+		background-position: -190px -110px;
+	}
+	.bogaform {
+	    width: 60%;
+	}
+}
+@media screen and (max-width: 1300px){
+	.user_email, .password {
+		width: 100%; 
+		float: none;
+	}
+}
+@media screen and (max-width: 640px){
+	.bogaform {
+	    width: 100%;
+	}
+	#bogaregistro_texto {
+		margin: 70px 0px 40px;
+		text-align: center;
+	}
+	#bogaregistro_text_main {
+	    font-size: 81px !important;
+	}
+}
+@media screen and (max-width: 600px){
+	#bogaregistro_texto {
+		margin: 70px 0px 40px;
+		text-align: center;
+	}
+}
+@media screen and (max-width: 400px){
+	#bogaregistro_text_main {
+	    font-size: 63px !important;
+	}
+	#bogaregistro_texto h3{
+	    font-size: 17px;
 	}
 }

@@ -1,8 +1,5 @@
 <div class="container<?php if(!wp_is_mobile()){?>-fluid<?php } ?>">
 	<div class="row bogaregistro_marco">
-		<div id="image_wrapper">
-			<img class="bogaregistro_imagen" src="<?php echo site_url( "/wp-content/themes/kleo-child/img/8943058_xl.jpg"); ?>">
-		</div>
 		<div class="col-xs-10 col-sm-6 col-md-6 bogaregistro">
 			<div id="bogaregistro_texto">
 				<h3>QUEREMOS QUE SEAS TÚ NUESTRA</h3>
@@ -39,7 +36,7 @@
 									<?php /***** Basic Account Details ******/ ?>
 
 									<div>
-										<div style="width: 48%; float: left;">
+										<div class="user_email">
 											<label style="width: 100%;" for="signup_username"><?php _e( 'Username', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
 											<?php do_action( 'bp_signup_username_errors' ); ?>
 											<input style="width: 100%;" type="text" name="signup_username" id="signup_username" value="<?php bp_signup_username_value(); ?>" />
@@ -48,7 +45,7 @@
 											<?php do_action( 'bp_signup_email_errors' ); ?>
 											<input style="width: 100%;" type="text" name="signup_email" id="signup_email" value="<?php bp_signup_email_value(); ?>" />
 										</div>
-										<div style="width: 48%; float: right;">
+										<div class="password">
 											<label style="width: 100%;" for="signup_password"><?php _e( 'Choose a Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
 											<?php do_action( 'bp_signup_password_errors' ); ?>
 											<input style="width: 100%;" type="password" name="signup_password" id="signup_password" value="" class="password-entry" />
@@ -179,7 +176,7 @@
 
 						<?php do_action( 'bp_before_registration_submit_buttons' ); ?>
 
-						<div class="submit">
+						<div style="margin-right: 15px;" class="submit">
 							<input type="submit" name="signup_submit" id="signup_submit" value="<?php esc_attr_e( 'Complete Sign Up', 'buddypress' ); ?>" />
 						</div>
 
