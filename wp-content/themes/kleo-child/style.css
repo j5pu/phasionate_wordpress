@@ -5860,9 +5860,6 @@ body.registration #signup_submit {
 	.bogaregistro_imagen{
 		width: 1400px !important;
 	}
-	#bogaregistro_texto {
-		margin: 40px 19% !important;
-	}
 }
 
 @media screen and (min-width: 1401px) and (max-width: 1700px){
@@ -5926,6 +5923,9 @@ body.registration #signup_submit {
 	.bogaform {
 	    width: 60%;
 	}
+	#bogaregistro_texto {
+		margin: 40px 3% !important;
+	}
 }
 @media screen and (max-width: 1570px){
 	.bogaregistro_marco {
@@ -5939,6 +5939,11 @@ body.registration #signup_submit {
 	.user_email, .password {
 		width: 100%; 
 		float: none;
+	}
+}
+@media screen and (max-width: 989px){
+	#bogaregistro_texto {
+	    margin: 65px 3% !important;
 	}
 }
 @media screen and (max-width: 640px){
