@@ -284,7 +284,7 @@ function posts_home(){
 	// The Query
 	$args = array(
 		'post_status'  => 'publish',
-		'posts_per_page' => 13,
+		'posts_per_page' => 29,
 		'orderby' => 'date',
 		'order'    => 'DESC',
 		'cat'	=> '-566, -'.$id_noticias
