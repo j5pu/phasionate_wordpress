@@ -1,0 +1,422 @@
+msgid ""
+msgstr "MIME-Version: 1.0\n"
+
+#. Name.
+msgid "Nav Menu Roles"
+msgstr ""
+
+#. Short description.
+msgid "Hide custom menu items based on user roles. PLEASE READ THE FAQ IF YOU ARE NOT SEEING THE SETTINGS."
+msgstr ""
+
+#. Screenshot description.
+msgid "Show the new options for the menu items in the admin menu customizer"
+msgstr ""
+
+#. Found in description header.
+msgid "IMPORTANT NOTE"
+msgstr ""
+
+#. Found in description header.
+msgid "Usage"
+msgstr ""
+
+#. Found in description header.
+msgid "Support"
+msgstr ""
+
+#. Found in description list item, installation list item.
+msgid "Go to Appearance &gt; Menus"
+msgstr ""
+
+#. Found in description list item.
+msgid "Edit the menu items accordingly.  First select whether you'd like to display the item to all logged in users, all logged out users or to customize by role."
+msgstr ""
+
+#. Found in description list item.
+msgid "If you chose customize by role, then you can check the boxes next to the roles you'd like to restrict visibility to."
+msgstr ""
+
+#. Found in description list item.
+msgid "If you choose 'By Role' and don't check any boxes, the item will be visible to everyone like normal."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "This plugin lets you hide custom menu items based on user roles.  So if you have a link in the menu that you only want to show to logged in users, certain types of users, or even only to logged out users, this plugin is for you."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Nav Menu Roles is very flexible. In addition to standard user roles, you can customize the functionality by adding your own check boxes with custom labels using the <code>nav_menu_roles</code> filter and then using the <code>nav_menu_roles_item_visibility</code> filter to check against whatever criteria you need. You can check against any user meta values (like capabilities) and any custom attributes added by other plugins. See the <a href=\"http://wordpress.org/plugins/nav-menu-roles/faq/#new-role\">FAQ</a>."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "In WordPress menu items and pages are completely separate entities. Nav Menu Roles does not restrict access to content. Nav Menu Roles is <em>only</em> for showing/hiding <em>nav menu</em> items. If you wish to restrict content then you need to also be using a membership plugin."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Support is handled in the <a href=\"https://wordpress.org/support/plugin/nav-menu-roles\">WordPress forums</a>. Please note that support is limited and does not cover any custom implementation of the plugin. Before posting, please read the <a href=\"http://wordpress.org/plugins/nav-menu-roles/faq/\">FAQ</a>. Also, please verify the problem with other plugins disabled and while using a default theme."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Please report any bugs, errors, warnings, code problems to <a href=\"https://github.com/helgatheviking/nav-menu-roles/issues\">Github</a>"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Upload the <code>plugin</code> folder to the <code>/wp-content/plugins/</code> directory"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Activate the plugin through the 'Plugins' menu in WordPress"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Edit the menu items accordingly. First select whether you'd like to display the item to Everyone, all logged out users, or all logged in users. "
+msgstr ""
+
+#. Found in installation list item.
+msgid "Logged in users can be further limited to specific roles by checking the boxes next to the roles you'd like to restrict visibility to."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Change language in metabox to try to explain min caps versus strict role checking"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "keep tweaking the FAQ"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "update readme, update error notice, add more links to the FAQ"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "add Italian language. props @sododesign"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Updated FAQ with patch instructions for conflicting plugins/themes"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "add Portugeuse language. props @brunobarros"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "adjust admin UI to be more user-friendly. Options are now: show to everyone, show to logged out users, and show to logged in users (optionally, logged in users by specific role)"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "add Guajarati language. props @rohilmistry93"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "more language issues -&gt; sync svn+git version numbers"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Try again to add languages. Where'd they all go?"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Add French translation. Props @Philippe Gilles"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Update list of conflits"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Don't display radio buttons if no roles - allows for granular permissions control"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Feature: Hiding a parent menu item will automatically hide all its children"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Feature: Add compatibility with Menu Item Visibility Control plugin and any plugin/theme that is willing to add its inputs via the <code>wp_nav_menu_item_custom_fields</code> hook. See the <a href=\"http://wordpress.org/plugins/nav-menu-roles/faq/#compatibility\">FAQ</a> to make our plugins compatible."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Hopefully fix missing nav-menu-roles.min.js SVN issue"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Switch to instance of plugin"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Add notice when conflicting plugins are detected "
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Remove some extraneous parameters"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Add Spanish translation thanks to @deskarrada"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "update to WP 3.8 version of Walker_Nav_Menu_Edit (prolly not any different from 3.7.1)"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "minor CSS adjustment to admin menu items"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "checked against WP 3.8"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Add to FAQ"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "add JS flair to admin menu items"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "update to WP 3.7.1 version of Walker_Nav_Menu_Edit"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Add nav_menu_roles_item_visibility filter to work with plugins that don't use traditional roles"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Update admin language thanks to @hassanhamm"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Add Arabic translation thanks to @hassanhamm"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fix Nav_Menu_Roles_Import not found error"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Stupid comment error causing save issues"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "SVN failure to include importer files!"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added custom importer"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Major fix for theme's that use their own custom Walkers, thanks to Evan Stein @vanpop http://vanpop.com/"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Instead of a custom nav Walker, menu items are controlled through the wp_get_nav_menu_items filter"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Remove the custom nav Walker code"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fix link to plugin site"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fix labels in admin Walker"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Clean up debug messages"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Initial release"
+msgstr ""
+
+#. Found in faq header.
+msgid "<a></a>I don't see the Nav Menu Roles options in the admin menu items?"
+msgstr ""
+
+#. Found in faq header.
+msgid "<a></a>Workaround #1"
+msgstr ""
+
+#. Found in faq header.
+msgid "<a></a>Patching Your Plugin/Theme"
+msgstr ""
+
+#. Found in faq header.
+msgid "Workaround #2"
+msgstr ""
+
+#. Found in faq header.
+msgid "I'm using XYZ Membership plugin and I don't see its \"levels\"?"
+msgstr ""
+
+#. Found in faq header.
+msgid "<a></a>Adding a new \"role\""
+msgstr ""
+
+#. Found in faq header.
+msgid "The menu exploded? Why are all my pages displaying for logged out users?"
+msgstr ""
+
+#. Found in faq header.
+msgid "What happened to my menu roles on import/export?"
+msgstr ""
+
+#. Found in faq header.
+msgid "How Do I Use the Custom Importer?"
+msgstr ""
+
+#. Found in faq list item.
+msgid "UberMenu 2.x Mega Menus plugin"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Add Descendants As Submenu Items plugin"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Navception plugin"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Suffusion theme"
+msgstr ""
+
+#. Found in faq list item.
+msgid "BeTheme"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Yith Menu"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Jupiter Theme"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Find the class that extends the <code>Walker_Nav_Menu</code>. As a hint, it is filtering <code>wp_edit_nav_menu_walker</code> and you might even be getting a warning about it from Nav Menu Roles. Example: "
+msgstr ""
+
+#. Found in faq list item.
+msgid "Find the file for the extending class. In my plugin this is in a file located at <code>inc/class.Walker_Nav_Menu_Edit_Roles.php</code>. I can't know <em>where</em> this file is in your plugin/theme. Please don't ask me, but here's what the beginning of that class will look like:"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Find the <code>start_el()</code> method"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Paste my action hook somewhere in this method!"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Go to Tools&gt;Export, choose to export All Content and download the Export file"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Go to Tools&gt;Import on your new site and perform your normal WordPress import"
+msgstr ""
+
+#. Found in faq list item.
+msgid "Return to Tools&gt;Import and this time select the Nav Menu Roles importer."
+msgstr ""
+
+#. Found in faq list item.
+msgid "Use the same .xml file and perform a second import"
+msgstr ""
+
+#. Found in faq list item.
+msgid "No duplicate posts will be created but all menu post meta (including your Nav Menu Roles info) will be imported"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "This is because you have another plugin (or theme) that is also trying to alter the same code that creates the Menu section in the admin."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "WordPress does not have sufficient hooks in this area of the admin and until they do plugins are forced to replace everything via custom admin menu Walker, of which there can be only one. There's a <a href=\"http://core.trac.wordpress.org/ticket/18584\">trac ticket</a> for this, but it has been around a while."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "<strong>A non-exhaustive list of known conflicts:</strong>"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "<a href=\"https://profiles.wordpress.org/shazdeh/\">Shazdeh</a> had the genius idea to not wait for a core hook and simply add the hook ourselves. If all plugin and theme authors use the same hook, we can make our plugins play together."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Therefore, as of version 1.6 I am modifying my admin nav menu Walker to <em>only</em> adding the following lines (right after the description input):"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "<strong>Ask your conflicting plugin/theme's author to add this code to his plugin or theme and our plugins will become compatible.</strong>"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Should you wish to attempt this patch yourself, you can modify your conflicting plugin/theme's admin menu Walker class. <strong>Reminder: I do not provide support for fixing your plugin/theme. If you aren't comfortable with the following instructions, contact the developer of the conflicting plugin/theme!</strong>"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Note that the class name is the same as the class name you found in step 1."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "In that file you will eventually see a class method that looks like:"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "In Nav Menu Roles, I have placed the hook directly after the description, ex:"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "As a workaround, you can switch to a default theme (or disable the conflicting plugin), edit the Nav Menu Roles, for each menu item, then revert to your original theme/ reenable the conflicting plugin. The front-end functionality of Nav Menu Roles will still work."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "There are apparently a few membership plugins out there that <em>don't</em> use traditional WordPress roles/capabilities. My plugin will list any role registered in the traditional WordPress way. If your membership plugin is using some other system, then Nav Menu Roles won't work with it out of the box.  Since 1.3.5 I've added a filter called <code>nav_menu_roles_item_visibility</code> just before my code decides whether to show/hide a menu item. There's also always been the <code>nav_menu_roles</code> filter which lets you modify the roles listed in the admin. Between these two, I believe you have enough to integrate Nav Menu Roles with any membership plugin."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Here's an example where I've added a new pseudo role, creatively called \"new-role\".  The first function adds it to the menu item admin screen. The second function is pretty generic and won't actually do anything because you need to supply your own logic based on the plugin you are using.  Nav Menu Roles will save the new \"role\" info and add it to the item in an array to the <code>$item-&gt;roles</code> variable."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Note, if you want to add a WordPress capability the above is literally all you need. Because Nav Menu Roles checks whether a role has permission to view the menu item using <code>current_user_can($role) you do not need to right a custom callback for the</code>nav_menu_roles_item_visibility` filter."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "In case you <em>do</em> need to check your visibility status against something very custom, here is how you'd go about it:"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Note that you have to generate your own if/then logic. I can't provide free support for custom integration with another plugin. You may <a href=\"http://kathyisawesome.com/contact\">contact me</a> to discuss hiring me, or I would suggest using a plugin that supports WordPress' roles, such as Justin Tadlock's <a href=\"http://wordpress.org/plugins/members\">Members</a>."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "If every item in your menu is configured to display to logged in users (either all logged in users, or by specific role), then when a logged out visitor comes to your site there are no items in the menu to display.  <code>wp_nav_menu()</code> will then try check its <code>fallback_cb</code> argument... which defaults to <code>wp_page_menu</code>."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Therefore, if you have no items to display, WordPress will end up displaying ALL your pages!!"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "If you don't want this, you must set the fallback argument to be a null string."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "The Nav Menu Roles plugin stores 1 piece of post <em>meta</em> to every menu item/post.  This is exported just fine by the default Export tool."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "However, the Import plugin only imports certain post meta for menu items.  As of version 1.3, I've added a custom Importer to Nav Menu Roles as a work around."
+msgstr ""
