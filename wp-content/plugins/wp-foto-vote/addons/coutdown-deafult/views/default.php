@@ -1,5 +1,5 @@
 <div class="fv-countdown" data-image="<?php echo $this->addonUrl . 'images/sprites.png' ?>">
-    <div class="fv-countdown--title"><?php echo wp_kses_post($this->_get_opt('text_before', '') ); ?></div>
+    <div class="fv-countdown--title"><?php echo wp_kses_post($this->_get_opt('text_before', 'Contest will ends in:') ); ?></div>
 
     <em class="clock"></em>
     <div class="c-block c-block-<?php echo $this->_get_opt('days_count', 2); ?>"><div class="bl-inner"><span><?php echo $days_leave; ?></span></div>
