@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Foto Vote 2.1\n"
 "POT-Creation-Date: 2015-09-02 11:23+0200\n"
-"PO-Revision-Date: 2015-12-10 12:04+0100\n"
+"PO-Revision-Date: 2015-12-10 17:45+0100\n"
 "Last-Translator: Maxim <support@wp-vote.net>\n"
 "Language-Team: pablo@mnopi.com\n"
 "Language: es_ES\n"
@@ -693,7 +693,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:243
 msgid "User email title - photo approved"
-msgstr ""
+msgstr "Título de email del usuario - foto aprobada"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:244
 #, php-format
@@ -705,7 +705,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:245
 msgid "User email title - photo deleted"
-msgstr ""
+msgstr "Título de email del usuario - foto eliminada"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:246
 #, php-format
@@ -717,7 +717,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:248
 msgid "User email title - email share"
-msgstr ""
+msgstr "Título de email del usuario - foto eliminada"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:249
 #, php-format
@@ -731,7 +731,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:251
 msgid "Admin email title - new photo uploaded"
-msgstr ""
+msgstr "Título de email de admiistrador - nuevo foto subida"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:252
 #, php-format
@@ -744,7 +744,7 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:256
 msgid "Contest list"
-msgstr ""
+msgstr "Lista de concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/class-fv-translations.php:257
 #, php-format
@@ -913,86 +913,86 @@ msgstr "Concursante"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:217
 msgid "IP address / Country / Evercookie UID"
-msgstr ""
+msgstr "Dirección IP / País / Cookie UID"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:218
 msgid "Fraud score"
-msgstr ""
+msgstr "Fraude"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:219
 msgid "Soc. network/ Soc. user id"
-msgstr ""
+msgstr "Soc. network/ Soc. id de usuario"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:220
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:10
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:9
 msgid "User id"
-msgstr ""
+msgstr "ID de usuario"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:221
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:61
 msgid "changed"
-msgstr ""
+msgstr "cambio"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:222
 msgid "browser"
-msgstr ""
+msgstr "Navegador"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:223
 msgid "refer"
-msgstr ""
+msgstr "Referencia"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:299
 msgid "Vote rows deleted (this did`t affects photo votes count)."
-msgstr ""
+msgstr "Votar elementos borrados (esto no afecta a los votos ya contados)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/list-tables/class_votes_log_list.php:302
 msgid "Row deleted (this did`t affects photo votes count)."
-msgstr ""
+msgstr "Borrar elementos bottados (esto no afecta a los votos ya contados)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/class-widget.php:47
 msgid "Photo contest gallery"
-msgstr ""
+msgstr "Galería de fotos de concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/class-widget.php:49
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/class-widget.php:54
 msgid "Shows list photos from selected contest."
-msgstr ""
+msgstr "Muestra la lista de fotos de concurso seleccionado."
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/class-widget.php:114
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/class-widget.php:121
 msgid "Photo contest"
-msgstr ""
+msgstr "Galería de fotos de concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:3
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:3
 msgid "Title:"
-msgstr ""
+msgstr "Título:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:8
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:8
 msgid "Select contest:"
-msgstr ""
+msgstr "Seleccionar concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:15
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:15
 msgid "Select contest, from show contestants."
-msgstr ""
+msgstr "Seleccionar concurso, para mostrar concursantes"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:19
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:19
 msgid "Items count:"
-msgstr ""
+msgstr "Contador de votos:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:37
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:44
 msgid "Thumbnail width:"
-msgstr ""
+msgstr "Miniatura con:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:48
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:52
 msgid "Link to contest page:"
-msgstr ""
+msgstr "Enlace a la página de concurso:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:50
 msgid "Don`t forgot http://, as example \"http://test.com/contest/\""
@@ -1001,37 +1001,37 @@ msgstr ""
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/admin.php:54
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:57
 msgid "Design:"
-msgstr ""
+msgstr "Diseño:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-gallery/views/widget.php:23
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/widget.php:22
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/class-widget.php:51
 msgid "Photo contest list"
-msgstr ""
+msgstr "Lista de fotos de concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:37
 msgid "Show thumbnails?"
-msgstr ""
+msgstr "¿Mostrar miiaturas?"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:39
 msgid "If unchecked, it will hide thumbnails."
-msgstr ""
+msgstr "Si se desmarca, se ocultará la miniatura"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/admin.php:46
 msgid "more than 25 px."
-msgstr ""
+msgstr "más de 25px"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\includes/widget-list/views/widget.php:28
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_photos_list_form.php:44
 msgid "Votes"
-msgstr ""
+msgstr "Votos"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/share.php:76
 msgid "We are not put your data to others."
-msgstr ""
+msgstr "No podemos mostrar tus datos a otras personas"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/share_new.php:22
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/share_new.php:34
@@ -1041,112 +1041,112 @@ msgstr "Post"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/share_new.php:28
 msgid "Tweet"
-msgstr ""
+msgstr "Tweet"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/share_new.php:40
 msgid "Pin it"
-msgstr ""
+msgstr "Pin it"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/share_new.php:106
 msgid "Share and vote"
-msgstr ""
+msgstr "Compartir y votar"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/upload.php:50
 msgid "Login"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/upload.php:50
 msgid "or"
-msgstr ""
+msgstr "o"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/upload.php:50
 msgid "register"
-msgstr ""
+msgstr "registrarse"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/contests_list/default/list.php:32
 msgid "not active"
-msgstr ""
+msgstr "No activa"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/contests_list/default/list.php:40
 msgid "Visible only for admins"
-msgstr ""
+msgstr "Visible solo para los administradores"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/default/single_item.php:11
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/new_year/single_item.php:30
 msgid "Next"
-msgstr ""
+msgstr "Siguiente"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/default/single_item.php:17
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/new_year/single_item.php:37
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/default/single_item.php:36
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/modern_azure/single_item.php:13
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/new_year/single_item.php:43
 msgid "Share to friends"
-msgstr ""
+msgstr "Compartir con amigos"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:47
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:6
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:62
 msgid "Comments"
-msgstr ""
+msgstr "Comentarios"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:80
 msgid "Share"
-msgstr ""
+msgstr "Compartir"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:107
 msgid "EXIF Data"
-msgstr ""
+msgstr "EXIF Data"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:110
 msgid "Model"
-msgstr ""
+msgstr "Modelo"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:114
 msgid "Focal Length"
-msgstr ""
+msgstr "Longitud focal"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:117
 msgid "Shutter Speed"
-msgstr ""
+msgstr "Velocidad de obturación"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:120
 msgid "Aperture"
-msgstr ""
+msgstr "Apertura"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:124
 msgid "ISO"
-msgstr ""
+msgstr "ISO"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:128
 msgid "Taken At"
-msgstr ""
+msgstr "Tomado en"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/single_item.php:134
 msgid "More"
-msgstr ""
+msgstr "Más"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/theme.php:66
 msgid "first"
-msgstr ""
+msgstr "primero"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/theme.php:67
 msgid "second"
-msgstr ""
+msgstr "segundo"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/theme.php:68
 msgid "third"
-msgstr ""
+msgstr "tercero"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\themes/flickr/theme.php:69
 msgid "fourth"
-msgstr ""
+msgstr "cuarto"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:72
 msgid "Log cleared."
