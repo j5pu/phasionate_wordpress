@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-07 00:05:22+0000\n"
+"PO-Revision-Date: 2015-12-09 01:41:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -66,7 +66,7 @@ msgstr "Todavía más proveedores de elementos incrustados"
 
 #: wp-admin/about.php:104
 msgid "Now you can embed your posts on other sites, even other WordPress sites. Simply drop a post URL into the editor and see an instant embed preview, complete with the title, excerpt, and featured image if you&#8217;ve set one. We&#8217;ll even include your site icon and links for comments and sharing."
-msgstr "Ahora también puedes incrustar tus entradas en otros sitios, incluso otros de WordPress. Sólo tienes que poner la URL en el editor e inmediatamente verás una vista previa del incrustado, incluyendo el título, el extracto y la imagen destacada si lo tienen. Incluso hemos incluido el icono del sitio y enlaces al los comentario y para compartir."
+msgstr "Ahora puedes incrustar tus entradas en otros sitios WordPress. Simplemente arrastra la URL de una entrada en el editor y verás una vista previa instantánea del objeto incrustado, completo, con su título, extracto e imagen destacada si está especificada. Incluso hemos incluido el icono de tu sitio y enlaces para comentar y compartir."
 
 #: wp-admin/about.php:103
 msgid "Embed your WordPress content"
