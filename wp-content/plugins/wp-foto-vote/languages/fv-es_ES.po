@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Foto Vote 2.1\n"
 "POT-Creation-Date: 2015-09-02 11:23+0200\n"
-"PO-Revision-Date: 2015-12-11 13:34+0100\n"
+"PO-Revision-Date: 2015-12-11 17:21+0100\n"
 "Last-Translator: Maxim <support@wp-vote.net>\n"
 "Language-Team: pablo@mnopi.com\n"
 "Language: es_ES\n"
@@ -1532,27 +1532,27 @@ msgstr "Introduce el nombre del concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:276
 msgid "Contestants"
-msgstr ""
+msgstr "Concursantes"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:284
 msgid "Add one photo"
-msgstr ""
+msgstr "Añadir una foto"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:287
 msgid "Add many photos (test mode)"
-msgstr ""
+msgstr "Añadir varias fotos (modo prueba)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:289
 msgid "Redraw table"
-msgstr ""
+msgstr "Volver a dibujar la tabla"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:291
 msgid "Save contest for editing contestants!"
-msgstr ""
+msgstr "Guardar concurso para editar concursantes"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/form-builder.php:2
 msgid "Upload form builder"
-msgstr ""
+msgstr "Subir constructor de formulario"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/form-builder.php:4
 msgid ""
@@ -1574,72 +1574,72 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:109
 msgid "Debug Log:"
-msgstr ""
+msgstr "Depurar registro:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:116
 msgid "Clear log"
-msgstr ""
+msgstr "Limpiar registro"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:137
 msgid "WordPress Environment"
-msgstr ""
+msgstr "Entorno WordPress"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:142
 msgid "Home URL"
-msgstr ""
+msgstr "Inicio URL"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:147
 msgid "Site URL"
-msgstr ""
+msgstr "Sitio URL"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:152
 msgid "FV Version"
-msgstr ""
+msgstr "Versión FV"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:157
 msgid "FV Database Version"
-msgstr ""
+msgstr "Versión de la base de datos de FV"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:162
 msgid "Log File Writable"
-msgstr ""
+msgstr "Archivo de registro grabable"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:168
 #, php-format
 msgid "To allow logging, make <code>%s</code> writable."
-msgstr ""
+msgstr "Para permitir el inicio de sesión, hacer <code>%s</code> grabable."
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:173
 msgid "WP Version"
-msgstr ""
+msgstr "Versión WP"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:178
 msgid "WP Multisite"
-msgstr ""
+msgstr "WP Multisitio"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:183
 msgid "WP Memory Limit"
-msgstr ""
+msgstr "WP Límite de memoria"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:190
 msgid "WP Debug Mode"
-msgstr ""
+msgstr "WP Modo Depuración"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:195
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:205
 msgid "Server Environment"
-msgstr ""
+msgstr "Entorno de servicio"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:210
 msgid "Server Info"
-msgstr ""
+msgstr "Información del Servidor"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:215
 msgid "PHP Version"
-msgstr ""
+msgstr "Versión PHP"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:223
 #, php-format
@@ -1651,6 +1651,7 @@ msgstr ""
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:228
 msgid "Couldn't determine PHP version because phpversion() doesn't exist."
 msgstr ""
+"No se pudo determinar la versión de PHP porque phpversion () no existe."
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:234
 msgid "PHP Post Max Size"
@@ -1713,16 +1714,16 @@ msgstr ""
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:325
 #, php-format
 msgid "Error: %s"
-msgstr ""
+msgstr "Error: %s"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/page-debug.php:327
 #, php-format
 msgid "Status code: %s"
-msgstr ""
+msgstr "Estado del código: %s"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:10
 msgid "Setup Tutorial"
-msgstr ""
+msgstr "Setup Tutorial"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:45
 msgid "Addons"
@@ -1730,35 +1731,35 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:65
 msgid "Updating"
-msgstr ""
+msgstr "Actualización"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:74
 msgid "Status: "
-msgstr ""
+msgstr "Estado:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:75
 msgid "update active until "
-msgstr ""
+msgstr "actualizar antes de activar"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:75
 msgid "update inactive - "
-msgstr ""
+msgstr "actualización inactiva -"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:76
 msgid "<strong>You key</strong>: "
-msgstr ""
+msgstr "<strong>Tu clave</strong>: "
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:76
 msgid "Key not entered!"
-msgstr ""
+msgstr "La clave no es válida"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:84
 msgid "Support &amp; Reviews"
-msgstr ""
+msgstr "Sopoete &amp; Reseñas"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:92
 msgid "Need customization or freelance developer? Write to"
-msgstr ""
+msgstr "Necesitas personalización o desarrollador independiente? Escribir a"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_sidebar.php:99
 msgid "Need support? Write to"
@@ -1777,133 +1778,133 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:7
 msgid "Votes count"
-msgstr ""
+msgstr "Contador de votos"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:8
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:7
 msgid "Upload info"
-msgstr ""
+msgstr "Actualizar información"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:9
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:8
 msgid "User email"
-msgstr ""
+msgstr "Email de usuario"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:11
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:10
 msgid "User ip"
-msgstr ""
+msgstr "IP de usuario"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:12
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:78
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:13
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:11
 msgid "Added"
-msgstr ""
+msgstr "Adicional"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units.php:14
 msgid "Actions"
-msgstr ""
+msgstr "Acciones"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:12
 msgid "Action"
-msgstr ""
+msgstr "Acción"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_moderation.php:29
 msgid "Approve"
-msgstr ""
+msgstr "Aprovar"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_tr.php:28
 msgid "rotate right"
-msgstr ""
+msgstr "rotar a la dereecha"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_table_units_tr.php:30
 msgid "rotate left"
-msgstr ""
+msgstr "rotar a la izquierda"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:4
 msgid "Editing contestant:"
-msgstr ""
+msgstr "Editar concursantes:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:4
 msgid "Adding contestant:"
-msgstr ""
+msgstr "Añadir concursantes:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:5
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_photos_list_form.php:27
 msgid "Please don't use \" (double quotes) in fields"
-msgstr ""
+msgstr "Por favor, no usar comillas dobles(\"\")"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:19
 msgid "Number of votes"
-msgstr ""
+msgstr "Número de votos"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:27
 msgid "Short Description"
-msgstr ""
+msgstr "Descripción corta"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:27
 msgid "(shows in photos list)"
-msgstr ""
+msgstr "(muestra lista de fotos)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:31
 msgid "Full description"
-msgstr ""
+msgstr "Descripción completa"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:31
 msgid "(shows in single contest photo page)"
-msgstr ""
+msgstr "(muestra una foto de concurso por página)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:36
 msgid "Social description"
-msgstr ""
+msgstr "Descripción social"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:36
 msgid "(uses on sharing image into Social networks)"
-msgstr ""
+msgstr "(usada al compartir imagen en las redes sociales)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:41
 msgid "Additional filed"
-msgstr ""
+msgstr "Campo adcional"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:54
 msgid "Contest image"
-msgstr ""
+msgstr "Imagen del concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:55
 msgid "(Use full image, thumbnail get`s automatically)"
-msgstr ""
+msgstr "(Usar imagen completa, la miniatura se crea automáticamente)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:79
 msgid "Publish"
-msgstr ""
+msgstr "Publicar"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:80
 msgid "To moderation"
-msgstr ""
+msgstr "En moderación"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:81
 msgid "To draft"
-msgstr ""
+msgstr "Borrador"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_other.php:4
 msgid "Other settings"
-msgstr ""
+msgstr "Otros ajustes"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_other.php:8
 msgid "Contest list settings"
-msgstr ""
+msgstr "Ajustes de lista de concursos"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_other.php:13
 msgid "Page, where contest are placed"
-msgstr ""
+msgstr "Pagina, donde se coloca el concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_other.php:16
 msgid "Select page"
-msgstr ""
+msgstr "Seleccionar página"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_other.php:35
 msgid "(need, only if you uses contest_list shortcode)"
