@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Foto Vote 2.1\n"
 "POT-Creation-Date: 2015-09-02 11:23+0200\n"
-"PO-Revision-Date: 2015-12-11 12:00+0100\n"
+"PO-Revision-Date: 2015-12-11 13:34+0100\n"
 "Last-Translator: Maxim <support@wp-vote.net>\n"
 "Language-Team: pablo@mnopi.com\n"
 "Language: es_ES\n"
@@ -1362,161 +1362,173 @@ msgstr "últimos 360 días"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-moderation-list.php:27
 msgid "Moderation users uploaded photos"
-msgstr ""
+msgstr "Moderar fotos de usuarios"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:6
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_contest_settings_vote.php:63
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_voting.php:5
 msgid "Voting"
-msgstr ""
+msgstr "Votar"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:8
 msgid "Upload notify"
-msgstr ""
+msgstr "Notificar subida"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:9
 msgid "Additional"
-msgstr ""
+msgstr "Adicional"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:20
 msgid "Data deleted. Reactivate plugin!"
-msgstr ""
+msgstr "Datos eliminados. Reactivar plugin"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:26
 msgid "Configuration saved."
-msgstr ""
+msgstr "Configuración guardada"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:58
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/settings/_tab_general.php:282
 msgid "Save all Changes"
-msgstr ""
+msgstr "Guadartodos los cambios"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:63
 msgid ""
 "Are you sure to delete all contests & photos & votes data from database?"
 msgstr ""
+"¿Seguro que quiere eliminar todos los concursos, fotos y votos de la base de "
+"datos?"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-settings_page.php:63
 msgid "Clear all plugin data in database."
-msgstr ""
+msgstr "Borrar todos los datos del plugin de la base de datos."
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:32
 msgid ""
 "Log subscribers (15 entries) / can clear on the page, where you can edit a "
 "poll (post)"
 msgstr ""
+"Registro de suscriptores (15 entradas) / pueden borrarse en la página, donde "
+"se puede editar una encuentas (post)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:33
 msgid ""
 "If you select voting security - `IP + cookies + evercookie + Subscribe "
 "form`, after users voted, there adds new records."
 msgstr ""
+"Si seleccionas la votación de seguridad (IP + cookies + evercookie + "
+"Formulario de suscripción), después del voto del usuario, no añade nuevos "
+"registros."
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:35
 msgid "Export to csv (output max 5000 rows)"
-msgstr ""
+msgstr "Exportar a csv (salida máxima de 5000 filas)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:13
 msgid "Translation saved."
-msgstr ""
+msgstr "Traducción guardada"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:20
 msgid "Translating messages"
-msgstr ""
+msgstr "Traduciendo mensajes"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:23
 msgid "Please don't use double quotes (\") !"
-msgstr ""
+msgstr "Por favor, no utilice comillas dobles (\")"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:57
 msgid "Did't use html tags."
-msgstr ""
+msgstr "No usar etiquetas HTML"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:70
 msgid "Save Changes"
-msgstr ""
+msgstr "Guardar cambios"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:73
 msgid "Are you sure to reset translation?"
-msgstr ""
+msgstr "¿estas seguro de resetear la tradución?"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-translations.php:73
 msgid "Reset translation."
-msgstr ""
+msgstr "Resetear tradución"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-votes-analytic.php:6
 msgid ""
 "There your can see map with the distribution of votes, and your can filter "
 "data by contest and single photo. <strong>How it can help to your?</strong>"
 msgstr ""
+"Aquí puedes ver un mapa con la distribución de votos, y puedes filtrar los "
+"datos del concurso y las fotos individualmente. <strong>¿Como puede ayudarte?"
+"</strong>"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-votes-analytic.php:7
 msgid ""
 "It`s interesting, and if you see a lot of votes from another suspicious "
 "country, it may indicate about fraud. (shows max 3000 records)"
 msgstr ""
+"Es interesante, y si usted ve una gran cantidad de votos de otro país "
+"sospechoso, puede reportar fraude. (muestra max 3000 registros)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:4
 msgid "New contest"
-msgstr ""
+msgstr "Nuevo concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:174
 msgid "Save changes"
-msgstr ""
+msgstr "Guardar cambios"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:182
 msgid "Shortcode, to show contest on page/post:"
-msgstr ""
+msgstr "Shortcode, para mostrar concurso en página/post:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:185
 msgid "Shortcode, to show only upload form:"
-msgstr ""
+msgstr "Shortcode, para mostrar solo formulario de subida:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:188
 msgid "Shortcode, to show only countdown:"
-msgstr ""
+msgstr "Shortcode, para mostrar solo el contador:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:191
 msgid "Shortcode, to show only leaders block:"
-msgstr ""
+msgstr "Shortcode, para mostrar solo los bloqueados:"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:197
 msgid "Export all photos to csv"
-msgstr ""
+msgstr "Exportar todas las fotos en csv"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:199
 msgid "Import CSV to Google Drive"
-msgstr ""
+msgstr "Importar CSV a Google Drive"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:211
 msgid "Clear ip list for this contest"
-msgstr ""
+msgstr "Limpiar lista de IP de este concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:216
 msgid "Reset all votes in this contest"
-msgstr ""
+msgstr "Resetear todos los votos de este concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:222
 msgid "Are you sure"
-msgstr ""
+msgstr "¿Estas seguro?"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:230
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/_unit.php:90
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest/_photos_list_form.php:60
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:232
 msgid "Save contest settings"
-msgstr ""
+msgstr "Guardar ajustes del concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:234
 msgid "Tip: this button only saves settings at left."
-msgstr ""
+msgstr "Consejo: este botón solo guarda los ajustes de la izquierda"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:263
 msgid "Enter contest name"
-msgstr ""
+msgstr "Introduce el nombre del concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:276
 msgid "Contestants"
