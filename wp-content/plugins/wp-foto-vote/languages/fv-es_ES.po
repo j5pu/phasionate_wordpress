@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Foto Vote 2.1\n"
 "POT-Creation-Date: 2015-09-02 11:23+0200\n"
-"PO-Revision-Date: 2015-12-10 17:45+0100\n"
+"PO-Revision-Date: 2015-12-11 12:00+0100\n"
 "Last-Translator: Maxim <support@wp-vote.net>\n"
 "Language-Team: pablo@mnopi.com\n"
 "Language: es_ES\n"
@@ -1150,49 +1150,49 @@ msgstr "cuarto"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:72
 msgid "Log cleared."
-msgstr ""
+msgstr "Limpiar log"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:80
 msgid "Tables cleared."
-msgstr ""
+msgstr "Limpiar tablas"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:123
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-contests_page.php:6
 msgid "Photo contests"
-msgstr ""
+msgstr "Concursos de fotografía"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:124
 msgid "Moderation"
-msgstr ""
+msgstr "Moderación"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:125
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:413
 msgid "Settings"
-msgstr ""
+msgstr "Ajustes"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:126
 msgid "Form builder"
-msgstr ""
+msgstr "Constructor de formulario"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:127
 msgid "Translation"
-msgstr ""
+msgstr "Traducción"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:128
 msgid "Votes log"
-msgstr ""
+msgstr "Votos de registro"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:129
 msgid "Votes analytic"
-msgstr ""
+msgstr "Análisis de votos"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:130
 msgid "Subscribers list"
-msgstr ""
+msgstr "lista de suscriptores"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:131
 msgid "Debug"
-msgstr ""
+msgstr "Debug"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:172
 msgid ""
@@ -1217,20 +1217,22 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:175
 msgid "Similarly remove all ip addresses, voted in this contest?"
-msgstr ""
+msgstr "Eliminar todas las direcciones IP, votadas en este concurso?"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:176
 msgid "Cleared"
-msgstr ""
+msgstr "Limpiar"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:178
 msgid ""
 "This will reset all pohtos votes to 0 (this will not remove votes from log)!"
 msgstr ""
+"Esto restablecerá todos votos de las fotos a 0 (esto no eliminará los votos "
+"de registro)!"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:179
 msgid "Votes reseted!"
-msgstr ""
+msgstr "Votos reseteados!"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:181
 msgid ""
@@ -1240,64 +1242,67 @@ msgstr ""
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:182
 msgid "Contestant and photo deleted!"
-msgstr ""
+msgstr "Concursante y foto eliminados"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:183
 msgid "Contestant approved!"
-msgstr ""
+msgstr "Concursante aprovado"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:184
 msgid "Saved!"
-msgstr ""
+msgstr "Guardado"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:185
 msgid "Are you sure to rotate image and thumbnails?"
-msgstr ""
+msgstr "¿Seguro de rota la imagen y miniaturas?"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:186
 msgid "Rotating successful ends!"
-msgstr ""
+msgstr "Rotación finalizada con éxito!"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:187
 msgid "Rotating: some problem!"
-msgstr ""
+msgstr "Problema con la rotación"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:188
 msgid "Rotating to *A* degrees start!"
-msgstr ""
+msgstr "Rotación a *A* grados"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:190
 msgid "Full photo"
-msgstr ""
+msgstr "Foto completa"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:191
 msgid "On modearation"
-msgstr ""
+msgstr "En moderación"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/class-fv-admin.php:191
 msgid "Draft"
-msgstr ""
+msgstr "Borrador"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-contests_page.php:7
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/contest_single.php:5
 msgid "Add new"
-msgstr ""
+msgstr "Añadir nuevo"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-contests_page.php:14
 msgid "Contest deleted."
-msgstr ""
+msgstr "Concurso eliminado"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-contests_page.php:31
 msgid "Create contest, copy shortcode and insert it into the page/post text."
 msgstr ""
+"Crear concurso, copiar shortcode y la inserta el texto en la página/post."
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-contests_page.php:32
 msgid "- for shows contests list"
-msgstr ""
+msgstr "- para mostrar lista de concursos"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:75
 msgid "Voting log / can be cleared on the page, where you can edit contest"
 msgstr ""
+"Registro de votos / puede ser borrado de la página, donde puede editar el "
+"concurso"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:78
 msgid ""
@@ -1311,46 +1316,49 @@ msgstr ""
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:81
 msgid "!Important - removing records from log not decreases photo votes."
 msgstr ""
+"IMPORTANTE - La eliminación de registro no disminuye los votos de fotos. "
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:94
 msgid ""
 "Export data as csv (exports max 5000 rows, if have more - use PhpMyAdmin or "
 "filter by Contest ID)"
 msgstr ""
+"Exportar datos como cvs (exportar max 5000 filas, si tienes más usa "
+"PhpMyAdmin o filtra por ID de Concurso)"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:95
 msgid "Export to csv"
-msgstr ""
+msgstr "Exportar a csv"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:97
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:37
 msgid "last 15 days"
-msgstr ""
+msgstr "últimos 15 días"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:98
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:38
 msgid "last 30 days"
-msgstr ""
+msgstr "últimos 30 días"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:99
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:39
 msgid "last 60 days"
-msgstr ""
+msgstr "últimos 60 días"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:100
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:40
 msgid "last 90 days"
-msgstr ""
+msgstr "últimos 90 días"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:101
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:41
 msgid "last 180 days"
-msgstr ""
+msgstr "últimos 180 días"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-log-list.php:102
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-subscribers-list.php:42
 msgid "last 360 days"
-msgstr ""
+msgstr "últimos 360 días"
 
 #: F:\VertrigoServ\www\p\wp-vote\wp-content\plugins\wp-foto-vote\admin/partials/admin-moderation-list.php:27
 msgid "Moderation users uploaded photos"
