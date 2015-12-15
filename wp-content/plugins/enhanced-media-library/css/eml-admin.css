@@ -23,7 +23,7 @@ body.eml-media-css .term-list li input[type=checkbox]:indeterminate:before {
     speak: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    
+
     content: '\f147';
     margin: -3px 0 0 -4px;
     color: #CBCBCB;
@@ -34,7 +34,7 @@ body.eml-media-css .term-list .children {
 
 body.eml-media-css .compat-item .eml-tax-label {
     width: 100%;
-    float: none; 
+    float: none;
     text-align: left;
 }
 body.eml-media-css .compat-item .eml-tax-label span {
@@ -42,7 +42,7 @@ body.eml-media-css .compat-item .eml-tax-label span {
 }
 body.eml-media-css .compat-item .eml-tax-field {
     width: 100%;
-    float: none; 
+    float: none;
 }
 
 
@@ -89,9 +89,18 @@ body.eml-media-css .attachments-browser .instructions {
     display: block;
 }
 
+body.eml-media-css .eml-info-box {
+    overflow: hidden;
+}
+body.eml-media-css .eml-info-box ul {
+    margin: 0;
+}
+
+
+
 
 @media only screen and (max-width: 1200px) {
-    
+
     body.eml-media-css .attachments-browser .media-toolbar-primary  {
         width: 30%;
     }
@@ -101,27 +110,27 @@ body.eml-media-css .attachments-browser .instructions {
 }
 
 @media only screen and (max-width: 900px) {
-    
+
     body.eml-media-css .attachments-browser .media-toolbar {
-        
+
         margin-right: 262px;
     }
-    
+
     body.eml-media-css .attachments-browser .media-toolbar .attachment-filters {
         margin-top: 11px;
         margin-right: 10px;
-    } 
+    }
 }
 
 @media only screen and (max-width: 640px), screen and (max-height: 400px) {
-    
+
     body.eml-media-css .attachments-browser .media-toolbar {
         margin-right: 0;
     }
 }
 
 @media only screen and (max-width: 480px) {
-    
+
     body.eml-media-css .attachments-browser .media-toolbar-primary,
     body.eml-media-css .attachments-browser .media-toolbar-secondary {
         float: none;
@@ -249,12 +258,16 @@ body.eml-media-css .media-modal.acf-expanded .attachments-browser .media-toolbar
     padding: 3px 0;
 }
 .wpuxss-eml-taxonomy-edit .wpuxss-eml-labels-edit label {
-    display: inline-block;
     width: 100px;
 }
-.wpuxss-eml-taxonomy-edit .wpuxss-eml-labels-edit input[type="text"],
-.wpuxss-eml-taxonomy-edit .wpuxss-eml-settings-edit input[type="text"] {
+.wpuxss-eml-taxonomy-edit input[type="text"] {
     min-width: 150px;
+}
+.wpuxss-eml-taxonomy-edit .wpuxss-eml-settings-edit input[type="text"] {
+    width: 50%;
+}
+.wpuxss-eml-taxonomy-edit .wpuxss-eml-labels-edit input[type="text"] {
+    width: 70%;
 }
 
 
@@ -306,7 +319,7 @@ body.eml-media-css .media-modal.acf-expanded .attachments-browser .media-toolbar
 }
 
 #wpuxss-eml-global-options-wrap .postbox {
-    background-image:none !important;	
+    background-image:none !important;
     position: relative;
 }
 #wpuxss-eml-global-options-wrap #poststuff .inside {

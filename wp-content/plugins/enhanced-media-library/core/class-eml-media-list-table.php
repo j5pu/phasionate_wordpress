@@ -1,40 +1,42 @@
 <?php
 
+
+
 /**
  *  EML custom media table
  *
  *  Extends wp-admin/includes/class-wp-media-list-table.php
- * 
+ *
  *  Features added:
  *  All Uncategorized
  *
  *  @since    2.0.4
  *  @created  21/02/15
  */
- 
-class WPUXSS_EML_Media_List_Table extends WP_Media_List_Table {
-    
-    protected $detached;
-    
-    protected $uncategorized;
-    
-    protected $is_trash;
-    
 
-	public function __construct( $args = array() ) 
-    {         
+class WPUXSS_EML_Media_List_Table extends WP_Media_List_Table {
+
+    protected $detached;
+
+    protected $uncategorized;
+
+    protected $is_trash;
+
+
+	public function __construct( $args = array() ) {
+
         $this->detached = ( isset( $_REQUEST['attachment-filter'] ) && 'detached' === $_REQUEST['attachment-filter'] );
-        
+
 		$this->uncategorized = ( isset( $_REQUEST['attachment-filter'] ) && 'uncategorized' === $_REQUEST['attachment-filter'] );
-        
+
         $this->is_trash = isset( $_REQUEST['attachment-filter'] ) && 'trash' == $_REQUEST['attachment-filter'];
 
 		parent::__construct();
 	}
-    
-    
-    protected function get_views() { 
-     
+
+
+    protected function get_views() {
+
 		global $wpdb, $post_mime_types, $avail_post_mime_types;
 
 		$type_links = array();
@@ -59,7 +61,7 @@ class WPUXSS_EML_Media_List_Table extends WP_Media_List_Table {
 				$type_links[$mime_type] = '<option value="post_mime_type:' . esc_attr( $mime_type ) . '"' . $selected . '>' . sprintf( translate_nooped_plural( $label[2], $num_posts[$mime_type] ), number_format_i18n( $num_posts[$mime_type] )) . '</option>';
 		}
 		$type_links['detached'] = '<option value="detached"' . ( $this->detached ? ' selected="selected"' : '' ) . '>' . sprintf( _nx( 'Unattached (%s)', 'Unattached (%s)', $total_orphans, 'detached files' ), number_format_i18n( $total_orphans ) ) . '</option>';
-        
+
         $type_links['uncategorized'] = '<option value="uncategorized"' . ( $this->uncategorized ? ' selected="selected"' : '' ) . '>' . __( 'All Uncategorized', 'eml' ) . '</option>';
 
 		if ( !empty($_num_posts['trash']) )
@@ -67,9 +69,9 @@ class WPUXSS_EML_Media_List_Table extends WP_Media_List_Table {
 
 		return $type_links;
 	}
-    
-    protected function extra_tablenav( $which ) 
-    {
+
+    protected function extra_tablenav( $which ) {
+
 		if ( 'bar' !== $which ) {
 			return;
 		}
@@ -84,18 +86,17 @@ class WPUXSS_EML_Media_List_Table extends WP_Media_List_Table {
 			/** This action is documented in wp-admin/includes/class-wp-posts-list-table.php */
 			do_action( 'restrict_manage_posts' );
 			submit_button( __( 'Filter' ), 'button', 'filter_action', false, array( 'id' => 'post-query-submit' ) );
-            
+
             submit_button( __( 'Reset All Filters' ), 'button', 'filter_action', false, array( 'id' => 'eml-reset-filters-query-submit', 'disabled' => 'disabled' ) );
 		}
 
 		if ( $this->is_trash && current_user_can( 'edit_others_posts' ) ) {
 			submit_button( __( 'Empty Trash' ), 'apply', 'delete_all', false );
-		} 
+		}
 ?>
 		</div>
 <?php
 	}
-    
 }
 
 ?>

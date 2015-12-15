@@ -1,9 +1,9 @@
 === Enhanced Media Library ===
 Contributors: webbistro
-Tags: media library, taxonomy, taxonomies, mime, mime type, attachment, media category, media categories, media tag, media tags, media taxonomy, media taxonomies, media filter, media organizer, file types, media types, media uploader, custom, media management, attachment management, files management, ux, user experience, wp-admin, admin, categories, category, filter,  image, images, media, upload
+Tags: media library, media category, media categories, media management, media organizer, media gallery, gallery shortcode, media tag, media tags, media taxonomy, media taxonomies, media uploader, mime type, mime, mime types, file types, media types, media filter, attachment, gallery, image, images, media, ux, user experience, wp-admin, admin, taxonomy, taxonomies
 Requires at least: 4.0
-Tested up to: 4.3
-Stable tag: 2.0.4.8
+Tested up to: 4.4
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,42 +15,62 @@ A better management for WordPress Media Library
 
 == Description ==
 
-This plugin will be handy for those who need to manage a lot of media files.
+The plugin will be handy for those who need to manage a lot of media files.
 
 
-= Media Taxonomies (Categories for Media Files) =
+= Media Taxonomies (Categories and Tags for media files) =
 
-* create unlimited amount of media taxonomies (like categories and tags),
-* be in total control of your custom taxonomy parameters via admin,
-* edit and delete your custom media taxonomies,
-* assign existed taxonomies to Media Library (for example, you can use post categories as a taxonomy for your media files),
-* unassign any media taxonomy from Media Library via admin,
-* immediately set categories to any media file during upload in Media Popup,
-* filter media files in Media Library / Media Popup by your custom categories,
-* get you media category archive page (front-end) working with EML activated
+With the plugin installed you will immediately obtain Media Categories that will be useful for categorizing and filtering media items in the WordPress admin. This feature alone will save you hours of searching through a media library with even as few as 100 images.
+
+Whether you have a lot of images that need to be organized into complex structures or simply dislike the name of the default taxonomy - Media Categories - you can create and (un)assign to the media library as many taxonomies as you wish without writing a single line of code. Even in case the only taxonomy is totally enough for you, you may prefer to call it "Photo Categories" or simply "Photos".
+
+You can also assign to the media library built-in WordPress taxonomies - Categories and Tags - as well as any other taxonomy created by third-party plugin, theme, or hand-coded with only plugin's UI.
+
+The plugin will allow you to categorize both new and existing media files. You can assign a category to a media file during the upload process, in the media library (preferably Grid Mode), in the post/page editor media popup ("Add Media" button). If you need to manage a lot of files at once, there is the PRO version of the plugin that allows to do it in bulk.
+
+Every media library window is enhanced with the plugin's filters to search and sort your media files. With the flexible plugin's options you can adjust what filters you will see in the Grid and List modes of the media library and in the post/page editor media popups, and what taxonomies you would like to be able to edit when inserting media to posts/pages. The plugin will work with custom post types as well. The options will also help you to force plugin's filters for third-party plugins or themes, manage media taxonomies archive pages, etc.
+
+
+= Filter-Based Image Galleries (Fully compatible with WordPress native gallery shortcode) =
+
+Media files categorizing can be useful for the front-end, of course. To insert media galleries based on media categories you have to use the familiar format like `[gallery media_category="5" category="2" monthnum="12" year="2015" orderby="title" order="DESC"]`. The PRO version of the plugin allows to manage gallery shortcode without "coding" at all. Just choose the settings with the plugin's UI in the familiar gallery edit popup and see your gallery live immediately in the post/page editor.
 
 
 = MIME Types (Media File Types) =
 
-* create new MIME types (media file types, for example, PDFs, Documents, V-Cards, etc),
-* delete any MIME type,
-* allow/disallow uploading for any file type,
-* filter media files by file types in Media Library / Media Popup,
-* be in total control of the names of your file type filters
+Another feature of the plugin is the MIME Types control. You can add new MIME types, delete existing ones, and point what file types are allowed for uploading. Initially, the plugin shows up the WordPress default MIME Type settings and creates the backup of them. The column "Add Filter" allows to add a MIME Type to plugin's filters so that you will be able to filter your media files not only by categories but also by the file type. You can set any label you wish to see in a filter with columns "Singular Label" and "Plural Label".
 
 
-= Available Languages =
+= Export / Import Plugin Settings =
+
+If you need to move your media library to another website you should export and import WordPress content with WordPress built-in export/import. But to make the Enhanced Media Library work on the new site with the same settings you are provided with the export/import feature.
+
+
+= Easy to Use and WordPress Native Functionality Oriented Plugin =
+
+We spend hours to make plugins features work as though they were native WordPress functionality. If you are a developer and looking for a solution totally compatible with WordPress core and, at the same point, really easy to deal with for your non-geeky customers, give it a try, you won't be disappointed.
+
+
+= Support =
+
+Support is free for both versions of the plugin. "PRO"-users do not have priority. We do out best to respond in 24 hours if not sooner.
+
+
+= Available Languages (Assistance with the translation is highly appreciated) =
 
 * Dutch
 * German
 * Hebrew
+* Korean
 * Polish
 * Swedish
 
+Many thanks to the authors of the translations! If you wish to be credited here please just let us know what name and URL we have to use.
 
-= Compatiblity with Other Plugins =
 
-* Advanced Custom Fields / Advanced Custom Fields PRO
+= Compatibility with Other Plugins =
+
+* Advanced Custom Fields
 * WooCommerce
 * Meta Slider
 * Search & Filter
@@ -58,30 +78,24 @@ This plugin will be handy for those who need to manage a lot of media files.
 Please let us know if you find any issue with the plugins from the list above or others.
 
 
+= Incompatibility =
+
+Please notice that you use the Enhanced Media Library with other plugins adding media categories, media folders, and managing MIME Types at your own risk. We cannot guarantee their compatibility because of different approach to the same functionality. It does NOT mean that we do not recommend using those plugins, it just means we do not recommend to use them at the same time with the Enhanced Media Library. Choose the one you prefer.
+
+
 > #### Enhanced Media Library PRO
 
-> * The free version of Enhanced Media Library does NOT support bulk features.
-> * The PRO version requires at least WordPress 4.0
-> * [Learn more &raquo;](http://wpuxsolutions.com/plugins/enhanced-media-library/)
+> The key features:
 
-= Bulk Attachment for Media Taxonomies (PRO only) =
-
-* Set/unset multiple taxonomies to multiple media files at a time:
-    * during uploading process
-    * in Media Popup during post/page editing
-    * in Media Library Grid View
-    
-= Bulk selection/deletion of media files (PRO only) =
-
-* Select/deselect all media files (within a category) with a single click
-* Delete all media files (within a category) right in media popup window
+> * Media files can be categorized in bulk (multiple files to multiple taxonomies at once) both just uploaded and existing
+> * Media files within a category can be selected in bulk with a single click
+> * Selected media files can be deleted in bulk in the Grid mode of the media library or in the post/page editor media popup
+> * Filter-based gallery in two clicks, no need to delve into the text editor shortcode
 
 
 = Useful Links =
 
 * [Where to start? (The complete beginners guide)](http://wpuxsolutions.com/documents/enhanced-media-library/eml-where-to-start/)
-
-
 
 
 
@@ -109,11 +123,17 @@ Try to just re-save permalinks settings. Go to Settings >> Permalinks and push "
 
 EML adds its filters to ANY media popup that already contains native WordPress filters. We chose NOT to force adding filters to ANY media popup because there are a lot of cases when filters are not acceptable and theme's/plugin's author did not add them intentionally.
 
-If you believe that a third-party plugin shoud have filters in its Media Popup please contact its author with a request to add NATIVE WordPress filters ([example of the code](http://wordpress.org/support/topic/how-can-we-use-this-plugin-features-in-my-custom-plugin-media-uploader?replies=15#post-5753212) for theme's/plugin's authors).
+If you believe that a third-party plugin should have filters in its Media Popup please contact its author with a request to add NATIVE WordPress filters ([example of the code](http://wordpress.org/support/topic/how-can-we-use-this-plugin-features-in-my-custom-plugin-media-uploader?replies=15#post-5753212) for theme's/plugin's authors).
 
-= How to show images per media category on a webpage =
+= How to show images per media category on a webpage? =
 
-Right now it is possible via WP_Query ([example of the code](http://wordpress.org/support/topic/php-displaying-an-array-of-images-per-category-or-categories)). We are working on a gallery based on EML taxonomies. 
+[**UPD:** Since EML 2.1 you can use gallery shortcode with taxonomy parameters like this: `[gallery media_category="5" category="2" monthnum="12" year="2015" orderby="title" order="DESC"]` to show filter-based gallery on the front-end.]
+
+Right now it is possible via WP_Query ([example of the code](http://wordpress.org/support/topic/php-displaying-an-array-of-images-per-category-or-categories)). We are working on a gallery based on EML taxonomies.
+
+= Will I lose media categories I’ve created if I upgrade from free to PRO? =
+
+No, all your data will remain intact. Your created media categories and their ties with your images are stored in the database. When you deactivate and delete the free version and then upload and activate the PRO one nothing happens to the database.
 
 
 
@@ -141,6 +161,38 @@ Right now it is possible via WP_Query ([example of the code](http://wordpress.or
 
 == Changelog ==
 
+= 2.1.1 =
+*Release Date - December 15, 2015*
+
+= Bugfixes =
+* Minor incompatibility with WP 4.3 fixed
+
+
+&nbsp;
+= 2.1 =
+*Release Date - December 15, 2015*
+
+= New =
+* Filter-based Image Galleries by extending native WordPress gallery shortcode
+* Easy visual gallery editing with the native WordPress gallery UI [PRO only]
+* Export/import of the plugin settings to JSON
+
+= Improvements =
+* Better filtering and "force filters" mechanism, sorting by 'menuOrder' by default for media taxonomy filters
+* Plugin credits in admin removed from Media Settings > Taxonomies, and Media Settings > MIME Types, moved to Settings > Enhanced Media Library
+* "Deactivate License" added [PRO only]
+* Various code improvements for both free and PRO
+* Minor UX improvements
+
+= Compatibility =
+* Fixed incompatibility with [WP Plugin Dependencies](https://github.com/xwp/wp-plugin-dependencies)
+* Wordpress 4.4 compatibility ensured
+
+= Languages =
+* Korean translation added
+
+
+&nbsp;
 = 2.0.4.8 =
 *Release Date - September 14, 2015*
 
@@ -323,7 +375,7 @@ Right now it is possible via WP_Query ([example of the code](http://wordpress.or
 = Improvements =
 * Media Popup: Filters reset automatically as soon as new media files upload process started
 * Media Popup: Selection resets automatically as soon as filter is changed
-* Media Popup: WordPress 4.0 date filter added  
+* Media Popup: WordPress 4.0 date filter added
 * Compatibility: general compatibility with other plugins improved, please [let me know](http://wpuxsolutions.com/support/create-new-ticket/) if you have any issue with EML and other plugins
 
 = Bugfixes =

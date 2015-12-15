@@ -101,7 +101,8 @@ class MC4WP_Forms_Admin {
 			'text' => __( 'Forms', 'mailchimp-for-wp' ),
 			'slug' => 'forms',
 			'callback' => array( $this, 'show_forms_page' ),
-			'load_callback' => array( $this, 'redirect_to_form_action' )
+			'load_callback' => array( $this, 'redirect_to_form_action' ),
+			'position' => 10
 		);
 
 		return $items;
@@ -135,10 +136,20 @@ class MC4WP_Forms_Admin {
 	/**
 	 * Saves a form to the database
 	 *
-	 * @param $data
+	 * @param array $data
 	 * @return int
 	 */
 	public function save_form( $data ) {
+
+		static $keys = array(
+			'settings' => array(),
+			'messages' => array(),
+			'name' => '',
+			'content' => ''
+		);
+
+		$data = array_merge( $keys, $data );
+		$data = $this->sanitize_form_data( $data );
 
 		$post_data = array(
 			'post_type'     => 'mc4wp-form',
@@ -147,6 +158,7 @@ class MC4WP_Forms_Admin {
 			'post_content'  => $data['content']
 		);
 
+		// if an `ID` is given, make sure post is of type `mc4wp-form`
 		if( ! empty( $data['ID'] ) ) {
 			$post_data['ID'] = $data['ID'];
 
@@ -157,10 +169,13 @@ class MC4WP_Forms_Admin {
 				wp_nonce_ays( '' );
 				return 0;
 			}
+
+			// merge new settings  with current settings to allow passing partial data
+			$current_settings = get_post_meta( $post->ID, '_mc4wp_settings', true );
+			$data['settings'] = array_merge( $current_settings, $data['settings'] );
 		}
 
 		$form_id = wp_insert_post( $post_data );
-
 		update_post_meta( $form_id, '_mc4wp_settings', $data['settings'] );
 
 		// save form messages in individual meta keys
@@ -169,6 +184,40 @@ class MC4WP_Forms_Admin {
 		}
 
 		return $form_id;
+	}
+
+	/**
+	 * @param array $data
+	 * @return array
+	 */
+	public function sanitize_form_data( $data ) {
+
+		$raw_data = $data;
+
+		$data['content'] =  preg_replace( '/<\/?form(.|\s)*?>/i', '', $data['content'] );
+
+		// sanitize text fields
+		$data['settings']['redirect'] = sanitize_text_field( $data['settings']['redirect'] );
+
+		// strip tags from messages
+		foreach( $data['messages'] as $key => $message ) {
+			$data['messages'][$key] = strip_tags( $message, '<strong><b><br><a><script><u><em><i><span>' );
+		}
+
+		// make sure lists is an array
+		$data['settings']['lists'] = array_filter( (array) $data['settings']['lists'] );
+
+		/**
+		 * Filters the form data just before it is saved.
+		 *
+		 * @param array $data Sanitized array of form data.
+		 * @param array $raw_data Raw array of form data.
+		 *
+		 * @since 3.0.8
+		 */
+		$data = (array) apply_filters( 'mc4wp_form_sanitized_data', $data, $raw_data );
+
+		return $data;
 	}
 
 	/**
@@ -182,7 +231,6 @@ class MC4WP_Forms_Admin {
 		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
 		$form_data['ID'] = $form_id;
 
-		// @todo sanitize data
 		$this->save_form( $form_data );
 
 		// update default form id?
@@ -360,9 +408,6 @@ class MC4WP_Forms_Admin {
 		if( isset( $post_array['content'] ) ) {
 			$data['post_content'] = $post_array['content'];
 		}
-
-		// remove <form> tags from form content
-		$data['post_content'] = preg_replace( '/<\/?form(.|\s)*?>/i', '', $data['post_content'] );
 
 		// make sure filtered post content is the same
 		$data['post_content_filtered'] = $data['post_content'];

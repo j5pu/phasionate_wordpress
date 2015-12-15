@@ -1,18 +1,17 @@
 window.wp = window.wp || {};
 
 ( function( $, _ ) {
-    
+
     var media = wp.media,
         Attachments = media.model.Attachments,
         Query = media.model.Query;
-    
-    
-    
-      
+
+
+
     _.extend( Query.prototype, {
-        
+
         initialize: function( models, options ) {
-            
+
             var allowed;
 
             options = options || {};
@@ -64,23 +63,27 @@ window.wp = window.wp || {};
             }
         }
     });
-    
-   
-    
-    
+
+
+
+    // add 'rand' to allowed
+    _.extend( Query.orderby.allowed, [ 'name', 'author', 'date', 'title', 'rand', 'modified', 'uploadedTo', 'id', 'post__in', 'menuOrder' ] );
+
+
+
     _.extend( Query, {
-    
+
         queries: [],
-        
+
         cleanQueries: function(){
-            
+
             this.queries = [];
         },
-        
+
         get: (function(){
 
             return function( props, options ) {
-                
+
                 var args       = {},
                     orderby    = Query.orderby,
                     defaults   = Query.defaultProps,
@@ -120,7 +123,7 @@ window.wp = window.wp || {};
                 // `props.orderby` does not always map directly to `args.orderby`.
                 // Substitute exceptions specified in orderby.keymap.
                 args.orderby = orderby.valuemap[ props.orderby ] || props.orderby;
-                
+
                 // Search the query cache for matches.
                 if ( cache ) {
                     query = _.find( this.queries, function( query ) {
@@ -143,7 +146,5 @@ window.wp = window.wp || {};
             };
         }())
     });
-    
-        
-        
+
 })( jQuery, _ );

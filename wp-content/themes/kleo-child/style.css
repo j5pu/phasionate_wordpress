@@ -5799,8 +5799,8 @@ li.product figcaption .shop-actions > a.button:hover{
 }
 
 .bogaregistro_marco{
-	background: url("/wp-content/themes/kleo-child/img/8943058_xl.jpg");
-	height: 1000px;
+	background: url("https://www.bogadia.com/wp-content/themes/kleo-child/img/8943058_xl.jpg");
+	height: 900px;
 }
 
 .kleo-facebook-connect{
@@ -5940,6 +5940,9 @@ body.registration #signup_submit {
 		width: 100%; 
 		float: none;
 	}
+	.bogaregistro_marco{
+		height: 950px;
+	}
 }
 @media screen and (max-width: 989px){
 	#bogaregistro_texto {
@@ -5962,6 +5965,14 @@ body.registration #signup_submit {
 	#bogaregistro_texto {
 		margin: 70px 0px 40px;
 		text-align: center;
+	}
+}
+@media screen and (max-width: 500px){
+	.bogaregistro_marco{
+		height: 1020px;
+	}
+	.bogaregistro_marco {
+	    background-position: -190px -50px;
 	}
 }
 @media screen and (max-width: 400px){

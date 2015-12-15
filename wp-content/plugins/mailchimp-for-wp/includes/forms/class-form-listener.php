@@ -100,6 +100,7 @@ class MC4WP_Form_Listener {
 			return;
 		}
 
+
 		/**
 		 * Fires right after a form was used to subscribe.
 		 *
@@ -107,7 +108,7 @@ class MC4WP_Form_Listener {
 		 *
 		 * @param MC4WP_Form $form Instance of the submitted form
 		 */
-		do_action( 'mc4wp_form_subscribed', $form );
+		do_action( 'mc4wp_form_subscribed', $form, $map->formatted_data, $map->pretty_data );
 	}
 
 	/**
