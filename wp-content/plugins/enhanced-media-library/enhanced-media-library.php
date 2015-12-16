@@ -4,7 +4,7 @@ Plugin Name: Enhanced Media Library
 Depends: Toolbar Publish Button
 Plugin URI: http://wpUXsolutions.com
 Description: This plugin will be handy for those who need to manage a lot of media files.
-Version: 2.1.1
+Version: 2.1.2
 Author: wpUXsolutions
 Author URI: http://wpUXsolutions.com
 Text Domain: eml
@@ -23,14 +23,14 @@ global $wp_version,
 
 
 
-$wpuxss_eml_version = '2.1.1';
+$wpuxss_eml_version = '2.1.2';
 
 
 
 /**
  *  wpuxss_get_eml_slug
  *
- *  @since    2.0.4.9
+ *  @since    2.1
  *  @created  27/10/15
  */
 
@@ -50,7 +50,7 @@ if ( ! function_exists( 'wpuxss_get_eml_slug' ) ) {
 /**
  *  wpuxss_get_eml_basename
  *
- *  @since    2.0.4.9
+ *  @since    2.1
  *  @created  27/10/15
  */
 

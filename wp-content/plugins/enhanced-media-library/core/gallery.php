@@ -9,6 +9,11 @@
  *  @created  24/11/15
  */
 
+// Jetpack Carousel compatibility
+add_filter( 'jp_carousel_force_enable', function() {
+    return true;
+});
+
 add_filter( 'post_gallery', 'wpuxss_eml_gallery_shortcode', 12, 3 );
 
 if( ! function_exists('wpuxss_eml_gallery_shortcode') ) {

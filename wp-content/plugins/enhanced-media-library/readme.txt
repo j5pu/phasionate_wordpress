@@ -3,7 +3,7 @@ Contributors: webbistro
 Tags: media library, media category, media categories, media management, media organizer, media gallery, gallery shortcode, media tag, media tags, media taxonomy, media taxonomies, media uploader, mime type, mime, mime types, file types, media types, media filter, attachment, gallery, image, images, media, ux, user experience, wp-admin, admin, taxonomy, taxonomies
 Requires at least: 4.0
 Tested up to: 4.4
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,19 +26,21 @@ Whether you have a lot of images that need to be organized into complex structur
 
 You can also assign to the media library built-in WordPress taxonomies - Categories and Tags - as well as any other taxonomy created by third-party plugin, theme, or hand-coded with only plugin's UI.
 
-The plugin will allow you to categorize both new and existing media files. You can assign a category to a media file during the upload process, in the media library (preferably Grid Mode), in the post/page editor media popup ("Add Media" button). If you need to manage a lot of files at once, there is the PRO version of the plugin that allows to do it in bulk.
+The plugin will allow you to categorize both new and existing media items. You can assign a category to a media item during the upload process, in the media library (preferably Grid Mode), in the post/page editor media popup ("Add Media" button). If you need to manage a lot of media items at once, there is the PRO version of the plugin that allows to do it in bulk.
 
 Every media library window is enhanced with the plugin's filters to search and sort your media files. With the flexible plugin's options you can adjust what filters you will see in the Grid and List modes of the media library and in the post/page editor media popups, and what taxonomies you would like to be able to edit when inserting media to posts/pages. The plugin will work with custom post types as well. The options will also help you to force plugin's filters for third-party plugins or themes, manage media taxonomies archive pages, etc.
+
+Since the version 2.1 you can change the order of media items within a category with drag and drop. This order will be used, in particular, for the gallery based on this category.
 
 
 = Filter-Based Image Galleries (Fully compatible with WordPress native gallery shortcode) =
 
-Media files categorizing can be useful for the front-end, of course. To insert media galleries based on media categories you have to use the familiar format like `[gallery media_category="5" category="2" monthnum="12" year="2015" orderby="title" order="DESC"]`. The PRO version of the plugin allows to manage gallery shortcode without "coding" at all. Just choose the settings with the plugin's UI in the familiar gallery edit popup and see your gallery live immediately in the post/page editor.
+Image categorizing can be useful for the front-end, of course. To insert media galleries based on media categories you have to use the familiar format like `[gallery media_category="5" category="2" monthnum="12" year="2015" orderby="title" order="DESC"]`. The PRO version of the plugin allows to manage gallery shortcode without "coding" at all. Just choose the settings with the plugin's UI in the familiar gallery edit popup and see your gallery live immediately in the post/page editor.
 
 
 = MIME Types (Media File Types) =
 
-Another feature of the plugin is the MIME Types control. You can add new MIME types, delete existing ones, and point what file types are allowed for uploading. Initially, the plugin shows up the WordPress default MIME Type settings and creates the backup of them. The column "Add Filter" allows to add a MIME Type to plugin's filters so that you will be able to filter your media files not only by categories but also by the file type. You can set any label you wish to see in a filter with columns "Singular Label" and "Plural Label".
+Another feature of the plugin is the MIME Types control. You can add new MIME types, delete existing ones, and point what file types are allowed for uploading. Initially, the plugin shows up the WordPress default MIME Type settings and creates the backup of them. The column "Add Filter" allows to add a MIME Type to plugin's filters so that you will be able to filter your media items not only by categories but also by the file type. You can set any label you wish to see in a filter with columns "Singular Label" and "Plural Label".
 
 
 = Export / Import Plugin Settings =
@@ -71,16 +73,17 @@ Many thanks to the authors of the translations! If you wish to be credited here 
 = Compatibility with Other Plugins =
 
 * Advanced Custom Fields
+* Search & Filter
+* Jetpack Carousel
 * WooCommerce
 * Meta Slider
-* Search & Filter
 
 Please let us know if you find any issue with the plugins from the list above or others.
 
 
 = Incompatibility =
 
-Please notice that you use the Enhanced Media Library with other plugins adding media categories, media folders, and managing MIME Types at your own risk. We cannot guarantee their compatibility because of different approach to the same functionality. It does NOT mean that we do not recommend using those plugins, it just means we do not recommend to use them at the same time with the Enhanced Media Library. Choose the one you prefer.
+Please notice that you use the Enhanced Media Library with other plugins that add media categories, media folders, and manage MIME Types at your own risk. We cannot guarantee their compatibility because of different approach to the same functionality. It does NOT mean that we do not recommend using those plugins, it just means we do not recommend to use them at the same time with the Enhanced Media Library. Please choose the one you prefer.
 
 
 > #### Enhanced Media Library PRO
@@ -90,7 +93,7 @@ Please notice that you use the Enhanced Media Library with other plugins adding 
 > * Media files can be categorized in bulk (multiple files to multiple taxonomies at once) both just uploaded and existing
 > * Media files within a category can be selected in bulk with a single click
 > * Selected media files can be deleted in bulk in the Grid mode of the media library or in the post/page editor media popup
-> * Filter-based gallery in two clicks, no need to delve into the text editor shortcode
+> * Filter-based gallery in two clicks, no need to figure out your media category IDs, nor to delve into the text editor shortcode
 
 
 = Useful Links =
@@ -161,11 +164,19 @@ No, all your data will remain intact. Your created media categories and their ti
 
 == Changelog ==
 
+= 2.1.2 =
+*Release Date - December 15, 2015*
+
+= Compatibility =
+* Fixed v2.1 and Jetpack Carousel incompatibility
+
+
+&nbsp;
 = 2.1.1 =
 *Release Date - December 15, 2015*
 
 = Bugfixes =
-* Minor incompatibility with WP 4.3 fixed
+* Minor incompatibility with WordPress 4.3 fixed
 
 
 &nbsp;
