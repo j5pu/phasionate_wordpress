@@ -1,0 +1,4 @@
+* [2015-12-16 14:16:00 UTC] plugin activated wp-foto-vote/wp-foto-vote.php
+p. 
+* [2015-12-16 15:49:28 UTC] plugin activated wp-foto-vote/wp-foto-vote.php
+p. 

@@ -34,7 +34,7 @@ msgstr "Indicar los destinatarios (separados por coma) que recibirán esta notif
 msgid "via %s"
 msgstr "vía %s"
 
-#: includes/class-wc-post-types.php:288
+#: includes/class-wc-post-types.php:291
 msgctxt "shop_order post type singular name"
 msgid "Order"
 msgstr "Pedido"
@@ -1585,7 +1585,7 @@ msgctxt "%1$d = first, %2$d = last, %3$d = total"
 msgid "Showing %1$d&ndash;%2$d of %3$d results"
 msgstr "Mostrando %1$d&ndash;%2$d de %3$d resultados"
 
-#: includes/class-wc-post-types.php:474
+#: includes/class-wc-post-types.php:477
 msgid "Failed <span class=\"count\">(%s)</span>"
 msgid_plural "Failed <span class=\"count\">(%s)</span>"
 msgstr[0] "Fallido <span class=\"count\">(%s)</span>"
@@ -3834,218 +3834,218 @@ msgstr "Añadir Nuevo %s"
 msgid "New %s"
 msgstr "Nuevo %s"
 
-#: includes/class-wc-post-types.php:237
+#: includes/class-wc-post-types.php:240
 msgid "Add Product"
 msgstr "Añadir Producto"
 
-#: includes/class-wc-post-types.php:238
+#: includes/class-wc-post-types.php:241
 msgid "Add New Product"
 msgstr "Añadir Nuevo Producto"
 
-#: includes/class-wc-post-types.php:240
+#: includes/class-wc-post-types.php:243
 msgid "Edit Product"
 msgstr "Editar Producto"
 
-#: includes/class-wc-post-types.php:241
+#: includes/class-wc-post-types.php:244
 msgid "New Product"
 msgstr "Nuevo Producto"
 
-#: includes/class-wc-post-types.php:242 includes/class-wc-post-types.php:243
+#: includes/class-wc-post-types.php:245 includes/class-wc-post-types.php:246
 msgid "View Product"
 msgstr "Ver Producto"
 
-#: includes/class-wc-post-types.php:244
+#: includes/class-wc-post-types.php:247
 msgid "Search Products"
 msgstr "Buscar Productos"
 
-#: includes/class-wc-post-types.php:245
+#: includes/class-wc-post-types.php:248
 msgid "No Products found"
 msgstr "No se han encontrado Productos"
 
-#: includes/class-wc-post-types.php:246
+#: includes/class-wc-post-types.php:249
 msgid "No Products found in trash"
 msgstr "No se han encontrado Productos en la papelera"
 
-#: includes/class-wc-post-types.php:247
+#: includes/class-wc-post-types.php:250
 msgid "Parent Product"
 msgstr "Producto Padre"
 
-#: includes/class-wc-post-types.php:248
+#: includes/class-wc-post-types.php:251
 #: templates/emails/email-order-items.php:25
 msgid "Product Image"
 msgstr "Imagen del producto"
 
-#: includes/class-wc-post-types.php:249
+#: includes/class-wc-post-types.php:252
 msgid "Set product image"
 msgstr "Establecer Imagen del Producto"
 
-#: includes/class-wc-post-types.php:250
+#: includes/class-wc-post-types.php:253
 msgid "Remove product image"
 msgstr "Eliminar imagen del producto"
 
-#: includes/class-wc-post-types.php:251
+#: includes/class-wc-post-types.php:254
 msgid "Use as product image"
 msgstr "Usar como imagen de producto"
 
-#: includes/class-wc-post-types.php:253
+#: includes/class-wc-post-types.php:256
 msgid "This is where you can add new products to your store."
 msgstr "Aquí es donde puedes añadir nuevos productos en tu tienda."
 
-#: includes/class-wc-post-types.php:289
+#: includes/class-wc-post-types.php:292
 msgid "Add Order"
 msgstr "Añadir Pedido"
 
-#: includes/class-wc-post-types.php:290
+#: includes/class-wc-post-types.php:293
 msgid "Add New Order"
 msgstr "Añadir nuevo pedido"
 
-#: includes/class-wc-post-types.php:292
+#: includes/class-wc-post-types.php:295
 msgid "Edit Order"
 msgstr "Editar Pedido"
 
-#: includes/class-wc-post-types.php:293
+#: includes/class-wc-post-types.php:296
 msgid "New Order"
 msgstr "Nuevo pedido"
 
-#: includes/class-wc-post-types.php:296
+#: includes/class-wc-post-types.php:299
 msgid "Search Orders"
 msgstr "Buscar Pedidos"
 
-#: includes/class-wc-post-types.php:297
+#: includes/class-wc-post-types.php:300
 msgid "No Orders found"
 msgstr "No se encontraron Pedidos"
 
-#: includes/class-wc-post-types.php:298
+#: includes/class-wc-post-types.php:301
 msgid "No Orders found in trash"
 msgstr "No se encontraron Pedidos en la papelera"
 
-#: includes/class-wc-post-types.php:299
+#: includes/class-wc-post-types.php:302
 msgid "Parent Orders"
 msgstr "Pedidos Padre"
 
-#: includes/class-wc-post-types.php:302
+#: includes/class-wc-post-types.php:305
 msgid "This is where store orders are stored."
 msgstr "Aquí es donde se guardan los pedidos de la tienda."
 
-#: includes/class-wc-post-types.php:324
+#: includes/class-wc-post-types.php:327
 msgid "Refunds"
 msgstr "Devoluciones"
 
-#: includes/class-wc-post-types.php:346 templates/cart/cart.php:128
+#: includes/class-wc-post-types.php:349 templates/cart/cart.php:128
 msgid "Coupon"
 msgstr "Cupón"
 
-#: includes/class-wc-post-types.php:348
+#: includes/class-wc-post-types.php:351
 msgid "Add Coupon"
 msgstr "Añadir Cupón"
 
-#: includes/class-wc-post-types.php:349
+#: includes/class-wc-post-types.php:352
 msgid "Add New Coupon"
 msgstr "Añadir Nuevo Cupón"
 
-#: includes/class-wc-post-types.php:351
+#: includes/class-wc-post-types.php:354
 msgid "Edit Coupon"
 msgstr "Editar Cupón"
 
-#: includes/class-wc-post-types.php:352
+#: includes/class-wc-post-types.php:355
 msgid "New Coupon"
 msgstr "Nuevo Cupón"
 
-#: includes/class-wc-post-types.php:353
+#: includes/class-wc-post-types.php:356
 msgid "View Coupons"
 msgstr "Ver Cupones"
 
-#: includes/class-wc-post-types.php:354
+#: includes/class-wc-post-types.php:357
 msgid "View Coupon"
 msgstr "Ver Cupón"
 
-#: includes/class-wc-post-types.php:355
+#: includes/class-wc-post-types.php:358
 msgid "Search Coupons"
 msgstr "Buscar Cupones"
 
-#: includes/class-wc-post-types.php:356
+#: includes/class-wc-post-types.php:359
 msgid "No Coupons found"
 msgstr "Ningún cupón encontrado"
 
-#: includes/class-wc-post-types.php:357
+#: includes/class-wc-post-types.php:360
 msgid "No Coupons found in trash"
 msgstr "Ningún cupón encontrado en la papelera"
 
-#: includes/class-wc-post-types.php:358
+#: includes/class-wc-post-types.php:361
 msgid "Parent Coupon"
 msgstr "Cupón Padre"
 
-#: includes/class-wc-post-types.php:360
+#: includes/class-wc-post-types.php:363
 msgid "This is where you can add new coupons that customers can use in your store."
 msgstr "Aquí es donde puede agregar nuevos cupones que los clientes pueden utilizar en su tienda."
 
-#: includes/class-wc-post-types.php:384
+#: includes/class-wc-post-types.php:387
 msgid "Webhook"
 msgstr "Webhook"
 
-#: includes/class-wc-post-types.php:387
+#: includes/class-wc-post-types.php:390
 msgid "Add New Webhook"
 msgstr "Añadir nuevo Webhook"
 
-#: includes/class-wc-post-types.php:389
+#: includes/class-wc-post-types.php:392
 msgid "Edit Webhook"
 msgstr "Editar Webhook"
 
-#: includes/class-wc-post-types.php:390
+#: includes/class-wc-post-types.php:393
 msgid "New Webhook"
 msgstr "Nuevo Webhook"
 
-#: includes/class-wc-post-types.php:391
+#: includes/class-wc-post-types.php:394
 msgid "View Webhooks"
 msgstr "Ver Webhooks"
 
-#: includes/class-wc-post-types.php:392
+#: includes/class-wc-post-types.php:395
 msgid "View Webhook"
 msgstr "Ver Webhook"
 
-#: includes/class-wc-post-types.php:394
+#: includes/class-wc-post-types.php:397
 msgid "No Webhooks found"
 msgstr "No se han encontrado Webhooks"
 
-#: includes/class-wc-post-types.php:395
+#: includes/class-wc-post-types.php:398
 msgid "No Webhooks found in trash"
 msgstr "No se han encontrado Webhooks en la papelera"
 
-#: includes/class-wc-post-types.php:396
+#: includes/class-wc-post-types.php:399
 msgid "Parent Webhook"
 msgstr "Webhook padre"
 
-#: includes/class-wc-post-types.php:426
+#: includes/class-wc-post-types.php:429
 msgid "Pending Payment <span class=\"count\">(%s)</span>"
 msgid_plural "Pending Payment <span class=\"count\">(%s)</span>"
 msgstr[0] "Pendiente de pago <span class=\"count\">(%s)</span>"
 msgstr[1] "Pendiente de pago <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-post-types.php:434
+#: includes/class-wc-post-types.php:437
 msgid "Processing <span class=\"count\">(%s)</span>"
 msgid_plural "Processing <span class=\"count\">(%s)</span>"
 msgstr[0] "Procesando <span class=\"count\">(%s)</span>"
 msgstr[1] "Procesando <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-post-types.php:442
+#: includes/class-wc-post-types.php:445
 msgid "On Hold <span class=\"count\">(%s)</span>"
 msgid_plural "On Hold <span class=\"count\">(%s)</span>"
 msgstr[0] "En espera <span class=\"count\">(%s)</span>"
 msgstr[1] "En espera <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-post-types.php:450
+#: includes/class-wc-post-types.php:453
 msgid "Completed <span class=\"count\">(%s)</span>"
 msgid_plural "Completed <span class=\"count\">(%s)</span>"
 msgstr[0] "Completado <span class=\"count\">(%s)</span>"
 msgstr[1] "Completado <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-post-types.php:458
+#: includes/class-wc-post-types.php:461
 msgid "Cancelled <span class=\"count\">(%s)</span>"
 msgid_plural "Cancelled <span class=\"count\">(%s)</span>"
 msgstr[0] "Cancelado <span class=\"count\">(%s)</span>"
 msgstr[1] "Cancelado <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-post-types.php:466
+#: includes/class-wc-post-types.php:469
 msgid "Refunded <span class=\"count\">(%s)</span>"
 msgid_plural "Refunded <span class=\"count\">(%s)</span>"
 msgstr[0] "Devuelto <span class=\"count\">(%s)</span>"
@@ -4111,52 +4111,52 @@ msgctxt "Admin menu name"
 msgid "Shipping Classes"
 msgstr "Tipos de envíos"
 
-#: includes/class-wc-post-types.php:236
+#: includes/class-wc-post-types.php:239
 msgctxt "Admin menu name"
 msgid "Products"
 msgstr "Productos"
 
-#: includes/class-wc-post-types.php:347
+#: includes/class-wc-post-types.php:350
 msgctxt "Admin menu name"
 msgid "Coupons"
 msgstr "Cupones"
 
-#: includes/class-wc-post-types.php:385
+#: includes/class-wc-post-types.php:388
 msgctxt "Admin menu name"
 msgid "Webhooks"
 msgstr "Webhooks"
 
-#: includes/class-wc-post-types.php:421 includes/wc-order-functions.php:25
+#: includes/class-wc-post-types.php:424 includes/wc-order-functions.php:25
 msgctxt "Order status"
 msgid "Pending Payment"
 msgstr "Pendiente de pago"
 
-#: includes/class-wc-post-types.php:429 includes/wc-order-functions.php:26
+#: includes/class-wc-post-types.php:432 includes/wc-order-functions.php:26
 msgctxt "Order status"
 msgid "Processing"
 msgstr "Procesando"
 
-#: includes/class-wc-post-types.php:437 includes/wc-order-functions.php:27
+#: includes/class-wc-post-types.php:440 includes/wc-order-functions.php:27
 msgctxt "Order status"
 msgid "On Hold"
 msgstr "En espera"
 
-#: includes/class-wc-post-types.php:445 includes/wc-order-functions.php:28
+#: includes/class-wc-post-types.php:448 includes/wc-order-functions.php:28
 msgctxt "Order status"
 msgid "Completed"
 msgstr "Completado"
 
-#: includes/class-wc-post-types.php:453 includes/wc-order-functions.php:29
+#: includes/class-wc-post-types.php:456 includes/wc-order-functions.php:29
 msgctxt "Order status"
 msgid "Cancelled"
 msgstr "Cancelado"
 
-#: includes/class-wc-post-types.php:461 includes/wc-order-functions.php:30
+#: includes/class-wc-post-types.php:464 includes/wc-order-functions.php:30
 msgctxt "Order status"
 msgid "Refunded"
 msgstr "Devuelto"
 
-#: includes/class-wc-post-types.php:469 includes/wc-order-functions.php:31
+#: includes/class-wc-post-types.php:472 includes/wc-order-functions.php:31
 msgctxt "Order status"
 msgid "Failed"
 msgstr "Falló"
@@ -8032,7 +8032,7 @@ msgid "Endpoints are appended to your page URLs to handle specific actions on th
 msgstr "Los puntos finales se anexan a su página URL para manejar las acciones específicas en las páginas de cuentas. Ellos deben ser únicos."
 
 #: includes/admin/settings/class-wc-settings-accounts.php:61
-#: includes/class-wc-post-types.php:294 includes/class-wc-post-types.php:295
+#: includes/class-wc-post-types.php:297 includes/class-wc-post-types.php:298
 msgid "View Order"
 msgstr "Ver Pedido"
 
@@ -8405,7 +8405,7 @@ msgstr "Mostrar tipo"
 #: includes/admin/meta-boxes/class-wc-meta-box-coupon-data.php:99
 #: includes/admin/settings/class-wc-settings-products.php:28
 #: includes/admin/views/html-admin-page-addons.php:32
-#: includes/class-wc-post-types.php:234
+#: includes/class-wc-post-types.php:237
 #: includes/widgets/class-wc-widget-products.php:29
 msgid "Products"
 msgstr "Productos"
@@ -8543,17 +8543,17 @@ msgstr "Webhook creado correctamente."
 
 #: includes/admin/class-wc-admin-webhooks.php:391
 #: includes/admin/settings/class-wc-settings-api.php:47
-#: includes/class-wc-post-types.php:383
+#: includes/class-wc-post-types.php:386
 msgid "Webhooks"
 msgstr "Webhooks"
 
 #: includes/admin/class-wc-admin-webhooks.php:391
-#: includes/class-wc-post-types.php:386
+#: includes/class-wc-post-types.php:389
 msgid "Add Webhook"
 msgstr "Añadir Webhook"
 
 #: includes/admin/class-wc-admin-webhooks.php:401
-#: includes/class-wc-post-types.php:393
+#: includes/class-wc-post-types.php:396
 msgid "Search Webhooks"
 msgstr "Buscar Webhooks"
 
@@ -9171,7 +9171,7 @@ msgid "Linked Products"
 msgstr "Productos vinculados"
 
 #: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:114
-#: includes/class-wc-post-types.php:273
+#: includes/class-wc-post-types.php:276
 msgid "Variations"
 msgstr "Variaciones"
 
@@ -10318,7 +10318,7 @@ msgstr "Dirección de envío del cliente"
 
 #: includes/admin/class-wc-admin-reports.php:45
 #: includes/admin/reports/class-wc-report-customer-list.php:232
-#: includes/class-wc-post-types.php:287
+#: includes/class-wc-post-types.php:290
 msgid "Orders"
 msgstr "Pedidos"
 
@@ -10869,7 +10869,7 @@ msgstr "API Key revocada correctamente."
 msgid "Action failed. Please refresh the page and retry."
 msgstr "Error en la acción. Por favor, recarga la página y vuelve a intentarlo."
 
-#. #-#-#-#-#  tmp-woocommerce.pot (WooCommerce 2.4.11)  #-#-#-#-#
+#. #-#-#-#-#  tmp-woocommerce.pot (WooCommerce 2.4.12)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: includes/abstracts/abstract-wc-order.php:2171
 #: includes/abstracts/abstract-wc-order.php:2172
@@ -11240,8 +11240,8 @@ msgstr "Términos"
 #: includes/admin/meta-boxes/views/html-order-items.php:213
 #: includes/admin/reports/class-wc-report-customer-list.php:169
 #: includes/admin/reports/class-wc-report-stock.php:126
-#: includes/class-wc-post-types.php:239 includes/class-wc-post-types.php:291
-#: includes/class-wc-post-types.php:350 includes/class-wc-post-types.php:388
+#: includes/class-wc-post-types.php:242 includes/class-wc-post-types.php:294
+#: includes/class-wc-post-types.php:353 includes/class-wc-post-types.php:391
 #: templates/myaccount/my-address.php:45
 msgid "Edit"
 msgstr "Editar"
@@ -11451,7 +11451,7 @@ msgstr "Informes"
 #: includes/admin/class-wc-admin-help.php:129
 #: includes/admin/class-wc-admin-help.php:133
 #: includes/admin/settings/class-wc-settings-checkout.php:71
-#: includes/class-wc-post-types.php:345
+#: includes/class-wc-post-types.php:348
 msgid "Coupons"
 msgstr "Cupones"
 
@@ -11700,7 +11700,7 @@ msgstr "Por defecto"
 
 #: includes/admin/class-wc-admin-permalink-settings.php:120
 #: includes/admin/reports/class-wc-report-stock.php:155
-#: includes/class-wc-post-types.php:235 templates/cart/cart.php:27
+#: includes/class-wc-post-types.php:238 templates/cart/cart.php:27
 #: templates/checkout/form-pay.php:20 templates/checkout/review-order.php:17
 #: templates/emails/admin-cancelled-order.php:22
 #: templates/emails/admin-new-order.php:27
@@ -11869,7 +11869,7 @@ msgid "Searching&hellip;"
 msgstr "Buscando&hellip;"
 
 #: includes/admin/class-wc-admin-menus.php:143
-#: includes/class-wc-post-types.php:300
+#: includes/class-wc-post-types.php:303
 msgctxt "Admin menu name"
 msgid "Orders"
 msgstr "Pedidos"
@@ -11889,7 +11889,7 @@ msgid "product-tag"
 msgstr "etiqueta-producto"
 
 #: includes/admin/class-wc-admin-permalink-settings.php:191
-#: includes/class-wc-post-types.php:228
+#: includes/class-wc-post-types.php:231
 #: includes/updates/woocommerce-update-2.0.php:55
 #: includes/wc-core-functions.php:612 includes/wc-core-functions.php:647
 msgctxt "slug"
