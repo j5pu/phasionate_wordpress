@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 /**
  * Shortcode attributes
  * @var $atts
@@ -14,6 +18,7 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Progress_Bar
  */
+$title = $values = $units = $bgcolor = $css = $custombgcolor = $customtxtcolor = $options = $el_class = '';
 $output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 $atts = $this->convertAttributesToNewProgressBar( $atts );

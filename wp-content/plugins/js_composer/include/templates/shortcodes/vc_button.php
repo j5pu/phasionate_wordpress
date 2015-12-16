@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 /**
  * Shortcode attributes
  * @var $atts
@@ -12,6 +16,7 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Button
  */
+$color = $size = $icon = $target = $href = $el_class = $title = '';
 $output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -43,8 +48,8 @@ if ( 'same' === $target || '_self' === $target ) {
 $target = ( '' !== $target ) ? ' target="' . esc_attr( $target ) . '"' : '';
 
 $color = ( '' !== $color ) ? ' wpb_' . $color : '';
-$size = ( '' !== $size && $size !== 'wpb_regularsize' ) ? ' wpb_' . $size : ' ' . $size;
-$icon = ( '' !== $icon && $icon !== 'none' ) ? ' ' . $icon : '';
+$size = ( '' !== $size && 'wpb_regularsize' !== $size ) ? ' wpb_' . $size : ' ' . $size;
+$icon = ( '' !== $icon && 'none' !== $icon ) ? ' ' . $icon : '';
 $i_icon = ( '' !== $icon ) ? ' <i class="icon"> </i>' : '';
 $el_class = $this->getExtraClass( $el_class );
 

@@ -498,7 +498,7 @@ function kleo_vc_manipulate_shortcodes() {
 		"description" => __(""),
 		"dependency" => array(
 			"element" => "type",
-			"value" => "color"
+			"value" => array("color", "image")
 		)
 	));
 	vc_add_param("vc_row", array(
@@ -839,6 +839,22 @@ function kleo_vc_manipulate_shortcodes() {
         "value" => "",
         "description" => "Set an ID for this section(without #). Can be used for One page links"
     ));
+
+
+	/* vc_row_inner */
+	vc_add_param( 'vc_row_inner', array(
+			'param_name'  => 'inner_container',
+			'heading'     => __( 'Inner Container', 'kleo_framework' ),
+			'description' => __( 'Select whether to insert a container to the section. This will keep the content from going full with.', 'kleo_framework' ),
+			'type'        => 'dropdown',
+			'holder'      => 'div',
+			'class' => 'hide hidden',
+			"admin_label" => true,
+			"value" => array(
+					'No' => 'no',
+					'Yes' => 'yes'
+			)
+	) );
 
 
     /* Inner column */

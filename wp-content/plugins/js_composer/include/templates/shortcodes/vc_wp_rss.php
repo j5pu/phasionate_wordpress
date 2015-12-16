@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 /**
  * Shortcode attributes
  * @var $atts
@@ -10,6 +14,8 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Wp_Rss
  */
+$title = $url = $items = $options = $el_class = '';
+
 $output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 $atts['url'] = html_entity_decode( $atts['url'], ENT_QUOTES ); // fix #2034

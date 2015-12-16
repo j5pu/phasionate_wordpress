@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 /**
  * Shortcode attributes
  * @var $title
@@ -16,6 +20,7 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_Vc_Round_Chart
  */
+$el_class = $title = $type = $style = $legend = $animation = $tooltips = $stroke_color = $stroke_width = $values = $css = $custom_stroke_color = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
@@ -71,13 +76,13 @@ $base_colors = array(
 		'warning' => '#e08700',
 		'danger' => '#ff4b3c',
 		'inverse' => '#464646',
-	)
+	),
 );
 $colors = array(
 	'flat' => array(
 		'normal' => $base_colors['normal'],
-		'active' => $base_colors['active']
-	)
+		'active' => $base_colors['active'],
+	),
 );
 foreach ( $base_colors['normal'] as $name => $color ) {
 	$colors['modern']['normal'][ $name ] = array( vc_colorCreator( $color, 7 ), $color );
@@ -146,7 +151,7 @@ foreach ( $values as $k => $v ) {
 		'value' => intval( isset( $v['value'] ) ? $v['value'] : 0 ),
 		'color' => $color,
 		'highlight' => $highlight,
-		'label' => isset( $v['title'] ) ? $v['title'] : ''
+		'label' => isset( $v['title'] ) ? $v['title'] : '',
 	);
 }
 

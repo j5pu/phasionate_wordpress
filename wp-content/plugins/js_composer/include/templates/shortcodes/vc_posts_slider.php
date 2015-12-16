@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 /**
  * Shortcode attributes
  * @var $atts
@@ -21,6 +25,7 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Posts_slider
  */
+$title = $type = $count = $interval = $slides_content = $slides_title = $link = $custom_links = $thumb_size = $posttypes = $posts_in = $categories = $order = $orderby = $el_class = $css = '';
 $link_image_start = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -41,7 +46,7 @@ if ( 'nivo' === $type ) {
 
 	$slides_wrap_start = '<div class="nivoSlider">';
 	$slides_wrap_end = '</div>';
-} else if ( 'flexslider' === $type || 'flexslider_fade' === $type || 'flexslider_slide' === $type || 'fading' === $type ) {
+} elseif ( 'flexslider' === $type || 'flexslider_fade' === $type || 'flexslider_slide' === $type || 'fading' === $type ) {
 	$el_start = '<li>';
 	$el_end = '</li>';
 	$slides_wrap_start = '<ul class="slides">';
@@ -53,7 +58,7 @@ $flex_fx = '';
 if ( 'flexslider' === $type || 'flexslider_fade' === $type || 'fading' === $type ) {
 	$type = ' wpb_flexslider flexslider_fade flexslider';
 	$flex_fx = ' data-flex_fx="fade"';
-} else if ( 'flexslider_slide' === $type ) {
+} elseif ( 'flexslider_slide' === $type ) {
 	$type = ' wpb_flexslider flexslider_slide flexslider';
 	$flex_fx = ' data-flex_fx="slide"';
 }
@@ -64,12 +69,12 @@ if ( 'link_image' === $link ) {
 }
 
 $query_args = array(
-	'post_status' => 'publish'
+	'post_status' => 'publish',
 );
 
 //exclude current post/page from query
 if ( '' !== $posts_in ) {
-	$query_args['post__in'] = explode( ",", $posts_in );
+	$query_args['post__in'] = explode( ',', $posts_in );
 }
 global $vc_posts_grid_exclude_id;
 $vc_posts_grid_exclude_id[] = get_the_ID();
@@ -159,8 +164,8 @@ while ( $my_query->have_posts() ) {
 	if ( 'link_no' !== $link ) {
 		if ( 'link_post' === $link ) {
 			$link_image_start = '<a class="link_image" href="' . get_permalink( $post_id ) . '" title="' . sprintf( esc_attr__( 'Permalink to %s', 'js_composer' ), the_title_attribute( 'echo=0' ) ) . '">';
-		} else if ( $link === 'link_image' ) {
-			$p_video = get_post_meta( $post_id, "_p_video", true );
+		} elseif ( 'link_image' === $link ) {
+			$p_video = get_post_meta( $post_id, '_p_video', true );
 			//
 			if ( '' !== $p_video ) {
 				$p_link = $p_video;
@@ -168,7 +173,7 @@ while ( $my_query->have_posts() ) {
 				$p_link = $p_img_large[0];
 			}
 			$link_image_start = '<a class="link_image prettyphoto" href="' . $p_link . '" ' . $pretty_rel_random . ' title="' . the_title_attribute( 'echo=0' ) . '" >';
-		} else if ( 'custom_link' === $link ) {
+		} elseif ( 'custom_link' === $link ) {
 			if ( isset( $custom_links[ $i ] ) ) {
 				$slide_custom_link = $custom_links[ $i ];
 			} else {

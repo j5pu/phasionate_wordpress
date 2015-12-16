@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 /**
  * Shortcode attributes
  * @var $atts
@@ -8,6 +12,7 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Wp_Archives
  */
+$title = $el_class = $options = '';
 $output = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );

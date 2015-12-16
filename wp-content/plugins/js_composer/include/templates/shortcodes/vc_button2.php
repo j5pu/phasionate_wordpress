@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 /**
  * Shortcode attributes
  * @var $atts
@@ -12,6 +15,7 @@
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Button2
  */
+$link = $title = $color = $size = $style = $el_class = $align = '';
 $wrapper_start = $wrapper_end = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -35,8 +39,5 @@ if ( $align ) {
 	$wrapper_css_class .= ' vc_button-2-align-' . $align;
 }
 ?>
-<div class="<?php echo esc_attr( $wrapper_css_class ) ?>"><a class="<?php echo esc_attr( trim( $css_class ) ); ?>"
-                                                             href="<?php echo esc_attr( $a_href ); ?>"
-                                                             title="<?php echo esc_attr( $a_title ); ?>"
-                                                             target="<?php echo esc_attr( $a_target ); ?>"><?php echo $title; ?></a>
-	</div>
+<div class="<?php echo esc_attr( $wrapper_css_class ) ?>"><a class="<?php echo esc_attr( trim( $css_class ) ); ?>" href="<?php echo esc_attr( $a_href ); ?>" title="<?php echo esc_attr( $a_title ); ?>" target="<?php echo esc_attr( $a_target ); ?>"><?php echo $title; ?></a>
+</div>
