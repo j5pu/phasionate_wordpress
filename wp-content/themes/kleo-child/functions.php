@@ -522,8 +522,9 @@ function losmasvotadossidebar(){
 			$link = get_permalink($likes_post->ID);
 			$title = get_the_title($likes_post->ID);		
 			$classTitle = "lessFontSize";
-			echo '<a style="vertical-align: middle; display: table-cell;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
+			echo '<a style="vertical-align: middle; display: table-cell; width: 100px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
 			echo '</div>';
+			echo '</br>';
 			wp_reset_query();
 		}
 
