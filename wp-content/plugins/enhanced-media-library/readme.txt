@@ -3,7 +3,7 @@ Contributors: webbistro
 Tags: media library, media category, media categories, media management, media organizer, media gallery, gallery shortcode, media tag, media tags, media taxonomy, media taxonomies, media uploader, mime type, mime, mime types, file types, media types, media filter, attachment, gallery, image, images, media, ux, user experience, wp-admin, admin, taxonomy, taxonomies
 Requires at least: 4.0
 Tested up to: 4.4
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -164,6 +164,19 @@ No, all your data will remain intact. Your created media categories and their ti
 
 == Changelog ==
 
+= 2.1.3 =
+*Release Date - December 17, 2015*
+
+= Bugfixes =
+* Compatibility of the plugin's code with different PHP versions ensured
+* "Warning: Missing argument 3 for wpuxss_eml_gallery_shortcode()" fixed
+* The bug with unavailable image meta on Edit Gallery screen fixed
+
+= Improvements =
+* "Turn off enhanced gallery" option added. Allows to turn off the gallery shortcode enhancement without deactivating the whole plugin in case of incompatibility with other plugins or themes. Please inform plugin authors about the issue. We would like to fix it!
+
+
+&nbsp;
 = 2.1.2 =
 *Release Date - December 15, 2015*
 

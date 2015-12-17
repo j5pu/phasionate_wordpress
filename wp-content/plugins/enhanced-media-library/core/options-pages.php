@@ -106,7 +106,7 @@ if( ! function_exists('wpuxss_eml_admin_menu') ) {
             __('MIME Types','eml'),
             __('MIME Types','eml'),
             'manage_options',
-            'eml-mimetype-options',
+            'eml-mimetypes-options',
             'wpuxss_eml_print_mimetypes_options'
         );
 
@@ -478,12 +478,12 @@ if( ! function_exists('wpuxss_eml_get_settings') ) {
  *  @created  28/09/13
  */
 
-if( ! function_exists('wpuxss_eml_print_taxonomies_options') ) {
+if ( ! function_exists( 'wpuxss_eml_print_taxonomies_options' ) ) {
 
     function wpuxss_eml_print_taxonomies_options() {
 
         if ( ! current_user_can( 'manage_options' ) )
-            wp_die( __('You do not have sufficient permissions to access this page.','eml') );
+            wp_die( __( 'You do not have sufficient permissions to access this page.', 'eml' ) );
 
         $wpuxss_eml_taxonomies = get_option( 'wpuxss_eml_taxonomies' );
         $taxonomies = get_taxonomies( array(),'names' );
@@ -757,8 +757,20 @@ if( ! function_exists('wpuxss_eml_print_taxonomies_options') ) {
                                             <td>
                                                 <fieldset>
                                                     <legend class="screen-reader-text"><span><?php _e('Force filters','eml'); ?></span></legend>
-                                                    <label for="wpuxss_eml_tax_options[force_filters]"><input name="wpuxss_eml_tax_options[force_filters]" type="hidden" value="0" /><input name="wpuxss_eml_tax_options[force_filters]" type="checkbox" value="1" <?php checked( true, $wpuxss_eml_tax_options['force_filters'], true ); ?> /> <?php _e('Show media filters for ANY Media Popup.','eml'); ?></label>
+                                                    <label for="wpuxss_eml_tax_options[force_filters]"><input name="wpuxss_eml_tax_options[force_filters]" type="hidden" value="0" /><input name="wpuxss_eml_tax_options[force_filters]" type="checkbox" value="1" <?php checked( true, $wpuxss_eml_tax_options['force_filters'], true ); ?> /> <?php _e('Show media filters for ANY Media Popup','eml'); ?></label>
                                                     <p class="description"><?php _e( 'May be useful for those who need forcing filters for third-party plugins or themes.', 'eml' ); ?></p>
+                                                </fieldset>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row"><?php _e('Turn off enhanced gallery','eml'); ?></th>
+                                            <td>
+                                                <fieldset>
+                                                    <legend class="screen-reader-text"><span><?php _e('Turn off enhanced gallery','eml'); ?></span></legend>
+                                                    <label for="wpuxss_eml_tax_options[turn_off_gallery_shortcode]"><input name="wpuxss_eml_tax_options[turn_off_gallery_shortcode]" type="hidden" value="0" /><input name="wpuxss_eml_tax_options[turn_off_gallery_shortcode]" type="checkbox" value="1" <?php checked( true, $wpuxss_eml_tax_options['turn_off_gallery_shortcode'], true ); ?> /> <?php _e('Do not enhance WordPress native gallery shortcode','eml'); ?></label>
+                                                    <p class="description"><?php _e( 'May be useful in case of incompatibility with other plugins or themes. Use the option if you think it breaks your galleries in any way.', 'eml' ); ?></p>
+                                                    <p class="description"><?php _e( 'Please inform plugin authors about the issue. We would like to fix it!', 'eml' ); ?></p>
                                                 </fieldset>
                                             </td>
                                         </tr>
@@ -921,7 +933,7 @@ if( ! function_exists('wpuxss_eml_print_mimetypes_options') ) {
  *  @created  28/09/13
  */
 
-if( ! function_exists('wpuxss_eml_print_credits') ) {
+if ( ! function_exists( 'wpuxss_eml_print_credits' ) ) {
 
     function wpuxss_eml_print_credits() {
 

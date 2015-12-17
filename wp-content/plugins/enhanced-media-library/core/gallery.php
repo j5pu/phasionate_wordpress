@@ -9,16 +9,11 @@
  *  @created  24/11/15
  */
 
-// Jetpack Carousel compatibility
-add_filter( 'jp_carousel_force_enable', function() {
-    return true;
-});
-
 add_filter( 'post_gallery', 'wpuxss_eml_gallery_shortcode', 12, 3 );
 
-if( ! function_exists('wpuxss_eml_gallery_shortcode') ) {
+if ( ! function_exists( 'wpuxss_eml_gallery_shortcode' ) ) {
 
-    function wpuxss_eml_gallery_shortcode( $output, $attr, $instance ) {
+    function wpuxss_eml_gallery_shortcode( $output, $attr, $instance = 0 ) {
 
         $post = get_post();
 
@@ -260,6 +255,26 @@ if( ! function_exists('wpuxss_eml_gallery_shortcode') ) {
             </div>\n";
 
         return $output;
+    }
+}
+
+
+
+/**
+ *  wpuxss_eml_jp_carousel_force_enable
+ *
+ *  Ensure Jetpack Carousel compatibility
+ *
+ *  @since    2.1
+ *  @created  16/12/15
+ */
+
+add_filter( 'jp_carousel_force_enable', 'wpuxss_eml_jp_carousel_force_enable' );
+
+if ( ! function_exists( 'wpuxss_eml_jp_carousel_force_enable' ) ) {
+
+    function wpuxss_eml_jp_carousel_force_enable( $enabled ) {
+        return true;
     }
 }
 

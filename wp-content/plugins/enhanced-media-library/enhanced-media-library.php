@@ -4,7 +4,7 @@ Plugin Name: Enhanced Media Library
 Depends: Toolbar Publish Button
 Plugin URI: http://wpUXsolutions.com
 Description: This plugin will be handy for those who need to manage a lot of media files.
-Version: 2.1.2
+Version: 2.1.3
 Author: wpUXsolutions
 Author URI: http://wpUXsolutions.com
 Text Domain: eml
@@ -23,7 +23,7 @@ global $wp_version,
 
 
 
-$wpuxss_eml_version = '2.1.2';
+$wpuxss_eml_version = '2.1.3';
 
 
 
@@ -67,6 +67,26 @@ if ( ! function_exists( 'wpuxss_get_eml_basename' ) ) {
 
 
 /**
+ *  wpuxss_eml_use_enhanced_gallery_shortcode
+ *
+ *  @since    2.1.3
+ *  @created  16/12/15
+ */
+
+if ( ! function_exists( 'wpuxss_eml_use_enhanced_gallery_shortcode' ) ) {
+
+    function wpuxss_eml_use_enhanced_gallery_shortcode() {
+
+        $wpuxss_eml_tax_options = get_option('wpuxss_eml_tax_options');
+        $use_gallery = isset( $wpuxss_eml_tax_options['turn_off_gallery_shortcode'] ) ? ! (bool)$wpuxss_eml_tax_options['turn_off_gallery_shortcode'] : true;
+
+        return $use_gallery;
+    }
+}
+
+
+
+/**
  *  Load plugin text domain
  *
  *  @since    2.0.4.7
@@ -91,10 +111,12 @@ if ( ! function_exists( 'wpuxss_eml_on_plugins_loaded' ) ) {
 
 include_once( 'core/mime-types.php' );
 include_once( 'core/taxonomies.php' );
-include_once( 'core/gallery.php' );
 
-if( is_admin() ) {
+if ( wpuxss_eml_use_enhanced_gallery_shortcode() ) {
+    include_once( 'core/gallery.php' );
+}
 
+if ( is_admin() ) {
     include_once( 'core/options-pages.php' );
 }
 
@@ -384,14 +406,6 @@ if ( ! function_exists( 'wpuxss_eml_enqueue_media' ) ) {
             true
         );
 
-        wp_enqueue_script(
-            'wpuxss-eml-media-editor-script',
-            $wpuxss_eml_dir . 'js/eml-media-editor.js',
-            array('media-editor','media-views'),
-            $wpuxss_eml_version,
-            true
-        );
-
 
 // TODO:
 //        wp_enqueue_script(
@@ -429,16 +443,37 @@ if ( ! function_exists( 'wpuxss_eml_enqueue_media' ) ) {
             $media_views_l10n
         );
 
-        $media_editor_l10n = array(
-            'all_taxonomies' => $all_taxonomies_array,
-            'uploaded_to' => __( 'Uploaded to post #', 'eml' )
-        );
 
-        wp_localize_script(
-            'wpuxss-eml-media-editor-script',
-            'wpuxss_eml_media_editor_l10n',
-            $media_editor_l10n
-        );
+        if ( wpuxss_eml_use_enhanced_gallery_shortcode() ) {
+
+            wp_enqueue_script(
+                'wpuxss-eml-enhanced-gallery-script',
+                $wpuxss_eml_dir . 'js/eml-enhanced-gallery.js',
+                array('media-views'),
+                $wpuxss_eml_version,
+                true
+            );
+
+            wp_enqueue_script(
+                'wpuxss-eml-media-editor-script',
+                $wpuxss_eml_dir . 'js/eml-media-editor.js',
+                array('media-editor','media-views', 'wpuxss-eml-enhanced-gallery-script'),
+                $wpuxss_eml_version,
+                true
+            );
+
+            $media_editor_l10n = array(
+                'all_taxonomies' => $all_taxonomies_array,
+                'uploaded_to' => __( 'Uploaded to post #', 'eml' )
+            );
+
+            wp_localize_script(
+                'wpuxss-eml-media-editor-script',
+                'wpuxss_eml_media_editor_l10n',
+                $media_editor_l10n
+            );
+        }
+
 
         // scripts for grid view :: /wp-admin/upload.php
         if ( isset( $current_screen ) && 'upload' === $current_screen->base && 'grid' === $media_library_mode ) {
@@ -554,7 +589,8 @@ if ( ! function_exists( 'wpuxss_eml_on_activation_update' ) ) {
                 $wpuxss_eml_tax_options = array(
                     'tax_archives' => 1,
                     'edit_all_as_hierarchical' => 0,
-                    'force_filters' => 0
+                    'force_filters' => 0,
+                    'turn_off_gallery_shortcode' => 0
                 );
 
                 $allowed_mimes = get_allowed_mime_types();
@@ -614,6 +650,14 @@ if ( ! function_exists( 'wpuxss_eml_on_activation_update' ) ) {
                 );
 
                 update_option( 'wpuxss_eml_taxonomies', $wpuxss_eml_taxonomies );
+                update_option( 'wpuxss_eml_tax_options', $wpuxss_eml_tax_options );
+            }
+
+            if ( version_compare( $wpuxss_eml_old_version, '2.1.3', '<' ) ) {
+
+                $wpuxss_eml_tax_options = get_option('wpuxss_eml_tax_options');
+                $wpuxss_eml_tax_options['turn_off_gallery_shortcode'] = 0;
+
                 update_option( 'wpuxss_eml_tax_options', $wpuxss_eml_tax_options );
             }
         } // endif :: new and old versions are not the same

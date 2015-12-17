@@ -330,6 +330,23 @@ class MC4WP_API {
 	}
 
 	/**
+	 * @param array $order_data
+	 * @see https://apidocs.mailchimp.com/api/2.0/ecomm/order-add.php
+	 * @return boolean
+	 */
+	public function add_ecommerce_order( array $order_data ) {
+		$response = $this->call( 'ecomm/order-add', array( 'order' => $order_data ) );
+
+		if( is_object( $response ) ) {
+			if ( isset( $response->complete ) && $response->complete ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Calls the MailChimp API
 	 *
 	 * @uses WP_HTTP
