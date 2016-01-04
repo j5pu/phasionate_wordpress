@@ -1,0 +1,35 @@
+=== Who Translate This Plugin? ===
+
+== How can i get involved? ==
+
+GlotPress translations was not supported from this plugin because:
+
+1 - Translation links exposes the plugins to pushing malicious url.
+2 - Translation description exposes the plugin to change its original meaning.
+3 - Changing the content of the plugin, makes useless all the previous approval
+    process, returning a translation, which no longer conforms to the original
+    content.
+4 - The approval process is too long.
+5 - Editors may approve or disapprove according personal rules or motivations.
+6 - Not all GlotPress Editors respect plugin Authors directions.
+
+== How to translate it? ==
+
+Is possible to make translation, with traditional method,
+using wp-missed-schedule.pot not included on plugin package,
+and available on assets is to reduce the size of the plugin
+ZIP files being servedto and no waste user space and bandwidth.
+
+After, send it to sLaNGjIs for approval, and publishing.
+Translator Credits was applied, indicated, with the name
+of your editor, on readme.txt of this plugin, and also
+on related page on //slangji.wordpress.com/translations/
+
+== Free plugin version support translations? ==
+
+No, free plugin support basic translations.
+Only Pro Version support full translations.
+
+== WPML is supported? ==
+
+Sorry, is not supported, in any version, for now.
