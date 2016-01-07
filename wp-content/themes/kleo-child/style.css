@@ -5755,6 +5755,10 @@ li.product figcaption .shop-actions > a.button:hover{
     text-transform: none !important;
 }
 
+.row .col-sm-6.wpb_column.photoCol {
+    width: 50% !important;
+}
+
 .bogaregistro_imagen{
 	/*        position: absolute;
             top: 0%;
