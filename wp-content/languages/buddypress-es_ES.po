@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the 2.2.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-04-01 11:11+0100\n"
+"PO-Revision-Date: 2016-01-11 13:35+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.8.6\n"
 "Project-Id-Version: 2.2.x\n"
 "POT-Creation-Date: \n"
 "Last-Translator: \n"
@@ -1362,8 +1362,7 @@ msgstr "Los campos en el grupo \"%s\" aparecerán en la página de registro. "
 msgid "%s&#8217;s profile was updated"
 msgstr "El perfil de %s fue actualizado"
 
-#: bp-xprofile/bp-xprofile-admin.php:72
-#: bp-xprofile/bp-xprofile-classes.php:510
+#: bp-xprofile/bp-xprofile-admin.php:72 bp-xprofile/bp-xprofile-classes.php:510
 msgid "Add New Field Group"
 msgstr "Añadir nuevo campo de grupo"
 
@@ -2425,8 +2424,7 @@ msgstr "Permisos"
 msgid "There is a pending change of your email address to <code>%1$s</code>.<br />Check your email (<code>%2$s</code>) for the verification link. <a href=\"%3$s\">Cancel</a>"
 msgstr "Hay un cambio pendiente en tu correo electrónico <code>%1$s</code>.<br />Ve a tu correo electrónico (<code>%2$s</code>) para obtener el enlace de verificación. <a href=\"%3$s\">Cancelar</a>"
 
-#: bp-settings/bp-settings-loader.php:94
-#: bp-settings/bp-settings-loader.php:171
+#: bp-settings/bp-settings-loader.php:94 bp-settings/bp-settings-loader.php:171
 msgid "General"
 msgstr "General"
 
@@ -4337,8 +4335,8 @@ msgstr[1] "Los grupos %s han sido eliminados permanentemente."
 #: bp-groups/bp-groups-admin.php:670 bp-groups/bp-groups-notifications.php:574
 #: bp-groups/bp-groups-notifications.php:659
 #: bp-groups/bp-groups-notifications.php:742
-#: bp-groups/bp-groups-notifications.php:824
-#: bp-groups/bp-groups-widgets.php:53 bp-groups/bp-groups-widgets.php:133
+#: bp-groups/bp-groups-notifications.php:824 bp-groups/bp-groups-widgets.php:53
+#: bp-groups/bp-groups-widgets.php:133
 msgid "Groups"
 msgstr "Grupos"
 
@@ -5432,10 +5430,11 @@ msgid ""
 "%1$s\n"
 "\n"
 msgstr ""
-"¡Gracias por registrarte! Para completar la activación de tu cuenta, por favor sigue el siguiente enlace:\n"
+"¡Gracias por registrarte! \n"
 "\n"
-"%1$s\n"
+"Para completar la activación de tu cuenta, por favor haz click :\n"
 "\n"
+"<a href=\"%1$s\" target=\"_blank>Activar cuenta</a>\n"
 
 #: bp-core/bp-core-filters.php:415
 msgid "Activate %s"
@@ -6073,8 +6072,8 @@ msgstr "Los enlaces <em>Cerrar sesión</em> no son visibles para los usuarios qu
 msgid "User removed from spam."
 msgstr "Usuario eliminado por spam."
 
-#: bp-core/admin/bp-core-functions.php:900
-#: bp-members/bp-members-actions.php:54 bp-members/bp-members-admin.php:290
+#: bp-core/admin/bp-core-functions.php:900 bp-members/bp-members-actions.php:54
+#: bp-members/bp-members-admin.php:290
 msgid "User marked as spammer. Spam users are visible only to site admins."
 msgstr "Usuario marcado como spammer. Estos usuarios solo son visibles por el administrador."
 
@@ -6139,8 +6138,7 @@ msgstr "Páginas"
 #: bp-core/admin/bp-core-functions.php:411
 #: bp-core/admin/bp-core-settings.php:243 bp-core/bp-core-admin.php:442
 #: bp-groups/bp-groups-loader.php:529 bp-settings/bp-settings-loader.php:23
-#: bp-settings/bp-settings-loader.php:73
-#: bp-settings/bp-settings-loader.php:163
+#: bp-settings/bp-settings-loader.php:73 bp-settings/bp-settings-loader.php:163
 msgid "Settings"
 msgstr "Configuración"
 
@@ -6610,8 +6608,8 @@ msgstr "Ver"
 msgid "Delete"
 msgstr "Borrar"
 
-#: bp-activity/bp-activity-template.php:1544
-#: bp-groups/bp-groups-admin.php:1444 bp-groups/bp-groups-template.php:794
+#: bp-activity/bp-activity-template.php:1544 bp-groups/bp-groups-admin.php:1444
+#: bp-groups/bp-groups-template.php:794
 msgid "Group logo of %s"
 msgstr "Logo del grupo %s"
 
@@ -6730,8 +6728,8 @@ msgstr "%s ha respondido a una de tus actualizaciones"
 
 #: bp-activity/bp-activity-notifications.php:99
 #: bp-activity/bp-activity-notifications.php:215
-#: bp-activity/bp-activity-notifications.php:303
-#: bp-core/deprecated/1.5.php:364 bp-friends/bp-friends-notifications.php:56
+#: bp-activity/bp-activity-notifications.php:303 bp-core/deprecated/1.5.php:364
+#: bp-friends/bp-friends-notifications.php:56
 #: bp-friends/bp-friends-notifications.php:143
 #: bp-groups/bp-groups-notifications.php:91
 #: bp-groups/bp-groups-notifications.php:191
@@ -6880,10 +6878,10 @@ msgid "Activity History"
 msgstr "Historial de la actividad"
 
 #: bp-activity/bp-activity-classes.php:301
-#: bp-activity/bp-activity-template.php:171
-#: bp-groups/bp-groups-classes.php:654 bp-groups/bp-groups-functions.php:506
-#: bp-groups/bp-groups-template.php:187 bp-groups/bp-groups-template.php:3041
-#: bp-groups/bp-groups-template.php:4085 bp-groups/bp-groups-template.php:4356
+#: bp-activity/bp-activity-template.php:171 bp-groups/bp-groups-classes.php:654
+#: bp-groups/bp-groups-functions.php:506 bp-groups/bp-groups-template.php:187
+#: bp-groups/bp-groups-template.php:3041 bp-groups/bp-groups-template.php:4085
+#: bp-groups/bp-groups-template.php:4356
 #: bp-messages/bp-messages-classes.php:341
 #: bp-messages/bp-messages-template.php:125
 msgid "Arguments passed to %1$s should be in an associative array. See the inline documentation at %2$s for more details."
@@ -7095,15 +7093,13 @@ msgstr "Actualizar"
 msgid "Link"
 msgstr "Enlace"
 
-#: bp-activity/bp-activity-admin.php:732
-#: bp-activity/bp-activity-admin.php:1494
+#: bp-activity/bp-activity-admin.php:732 bp-activity/bp-activity-admin.php:1494
 #: bp-forums/bp-forums-template.php:2559 bp-groups/bp-groups-admin.php:1424
 #: bp-xprofile/bp-xprofile-admin.php:468
 msgid "Edit"
 msgstr "Editar"
 
-#: bp-activity/bp-activity-admin.php:723
-#: bp-activity/bp-activity-admin.php:1501
+#: bp-activity/bp-activity-admin.php:723 bp-activity/bp-activity-admin.php:1501
 #: bp-activity/bp-activity-akismet.php:204
 #: bp-activity/bp-activity-akismet.php:233
 #: bp-core/admin/bp-core-functions.php:842
