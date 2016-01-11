@@ -3,7 +3,7 @@
 /**
  *  EML custom upload.php
  *
- *  Based on wp-admin/upload.php (4.2.2)
+ *  Based on wp-admin/upload.php (4.4)
  *
  *  Uses custom media table class WPUXSS_EML_Media_List_Table
  *

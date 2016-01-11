@@ -1,25 +1,25 @@
 <?php 
 /*
 Plugin Name: WP Missed Schedule
-Plugin URI: //slangji.wordpress.com/wp-missed-schedule/
-Description: WordPress Plugin WP Missed Schedule Fix Schedules Failed Future Posts Scheduled Virtual Cron Job: find only all that match this problem, re-publish correctly 10 items each session, every 10 minutes, the others on next sessions, for no waste resources, until no longer exist. The configuration of this plugin is Automatic! Cron link requires <a title="WP Crontrol plugin active is required for Cron Link" href="//wordpress.org/plugins/wp-crontrol/">WP Crontrol</a> activated and WP 2.7+ or later. <a title="Test New Beta Version Branche 2015" href="//slangji.wordpress.com/wp-missed-schedule-beta/">Beta Branche 2015</a> - Free (UNIX STYLE) Stable Branche 2014 - Version 2014.1231 - Revision 2015 - Update 4 - Build 2015-12-31
+Plugin URI: https://slangji.wordpress.com/wp-missed-schedule/
+Description: WordPress plugin WP Missed Schedule Fix failed future scheduled posts virtual cron job: finds only all that matches this problem, and re-publish correctly 10 items each session, every 10 minutes, the others are corrected on the next sessions, for not wasting resources, until no longer exist. The configuration of this plugin is Automatic! Free (UNIX STYLE) Stable Branche 2014 - Build 2016-01-06 - The miss link is for verify if exist this issue. The cron link requires <a href="https://wordpress.org/plugins/wp-crontrol/">WP Crontrol</a> activated and WP 2.7+ or later. Test <a href="https://slangji.wordpress.com/wp-missed-schedule-beta/">Beta Branche 2015</a>
 Author: sLaNGjIs
-Author URI: //slangji.wordpress.com/plugins/
-Version: 2014.1231.2015.4
+Author URI: https://slangji.wordpress.com/plugins/
+Version: 2014.1231.2016.0
 License: GPLv2 or later
-License URI: //www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Network: true
  *
  * Requires at least 2.1
  * Tested up to 4.5
  * KeyTag 7f71ee70ea1ce6795c69c81df4ea13ac5cf230b4
- * Donate link //slangji.wordpress.com/donate/
+ * Donate link https://slangji.wordpress.com/donate/
  * Indentation GNU style coding standard
- * Indentation URI //www.gnu.org/prep/standards/standards.html
+ * Indentation URI https://www.gnu.org/prep/standards/standards.html
  * Humans We are the humans behind
- * Humans URI //humanstxt.org/Standard.html
+ * Humans URI https://humanstxt.org/Standard.html
  *
- * ALPHA DEVELOPMENT Release is available only on [GitHub](//github.com/sLaNGjI)
+ * ALPHA DEVELOPMENT Release is available only on [GitHub](https://github.com/sLaNGjI)
  *
  * BETA Release: Version 2015 Build 1231 Revision 3 Update 0
  *
@@ -43,16 +43,16 @@ Network: true
  *
  * LICENSING - license.txt
  *
- * [WP Missed Schedule](//wordpress.org/plugins/wp-missed-schedule/)
+ * [WP Missed Schedule](https://wordpress.org/plugins/wp-missed-schedule/)
  *
  * Fix Missed Schedule Schedules Failed Future Posts Scheduled Virtual Cron Job.
  *
  * This plugin patched an important big problem unfixed since WordPress 2.5+ to date.
  *
- * Copyright (C) 2007-2016 [sLaNGjIs](//slangji.wordpress.com/) (email: <slangjis [at] googlegmail [dot] com>))
+ * Copyright (C) 2007-2016 [sLaNGjIs](https://slangji.wordpress.com/) (email: <slangjis [at] googlegmail [dot] com>))
  *
  * This program is free software; you can redistribute it and/or
- * modify it under the terms of the [GNU General Public License](//wordpress.org/about/gpl/)
+ * modify it under the terms of the [GNU General Public License](https://wordpress.org/about/gpl/)
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
  *
@@ -62,7 +62,7 @@ Network: true
  * See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, see [GNU General Public Licenses](//www.gnu.org/licenses/),
+ * along with this program; if not, see [GNU General Public Licenses](https://www.gnu.org/licenses/),
  * or write to the Free Software Foundation, Inc., 51 Franklin Street,
  * Fifth Floor, Boston, MA 02110-1301, USA.
  *
@@ -71,7 +71,7 @@ Network: true
  * This program is distributed "AS IS" in the hope that it will be useful, but:
  * without any warranty of function, without any warranty of merchantability,
  * without any fitness for a particular or specific purpose, without any type
- * of future assistance from your own author or other authors.
+ * of future assistance from your own author or the others authors.
  *
  * The license under which the WordPress software is released is the GPLv2 (or later) from the
  * Free Software Foundation. A copy of the license is included with every copy of WordPress.
@@ -82,7 +82,7 @@ Network: true
  * There is some legal grey area regarding what is considered a derivative work, but we feel
  * strongly that plugins and themes are derivative work and thus inherit the GPL license.
  *
- * The license for this software can be found on [Free Software Foundation](//www.gnu.org/licenses/gpl-2.0.html)
+ * The license for this software can be found on [Free Software Foundation](https://www.gnu.org/licenses/gpl-2.0.html)
  * and as license.txt into this plugin package.
  *
  * The author of plugin is available at any time, to make changes, or corrections, to respect specifications.
@@ -92,67 +92,67 @@ Network: true
  * This uses (or it parts) code derived from:
  *
  * wp-header-footer-login-log.php by sLaNGjIs <slangjis [at] googlemail [dot] com>
- * Copyright (C) 2007-2009 [sLaNGjIs](//slangji.wordpress.com/) (email: <slangjis [at] googlemail [dot] com>)
+ * Copyright (C) 2007-2009 [sLaNGjIs](https://slangji.wordpress.com/) (email: <slangjis [at] googlemail [dot] com>)
  *
  * according to the terms of the GNU General Public License version 2 (or later).
  *
  * This wp-header-footer-login-log.php uses (or it parts) code derived from:
  *
  * wp-login-log.php by sLaNGjIs <slangjis [at] googlemail [dot] com>
- * Copyright (C) 2009 [sLaNGjIs](//slangji.wordpress.com/) (email: <slangjis [at] googlemail [dot] com>)
+ * Copyright (C) 2009 [sLaNGjIs](https://slangji.wordpress.com/) (email: <slangjis [at] googlemail [dot] com>)
  *
  * wp-header-log.php by sLaNGjIs <slangjis [at] googlemail [dot] com>
- * Copyright (C) 2008 [sLaNGjIs](//slangji.wordpress.com/) (email: <slangjis [at] googlemail [dot] com>)
+ * Copyright (C) 2008 [sLaNGjIs](https://slangji.wordpress.com/) (email: <slangjis [at] googlemail [dot] com>)
  *
  * wp-footer-log.php by sLaNGjIs <slangjis [at] googlemail [dot] com>
- * Copyright (C) 2007 [sLaNGjIs](//slangji.wordpress.com/) (email: <slangjis [at] googlemail [dot] com>)
+ * Copyright (C) 2007 [sLaNGjIs](https://slangji.wordpress.com/) (email: <slangjis [at] googlemail [dot] com>)
  *
  * according to the terms of the GNU General Public License version 2 (or later).
  *
  * According to the Terms of the GNU General Public License version 2 (or later) part of Copyright
  * belongs to your own author and part belongs to their respective others authors:
  *
- * Copyright (C) 2007-2009 [sLaNGjIs](//slangji.wordpress.com/) (email: <slangjis [at] googlemail [dot] com>)
+ * Copyright (C) 2007-2009 [sLaNGjIs](https://slangji.wordpress.com/) (email: <slangjis [at] googlemail [dot] com>)
  *
  * VIOLATIONS
  *
- * [Violations of the GNU Licenses](//www.gnu.org/licenses/gpl-violation.en.html)
+ * [Violations of the GNU Licenses](https://www.gnu.org/licenses/gpl-violation.en.html)
  * The author of plugin is available at any time, to make changes, or corrections, to respect specifications.
  *
  * GUIDELINES
  *
- * This software meet [Detailed Plugin Guidelines](//wordpress.org/plugins/about/guidelines/)
+ * This software meet [Detailed Plugin Guidelines](https://wordpress.org/plugins/about/guidelines/)
  * paragraphs 1,4,10,12,13,16,17 quality requirements.
  * The author of plugin is available at any time, to make changes, or corrections, to respect specifications.
  *
  * CODING
  *
- * This software implement [GNU style](//www.gnu.org/prep/standards/standards.html) coding standard indentation.
+ * This software implement [GNU style](https://www.gnu.org/prep/standards/standards.html) coding standard indentation.
  * The author of plugin is available at any time, to make changes, or corrections, to respect specifications.
  *
  * VALIDATION
  *
  * This readme.txt rocks. Seriously. Flying colors. It meet the specifications according to
- * WordPress [Readme Validator](//wordpress.org/plugins/about/validator/) directives.
+ * WordPress [Readme Validator](https://wordpress.org/plugins/about/validator/) directives.
  * The author of plugin is available at any time, to make changes, or corrections, to respect specifications.
  *
  * HUMANS - humans.txt
  *
- * We are the Humans behind this project [humanstxt.org](//humanstxt.org/Standard.html)
+ * We are the Humans behind this project [humanstxt.org](https://humanstxt.org/Standard.html)
  *
- * This software meet detailed humans rights belongs to your own author and to their respective other authors.
+ * This software meet detailed humans rights belongs to your own author and to their respective others authors.
  * The author of plugin is available at any time, to make changes, or corrections, to respect specifications.
  *
  * THANKS
  *
- * [nicokaiser](//wordpress.org/support/topic/plugin-uses-post_date_gmt-which-is-not-indexed)
+ * [nicokaiser](https://wordpress.org/support/topic/plugin-uses-post_date_gmt-which-is-not-indexed)
  * Jack Hayhurst <jhayhurst [at] liquidweb [dot] com> MySQL Queries with Server Load Optimization and Index Suggestion.
- * [Arkadiusz Rzadkowolski](//profiles.wordpress.org/fliespl/) HyperDB table_name from query broken in select query.
- * [milewis1](//profiles.wordpress.org/milewis1/) WordPress blog's timezone implementation instead of the MySQL time.
+ * [Arkadiusz Rzadkowolski](https://profiles.wordpress.org/fliespl/) HyperDB table_name from query broken in select query.
+ * [milewis1](https://profiles.wordpress.org/milewis1/) WordPress blog's timezone implementation instead of the MySQL time.
  *
  * CHANGELOG
  *
- * [to-do list and changelog](//wordpress.org/plugins/wp-missed-schedule/changelog/)
+ * [to-do list and changelog](https://wordpress.org/plugins/wp-missed-schedule/changelog/)
  */
 
 	/**
@@ -168,11 +168,11 @@ Network: true
 	 * @tested      3.7+
 	 * @compatible  4.5-alpha
 	 * @branche     2014
-	 * @revision    2015
-	 * @update      4
+	 * @revision    2016
+	 * @update      0
 	 * @release     2014.1231
-	 * @version     2014.1231.2015.4
-	 * @build       2015-12-31
+	 * @version     2014.1231.2016.0
+	 * @build       2016-01-06
 	 * @license     GPLv2 or later
 	 * @indentation GNU style coding standard
 	 * @keybit      eLCQM540z78BbFMtmFXj3lC62b79H8651411574J4YQCb3g46FsK338kT29FPANa8
@@ -385,8 +385,8 @@ SQL;
 
 					if ( $file == plugin_basename( __FILE__ ) )
 						{
-							$links[] = '<a title="'. __( 'Offer a Beer to sLa' ) .'" href="//slangji.wordpress.com/donate/">'. __( 'Donate' ) .'</a>';
-							$links[] = '<a title="'. __( 'Bugfix and Suggestions' ) .'" href="//slangji.wordpress.com/contact/">'. __( 'Contact' ) .'</a>';
+							$links[] = '<a title="'. __( 'Offer a Beer to sLa' ) .'" href="https://slangji.wordpress.com/donate/">'. __( 'Donate' ) .'</a>';
+							$links[] = '<a title="'. __( 'Bugfix and Suggestions' ) .'" href="https://slangji.wordpress.com/contact/">'. __( 'Contact' ) .'</a>';
 						}
 					return $links;
 				}

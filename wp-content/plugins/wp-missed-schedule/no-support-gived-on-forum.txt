@@ -1,9 +1,9 @@
-sLaNGjIs Team do not providing support on wordpress.org forum and reviews,
+sLa NGjI's Team not provide support on wordpress.org forum and reviews,
 because we are not interested in reviews o stars on our Plugins and Themes!
 
 Dear user of plugins or themes:
 
-sLaNGjIs Team has started official adventure on WordPress.org forum since 2007!
+sLaNGjIs has started official adventure on WordPress.org forum since 2007!
 
 Everything was very different from today: the plugins and themes developed by
 us were much less, and also the users who used it.
@@ -24,7 +24,7 @@ deemed ineffective by more and more developers excellent, while the tools
 available for this workload considered inadequate to many of them.
 
 Many of these developers have already abandoned this platform of assistance by
-providing other methods of support.
+providing others methods of support.
 
 Our team has tried to respond to all for more long years, and maintained your
 support forums space for plugins and themes developed always clean.
@@ -35,7 +35,7 @@ active support of this type of structure, started since July 7 2007, to try to
 give one type of personalized service, targeted to the requests of real user
 utilization, and totally Free of Charge:
 
- - For Bug's visit sLaNGjIs GitHub @ github.com/slangjis (membership required)
+ - For Bugs visit sLaNGjIs GitHub @ github.com/sLaNGjIs (membership required)
  - For Suggestions visit sLaNGjIs Contact @ slangji.wordpress.com/contact
  - For Support visit sLaNGjIs Premium @ slangji.wordpress.com/premium-support
 

@@ -152,6 +152,7 @@ window.eml = window.eml || { l10n: {} };
                 this.model.set( filter.props );
             }
 
+
             if ( filter && selection && selection.length && ! wp.Uploader.queue.length ) {
                 selection.reset();
             }
@@ -161,9 +162,51 @@ window.eml = window.eml || { l10n: {} };
             }
 
             resetFilterButton.model.set( 'disabled', all === unchanged );
-        }
+        },
+
+        select: function() {
+
+    		var model = this.model,
+    			value = 'all',
+    			props = model.toJSON();
+
+
+            props = _.omit( props, 'orderby', 'order' );
+
+    		_.find( this.filters, function( filter, id ) {
+
+                var filterProps = _.omit( filter.props, 'orderby', 'order' );
+
+    			var equal = _.all( filterProps, function( prop, key ) {
+    				return prop === ( _.isUndefined( props[ key ] ) ? null : props[ key ] );
+    			});
+
+    			if ( equal ) {
+    				return value = id;
+    			}
+    		});
+
+    		this.$el.val( value );
+    	}
     });
 
+
+
+
+    /**
+     * wp.media.view.AttachmentFilters
+     *
+     */
+    original.AttachmentFilters = {
+
+        All: {
+            createFilters: media.view.AttachmentFilters.All.prototype.createFilters
+        },
+
+        Uploaded: {
+            createFilters: media.view.AttachmentFilters.Uploaded.prototype.createFilters
+        }
+    };
 
 
 
@@ -171,23 +214,21 @@ window.eml = window.eml || { l10n: {} };
      * wp.media.view.AttachmentFilters.All
      *
      */
-    original.AttachmentFilters = {
-
-        All: {
-            createFilters: media.view.AttachmentFilters.All.prototype.createFilters
-        }
-    };
-
     _.extend( media.view.AttachmentFilters.All.prototype, {
 
         createFilters: function() {
 
+            var uncategorizedProps,
+                taxonomies = _.keys( eml.l10n.taxonomies );
+
+
             original.AttachmentFilters.All.createFilters.apply( this, arguments );
 
-            _.each( this.filters, function( filter, key )
-            {
+            _.each( this.filters, function( filter, key ) {
                 filter.props['uncategorized'] = null;
-            })
+                filter.props['orderby'] = eml.l10n.media_orderby;
+                filter.props['order'] = eml.l10n.media_order;
+            });
 
             this.filters.uncategorized = {
                 text:  eml.l10n.uncategorized,
@@ -196,33 +237,41 @@ window.eml = window.eml || { l10n: {} };
                     uncategorized : true,
                     status        : null,
                     type          : null,
-                    orderby       : 'date',
-                    order         : 'DESC'
+                    orderby       : eml.l10n.media_orderby,
+                    order         : eml.l10n.media_order
                 },
                 priority: 60
             };
-        },
-
-        change: function() {
-
-            var filter = this.filters[ this.el.value ],
-                content = this.controller.content;
 
 
-            media.view.AttachmentFilters.prototype.change.apply( this, arguments );
+            uncategorizedProps = this.filters.uncategorized.props;
+
+            _.each( taxonomies, function( taxonomy ) {
+                uncategorizedProps[taxonomy] = null;
+            });
+        }
+    });
 
 
-            if ( filter && filter.props.uncategorized ) {
 
-                _.each( eml.l10n.taxonomies, function( terms, taxonomy ) {
+    /**
+     * wp.media.view.AttachmentFilters.Uploaded
+     *
+     */
+    _.extend( media.view.AttachmentFilters.Uploaded.prototype, {
 
-                    taxFilter = content.get().toolbar.get( taxonomy+'-filter' );
+        createFilters: function() {
 
-                    if ( ! _.isUndefined( taxFilter ) && 'all' !== taxFilter.$el.val() ) {
-                        taxFilter.$el.val( 'all' ).change();
-                    }
-                });
-            }
+            var uncategorizedProps,
+                taxonomies = _.keys( eml.l10n.taxonomies );
+
+
+            original.AttachmentFilters.Uploaded.createFilters.apply( this, arguments );
+
+            _.each( this.filters, function( filter, key ) {
+                filter.props['orderby'] = eml.l10n.media_orderby;
+                filter.props['order'] = eml.l10n.media_order;
+            });
         }
     });
 
@@ -242,13 +291,14 @@ window.eml = window.eml || { l10n: {} };
         className: function() {
 
             // TODO: get rid of excess class name that duplicates id
-            return 'attachment-filters eml-attachment-filters attachment-'+this.options.taxonomy+'-filter';
+            return 'attachment-filters eml-taxonomy-filters attachment-'+this.options.taxonomy+'-filter';
         },
 
         createFilters: function() {
 
             var filters = {},
                 self = this;
+
 
             _.each( self.options.termList || {}, function( term, key ) {
 
@@ -259,8 +309,8 @@ window.eml = window.eml || { l10n: {} };
                     text: term_name,
                     props: {
                         uncategorized : null,
-                        orderby       : 'menuOrder',
-        				order         : 'ASC'
+                        orderby       : eml.l10n.media_orderby,
+                        order         : eml.l10n.media_order
                     },
                     priority: key+4
                 };
@@ -272,8 +322,8 @@ window.eml = window.eml || { l10n: {} };
                 text: eml.l10n.filter_by + self.options.singularName,
                 props: {
                     uncategorized : null,
-                    orderby       : 'date',
-    				order         : 'DESC'
+                    orderby       : eml.l10n.media_orderby,
+                    order         : eml.l10n.media_order
                 },
                 priority: 1
             };
@@ -284,8 +334,8 @@ window.eml = window.eml || { l10n: {} };
                 text: '&#8212; ' + eml.l10n.in + self.options.pluralName + ' &#8212;',
                 props: {
                     uncategorized : null,
-                    orderby       : 'date',
-                    order         : 'DESC'
+                    orderby       : eml.l10n.media_orderby,
+                    order         : eml.l10n.media_order
                 },
                 priority: 2
             };
@@ -296,8 +346,8 @@ window.eml = window.eml || { l10n: {} };
                 text: '&#8212; ' + eml.l10n.not_in + self.options.singularName + ' &#8212;',
                 props: {
                     uncategorized : null,
-                    orderby       : 'date',
-                    order         : 'DESC'
+                    orderby       : eml.l10n.media_orderby,
+                    order         : eml.l10n.media_order
                 },
                 priority: 3
             };
@@ -305,19 +355,6 @@ window.eml = window.eml || { l10n: {} };
             filters['not_in']['props'][self.options.taxonomy] = 'not_in';
 
             this.filters = filters;
-        },
-
-        change: function() {
-
-            var controller = this.controller,
-                filter = this.filters[ this.el.value ],
-                Filters = controller.content.get().toolbar.get( 'filters' );
-
-            media.view.AttachmentFilters.prototype.change.apply( this, arguments );
-
-            if ( filter && 1 != filter.priority && 'uncategorized' == Filters.$el.val() ) {
-                Filters.$el.val( 'all' ).change();
-            }
         }
     });
 
@@ -333,10 +370,7 @@ window.eml = window.eml || { l10n: {} };
 				event.preventDefault();
 			}
 
-            $.each( $('select.attachment-filters'), function() {
-                if ( this.value != 'all' )
-                    $(this).val( 'all' ).change();
-            });
+            $('.attachment-filters:has(option[value!="all"]:selected)').val( 'all' ).change();
 		}
     });
 
@@ -443,7 +477,7 @@ window.eml = window.eml || { l10n: {} };
 
 
             if ( -1 !== $.inArray( this.options.filters, [ 'uploaded', 'all' ] ) ||
-                 parseInt( eml.l10n.force_filters ) ) {
+                 parseInt( eml.l10n.force_filters ) && 'gallery-edit' !== this.controller._state ) {
 
 
                 this.toolbar.set( 'filtersLabel', new media.view.Label({
@@ -578,9 +612,24 @@ window.eml = window.eml || { l10n: {} };
 
             original.MediaFrame.Post.activate.apply( this, arguments );
 
-            var content = this.content.get();
+            var content = this.content.get(),
+                galleryLibrary = this.state( 'gallery' ).get( 'library' ),
+                mainFilter = content.toolbar.get( 'filters' ),
+                resetFilterButton = content.toolbar.get( 'resetFilterButton' ),
+                props;
+
 
             this.on( 'open', content.fixLayout, content );
+
+
+            // TODO: reconsider this
+            if ( mainFilter ) {
+
+                props = _.extend( { type: 'image' }, mainFilter.filters.all.props );
+                galleryLibrary.reset( wp.media.query( props ).models );
+
+                resetFilterButton.click();
+            }
         }
     });
 

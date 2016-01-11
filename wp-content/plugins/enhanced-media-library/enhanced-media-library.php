@@ -1,17 +1,16 @@
 <?php
 /*
 Plugin Name: Enhanced Media Library
-Depends: Toolbar Publish Button
 Plugin URI: http://wpUXsolutions.com
 Description: This plugin will be handy for those who need to manage a lot of media files.
-Version: 2.1.3
+Version: 2.1.4
 Author: wpUXsolutions
 Author URI: http://wpUXsolutions.com
 Text Domain: eml
 Domain Path: /languages
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-Copyright 2013-2015  wpUXsolutions  (email : wpUXsolutions@gmail.com)
+Copyright 2013-2016  wpUXsolutions  (email : wpUXsolutions@gmail.com)
 */
 
 
@@ -23,7 +22,7 @@ global $wp_version,
 
 
 
-$wpuxss_eml_version = '2.1.3';
+$wpuxss_eml_version = '2.1.4';
 
 
 
@@ -67,20 +66,21 @@ if ( ! function_exists( 'wpuxss_get_eml_basename' ) ) {
 
 
 /**
- *  wpuxss_eml_use_enhanced_gallery_shortcode
+ *  wpuxss_eml_enhance_gallery_shortcode
  *
- *  @since    2.1.3
- *  @created  16/12/15
+ *  @since    2.1.4
+ *  @created  08/01/16
  */
 
-if ( ! function_exists( 'wpuxss_eml_use_enhanced_gallery_shortcode' ) ) {
+if ( ! function_exists( 'wpuxss_eml_enhance_gallery_shortcode' ) ) {
 
-    function wpuxss_eml_use_enhanced_gallery_shortcode() {
+    function wpuxss_eml_enhance_gallery_shortcode() {
 
         $wpuxss_eml_tax_options = get_option('wpuxss_eml_tax_options');
-        $use_gallery = isset( $wpuxss_eml_tax_options['turn_off_gallery_shortcode'] ) ? ! (bool)$wpuxss_eml_tax_options['turn_off_gallery_shortcode'] : true;
 
-        return $use_gallery;
+        $enhance_gallery_shortcode = isset( $wpuxss_eml_tax_options['enhance_gallery_shortcode'] ) ? (bool)$wpuxss_eml_tax_options['enhance_gallery_shortcode'] : false;
+
+        return $enhance_gallery_shortcode;
     }
 }
 
@@ -112,7 +112,7 @@ if ( ! function_exists( 'wpuxss_eml_on_plugins_loaded' ) ) {
 include_once( 'core/mime-types.php' );
 include_once( 'core/taxonomies.php' );
 
-if ( wpuxss_eml_use_enhanced_gallery_shortcode() ) {
+if ( wpuxss_eml_enhance_gallery_shortcode() ) {
     include_once( 'core/gallery.php' );
 }
 
@@ -351,20 +351,19 @@ if ( ! function_exists( 'wpuxss_eml_enqueue_media' ) ) {
 
                 ob_end_clean();
 
-                $terms = array_filter( explode('|', $html) );
+
+                $html = str_replace( '}{', '},{', $html );
+                $html = '[' . $html . ']';
+                $terms = json_decode( $html, true );
+                $terms = array_filter( $terms );
+
 
                 if ( ! empty( $terms ) ) {
-
-                    foreach ( $terms as $term ) {
-
-                        $term = explode('>', $term);
-                        array_push($terms_array, array('term_id' => $term[0], 'term_name' => $term[1]));
-                    }
 
                     $taxonomies_array[$taxonomy->name] = array(
                         'singular_name' => $taxonomy->labels->singular_name,
                         'plural_name'   => $taxonomy->labels->name,
-                        'term_list'     => $terms_array
+                        'term_list'     => $terms
                     );
                 }
             }
@@ -429,6 +428,8 @@ if ( ! function_exists( 'wpuxss_eml_enqueue_media' ) ) {
             'compat_taxonomies_to_hide' => $compat_taxonomies_to_hide,
             'is_tax_compat' => count( $compat_taxonomies_to_show ) ? 1 : 0,
             'force_filters' => $wpuxss_eml_tax_options['force_filters'],
+            'media_orderby' => $wpuxss_eml_tax_options['media_orderby'],
+            'media_order' => $wpuxss_eml_tax_options['media_order'],
             'wp_version' => $wp_version,
             'uncategorized' => __( 'All Uncategorized', 'eml' ),
             'filter_by'           => __( 'Filter by ', 'eml' ),
@@ -444,7 +445,7 @@ if ( ! function_exists( 'wpuxss_eml_enqueue_media' ) ) {
         );
 
 
-        if ( wpuxss_eml_use_enhanced_gallery_shortcode() ) {
+        if ( wpuxss_eml_enhance_gallery_shortcode() ) {
 
             wp_enqueue_script(
                 'wpuxss-eml-enhanced-gallery-script',
@@ -462,15 +463,15 @@ if ( ! function_exists( 'wpuxss_eml_enqueue_media' ) ) {
                 true
             );
 
-            $media_editor_l10n = array(
+            $enhanced_gallery_l10n = array(
                 'all_taxonomies' => $all_taxonomies_array,
                 'uploaded_to' => __( 'Uploaded to post #', 'eml' )
             );
 
             wp_localize_script(
-                'wpuxss-eml-media-editor-script',
-                'wpuxss_eml_media_editor_l10n',
-                $media_editor_l10n
+                'wpuxss-eml-enhanced-gallery-script',
+                'wpuxss_eml_enhanced_gallery_l10n',
+                $enhanced_gallery_l10n
             );
         }
 
@@ -590,7 +591,9 @@ if ( ! function_exists( 'wpuxss_eml_on_activation_update' ) ) {
                     'tax_archives' => 1,
                     'edit_all_as_hierarchical' => 0,
                     'force_filters' => 0,
-                    'turn_off_gallery_shortcode' => 0
+                    'enhance_gallery_shortcode' => 0,
+                    'media_orderby' => 'date',
+                    'media_order' => 'DESC'
                 );
 
                 $allowed_mimes = get_allowed_mime_types();
@@ -653,10 +656,12 @@ if ( ! function_exists( 'wpuxss_eml_on_activation_update' ) ) {
                 update_option( 'wpuxss_eml_tax_options', $wpuxss_eml_tax_options );
             }
 
-            if ( version_compare( $wpuxss_eml_old_version, '2.1.3', '<' ) ) {
+            if ( version_compare( $wpuxss_eml_old_version, '2.1.4', '<' ) ) {
 
                 $wpuxss_eml_tax_options = get_option('wpuxss_eml_tax_options');
-                $wpuxss_eml_tax_options['turn_off_gallery_shortcode'] = 0;
+                $wpuxss_eml_tax_options['enhance_gallery_shortcode'] = 0;
+                $wpuxss_eml_tax_options['media_orderby'] = 'date';
+                $wpuxss_eml_tax_options['media_order'] = 'DESC';
 
                 update_option( 'wpuxss_eml_tax_options', $wpuxss_eml_tax_options );
             }

@@ -270,6 +270,10 @@ body.eml-media-css .media-modal.acf-expanded .attachments-browser .media-toolbar
     width: 70%;
 }
 
+#wpuxss-eml-global-options-wrap #poststuff h2 {
+    font-size: 23px;
+    font-weight: 400;
+}
 
 
 

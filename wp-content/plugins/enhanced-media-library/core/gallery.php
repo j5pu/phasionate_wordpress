@@ -3,39 +3,61 @@
 
 
 /**
- *  wpuxss_eml_gallery_shortcode
+ *  wpuxss_eml_get_gallery_attachments
  *
- *  @since    2.1
- *  @created  24/11/15
+ *  'eml_gallery_attachments' filter callback
+ *
+ *  @since    2.1.4
+ *  @created  26/12/15
  */
 
-add_filter( 'post_gallery', 'wpuxss_eml_gallery_shortcode', 12, 3 );
+add_filter( 'eml_gallery_attachments', 'wpuxss_eml_get_gallery_attachments', 10, 2 );
 
-if ( ! function_exists( 'wpuxss_eml_gallery_shortcode' ) ) {
+if ( ! function_exists( 'wpuxss_eml_get_gallery_attachments' ) ) {
 
-    function wpuxss_eml_gallery_shortcode( $output, $attr, $instance = 0 ) {
+    function wpuxss_eml_get_gallery_attachments( $attachments, $attr ) {
+
+        $attachments = eml_get_gallery_attachments( $attr );
+
+        return $attachments;
+    }
+}
+
+
+
+/**
+ *  eml_get_gallery_attachments
+ *
+ *  Retrive attachments for a gallery, for future API
+ *
+ *  @since    2.1.4
+ *  @created  08/01/16
+ */
+
+if ( ! function_exists( 'eml_get_gallery_attachments' ) ) {
+
+    function eml_get_gallery_attachments( $attr ) {
 
         $post = get_post();
 
         $is_filter_based = false;
 
-
-        $html5 = current_theme_supports( 'html5', 'gallery' );
-        $atts = shortcode_atts( array(
+        $atts = array_merge( array(
             'ids'        => '',
             'order'      => 'ASC',
             'orderby'    => 'menu_order ID',
-            'itemtag'    => $html5 ? 'figure'     : 'dl',
-            'icontag'    => $html5 ? 'div'        : 'dt',
-            'captiontag' => $html5 ? 'figcaption' : 'dd',
-            'columns'    => 3,
-            'size'       => 'thumbnail',
             'include'    => '',
-            'exclude'    => '',
-            'link'       => '',
-            'unattached' => ''
-        ), $attr, 'gallery' );
+            'exclude'    => ''
+        ), $attr );
 
+        if ( ! isset( $attr['id'] ) ) {
+            $atts['id'] = 0;
+        }
+        else {
+            $atts['id'] = isset( $post->ID ) ? intval( $post->ID ) : 0;
+        }
+
+        $id = intval( $atts['id'] );
 
         $query = array(
             'post_status' => 'inherit',
@@ -43,9 +65,8 @@ if ( ! function_exists( 'wpuxss_eml_gallery_shortcode' ) ) {
             'post_mime_type' => 'image',
             'order' => $atts['order'],
             'orderby' => $atts['orderby'],
-            'posts_per_page' => -1, //TODO: add limit and pagination
+            'posts_per_page' => isset( $atts['limit'] ) ? intval( $atts['limit']  ) : -1, //TODO: add pagination
         );
-
 
         if ( isset( $attr['monthnum'] ) && isset( $attr['year'] ) ) {
 
@@ -76,18 +97,6 @@ if ( ! function_exists( 'wpuxss_eml_gallery_shortcode' ) ) {
         }
 
 
-        if ( isset( $attr['id'] ) ) {
-            $atts['id'] = intval( $attr['id'] );
-            $is_filter_based = true;
-        }
-        elseif ( /*! isset( $attr['ids'] ) &&*/ ! $is_filter_based ) {
-            $atts['id'] = $post ? intval( $post->ID ) : 0;
-        }
-
-        // we need a value for gallery tag attributes
-        $id = isset( $attr['id'] ) ? $atts['id'] : 0;
-
-
         if ( $is_filter_based ) {
 
             if ( 'post__in' === $atts['orderby'] ) {
@@ -100,8 +109,8 @@ if ( ! function_exists( 'wpuxss_eml_gallery_shortcode' ) ) {
                 $query['tax_query'] = $tax_query;
             }
 
-            if ( isset( $atts['id'] ) ) {
-                $query['post_parent'] = intval( $atts['id'] );
+            if ( $id ) {
+                $query['post_parent'] = $id;
             }
 
             $_attachments = get_posts( $query );
@@ -127,24 +136,45 @@ if ( ! function_exists( 'wpuxss_eml_gallery_shortcode' ) ) {
 
             $attachments = get_children( $query );
         }
-        else {
+        elseif ( $id ) {
 
-            $query['post_parent'] = isset( $atts['id'] ) ? $atts['id'] : 0;
+            $query['post_parent'] = $id;
 
             $attachments = get_children( $query );
         }
+        else {
 
-        if ( empty( $attachments ) ) {
-            return '';
+            $attachments = array();
         }
 
-        if ( is_feed() ) {
-            $output = "\n";
-            foreach ( $attachments as $att_id => $attachment ) {
-                $output .= wp_get_attachment_link( $att_id, $atts['size'], true ) . "\n";
-            }
-            return $output;
-        }
+        return $attachments;
+    }
+}
+
+
+
+/**
+ *  wpuxss_eml_get_gallery_html
+ *
+ *  @since    2.1.4
+ *  @created  26/12/15
+ */
+
+add_filter( 'eml_gallery_output', 'wpuxss_eml_get_gallery_html', 10, 4 );
+
+if ( ! function_exists( 'wpuxss_eml_get_gallery_html' ) ) {
+
+    function wpuxss_eml_get_gallery_html( $output, $attachments, $attr, $instance ) {
+
+        $html5 = current_theme_supports( 'html5', 'gallery' );
+        $atts = array_merge( array(
+            'itemtag'    => $html5 ? 'figure'     : 'dl',
+            'icontag'    => $html5 ? 'div'        : 'dt',
+            'captiontag' => $html5 ? 'figcaption' : 'dd',
+            'columns'    => 3,
+            'size'       => 'thumbnail',
+            'link'       => ''
+        ), $attr );
 
         $itemtag = tag_escape( $atts['itemtag'] );
         $captiontag = tag_escape( $atts['captiontag'] );
@@ -168,15 +198,7 @@ if ( ! function_exists( 'wpuxss_eml_gallery_shortcode' ) ) {
 
         $gallery_style = '';
 
-        /**
-         * Filter whether to print default gallery styles.
-         *
-         * @since 3.1.0
-         *
-         * @param bool $print Whether to print default gallery styles.
-         *                    Defaults to false if the theme supports HTML5 galleries.
-         *                    Otherwise, defaults to true.
-         */
+
         if ( apply_filters( 'use_default_gallery_style', ! $html5 ) ) {
             $gallery_style = "
             <style type='text/css'>
@@ -200,16 +222,9 @@ if ( ! function_exists( 'wpuxss_eml_gallery_shortcode' ) ) {
         }
 
         $size_class = sanitize_html_class( $atts['size'] );
-        $gallery_div = "<div id='$selector' class='gallery galleryid-{$id} gallery-columns-{$columns} gallery-size-{$size_class}'>";
+        $gallery_div = "<div id='$selector' class='gallery galleryid-{$instance} gallery-columns-{$columns} gallery-size-{$size_class}'>";
 
-        /**
-         * Filter the default gallery shortcode CSS styles.
-         *
-         * @since 2.5.0
-         *
-         * @param string $gallery_style Default CSS styles and opening HTML div container
-         *                              for the gallery shortcode output.
-         */
+
         $output = apply_filters( 'gallery_style', $gallery_style . $gallery_div );
 
         $i = 0;
@@ -261,9 +276,69 @@ if ( ! function_exists( 'wpuxss_eml_gallery_shortcode' ) ) {
 
 
 /**
+ *  wpuxss_get_eml_gallery_feed
+ *
+ *  @since    2.1.4
+ *  @created  26/12/15
+ */
+
+if ( ! function_exists( 'wpuxss_get_eml_gallery_feed' ) ) {
+
+    function wpuxss_get_eml_gallery_feed( $attachments, $attr ) {
+
+        $atts = array_merge( array(
+            'size'       => 'thumbnail',
+        ), $attr );
+
+        $output = "\n";
+        foreach ( $attachments as $att_id => $attachment ) {
+            $output .= wp_get_attachment_link( $att_id, $atts['size'], true ) . "\n";
+        }
+        return $output;
+    }
+}
+
+
+
+/**
+ *  wpuxss_eml_gallery_shortcode
+ *
+ *  @since    2.1
+ *  @created  24/11/15
+ */
+
+add_filter( 'post_gallery', 'wpuxss_eml_gallery_shortcode', 12, 3 );
+
+if ( ! function_exists( 'wpuxss_eml_gallery_shortcode' ) ) {
+
+    function wpuxss_eml_gallery_shortcode( $output, $attr, $instance = 0 ) {
+
+        $attr = apply_filters( 'eml_gallery_attributes', $attr );
+
+        $attachments = apply_filters( 'eml_gallery_attachments', array(), $attr );
+
+
+        if ( empty( $attachments ) ) {
+            return '';
+        }
+
+        if ( is_feed() ) {
+            $output = wpuxss_get_eml_gallery_feed( $attachments, $attr );
+            return $output;
+        }
+
+        $output = apply_filters( 'eml_gallery_output', '', $attachments, $attr, $instance );
+
+        return $output;
+    }
+}
+
+
+
+/**
  *  wpuxss_eml_jp_carousel_force_enable
  *
- *  Ensure Jetpack Carousel compatibility
+ *  Jetpack Carousel compatibility
  *
  *  @since    2.1
  *  @created  16/12/15
@@ -275,6 +350,92 @@ if ( ! function_exists( 'wpuxss_eml_jp_carousel_force_enable' ) ) {
 
     function wpuxss_eml_jp_carousel_force_enable( $enabled ) {
         return true;
+    }
+}
+
+
+
+/**
+ *  wpuxss_eml_jp_tiled_gallery_force_enable
+ *
+ *  Jetpack (3.8.2) Tiled Galleries compatibility
+ *
+ *  @since    2.1
+ *  @created  16/12/15
+ */
+
+add_filter( 'eml_gallery_output', 'wpuxss_eml_jp_tiled_gallery_force_enable', 10, 4 );
+
+function wpuxss_eml_jp_tiled_gallery_force_enable( $output, $attachments, $attr, $instance ) {
+
+    if ( ! class_exists( 'Jetpack_Tiled_Gallery' ) ) {
+        return $output;
+    }
+
+    $html5 = current_theme_supports( 'html5', 'gallery' );
+    $atts = array_merge( array(
+        'itemtag'    => $html5 ? 'figure'     : 'dl',
+        'icontag'    => $html5 ? 'div'        : 'dt',
+        'captiontag' => $html5 ? 'figcaption' : 'dd',
+        'columns'    => 3,
+        'size'       => 'thumbnail',
+        'link'       => ''
+    ), $attr );
+
+
+    $gallery = new eml_Jetpack_Tiled_Gallery;
+    $output = $gallery->gallery_output( $attachments, $atts );
+
+    return $output;
+}
+
+
+
+add_action( 'init', 'wpuxss_eml_jetpack_tiled_gallery_override' );
+
+if ( ! function_exists( 'wpuxss_eml_jetpack_tiled_gallery_override' ) ) {
+
+    function wpuxss_eml_jetpack_tiled_gallery_override() {
+
+        if ( ! class_exists( 'Jetpack_Tiled_Gallery' ) ) {
+            return;
+        }
+
+        class eml_Jetpack_Tiled_Gallery extends Jetpack_Tiled_Gallery {
+
+            private static $talaveras = array( 'rectangular', 'square', 'circle', 'rectangle', 'columns' );
+
+            public function gallery_output( $attachments, $atts ) {
+
+                $this->set_atts( $atts );
+
+                if (
+                    in_array(
+                        $this->atts['type'],
+                        $talaveras = apply_filters( 'jetpack_tiled_gallery_types', self::$talaveras )
+                    )
+                ) {
+                    // Enqueue styles and scripts
+                    self::default_scripts_and_styles();
+
+                    // Generate gallery HTML
+                    $gallery_class = 'Jetpack_Tiled_Gallery_Layout_' . ucfirst( $this->atts['type'] );
+                    $gallery = new $gallery_class( $attachments, $this->atts['link'], $this->atts['grayscale'], (int) $this->atts['columns'] );
+                    $gallery_html = $gallery->HTML();
+
+                    if ( $gallery_html && class_exists( 'Jetpack' ) && class_exists( 'Jetpack_Photon' ) ) {
+                        // Tiled Galleries in Jetpack require that Photon be active.
+                        // If it's not active, run it just on the gallery output.
+                        if ( ! in_array( 'photon', Jetpack::get_active_modules() ) && ! Jetpack::is_development_mode() )
+                            $gallery_html = Jetpack_Photon::filter_the_content( $gallery_html );
+                    }
+
+                    return trim( preg_replace( '/\s+/', ' ', $gallery_html ) ); // remove any new lines from the output so that the reader parses it better
+                }
+
+                return '';
+            }
+        }
     }
 }
 
@@ -411,9 +572,6 @@ if ( ! function_exists( 'wpuxss_eml_print_media_gallery_templates' ) ) {
                                 }
                                 else if ( parseInt( uploadedTo ) ) {
                                     #><li>{{window.eml.l10n.uploaded_to}}{{uploadedTo}}</li><#
-                                }
-                                else {
-                                    #><li>{{wp.media.view.l10n.unattached}}</li><#
                                 }
                             }
                             #>

@@ -1,34 +1,26 @@
 window.wp = window.wp || {};
+window.eml = window.eml || { l10n: {} };
 
 
 
-window.emlIsGalleryFilterBased = function( attrs ) {
+function emlIsGalleryFilterBased( attrs ) {
 
-    var filterBasedFields;
-
-    if ( _.isUndefined( attrs ) ) {
+    if ( _.isUndefined( attrs ) || _.isEmpty( attrs ) ) {
         return false;
     }
 
-    // because of 0 (unattached) value
-    if ( ! _.isUndefined( attrs.uploadedTo ) ) {
+    if ( attrs.uploadedTo ) {
         return true;
     }
 
     if ( _.filter( _.pick( attrs, 'monthnum', 'year' ), _.identity ).length == 2 ) {
-        filterBasedFields = _.omit( attrs, 'type', 'orderby', 'order', 'query', 'perPage', 'post__in', 'include', 'exclude', 'id', 'ids', 'columns', 'itemtag', 'icontag', 'captiontag', 'link', 'size', '_orderByField', '_orderbyRandom' );
-    }
-    else {
-        filterBasedFields = _.omit( attrs, 'type', 'orderby', 'order', 'query', 'perPage', 'post__in', 'include', 'exclude', 'id', 'ids', 'columns', 'itemtag', 'icontag', 'captiontag', 'link', 'size', '_orderByField', '_orderbyRandom', 'monthnum', 'year' );
-    }
-
-    // if any of these is set: %taxonomy_name%, monthnum, year
-    if ( _.filter( _.values( filterBasedFields ), _.identity ).length ) {
         return true;
     }
 
-    return false;
-};
+    return _.some( eml.l10n.all_taxonomies, function( terms, taxonomy ) {
+        return ( ! _.isUndefined( attrs[taxonomy] ) && ! _.isNull( attrs[taxonomy] ) );
+    });
+}
 
 
 
@@ -36,6 +28,12 @@ window.emlIsGalleryFilterBased = function( attrs ) {
 
     var media = wp.media,
         original = {};
+
+
+
+    _.extend( eml.l10n, wpuxss_eml_enhanced_gallery_l10n );
+
+
 
     /**
      * wp.media.view.MediaFrame.Post

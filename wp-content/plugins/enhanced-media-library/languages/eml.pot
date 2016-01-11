@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Enhanced Media Library PRO\n"
-"POT-Creation-Date: 2015-12-17 04:55+0200\n"
+"POT-Creation-Date: 2016-01-10 01:44+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgid_plural "Unattached (%s)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/class-eml-media-list-table.php:65 enhanced-media-library.php:447
+#: core/class-eml-media-list-table.php:65 enhanced-media-library.php:449
 msgid "All Uncategorized"
 msgstr ""
 
@@ -52,7 +52,7 @@ msgstr[1] ""
 msgid "Filter"
 msgstr ""
 
-#: core/class-eml-media-list-table.php:90 enhanced-media-library.php:451
+#: core/class-eml-media-list-table.php:90 enhanced-media-library.php:453
 msgid "Reset All Filters"
 msgstr ""
 
@@ -340,55 +340,55 @@ msgid_plural "%d media attachments restored from the trash."
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/gallery.php:300 pro/core/gallery.php:22
+#: core/gallery.php:461 pro/core/gallery.php:22
 msgid "Gallery Settings"
 msgstr ""
 
-#: core/gallery.php:303 pro/core/gallery.php:25
+#: core/gallery.php:464 pro/core/gallery.php:25
 msgid "Link To"
 msgstr ""
 
-#: core/gallery.php:313 pro/core/gallery.php:34
+#: core/gallery.php:474 pro/core/gallery.php:34
 msgid "Attachment Page"
 msgstr ""
 
-#: core/gallery.php:316 pro/core/gallery.php:37
+#: core/gallery.php:477 pro/core/gallery.php:37
 msgid "Media File"
 msgstr ""
 
-#: core/gallery.php:319 pro/core/gallery.php:40
+#: core/gallery.php:480 pro/core/gallery.php:40
 msgid "None"
 msgstr ""
 
-#: core/gallery.php:325 pro/core/gallery.php:46
+#: core/gallery.php:486 pro/core/gallery.php:46
 msgid "Columns"
 msgstr ""
 
-#: core/gallery.php:339
+#: core/gallery.php:500
 msgid "Random Order"
 msgstr ""
 
-#: core/gallery.php:344 pro/core/gallery.php:102
+#: core/gallery.php:505 pro/core/gallery.php:106
 msgid "Size"
 msgstr ""
 
-#: core/gallery.php:354 pro/core/gallery.php:112
+#: core/gallery.php:515 pro/core/gallery.php:116
 msgid "Thumbnail"
 msgstr ""
 
-#: core/gallery.php:355 pro/core/gallery.php:113
+#: core/gallery.php:516 pro/core/gallery.php:117
 msgid "Medium"
 msgstr ""
 
-#: core/gallery.php:356 pro/core/gallery.php:114
+#: core/gallery.php:517 pro/core/gallery.php:118
 msgid "Large"
 msgstr ""
 
-#: core/gallery.php:357 pro/core/gallery.php:115
+#: core/gallery.php:518 pro/core/gallery.php:119
 msgid "Full Size"
 msgstr ""
 
-#: core/gallery.php:378 pro/core/gallery.php:134
+#: core/gallery.php:539 pro/core/gallery.php:143
 msgid "Based On"
 msgstr ""
 
@@ -418,7 +418,7 @@ msgstr ""
 
 #: core/options-pages.php:90 core/options-pages.php:561
 #: core/options-pages.php:583 core/options-pages.php:629
-#: core/options-pages.php:694 core/options-pages.php:996
+#: core/options-pages.php:694 core/options-pages.php:1049
 msgid "Settings"
 msgstr ""
 
@@ -428,7 +428,7 @@ msgid "Taxonomies"
 msgstr ""
 
 #: core/options-pages.php:106 core/options-pages.php:107
-#: core/options-pages.php:824
+#: core/options-pages.php:877
 msgid "MIME Types"
 msgstr ""
 
@@ -438,7 +438,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: core/options-pages.php:144 pro/enhanced-media-library-pro.php:179
+#: core/options-pages.php:144 pro/enhanced-media-library-pro.php:180
 msgid "Close"
 msgstr ""
 
@@ -520,7 +520,7 @@ msgid "Duplicate extensions or MIME types. Please chose other one."
 msgstr ""
 
 #: core/options-pages.php:189 core/options-pages.php:486
-#: core/options-pages.php:816
+#: core/options-pages.php:869
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
@@ -692,99 +692,135 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: core/options-pages.php:735 core/options-pages.php:738
+#: core/options-pages.php:731
+msgid "General"
+msgstr ""
+
+#: core/options-pages.php:737 core/options-pages.php:740
 msgid "Taxonomy archive pages"
 msgstr ""
 
-#: core/options-pages.php:739
+#: core/options-pages.php:741
 msgid "Turn on media taxonomy archive pages on the front-end"
 msgstr ""
 
-#: core/options-pages.php:740
+#: core/options-pages.php:742
 msgid ""
 "Re-save your permalink settings after this option change to make it work."
 msgstr ""
 
-#: core/options-pages.php:746
+#: core/options-pages.php:748
 msgid "Assign all like hierarchical"
 msgstr ""
 
-#: core/options-pages.php:749 core/options-pages.php:750
+#: core/options-pages.php:751 core/options-pages.php:752
 msgid ""
 "Show non-hierarchical taxonomies like hierarchical in Grid View / Media Popup"
 msgstr ""
 
-#: core/options-pages.php:756 core/options-pages.php:759
-msgid "Force filters"
-msgstr ""
-
-#: core/options-pages.php:760
-msgid "Show media filters for ANY Media Popup"
-msgstr ""
-
-#: core/options-pages.php:761
-msgid ""
-"May be useful for those who need forcing filters for third-party plugins or "
-"themes."
-msgstr ""
-
-#: core/options-pages.php:767 core/options-pages.php:770
-msgid "Turn off enhanced gallery"
-msgstr ""
-
-#: core/options-pages.php:771
-msgid "Do not enhance WordPress native gallery shortcode"
-msgstr ""
-
-#: core/options-pages.php:772
-msgid ""
-"May be useful in case of incompatibility with other plugins or themes. Use "
-"the option if you think it breaks your galleries in any way."
+#: core/options-pages.php:766
+msgid "Filters"
 msgstr ""
 
 #: core/options-pages.php:773
-msgid "Please inform plugin authors about the issue. We would like to fix it!"
+msgid "Force filters"
+msgstr ""
+
+#: core/options-pages.php:775
+msgid "Show media filters for ANY Media Popup"
+msgstr ""
+
+#: core/options-pages.php:776
+msgid "Try this if filters are not shown for third-party plugins or themes."
+msgstr ""
+
+#: core/options-pages.php:781
+msgid "Order media items by"
+msgstr ""
+
+#: core/options-pages.php:788 core/options-pages.php:800
+msgid "For media library and media popups"
+msgstr ""
+
+#: core/options-pages.php:789
+msgid "Option allows to change order by drag and drop with Custom Order value."
+msgstr ""
+
+#: core/options-pages.php:794
+msgid "Sort order"
+msgstr ""
+
+#: core/options-pages.php:813
+msgid "Gallery"
+msgstr ""
+
+#: core/options-pages.php:820 core/options-pages.php:823
+msgid "Enhanced gallery"
+msgstr ""
+
+#: core/options-pages.php:824
+msgid ""
+"Enhance WordPress native gallery shortcode to make it understand media "
+"taxonomies, date, and image number limit"
 msgstr ""
 
 #: core/options-pages.php:825
+msgid ""
+"The example: [gallery media_category=\"5\" limit=\"10\" monthnum=\"12\" year="
+"\"2015\"]"
+msgstr ""
+
+#: core/options-pages.php:826
+msgid ""
+"<strong style=\"color:red\">Warning:</strong> Incompatibility with other "
+"gallery plugins or themes possible! <a href=\"http://www.wpuxsolutions.com/"
+"documents/enhanced-media-library/enhanced-gallery-issues/\">Learn more.</a> "
+"Please check out your gallery front-end and back-end functionality once this "
+"option activated. If you find an issue please inform plugin authors at <a "
+"href=\"https://wordpress.org/support/plugin/enhanced-media-library"
+"\">wordpress.org</a> or <a href=\"http://www.wpuxsolutions.com/support/"
+"create-new-ticket/\">wpuxsolutions.com</a>."
+msgstr ""
+
+#: core/options-pages.php:878
 msgid "Add New MIME Type"
 msgstr ""
 
-#: core/options-pages.php:843 core/options-pages.php:898
+#: core/options-pages.php:896 core/options-pages.php:951
 msgid "Extension"
 msgstr ""
 
-#: core/options-pages.php:844 core/options-pages.php:899
+#: core/options-pages.php:897 core/options-pages.php:952
 msgid "MIME Type"
 msgstr ""
 
-#: core/options-pages.php:845 core/options-pages.php:900
+#: core/options-pages.php:898 core/options-pages.php:953
 msgid "Singular Label"
 msgstr ""
 
-#: core/options-pages.php:846 core/options-pages.php:901
+#: core/options-pages.php:899 core/options-pages.php:954
 msgid "Plural Label"
 msgstr ""
 
-#: core/options-pages.php:847 core/options-pages.php:877
-#: core/options-pages.php:890 core/options-pages.php:902
+#: core/options-pages.php:900 core/options-pages.php:930
+#: core/options-pages.php:943 core/options-pages.php:955
 msgid "Add Filter"
 msgstr ""
 
-#: core/options-pages.php:848 core/options-pages.php:878
-#: core/options-pages.php:891 core/options-pages.php:903
+#: core/options-pages.php:901 core/options-pages.php:931
+#: core/options-pages.php:944 core/options-pages.php:956
 msgid "Allow Upload"
 msgstr ""
 
-#: core/options-pages.php:892
+#: core/options-pages.php:945
 msgid "Delete MIME Type"
 msgstr ""
 
-#: core/options-pages.php:909
+#: core/options-pages.php:962
 msgid "Restore WordPress default MIME Types"
 msgstr ""
 
-#: core/options-pages.php:911 pro/enhanced-media-library-pro.php:178
+#: core/options-pages.php:964 pro/enhanced-media-library-pro.php:179
 msgid "Save Changes"
 msgstr ""
 
@@ -792,20 +828,20 @@ msgstr ""
 msgid "Taxonomy settings saved."
 msgstr ""
 
-#: core/taxonomies.php:330 core/taxonomies.php:336
-#: enhanced-media-library.php:448
+#: core/taxonomies.php:340 core/taxonomies.php:346
+#: enhanced-media-library.php:450
 msgid "Filter by "
 msgstr ""
 
-#: core/taxonomies.php:337 enhanced-media-library.php:449
+#: core/taxonomies.php:347 enhanced-media-library.php:451
 msgid "All "
 msgstr ""
 
-#: core/taxonomies.php:338 enhanced-media-library.php:450
+#: core/taxonomies.php:348 enhanced-media-library.php:452
 msgid "Not in "
 msgstr ""
 
-#: enhanced-media-library.php:481
+#: enhanced-media-library.php:483
 msgid "Uploaded to post #"
 msgstr ""
 
@@ -853,36 +889,40 @@ msgstr ""
 msgid "Delete Selected"
 msgstr ""
 
-#: pro/core/gallery.php:60
+#: pro/core/gallery.php:68
 msgid "Order By"
 msgstr ""
 
-#: pro/core/gallery.php:64
+#: pro/core/gallery.php:72
 msgid "Date"
 msgstr ""
 
-#: pro/core/gallery.php:67
+#: pro/core/gallery.php:75
 msgid "Title"
 msgstr ""
 
-#: pro/core/gallery.php:70
+#: pro/core/gallery.php:78
 msgid "Custom Order"
 msgstr ""
 
-#: pro/core/gallery.php:73
+#: pro/core/gallery.php:81
 msgid "Random"
 msgstr ""
 
-#: pro/core/gallery.php:89
+#: pro/core/gallery.php:93
 msgid "Order"
 msgstr ""
 
-#: pro/core/gallery.php:93
+#: pro/core/gallery.php:97
 msgid "Ascending"
 msgstr ""
 
-#: pro/core/gallery.php:96
+#: pro/core/gallery.php:100
 msgid "Descending"
+msgstr ""
+
+#: pro/core/gallery.php:131
+msgid "Limit"
 msgstr ""
 
 #: pro/core/options-pages.php:72
@@ -903,7 +943,7 @@ msgstr ""
 msgid "You license has been activated."
 msgstr ""
 
-#: pro/core/options-pages.php:130 pro/enhanced-media-library-pro.php:181
+#: pro/core/options-pages.php:130 pro/enhanced-media-library-pro.php:182
 msgid "Bulk Edit"
 msgstr ""
 
@@ -975,64 +1015,64 @@ msgid ""
 "a license, you are welcome to <a href=\"%s\">purchase it</a>."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:100
-#: pro/enhanced-media-library-pro.php:112
+#: pro/enhanced-media-library-pro.php:101
+#: pro/enhanced-media-library-pro.php:113
 msgid "Expand Details"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:101
-#: pro/enhanced-media-library-pro.php:113
+#: pro/enhanced-media-library-pro.php:102
+#: pro/enhanced-media-library-pro.php:114
 msgid "Collapse Details"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:104
+#: pro/enhanced-media-library-pro.php:105
 msgid "Validation Failed. One or more fields below are required."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:111
+#: pro/enhanced-media-library-pro.php:112
 msgid "The changes you made will be lost if you navigate away from this page"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:173
+#: pro/enhanced-media-library-pro.php:174
 msgid "ALL files belong to this item"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:174
+#: pro/enhanced-media-library-pro.php:175
 msgid "SOME files belong to this item"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:175
+#: pro/enhanced-media-library-pro.php:176
 msgid "NO files belong to this item"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:176
+#: pro/enhanced-media-library-pro.php:177
 msgid "Changes saved."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:177
+#: pro/enhanced-media-library-pro.php:178
 msgid "Something went wrong."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:180
+#: pro/enhanced-media-library-pro.php:181
 msgid "Edit Media Files"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:205
+#: pro/enhanced-media-library-pro.php:206
 msgid "Create a filter-based gallery"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:279
+#: pro/enhanced-media-library-pro.php:280
 msgid ""
 "Please deactivate and <strong>remove</strong> the old FREE version prior to "
 "the <strong>Enhanced Media Library PRO</strong> activation. All your data "
 "will remain intact."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:279
+#: pro/enhanced-media-library-pro.php:280
 msgid "Return to Plugins"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:321
+#: pro/enhanced-media-library-pro.php:331
 msgid ""
 "Both FREE and PRO versions of the Enhanced Media Library are network active. "
 "<strong>Enhanced Media Library PRO</strong> does not require free version to "
@@ -1040,14 +1080,14 @@ msgid ""
 "plugin. All your data will remail intact."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:338
+#: pro/enhanced-media-library-pro.php:348
 msgid ""
 "<strong>Enhanced Media Library PRO</strong> does not require free version to "
 "be active. Please deactivate and delete the free version of the plugin. All "
 "your data will remain intact."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:354
+#: pro/enhanced-media-library-pro.php:364
 msgid ""
 "Both FREE and PRO versions of the Enhanced Media Library are active for this "
 "site. <strong>Enhanced Media Library PRO</strong> does not require free "

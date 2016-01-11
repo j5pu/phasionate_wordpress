@@ -1,16 +1,12 @@
 window.wp = window.wp || {};
 window.eml = window.eml || { l10n: {} };
 
+
+
 ( function( $, _ ) {
 
     var media = wp.media,
-        l10n = media.view.l10n,
-        original = {},
-        gallery = wp.mce.views.get('gallery');
-
-
-
-    _.extend( eml.l10n, wpuxss_eml_media_editor_l10n );
+        l10n = media.view.l10n;
 
 
 
@@ -23,6 +19,7 @@ window.eml = window.eml || { l10n: {} };
     });
 
     delete media.gallery.defaults.id;
+
 
     _.extend( media.gallery, {
 
@@ -39,8 +36,7 @@ window.eml = window.eml || { l10n: {} };
 
             delete collections[ shortcodeString ];
 
-
-            if ( result && ! isFilterBased ) {
+            if ( result && ! isFilterBased && ! shortcode.attrs.named.limit ) {
                 return result;
             }
 
@@ -48,8 +44,12 @@ window.eml = window.eml || { l10n: {} };
             attrs = _.defaults( shortcode.attrs.named, this.defaults );
             args  = _.pick( attrs, 'orderby', 'order' );
 
+            if ( ! attrs.limit || _.isNaN( parseInt( attrs.limit ) ) || parseInt( attrs.limit ) < 1 ) {
+                delete attrs.limit;
+            }
+
             args.type    = this.type;
-            args.perPage = -1;
+            args.perPage = attrs.limit ? attrs.limit : -1;
 
 
             if ( 'rand' === attrs.orderby ) {
@@ -69,13 +69,13 @@ window.eml = window.eml || { l10n: {} };
                 args.order = 'ASC';
             }
 
-            if ( undefined === attrs.id && ! isFilterBased ) {
+            if ( _.isUndefined( attrs.id )  && ! isFilterBased ) {
                 attrs.id = media.view.settings.post && media.view.settings.post.id;
             }
 
             if ( isFilterBased ) {
 
-                if ( undefined !== attrs.id ) {
+                if ( attrs.id ) {
                     args.uploadedTo = attrs.id;
                 }
 
@@ -160,7 +160,7 @@ window.eml = window.eml || { l10n: {} };
             }
 
             // Copy the `uploadedTo` post ID.
-            if ( undefined !==  props.uploadedTo && null !== props.uploadedTo ) {
+            if ( props.uploadedTo ) {
                 attrs.id = props.uploadedTo;
             }
 
@@ -192,8 +192,11 @@ window.eml = window.eml || { l10n: {} };
                 delete attrs.order;
             }
 
-            attrs = this.setDefaults( attrs );
+            if ( ! attrs.limit || _.isNaN( parseInt( attrs.limit ) ) || parseInt( attrs.limit ) < 1 ) {
+                delete attrs.limit;
+            }
 
+            attrs = this.setDefaults( attrs );
 
             shortcode = new wp.shortcode({
                 tag:    this.tag,
@@ -212,8 +215,8 @@ window.eml = window.eml || { l10n: {} };
         },
 
         edit: function( content ) {
-
             var shortcode = wp.shortcode.next( this.tag, content ),
+                defaultPostId = this.defaults.id,
                 attachments, selection, state;
 
             // Bail if we didn't match the shortcode or all of the content.
@@ -223,6 +226,10 @@ window.eml = window.eml || { l10n: {} };
 
             // Ignore the rest of the match object.
             shortcode = shortcode.shortcode;
+
+            if ( _.isUndefined( shortcode.get('id') ) && ! _.isUndefined( defaultPostId ) ) {
+                shortcode.set( 'id', defaultPostId );
+            }
 
             attachments = this.attachments( shortcode );
 
