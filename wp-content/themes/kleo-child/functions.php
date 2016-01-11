@@ -1274,108 +1274,19 @@ function um_profile_content_gallery_default( $args ) {
 
 }
 
-// Anular función de ultimate member (estaria bien que funcionara en un futuro)
-//remove_action( 'um_pre_header_editprofile', 'um_add_edit_icon', 9 );
-// Botón editar perfil
-add_action('um_pre_header_editprofile', 'um_add_editar_perfil', 10 );
-function um_add_editar_perfil(){
-        global $ultimatemember;
-        $output = '';
-
-        if ( !is_user_logged_in() ) return; // not allowed for guests
-
-        if ( isset( $ultimatemember->user->cannot_edit ) && $ultimatemember->user->cannot_edit == 1 ) return; // do not proceed if user cannot edit
-
-        if ( $ultimatemember->fields->editing == true ) {
-
-        ?>
-
-        <!--<div class="um-profile-edit um-profile-headericon">
-
-                <a href="#" class="um-profile-edit-a um-profile-save"><i class="um-faicon-check"></i></a>
-
-        </div>-->
-
-        <?php } else { ?>
-
-        <div class="um-profile-edit um-profile-headericon">
-
-                <a href="<?php echo um_edit_profile_url(); ?>" class="real_url"><?php echo __('Edit Profile','ultimatemember'); ?></a>
-
-                <?php
-                /*
-                $items = array(
-                        'editprofile' => '<a href="'.um_edit_profile_url().'" class="real_url">'.__('Edit Profile','ultimatemember').'</a>',
-                );
-
-                if ( !um_is_myprofile() ) {
-
-                        if ( is_array( $actions ) ) {
-                        $items = array_merge( $items, $actions );
-                        }
-
-                        $items = apply_filters('um_profile_edit_menu_items', $items, um_profile_id() );
-
-                } else {
-
-                        $items = apply_filters('um_myprofile_edit_menu_items', $items );
-
-                }*/
-
-                //echo $ultimatemember->menu->new_ui( $args['header_menu'], 'div.um-profile-edit', 'click', $items );
-
-                ?>
-
-        </div>
-
-        <?php
-        }
-}
 
 function add_my_script() {
 	?><script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/scripts.js"></script><?php
 }
 add_action('wp_footer', 'add_my_script');
 
-//Botones de compartir en perfiles de busqueda de ultimate member
-add_action('um_members_after_user_name', 'um_reviews_add_share', 50, 2 );
-function um_reviews_add_share( $user_id, $args ) {
-?>
-	<div class='profile_share'>
-		<a onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;" href="http://www.facebook.com/sharer.php?u=<?php echo um_user_profile_url(); ?>" class="post_share_facebook">
-			<i class="icon-facebook"></i>
-		</a>
-		<a href="https://twitter.com/share?url=<?php echo um_user_profile_url(); ?>" class="post_share_twitter" onclick="javascript:window.open(this.href,
-		'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;">
-			<i class="icon-twitter"></i>
-		</a>
-		<a href="https://plus.google.com/share?url=<?php echo um_user_profile_url(); ?>" onclick="javascript:window.open(this.href,
-		'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-			<i class="icon-gplus"></i>
-		</a>
-	</div>
-<?php
+/*
+ *Redirigir a los suscriptores a la web del concurso
+ */
+function subscriber_login_redirect( $redirect_to, $request, $user  ) {
+	return ( is_array( $user->roles ) && in_array( 'subscriber', $user->roles ) ) ? '/concurso-portada' : admin_url();
 }
-
-//Botones de compartir en pagina de perfil de ultimate member
-add_action('um_profile_header', 'um_profile_share_header', 9, 1 );
-function um_profile_share_header( $user_id ){
-	?>
-	<div class='profile_share'>
-		<a onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;" href="http://www.facebook.com/sharer.php?u=<?php echo um_user_profile_url(); ?>" class="post_share_facebook">
-			<i class="icon-facebook"></i>
-		</a>
-		<a href="https://twitter.com/share?url=<?php echo um_user_profile_url(); ?>" class="post_share_twitter" onclick="javascript:window.open(this.href,
-		'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;">
-			<i class="icon-twitter"></i>
-		</a>
-		<a href="https://plus.google.com/share?url=<?php echo um_user_profile_url(); ?>" onclick="javascript:window.open(this.href,
-		'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-			<i class="icon-gplus"></i>
-		</a>
-	</div>
-	<?php
-}
+add_filter( 'login_redirect', 'subscriber_login_redirect', 10, 3 );
 
 /*
 
