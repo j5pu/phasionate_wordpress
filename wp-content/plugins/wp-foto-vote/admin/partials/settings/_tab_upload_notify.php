@@ -1,5 +1,10 @@
 <table class="form-table">
 
+    <!-- ============ Users BLOCK ============ -->
+    <tr valign="top" class="no-padding">
+        <td colspan="3"><h3><?php _e('Admin', 'fv') ?></h3></td>
+    </tr>
+
     <tr valign="top">
         <th scope="row"><?php _e('Notify me, when new photo uploaded', 'fv') ?>:</th>
         <td class="tooltip">

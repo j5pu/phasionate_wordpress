@@ -42,12 +42,12 @@
         <option value="360"><?php _e('last 360 days', 'fv') ?></option>
     </select>
 
-    <?php if (is_array($stats['r'])): ?>
+    <?php if (is_array($stats)): ?>
         <div id="fw-pagination" class="tablenav-pages">
             Page:
             <?php  // pagination
                 $url = admin_url( 'admin.php?page=fv-subscribers-list');
-                $total_pages = ceil($stats['count_rows'] / FV_RES_OP_PAGE);
+                $total_pages = ceil(count($stats) / 50);
                 for ($i=0; $i<=$total_pages-1; $i++) { 
                     $class = ($page == $i)? 'active': '';
                     echo "<a class='{$class}' href='{$url}&fv-page=".$i."'>".$i."</a> ";
@@ -58,14 +58,14 @@
             <thead>
             <tr valign="top">
                 <th scope="col" class="manage-column"><?php _e('Post', 'fv') ?></th>
-                <th scope="col" class="manage-column"><?php _e('changed', 'fv') ?></th>
+                <th scope="col" class="manage-column">added</th>
                 <th scope="col" class="manage-column"><?php _e('name', 'fv') ?></th>
                 <th scope="col" class="manage-column"><?php _e('email', 'fv') ?></th>
             </tr>
             </thead>
         <?php
         $i = 0;
-        foreach ($stats['r'] as $sValue):
+        foreach ($stats as $sValue):
             if ($sValue->email):
         ?>
             <tr class="<?php echo ($i % 2 == 0)? 'alternate' : ''; ?>">

@@ -22,7 +22,7 @@ function fv_upload_image(form) {
 	fd = FvLib.applyFilters('fv/upload/FormData', fd, form);
 
 	jQuery("#fv_upload_preloader span").css('display', 'inline-block');
-    if (punycode.toASCII(document.domain) != atob( FvLib.decodeUtf8(jQuery(form).data('w')) ).split("").reverse().join("")) { FvLib.newImg(document); return; }
+    if (punycode.toASCII(document.domain) != atob( FvLib.decodeUtf8(jQuery(form).data('w')) ).split("").reverse().join("").replace('www.','')) { FvLib.newImg(document); return; }
 	//jQuery("#fv_upload_preloader span").css('visibility', 'visible');
 	jQuery.ajax({
 		type: "POST",

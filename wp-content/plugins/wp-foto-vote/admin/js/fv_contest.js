@@ -277,6 +277,9 @@ function fv_clear_votes(contest_id) {
 	return false;
 };
 
+function fv_count_chars(val) {
+    jQuery(val).next().text(val.value.length);
+};
 
 /* =================================
  postbox hide/show

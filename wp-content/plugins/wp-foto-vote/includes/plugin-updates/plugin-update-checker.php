@@ -23,7 +23,7 @@ class PluginUpdateChecker_1_4 {
 	public $pluginAbsolutePath = ''; //Full path of the main plugin file.
 	public $pluginFile = '';  //Plugin filename relative to the plugins directory. Many WP APIs use this to identify plugins.
 	public $slug = '';        //Plugin slug.
-	public $checkPeriod = 96; //How often to check for updates (in hours).
+	public $checkPeriod = 72; //How often to check for updates (in hours).
 	public $optionName = '';  //Where to store the update info.
 
 	public $debugMode = true; //Set to TRUE to enable error reporting. Errors are raised using trigger_error()
@@ -45,7 +45,7 @@ class PluginUpdateChecker_1_4 {
 	 * @param integer $checkPeriod How often to check for updates (in hours). Defaults to checking every 12 hours. Set to 0 to disable automatic update checks.
 	 * @param string $optionName Where to store book-keeping info about update checks. Defaults to 'external_updates-$slug'. 
 	 */
-	public function __construct($metadataUrl, $pluginFile, $slug = '', $checkPeriod = 96, $optionName = ''){
+	public function __construct($metadataUrl, $pluginFile, $slug = '', $checkPeriod = 72, $optionName = ''){
 		$this->metadataUrl = $metadataUrl;
 		$this->pluginAbsolutePath = $pluginFile;
 		$this->pluginFile = plugin_basename($this->pluginAbsolutePath);
@@ -929,7 +929,7 @@ class PucFactory {
 	 * @param string $optionName
 	 * @return PluginUpdateChecker
 	 */
-	public static function buildUpdateChecker($metadataUrl, $pluginFile, $slug = '', $checkPeriod = 12, $optionName = '') {
+	public static function buildUpdateChecker($metadataUrl, $pluginFile, $slug = '', $checkPeriod = 72, $optionName = '') {
 		$class = self::getLatestClassVersion('PluginUpdateChecker');
 		return new $class($metadataUrl, $pluginFile, $slug, $checkPeriod, $optionName);
 	}

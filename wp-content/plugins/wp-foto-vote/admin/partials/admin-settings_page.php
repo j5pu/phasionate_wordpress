@@ -4,6 +4,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 $settings_tabs = array(
     "general" => __("General", 'fv'),
     "voting" => __("Voting", 'fv'),
+    "leaders" => __("Leaders", 'fv'),
     "upload" => __("Upload", 'fv'),
     "upload_notify" => __("Upload notify", 'fv'),
     "additional" => __("Additional", 'fv'),
@@ -111,47 +112,7 @@ $settings_tabs = array(
 		.dashicons-info:before {
 			content: "\f348";
 		}
-		.fv_content_wrapper {
-			display: table;
-			width: 100%;
-		}
 
-		.fv_content_cell {
-			display: table-cell;
-			padding: 0;
-			margin: 0;
-			vertical-align: top;
-		}
-
-		#fv-content {
-			min-width: 400px;
-		}
-
-		#fv-sidebar {
-			display: none;
-            width: 0;
-		}
-        @media only screen and (min-width: 960px) {
-            #fv-sidebar {
-                display: block;
-                width: 270px;
-                padding: 0 0 0 10px;
-            }
-        }
-		#fv-sidebar .inside {
-			margin: 6px 0 0;
-		}
-		#fv-sidebar h3 {
-			font-size: 14px;
-			padding: 8px 12px;
-			margin: 0;
-			line-height: 1.4;
-		}
-		.gadash-title {
-			float: left;
-			margin-right: 10px;
-			margin-top: 2px;
-		}
 
 	</style>
 

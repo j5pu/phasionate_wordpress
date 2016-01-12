@@ -106,11 +106,6 @@
                 <span><?php _e('Pinterest', 'fv') ?>:</span>
                 <?php fv_admin_echo_switch_toggle( 'fv[voting-noshow-pi]', FvFunctions::ss('voting-noshow-pi') ); ?> Hide it
             </div>
-            <div>
-                <span><?php _e('Email share', 'fv') ?>:</span>
-                <?php fv_admin_echo_switch_toggle( 'fv[voting-noshow-email]', FvFunctions::ss('voting-noshow-email', true) ); ?> Hide it
-                <small>(<?php _e('Required <a href="#0" onclick="jQuery(\'a[data-content=\x22additional\x22]\').click();">ReCaptcha Api key</a>', 'fv') ?>)</small>
-            </div>
         </td>
     </tr>
 
@@ -136,7 +131,8 @@
             <input type="checkbox" name="fv[soc-counter-fb]" <?php checked( FvFunctions::ss('soc-counter-fb', false) ); ?>/> <?php _e('Count', 'fv') ?> <small>(One browser network query for all photos)</small><br />
 
             <span><?php _e('Twitter', 'fv') ?>:</span>
-            <input type="checkbox" name="fv[soc-counter-tw]" <?php checked( FvFunctions::ss('soc-counter-tw', false) ); ?>/> <?php _e('Count', 'fv') ?><small>(One browser network query per photo)</small> <br />
+            <input type="checkbox" name="fv[soc-counter-tw]" <?php checked( FvFunctions::ss('soc-counter-tw', false) ); ?>/> <?php _e('Count', 'fv') ?><small>(One browser network query per photo) -
+            <a target="_blank" href="https://twittercommunity.com/t/a-new-design-for-tweet-and-follow-buttons/52791">Not supported by Twitter now</a></small> <br />
 
             <span><?php _e('Google+', 'fv') ?>:</span>
             <input type="checkbox" name="fv[soc-counter-gp]" <?php checked( FvFunctions::ss('soc-counter-gp', false) ); ?>/> <?php _e('Count', 'fv') ?> <small>(One browser network query per photo)</small><br />

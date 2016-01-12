@@ -19,7 +19,7 @@
  * @subpackage FV/admin
  * @author     Maxim K <wp-vote@hotmail.com>
  */
-class FvPublicAjax {
+class FV_Public_Ajax {
 
     /**
      * Ajax :: Upload photo to contest
@@ -38,7 +38,7 @@ class FvPublicAjax {
             return false;
         }
         global $post;
-        $fields_structure = FvFormHelper::get_form_structure();
+        $fields_structure = Fv_Form_Helper::get_form_structure();
         $my_db = new FV_DB;
 
         if (empty($contest)) {
@@ -131,7 +131,7 @@ class FvPublicAjax {
 
                     //==================================
                     // GET photo data from $_POST
-                    $new_photo = FvFormHelper::_get_photo_data_from_POST( $_POST['form'], FvFormHelper::get_form_structure_obj() );
+                    $new_photo = Fv_Form_Helper::_get_photo_data_from_POST( $_POST['form'], Fv_Form_Helper::get_form_structure_obj() );
                     //==================================
 
                     // Checks entered email
@@ -150,6 +150,8 @@ class FvPublicAjax {
                     }
 
                 ENDIF;  // END Checking is empty $err
+
+                $inserted_photo_id = false;
 
                 if (!$limit_exceeded && !isset($err['custom_upload_error'])) {
 
@@ -191,10 +193,10 @@ class FvPublicAjax {
 
                         if ( FvFunctions::ss('upload-custom-folder', false) ) {
                             // Change Upload dir
-                            add_filter('upload_dir', array('FvPublicAjax', 'filter_upload_dir'));
+                            add_filter('upload_dir', array('FV_Public_Ajax', 'filter_upload_dir'));
                         }
                         // Get all File inputs (NEED for support Multiply File inputs)
-                        FOREACH (FvFormHelper::_get_file_inputs() as $INPUT_NAME => $INPUT_params) :
+                        FOREACH (Fv_Form_Helper::_get_file_inputs() as $INPUT_NAME => $INPUT_params) :
 
                             if ( !isset($_FILES[$INPUT_NAME]) || empty($_FILES[$INPUT_NAME]['name']) || $_FILES[$INPUT_NAME]['size'] == 0 ) {
                                 continue;
@@ -232,7 +234,7 @@ class FvPublicAjax {
                         ENDFOREACH;
 
                         if ( FvFunctions::ss('upload-custom-folder', false) ) {
-                            remove_filter('upload_dir', array('FvPublicAjax', 'filter_upload_dir'));
+                            remove_filter('upload_dir', array('FV_Public_Ajax', 'filter_upload_dir'));
                         }
 
                     } else {
@@ -252,7 +254,7 @@ class FvPublicAjax {
 
                     //** IF there not problems
                     IF ( count($err) == 0 ):
-                        $public_translated_messages = apply_filters('fv/public/upload_after_save', $public_translated_messages, $new_photo_data, $inserted_photo_id);
+                        $public_translated_messages = apply_filters('fv/public/upload_after_save', $public_translated_messages, $new_photo, $inserted_photo_id);
 
                         // Sent Notify Messages to Admin and User
                         if ( !$notify_sent ) {
@@ -284,7 +286,7 @@ class FvPublicAjax {
 
                 if (defined('DOING_AJAX') && DOING_AJAX) {
                     /* it's an AJAX call */
-                    die(fv_json_encode(array('data' => $output, "status"=>$status)));
+                    die(fv_json_encode(array('data' => $output, "status"=>$status, 'inserted_photo_id'=>$inserted_photo_id)));
                 } else {
                     echo $output;
                 }
@@ -344,7 +346,7 @@ class FvPublicAjax {
                 $notify_email = get_option('admin_email');
             }
             if ( is_email($notify_email) ) {
-                $photo_url = fv_generate_contestant_link( get_permalink( $post_id ), $contest->id, $inserted_photo_id );
+                $photo_url = fv_generate_contestant_link( $contest->id, get_permalink( $post_id ) ,$inserted_photo_id );
                 $mail_body = sprintf($public_translated_messages['mail_upload_admin_body'], $contest->name, $new_photo_data["name"], $new_photo_data["user_email"], $photo_url);
                 FvFunctions::notifyMailToUser($notify_email, $public_translated_messages['mail_upload_admin_title'], $mail_body);
             }
@@ -384,55 +386,6 @@ class FvPublicAjax {
 
 // END FUNCTION @upload_photo@
 
-
-    /**
-     * AJAX :: send emails
-     *
-     * @return void
-     * @output json_array
-     */
-    public static function email_share()
-    {
-        check_ajax_referer('fv_vote', 'some_str');
-
-        $photo_id = (int)$_POST['photo_id'];
-        $userName = sanitize_text_field($_POST['name']);
-        $userEmail = sanitize_text_field($_POST['email']);
-        $emailsTo = $_POST['emailsTo'];
-        $public_translated_messages = fv_get_public_translation_messages();
-
-        if ( !empty($emailsTo) && is_array($emailsTo) ) {
-
-            $photoArr = ModelCompetitors::query()
-                ->where('id', $photo_id)
-                ->leftJoin(ModelContest::query()->tableName(), 'C', '`C`.`id` = `t`.`contest_id`', array('name', 'page_id') )
-                ->find();
-
-            if ( is_array($photoArr) && count($photoArr) > 0 && !is_wp_error($photoArr) ) {
-                $photo = $photoArr[0];
-            } else {
-                die( fv_json_encode(array('res' => 'invalid_photo', 'message'=>$public_translated_messages['msg_err'])) ); // err
-            }
-
-            if ($photo->C_page_id > 0) {
-                $photo_page_url = fv_generate_contestant_link($photo->contest_id, get_permalink($photo->C_page_id), $photo->id);
-            } else {
-                $photo_page_url = get_bloginfo('url');
-            }
-
-            foreach($emailsTo as $emailTo) {
-                if ( is_email($emailTo) ) {
-                    $mail_body = sprintf($public_translated_messages['mail_share_user_body'], $userName, $userEmail, $emailTo, $photo->name, $photo_page_url, $photo->C_name);
-                    //$mail_body = stripslashes($mail_body);
-                    FvFunctions::notifyMailToUser($emailTo, $public_translated_messages['mail_share_user_title'], $mail_body);
-                }
-            }
-            die( fv_json_encode(array('res' => 'sended', 'message'=>$public_translated_messages['msg_emails_send'])) ); // ok
-        }
-
-        die( fv_json_encode(array('res' => 'error', 'message'=>$public_translated_messages['msg_err'])) ); // err
-    }
-
     public static function ajax_get_votes_counts() {
         //var_dump($_POST['ids']);
         if ( isset($_POST['ids']) && is_array($_POST['ids']) ) {
@@ -470,7 +423,7 @@ class FvPublicAjax {
 
         $plugin_public = new FV_Public(FV::NAME, FV::VERSION);
         global $photos;
-        add_filter( 'fv_shows_get_comp_items', array('FvPublicAjax','hook_fv_shows_get_comp_items'), 100, 1 );
+        add_filter( 'fv_shows_get_comp_items', array('FV_Public_Ajax','hook_fv_shows_get_comp_items'), 100, 1 );
         ob_start();
             $plugin_public->show_contest(array('id'=>$contest_id), true);
         $photos_list_html = ob_get_clean();

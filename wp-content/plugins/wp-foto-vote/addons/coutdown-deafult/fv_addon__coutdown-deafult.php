@@ -48,7 +48,7 @@ function FvAddon_CoutdownDeafultRun(){
 		 */
 		protected function __construct($name, $slug) {
 			//** Dont remove this, else addon will not works
-			parent::__construct($name, $slug);
+			parent::__construct($name, $slug, 'api_v2');
             $this->addonUrl = FV::$ADDONS_URL . 'coutdown-deafult/';
 		}
 
@@ -122,7 +122,7 @@ function FvAddon_CoutdownDeafultRun(){
 			$sections[] = array(
 				'title' => __('Coutdown deafult', $this->mu_slug),
 				'description' => 'Countdown count time until contest end.',
-				'icon' => 'el-icon-time',
+				'icon' => 'time',
 				// Leave this as a blank section, no options just some intro text set above.
 				'fields' => array(
 					array(
@@ -130,7 +130,7 @@ function FvAddon_CoutdownDeafultRun(){
 						'type'      => 'text',
                         'title'     => 'Text before countdown?',
                         'desc'     => 'You can use standard post tags (a,p,strong,div,small).',
-                        'default'   => 'Contest will ends in:',
+                        'default'   => 'Contest ends in:',
                     ),
                     array(
 						'id'        => $this->slug . '_count_until',

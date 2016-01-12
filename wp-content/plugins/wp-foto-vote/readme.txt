@@ -1,6 +1,6 @@
 === WP Foto Vote ===
 Requires at least: 3.6
-Tested up to: 4.2.2
+Tested up to: 4.4
 Stable tag: 3.6
 
 Just another photo contest plugin. Simple but flexible.
@@ -16,11 +16,32 @@ http://wp-vote.net/instructions/
 
 == Changelog ==
 
+/* VER 2.2.123 - 08/01/2016 */
+
+- [improvement] FB login fix + added min user age (like 13+,18+,21+)
+- [fix] voting bug fix (from 2.2.122)
+
+/* VER 2.2.122 - 18/12/2015 */
+
+- [improvement] Removed parameter 'contest_id' from full contestant url
+- [improvement] Chars counter in photo editing form
+- [improvement] Allowed html in photo Description & Full description
+- [fix] imageLightbox & ajax pagination fix
+- [fix] Bug with retrieving user country
+- [fix] Compatibility fix with Wp 4.4
+- [fix] Removed Twitter shares counter, because Twitter partial disabled this feature
+- [improvement] Rewritten Addons part, that allows decrease memory usage for 40%.
+- [new] "Agree with rules" addon now integrated into package
+- [new] Recoding user "Display size" on voting
+- [removed] Removed Share via Email option
+
 /* VER 2.2.120 - 18/11/2015 */
+
 - [new] Social counter
 - [new] You can limit upload photo dimensions (like photo must be bigger that 1024 * 768 px)
 
 /* VER 2.2.111 - -/09/2015 */
+
 - [new] A lot little fixes in themes, added Lazy load in Pinterest and Flickr, now grid in this themes generates a lot faster
 - [improvement] Rewritten generating thumbnails from BFI_thumb to more stable and faster https://github.com/gambitph/WP-OTF-Regenerate-Thumbnails
 - [new] Integrated Jetpack Photon module direct support (now it used by default, if enabled) - https://jetpack.me/support/photon/
@@ -59,7 +80,7 @@ http://wp-vote.net/instructions/
 - [fix] Fixed email validation in upload form
 - [improvement] Updated Redux Framework
 
-/* VER 2.2.104 - 08/06/2015 */
+/* VER 2.2.104 - -/06/2015 */
 
 - Some fixes
 - [new] Added support Cloudinary.com

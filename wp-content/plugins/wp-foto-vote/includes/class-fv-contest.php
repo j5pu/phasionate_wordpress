@@ -25,6 +25,7 @@ class FV_Contest
             if ($contest_id >= 0) {
                 if ($my_db->deleteContest($contest_id)) {
                     $my_db->deleteCompItems($contest_id);
+                    $my_db->clearVoteStats($contest_id);
                 }
             }
         }
@@ -70,7 +71,7 @@ class FV_Contest
                 'security_type' => sanitize_text_field($_POST['fv_security_type']),
                 'voting_frequency' => sanitize_text_field($_POST['fv_voting_frequency']),
                 'max_uploads_per_user' => (int)$_POST['max_uploads_per_user'],
-                'theme' => FvFunctions::ss('theme', 'pinterest'),
+                'show_leaders' => isset($_POST['show_leaders']) ? 1 : 0,
                 'lightbox_theme' => sanitize_text_field($_POST['lightbox_theme']),
                 'upload_theme' => sanitize_text_field($_POST['upload_theme']),
                 'timer' => sanitize_text_field($_POST['fv_timer']),
@@ -124,8 +125,17 @@ class FV_Contest
                 $data = array(
                     'id' => (is_numeric($FORM['id'])) ? intval($FORM['id']) : -1,
                     'name' => sanitize_text_field($FORM['name']),
-                    'description' => isset($FORM['description']) ? sanitize_text_field($FORM['description']) : '',
-                    'full_description' => wp_kses($FORM['full_description'], array(
+                    'description' => !empty($FORM['description']) ? wp_kses_post($FORM['description']) : '',
+                    'full_description' => !empty($FORM['full_description']) ? wp_kses_post($FORM['full_description']) : '',
+                    'social_description' => !empty($FORM['social_description']) ? sanitize_text_field($FORM['social_description']) : '',
+                    'additional' => ( !empty($FORM['additional']) )? sanitize_text_field($FORM['additional']) : '',
+                    'url' => sanitize_text_field($FORM['image']),
+                    'image_id' => (int)$FORM['image_id'],
+                    'contest_id' => $contest->id,
+                    'votes_count' => isset($FORM['description']) ? sanitize_text_field($FORM['votes']) : 0,
+                    'status' => sanitize_text_field($FORM['status']),
+                );
+                /*, array(
                             'a' => array(
                                 'href' => array(),
                                 'title' => array()
@@ -134,15 +144,8 @@ class FV_Contest
                             'em' => array(),
                             'strong' => array(),
                         )
-                    ),
-                    'social_description' => isset($FORM['description']) ? sanitize_text_field($FORM['social_description']) : '',
-                    'additional' => ( isset($FORM['additional']) )? sanitize_text_field($FORM['additional']) : '',
-                    'url' => sanitize_text_field($FORM['image']),
-                    'image_id' => (int)$FORM['image_id'],
-                    'contest_id' => $contest->id,
-                    'votes_count' => isset($FORM['description']) ? sanitize_text_field($FORM['votes']) : 0,
-                    'status' => sanitize_text_field($FORM['status']),
-                );
+                    )
+                */
                 //var_dump($data);
 
                 if ($data['id'] > 0) {
@@ -249,26 +252,28 @@ class FV_Contest
             if ( !FvFunctions::curr_user_can() || !check_admin_referer('fv_nonce', 'fv_nonce') ) {
                 return;
             }
-            $my_db = new FV_DB;
+            //$my_db = new FV_DB;
 
-            // Если пришёл параметр - очищаем результаты голосования
+            // Check required param
             if (!isset($_REQUEST['constestant_id'])) {
                 return;
             }
-            $constestant_id = (int)$_REQUEST['constestant_id'];
+            $contestant_id = (int)$_REQUEST['constestant_id'];
 
-            $my_db->approveCompItem($constestant_id);
+            ModelCompetitors::query()->updateByPK(array('status'=>ST_PUBLISHED), $contestant_id);
 
-            do_action('fv/approve_photo', $constestant_id);
+            do_action('fv/approve_photo', $contestant_id);
 
             if (get_option('fotov-users-notify', false)) {
-                $contestant = $my_db->getCompItem($constestant_id);
-                if (is_email($contestant->user_email)) {
-                    $contest = $my_db->getContest($contestant->contest_id);
+                $contestant = ModelCompetitors::query()->findByPK($contestant_id);
+                if ( is_object($contestant) && is_email($contestant->user_email) ) {
+                    $contest = ModelContest::query()->findByPK($contestant->contest_id);
+
                     $public_translated_messages = fv_get_public_translation_messages();
-                    $mail_body = sprintf($public_translated_messages['mail_approve_user_body'], $contest->name, $contestant->name, $contestant->user_email);
+                    $photo_url = fv_generate_contestant_link($contest->id, get_permalink($contest->page_id), $contestant_id);
+
+                    $mail_body = sprintf($public_translated_messages['mail_approve_user_body'], $contest->name, $contestant->name, $contestant->user_email, $photo_url);
                     FvFunctions::notifyMailToUser($contestant->user_email, $public_translated_messages['mail_approve_user_title'], $mail_body, $contestant);
-                    //wp_mail( $prev->user_email, __('You contest photo are approved'), __('You photo are approved') . __('Photo name: ') . $data['name'] );
                 }
             }
 
@@ -289,7 +294,6 @@ class FV_Contest
             if ( !FvFunctions::curr_user_can() || !check_admin_referer('fv_nonce', 'fv_nonce') ) {
                 return;
             }
-            $my_db = new FV_DB;
 
             // Если пришёл параметр - очищаем результаты голосования
             if (!isset($_REQUEST['constestant_id']) || !isset($_REQUEST['constest_id'])) {
@@ -297,8 +301,7 @@ class FV_Contest
             }
             $id = (int)$_REQUEST['constestant_id'];
             $contest_id = (int)$_REQUEST['constest_id'];
-            $contestant = $my_db->getCompItem($id, $contest_id);
-            //var_dump($item);
+            $contestant = ModelCompetitors::query()->findByPK($id);
 
             do_action('fv/delete_photo', $contestant);
 
@@ -306,7 +309,7 @@ class FV_Contest
             //ModelCompetitors::query()->update( array( 'status'=> ST_DRAFT ), $contestant->id );
 
             // delete Contestant + may be Image from hosting
-            if ( $contestant && $my_db->deleteCompItem($id) && get_option('fv-image-delete-from-hosting', false) ) {
+            if ( $contestant && ModelCompetitors::query()->delete($id) && get_option('fv-image-delete-from-hosting', false) ) {
                 // in not registered some hooks
                 if ( has_action( 'fv/admin/delete_photo_attachment' ) === false ) {
                     wp_delete_attachment($contestant->image_id, true);
@@ -316,14 +319,11 @@ class FV_Contest
             }
 
             if (get_option('fotov-users-notify', false)) {
-                //$contestant = $my_db->getCompItem($id, $contest_id);
                 if (is_object($contestant) && is_email($contestant->user_email)) {
-                    $contest = $my_db->getContest($contestant->contest_id);
+                    $contest = ModelContest::query()->findByPK($contestant->contest_id);
                     $public_translated_messages = fv_get_public_translation_messages();
                     $mail_body = sprintf($public_translated_messages['mail_delete_user_body'], $contest->name, $contestant->name, $contestant->user_email);
                     FvFunctions::notifyMailToUser($contestant->user_email, $public_translated_messages['mail_delete_user_title'], $mail_body, $contestant);
-                    //wp_mail($contestant->user_email, $public_translated_messages['mail_delete_user_title'], $mail_body);
-                    //wp_mail( $prev->user_email, __('You contest photo are approved'), __('You photo are approved') . __('Photo name: ') . $data['name'] );
                 }
             }
 

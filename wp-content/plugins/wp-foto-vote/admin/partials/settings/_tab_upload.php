@@ -18,6 +18,7 @@
         <?php echo fv_get_td_tooltip_code( __('You may need add some styles for it looks better', 'fv') ); ?>
         <td>
             <input type="checkbox" name="fv[upload-show-login-form]" <?php checked( FvFunctions::ss('upload-show-login-form') ); ?>/> <?php _e('Yes', 'fv') ?>
+            <small>(Note: you can also install <a href="https://wordpress.org/plugins/wordpress-social-login/" target="_blank">wordpress-social-login</a> plugin and social login buttons will automatically shows below form)</small>
         </td>
     </tr>
 

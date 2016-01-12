@@ -16,7 +16,7 @@
  * @subpackage FV/includes
  * @author     Maxim K <wp-vote@hotmail.com>
  */
-class FvImageLightbox {
+class Fv_Image_Lightbox {
 
     const NAME = 'imageLightbox';
 

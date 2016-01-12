@@ -23,142 +23,7 @@ class FV_DB
                 $this->table_contests_name = $wpdb->prefix . "fv_contests";
                 $this->table_competitors_name = $wpdb->prefix . "fv_competitors";
                 $this->table_votes_name = $wpdb->prefix . "fv_votes";
-        }
-
-        public function install()
-        {
-                // add tables to bd when plugin activated
-                global $wpdb;
-
-                $table_contests_name = $wpdb->prefix . "fv_contests";
-                $table_competitors_name = $wpdb->prefix . "fv_competitors";
-                $table_votes_name = $wpdb->prefix . "fv_votes";
-
-                //! More - http://wordpress.stackexchange.com/a/78670
-                $sql_pk = '';
-                if ($wpdb->get_var("SHOW TABLES LIKE '$table_contests_name'") != $table_contests_name) {
-                        $sql_pk = ",
-                          PRIMARY KEY  (id)";
-                }
-
-                $sql = "CREATE TABLE " . $table_contests_name . " (
-                   id int(7) NOT NULL AUTO_INCREMENT,
-                   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                   date_start TIMESTAMP NOT NULL DEFAULT '2015-01-01 01:00:00',
-                   date_finish TIMESTAMP NOT NULL DEFAULT '2015-01-01 01:00:000',
-                   upload_date_start TIMESTAMP NOT NULL DEFAULT '2015-01-01 01:00:00',
-                   upload_date_finish TIMESTAMP NOT NULL DEFAULT '2015-01-01 01:00:00',
-                   name varchar(255) NOT NULL,
-                   soc_title varchar(255) NOT NULL,
-                   soc_description varchar(255) NOT NULL,
-                   soc_picture varchar(255) NOT NULL,
-                   user_id int(7) DEFAULT '0',
-                   upload_enable int(3) NOT NULL DEFAULT '0',
-                   security_type varchar(20) NOT NULL DEFAULT 'default',
-                   voting_frequency varchar(20) NOT NULL DEFAULT 'onceFall',
-                   theme varchar(15) NOT NULL DEFAULT 'pinterest',
-                   lightbox_theme varchar(25) NOT NULL DEFAULT 'imageLightbox_default',
-                   upload_theme varchar(25) NOT NULL DEFAULT 'default',
-                   timer varchar(15) NOT NULL DEFAULT 'no',
-                   sorting varchar(15) NOT NULL DEFAULT 'newest',
-                   moderation_type varchar(10) NOT NULL DEFAULT 'pre',
-                   max_uploads_per_user int(5) NOT NULL DEFAULT '0',
-                   page_id INT (8) DEFAULT NULL,
-                   cover_image INT(5) DEFAULT NULL,
-                   type INT(2) DEFAULT 0,
-                   status INT( 2 ) NOT NULL DEFAULT '0'" . $sql_pk . ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-
-                require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-                dbDelta($sql);
-                FvLogger::checkDbErrors();
-
-                // --------------------------------------------------- //
-                $sql_pk = '';
-                //if ($wpdb->get_var("SHOW TABLES LIKE '$table_competitors_name'") != $table_competitors_name) {
-                        $sql_pk = ",
-                          PRIMARY KEY  (id),
-                        KEY contest_id_a_status (contest_id,status),
-                        KEY votes_count (votes_count) ,
-                        KEY added_date (added_date) ";
-                //}
-
-                $sql = "CREATE TABLE " . $table_competitors_name . " (
-                   id int(7) NOT NULL AUTO_INCREMENT,
-                   contest_id int(7) NOT NULL,
-                   name varchar(255) NOT NULL,
-                   description varchar(500) DEFAULT NULL,
-                   full_description varchar(1255) DEFAULT NULL,
-                   social_description varchar(150) DEFAULT NULL,
-                   additional varchar(255) DEFAULT NULL,
-                   url varchar(255) NOT NULL,
-                   url_min varchar(255) DEFAULT NULL,
-                   options varchar(500) DEFAULT NULL,
-                   image_id int(10) NOT NULL,
-                   votes_count int(7) NOT NULL DEFAULT '0',
-                   added_date bigint(11) NOT NULL DEFAULT '0',
-                   upload_info varchar(1000) DEFAULT NULL,
-                   user_email varchar(100) DEFAULT NULL,
-                   user_id int(7) DEFAULT '0',
-                   user_ip varchar(45) DEFAULT NULL,
-                   status INT( 2 ) NOT NULL DEFAULT '0'" . $sql_pk . ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-
-                require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-                dbDelta($sql);
-                FvLogger::checkDbErrors();
-
-                // --------------------------------------------------- //
-                $sql_pk = '';
-                //if ($wpdb->get_var("SHOW TABLES LIKE '$table_votes_name'") != $table_votes_name) {
-                        $sql_pk = ",
-                          PRIMARY KEY  (id),
-                        KEY ip (ip),
-                        KEY uid (uid),
-                        KEY contest_id_a_changed (contest_id,changed),
-                        KEY vote_id (vote_id) ";
-                //}
-                //ALTER TABLE  **_fv_votes ADD INDEX  contest_id_a_changed (  contest_id ,  changed )
-
-                $sql = "CREATE TABLE " . $table_votes_name . " (
-                    id int(16) NOT NULL AUTO_INCREMENT,
-                    contest_id int(10) NOT NULL,
-                    post_id int(10) NOT NULL,
-                    vote_id int(5) NOT NULL,
-                    ip varchar(45) NOT NULL,
-                    uid varchar(25) NOT NULL,
-                    score int(4) NOT NULL,
-                    changed TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    browser VARCHAR( 255 ) NULL DEFAULT NULL,
-                    b_plugins VARCHAR( 80 ) NULL DEFAULT NULL,
-                    b_fonts VARCHAR( 80 ) NULL DEFAULT NULL,
-                    referer VARCHAR( 500 ) NULL,
-                    os VARCHAR( 40 ) NULL,
-                    country VARCHAR( 30 ) NULL,
-                    name VARCHAR( 50 ) NULL,
-                    email VARCHAR( 60 ) NULL,
-                    user_id VARCHAR( 50 ) NULL,
-                    soc_network VARCHAR( 50 ) NULL,
-                    soc_uid VARCHAR( 50 ) NULL,
-                    soc_profile VARCHAR( 255 ) NULL,
-                    fb_pid VARCHAR( 255 ) NULL,
-                    hash VARCHAR( 10 ) NULL" . $sql_pk . ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-
-                require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-                dbDelta($sql);
-                FvLogger::checkDbErrors();
-
-                // set db version
-                update_option("fv_db_version", FV_DB_VERSION);
-
-                $defaults = array('key' => FV_UPDATE_KEY, 'valid' => 1, 'expiration' => FV_UPDATE_KEY_EXPIRATION);
-                $key_arr = get_option('fotov-update-key', false);
-                if (!$key_arr) {
-                    add_option("fotov-update-key", $defaults, false, 'no');
-                }
-
-                //delete_option('fotov-translation');
-                // add translation strings, if they not exists
-                load_plugin_textdomain( 'fv', false, FV::SLUG . '/languages/' );
-                fv_add_public_translation_messages();
+                $table_subscr_name = $wpdb->prefix . "fv_subscribers";
         }
 
         public function clearAllData()
@@ -804,6 +669,40 @@ class FV_DB
 
 }
 
+function fv_unsplashe($data)
+{
+        if (is_object($data)) {
+            if (isset($data->name)) {
+                $data->name = stripslashes($data->name);
+            }
+            if (isset($data->description)) {
+                $data->description = stripslashes($data->description);
+            }
+            if (isset($data->full_description)) {
+                $data->full_description = stripslashes($data->full_description);
+            }
+            if (isset($data->additional)) {
+                $data->additional = stripslashes($data->additional);
+            }
+        } elseif (is_array($data)) {
+            foreach ($data as $item) {
+                if (isset($item->name)) {
+                    $item->name = stripslashes($item->name);
+                }
+                if (isset($item->description)) {
+                    $item->description = stripslashes($item->description);
+                }
+                if (isset($item->full_description)) {
+                    $item->full_description = stripslashes($item->full_description);
+                }
+                if (isset($item->additional)) {
+                    $item->additional = stripslashes($item->additional);
+                }
+            }
+        }
+        return $data;
+}
+
 
 class ModelContest extends FvQuery
 {
@@ -842,7 +741,7 @@ class ModelContest extends FvQuery
                     'voting_frequency' => '%s',
                     'max_uploads_per_user' => '%d',
                     'status' => '%d',
-                    'theme' => '%s',
+                    'show_leaders' => '%d',
                     'lightbox_theme' => '%s',
                     'upload_theme' => '%s',
                     'timer' => '%s',
@@ -852,6 +751,42 @@ class ModelContest extends FvQuery
                     'cover_image' => '%d',
                     'type' => '%d',
                 );
+        }
+
+        public function install() {
+            //! More - http://wordpress.stackexchange.com/a/78670
+            $sql = "CREATE TABLE " . $this->tableName() . " (
+                   id int(7) NOT NULL AUTO_INCREMENT,
+                   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                   date_start TIMESTAMP NOT NULL DEFAULT '2015-01-01 01:00:00',
+                   date_finish TIMESTAMP NOT NULL DEFAULT '2015-01-01 01:00:000',
+                   upload_date_start TIMESTAMP NOT NULL DEFAULT '2015-01-01 01:00:00',
+                   upload_date_finish TIMESTAMP NOT NULL DEFAULT '2015-01-01 01:00:00',
+                   name varchar(255) NOT NULL,
+                   soc_title varchar(255) NOT NULL,
+                   soc_description varchar(255) NOT NULL,
+                   soc_picture varchar(255) NOT NULL,
+                   user_id int(7) DEFAULT '0',
+                   upload_enable int(3) NOT NULL DEFAULT '0',
+                   security_type varchar(20) NOT NULL DEFAULT 'default',
+                   voting_frequency varchar(20) NOT NULL DEFAULT 'onceFall',
+                   show_leaders int(3) NOT NULL DEFAULT '0',
+                   lightbox_theme varchar(25) NOT NULL DEFAULT 'imageLightbox_default',
+                   upload_theme varchar(25) NOT NULL DEFAULT 'default',
+                   timer varchar(15) NOT NULL DEFAULT 'no',
+                   sorting varchar(15) NOT NULL DEFAULT 'newest',
+                   moderation_type varchar(10) NOT NULL DEFAULT 'pre',
+                   max_uploads_per_user int(5) NOT NULL DEFAULT '0',
+                   page_id INT (8) DEFAULT NULL,
+                   cover_image INT(5) DEFAULT NULL,
+                   type INT(2) DEFAULT 0,
+                   status INT( 2 ) NOT NULL DEFAULT '0',
+                   PRIMARY KEY  (id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+            require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+            dbDelta($sql);
+            FvLogger::checkDbErrors();
         }
 
 }
@@ -886,6 +821,7 @@ class ModelVotes extends FvQuery
                     'changed' => '%s',
                     'vote_id' => '%d',
                     'browser' => '%s',
+                    'display_size' => '%s',
                     'b_plugins' => '%s',
                     'b_fonts' => '%s',
                     'referer' => '%s',
@@ -900,6 +836,44 @@ class ModelVotes extends FvQuery
                     'soc_profile' => '%s',
                     'fb_pid' => '%s',
                 );
+        }
+
+        public function install() {
+
+            $sql = "CREATE TABLE " . $this->tableName() . " (
+                    id int(16) NOT NULL AUTO_INCREMENT,
+                    contest_id int(10) NOT NULL,
+                    post_id int(10) NOT NULL,
+                    vote_id int(5) NOT NULL,
+                    ip varchar(45) NOT NULL,
+                    uid varchar(25) NOT NULL,
+                    score int(4) NOT NULL,
+                    changed TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    browser VARCHAR( 255 ) NULL DEFAULT NULL,
+                    display_size VARCHAR( 50 ) NULL DEFAULT NULL,
+                    b_plugins VARCHAR( 80 ) NULL DEFAULT NULL,
+                    b_fonts VARCHAR( 80 ) NULL DEFAULT NULL,
+                    referer VARCHAR( 500 ) NULL,
+                    os VARCHAR( 40 ) NULL,
+                    country VARCHAR( 30 ) NULL,
+                    name VARCHAR( 50 ) NULL,
+                    email VARCHAR( 60 ) NULL,
+                    user_id VARCHAR( 50 ) NULL,
+                    soc_network VARCHAR( 50 ) NULL,
+                    soc_uid VARCHAR( 50 ) NULL,
+                    soc_profile VARCHAR( 255 ) NULL,
+                    fb_pid VARCHAR( 255 ) NULL,
+                    hash VARCHAR( 10 ) NULL,
+                    PRIMARY KEY  (id),
+                    KEY ip (ip),
+                    KEY uid (uid),
+                    KEY contest_id_a_changed (contest_id,changed),
+                    KEY vote_id (vote_id)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+            require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+            dbDelta($sql);
+            FvLogger::checkDbErrors();
         }
 
 }
@@ -952,48 +926,191 @@ class ModelCompetitors extends FvQuery
         /**
          * find records in table by Primary KEY and Unserialize options
          *
-         * @param   $id    int
+         * @param   $id             int
+         * @param   $from_cache     bool
+         *
          * @return        object
          */
-        public function findByPK($id) {
-            $photo = parent::findByPK($id);
+        public function findByPK($id, $from_cache = false) {
+            $photo = parent::findByPK($id, $from_cache = false);
             $photo->options = FvFunctions::getContestOptionsArr($photo->options);
 
-            return $photo;
+            return fv_unsplashe($photo);
         }
 
-        /**
+    /**
          * Compose & execute our query and Unserialize options
          *
          * @return OBJECT row
          */
         public function findRow() {
             $photo = parent::findRow();
-            $photo->options = FvFunctions::getContestOptionsArr($photo->options);
+            if ( !empty($photo) ) {
+                $photo->options = FvFunctions::getContestOptionsArr($photo->options);
+            }
 
             return $photo;
         }
 
-        /**
-         * Compose & execute our query and Unserialize options
-         *
-         * @param  boolean $only_count Whether to only return the row count
-         * @param  boolean $get_var
-         *
-         * @return array
-         */
-        public function find($only_count = false, $get_var = false) {
-            $res = parent::find($only_count, $get_var);
-            if ( !$only_count ) {
-                foreach ($res as $photo) {
-                    if ( isset($photo->options) ) {
-                        $photo->options = FvFunctions::getContestOptionsArr($photo->options);
-                    }
+    /**
+     * Compose & execute our query and Unserialize options
+     *
+     * @param  boolean $only_count  Whether to only return the row count
+     * @param  boolean $get_var
+     * @param  boolean $for_list    Is this query for "Show_contest" function ?
+     *
+     * @return array
+     */
+    public function find($only_count = false, $get_var = false, $for_list = false) {
+        $res = parent::find($only_count, $get_var);
+        if ( !$only_count ) {
+            foreach ($res as $photo) {
+                if ( isset($photo->options) ) {
+                    $photo->options = FvFunctions::getContestOptionsArr($photo->options);
                 }
-
             }
 
-            return $res;
+        }
+        // Create array as ID => DATA Array
+        if ( $for_list && !empty($res) ) {
+            $r2 = array();
+            foreach ($res as $res) {
+                $r2[$res->id] = $res;
+            }
+            $res = $r2;
+            unset($r2);
+        }
+
+        return fv_unsplashe($res);
+    }
+
+    /**
+     * Set query ORDER BY based on contest "sorting" field value
+     *
+     * @param  string $contest_order
+     *
+     * @return self FvQuery
+     */
+    public function set_sort_by_based_on_contest($contest_order) {
+        switch ($contest_order) {
+            case 'newest':
+                $this->sort_by('added_date', $this::ORDER_DESCENDING);
+                break;
+            case 'oldest':
+                $this->sort_by('added_date', $this::ORDER_ASCENDING);
+                break;
+            case 'popular':
+                $this->sort_by('votes_count', $this::ORDER_DESCENDING);
+                break;
+            case 'unpopular':
+                $this->sort_by('votes_count', $this::ORDER_ASCENDING);
+                break;
+            case 'random':
+                $this->sort_by(' RAND() ', $this::ORDER_ASCENDING);
+                break;
+            case 'alphabetical-az':
+                $this->sort_by('name', $this::ORDER_ASCENDING);
+                break;
+            case 'alphabetical-za':
+                $this->sort_by('name', $this::ORDER_DESCENDING);
+                break;
+            default:
+                $this->sort_by('added_date', $this::ORDER_ASCENDING);
+                break;
+        }
+        return $this;
+    }
+
+
+    public function install() {
+            $sql = "CREATE TABLE " . $this->tableName() . " (
+                   id int(7) NOT NULL AUTO_INCREMENT,
+                   contest_id int(7) NOT NULL,
+                   name varchar(255) NOT NULL,
+                   description varchar(500) DEFAULT NULL,
+                   full_description varchar(1255) DEFAULT NULL,
+                   social_description varchar(150) DEFAULT NULL,
+                   additional varchar(255) DEFAULT NULL,
+                   url varchar(255) NOT NULL,
+                   url_min varchar(255) DEFAULT NULL,
+                   options varchar(500) DEFAULT NULL,
+                   image_id int(10) NOT NULL,
+                   votes_count int(7) NOT NULL DEFAULT '0',
+                   added_date bigint(11) NOT NULL DEFAULT '0',
+                   upload_info varchar(1000) DEFAULT NULL,
+                   user_email varchar(100) DEFAULT NULL,
+                   user_id int(7) DEFAULT '0',
+                   user_ip varchar(45) DEFAULT NULL,
+                   status INT( 2 ) NOT NULL DEFAULT '0',
+                   PRIMARY KEY  (id),
+                   KEY contest_id_a_status (contest_id,status),
+                   KEY votes_count (votes_count),
+                   KEY added_date (added_date)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+            require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+            dbDelta($sql);
+            FvLogger::checkDbErrors();
         }
 
 }
+/*
+class ModelSubscribers extends FvQuery
+{
+
+    / **
+     * Returns the static query of the specified class.
+     * @param string $className active record class name.
+     * @return FvModel the static query class
+     * /
+    public static function query($className = __CLASS__)
+    {
+        return new $className();
+    }
+
+    public function tableName()
+    {
+        global $wpdb;
+        return $wpdb->prefix . "fv_subscribers";
+    }
+
+    public function fields()
+    {
+        return array(
+            'contest_id' => '%d',
+            'vote_id' => '%d',
+            'referer' => '%s',
+            'name' => '%s',
+            'email' => '%s',
+            'age' => '%s',
+            'user_id' => '%d',
+            'type' => '%s',
+            'soc_network' => '%s',
+            'sync' => '%d',
+            'added' => '%d',
+        );
+    }
+
+
+        public function install() {
+
+
+                $sql = "CREATE TABLE " . $this->tableName() . " (
+                        id int(10) NOT NULL AUTO_INCREMENT,
+                        contest_id int(10) NOT NULL,
+                        vote_id int(4) NOT NULL,
+                        added TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        referrer VARCHAR( 500 ) NULL,
+                        name VARCHAR( 50 ) NULL,
+                        email VARCHAR( 70 ) NULL,
+                        user_id int(10) NULL,
+                        type VARCHAR( 10 ) NULL,
+                        sync int(2) NOT NULL DEFAULT '0',
+                        soc_network VARCHAR( 40 ) NULL" . $sql_pk . ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+                require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+                dbDelta($sql);
+                FvLogger::checkDbErrors();
+        }
+}
+*/

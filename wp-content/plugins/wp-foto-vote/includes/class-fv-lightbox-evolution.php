@@ -16,7 +16,7 @@
  * @subpackage FV/includes
  * @author     Maxim K <wp-vote@hotmail.com>
  */
-class FvLightboxEvolution {
+class FV_Lightbox_Evolution {
 
     const NAME = 'evolution';
 

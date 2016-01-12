@@ -110,7 +110,7 @@
         $file = file_get_contents(FV_LOG_FILE);
         ?>
         <br/>
-        <?php _e('Debug Log:', 'fv') ?>
+        <?php _e('Debug Log:', 'fv') ?> / <small>Total log size: <?php echo round(filesize(FV_LOG_FILE) / 1024, 2), ' KB'; ?> [please clear Log bigger than 1-2 MB!]</small>
         <br/><br/>
         <textarea cols="100" rows="40" class="formatted-log"><?php echo $file; ?></textarea>
 

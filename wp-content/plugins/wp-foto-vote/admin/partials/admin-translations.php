@@ -20,8 +20,9 @@ defined('ABSPATH') or die("No script kiddies please!");
         <?php _e('Translating messages', 'fv') ?>
     </h2>
 
-        <?php _e('Please don\'t use double quotes (") !', 'fv') ?>
+        <?php _e('Please don\'t use double quotes (") !', 'fv') ?><br/>
         <strong><?php printf( __('To translate form fields go to <a href="%s" target="_blank">"Form Builder"</a> page!', 'fv'), admin_url('admin.php?page=fv-formbuilder') )?></strong>
+        <strong><?php printf( __('To translate more Countdown fields go to <a href="%s" target="_blank">"Addons"</a> page!', 'fv'), admin_url('admin.php?page=fv-addons') )?></strong>
 
 
 	<form name="fv-translation" method="POST"><div class="fv-tabs">

@@ -39,7 +39,7 @@
 
      <div class="postbox sidebar-addons">
          <?php
-         $ad_sidebar_id = rand(1, 2);
+         $ad_sidebar_id = rand(1, 3);
          ?>
          <h3>
              <span><?php _e('Addons', 'fv') ?></span>

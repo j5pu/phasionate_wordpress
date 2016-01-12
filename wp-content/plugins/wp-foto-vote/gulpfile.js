@@ -29,6 +29,7 @@ gulp.task('fv-minify', ['fv-minify-js', 'fv-minify-css']);
 
 gulp.task('fv-minify-js', function(callback) {
     gulp.start('compile-modal-js');
+    gulp.start('compile-lib-js');
     gulp.start('compile-upload-js');
     gulp.start('compile-lib-imageLightbox');
     gulp.start('compile-lib-evercookie');

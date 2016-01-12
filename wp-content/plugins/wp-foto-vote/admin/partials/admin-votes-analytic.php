@@ -25,7 +25,7 @@
                             <option value=""><?php _e('Filter by photo', 'fv') ?></option>
                             <?php foreach ($photos as $P): ?>
                                     <option
-                                        value="<?php echo $P->id ?>" <?php echo selected($P->id, $selected_photo_id) ?> ><?php echo $P->name ?></option>
+                                        value="<?php echo $P->id ?>" <?php echo selected($P->id, $selected_photo_id) ?> ><?php echo $P->name . ' (' . $P->votes_count . ')' ?></option>
                             <?php endforeach; ?>
                     <?php endif ?>
             </select>

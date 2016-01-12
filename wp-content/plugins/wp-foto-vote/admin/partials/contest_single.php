@@ -1,7 +1,7 @@
 <div class="wrap" id="contest_edit">
     <?php do_action('fv_admin_notices'); ?>
     <h2>
-        <?php echo ($action == 'add') ? __('New contest', 'fv') : __('Edit contest', 'fv'); ?> 
+        <?php echo ($action == 'add') ? __('New contest', 'fv') : __('Edit contest', 'fv') . ' #' . $contest->id; ?>
         <a href="?page=<?php echo $_REQUEST['page']; ?>&action=add" class="add-new-h2"><?php echo __('Add new', 'fv'); ?> </a>
     </h2>
 
@@ -198,19 +198,19 @@
                                                     </button>
                                                     <br/><small><a href="http://youtu.be/JNp15MjZwUs" target="_blank"><?php _e('Import CSV to Google Drive', 'fv') ?></a></small>
                                             <?php endif; ?>
-                                            </div>                                                                                        
+                                            </div>
                                             <hr>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
 
                                     <div id="major-publishing-actions">
-                                        
+
                                         <div class="clear_ip">
                                             <button type="button" class="button" onclick="fv_clear_stats(<?php echo $contest->id ?>); return false;">
                                                     <span class="dashicons dashicons-trash"></span> <?php echo __('Clear ip list for this contest', 'fv') ?>
                                             </button>
-                                        </div>                                        
+                                        </div>
                                         <div class="clear_votes">
                                             <button type="button" class="button" onclick="fv_clear_votes(<?php echo $contest->id ?>); return false;">
                                                 <span class="dashicons dashicons-no-alt"></span> <?php echo __('Reset all votes in this contest', 'fv') ?>
@@ -256,17 +256,19 @@
 
 
                     </div></div>
-                <div id="postbox-container-2" class="postbox-container">
-                    
+                <div id="postbox-container-2" class="postbox-container b-wrap">
+
                     <div id="titlediv">
                         <div id="titlewrap">
                             <input type="text" name="contest_title" size="30" placeholder="<?php echo __('Enter contest name', 'fv') ?>" value="<?php echo ($action == 'add') ? '' : $contest->name ?>" id="title" required="true">
                         </div>
                     </div>
-
-                    <?php include 'contest/_contest_settings_vote.php'; ?>
-                    <?php include 'contest/_contest_settings_upload.php'; ?>
-                    <?php include 'contest/_contest_settings_other.php'; ?>
+                    <div class="row"><?php
+                        include 'contest/_contest_settings_vote.php';
+                        include 'contest/_contest_settings_upload.php';
+                        include 'contest/_contest_settings_design.php';
+                        include 'contest/_contest_settings_other.php';
+                    ?></div>
 
                 </div>
             </div><!-- /post-body -->
@@ -287,12 +289,12 @@
                                     <span class="dashicons dashicons-welcome-add-page"></span><?php echo __('Add many photos (test mode)', 'fv'); ?>
                                 </button>
                                 <input type="button" onclick="contestTable.draw(); return false;" value="<?php echo __('Redraw table', 'fv'); ?>" class="button">
-                            <?php else: ?>                                
+                            <?php else: ?>
                                 <h2><?php echo __('Save contest for editing contestants!', 'fv'); ?></h2>
-                            <?php endif; ?>                                
+                            <?php endif; ?>
                     </div>
-                </div>                
-            </div>            
+                </div>
+            </div>
             <br class="clear">
         </div><!-- /poststuff -->
     </form>

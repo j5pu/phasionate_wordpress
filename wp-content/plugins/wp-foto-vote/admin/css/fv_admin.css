@@ -175,6 +175,18 @@ table tr.edited{
     width: 100% !important;
 }
 
+.need-count-chars {
+    display: block;
+    height: 22px;
+    font-size: 12px;
+    float: right;
+    margin-top: -26px;
+    margin-right: 3px;
+    background: rgba(184, 184, 184, 0.75);
+    padding: 3px 4px;
+    position: relative;
+}
+
 /* ============================
     Other
 ============================ */
@@ -184,6 +196,9 @@ table tr.edited{
     border: 1px solid silver;
 }
 
+.wp-picker-container, .wp-picker-container:active {
+    vertical-align: middle;
+}
 
 #TB_window {
 	z-index: 999999 !important;
@@ -300,7 +315,7 @@ table tr.edited{
 }
 .bs-callout p {
     margin: .5em 0;
-    padding: 2px;
+    padding: 2px !important;
 }
 .bs-callout h4 {
     margin-top: 0;
@@ -459,4 +474,51 @@ table tr.edited{
 .switch-toggle-checked .switch-toggle-label:after {
     margin-left: 16px;
     background-color: #8ce196;
+}
+
+/* SETTINGS and ADDONS */
+
+.fv_content_wrapper {
+    display: table;
+    width: 100%;
+}
+
+
+.fv_content_cell {
+    display: table-cell;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+}
+
+#fv-content {
+    min-width: 400px;
+}
+
+
+#fv-sidebar .inside {
+    margin: 6px 0 0;
+}
+#fv-sidebar h3 {
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 0;
+    line-height: 1.4;
+}
+.gadash-title {
+    float: left;
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+#fv-sidebar {
+    display: none;
+    width: 0;
+}
+@media only screen and (min-width: 960px) {
+    #fv-sidebar {
+        display: block;
+        width: 270px;
+        padding: 0 0 0 10px;
+    }
 }

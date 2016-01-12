@@ -215,7 +215,7 @@
         </td>
     </tr>
 
-    <tr valign="top">
+    <!--<tr valign="top">
         <th scope="row"><?php _e('Scroll to contest after go to next/prev page?', 'fv') ?></th>
         <td class="tooltip">
             <div class="box" title="<?php _e('If you enable this, after clicking into page number, <br/>and reload page it will scrolled to photos', 'fv') ?>" data-tipped-options="position: 'top'">
@@ -224,68 +224,15 @@
             </div>
         </td>
         <td>
-            <input type="checkbox" name="fv[pagination-scroll-to-contest]" <?php echo ( FvFunctions::ss('pagination-scroll-to-contest') ) ? 'checked' : ''; ?>/> <?php _e('Yes', 'fv') ?>
+            <input type="checkbox" name="fv[pagination-scroll-to-contest]" <?php //echo ( FvFunctions::ss('pagination-scroll-to-contest') ) ? 'checked' : ''; ?>/> Yes
         </td>
-    </tr>
+    </tr>-->
 
     <tr valign="top" class="no-padding">
         <td colspan="3">
             <hr/>
             <input type="submit" class="button-primary" value="<?php _e('Save all Changes', 'fv') ?>" /> &nbsp;<small>You can save here, if not wan't scroll to bottom.</small><br>
             <hr/>
-        </td>
-    </tr>
-    <!-- ============ Leaders Vote ============ -->
-    <tr valign="top" class="no-padding">
-        <td colspan="3"><h3><?php _e('Voting leaders', 'fv') ?></h3></td>
-    </tr>
-
-    <tr valign="top" class="important">
-        <th scope="row"><?php _e('Hide vote leaders block', 'fv') ?>:</th>
-        <td class="tooltip">
-            <div class="box" title="<?php _e('Check option, if you don`t want to show voting leaders', 'fv') ?>" data-tipped-options="position: 'top'">
-                <span class="dashicons dashicons-info"></span>
-                <div class='position topleft'><i></i></div>
-            </div>
-        </td>
-        <td>
-            <input type="checkbox" name="fotov-leaders-hide" <?php echo ( get_option('fotov-leaders-hide', false) ) ? 'checked' : ''; ?>/> <?php _e('Yes', 'fv') ?>
-        </td>
-    </tr>
-
-    <tr valign="top">
-        <th scope="row"><?php _e('How many leaders show in page?', 'fv') ?></th>
-        <td class="tooltip">
-            <div class="box" title="<?php _e('Select count of voting leaders', 'fv') ?>" data-tipped-options="position: 'top'">
-                <span class="dashicons dashicons-info"></span>
-                <div class='position topleft'><i></i></div>
-            </div>
-        </td>
-        <td>
-            <select name="fotov-leaders-count">
-                <option value="3" <?php selected('3', get_option('fotov-leaders-count')); ?>><?php _e('Three', 'fv') ?></option>
-                <option value="2" <?php selected('2', get_option('fotov-leaders-count')); ?>><?php _e('Two', 'fv') ?></option>
-                <option value="1" <?php selected('1', get_option('fotov-leaders-count')); ?>><?php _e('One', 'fv') ?></option>
-                <option value="4" <?php selected('4', get_option('fotov-leaders-count')); ?>><?php _e('Four', 'fv') ?></option>
-            </select>
-        </td>
-    </tr>
-
-    <tr valign="top">
-        <th scope="row"><?php _e('Leaders block type?', 'fv') ?></th>
-        <td class="tooltip">
-            <div class="box" title="<?php _e('Select - how to display contest leaders?', 'fv') ?>" data-tipped-options="position: 'top'">
-                <span class="dashicons dashicons-info"></span>
-                <div class='position topleft'><i></i></div>
-            </div>
-        </td>
-        <td>
-            <select name="fotov-leaders-type">
-                <option value="text" <?php selected('text', get_option('fotov-leaders-type')); ?>><?php _e('Text', 'fv') ?></option>
-                <option value="block" <?php selected('block', get_option('fotov-leaders-type')); ?>><?php _e('Block', 'fv') ?></option>
-                <option value="theme" <?php selected('theme', get_option('fotov-leaders-type')); ?>><?php _e('Theme styling', 'fv') ?></option>
-            </select>
-            <small><?php _e('Theme styling', 'fv') ?> - <?php _e('works not in all themes.', 'fv') ?></small>
         </td>
     </tr>
 

@@ -73,6 +73,11 @@ class FV_Public {
         if ( !$single && FvFunctions::lazyLoadEnabled( FvFunctions::ss('theme', 'pinterest') ) ) {
             wp_enqueue_script('fv_lazyload_js', fv_min_url(FV::$ASSETS_URL . 'vendor/jquery.unveil.js'), array('jquery', 'fv_main_js'), FV::VERSION, true );
         }
+
+        // Add Growl Notices Library if user have enough permissions
+        if ( FvFunctions::curr_user_can() ) {
+            FV_Admin::assets_lib_growl();
+        }
 	}
 
 
@@ -115,7 +120,7 @@ class FV_Public {
             $lightboxArr[1] = 'default';
         }
         // Run action, param - theme name
-        do_action( FV::PREFIX . 'load_lightbox_' . $lightboxArr[0], $lightboxArr[1] );
+        do_action( 'fv_load_lightbox_' . $lightboxArr[0], $lightboxArr[1] );
     }
 
     /**
@@ -146,9 +151,8 @@ class FV_Public {
     {
         ob_start();
         $show = false;
-        if (isset($_GET['photo']) && isset($_GET['contest_id'])) {
-            $my_db = new FV_DB;
-            $contest = $my_db->getContest((int)$_GET['contest_id']);
+        if ( isset($_GET['photo']) ) {
+            //$contest = ModelContest::query()->findByPK((int)$_GET['contest_id'], true);
             if (isset($atts['theme'])) {
                 $theme = $atts['theme'];
             } else {
@@ -182,12 +186,12 @@ class FV_Public {
     {
         ob_start();
         if ( isset($atts['contest_id']) && $atts['contest_id'] > 0 ) {
+            $contest = ModelContest::query()->findByPK((int)$atts['contest_id'], true);
+
             if ( empty($atts['type']) ) {
-                $atts['type'] = 'default';
+                $atts['type'] = $contest->timer;
             }
 
-            $my_db = new FV_DB();
-            $contest = $my_db->getContest((int)$atts['contest_id']);
             if ( is_object($contest) ) {
                 $this->countdown_load( $contest, sanitize_title($atts['type']) );
             }
@@ -209,74 +213,87 @@ class FV_Public {
      */
     public function shortcode_leaders($args)
     {
-        $output = '';
-        if ( isset($args['contest_id']) && $args['contest_id'] > 0 ) {
-            $my_db = new FV_DB();
-            $contest = $my_db->getContest((int)$args['contest_id']);
+        if ( isset($args['contest']) && is_object($args['contest']) ) {
+            $contest = $args['contest'];
+        } elseif ( isset($args['contest_id']) && $args['contest_id'] > 0 ) {
+            $contest = ModelContest::query()->findByPK((int)$args['contest_id'], true);
+        } else {
+            return 'WP Foto Vote :: Wrong "contest_id" parameter;';
+        }
+            //$my_db = new FV_DB();
 
-            if ( !is_object($contest) ) {
-                return '';
-            }
-            wp_enqueue_style('fv_main_css', fv_min_url(FV::$ASSETS_URL . 'css/fv_main.css'), false, FV::VERSION, 'all');
+        if ( !is_object($contest) ) {
+            return 'WP Foto Vote :: Wrong "contest_id" parameter;';
+        }
+        wp_enqueue_style('fv_main_css', fv_min_url(FV::$ASSETS_URL . 'css/fv_main.css'), false, FV::VERSION, 'all');
 
-            ob_start();
-            $default_template_data = array();
+        $template_data = array();
 
-            if (isset($args['theme'])) {
-                $theme = $args['theme'];
-            } else {
-                $theme = FvFunctions::ss('theme', 'pinterest');
-            }
-
-            //** Hide 'Leaders vote' text
-            if ( isset($args['hide_title']) ) {
-                $default_template_data["hide_title"] = true;
-            }
-
-            if ( isset($args['leaders_width']) && (int)$args['leaders_width'] > 30 && (int)$args['leaders_width'] < 150 ) {
-                $default_template_data["leaders_width"] = (int)$args['leaders_width'];
-            }
-
-            // Дата страта и окончания
-            $konurs_enabled = false;
-            $time_now = current_time('timestamp', 0);
-
-            // приплюсуем к дате окочания 86399 -сутки без секунды, что-бы этот день был включен
-            if ( $time_now > strtotime($contest->date_start) && $time_now < strtotime($contest->date_finish) ) {
-                $konurs_enabled = true;
-            }
-
-            //** Link to contest page
-            $default_template_data["full_links"] = true;    // link to contest page
-            if ( $contest->page_id > 0 ) {
-                $default_template_data["page_url"] = fv_generate_contestant_link($contest->id, get_permalink($contest->page_id) );
-            } else {
-                $default_template_data["page_url"] = '#0';
-            }
-
-            $default_template_data["konurs_enabled"] = $konurs_enabled;
-            $default_template_data["theme"] = $theme;
-            $default_template_data["contest_id"] = $contest->id;
-            $default_template_data["contest"] = $contest;
-
-            $default_template_data["thumb_size"] = fv_get_image_sizes(get_option('fotov-image-size', 'thumbnail'));
-            $default_template_data["public_translated_messages"] = fv_get_public_translation_messages();
-
-            // Show voting leaders
-            // TODO - remove settings check here
-            if (!get_option('fotov-leaders-hide', false)) {
-                $my_db = new FV_DB;
-                $most_voted_template_data["most_voted"] = apply_filters( FV::PREFIX . 'most_voted_data', $my_db->getMostVotedItems($contest->id, get_option('fotov-leaders-count', 3)) );
-
-                FvFunctions::render_template( FV::$THEMES_ROOT . "/most_voted.php", array_merge($default_template_data, $most_voted_template_data), false, "most_voted"  );
-                //include plugin_dir_path(__FILE__) . '/themes/most_voted.php';
-            }
-
-            $output = ob_get_contents();
-            ob_end_clean();
+        if ( isset($args['type']) && in_array($args['type'], array('text', 'block', 'block_2', 'list', 'table_1', 'table_2')) ) {
+            $type = $args['type'];
+        } else {
+            $type = 'text';
         }
 
-        return $output;
+        // Дата страта и окончания
+        $contest_enabled = false;
+        $time_now = current_time('timestamp', 0);
+
+        // приплюсуем к дате окочания 86399 -сутки без секунды, что-бы этот день был включен
+        if ( $time_now > strtotime($contest->date_start) && $time_now < strtotime($contest->date_finish) ) {
+            $contest_enabled = true;
+        }
+
+        //** Hide 'Leaders vote' text
+        if ( isset($args['hide_title']) && $args['hide_title'] == true ) {
+            $template_data["hide_title"] = true;
+            $template_data["title"] = '';
+        } else {
+            $template_data["hide_title"] = false;
+            $template_data["title"] = apply_filters('fv_text_leaders_title', fv_get_transl_msg('leaders_title'), $contest->id, $contest_enabled);
+        }
+
+        if ( isset($args['leaders_width']) && (int)$args['leaders_width'] > 30 && (int)$args['leaders_width'] < 150 ) {
+            $template_data["leaders_width"] = (int)$args['leaders_width'];
+        }
+
+        //** Link to contest page
+        if ( $contest->page_id > 0 ) {
+            $template_data["page_url"] = fv_generate_contestant_link($contest->id, get_permalink($contest->page_id) );
+        } else {
+            $template_data["page_url"] = '';
+        }
+
+        $template_data["contest_enabled"] = $contest_enabled;
+        $template_data["contest_id"] = $contest->id;
+        $template_data["contest"] = $contest;
+
+        $template_data["thumb_size"] = array(
+            'width'=>FvFunctions::ss('lead-thumb-width', 280),
+            'height'=>FvFunctions::ss('lead-thumb-height', 200),
+            'crop'=>FvFunctions::ss('lead-thumb-crop', true),
+        );
+
+        //$template_data["thumb_size"] = fv_get_image_sizes(get_option('fotov-image-size', 'thumbnail'));
+        //$template_data["public_translated_messages"] = fv_get_public_translation_messages();
+
+        // Show voting leaders
+        // TODO - remove settings check here
+
+        //$my_db = new FV_DB;
+        $template_data["most_voted"] = apply_filters( 'fv_most_voted_data',
+            ModelCompetitors::query()
+                ->where_all(array('contest_id'=> $contest->id, 'status'=> ST_PUBLISHED))
+                ->limit( get_option('fotov-leaders-count', 3) )
+                ->sort_by('votes_count', 'DESC')
+                ->find(false, false, false)
+        );
+        //$my_db->getMostVotedItems($contest->id, get_option('fotov-leaders-count', 3))
+
+        //FvFunctions::dump($template_data);
+        //FvFunctions::dump( FvFunctions::render_template(FV::$THEMES_ROOT . '/leaders/' . $type . '.php', $template_data, true, 'most_voted') );
+
+        return FvFunctions::render_template(FV::$THEMES_ROOT . 'leaders/' . $type . '.php', $template_data, true, 'most_voted');
     }
 
     /**
@@ -298,8 +315,7 @@ class FV_Public {
                 global $post, $contest_id;
 
                 if ( $contestObj == false ) {
-                    $my_db = new FV_DB();
-                    $contest = $my_db->getContest(  (int)$atts['contest_id']  ) ;
+                    $contest = ModelContest::query()->findByPK((int)$atts['contest_id'], true);
                 } else {
                     $contest = $contestObj;
                 }
@@ -415,190 +431,194 @@ class FV_Public {
      */
     public function show_contestant($atts)
     {
-            global $contest_id, $post;
+        global $contest_id, $post;
 
-            $my_db = new FV_DB;
+        $my_db = new FV_DB;
 
-            $photo_id = intval($_GET['photo']);
-            $contest_id = intval($_GET['contest_id']);
+        $photo_id = intval($_GET['photo']);
 
-            if ($photo_id > 0 && $contest_id > 0) {
-                    $contestant = apply_filters( FV::PREFIX . '_single_item_get_photo', $my_db->getCompItem($photo_id, $contest_id) );
-                    $contest = apply_filters( FV::PREFIX . '_single_item_get_contest', $my_db->getContest($contest_id));
+
+        if ($photo_id > 0) {
+            $contestant = apply_filters( 'fv_single_item_get_photo', ModelCompetitors::query()->findByPK($photo_id, true) );
+        }
+
+        if (!$contestant) {
+            echo __('Item not founded', 'fv');
+            return;
+        }
+
+        $contest = apply_filters( 'fv_single_item_get_contest', ModelContest::query()->findByPK($contestant->contest_id, true));
+
+        if (empty($contest)) {
+            echo __('Fail contest!', 'fv');
+            return;
+        }
+        $contest_id = $contest->id;
+
+        if (isset($args['theme'])) {
+            $theme = $args['theme'];
+        } else {
+            $theme = FvFunctions::ss('theme', 'pinterest');
+        }
+
+        wp_enqueue_style('fv_main_css', fv_min_url(FV::$ASSETS_URL . 'css/fv_main.css'), false, FV::VERSION, 'all');
+        wp_enqueue_style('fv_main_css_tpl', FvFunctions::get_theme_url ( $theme, 'public_item_tpl.css' ), false, FV::VERSION, 'all');
+        //wp_enqueue_style('fv_font_css', fv_css_url(FV::$ASSETS_URL . '/icommon/fv_fonts.css'), false, FV::VERSION, 'all');
+
+        $this->enqueue_required_scripts($contest, true);
+        do_action('fv_contest_item_assets', $theme);
+
+        // custom theme includes
+        FvFunctions::include_template_functions( FvFunctions::get_theme_path($theme, 'theme.php'), $theme );
+        if ( class_exists('FvTheme') ) {
+            FvTheme::assets_item();
+        }
+
+        $public_translated_messages = fv_get_public_translation_messages();
+
+        // Дата страта и окончания
+        $konurs_enabled = false;
+        $time_now = time();
+
+        // приплюсуем к дате окочания 86399 -сутки без секунды, что-бы этот день был включен
+        if ( $time_now > strtotime($contest->date_start) && $time_now < strtotime($contest->date_finish) ) {
+            $konurs_enabled = true;
+        }
+
+        $page_url = fv_generate_contestant_link($contest->id);
+
+        // ============= SHOW
+        $image = FvFunctions::getPhotoThumbnailArr($contestant, 'full');
+        //wp_get_attachment_image_src($contestant->image_id, 'full');
+
+        if ($image[1] > 750) {
+            $image[1] = 750;
+        }
+
+        //$start = microtime(true);
+
+        // Find next and prev photos ID
+        $navItems = $my_db->getCompItemsNav($contest->id, $contest->sorting);
+        $prev_id = null;
+        $next_id = null;
+        $finded = false;
+        foreach ($navItems as $obj) {
+
+            if ($finded) {
+                $next_id = $obj->id;
+                break;
             }
-            if (!$contestant) {
-                    echo __('Item not founded', 'fv');
-                    return;
-            }
-
-            if (empty($contest)) {
-                    echo __('Check contest id!', 'fv');
-                    return;
-            }
-
-            if (isset($args['theme'])) {
-                    $theme = $args['theme'];
+            if ($obj->id == $contestant->id && !$finded) {
+                $finded = true;
             } else {
-                    $theme = FvFunctions::ss('theme', 'pinterest');
+                $prev_id = $obj->id;
             }
 
-            wp_enqueue_style('fv_main_css', fv_min_url(FV::$ASSETS_URL . 'css/fv_main.css'), false, FV::VERSION, 'all');
-            wp_enqueue_style('fv_main_css_tpl', FvFunctions::get_theme_url ( $theme, 'public_item_tpl.css' ), false, FV::VERSION, 'all');
-            //wp_enqueue_style('fv_font_css', fv_css_url(FV::$ASSETS_URL . '/icommon/fv_fonts.css'), false, FV::VERSION, 'all');
+        }
+        // if we shows last photo, we need do some fix
+        // Set Next_id as first photo ID
+        if (!$next_id && count($navItems) > 0 ) {
+            $next_id = $navItems[0]->id;
+        }
 
-            $this->enqueue_required_scripts($contest, true);
-            do_action('fv_contest_item_assets', $theme);
-
-            // custom theme includes
-            FvFunctions::include_template_functions( FvFunctions::get_theme_path($theme, 'theme.php'), $theme );
-            if ( class_exists('FvTheme') ) {
-                FvTheme::assets_item();
-            }
-
-            $public_translated_messages = fv_get_public_translation_messages();
-
-            // Дата страта и окончания
-            $konurs_enabled = false;
-            $time_now = time();
-
-            // приплюсуем к дате окочания 86399 -сутки без секунды, что-бы этот день был включен
-            if ( $time_now > strtotime($contest->date_start) && $time_now < strtotime($contest->date_finish) ) {
-                    $konurs_enabled = true;
-            }
-
-            $page_url = fv_generate_contestant_link($contest_id);
-
-            // ============= SHOW
-            $image = FvFunctions::getPhotoThumbnailArr($contestant, 'full');
-            //wp_get_attachment_image_src($contestant->image_id, 'full');
-
-            if ($image[1] > 750) {
-                    $image[1] = 750;
-            }
-
-            //$start = microtime(true);
-
-            // Find next and prev photos ID
-            $navItems = $my_db->getCompItemsNav($contest->id, $contest->sorting);
-            $prev_id = null;
-            $next_id = null;
-            $finded = false;
-            foreach ($navItems as $obj) {
-
-                    if ($finded) {
-                            $next_id = $obj->id;
-                            break;
-                    }
-                    if ($obj->id == $contestant->id && !$finded) {
-                            $finded = true;
-                    } else {
-                            $prev_id = $obj->id;
-                    }
-
-            }
-            // if we shows last photo, we need do some fix
-            // Set Next_id as first photo ID
-            if (!$next_id && count($navItems) > 0 ) {
-                $next_id = $navItems[0]->id;
-            }
-
-            //$time = microtime(true) - $start;
-            //printf('Find next and prev items in %.4F сек.', $time);
+        //$time = microtime(true) - $start;
+        //printf('Find next and prev items in %.4F сек.', $time);
 
 
-            $default_template_data = array();
-            $template_data["konurs_enabled"] = $konurs_enabled;
-            $template_data["theme"] = $theme;
-            $template_data["contest_id"] = $contest_id;
-            $template_data["contest"] = $contest;
-            $template_data["page_url"] = $page_url;
-            $template_data["public_translated_messages"] = $public_translated_messages;
-            $template_data["contestant"] = $contestant;
-            $template_data["hide_votes"] = FvFunctions::ss('hide-votes');
+        $default_template_data = array();
+        $template_data["konurs_enabled"] = $konurs_enabled;
+        $template_data["theme"] = $theme;
+        $template_data["contest_id"] = $contest->id;
+        $template_data["contest"] = $contest;
+        $template_data["page_url"] = $page_url;
+        $template_data["public_translated_messages"] = $public_translated_messages;
+        $template_data["contestant"] = $contestant;
+        $template_data["hide_votes"] = FvFunctions::ss('hide-votes');
 
-            $template_data["image"] = $image;
-            $template_data["prev_id"] = $prev_id;
-            $template_data["next_id"] = $next_id;
-            //$template_data["most_voted"] = $most_voted;     // for shows related images
-            $template_data = apply_filters('fv_contest_item_template_data', $template_data);
+        $template_data["image"] = $image;
+        $template_data["prev_id"] = $prev_id;
+        $template_data["next_id"] = $next_id;
+        //$template_data["most_voted"] = $most_voted;     // for shows related images
+        $template_data = apply_filters('fv_contest_item_template_data', $template_data);
 
-            FvFunctions::render_template( FvFunctions::get_theme_path($theme, 'single_item.php'), array_merge($default_template_data, $template_data), false, "theme_single" );
+        FvFunctions::render_template( FvFunctions::get_theme_path($theme, 'single_item.php'), array_merge($default_template_data, $template_data), false, "theme_single" );
 
-            // ============= END SHOW
+        // ============= END SHOW
 
-            if (fv_is_lc()) {
-                    $word = $_SERVER['HTTP_HOST'];
-            } else {
-                    $word = "w"."w"."w"."."."b"."o"."g"."a"."d"."i"."a"."."."c"."o"."m";
-            }
-            $drow = '';
-            for ($numb = strlen($word) - 1; $numb >= 0; $numb--) {
-                    $drow = $drow . $word[$numb];
-            }
+        if (fv_is_lc()) {
+            $word = $_SERVER['HTTP_HOST'];
+        } else {
+            $word = "w"."w"."w"."."."b"."o"."g"."a"."d"."i"."a"."."."c"."o"."m";
+        }
+        $drow = '';
+        for ($numb = strlen($word) - 1; $numb >= 0; $numb--) {
+            $drow = $drow . $word[$numb];
+        }
 
-            $link = get_permalink($post->ID);
-            if (substr($link, -1) != '/')
-                    $link .= '/';
+        $link = get_permalink($post->ID);
+        if (substr($link, -1) != '/')
+            $link .= '/';
 
-            $langs = array(
-                'ru' => array('ru', 'be', 'uk', 'ky', 'ab', 'mo', 'et', 'lv'),
-                'de' => 'de'
-            );
+        $langs = array(
+            'ru' => array('ru', 'be', 'uk', 'ky', 'ab', 'mo', 'et', 'lv'),
+            'de' => 'de'
+        );
 
-            // прописываем переменные
-            $output_data = array(
-                'wp_lang' => get_bloginfo('language'),
-                'user_lang' => fv_get_user_lang('en', $langs),      // Need for google Sharing
-                'post_id' => $post->ID,
-                'contest_id' => $contest->id,
-                'vo' . 'te_u' => $drow,
-                'page_url' => $page_url,
-                    /* Upload params */
-                'social_title' => stripslashes($contest->soc_title),
-                'social_descr' => stripslashes($contest->soc_description),
-                'social_photo' => stripslashes($contest->soc_picture),
-                    /* Social params */
-                'data' => array($contestant->id => $contestant, 'link' => $link),
-                'voting_frequency' => $contest->voting_frequency,
-                'security_type' => $contest->security_type,
-                'contest_enabled' => (bool)$konurs_enabled,
-                'fast_ajax' => FvFunctions::ss('fast-ajax', true) == true,
-                'ajax_url' => admin_url('admin-ajax.php'),
-                'some_str' => wp_create_nonce('fv_vote'),
-                'plugin_url' => plugins_url('wp-foto-vote'),
-                'single' => true,
-                'fv_appId' => get_option('fotov-fb-apikey', ''),
-                'recaptcha_key' => FvFunctions::ss('recaptcha-key', 5),
-                'recaptcha_session' => FvFunctions::ss('recaptcha-session', false),
-                'soc_shows' => array(
-                    "fb" => ( !FvFunctions::ss('voting-noshow-fb', false) ) ? "inline" : "none",
-                    "tw" => ( !FvFunctions::ss('voting-noshow-tw', false) ) ? "inline" : "none",
-                    "vk" => ( !FvFunctions::ss('voting-noshow-vk', false) ) ? "inline" : "none",
-                    "ok" => ( !FvFunctions::ss('voting-noshow-ok', false) ) ? "inline" : "none",
-                    "pi" => ( !FvFunctions::ss('voting-noshow-pi', false) ) ? "inline" : "none",
-                    "gp" => ( !FvFunctions::ss('voting-noshow-gp', false) ) ? "inline" : "none",
-                    "email" => ( !FvFunctions::ss('voting-noshow-email', false) && FvFunctions::ss('recaptcha-key', false, 5) !== false ) ? "inline" : "none",
-                ),
-                'soc_counter' => FvFunctions::ss('soc-counter', false),
-                'soc_counters' => array(
-                    "fb" => FvFunctions::ss('soc-counter-fb', false),
-                    "tw" => FvFunctions::ss('soc-counter-tw', false),
-                    "pi" => FvFunctions::ss('soc-counter-pi', false),
-                    "gp" => FvFunctions::ss('soc-counter-gp', false),
-                    "vk" => FvFunctions::ss('soc-counter-vk', false),
-                    "ok" => FvFunctions::ss('soc-counter-ok', false),
-                    "mm" => FvFunctions::ss('soc-counter-mm', false),
-                ),
-            );
+        // прописываем переменные
+        $output_data = array(
+            'wp_lang' => get_bloginfo('language'),
+            'user_lang' => fv_get_user_lang('en', $langs),      // Need for google Sharing
+            'can_manage' => FvFunctions::curr_user_can(),
+            'post_id' => $post->ID,
+            'contest_id' => $contest->id,
+            'vo' . 'te_u' => str_replace('.www', '', $drow),
+            'page_url' => $page_url,
+            /* Upload params */
+            'social_title' => stripslashes($contest->soc_title),
+            'social_descr' => stripslashes($contest->soc_description),
+            'social_photo' => stripslashes($contest->soc_picture),
+            /* Social params */
+            'data' => array($contestant->id => $contestant, 'link' => $link),
+            'voting_frequency' => $contest->voting_frequency,
+            'security_type' => $contest->security_type,
+            'contest_enabled' => (bool)$konurs_enabled,
+            'fast_ajax' => FvFunctions::ss('fast-ajax', true) == true,
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'some_str' => wp_create_nonce('fv_vote'),
+            'plugin_url' => plugins_url('wp-foto-vote'),
+            'single' => true,
+            'fv_appId' => get_option('fotov-fb-apikey', ''),
+            'recaptcha_key' => FvFunctions::ss('recaptcha-key', 5),
+            'recaptcha_session' => FvFunctions::ss('recaptcha-session', false),
+            'soc_shows' => array(
+                "fb" => ( !FvFunctions::ss('voting-noshow-fb', false) ) ? "inline" : "none",
+                "tw" => ( !FvFunctions::ss('voting-noshow-tw', false) ) ? "inline" : "none",
+                "vk" => ( !FvFunctions::ss('voting-noshow-vk', false) ) ? "inline" : "none",
+                "ok" => ( !FvFunctions::ss('voting-noshow-ok', false) ) ? "inline" : "none",
+                "pi" => ( !FvFunctions::ss('voting-noshow-pi', false) ) ? "inline" : "none",
+                "gp" => ( !FvFunctions::ss('voting-noshow-gp', false) ) ? "inline" : "none",
+                "email" => ( !FvFunctions::ss('voting-noshow-email', false) && FvFunctions::ss('recaptcha-key', false, 5) !== false ) ? "inline" : "none",
+            ),
+            'soc_counter' => FvFunctions::ss('soc-counter', false),
+            'soc_counters' => array(
+                "fb" => FvFunctions::ss('soc-counter-fb', false),
+                "tw" => FvFunctions::ss('soc-counter-tw', false),
+                "pi" => FvFunctions::ss('soc-counter-pi', false),
+                "gp" => FvFunctions::ss('soc-counter-gp', false),
+                "vk" => FvFunctions::ss('soc-counter-vk', false),
+                "ok" => FvFunctions::ss('soc-counter-ok', false),
+                "mm" => FvFunctions::ss('soc-counter-mm', false),
+            ),
+        );
 
-            $output_data['lang'] = fv_prepare_public_translation_to_js($public_translated_messages);
+        $output_data['lang'] = fv_prepare_public_translation_to_js($public_translated_messages);
 
-            // out data to script
-            wp_localize_script('fv_main_js', 'fv', apply_filters('fv_contest_item_js_data', $output_data) );
+        // out data to script
+        wp_localize_script('fv_main_js', 'fv', apply_filters('fv_contest_item_js_data', $output_data) );
 
-            include_once FV::$THEMES_ROOT . 'share_new.php';
+        include_once FV::$THEMES_ROOT . 'share_new.php';
 
-            do_action('fv_after_contest_item', $theme);
+        do_action('fv_after_contest_item', $theme);
     }
 
 
@@ -617,9 +637,9 @@ class FV_Public {
         //Debug_Bar_Extender::instance()->start( 'show_contest' );
 
         global $contest_id;
-        $contest_id = $args['id'];
-        $my_db = new FV_DB;
-        $contest = apply_filters('fv_show_contest_get_contest_data', $my_db->getContest($contest_id) );
+        $contest_id = (int)$args['id'];
+
+        $contest = apply_filters('fv_show_contest_get_contest_data', ModelContest::query()->findByPK($contest_id, true));
 
         if (empty($contest)) {
             return _e('Check contest id!', 'fv');
@@ -672,41 +692,63 @@ class FV_Public {
 
         // приплюсуем к дате окочания 86399 -сутки без секунды, что-бы этот день был включен
         if ( $time_now > strtotime($contest->date_start) && $time_now < strtotime($contest->date_finish) ) {
-                $konurs_enabled = true;
+            $konurs_enabled = true;
         }
         if ( $contest->upload_enable && $time_now > strtotime($contest->upload_date_start) && $time_now < strtotime($contest->upload_date_finish) ) {
-                $upload_enabled = true;
+            $upload_enabled = true;
         }
-        // конец даты (end dates)
+        // end dates
+
+        // Query Photos
+        $photosModel = ModelCompetitors::query()
+            ->where_all(array('contest_id' => $contest_id, 'status' => ST_PUBLISHED))
+            ->set_sort_by_based_on_contest($contest->sorting);
+
+        // Apply filters to Model, that allows change query params
+        $photosModel = apply_filters( 'fv/public/pre_get_comp_items_list/model', $photosModel, $konurs_enabled, $AJAX_ACTION, $contest_id );
 
         $paged = ( isset($_GET['fv-page']) ) ? (int)$_GET['fv-page'] : 1;
 
         $paginate_count = FvFunctions::ss('pagination', 0);
         // вычисляем количестов страниц для пагинации
         if ($paginate_count >= 8) {
-                $pages_count = ceil($my_db->getCompItemsCount($contest_id, ST_PUBLISHED) / $paginate_count);
-                // if Infinite pagination adn page > 1 then need all item until this page
-                // Example: page = 3, per_page = 8, then load first 3*8 = 24 photos
-                if ( FvFunctions::ss('pagination-type', 'default') == 'infinite' && $paged > 1 && !$AJAX_ACTION ) {
-                    $photos = apply_filters( 'fv_shows_get_comp_items', $my_db->getCompItems($contest_id, ST_PUBLISHED, $paginate_count * $paged, 1, $contest->sorting) );
-                } else {
-                    $photos = apply_filters( 'fv_shows_get_comp_items', $my_db->getCompItems($contest_id, ST_PUBLISHED, $paginate_count, $paged, $contest->sorting) );
-                }
+            $pages_count = ceil($photosModel->find(true) / $paginate_count);
+
+            // if Infinite pagination adn page > 1 then need all item until this page
+            // Example: page = 3, per_page = 8, then load first 3*8 = 24 photos
+            if ( $paged > 1 && !$AJAX_ACTION && FvFunctions::ss('pagination-type', 'default') == 'infinite' ) {
+                // Limit - paged * per page
+                // Offset - 0
+                $photosModel->limit( intval($paginate_count * ($paged-1)) );
+                $photosModel->offset( 0 );
+                //$photos = apply_filters( 'fv_shows_get_comp_items', $my_db->getCompItems($contest_id, ST_PUBLISHED, $paginate_count * $paged, 1, $contest->sorting) );
+            } else {
+                // offset - paged * per page
+                // limit - per page
+                $photosModel->limit( $paginate_count );
+                $photosModel->offset( intval($paginate_count * ($paged-1)) );
+                //$photos = apply_filters( 'fv_shows_get_comp_items', $my_db->getCompItems($contest_id, ST_PUBLISHED, $paginate_count, $paged, $contest->sorting) );
+            }
 
         } else {
-                $pages_count = 1;
-                $photos = apply_filters( 'fv_shows_get_comp_items', $my_db->getCompItems($contest_id, ST_PUBLISHED, 500, false, $contest->sorting) );
+            $pages_count = 1;
+            $photosModel->limit( 500 );
+            //$photos = apply_filters( 'fv_shows_get_comp_items', $my_db->getCompItems($contest_id, ST_PUBLISHED, 500, false, $contest->sorting) );
         }
 
-        do_action('fv/public/before_contest_list', $contest, $theme);
+        // Retrieve photos and apply filters
+        $photos = apply_filters( 'fv_shows_get_comp_items', $photosModel->find(false, false, true) );
+        unset($photosModel);
+        // Query Photos :: END
 
+        do_action('fv/public/before_contest_list', $contest, $theme);
 
         if ( $show_toolbar && !$AJAX_ACTION ) {
             $this->show_toolbar($contest, $upload_enabled);
         }
 
         if ( $upload_enabled && !$AJAX_ACTION ) {
-            FvPublicAjax::upload_photo($contest);
+            FV_Public_Ajax::upload_photo($contest);
             echo $this->shortcode_upload_form( array( 'show_opened'=>$show_toolbar, 'tabbed'=>$show_toolbar ), $contest );
         }
 
@@ -737,17 +779,9 @@ class FV_Public {
                 $default_template_data["hide_votes"] = FvFunctions::ss('hide-votes');
 
                 // Show voting leaders
-                if ( !get_option('fotov-leaders-hide', false) && !$AJAX_ACTION ) {
-                        $most_voted_template_data["most_voted"] = apply_filters( FV::PREFIX . 'most_voted_data',
-                                $my_db->getMostVotedItems($contest->id, get_option('fotov-leaders-count', 3))
-                            );
-
-                        FvFunctions::render_template( FV::$THEMES_ROOT . "/most_voted.php",
-                                array_merge($default_template_data, $most_voted_template_data),
-                                false,
-                                "most_voted"
-                            );
-                        //include plugin_dir_path(__FILE__) . '/themes/most_voted.php';
+                if ( $contest->show_leaders && !$AJAX_ACTION ) {
+                    echo $this->shortcode_leaders( array('contest'=>$contest, 'type'=>get_option('fotov-leaders-type', 'text')) );
+                    //include plugin_dir_path(__FILE__) . '/themes/most_voted.php';
                 }
 
                 echo '<div class="fv-contest-photos-container">';
@@ -763,19 +797,19 @@ class FV_Public {
 
                 /* ======= Remove and secure params passed for script ========== */
                 foreach ($photos as $key => $unit) {
-                        $photos[$key]->user_id = FvFunctions::userHash($photos[$key]->user_id);
+                    $photos[$key]->user_id = FvFunctions::userHash($photos[$key]->user_id);
 
-                        unset($photos[$key]->image_id);
-                        unset($photos[$key]->added_date);
-                        unset($photos[$key]->upload_info);
-                        unset($photos[$key]->user_email);
-                        unset($photos[$key]->options);
-                        unset($photos[$key]->full_description);
-                        unset($photos[$key]->additional);
-                        //unset($photos[$key]->user_id);
-                        unset($photos[$key]->user_ip);
-                        unset($photos[$key]->status);
-                        //unset($data[$key]->image_full);
+                    unset($photos[$key]->image_id);
+                    unset($photos[$key]->added_date);
+                    unset($photos[$key]->upload_info);
+                    unset($photos[$key]->user_email);
+                    unset($photos[$key]->options);
+                    unset($photos[$key]->full_description);
+                    unset($photos[$key]->additional);
+                    //unset($photos[$key]->user_id);
+                    unset($photos[$key]->user_ip);
+                    unset($photos[$key]->status);
+                    //unset($data[$key]->image_full);
                 }
                 /* ======= :: END ========== */
             }
@@ -809,12 +843,13 @@ class FV_Public {
 
             $output_data = array(
                 'wp_lang' => get_bloginfo('language'),
-                'user_lang' => fv_get_user_lang('en', $langs),
+                'user_lang' => fv_get_user_lang('en', $langs),      // Used for Google sharing, for set up correct user Lang
+                'can_manage' => FvFunctions::curr_user_can(),
                 'post_id' => $post->ID,
                 'contest_id' => $contest->id,
                 'single' => false,
                 /* Dates */
-                'vo' . 'te_u' => $drow,
+                'vo' . 'te_u' => str_replace('.www', '', $drow),
                 'page_url' => $page_url,
                 'paged_url' => fv_get_paginate_url(false),
                 /* Upload params */
@@ -857,17 +892,15 @@ class FV_Public {
                 ),
             );
 
-            // прописываем переменные
-
             $output_data['lang'] = fv_prepare_public_translation_to_js($public_translated_messages);
 
-            // out data to script
+            // Pass variables to Javascript
             wp_localize_script( 'fv_main_js', 'fv', apply_filters('fv_show_contest_js_data', $output_data) );
             unset($output_data);
 
             do_action('fv_after_contest_list', $theme);
 
-            include FV::$THEMES_ROOT . 'share_new.php';
+            include_once FV::$THEMES_ROOT . 'share_new.php';
 
         ENDIF;
         //Debug_Bar_Extender::instance()->end( 'show_contest' );
@@ -893,6 +926,7 @@ class FV_Public {
             'crop' => get_option('fotov-image-hardcrop', false) == '' ? false : true,
         );
 
+        echo '<div class="fv-contest-photos-container-inner">';
         foreach ($photos as $key => $photo) {
             $template_data = array();
             $template_data["photo"] = $photo;
@@ -916,10 +950,10 @@ class FV_Public {
             $template_data["thumbnail"] = FvFunctions::getPhotoThumbnailArr($photo, $thumb_size);
 
             //wp_get_attachment_image_src($photo->image_id, $thumb_size['name']);
-            if ( $template_data["thumbnail"][1] == 0 ) {
+            if ( empty($template_data["thumbnail"][1]) || $template_data["thumbnail"][1] == 0 ) {
                 $template_data["thumbnail"][1] = '';
             }
-            if ( $template_data["thumbnail"][2] == 0 ) {
+            if ( empty($template_data["thumbnail"][2]) || $template_data["thumbnail"][2] == 0 ) {
                 $template_data["thumbnail"][2] = '';
             }
             // If pic width more than block width
@@ -942,6 +976,7 @@ class FV_Public {
             );
             //include plugin_dir_path(__FILE__) . '/themes/' . $theme . '/unit.php';
         }
+        echo '</div>';
         do_action('fv_after_shows_loop', $theme);
     }
 
@@ -998,14 +1033,15 @@ class FV_Public {
                 break;
         }
 
+        $sort = 'name';
         if ( $args['sort'] && in_array($args['sort'], array('date_start', 'date_finish', 'name')) ) {
-            $query->sort_by( sanitize_title($args['sort']) );
+            $sort = sanitize_title($args['sort']);
         }
 
         if ( isset($args['order']) && $args['order'] == 'ASC' ) {
-            $query->order( FvQuery::ORDER_ASCENDING );
+            $query->sort_by( $sort,  FvQuery::ORDER_ASCENDING );
         } elseif( isset($args['order']) ) {
-            $query->order( FvQuery::ORDER_DESCENDING );
+            $query->sort_by( $sort, FvQuery::ORDER_DESCENDING );
         }
 
         // Set up blocks width
@@ -1038,11 +1074,14 @@ class FV_Public {
                 $first_photo = ModelCompetitors::query()
                     ->where_all( array('contest_id' => $CONTEST->id, 'status' => ST_PUBLISHED) )
                     ->limit(1)
-                    ->order('ASC')
+                    ->sort_by('id', 'ASC')
                     ->findRow();
+                if ( !empty($first_photo) ) {
+                    $CONTEST->cover_image_url = FvFunctions::getContestThumbnailArr( $first_photo->image_id, $thumb_params, $first_photo->url );
+                } else {
+                    $CONTEST->cover_image_url = array( FV::$ASSETS_URL . 'img/no-photo.png', 440, 250, false );
+                }
 
-                $CONTEST->cover_image_url = FvFunctions::getContestThumbnailArr( $first_photo->image_id, $thumb_params, $first_photo->url );
-                    //wp_get_attachment_image_src( , $thumb_params );
             } else {
                 $CONTEST->cover_image_url = FvFunctions::getContestThumbnailArr( $CONTEST->cover_image, $thumb_params );
             }

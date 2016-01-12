@@ -152,6 +152,12 @@ class FV_Admin
             $this->menu_page_ids['analytic'] = add_submenu_page('fv', __('Votes analytic', 'fv'), __('Votes analytic', 'fv'), get_option('fv-needed-capability', 'edit_pages'), FV::NAME . '-vote-analytic', array($admin_pages, 'page_analytic') );
             $this->menu_page_ids['subscribers'] = add_submenu_page('fv', __('Subscribers list', 'fv'), __('Subscribers list', 'fv'), get_option('fv-needed-capability', 'edit_pages'), FV::NAME . '-subscribers-list', array($admin_pages, 'page_subscribers_list') );
             $this->menu_page_ids['debug'] = add_submenu_page('fv', __('Debug', 'fv'), __('Debug', 'fv'), get_option('fv-needed-capability', 'edit_pages'), FV::NAME . '-debug', array($admin_pages, 'page_debug') );
+
+
+            //var_dump( get_redux_instance(FV::ADDONS_OPT_NAME) );
+            //$this->menu_page_ids['addons'] = add_submenu_page('fv', __('Addons', 'fv'), __('Addons', 'fv'), get_option('fv-needed-capability', 'edit_pages'), FV::NAME . '-addons', array(ReduxFrameworkInstances::get_instance(FV::ADDONS_OPT_NAME), 'generate_panel') );
+
+
             //add_submenu_page('fv', __('Customizer', 'fv'), __('Customizer', 'fv'), 'edit_posts', 'fv-customizer', array('FV_Theme_Customizer', 'render_page') );
 
             //$submenu['wsds'][0][0] = __('Payments', 'wsds');

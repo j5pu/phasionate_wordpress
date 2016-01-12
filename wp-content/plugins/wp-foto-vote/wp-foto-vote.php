@@ -4,7 +4,7 @@
  * Plugin Name:       WP Foto Vote
  * Plugin URI:        http://wp-vote.net/
  * Description:       Simple photo contest plugin with ability to user upload photos. Includes protection from cheating by IP and cookies. User log voting. After the vote invite to share post about contest in Google+, Twitter, Facebook, OK, VKontakte.
- * Version:           2.2.120
+ * Version:           2.2.123
  * Author:            Maxim Kaminsky
  * Author URI:        http://www.maxim-kaminsky.com/
  * Text Domain:       fv
@@ -42,28 +42,32 @@ define('FV_RES_OP_PAGE', '15');
 define('FV_CONTEST_BLOCK_WIDTH', '200');
 define('UPDATE_SERVER_URL', 'http://wp-vote.net/updater/');
 
-define('FV_DB_VERSION', '1.5.159');
+define('FV_DB_VERSION', '1.5.162');
 define('FV_UPDATE_KEY', 'ufOluHsNayLc3E');
 define('FV_UPDATE_KEY_EXPIRATION', '2016-04-01');
 
 define("FV_LOG_FILE", dirname(__FILE__) . '/logs/log.txt');
 define("FV_ROOT", dirname(__FILE__));
 
-/**
- * The code that runs during plugin activation.
- */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-fv-activator.php';
+if (!SHORTINIT) {
 
-/**
- * The code that runs during plugin deactivation.
- */
-//require_once plugin_dir_path( __FILE__ ) . 'includes/class-fv-deactivator.php';
+    /**
+     * The code that runs during plugin activation.
+     */
+    require_once plugin_dir_path( __FILE__ ) . 'includes/class-fv-activator.php';
 
-/** This action is documented in includes/class-wsds-activator.php */
-register_activation_hook( __FILE__, array( 'FV_Activator', 'activate' ) );
+    /**
+     * The code that runs during plugin deactivation.
+     */
+    //require_once plugin_dir_path( __FILE__ ) . 'includes/class-fv-deactivator.php';
 
-/** This action is documented in includes/class-wsds-deactivator.php */
-//register_deactivation_hook( __FILE__, array( 'FV_Deactivator', 'deactivate' ) );
+    /** This action is documented in includes/class-wsds-activator.php */
+    register_activation_hook( __FILE__, array( 'FV_Activator', 'activate' ) );
+
+    /** This action is documented in includes/class-wsds-deactivator.php */
+    //register_deactivation_hook( __FILE__, array( 'FV_Deactivator', 'deactivate' ) );
+
+}
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -86,7 +90,8 @@ function run_FV() {
 	$plugin = new FV( plugin_basename( __FILE__ ), FV_ROOT );
 	$plugin->run();
 
-    if ( (!defined('DOING_AJAX') || DOING_AJAX == FALSE) && is_admin() ) {
+    // (!defined('DOING_AJAX') || DOING_AJAX == FALSE)
+    if ( !SHORTINIT && is_admin() ) {
         $FvUpdateChecker = PucFactory::buildUpdateChecker(
             UPDATE_SERVER_URL . '?action=get_metadata&slug=' . FV::SLUG, __FILE__, FV::SLUG
         );

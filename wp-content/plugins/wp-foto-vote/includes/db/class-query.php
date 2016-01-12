@@ -58,12 +58,13 @@ class FvQuery {
 	/**
 	 * @var string
 	 */
-	protected $sort_by = 'id';
+	protected $sort_by = array();
+    //'id' => 'ASC'
 
 	/**
 	 * @var string
 	 */
-	protected $order = 'ASC';
+	//protected $order = ;
 
     /**
 	 * @var string
@@ -114,8 +115,8 @@ class FvQuery {
 
 	/* ===========================================
 	 * PUBLIC ACTION FUNCTIONS
-	 ============================================ */	
-		
+	 ============================================ */
+
 	/**
 	 * Compose & execute our query.
 	 *
@@ -170,27 +171,35 @@ class FvQuery {
 		//$query = $this->query;
 		// Query
 		return $wpdb->get_var( $this->compose_query(false) );
-	}	
-	
-
-	/**
-	 * find records in table by Primary KEY
-	 * @since     1.0.0
-	 *
-	 * @param   $id    int
-	 * @return        object
-	 */
-	public function findByPK($id) {
-		global $wpdb;
-		// вернем количество результатов для пагинации
-		$sql = $wpdb->prepare(
-				"SELECT * FROM " . $this->tableName() . " WHERE `" . $this->primary_key . "` = %d; ", $id
-		);
-		$r = $wpdb->get_row($sql, OBJECT);
-
-		$this->checkDbErrors();
-		return $r;
 	}
+
+
+    /**
+     * find records with All fields in table by Primary KEY
+     * @since     1.0.0
+     *
+     * @param   $id             int
+     * @param   $from_cache    bool
+     * @return  object
+     */
+    public function findByPK($id, $from_cache = false) {
+        global $wpdb;
+
+        $sql = $wpdb->prepare(
+            "SELECT * FROM " . $this->tableName() . " WHERE `" . $this->primary_key . "` = %d; ", $id
+        );
+
+        if ($from_cache && !$r = wp_cache_get($id, $this->tableName().'-findByPK', 'fv')) {
+            $r = $wpdb->get_row($sql, OBJECT);
+            $this->checkDbErrors();
+            wp_cache_add($id, $r, $this->tableName().'-findByPK', 'fv');
+            return $r;
+        } elseif(!$from_cache) {
+            $r = $wpdb->get_row($sql, OBJECT);
+            $this->checkDbErrors();
+        }
+        return $r;
+    }
 
 	/**
 	 * delete record in table
@@ -257,7 +266,8 @@ class FvQuery {
 	 * </code>
 	 * @since     1.0.0
 	 * @param array $data
-	 * @param mixed $condition
+	 * @param mixed $condition  Record ID or
+     *
 	 * @return bool MySQL query result
 	 */
 	public function update($data, $condition = false) {
@@ -301,11 +311,72 @@ class FvQuery {
 		return $r;
 	}
 
+
+    /**
+     * Update record by PK using Wordpress Update Function
+     * <code>
+     * Example 1:
+     * TestModel::query()->update(
+     *		array('name'=>'Test'),				// DATA
+     *		10		// PK ID
+     * );
+     *
+     * @since     1.0.0
+     * @param array $data
+     * @param int $pkID  Record ID
+     *
+     * @return bool MySQL query result
+     */
+    public function updateByPK($data, $pkID) {
+        global $wpdb;
+        // Format for database (string, int)
+        $sql_format = array();
+        // Array - data to save
+        $sql_data = array();
+        $fields = $this->fields();
+        foreach ($data as $key => $value) {
+            if (isset($fields[$key])) {
+                $sql_data[$key] = $value;
+                $sql_format[] = $fields[$key];
+            }
+        }
+        // may be primary key not set in fileds due to secure it for random change
+        $fields[ $this->primary_key ] = '%d';
+
+        $condition_data = array($this->primary_key => (int)$pkID);
+        // do Query
+        $r = $wpdb->update(
+            $this->tableName(), $sql_data, $condition_data, $sql_format, array('%d')
+        );
+        $this->checkDbErrors();
+        return $r;
+    }
+
 	
 	/* ===========================================
 	 * END PUBLIC ACTION FUNCTIONS
 	 ============================================ */
-	
+
+    /**
+     * Reset one field, can used for change Sort / Where
+     *
+     * @param  string $param
+     * @return FvQuery self
+     */
+    public function resetParam($param) {
+        switch($param) {
+            case 'sort_by':
+                $this->sort_by = array();
+                break;
+            case 'where':
+                $this->where = array();
+                break;
+            case 'join':
+                $this->join = array();
+                break;
+        }
+        return $this;
+    }
 	
 	/**
 	 * Set the fields to include in the search.
@@ -368,12 +439,17 @@ class FvQuery {
 	/**
 	 * Set the column we should sort by.
 	 *
-	 * @param  string $sort_by
+	 * @param  string $sort_by_field
+	 * @param  string $order
 	 * @return FvQuery self
 	 */
-	public function sort_by($sort_by) {
-		if (strlen($sort_by) > 1 ) {
-			$this->sort_by = $sort_by;
+	public function sort_by($sort_by_field, $order = 'ASC') {
+        if ( strlen($sort_by_field) > 1 ) {
+            if ( $order != $this::ORDER_ASCENDING && $order != $this::ORDER_DESCENDING ) {
+                $order = $this::ORDER_ASCENDING;
+            }
+
+            $this->sort_by[$sort_by_field] = $order;
 		}
 
 		return $this;
@@ -386,8 +462,8 @@ class FvQuery {
 	 * @return FvQuery self
 	 */
 	public function order($order) {
-		$this->order = $order;
-
+        trigger_error('This function is Deprecated since version 2.2.123. Use "sort_by($sort_by, $order)" with second parameter.', E_USER_NOTICE);
+		//$this->order = $order;
 		return $this;
 	}
 
@@ -646,203 +722,212 @@ class FvQuery {
 	 * @return string
 	 */
 	public function compose_query($only_count = false) {
-		//$query  = $this->query;
-		$table = $this->tableName();
-		$where = '';
-		$group = '';
-		$order = '';
-		$limit = '';
-		$offset = '';
-		$fields = $this->fields();
+        //$query  = $this->query;
+        $table = $this->tableName();
+        $where = '';
+        $group = '';
+        $order = '';
+        $limit = '';
+        $offset = '';
+        $fields = $this->fields();
 
-		// Search
-		if (!empty($this->search_term)) {
-			$where .= ' AND (';
+        // Search
+        if (!empty($this->search_term)) {
+            $where .= ' AND (';
 
-			foreach ($this->search_fields as $field) {
-				$where .= '`t`.`' . $field . '` LIKE "%' . esc_sql($this->search_term) . '%" OR ';
-			}
+            foreach ($this->search_fields as $field) {
+                $where .= '`t`.`' . $field . '` LIKE "%' . esc_sql($this->search_term) . '%" OR ';
+            }
 
-			$where = substr($where, 0, -4) . ')';
-		}
-
-		// Where
-		
-		foreach ($this->where as $q) {
-			if ( isset($q['column']) && !isset( $fields[$q['column']] ) ) {
-				continue;
-			}
-			// where
-			
-
-			if ($q['type'] == 'where') {
-					  $where .= ' AND `t`.`' . $q['column'] . '` = "' . esc_sql($q['value']) . '"';
-			}
-
-			// where_not
-			elseif ($q['type'] == 'not') {
-					  $where .= ' AND `t`.`' . $q['column'] . '` != "' . esc_sql($q['value']) . '"';
-			}
-
-			// where_like
-			elseif ($q['type'] == 'like') {
-					  $where .= ' AND `t`.`' . $q['column'] . '` LIKE "%' . esc_sql($q['value']) . '%"';
-			}
-
-			// where_not_like
-			elseif ($q['type'] == 'not_like') {
-					  $where .= ' AND `t`.`' . $q['column'] . '` NOT LIKE "' . esc_sql($q['value']) . '"';
-			}
-
-			// where_lt
-			elseif ($q['type'] == 'lt') {
-					  $where .= ' AND `t`.`' . $q['column'] . '` < "' . esc_sql($q['value']) . '"';
-			}
-
-			// where_lte
-			elseif ($q['type'] == 'lte') {
-					  $where .= ' AND `t`.`' . $q['column'] . '` <= "' . esc_sql($q['value']) . '"';
-			}
-
-			// where_gt
-			elseif ($q['type'] == 'gt') {
-					  $where .= ' AND `t`.`' . $q['column'] . '` > "' . esc_sql($q['value']) . '"';
-			}
-
-			// where_gte
-			elseif ($q['type'] == 'gte') {
-					  $where .= ' AND `t`.`' . $q['column'] . '` >= "' . esc_sql($q['value']) . '"';
-			}
-
-			// where_early
-			elseif ($q['type'] == 'early') {
-					  $date = date("Y-m-d H:i:s", (int)$q['value']);
-					  $where .= ' AND `t`.`' . $q['column'] . '` <= "' . esc_sql($date) . '"';
-			}
-			// where_later
-			elseif ($q['type'] == 'later') {
-					  $date = date("Y-m-d H:i:s", (int)$q['value']);
-					  $where .= ' AND `t`.`' . $q['column'] . '` >= "' . esc_sql($date) . '"';
-			}
-
-			// where_in		
-			elseif ($q['type'] == 'in') {
-					  $where .= ' AND `t`.`' . $q['column'] . '` IN (';
-
-					  foreach ($q['value'] as $value) {
-								 $where .= '"' . esc_sql($value) . '",';
-					  }
-
-					  $where = substr($where, 0, -1) . ')';
-			}
-
-			// where_not_in
-			elseif ($q['type'] == 'not_in') {
-					  $where .= ' AND `t`.`' . $q['column'] . '` NOT IN (';
-
-					  foreach ($q['value'] as $value) {
-								 $where .= '"' . esc_sql($value) . '",';
-					  }
-
-					  $where = substr($where, 0, -1) . ')';
-			}
-
-			// where_any
-			elseif ($q['type'] == 'any') {
-					  $where .= ' AND (';
-
-					  foreach ($q['where'] as $column => $value) {
-								 if ( !is_array($value) ) {
-									  $where .= '`t`.`' . $column . '` = "' . esc_sql($value) . '" OR ';
-								 } else {
-											foreach ($value as $column2 => $value2) :
-												 $where .= '`t`.`' . $column2 . '` = "' . esc_sql($value2) . '" OR ';
-											endforeach;
-                                            //FvFunctions::dump( 'before 1: ' . $where);
-											//$where = substr($where, 0, -5) . '")';
-                                            //FvFunctions::dump('after 1: ' . $where);
-								 }
-					  }
-                      //FvFunctions::dump( 'before : ' . $where);
-					  $where = substr($where, 0, -5) . '")';
-                      //FvFunctions::dump( 'final 2: ' . $where);
-			}
-
-			// where_all
-			elseif ($q['type'] == 'all') {
-					  $where .= ' AND (';
-
-					  foreach ($q['where'] as $column => $value) {
-								 $where .= '`t`.`' . $column . '` = "' . esc_sql($value) . '" AND ';
-					  }
-
-					  $where = substr($where, 0, -5) . ')';
-			}
-			// Finish where clause
-	  }
-		if (!empty($where)) {
-			$where = ' WHERE ' . substr($where, 5);
-		}
-
-        // group
-        if ( !empty($this->group) ) {
-            $group = ' GROUP BY ' . $this->group;
+            $where = substr($where, 0, -4) . ')';
         }
 
-		// Order
-		if (strstr($this->sort_by, '(') !== false && strstr($this->sort_by, ')') !== false) {
-			// The sort column contains () so we assume its a function, therefore
-			// don't quote it
-			$order = ' ORDER BY ' . $this->sort_by . ' ' . $this->order;
-		} else {
-			$order = ' ORDER BY `t`.`' . $this->sort_by . '` ' . $this->order;
-		}
+        // Where
 
-		// Limit
-		if ($this->limit > 0) {
-			$limit = ' LIMIT ' . $this->limit;
-		}
+        foreach ($this->where as $q) {
+            if ( isset($q['column']) && !isset( $fields[$q['column']] ) ) {
+                continue;
+            }
+            // where
 
-		// Offset
-		if ($this->offset > 0) {
-			$offset = ' OFFSET ' . $this->offset;
-		}
 
-		if ( !empty($this->what_field) ) {		
-			$what = $this->what_field;
-		} else {
-			$what = " `t`.* ";			
-		}
-		
-		$join_sql = "";
-		if (  count($this->join) > 0 ) {
-			 foreach ($this->join as $join) {
-				$join_sql .= ' ' . strtoupper($join['joinType'])
-					. ' JOIN `' . $join['joinTable'] . '` ' . $join['joinAlias']
-					. ' ON ' . ((string) $join['joinCondition']);
-				if (is_array( $join['joinFields']) ){
-					$what_arr = array();
-					foreach ($join['joinFields'] as $key => $field) {
+            if ($q['type'] == 'where') {
+                      $where .= ' AND `t`.`' . $q['column'] . '` = "' . esc_sql($q['value']) . '"';
+            }
+
+            // where_not
+            elseif ($q['type'] == 'not') {
+                      $where .= ' AND `t`.`' . $q['column'] . '` != "' . esc_sql($q['value']) . '"';
+            }
+
+            // where_like
+            elseif ($q['type'] == 'like') {
+                      $where .= ' AND `t`.`' . $q['column'] . '` LIKE "%' . esc_sql($q['value']) . '%"';
+            }
+
+            // where_not_like
+            elseif ($q['type'] == 'not_like') {
+                      $where .= ' AND `t`.`' . $q['column'] . '` NOT LIKE "' . esc_sql($q['value']) . '"';
+            }
+
+            // where_lt
+            elseif ($q['type'] == 'lt') {
+                      $where .= ' AND `t`.`' . $q['column'] . '` < "' . esc_sql($q['value']) . '"';
+            }
+
+            // where_lte
+            elseif ($q['type'] == 'lte') {
+                      $where .= ' AND `t`.`' . $q['column'] . '` <= "' . esc_sql($q['value']) . '"';
+            }
+
+            // where_gt
+            elseif ($q['type'] == 'gt') {
+                      $where .= ' AND `t`.`' . $q['column'] . '` > "' . esc_sql($q['value']) . '"';
+            }
+
+            // where_gte
+            elseif ($q['type'] == 'gte') {
+                      $where .= ' AND `t`.`' . $q['column'] . '` >= "' . esc_sql($q['value']) . '"';
+            }
+
+            // where_early
+            elseif ($q['type'] == 'early') {
+                      $date = date("Y-m-d H:i:s", (int)$q['value']);
+                      $where .= ' AND `t`.`' . $q['column'] . '` <= "' . esc_sql($date) . '"';
+            }
+            // where_later
+            elseif ($q['type'] == 'later') {
+                      $date = date("Y-m-d H:i:s", (int)$q['value']);
+                      $where .= ' AND `t`.`' . $q['column'] . '` >= "' . esc_sql($date) . '"';
+            }
+
+            // where_in
+            elseif ($q['type'] == 'in') {
+                      $where .= ' AND `t`.`' . $q['column'] . '` IN (';
+
+                      foreach ($q['value'] as $value) {
+                                 $where .= '"' . esc_sql($value) . '",';
+                      }
+
+                      $where = substr($where, 0, -1) . ')';
+            }
+
+            // where_not_in
+            elseif ($q['type'] == 'not_in') {
+                      $where .= ' AND `t`.`' . $q['column'] . '` NOT IN (';
+
+                      foreach ($q['value'] as $value) {
+                                 $where .= '"' . esc_sql($value) . '",';
+                      }
+
+                      $where = substr($where, 0, -1) . ')';
+            }
+
+            // where_any
+            elseif ($q['type'] == 'any') {
+                      $where .= ' AND (';
+
+                      foreach ($q['where'] as $column => $value) {
+                                 if ( !is_array($value) ) {
+                                      $where .= '`t`.`' . $column . '` = "' . esc_sql($value) . '" OR ';
+                                 } else {
+                                            foreach ($value as $column2 => $value2) :
+                                                 $where .= '`t`.`' . $column2 . '` = "' . esc_sql($value2) . '" OR ';
+                                            endforeach;
+                                            //FvFunctions::dump( 'before 1: ' . $where);
+                                            //$where = substr($where, 0, -5) . '")';
+                                            //FvFunctions::dump('after 1: ' . $where);
+                                 }
+                      }
+                      //FvFunctions::dump( 'before : ' . $where);
+                      $where = substr($where, 0, -5) . '")';
+                      //FvFunctions::dump( 'final 2: ' . $where);
+            }
+
+            // where_all
+            elseif ($q['type'] == 'all') {
+                      $where .= ' AND (';
+
+                      foreach ($q['where'] as $column => $value) {
+                                 $where .= '`t`.`' . $column . '` = "' . esc_sql($value) . '" AND ';
+                      }
+
+                      $where = substr($where, 0, -5) . ')';
+            }
+            // Finish where clause
+        }
+
+        if (!empty($where)) {
+            $where = ' WHERE ' . substr($where, 5);
+        }
+        if (!$only_count) {
+            // group
+            if ( !empty($this->group) ) {
+                $group = ' GROUP BY ' . $this->group;
+            }
+
+            if ( !empty($this->sort_by) && is_array($this->sort_by) ) {
+                $order_arr = array();
+                foreach($this->sort_by as $sort_field => $sort_order) {
+                    // Order
+                    if (strstr($sort_field, '(') !== false && strstr($sort_field, ')') !== false) {
+                        // The sort column contains () so we assume its a function, therefore
+                        // don't quote it
+                        $order_arr[] = $sort_field . ' ' . $sort_order;
+                    } else {
+                        $order_arr[] = '`t`.`' . $sort_field . '` ' . $sort_order;
+                    }
+                }
+                $order =' ORDER BY ' . implode(', ', $order_arr);
+                unset($order_arr);
+            }
+
+            // Limit
+            if ($this->limit > 0) {
+                $limit = ' LIMIT ' . (int)$this->limit;
+            }
+
+            // Offset
+            if ($this->offset > 0) {
+                $offset = ' OFFSET ' . (int)$this->offset;
+            }
+
+            if ( !empty($this->what_field) ) {
+                $what = $this->what_field;
+            } else {
+                $what = " `t`.* ";
+            }
+        }
+
+        $join_sql = "";
+        if ( !empty($this->join) ) {
+             foreach ($this->join as $join) {
+                $join_sql .= ' ' . strtoupper($join['joinType'])
+                    . ' JOIN `' . $join['joinTable'] . '` ' . $join['joinAlias']
+                    . ' ON ' . ((string) $join['joinCondition']);
+                if (is_array( $join['joinFields']) ){
+                    $what_arr = array();
+                    foreach ($join['joinFields'] as $key => $field) {
                         if (strstr($field, '(') !== false && strstr($field, ')') !== false) {
-						    $what_arr[] = $field . " as {$join['joinAlias']}_". sanitize_title_for_query($key);
+                            $what_arr[] = $field . " as {$join['joinAlias']}_". sanitize_title_for_query($key);
                         } else {
                             $what_arr[] = $join['joinAlias'] . ".`" . $field . "` as {$join['joinAlias']}_{$field}";
                         }
-					}
-					$what .= ", " . implode(", ", $what_arr);
-				}
-			 }
-		}				
-		
-		// Query
-		if ($only_count) {
-            $qurey_res = apply_filters('wporm_count_query', "SELECT COUNT(*) FROM `{$table}` t {$where};", $this->model);
-		} else {
-            $qurey_res = apply_filters('wporm_query', "SELECT {$what} FROM `{$table}` t {$join_sql} {$where}{$group}{$order}{$limit}{$offset};", $this->model);
+                    }
+                    $what .= ", " . implode(", ", $what_arr);
+                }
+             }
+        }
+
+        // Query
+        if ($only_count) {
+            $qurey_res = apply_filters('wporm_count_query', "SELECT COUNT(*) FROM `{$table}` t {$where};", $table);
+        } else {
+            $qurey_res = apply_filters('wporm_query', "SELECT {$what} FROM `{$table}` t {$join_sql} {$where}{$group}{$order}{$limit}{$offset};", $table);
         }
 
         return $qurey_res;
-	}
+    }
 	
 	/**
 	 * check errors, and record into file

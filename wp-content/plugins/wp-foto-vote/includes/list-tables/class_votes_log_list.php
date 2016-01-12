@@ -1,5 +1,7 @@
 <?php
 
+require_once FV::$INCLUDES_ROOT . 'libs/class-fv-wp-list-table.php';
+
 /************************** CREATE A PACKAGE CLASS *****************************
  *******************************************************************************
  * Create a new list table package that extends the core WP_List_Table class.
@@ -131,7 +133,7 @@ class FV_List_Votes_Log extends FV_WP_List_Table
             case 'soc_network':
                 return "<a href='{$item->soc_profile}' target='_blank' title='see profile'>" . $item->$column_name . ' / ' . $item->soc_uid . "</a>";
             case 'ip':
-                return "<a href='http://whatismyipaddress.com/ip/{$item->$column_name}' title='more info' target='_blank'>{$item->$column_name}</a> / {$item->country} / {$item->uid} / {$item->b_plugins}";
+                return "<a href='http://whatismyipaddress.com/ip/{$item->$column_name}' title='more info' target='_blank'>{$item->$column_name}</a> / {$item->country} / {$item->uid} / {$item->b_plugins}  / {$item->display_size}px";
             case 'vote_id':
                 return $item->$column_name . ' / ' . $item->competitor_name;
             case 'score':
@@ -216,7 +218,7 @@ class FV_List_Votes_Log extends FV_WP_List_Table
             'cb' => '<input type="checkbox" />', //Render a checkbox instead of text
             'contest_id' => __('Contest', 'fv'),
             'vote_id' => __('competitor', 'fv'),
-            'ip' => __('IP address / Country / Evercookie UID / Browser plugins', 'fv'),
+            'ip' => __('IP address / Country / Evercookie UID / Browser plugins / Display size[w/h]', 'fv'),
             'score' => __('Fraud score', 'fv'),
             'soc_network' => __('Soc. network/ Soc. user id', 'fv'),
             'user_id' => __('User id', 'fv'),
@@ -291,17 +293,17 @@ class FV_List_Votes_Log extends FV_WP_List_Table
         //Detect when a bulk action is being triggered...
         if ('delete' === $this->current_action()) {
             if (isset($_GET['votes_log']) && is_array($_GET['votes_log'])) {
-                $my_db = new FV_DB;
+                //$my_db = new FV_DB;
                 //$contestClass = new fvContestOptions();
                 foreach ($_GET['votes_log'] as $row_id) {
                     //$my_db->deleteLogVoteRow((int)$row_id);
                     ModelVotes::query()->delete($row_id);
                     //$contestClass->delete($contest_id);
                 }
-                wp_add_notice(__('Vote rows deleted (this did`t affects photo votes count).', 'fv'), "success");
+                wp_add_notice(__('Vote row(s) deleted (this don`t change photo votes count).', 'fv'), "success");
             } elseif (isset($_GET['votes_log']) && is_numeric($_GET['votes_log'])) {
                 ModelVotes::query()->delete((int)$_GET['votes_log']);
-                wp_add_notice(__('Row deleted (this did`t affects photo votes count).', 'fv'), "success");
+                wp_add_notice(__('Vote row(s) deleted (this don`t change photo votes count).', 'fv'), "success");
             }
         }
 
@@ -325,7 +327,7 @@ class FV_List_Votes_Log extends FV_WP_List_Table
      **************************************************************************/
     function prepare_items()
     {
-        $my_db = new FV_DB;
+        //$my_db = new FV_DB;
 
         /**
          * REQUIRED. Now we need to define our column headers. This includes a complete
@@ -386,8 +388,7 @@ class FV_List_Votes_Log extends FV_WP_List_Table
         $order = (!empty($_REQUEST['order'])) ? sanitize_text_field($_REQUEST['order']) : 'ASC'; //If no order, default to asc
 
         $query = ModelVotes::query()
-            ->order( $order )
-            ->sort_by( $orderby )
+            ->sort_by( $orderby, $order )
             ->limit(FV_RES_OP_PAGE)
             ->offset( ( $current_page - 1 ) * FV_RES_OP_PAGE )
             ->leftJoin( ModelContest::tableName(), "contest", "`t`.`contest_id` = `contest`.`id`", array("name") )

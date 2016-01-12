@@ -13,7 +13,7 @@
 
     <script>
         FvLib.addHook('doc_ready', function() {
-            var data = <?php echo FvFormHelper::get_form_structure(); ?>;
+            var data = <?php echo Fv_Form_Helper::get_form_structure(); ?>;
             var fb = new Formbuilder({
                 selector: '.fb-main',
                 bootstrapData: data.fields

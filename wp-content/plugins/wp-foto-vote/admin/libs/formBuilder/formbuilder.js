@@ -1147,7 +1147,7 @@ this["Formbuilder"]["templates"]["edit/save_to"] = function (obj) {
 	with (obj) {
 		__p += '<div class=\'fb-edit-section-header\'>Save to photo field</div>\n<select data-rv-value="model.' +
 			  ((__t = ( Formbuilder.options.mappings.SAVE_TO )) == null ? '' : __t) +
-			  '">\n  <option value="none">None</option>\n  ' +
+			  '">\n  <option value="none">Default (upload info)</option>\n  ' +
 			  '<option value="name">Name</option>\n  ' +
 			  '<option value="description">Description</option>\n  ' +
 			  '<option value="full_description">Full description</option>' +

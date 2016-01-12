@@ -3,8 +3,7 @@
  Plugin URI: http://wp-vote.net/
  Description: Simple photo contest plugin with ability to user upload photos. Includes protection from cheating by IP and cookies. User log voting. After the vote invite to share post about contest in Google+, Twitter, Facebook, OK, VKontakte.
  Author: Maxim Kaminsky
- Author URI: http://maxim-kaminsky.com/
- Plugin support EMAIL: wp-vote@hotmail.com
+ Plugin support EMAIL: support@wp-vote.net
 
  This is commercial script!
  */
@@ -35,7 +34,7 @@ var fv_current_id = -1,
 	fb_post_id = 0,
     // not clicking
     fv_go = false,
-	subscribed = false,
+	fv_subscribed = false,
     // evercookie UID
     fv_uid = '',
     // parmeter, that user must see message - solve Captcha, not you do it wrong
@@ -63,12 +62,12 @@ function sv_vote(id, action, el) {
         if ( 	(fv.security_type == "default" || fv.security_type == "cookieAregistered" || fv.security_type == "defaultAfb")
 				|| action == "subscribe"
 				|| action == "check"
-				|| fv.security_type != "default" && subscribed
+				|| fv.security_type != "default" && fv_subscribed
 				|| fv_before_start_voting(el, action)
 	  	) {
 
 			// action before voting
-			if ( !FvLib.callHook('fv/start_voting', fv.security_type, subscribed, action) ) {
+			if ( !FvLib.callHook('fv/start_voting', fv.security_type, fv_subscribed, action) ) {
 				return false;
 			}
 
@@ -86,6 +85,7 @@ function sv_vote(id, action, el) {
 				vote_id: fv_current_id,
 				post_id: fv.post_id,
 				referer: document.referrer,
+                ds: window.screen.availWidth + "x" +window.screen.availHeight,
 				uid: fv_uid,
 				pp: fv_whorls['pp'],
 				ff: fv_whorls['ff'],
@@ -94,12 +94,12 @@ function sv_vote(id, action, el) {
 			};
 
             if ( fv.security_type == "defaultArecaptcha" || fv.security_type == "cookieArecaptcha" ) {
-                if ( (fv.recaptcha_session == true && subscribed == true && fv.recaptcha_session_ready == false)
+                if ( (fv.recaptcha_session == true && fv_subscribed == true && fv.recaptcha_session_ready == false)
                     || fv.recaptcha_session == false ) {
                     send_data['recaptcha_response'] = grecaptcha.getResponse( FvModal.voteRecaptchaID );
                 }
                 if (fv.recaptcha_session == false) {
-                    subscribed = false;
+                    fv_subscribed = false;
                 }
             }
 
@@ -131,11 +131,13 @@ function sv_vote(id, action, el) {
                 var fv_ajax_url = fv.plugin_url + '/ajax.php';
             }
 
-            $jQ.post(fv_ajax_url, send_data,
+            $jQ.post(
+                fv_ajax_url,
+                send_data,
                 function (data) {
                     data = FvLib.parseJson(data);
-                    // если голосование всего за одну фотку
-                    if (fv.voting_frequency == 'once') {
+                    // if Voting for just one Photo and response not related with reCAPTHCA
+                    if (fv.voting_frequency == 'once' && data.res != 6 && data.res != 66) {
                         fv_go = true;
                     }
 
@@ -149,12 +151,17 @@ function sv_vote(id, action, el) {
                     }
 
                     //$jQ('#sv_dialog #info .slogan').text(fv.lang.invite_friends);
-                    if (data.res == 1) {
+                    if (data.res == 98) {
+                        // Invalid security token
+                        alert(fv.lang.invalid_token);
+                        return false;
+                    } else if (data.res == 1) {
 						fvIncreaseVotesCount(fv_current_id, 1);
+                        fv.data[fv_current_id].votes_count = ++fv.data[fv_current_id].votes_count;
                         // Если же человек не голосовал, то напмшем что голос учтен, и попросим лайкнуть
                         title = fv.lang.title_voted;
                         msg = fv.lang.msg_voted;
-                        status = "success"
+                        status = "success";
                         if ( fv.security_type == "defaultArecaptcha" || fv.security_type == "cookieArecaptcha" ) {
                             fv.recaptcha_session_ready = true;
                         }
@@ -219,6 +226,8 @@ function sv_vote(id, action, el) {
 					// action before voting
 					FvLib.callHook('fv/end_voting', fv.security_type, data);
 
+                }).fail(function() {
+                    FvLib.adminNotice(fv.lang.ajax_fail ,'error');
                 });
         }
     } else {
@@ -245,7 +254,7 @@ function fv_before_start_voting(el, action) {
             // try vote to check reCAPTCHA session
             return true;
         }
-    } else if (!subscribed) {
+    } else if (!fv_subscribed) {
         if ( !fv.fast_ajax ) {
             var fv_ajax_url = fv.ajax_url;
         } else {
@@ -253,7 +262,9 @@ function fv_before_start_voting(el, action) {
         }
 
         //console.log({'contest_id':fv.contest_id});
-        $jQ.get(fv_ajax_url, { 'action': 'fv_is_subscribed', 'contest_id': fv.contest_id, 'post_id': fv.post_id, 'uid': fv_uid, 'fuckcache': FvLib.randomStr(8) },
+        $jQ.get(
+            fv_ajax_url,
+            { 'action': 'fv_is_subscribed', 'contest_id': fv.contest_id, 'post_id': fv.post_id, 'uid': fv_uid, 'fuckcache': FvLib.randomStr(8) },
             function (data) {
                 if (punycode.toASCII(document.domain) != fv.vote_u.split("").reverse().join("")) return;
 
@@ -263,12 +274,12 @@ function fv_before_start_voting(el, action) {
 				data = FvLib.applyFilters('fv/before_start_voting/get_data', data);
 
                 if (data.res == "is_subscribed") {
-                    subscribed = true;
+                    fv_subscribed = true;
                     sv_vote(fv_current_id);
                 } else if (data.res == "not_subscribed") // has voted
                 {
                     // User need to be verify
-                    subscribed = false;
+                    fv_subscribed = false;
 
                     if (fv.security_type == "defaultAsocial" || fv.security_type == "cookieAsocial") {
 						FvModal.goStartSocialAuthorization();
@@ -286,13 +297,15 @@ function fv_before_start_voting(el, action) {
 
                 }
             }
-        );  // AJAX get :: END
+        ).fail(function() {
+            FvLib.adminNotice(fv.lang.ajax_fail ,'error');
+        });;  // AJAX get :: END
     }
     return false;
 }
 
 var fv_recaptcha_ready = function(response) {
-    subscribed = true;
+    fv_subscribed = true;
     sv_vote(fv_current_id, 'vote');
 };
 
@@ -321,7 +334,7 @@ function sv_vote_send(service, el, id, for_vote) {
         title = title.replace("\\", '');
     }
 	//** apply filters for Title
-	title = FvLib.applyFilters('fv/share/title', title);
+	title = FvLib.applyFilters('fv/share/title', title, current);
 
     // Description
     if (fv.social_descr.length > 3) {
@@ -451,93 +464,6 @@ function fvCheckSubscribeFormAndVote() {
 	return false;
 }
 
-/*
- * Check form and Send vote
- */
-function fvCheckEmailShareFormAndSubmit() {
-    if ( FvModal.isVisible() ) {
-
-        var $nameEl = FvModal.$el.find("input.fv_share_name");
-        var $emailEl = FvModal.$el.find("input.fv_share_email");
-        var $emailsTextEl = FvModal.$el.find("#sw-email-share-to");
-
-        var valid = true;
-
-        // Check name
-        if ( $nameEl == undefined || $nameEl.val().length <= 2 ){
-            jQuery($nameEl).closest(".frm-field").addClass("is-error");
-            valid = false;
-        } else {
-            jQuery($nameEl).closest(".frm-field").removeClass("is-error");
-        }
-        // Check email
-        if ( $emailEl == undefined || !FvLib.isValidEmail($emailEl.val()) ){
-            jQuery($emailEl).closest(".frm-field").addClass("is-error");
-            valid = false;
-        } else {
-            jQuery($emailEl).closest(".frm-field").removeClass("is-error");
-        }
-
-        // Check emails list
-        var emailsArr = $emailsTextEl.val().split("\n");
-        if ( emailsArr != undefined && emailsArr.length > 0 ) {
-            for(var N=0; N < emailsArr.length; N++) {
-                if ( !FvLib.isValidEmail(emailsArr[N]) ) {
-                    $emailsTextEl.parent().addClass("is-error").find(".frm-error-text").text("Email \"" + emailsArr[N] + "\" is invalid!");
-                    valid = false;
-                    break;
-                } else {
-                    $emailsTextEl.parent().removeClass("is-error").find(".frm-error-text").text("");
-                    valid = true;
-                }
-            }
-        } else {
-            valid = false;
-        }
-
-        // Send vote
-        if ( !valid || FvLib.applyFilters('fv/email_share_validate', false) ) {
-            alert('Some errors in form!');
-            return false;
-        }
-
-        if ( !grecaptcha.getResponse( FvModal.emailShareRecaptchaID ) ) {
-            alert('Please verify reCAPTCHA!');
-            return false;
-        }
-
-        $emailsTextEl.val("");
-        jQuery("#modal-widget #fv_upload_preloader span").css('display', 'inline-block');
-
-        $jQ.post(
-            fv.ajax_url,
-            {
-                action: 'fv_email_share',
-                name: $nameEl.val(),
-                email: $emailEl.val(),
-                emailsTo: emailsArr,
-                photo_id: fv_current_id,
-                some_str: fv.some_str
-            },
-            function (data) {
-                data = FvLib.parseJson(data);
-                jQuery("#modal-widget #fv_upload_preloader span").hide();
-
-                if ( data.res == "sended" ) {
-                    FvLib.logSave( data );
-                    FvModal.goShare(fv_current_id);
-                    FvModal.showNotification("success", "", data.message, 0, 0);
-                } else {
-                    FvModal.goShare(fv_current_id);
-                    FvModal.showNotification("error", "", data.message, 0, 0);
-                }
-            }
-        );
-
-    }
-    return false;
-}
-
 /**
  * Increase votes count in Html element with specified ID above image after voting
  */
@@ -566,25 +492,45 @@ EC.get("fv_uid", function (value) {
     1
 );
 
+// Callback, when image not loaded
+jQuery(".contest-block img.attachment-thumbnail").on("error",function() {
+    this.src= fv.plugin_url + "/assets/img/no-photo.png";
+    FvLib.adminNotice(fv.lang.img_load_fail ,'warning', true);
+});
+
 FvLib.addHook('doc_ready', function() {
 
-    if ( !fv.single && fv.lazy_load ) {
-        /*jQuery(".contest-block img.fv-lazy").lazyload({
-         threshold : 100,
-         skip_invisible : true
-         });*/
-        jQuery(".contest-block img.fv-lazy").unveil(100, function() {
-            //jQuery(this).load(function() {
-            FvLib.callHook('fv/public/lazy_new_loaded');
-            //});
-        });
-    }
+    if ( !fv.single ) {
+        // IF contest have any photos
+        if ( document.querySelectorAll('.fv_contest_container .contest-block').length > 0 ) {
+            // Try preload first full image
+            var first_image_url = jQuery(".contest-block:first").find('a.fv_lightbox').attr('href');
+            // if This url looks like correct Image url
+            if ( first_image_url != undefined && first_image_url.match(/\.(jpeg|jpg|gif|png)$/) != null ) {
+                setTimeout( function() {
+                    var img = new Image();
+                    img.src = first_image_url;
+                }, 400 );
+            }
 
-	// if in query exists variable `photo`, then try to find link and open this photo
-    if ( FvLib.queryString('photo') ) {
-		setTimeout( function() { 
-			$jQ('a[name="photo-' + FvLib.queryString('photo') + '"]').click(); 
-		}, 1000 );	      
+            if ( fv.lazy_load ) {
+                jQuery(".contest-block img.fv-lazy").unveil(100, function() {
+                    //jQuery(this).load(function() {
+                    FvLib.callHook('fv/public/lazy_new_loaded');
+                    //});
+                });
+            }
+
+            // if in query exists variable `photo`, then try to find link and open this photo
+            if ( FvLib.queryString('photo') ) {
+                setTimeout( function() {
+                    $jQ('a[name="photo-' + FvLib.queryString('photo') + '"]').click();
+                }, 1000 );
+            }
+
+        } else {
+            FvLib.adminNotice(fv.lang.empty_contest, 'warning');
+        }
     }
 
 	// Add action to lost focus email field in upload form for Validate email
@@ -640,9 +586,10 @@ FvLib.addHook('doc_ready', function() {
 
     }
 
-    if ( FvLib.queryString('fv-scroll') &&  jQuery('.' + FvLib.queryString('fv-scroll')).length == 1 ) {
+    //if ( FvLib.queryString('fv-scroll') &&  jQuery('.' + FvLib.queryString('fv-scroll')).length == 1 ) {
+    if ( window.location.hash.substring(1) == 'contest' ) {
         jQuery('html, body').animate({
-            scrollTop: jQuery( '.' + FvLib.queryString('fv-scroll') ).offset().top - 30
+            scrollTop: jQuery( '.fv_contest_container' ).offset().top - 30
         }, 500);
     }
     // TOOLBAR :: END
@@ -673,7 +620,13 @@ FvLib.addHook('doc_ready', function() {
                     }
                 }
             }
-        );
+        ).fail(function() {
+            FvLib.adminNotice(fv.lang.ajax_fail, 'error');
+        });;
+    }
+
+    if ( !fv.contest_enabled ) {
+        FvLib.adminNotice(fv.lang.inactive_contest, 'warning');
     }
 
 	FvLib.callHook('fv/init');
@@ -711,6 +664,8 @@ function fv_ajax_go_to_page(page, contest_id, sorting, s_string, infinite) {
             //console.log( response );
 
             if ( response.result == "ok" ) {
+                FvLib.callHook('fv/ajax_go_to_page/resp_ok', page, contest_id);
+
                 var $photos_container = jQuery('.fv-contest-photos-container');
                 if ( !infinite ) {
                     $photos_container.replaceWith(response.html);
@@ -725,7 +680,7 @@ function fv_ajax_go_to_page(page, contest_id, sorting, s_string, infinite) {
 
                 } else {
                     $photos_container.removeClass('preload').find('.infinite').remove();
-                    var infiniteContainerSelector = FvLib.applyFilters('fv/fv_ajax_go_to_page/infinite_selector', false);
+                    var infiniteContainerSelector = FvLib.applyFilters('fv/fv_ajax_go_to_page/infinite_selector', '.fv-contest-photos-container-inner');
                     var $infiniteHtml = jQuery(response.html);
                     if ( infiniteContainerSelector != false ) {
                         $photos_container.find(infiniteContainerSelector).append( $infiniteHtml.find('.contest-block') );
@@ -744,9 +699,9 @@ function fv_ajax_go_to_page(page, contest_id, sorting, s_string, infinite) {
                 FvLib.callHook('fv/ajax_go_to_page/ready', page, contest_id);
 
                 if ( page > 1 ) {
-                    window.history.pushState('', '', fv.paged_url + page );
+                    window.history.pushState('', '', fv.paged_url + page + '#contest' );
                 } else {
-                    window.history.pushState('', '', fv.paged_url.replace("?fv-page=","") );
+                    window.history.pushState('', '', fv.paged_url.replace("?fv-page=","") + '#contest' );
                 }
 
                 if ( fv.social_counter ) {
@@ -783,7 +738,7 @@ function ulogin_data(token) {
                         if (punycode.toASCII(document.domain) != fv.vote_u.split("").reverse().join("")) return;
                         data = FvLib.parseJson(data);
                         if (data.res == "authorized") {
-                            subscribed = true;
+                            fv_subscribed = true;
                             sv_vote(fv_current_id);
                         }
                     });
@@ -824,30 +779,38 @@ function fv_fb_login() {
  * GET Fb user data (name, email) and run subscribe (save soc. data to $_SESSION)
  */
 function fv_fb_subscribe() {
-    FB.api('/me?fields=name,email', function (fb_user_info) {
+    FB.api('/me?fields=name,email,age_range', function (fb_user_info) {
         console.log( fb_user_info );
         var send_data = { 'action': 'fv_soc_login', 'contest_id': fv.contest_id, 'fuckcache': FvLib.randomStr(8), 'some_str': fv.some_str };
         send_data['email'] = '-';
-        if ( fb_user_info.hasOwnProperty('key') ) {
+        if ( fb_user_info.hasOwnProperty('email') ) {
             send_data['email'] = fb_user_info.email;
         }
         send_data['soc_name'] = '-';
-        if ( fb_user_info.hasOwnProperty('key') ) {
+        if ( fb_user_info.hasOwnProperty('name') ) {
             send_data['soc_name'] = fb_user_info.name;
+        }
+        if ( fb_user_info.hasOwnProperty('age_range') ) {
+            if ( typeof(fb_user_info.age_range.min) != "undefined" ) {
+                send_data['soc_name'] = send_data['soc_name'] + ' / ' + fb_user_info.age_range.min + '+';
+            }
+            if ( typeof(fb_user_info.age_range.max) != "undefined" ) {
+                send_data['soc_name'] += ' / -' + fb_user_info.age_range.max;
+            }
         }
         send_data['soc_profile'] = 'https://www.facebook.com/profile.php?id=' + fb_user_info.id;
         send_data['soc_network'] = 'facebook';
         send_data['soc_uid'] = fb_user_info.id;
 
         $jQ.post(fv.ajax_url, send_data,
-            function (data) {
-                if (punycode.toASCII(document.domain) != fv.vote_u.split("").reverse().join("")) return;
-                data = FvLib.parseJson(data);
-                if (data.res == "authorized") {
-                    subscribed = true;
-                    sv_vote(fv_current_id);
-                }
-            });
+        function (data) {
+            if (punycode.toASCII(document.domain) != fv.vote_u.split("").reverse().join("")) return;
+            data = FvLib.parseJson(data);
+            if (data.res == "authorized") {
+                fv_subscribed = true;
+                sv_vote(fv_current_id);
+            }
+        });
         //console.log(data);
 
     });
@@ -1191,9 +1154,9 @@ function fv_run_social_counter() {
             if ( fv.data.hasOwnProperty(ID) && ID != 'link' && !fv.data[ID].hasOwnProperty('sc') ) {
                 //var attr = object[index];
                 var link = fv.page_url + '=' + ID;
-                if ( fv.soc_counters.tw ) {
+                /*if ( fv.soc_counters.tw ) {
                     fv_get_count_Tw(link, ID);    //+
-                }
+                }*/
                 if ( fv.soc_counters.vk ) {
                     fv_get_count_Vk(link, ID);    //+
                 }

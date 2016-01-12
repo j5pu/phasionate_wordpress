@@ -36,6 +36,10 @@ Settings icons
     content: '\e086';
 }
 
+#fv-setting-page .fv-tabs-navigation a[data-content='leaders']::before {
+    content: '\e106';
+}
+
 #fv-setting-page .fv-tabs-navigation a[data-content='upload']::before {
     content: "\e07b";
 }
@@ -49,7 +53,7 @@ Settings icons
 }
 
 #fv-setting-page .fv-tabs-content {
-    max-width: 70em;
+    /*max-width: 70em;*/
 }
 
 
@@ -101,8 +105,8 @@ Translation icons
     content: "\f157";
 }
 
-#fv_translation .fv-tabs-navigation a[data-content='email_share_form']::before {
-     content: "\f466";
+#fv_translation .fv-tabs-navigation a[data-content='leaders']::before {
+    content: "\f204";
 }
 
 #fv_translation .fv-tabs-navigation a[data-content='soc_authorization']::before {

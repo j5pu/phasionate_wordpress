@@ -1,5 +1,6 @@
 <?php
 
+require_once FV::$INCLUDES_ROOT . 'libs/class-fv-wp-list-table.php';
 
 /************************** CREATE A PACKAGE CLASS *****************************
  *******************************************************************************
@@ -220,7 +221,6 @@ class FV_List_Contests extends FV_WP_List_Table {
         
         //Detect when a bulk action is being triggered...
         if( 'delete'===$this->current_action() ) {
-            //var_dump($_GET);
             if ( isset($_GET['contest']) && is_array($_GET['contest']) ) {
                 $contestClass = new FV_Contest();                                 
                 foreach ($_GET['contest'] as $contest_id) {

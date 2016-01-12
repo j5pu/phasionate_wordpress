@@ -11,7 +11,7 @@
         <form>
             <div class="row">
                 <div class="form-group col-sm-18">
-                        <label><?php echo __('Name', 'fv') ?></label> <small>max length - 255 symbols</small>
+                        <label><?php echo __('Name', 'fv') ?></label> <small>max length - 255 chars, no html allowed</small>
                         <input class="form-control" name="form[name]" type="text" value="<?php echo stripslashes($unit->name) ?>" />
                 </div>
 
@@ -21,24 +21,33 @@
                 </div>
             </div>
 
-            <div style="clear: both;"></div>
+            <div class="clearfix"></div>
 
             <div class="form-group">
-                <label> <?php echo __('Short Description', 'fv') ?> </label> <small>max length - 500 symbols <?php echo __('(shows in photos list)', 'fv') ?></small>
-                <input name="form[description]" class="form-control" type="text" value="<?php echo stripslashes($unit->description) ?>" />
+                <label> <?php echo __('Short description', 'fv') ?> </label> <small>max length - 500 chars,
+                    html allowed like
+                    <a href="https://core.trac.wordpress.org/browser/trunk/src/wp-includes/kses.php#L60" target="_blank">in post</a>
+                    <?php echo __('(shows in photos list)', 'fv') ?></small>
+                <input name="form[description]" class="form-control" type="text" value="<?php echo esc_attr( stripslashes($unit->description) ) ?>" onkeyup="fv_count_chars(this);"/>
+                <span class="need-count-chars"><?php echo mb_strlen(stripslashes($unit->description)); ?></span>
             </div>
             <div class="form-group">
-                <label> <?php echo __('Full description', 'fv') ?> </label> <small>max length - 1255 symbols <?php echo __('(shows in single contest photo page)', 'fv') ?></small>
-                <textarea name="form[full_description]" class="form-control" rows="2"><?php echo stripslashes($unit->full_description) ?></textarea>
+                <label> <?php echo __('Full description', 'fv') ?> </label> <small>max length - 1255 chars,
+                    html allowed like
+                    <a href="https://core.trac.wordpress.org/browser/trunk/src/wp-includes/kses.php#L60" target="_blank">in post</a>
+                    <?php echo __('(shows in single contest photo page)', 'fv') ?></small>
+                <textarea name="form[full_description]" class="form-control" rows="3" onkeyup="fv_count_chars(this);"><?php echo  esc_attr( stripslashes($unit->full_description) ) ?></textarea>
+                <span class="need-count-chars"><?php echo mb_strlen(stripslashes($unit->full_description)); ?></span>
             </div>
 
             <div class="form-group">
-                <label> <?php echo __('Social description', 'fv') ?> </label> <small>max length - 150 symbols <?php echo __('(uses on sharing image into Social networks)', 'fv') ?></small>
+                <label> <?php echo __('Social description', 'fv') ?> </label> <small>max length - 150 chars, no html allowed
+                    <?php echo __('(uses on sharing image into Social networks)', 'fv') ?></small>
                 <input name="form[social_description]" class="form-control" type="text" value="<?php echo stripslashes($unit->social_description) ?>" />
             </div>
 
             <!--<div class="form-group">
-                    <label><?php echo __('Additional filed', 'fv') ?></label> <small>max length - 500 symbols </small>
+                    <label><?php echo __('Additional filed', 'fv') ?></label> <small>max length - 500 chars </small>
                     <input name="form[additional]" class="form-control" type="text" value="<?php //echo $unit->additional ?>" />
             </div>-->
 
@@ -85,7 +94,7 @@
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel and close</button>
     <button type="button" class="btn btn-primary" onclick="fv_save_contestant(this, <?php echo $unit->contest_id ?>); return false;">
         <?php echo __('Save', 'fv') ?>
     </button>

@@ -6,6 +6,13 @@
 
 defined('ABSPATH') or die("No script kiddies please!");
 
+if( ! function_exists("mb_strlen") ){
+	function mb_strlen($string, $encoding) {
+	    //then one solution for that i.e:
+		return strlen($string);
+	}
+}
+
 if( ! function_exists("json_last_error") ){
 	function json_last_error() {
 	//then one solution for that i.e:
@@ -14,6 +21,25 @@ if( ! function_exists("json_last_error") ){
 }
 if ( !defined ('JSON_ERROR_NONE') ) {
 	define('JSON_ERROR_NONE', 99);
+}
+
+
+/**
+ * Check if sting $rgba contains "rgb" or "hsv" else return $default
+ *
+ * @param string $rgba
+ * @param string $default
+ *
+ * @return string
+ */
+
+function fv_get_if_looks_rgba ($rgba, $default) {
+    if ( empty($rgba) || strpos($rgba, 'rgb') === false ) {
+        // looks like wrong
+        return $default;
+    }
+    // looks like correct
+    return $rgba;
 }
 
 function fv_add_update_message( $plugin_data, $r ) {
@@ -97,7 +123,7 @@ function fv_get_sotring_types_arr()
 
 function fv_get_themes_arr()
 {
-    return apply_filters( FV::PREFIX . 'themes_list_array',  array(
+    return apply_filters( 'fv_themes_list_array',  array(
             'pinterest' => 'Pinterest',
             'flickr' => 'Flickr',
             'default' => 'Default',
@@ -135,9 +161,31 @@ function fv_get_user_ip() {
 
 // Get user country by IP - not uses now
 function fv_get_user_country($ip) {
+    // *TODO may be move this code to JS
+    //echo 'fv_get_user_country';
     if ( !fv_is_lc() ) {
-        $data = json_decode(file_get_contents('http://www.geoplugin.net/json.gp?ip='.$ip));
-        return $data->geoplugin_countryName;  // country name
+        // Get remote HTML file
+        $response = wp_remote_get( 'http://www.geoplugin.net/json.gp?ip='.$ip );
+
+        // Check for error
+        if ( is_wp_error( $response ) ) {
+            fv_log('get_user_country - ERROR');
+            return 'unknown';
+        }
+
+        // Parse remote HTML file
+        $data = wp_remote_retrieve_body( $response );
+
+        // Check for error
+        if ( is_wp_error( $data ) ) {
+            return 'unknown';
+        }
+
+        $data = json_decode($data);
+        if ( is_object($data) ) {
+            return $data->geoplugin_countryName;  // country name
+        }
+        return 'unknown';
     } else {
         return 'localhost';  // localhost
     }
@@ -211,7 +259,7 @@ function fv_get_paginate_url($url, $page_content = ''){
         $url = get_permalink();
     }
     $url = remove_query_arg( 'photo', $url );
-    $url = remove_query_arg( 'fv-scroll', $url );
+    //$url = remove_query_arg( 'fv-scroll', $url );
     $url = remove_query_arg( 'fv-page', $url );
 
     // add sorting var
@@ -225,16 +273,17 @@ function fv_get_paginate_url($url, $page_content = ''){
         $url = remove_query_arg( 'fv-filter', $url );
         $url = add_query_arg( 'fv-filter', addslashes($_GET['fv-filter']), $url );
     }
-
+/*
+    if ( FvFunctions::ss('pagination-scroll-to-contest', false) ) {
+        $url .= '&fv-scroll=fv_contest_container';
+    }
+*/
     if ( strpos($url, '?') === false ) {
         $url .= '?fv-page=' . $page_content;
     } else {
         $url .= '&fv-page=' . $page_content;
     }
 
-    if ( FvFunctions::ss('pagination-scroll-to-contest', false) ) {
-        $url .= '&fv-scroll=fv_contest_container';
-    }
 	return  $url;
 }
 
@@ -678,7 +727,7 @@ function fv_generate_contestant_link($contest_id, $link = '', $photo_id = false)
 		}
 		$page_url = remove_query_arg( 'photo', $link );
 		$page_url = remove_query_arg( 'contest_id', $page_url );
-		$page_url = remove_query_arg( 'fv-scroll', $page_url );
+		//$page_url = remove_query_arg( 'fv-scroll', $page_url );
 
         // add page ID
         if ( isset($_GET['fv-page']) && $_GET['fv-page'] > 1 ) {
@@ -690,7 +739,7 @@ function fv_generate_contestant_link($contest_id, $link = '', $photo_id = false)
             $page_url = add_query_arg( 'fv-sorting', sanitize_title($_GET['fv-sorting']), $page_url );
         }
 
-        $page_url = add_query_arg( 'contest_id', $contest_id, $page_url );
+        //$page_url = add_query_arg( 'contest_id', $contest_id, $page_url );
         if ( $photo_id > 0 ) {
                 return add_query_arg( 'photo', $photo_id, $page_url );
         }else {
@@ -1157,8 +1206,8 @@ class FvFunctions {
          */
         public static function render_template( $template_path, $variables = array(), $return = false, $type = "theme", $require = 'always' ) {
 
-                $template_path = apply_filters( FV::PREFIX . 'template_path', $template_path, $type );
-                $variables = apply_filters( FV::PREFIX . 'template_variables', $variables, $type );
+                $template_path = apply_filters( 'fv_template_path', $template_path, $type );
+                $variables = apply_filters( 'fv_template_variables', $variables, $type );
 
                 if ( !file_exists($template_path)  ) {
                         FvLogger::addLog("Template file not exists!", $template_path);
@@ -1171,6 +1220,7 @@ class FvFunctions {
 
                 extract( $variables );
                 ob_start();
+
 
                 if ( 'once' == $require ) {
                         include_once ( $template_path );
@@ -1223,23 +1273,27 @@ class FvFunctions {
          * @return string
          */
         public static function get_theme_path( $theme, $file_in_theme, $recurs = false ) {
+                static $theme_path = array();
+                if ( empty($theme_path[$file_in_theme]) ) {
+                    $theme_path[$file_in_theme] = apply_filters(
+                        'fv_theme_path',
+                        trailingslashit( FV::$THEMES_ROOT . $theme ) . $file_in_theme ,
+                        $theme,
+                        $file_in_theme
+                    );
+                    //var_dump($theme_path);
+                }
 
-                $theme_path = apply_filters(
-                    FV::PREFIX . 'theme_path',
-                    trailingslashit( FV::$THEMES_ROOT . $theme ) . $file_in_theme ,
-                    $theme,
-                    $file_in_theme
-                );
                 // for leave support old field names in Themes as `unit.php` and `item.php`
-                if ( !file_exists($theme_path) && !$recurs ) {
+                if ( !file_exists($theme_path[$file_in_theme]) && !$recurs ) {
                     if ( $file_in_theme == "list_item.php" ){
-                        $theme_path = self::get_theme_path($theme, "unit.php", true);
+                        $theme_path[$file_in_theme] = self::get_theme_path($theme, "unit.php", true);
                     } elseif ( $file_in_theme == "single_item.php" ) {
-                        $theme_path = self::get_theme_path($theme, "item.php", true);
+                        $theme_path[$file_in_theme] = self::get_theme_path($theme, "item.php", true);
                     }
                 }
 
-                return $theme_path;
+                return $theme_path[$file_in_theme];
         }
 
         /**
@@ -1253,12 +1307,17 @@ class FvFunctions {
          * @return string
          */
         public static function get_theme_url( $theme, $file_in_theme ) {
-                return apply_filters(
-                    FV::PREFIX . 'theme_url',
-                    trailingslashit( FV::$THEMES_ROOT_URL . $theme ) . $file_in_theme ,
-                    $theme,
-                    $file_in_theme
-                );
+                static $theme_url = array();
+
+                if ( empty($theme_url[$file_in_theme]) ) {
+                    $theme_url[$file_in_theme] =  apply_filters(
+                        'fv_theme_url',
+                        trailingslashit( FV::$THEMES_ROOT_URL . $theme ) . $file_in_theme ,
+                        $theme,
+                        $file_in_theme
+                    );
+                }
+                return $theme_url[$file_in_theme];
         }
 
         /**
@@ -1313,7 +1372,7 @@ class FvFunctions {
          * @return void
          */
         public static function dump($var) {
-            return;
+            //return;
             //if ( fv_is_lc() OR ( FV::$DEBUG_MODE & FvDebug::LVL_CODE) ) {
                 echo '<pre>';
                     var_dump($var);
@@ -1416,7 +1475,8 @@ class FvFunctions {
         //class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'photon' )
 
         public static function getPhotoThumbnailArr($photoObj, $thumb_size = false) {
-            if ( apply_filters('fv/get_photo_thumbnail/wp', true) ) {
+
+            if ( apply_filters('fv/get_photo_thumbnail/wp', true, $photoObj) ) {
                 if ( $thumb_size == 'full' && !empty($photoObj->image_id) ) {
                     return wp_get_attachment_image_src( $photoObj->image_id, 'full' );
                 }
@@ -1430,7 +1490,7 @@ class FvFunctions {
                     $photonImgSrc = Jetpack_PostImages::fit_image_url($photoObj->url, get_option('fotov-image-width', 220), get_option('fotov-image-height', 220) );
                     return array( $photonImgSrc, get_option('fotov-image-width', 220), get_option('fotov-image-height', 220) );
                 }elseif ( FvFunctions::ss('thumb-retrieving', 'plugin_default') == 'plugin_default' ) {
-                    // Getting an attachment image with bfi_thumb & multiple parameters
+                    // Getting an attachment image with multiple parameters
                     if ( !is_array($thumb_size) ) {
                         $thumb_size = array(
                             'width' => get_option('fotov-image-width', 220),
@@ -1475,13 +1535,25 @@ class FvFunctions {
 
             // If image size exists let WP serve it like normally
             //$imagedata = wp_get_attachment_metadata( $id );
-
             $imagedata = get_post_meta( (int)$id, '_wp_attachment_metadata', true );
 
             // Image attachment doesn't exist
             if ( ! is_array( $imagedata ) ) {
                 fv_log('Error in retrieving image thumbnail, att ID:' . $id, $full_url, __FILE__, __LINE__);
                 return array( FV::$ASSETS_URL . 'img/no-photo.png', 440, 250, false );
+            }
+
+            if ( empty($imagedata['file']) ) {
+                $res = wp_get_attachment_image_src( $id, array($thumb_size['width'], $thumb_size['height']) );
+                if ( $res === false ) {
+                    return array( FV::$ASSETS_URL . 'img/no-photo.png', 440, 250, false );
+                }
+                return $res;
+            }
+
+            // FIX for Cloudinary
+            if ( strpos($full_url, 'cloudinary') !== FALSE ) {
+                return array($full_url, get_option('fotov-image-width', 220), get_option('fotov-image-height', 220));
             }
 
             /**
@@ -1643,16 +1715,20 @@ class FvFunctions {
                 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $response . '&remoteip=' . $remote_ip
             );
 
-            //var_dump($request);
+            // Check for error
+            if ( is_wp_error( $request ) ) {
+                fv_log('recaptcha_verify_response - ERROR', $request, __FILE__, __LINE__);
+                return 'error';
+            }
 
             // get the request response body
             $response_body = wp_remote_retrieve_body( $request );
             $resultArr = json_decode( $response_body, true );
+            //var_dump($resultArr);
 
             if ( $resultArr['success'] == false && isset($resultArr['error-codes']) ) {
                 fv_log('Recaptcha error!', $resultArr['error-codes'], __FILE__, __LINE__);
             }
-
             /*
              {
                   "success": false,
@@ -1662,7 +1738,6 @@ class FvFunctions {
                   ]
                 }
              */
-
             return $resultArr['success'];
         }
 

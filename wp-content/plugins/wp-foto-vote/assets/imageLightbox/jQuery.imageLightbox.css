@@ -106,6 +106,7 @@ html
 
     -webkit-transition: color .3s ease;
     transition: color .3s ease;
+    border: 1px solid #ccc;
 }
     #imagelightbox-close:hover,
     #imagelightbox-close:focus
@@ -164,6 +165,7 @@ html
         line-height: 1;
         padding: 0;
         display: inline-block;
+        border: 1px solid #ccc;
     }
 
     #imagelightbox-actions button:hover,
@@ -237,6 +239,7 @@ html
     top: 50%;
     margin-top: -3.75em; /* 60 */
     border-radius: 0;
+    border: 1px solid #ccc;
 }
     .imagelightbox-arrow:hover,
     .imagelightbox-arrow:focus

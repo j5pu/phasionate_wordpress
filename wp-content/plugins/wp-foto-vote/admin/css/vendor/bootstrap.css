@@ -4169,7 +4169,7 @@
 .modal-open {
     overflow: hidden;
 }
-.modal {
+.toplevel_page_fv .modal, .modal {
     display: none;
     overflow: hidden;
     position: fixed;
@@ -4180,6 +4180,9 @@
     z-index: 1050;
     -webkit-overflow-scrolling: touch;
     outline: 0;
+    width: auto;
+    margin-left: auto;
+    background-color: transparent;
 }
 .modal.fade .modal-dialog {
     -webkit-transform: translate(0, -25%);
@@ -4276,7 +4279,7 @@
 }
 @media (min-width: 768px) {
     .b-wrap .modal-dialog {
-        width: 600px;
+        width: 650px;
         margin: 35px auto;
     }
     .b-wrap .modal-content {

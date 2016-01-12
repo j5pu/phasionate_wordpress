@@ -17,9 +17,7 @@ class FV_Activator {
 	 * @since    2.2.073
 	 */
 	public static function activate() {
-            $my_db = new FV_DB();
-            // upgrade tables
-            $my_db->install();
+        FV::install();
 	}
 
 }

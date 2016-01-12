@@ -6,7 +6,7 @@
  * @subpackage FV/includes
  * @author     Maxim K <wp-vote@hotmail.com>
  */
-class FvFormHelper {
+class Fv_Form_Helper {
 
     /**
      * Is theme supports leaders block
@@ -62,7 +62,7 @@ class FvFormHelper {
 
     public static function _get_photo_data_from_POST($form_data, $structure) {
         if ( !is_object($structure) && !isset($structure->fields) ) {
-            FvLogger::addLog('FvFormHelper::_get_photo_email_from_POST - $structure error');
+            FvLogger::addLog('Fv_Form_Helper::_get_photo_email_from_POST - $structure error');
         }
         //var_dump($form_data);
         //var_dump($structure);
@@ -71,7 +71,7 @@ class FvFormHelper {
         foreach($structure->fields as $field) {
 
             if ( !isset($form_data[$field->cid]) ) {
-                //FvLogger::addLog('FvFormHelper::_get_photo_email_from_POST field not exists in $form_data - ' . $field->cid);
+                //FvLogger::addLog('Fv_Form_Helper::_get_photo_email_from_POST field not exists in $form_data - ' . $field->cid);
                 continue;
             }
             if ( is_array($form_data[$field->cid]) ) {
@@ -182,7 +182,7 @@ class FvFormHelper {
     public static function display_field($field, $c, $contest) {
 
         if ( !isset($field->cid) ) {
-            FvLogger::addLog("FvFormHelper display_field error - no `cid` | Line: " . __LINE__);
+            FvLogger::addLog("Fv_Form_Helper display_field error - no `cid` | Line: " . __LINE__);
             return "Form error!";
         }
 
@@ -395,7 +395,7 @@ class FvFormHelper {
      */
     public static function _get_file_field_from_form_structure($form_structure=false) {
         if ( $form_structure === false ) {
-            $form_structure = FvFormHelper::get_form_structure_obj();
+            $form_structure = Fv_Form_Helper::get_form_structure_obj();
         }
         foreach($form_structure->fields as $field) {
             if ( $field->field_type == 'file' ) {

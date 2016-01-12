@@ -19,7 +19,7 @@
  * @subpackage FV/admin
  * @author     Maxim K <wp-vote@hotmail.com>
  */
-class FvPublicVote {
+class FV_Public_Vote {
 
     public static $vote_debug_var;
     /**
@@ -41,19 +41,19 @@ class FvPublicVote {
     {
         // not allow direct voting
         if ( !defined('WP_CACHE') || WP_CACHE == FALSE ) {
-            check_ajax_referer('fv_vote', 'some_str');
+            // Invalid WP security token
+            if ( false == check_ajax_referer('fv_vote', 'some_str', false) ) {
+                self::echoVoteRes(98, '', false);     // Wrong WP security token
+            }
         }
-
         //session_start();
         $my_db = new FV_DB;
 
         $ip = substr( fv_get_user_ip(), 0, 15 );
-        if (!isset($_POST['user_country'])) {
-            $user_country = fv_get_user_country($ip);
-        } else {
-            $user_country = sanitize_text_field($_POST['user_country']);
+        $user_country = '';
+        if (isset($_COOKIE['user_country'])) {
+            $user_country = sanitize_text_field($_COOKIE['user_country']);
         }
-
 
         $post_id = (int)$_POST['post_id'];
         if ( $post_id > 99999999 ) {
@@ -91,7 +91,7 @@ class FvPublicVote {
         // откуда пришёл голосующий
         $referer = sanitize_text_field(stripcslashes($_POST['referer']));
 
-        $contest = $my_db->getContest($contest_id);
+        $contest = ModelContest::query()->findByPK($contest_id);
 
         $user_id = get_current_user_id();
         // allow addons change security_type
@@ -100,6 +100,9 @@ class FvPublicVote {
         // Detect, need Subscription or not
         if ( in_array($contest->security_type, array("cookieAsocial", "defaultAsocial", "defaultAsubscr") )  )
         {
+            if (session_id() == '') {
+                session_start();
+            }
             $add_subscription = true;
         } else {
             $add_subscription = false;
@@ -132,7 +135,10 @@ class FvPublicVote {
             if ( $check_recaptcha_response ) :
                 if ( isset( $_POST['recaptcha_response']) ) {
                     $recaptcha_verify = FvFunctions::recaptcha_verify_response( $_POST['recaptcha_response'], $ip, FvFunctions::ss('recaptcha-secret-key') );
-                    if ( $recaptcha_verify == false ) {
+
+                    if ( $recaptcha_verify === 'error' ) {
+                        self::echoVoteRes(99, $user_country, $add_subscription);     // error
+                    } elseif ( $recaptcha_verify == false ) {
                         self::echoVoteRes(6, $user_country, $add_subscription);  // wrong reCAPTCHA
                     } elseif ( FvFunctions::ss('recaptcha-session', false) ) {
                         // Save session if enabled solve reCAPTCHA once in 30 minutes
@@ -148,14 +154,13 @@ class FvPublicVote {
             ENDIF;
         }
 
-        $add_subscription = apply_filters(FV::PREFIX . 'vote_contest_add_subscription', $add_subscription, $contest->security_type, $user_id);
+        $add_subscription = apply_filters('fv_vote_contest_add_subscription', $add_subscription, $contest->security_type, $user_id);
 
         if ( $user_id == 0 && $contest->security_type == "cookieAregistered" ) {
             die(fv_json_encode(array('res' => '5', 'user_country' => $user_country, 'add_subscription' => $add_subscription)));
         }
 
         // Дата страта и окончания
-        $konurs_enabled = false;
         $time_now = current_time( 'timestamp', 0 );
 
         /* Защита */
@@ -184,6 +189,7 @@ class FvPublicVote {
             'contest_id' => $contest_id,
             'post_id' => $post_id,
             'browser' => substr($_SERVER['HTTP_USER_AGENT'], 0, 250),
+            'display_size' => substr(sanitize_text_field($_POST['ds']), 0, 49),
             'referer' => substr($referer, 0, 250),
             'country' => substr($user_country, 0, 30),
             'name' => substr($name, 0, 49),
@@ -403,11 +409,12 @@ class FvPublicVote {
             }
 
         } else {
-            if ( strpos($contest->voting_frequency, 'once') !== false ){
+            if ( strpos($contest->voting_frequency, 'once') !== false && strpos($contest->voting_frequency, '24h') === false ){
                 self::echoVoteRes(2, $user_country, $add_subscription); // user was voted
             } else {
                 self::echoVoteRes(3, $user_country, $add_subscription, $hours_leave); // 24 hour not passed
             }
+
         }
         if ( $can_vote && $CHECK ) {
             self::echoVoteRes("can_vote", $user_country, $add_subscription); // can_vote
@@ -419,6 +426,11 @@ class FvPublicVote {
             } else {
                 $ip_data['score'] = '-1';
             }
+
+            if ( empty($user_country) ) {
+                $user_country = fv_get_user_country($ip);
+            }
+
             // try insert record
             $insert_res = ModelVotes::query()->insert($ip_data);
             if ( $insert_res == 0 ) {
@@ -452,7 +464,6 @@ class FvPublicVote {
      */
     public static function _get_vote_resp_code($contest, $check_ip, $check_ip_count)
     {
-
         // Processing data depending on voting frequency
         switch($contest->voting_frequency) {
             case ("once"):
@@ -461,21 +472,21 @@ class FvPublicVote {
                 }
                 break;
             case ("onceF2"):
-                if ( count($check_ip) < 2 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
+                if ( count($check_ip) < 2 && empty($check_ip_count) ) {
                     return TRUE;
                 } else {
                     return 2; // user was already voted
                 }
                 break;
             case ("onceF3"):
-                if ( count($check_ip) < 3 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
+                if ( count($check_ip) < 3 && empty($check_ip_count) ) {
                     return TRUE;
                 } else {
                     return 2; // user was already voted
                 }
                 break;
             case ("onceF10"):
-                if ( count($check_ip) < 10 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
+                if ( count($check_ip) < 10 && empty($check_ip_count) ) {
                     return TRUE;
                 } else {
                     return 2; // user was already voted
@@ -492,7 +503,7 @@ class FvPublicVote {
                 }
                 break;
             case ("24hF2"):
-                if ( count($check_ip) < 2 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
+                if ( count($check_ip) < 2 && empty($check_ip_count) ) {
                     return TRUE;
                 } else {
                     return 3; // 24 hour not passed
@@ -500,7 +511,7 @@ class FvPublicVote {
                 break;
             case ("24hF3"):
 
-                if ( count($check_ip) < 3 && isset($check_ip_count) && count($check_ip_count) == 0 ) {
+                if ( count($check_ip) < 3 && empty($check_ip_count) ) {
                     return TRUE;
                 } else {
                     return 3; // 24 hour not passed
@@ -530,17 +541,17 @@ class FvPublicVote {
         $contest_id = (int)$_GET['contest_id'];
         $UID = sanitize_text_field($_GET['uid']);
         $my_db = new FV_DB;
-        $contest = $my_db->getContest($contest_id);
-
-        $cookis = false;
-        // проверяем куку на подписку
-        if (isset($_COOKIE['fv_subscribed_' . $contest_id])) {
-            $cookis = true;
-        }
+        $contest = ModelContest::query()->findByPK($contest_id);
 
         $not_subscribed = true;
-        if (  !$cookis && is_object($contest)  ) {
-            if ( $contest->security_type == "defaultAsubscr" ) {
+        if (  is_object($contest)  ) {
+            $cookis = false;
+            // проверяем куку на подписку
+            if (isset($_COOKIE['fv_subscribed_' . $contest_id])) {
+                $cookis = true;
+            }
+
+            if ( !$cookis && $contest->security_type == "defaultAsubscr" ) {
                 $ip = fv_get_user_ip();
                 //global $wpdb;
                 $check_ip = $my_db->getIpInfo($ip, $UID);
@@ -555,6 +566,10 @@ class FvPublicVote {
                     }
                 }
             } else if ( $contest->security_type == "defaultAsocial" || $contest->security_type == "cookieAsocial" ) {
+                if (session_id() == '') {
+                    session_start();
+                }
+
                 if ( isset($_SESSION['fv_social']) ) {
                     $not_subscribed = false;
                 }
@@ -589,10 +604,13 @@ class FvPublicVote {
             if ( isset($_POST['email']) ) {
                 $_SESSION['fv_social']["email"] = sanitize_email($_POST['email']);
             }
+            if ( isset($_POST['soc_name']) ) {
+                $_SESSION['fv_social']["soc_name"] = $_POST['soc_name'];
+            }
             $_SESSION['fv_social']["soc_profile"] = $_POST['soc_profile'];
             $_SESSION['fv_social']["soc_network"] = $_POST['soc_network'];
             $_SESSION['fv_social']["soc_uid"] = $_POST['soc_uid'];
-            $_SESSION['fv_social']["soc_name"] = $_POST['soc_name'];
+            $_SESSION['fv_social']["soc_name"] = '';
         }
 
         //FvFunctions::dump($_SESSION['fv_social']);
@@ -614,13 +632,18 @@ class FvPublicVote {
      * @output json_array
      */
     static function echoVoteRes ($code, $user_country, $add_subscribsion, $hours_leave = false) {
-        if ( is_int($code) && $code > 1 && (FV::$DEBUG_MODE & FvDebug::LVL_CODE_VOTE) ) {
+        // IF error & code < 100 (> 100 need as example for Payments)
+        if ( is_int($code) && $code > 1 && $code < 100 && (FV::$DEBUG_MODE & FvDebug::LVL_CODE_VOTE) ) {
             $codes_description = array(
                 2 => 'Already voted',
                 3 => '24 hours not passed',
                 4 => 'date end',
                 5 => 'not authorized',
                 6 => 'wrong reCAPTCHA',
+                66 => 'need reCAPTCHA',
+                98 => 'invalid security token',
+                99 => 'error',
+                101 => 'need payment',
             );
 
             $curr_code_description = ' - ';

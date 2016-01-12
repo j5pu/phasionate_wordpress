@@ -1,10 +1,8 @@
 /*
  Plugin Name: WP Foto Vote
  Plugin URI: http://wp-vote.net/
- Description: Simple photo contest plugin with ability to user upload photos. Includes protection from cheating by IP and cookies. User log voting. After the vote invite to share post about contest in Google+, Twitter, Facebook, OK, VKontakte.
  Author: Maxim Kaminsky
  Author URI: http://maxim-kaminsky.com/
- Plugin support EMAIL: wp-vote@hotmail.com
  */
 
 /*
@@ -26,7 +24,7 @@ var FvModal = {
 		this.$msg = this.$el.find(".sw-message-box");
 		this.$msg_body = this.$el.find(".sw-message-box .sw-message-text");
 		this.$msg_title = this.$el.find(".sw-message-box .sw-message-title");
-		this.modalWidth = jQuery(this.selector + " .sw-share .sw-options li").length * 80;
+		this.modalWidth = this.$el.find(".sw-share .sw-options li").length * 80 + 20;
 	},
 
 	/*
@@ -52,29 +50,6 @@ var FvModal = {
 			jQuery(this.selector + " .sw-body #photo_id").width( FvModal.modalWidth - 60 );
 		}
 	},
-
-    /*
-     * Open modal with share buttons
-     */
-    goEmailShare: function (photo_id) {
-        if (photo_id !== undefined && photo_id > 0) {
-            fv_current_id = photo_id;
-        }
-        if ( this.emailShareRecaptchaID === false ) {
-            if ( fv.recaptcha_key == false ) {
-                alert("Recaptcha Api Error!");
-                return false;
-            }
-            this.emailShareRecaptchaID = grecaptcha.render('sw-email-share-g-recaptcha', {
-                'sitekey' : fv.recaptcha_key
-            });
-        }
-
-        jQuery(this.selector).width( jQuery(this.selector + " .sw-email-share").width() );
-        this.setTitle(fv.lang.title_email_share);
-
-        this.openWidget("email-share");
-    },
 
     /*
      * Open modal with Recaptcha
@@ -201,38 +176,29 @@ var FvModal = {
 				closeClass: 'modal-widget-close',
 				opacity: 0.77,
 				onOpen: function () {
-					jQuery(this.selector + " .sw-options li .sw-action").hide();
+                    if ( screen == 'share' ) {
+                        jQuery(this.selector + " .sw-options li .sw-action").hide();
 
-                    if ( FvLib.isMobile() ) {
-                        jQuery(this.selector + " h2, " + this.selector + " .sw-message-box").on('touchend', function () {
-                           FvModal.close();
-                        });
-                    } else {
-                        jQuery(this.selector + " .sw-options li").mouseenter(function () {
-                            FvModal.onOptionHover(this, "mouseenter");
-                        });
-                        jQuery(this.selector + " .sw-options li").mouseleave(function () {
-                            FvModal.onOptionHover(this, "mouseleave");
-                        });
+                        if ( FvLib.isMobile() ) {
+                            jQuery(this.selector + " h2, " + this.selector + " .sw-message-box").on('touchend', function () {
+                               FvModal.close();
+                            });
+                        } else {
+                            jQuery(this.selector + " .sw-options li").mouseenter(function () {
+                                FvModal.onOptionHover(this, "mouseenter");
+                            });
+                            jQuery(this.selector + " .sw-options li").mouseleave(function () {
+                                FvModal.onOptionHover(this, "mouseleave");
+                            });
+                        }
                     }
                     // Limit number of emails to 5
                     //if ( screen == 'email-share' ) {
-                        jQuery('#sw-email-share-to', this.$el).keyup(function()
-                        {
-                            var linesNumber = jQuery(this).val().split("\n").length;
-                            var allowedNumberOfLines = 5;
-
-                            if( linesNumber > allowedNumberOfLines )
-                            {
-                                modifiedText = jQuery(this).val().split("\n").slice( 0, allowedNumberOfLines );
-                                jQuery(this).val( modifiedText.join("\n") );
-                            }
-                        });
                     //}
 
 				},
 				onClose: function () {
-					FvLib.logSave("Fv modal closed");
+					//FvLib.logSave("Fv modal closed");
 					jQuery(this.selector + " .sw-options li .sw-action").hide();
 					jQuery(this.selector + " .sw-options li").undelegate();
                     jQuery('#sw-email-share-to', this.$el).undelegate();
@@ -270,7 +236,7 @@ var FvModal = {
 		}
 		// seletor to find
 		screen_selector = ".sw-" + toScreen;
-		// Chekc that Screen is Hidden
+		// Check that Screen is Hidden
 		if ( !jQuery(".sw-body " + screen_selector, this.$el).is(":visible") ) {
 			// hide all other sections AND show section
 			jQuery(".sw-body", this.$el)
@@ -343,7 +309,7 @@ var FvModal = {
 		this.$msg_title.html("");
 		this.$msg_body.html("");
 		return this.$msg.stop(!0, !1).fadeOut(100).removeClass(this.msg_type);
-	},
+	}
 
 };  // END :: FvModal
 

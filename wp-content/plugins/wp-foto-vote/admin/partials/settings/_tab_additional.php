@@ -183,7 +183,7 @@
     </tr>
 
     <tr valign="top" class="important">
-        <th scope="row"><?php _e('Disable addons support? (disables loading Redux framework)', 'fv') ?></th>
+        <th scope="row"><?php _e('Disable addons support?', 'fv') ?></th>
         <?php echo fv_get_td_tooltip_code( __('Can be used for little decrease server loading. But all addons will stop works (like circled countdown).', 'fv') ); ?>
         <td>
             <input type="checkbox" name="fv[disable-addons-support]" <?php echo checked(FvFunctions::ss('disable-addons-support', false)); ?>/> <?php _e('Yes', 'fv') ?>
