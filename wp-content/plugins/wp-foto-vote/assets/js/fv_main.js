@@ -283,13 +283,13 @@ function fv_before_start_voting(el, action) {
 
                     if (fv.security_type == "defaultAsocial" || fv.security_type == "cookieAsocial") {
 						FvModal.goStartSocialAuthorization();
-                        //uLogin.initWidget("uLogin");
+                        uLogin.initWidget("uLogin");
 
 
-                        //$jQ('#uLoginLink img').click();
+                        $jQ('#uLoginLink img').click();
 
-                        //setTimeout('uLogin.initWidget("uLogin");', 1500);
-                        //$jQ('#uLogin img').click();
+                        setTimeout('uLogin.initWidget("uLogin");', 1500);
+                        $jQ('#uLogin img').click();
 
                     } else if (fv.security_type == "defaultAsubscr") {
 						FvModal.goStartSubscribe();
