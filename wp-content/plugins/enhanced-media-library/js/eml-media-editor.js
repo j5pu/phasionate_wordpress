@@ -15,7 +15,7 @@ window.eml = window.eml || { l10n: {} };
      *
      */
     _.extend( media.gallery.defaults, {
-		orderby : 'menuOrder'
+		orderby : 'menuOrder',
     });
 
     delete media.gallery.defaults.id;
@@ -36,7 +36,8 @@ window.eml = window.eml || { l10n: {} };
 
             delete collections[ shortcodeString ];
 
-            if ( result && ! isFilterBased && ! shortcode.attrs.named.limit ) {
+
+            if ( result && ! isFilterBased && _.isUndefined( shortcode.attrs.named.limit ) ) {
                 return result;
             }
 
@@ -44,12 +45,15 @@ window.eml = window.eml || { l10n: {} };
             attrs = _.defaults( shortcode.attrs.named, this.defaults );
             args  = _.pick( attrs, 'orderby', 'order' );
 
-            if ( ! attrs.limit || _.isNaN( parseInt( attrs.limit ) ) || parseInt( attrs.limit ) < 1 ) {
+            if ( ! attrs.limit || _.isNaN( parseInt( attrs.limit, 10 ) ) || parseInt( attrs.limit, 10 ) < 1 ) {
                 delete attrs.limit;
             }
+            else {
+                attrs.limit = parseInt( attrs.limit, 10 );
+            }
 
-            args.type    = this.type;
-            args.perPage = attrs.limit ? attrs.limit : -1;
+            args.type = this.type;
+            args.perPage = attrs.limit || -1;
 
 
             if ( 'rand' === attrs.orderby ) {
@@ -128,6 +132,8 @@ window.eml = window.eml || { l10n: {} };
                 others[ key ] = self.coerce( others, key );
             });
 
+            media.model.Query.cleanQueries();
+
             query = wp.media.query( args );
             query[ this.tag ] = new Backbone.Model( others );
 
@@ -152,7 +158,7 @@ window.eml = window.eml || { l10n: {} };
                 _.extend( attrs, attachments[this.tag].toJSON() );
             }
 
-            if ( ! isFilterBased || 'menuOrder' === attrs.orderby ) {
+            if ( ! isFilterBased ) {
                 // Convert all gallery shortcodes to use the `ids` property.
                 // Ignore `post__in` and `post__not_in`; the attachments in
                 // the collection will already reflect those properties.
@@ -192,8 +198,12 @@ window.eml = window.eml || { l10n: {} };
                 delete attrs.order;
             }
 
-            if ( ! attrs.limit || _.isNaN( parseInt( attrs.limit ) ) || parseInt( attrs.limit ) < 1 ) {
+            if ( ! attrs.limit || _.isNaN( parseInt( attrs.limit, 10 ) ) || parseInt( attrs.limit, 10 ) < 1 ) {
                 delete attrs.limit;
+                delete media.galleryDefaults.limit;
+            }
+            else {
+                attrs.limit = parseInt( attrs.limit, 10 ).toString();
             }
 
             attrs = this.setDefaults( attrs );
@@ -215,9 +225,10 @@ window.eml = window.eml || { l10n: {} };
         },
 
         edit: function( content ) {
+
             var shortcode = wp.shortcode.next( this.tag, content ),
                 defaultPostId = this.defaults.id,
-                attachments, selection, state;
+                attachments, selection, state, props;
 
             // Bail if we didn't match the shortcode or all of the content.
             if ( ! shortcode || shortcode.content !== content ) {
@@ -232,6 +243,7 @@ window.eml = window.eml || { l10n: {} };
             }
 
             attachments = this.attachments( shortcode );
+            attachments.props.set( 'perPage', -1 );
 
             selection = new wp.media.model.Selection( attachments.models, {
                 props:    attachments.props.toJSON(),

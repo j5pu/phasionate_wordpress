@@ -3,7 +3,7 @@
 Plugin Name: Enhanced Media Library
 Plugin URI: http://wpUXsolutions.com
 Description: This plugin will be handy for those who need to manage a lot of media files.
-Version: 2.1.4
+Version: 2.1.5
 Author: wpUXsolutions
 Author URI: http://wpUXsolutions.com
 Text Domain: eml
@@ -22,7 +22,7 @@ global $wp_version,
 
 
 
-$wpuxss_eml_version = '2.1.4';
+$wpuxss_eml_version = '2.1.5';
 
 
 
@@ -423,19 +423,20 @@ if ( ! function_exists( 'wpuxss_eml_enqueue_media' ) ) {
         );
 
         $media_views_l10n = array(
-            'taxonomies' => $taxonomies_array,
-            'compat_taxonomies' => $compat_taxonomies,
+            'taxonomies'                => $taxonomies_array,
+            'compat_taxonomies'         => $compat_taxonomies,
             'compat_taxonomies_to_hide' => $compat_taxonomies_to_hide,
-            'is_tax_compat' => count( $compat_taxonomies_to_show ) ? 1 : 0,
-            'force_filters' => $wpuxss_eml_tax_options['force_filters'],
-            'media_orderby' => $wpuxss_eml_tax_options['media_orderby'],
-            'media_order' => $wpuxss_eml_tax_options['media_order'],
-            'wp_version' => $wp_version,
-            'uncategorized' => __( 'All Uncategorized', 'eml' ),
-            'filter_by'           => __( 'Filter by ', 'eml' ),
-            'in'            => __( 'All ', 'eml' ),
-            'not_in'        => __( 'Not in ', 'eml' ),
-            'reset_filters'  => __( 'Reset All Filters', 'eml' )
+            'is_tax_compat'             => count( $compat_taxonomies_to_show ) ? 1 : 0,
+            'force_filters'             => $wpuxss_eml_tax_options['force_filters'],
+            'media_orderby'             => $wpuxss_eml_tax_options['media_orderby'],
+            'media_order'               => $wpuxss_eml_tax_options['media_order'],
+            'wp_version'                => $wp_version,
+            'uncategorized'             => __( 'All Uncategorized', 'eml' ),
+            'filter_by'                 => __( 'Filter by ', 'eml' ),
+            'in'                        => __( 'All ', 'eml' ),
+            'not_in'                    => __( 'Not in ', 'eml' ),
+            'reset_filters'             => __( 'Reset All Filters', 'eml' ),
+            'current_screen'            => $current_screen->id
         );
 
         wp_localize_script(
@@ -465,7 +466,8 @@ if ( ! function_exists( 'wpuxss_eml_enqueue_media' ) ) {
 
             $enhanced_gallery_l10n = array(
                 'all_taxonomies' => $all_taxonomies_array,
-                'uploaded_to' => __( 'Uploaded to post #', 'eml' )
+                'uploaded_to' => __( 'Uploaded to post #', 'eml' ),
+                'based_on' => __( 'Based On', 'eml' )
             );
 
             wp_localize_script(
@@ -483,43 +485,6 @@ if ( ! function_exists( 'wpuxss_eml_enqueue_media' ) ) {
                 'wpuxss-eml-media-grid-script',
                 $wpuxss_eml_dir . 'js/eml-media-grid.js',
                 array('media'),
-                $wpuxss_eml_version,
-                true
-            );
-        }
-
-        // scripts for Appearance -> Header
-        if ( isset( $current_screen ) && 'appearance_page_custom-header' === $current_screen->base ) {
-
-            wp_enqueue_script(
-                'wpuxss-eml-custom-header-script',
-                $wpuxss_eml_dir . 'js/eml-custom-header.js',
-                array('custom-header'),
-                $wpuxss_eml_version,
-                true
-            );
-        }
-
-        // scripts for Appearance -> Background
-        if ( isset( $current_screen ) && 'appearance_page_custom-background' === $current_screen->base ) {
-
-            wp_enqueue_script(
-                'wpuxss-eml-custom-background-script',
-                $wpuxss_eml_dir . 'js/eml-custom-background.js',
-                array('custom-background'),
-                $wpuxss_eml_version,
-                true
-            );
-        }
-
-
-        // scripts for /wp-admin/customize.php
-        if ( isset( $current_screen ) && 'customize' === $current_screen->base ) {
-
-            wp_enqueue_script(
-                'wpuxss-eml-customize-controls-script',
-                $wpuxss_eml_dir . 'js/eml-customize-controls.js',
-                array('customize-controls'),
                 $wpuxss_eml_version,
                 true
             );

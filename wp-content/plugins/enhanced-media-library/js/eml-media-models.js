@@ -22,6 +22,7 @@ window.wp = window.wp || {};
             this.created  = new Date();
 
             this.filters.order = function( attachment ) {
+                
                 var orderby = this.props.get('orderby'),
                     order = this.props.get('order');
 

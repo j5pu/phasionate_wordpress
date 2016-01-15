@@ -86,13 +86,32 @@ function emlIsGalleryFilterBased( attrs ) {
      * wp.media.view.Settings.Gallery
      *
      */
+    original.Settings = {
+
+        Gallery: {
+            render: media.view.Settings.Gallery.prototype.render
+        }
+    };
+
     _.extend( media.view.Settings.Gallery.prototype.events, {
-        'change ._orderbyRandom' : 'change_orderbyRandom',
+        'change [data-setting=_orderbyRandom]' : 'change_orderbyRandom',
     });
 
     _.extend( media.view.Settings.Gallery.prototype, {
 
-        template:  media.template('eml-gallery-settings'),
+        render: function() {
+
+            var append = this.basedOnHTML();
+
+
+            original.Settings.Gallery.render.apply( this, arguments );
+
+            if ( append ) {
+                this.$el.append( append );
+            }
+
+            return this;
+        },
 
         change_orderbyRandom: function( event ) {
 
@@ -100,7 +119,54 @@ function emlIsGalleryFilterBased( attrs ) {
                 reverse = content.get().toolbar.get( 'reverse' );
 
             reverse.model.set( 'disabled', $( event.target ).is(':checked') );
-        }
+        },
+
+        basedOnHTML: function() {
+
+            var library = this.controller.frame.state().get('library'),
+                isFilterBased = emlIsGalleryFilterBased( library.props.toJSON() ),
+                append = '',
+                date,
+                months = media.view.settings.months,
+                monthnum = library.props.get( 'monthnum' ),
+                year = library.props.get( 'year' ),
+                uploadedTo = library.props.get( 'uploadedTo' );
+
+            if ( isFilterBased ) {
+
+                append = '<br class="clear" /><h3>' + eml.l10n.based_on + '</h3><label class="setting eml-filter-based"><ul class="eml-filter-based">';
+
+                _.each( eml.l10n.all_taxonomies, function( attrs, taxonomy ) {
+
+                    var ids = library.props.get( taxonomy ),
+                        taxonomy_string;
+
+                    if ( ids ) {
+
+                        taxonomy_string = attrs.singular_name + ': ' + _.values( _.pick( attrs.terms, ids ) ).join(', ');
+                        append += '<li>' + taxonomy_string + '</li>';
+                    }
+                });
+
+                if ( monthnum && year ) {
+                    date = _.first( _.where( months, { month: monthnum, year: year } ) ).text;
+                    append += '<li>' + date + '</li>';
+                }
+
+                if ( ! _.isUndefined( uploadedTo ) ) {
+
+                    if ( uploadedTo == media.view.settings.post.id ) {
+                        append += '<li>' + media.view.l10n.uploadedToThisPost + '</li>';
+                    }
+                    else if ( parseInt( uploadedTo ) ) {
+                        append += '<li>' + eml.l10n.uploaded_to + uploadedTo + '</li>';
+                    }
+                }
+                append += '</ul></label>';
+            }
+
+            return append;
+        },
     });
 
 

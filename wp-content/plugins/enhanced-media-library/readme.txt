@@ -3,7 +3,7 @@ Contributors: webbistro
 Tags: media library, media category, media categories, media gallery, gallery shortcode, media tag, media tags, media taxonomy, media taxonomies, media uploader, mime type, mime, mime types, file types, media types, media filter, attachment, gallery, image, images, media, ux, user experience, wp-admin, admin, taxonomy, taxonomies
 Requires at least: 4.4
 Tested up to: 4.4.1
-Stable tag: 2.1.4
+Stable tag: 2.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,9 @@ A better management for WordPress Media Library
 The plugin will be handy for those who need to manage a lot of media files.
 
 
-= Media Taxonomies (Categories and Tags for media items) =
+= Media Taxonomies =
+
+**Categories and Tags for media items**
 
 **Various media categories.** With the plugin installed you immediately obtain Media Categories for categorizing and filtering media items in WordPress admin. This feature alone will save you hours of searching through a media library with even as few as 100 images.
 
@@ -30,29 +32,21 @@ You can also assign to the media library built-in WordPress taxonomies - Categor
 
 **Filter media items in WP admin.** Every media library screen is enhanced with the plugin's filters to search and sort your media files. With flexible plugin's options you can adjust what filters you will see in Grid and List modes of the media library and in post/page editor media popups, and what taxonomies you would like to edit when inserting media to posts/pages. The plugin works with custom post types as well. The options can also help you to force plugin's filters for third-party plugins or themes, manage media taxonomies archive pages, etc.
 
-**Order options.** Since version 2.1.4 you can control the orderby and order options for your media library. With "Custom Order" you can re-order media items within a category with drag and drop. This order will be used, in particular, for the gallery based on this category.
+**Order options.** With two options "Order media items by" (Date, Title, and Custom Order) and "Sort order" (Ascending and Descending) you can control media items order for all screens of the media library in WP admin. "Custom Order" allows to re-order media items within a category with drag and drop. This order will be used, in particular, for the gallery based on this category.
 
 
-= Filter-Based Image Galleries (Fully compatible with WordPress native gallery shortcode) =
+= Filter-Based Image Galleries =
+
+**Fully compatible with WordPress native gallery shortcode**
 
 Image categorizing can be useful for the front-end as well. To insert media galleries based on media categories you have to use the familiar format like `[gallery media_category="5" category="2" limit="10" monthnum="12" year="2015" orderby="title" order="DESC"]`. The PRO version of the plugin allows to manage gallery shortcode without "coding" at all. Just choose the settings with the plugin's UI in the familiar gallery edit popup and see your gallery live immediately in the post/page editor.
 
 To turn on the feature set "Enhanced gallery" option from Media Settings > Taxonomies > Options > Gallery. Please be advised that conflicts with other gallery plugins or themes are possible. Check your front-end and back-end gallery functionality after activating the feature.
 
-Compatibility ensured for plugins:
 
-* Jetpack Carousel
-* Jetpack Tiled Galleries
-* Simple Lightbox
-* Responsive Lightbox by dFactory
+= MIME Types =
 
-Compatibility's possible with additional code ([learn more](http://www.wpuxsolutions.com/documents/enhanced-media-library/enhanced-gallery-issues/#s5)):
-
-* Photoswipe Masonry Gallery
-* Lightbox Gallery
-
-
-= MIME Types (Media File Types) =
+**Media File Types**
 
 Another feature of the plugin is the MIME Types control. You can add new MIME types, delete existing ones, and point what file types are allowed for uploading. Initially, the plugin shows up the WordPress default MIME Type settings and creates the backup of them. The column "Add Filter" allows to add a MIME Type to plugin's filters so that you will be able to filter your media items not only by categories but also by the file type. You can set any label you wish to see in a filter with columns "Singular Label" and "Plural Label".
 
@@ -116,7 +110,7 @@ Please notice that you use the Enhanced Media Library with other plugins that ad
 = Useful Links =
 
 * [Where to start? (The complete beginners guide)](http://wpuxsolutions.com/documents/enhanced-media-library/eml-where-to-start/)
-* [Enhanced Gallery Issues](http://www.wpuxsolutions.com/documents/enhanced-media-library/enhanced-gallery-issues/)
+* [Enhanced Gallery Possible Conflicts](http://www.wpuxsolutions.com/documents/enhanced-media-library/enhanced-gallery-possible-conflicts/)
 
 
 
@@ -140,9 +134,9 @@ Try to just re-save permalinks settings. Go to Settings >> Permalinks and push "
 
 = Why Media Popup of some theme/plugin does not show taxonomy filters? =
 
-By default EML adds its filters to ANY media popup that already contains native WordPress filters. If a third-party plugin or theme supports native WordPress filters, EML will enhances them.
+By default EML adds its filters to any media popup that already contains native WordPress filters. If a third-party plugin or theme supports native WordPress filters, EML will enhance them.
 
-If a third-party plugin or theme does not support WordPress native filters, but you believe that you need them, try 'Force filters' option (Media Settings > Taxonomies > Options > Filters). It allows forcing media filters for ANY media popup regardless of what was intended by the author of a third-party plugin or theme.
+If a third-party plugin or theme does not support WordPress native filters, but you believe that you need them, try "Force filters" option (Media Settings > Taxonomies > Options > Filters). It allows forcing media filters for ANY media popup regardless of what was intended by its creator.
 
 = How to show images per media category on a webpage? =
 
@@ -150,13 +144,15 @@ Since EML 2.1 you can use gallery shortcode with taxonomy parameters like this: 
 
 Also, you can use WP_Query ([example of the code](http://wordpress.org/support/topic/php-displaying-an-array-of-images-per-category-or-categories)).
 
-= My gallery behavior is strange | My ligthbox/carousel plugin no longer works =
+= My gallery behavior is strange | Wrong or none media items displayed | Ligtbox/carousel/slideshow/mosaic looks broken =
 
-The Enhanced Media Library enhances the WordPress gallery shortcode with the 'post_gallery' filter. It does this in the most gentle manner possible. It overrides the database query and leaves HTML/CSS code generating intact.
+The plugin enhances WordPress gallery shortcode in most gentle manner possible. Since v2.1.5 the mechanism of the enhancement is dramatically improved to avoid possible conflicts. In most cases Enhanced Media Library is compatible with any plugin that changes *native* WP gallery template in order to provide lightbox, carousel, slideshow, grid/mosaic functionality.
 
-But many other plugins do the same. Since, currently in WordPress it is not possible to separate a pure database request and generating gallery's HTML/CSS, the plugin conflicts are inevitable ([learn more](http://www.wpuxsolutions.com/documents/enhanced-media-library/enhanced-gallery-issues)).
+That said, other plugins might override WP gallery attributes or database query for media items in a way that would prevent Enhanced Media Library from displaying correct set of media items for gallery.
 
-The solution: If your version is less than 2.1.4 please upgrade to 2.1.4. Unset "Enhanced gallery" option on Media Settings > Taxonomies > Options > Gallery and let us know what functionality was broken. We would like to find a solution!
+If you find a possible conflict and prefer third-party features to taxonomy-based gallery of the plugin please deactivate the feature (unset "Enhanced gallery" option on Media Settings > Taxonomies > Options > Gallery) and let us know about the issue. We would like to find a solution!
+
+If you are a plugin/theme developer please read [Enhanced Gallery Issues](http://www.wpuxsolutions.com/documents/enhanced-media-library/enhanced-gallery-possible-conflicts/)
 
 = I get "Something went wrong" error when bulk-editing in PRO =
 
@@ -192,6 +188,18 @@ No, all your data will remain intact. Your created media categories and their ti
 
 == Changelog ==
 
+= 2.1.5 =
+*Release Date - January 14, 2016*
+
+= Improvements =
+* Gallery enhancement is dramatically (!) improved to avoid possible conflicts ([learn more](http://www.wpuxsolutions.com/documents/enhanced-media-library/enhanced-gallery-possible-conflicts/))
+* Few code improvements
+
+= Bugfixes =
+Filters returned to Customizer
+
+
+&nbsp;
 = 2.1.4 =
 *Release Date - January 10, 2016*
 

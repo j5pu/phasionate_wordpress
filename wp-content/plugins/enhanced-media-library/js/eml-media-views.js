@@ -477,7 +477,8 @@ window.eml = window.eml || { l10n: {} };
 
 
             if ( -1 !== $.inArray( this.options.filters, [ 'uploaded', 'all' ] ) ||
-                 parseInt( eml.l10n.force_filters ) && 'gallery-edit' !== this.controller._state ) {
+               ( parseInt( eml.l10n.force_filters ) && 'gallery-edit' !== this.controller._state ) ||
+               'customize' === eml.l10n.current_screen ) {
 
 
                 this.toolbar.set( 'filtersLabel', new media.view.Label({

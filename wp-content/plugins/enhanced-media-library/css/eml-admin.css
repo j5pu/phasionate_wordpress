@@ -89,10 +89,7 @@ body.eml-media-css .attachments-browser .instructions {
     display: block;
 }
 
-body.eml-media-css .eml-info-box {
-    overflow: hidden;
-}
-body.eml-media-css .eml-info-box ul {
+body.eml-media-css .media-sidebar ul.eml-filter-based {
     margin: 0;
 }
 
@@ -311,6 +308,9 @@ body.eml-media-css .media-modal.acf-expanded .attachments-browser .media-toolbar
 }
 .mode-select #reset-all-filters {
     margin: 11px 0 0;
+}
+.wp-customizer .mode-select #reset-all-filters {
+    margin: 0;
 }
 
 

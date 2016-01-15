@@ -823,7 +823,12 @@ if ( ! function_exists( 'wpuxss_eml_print_taxonomies_options' ) ) {
                                                     <legend class="screen-reader-text"><span><?php _e('Enhanced gallery','eml'); ?></span></legend>
                                                     <label for="wpuxss_eml_tax_options[enhance_gallery_shortcode]"><input name="wpuxss_eml_tax_options[enhance_gallery_shortcode]" type="hidden" value="0" /><input name="wpuxss_eml_tax_options[enhance_gallery_shortcode]" type="checkbox" value="1" <?php checked( true, $wpuxss_eml_tax_options['enhance_gallery_shortcode'], true ); ?> /> <?php _e('Enhance WordPress native gallery shortcode to make it understand media taxonomies, date, and image number limit','eml'); ?></label>
                                                     <p class="description"><?php _e( 'The example: [gallery media_category="5" limit="10" monthnum="12" year="2015"]', 'eml' ); ?></p>
-                                                    <p class="description"><?php _e( '<strong style="color:red">Warning:</strong> Incompatibility with other gallery plugins or themes possible! <a href="http://www.wpuxsolutions.com/documents/enhanced-media-library/enhanced-gallery-issues/">Learn more.</a> Please check out your gallery front-end and back-end functionality once this option activated. If you find an issue please inform plugin authors at <a href="https://wordpress.org/support/plugin/enhanced-media-library">wordpress.org</a> or <a href="http://www.wpuxsolutions.com/support/create-new-ticket/">wpuxsolutions.com</a>.', 'eml' ); ?></p>
+                                                    <p class="description"><?php
+                                                    printf( __( '%sWarning:%s Incompatibility with other gallery plugins or themes possible!', 'eml' ), '<strong style="color:red">', '</strong>' );
+
+                                                    printf( __( '%sLearn more%s.', 'eml' ), ' <a href="http://www.wpuxsolutions.com/documents/enhanced-media-library/enhanced-gallery-possible-conflicts/">', '</a> ' );
+
+                                                    printf( __( 'Please check out your gallery front-end and back-end functionality once this option activated. If you find an issue please inform plugin authors at %s or %s.', 'eml' ), '<a href="https://wordpress.org/support/plugin/enhanced-media-library">wordpress.org</a>', '<a href="http://www.wpuxsolutions.com/support/create-new-ticket/">wpuxsolutions.com</a>' ); ?></p>
                                                 </fieldset>
                                             </td>
                                         </tr>
