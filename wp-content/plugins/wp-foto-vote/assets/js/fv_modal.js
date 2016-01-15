@@ -143,6 +143,8 @@ var FvModal = {
 		this.openWidget("social-authorization");
 
 		this.showNotification("info", "", fv.lang.form_soc_msg, 0, 0);
+
+		do_action( 'bp_before_register_page' );
 	},
 	/*
 	 * Open modal with Title + message + Subscribe form
