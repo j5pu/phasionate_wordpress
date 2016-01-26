@@ -5987,3 +5987,7 @@ body.registration #signup_submit {
 	    font-size: 17px;
 	}
 }
+
+li.bp-menu.bp-login-nav.menu-item.menu-item-type-bp_nav.menu-item-object-bp_loggedout_nav{
+	display: none;
+}
