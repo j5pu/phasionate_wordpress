@@ -3,70 +3,76 @@ defined('ABSPATH') or die("No script kiddies please!");
 //data-history="false"
 ?>
 
-<div id="modal-widget" >
-    <h2>Share</h2>
-    <!-- Notify block -->
-    <div class="sw-message-box">
-        <span class="sw-message-title"><span class="fvicon-spinner2 icon rotate-animation"></span> Voting</span>
-        <span class="sw-message-text"></span>
-    </div>
+    <?php if ( !is_user_logged_in() ) {?>
+        <h2>Identificación</h2>
+        <!-- Notify block -->
+        <button id="bogadia_switcher">Identifícate</button>
+    <?php }else{ ?>
+    <div id="modal-widget" >
+        <h2>Share</h2>
+        <!-- Notify block -->
+        <div class="sw-message-box">
+            <span class="sw-message-title"><span class="fvicon-spinner2 icon rotate-animation"></span> Voting</span>
+            <span class="sw-message-text"></span>
+        </div>
 
-    <div class="sw-body hd-widget-body">
-        <div class="sw-share">
-            <div class="slogan"></div>
-            <?php if (!FvFunctions::ss('voting-noshow-social', false)): ?>
-                <ul class="sw-options">
-                    <?php if (!FvFunctions::ss('voting-noshow-fb', false)): ?>
-                        <li class="sw-facebook" title="" onclick="return sv_vote_send('fb', this);">
-                            <span class="sw-share-button fvicon-facebook"></span>
-                            <span class="sw-action"><?php _e("Post", "fv") ?></span>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (!FvFunctions::ss('voting-noshow-tw', false)): ?>
-                        <li class="sw-twitter" onclick="return sv_vote_send('tw', this);">
-                            <span class="sw-share-button fvicon-twitter"></span>
-                            <span class="sw-action"><?php _e("Tweet", "fv") ?></span>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (!FvFunctions::ss('voting-noshow-gp', false)): ?>
-                        <li class="sw-google-plus " onclick="return sv_vote_send('gp', this);">
-                            <span class="sw-share-button fvicon-googleplus3"></span>
-                            <span class="sw-action"><?php _e("Post", "fv") ?></span>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (!FvFunctions::ss('voting-noshow-pi', false)): ?>
-                        <li class="sw-pinterest" onclick="return sv_vote_send('pi', this);">
-                            <span class="sw-share-button fvicon-pinterest3"></span>
-                            <span class="sw-action"><?php _e("Pin it", "fv") ?></span>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (!FvFunctions::ss('voting-noshow-vk', false)): ?>
-                        <li class="sw-vk" onclick="return sv_vote_send('vk', this);">
-                            <span class="sw-share-button fvicon-vk2"></span>
-                            <span class="sw-action">Поделиться</span>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (!FvFunctions::ss('voting-noshow-ok', false)): ?>
-                        <li class="sw-ok" onclick="return sv_vote_send('ok', this);">
-                            <span class="sw-share-button">OK</span>
-                            <span class="sw-action">Поделиться</span>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (!FvFunctions::ss('voting-noshow-email', true) && FvFunctions::ss('recaptcha-key', false, 5) != false): ?>
-                        <li class="sw-email" onclick="FvModal.goEmailShare();return false;">
-                            <span class="sw-share-button fvicon-envelope2"></span>
-                            <span class="sw-action">Email</span>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            <?php endif; ?>
+        <div class="sw-body hd-widget-body">
+            <div class="sw-share">
+                <div class="slogan"></div>
+                <?php if (!FvFunctions::ss('voting-noshow-social', false)): ?>
+                    <ul class="sw-options">
+                        <?php if (!FvFunctions::ss('voting-noshow-fb', false)): ?>
+                            <li class="sw-facebook" title="" onclick="return sv_vote_send('fb', this);">
+                                <span class="sw-share-button fvicon-facebook"></span>
+                                <span class="sw-action"><?php _e("Post", "fv") ?></span>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (!FvFunctions::ss('voting-noshow-tw', false)): ?>
+                            <li class="sw-twitter" onclick="return sv_vote_send('tw', this);">
+                                <span class="sw-share-button fvicon-twitter"></span>
+                                <span class="sw-action"><?php _e("Tweet", "fv") ?></span>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (!FvFunctions::ss('voting-noshow-gp', false)): ?>
+                            <li class="sw-google-plus " onclick="return sv_vote_send('gp', this);">
+                                <span class="sw-share-button fvicon-googleplus3"></span>
+                                <span class="sw-action"><?php _e("Post", "fv") ?></span>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (!FvFunctions::ss('voting-noshow-pi', false)): ?>
+                            <li class="sw-pinterest" onclick="return sv_vote_send('pi', this);">
+                                <span class="sw-share-button fvicon-pinterest3"></span>
+                                <span class="sw-action"><?php _e("Pin it", "fv") ?></span>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (!FvFunctions::ss('voting-noshow-vk', false)): ?>
+                            <li class="sw-vk" onclick="return sv_vote_send('vk', this);">
+                                <span class="sw-share-button fvicon-vk2"></span>
+                                <span class="sw-action">Поделиться</span>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (!FvFunctions::ss('voting-noshow-ok', false)): ?>
+                            <li class="sw-ok" onclick="return sv_vote_send('ok', this);">
+                                <span class="sw-share-button">OK</span>
+                                <span class="sw-action">Поделиться</span>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (!FvFunctions::ss('voting-noshow-email', true) && FvFunctions::ss('recaptcha-key', false, 5) != false): ?>
+                            <li class="sw-email" onclick="FvModal.goEmailShare();return false;">
+                                <span class="sw-share-button fvicon-envelope2"></span>
+                                <span class="sw-action">Email</span>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                <?php endif; ?>
 
-            <div class="sw-link">
-                <input data-url="<?php echo $page_url ?>=" id="photo_id" value="">
-            </div>
-
+                <div class="sw-link">
+                    <input data-url="<?php echo $page_url ?>=" id="photo_id" value="">
+                </div>
         </div>
         <!-- END :: SHARE ICONS -->
+    <?php } ?>
+
 
         <!-- SUBSCRIBE FORM -->
         <div class="sw-subscribe">

@@ -1184,3 +1184,13 @@ if ( fv.soc_counter ) {
 
     FvLib.addHook('fv/ajax_go_to_page/ready', fv_run_social_counter, 11);
 }
+
+jQuery(document).ready( function(){
+    if (jQuery("#bogadia_switcher").length){
+        jQuery('.clg-like-button').on('click', function(){
+            jQuery('#menu-item-31195').find('a').trigger('click');
+            jQuery('.b-modal').fadeOut('fast');
+            jQuery('#modal-widget').slideUp('slow');
+        });
+    }
+});
