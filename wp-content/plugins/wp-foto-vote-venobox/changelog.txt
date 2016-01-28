@@ -1,0 +1,5 @@
+/* == 23/05/2015 > version 0.2 ==*/
+- added complete support video (Youtube and Vimeo)
+
+/* == ? > version 0.1 ==*/
+- initial release
