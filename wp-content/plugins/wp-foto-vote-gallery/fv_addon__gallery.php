@@ -7,7 +7,7 @@
   Author: Maxim Kaminsky
   Author URI: http://www.maxim-kaminsky.com/
   Plugin support EMAIL: wp-vote@hotmail.com
-  Version: 0.2
+  Version: 0.3
 
   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
   ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -93,6 +93,7 @@ function FvAddon_GalleryRun() {
                     add_action('fv/admin/form_edit_photo/extra', array($this, 'action_form_edit_photo_extra'), 10, 1);
                 }
 
+                add_action('fv/public/list_item/extra', array($this, 'action_show'), 10, 1);
                 add_action('fv/public/punterest_theme/list_item/extra', array($this, 'action_show'), 10, 1);
                 add_action('fv_after_contest_list', array($this, 'action_public_assets'), 10, 1);
                 add_filter('fv/public/theme/list_item/rel', array($this, 'filter_rel'), 10, 2);
@@ -129,8 +130,7 @@ function FvAddon_GalleryRun() {
          * Show info
          *
          */
-        public function action_show($photo) {
-            $photo->options = FvFunctions::getContestOptionsArr($photo->options);
+        public function action_show($photo) {            
             echo "<div class='contest-block-extra'/>";
             for ($i = 0; $i < $this->IMG_COUNT; $i++) {
                 if (isset($photo->options['image' . $i]) && (int) $photo->options['image' . $i] > 0) {
