@@ -72,7 +72,7 @@ endif;
         body { font-family: 'Open Sans', sans-serif; }
         #interstitialModal{
             position: fixed;
-            top: 25%;
+            top: 10% !important;
         }
 
         #interstitialModal .modal-dialog
@@ -104,6 +104,10 @@ endif;
             opacity: 1 !important;
             font-size: 25px;
             color: white;
+        }
+
+        .mfp-bg, .mfp-wrap{
+            display: none;
         }
     </style>
 
