@@ -5991,3 +5991,7 @@ body.registration #signup_submit {
 li.bp-menu.bp-login-nav.menu-item.menu-item-type-bp_nav.menu-item-object-bp_loggedout_nav{
 	display: none;
 }
+/*Correción de home-tienda, por un conflicto con el código de otra página*/
+.page-id-23426 div.col-sm-6:nth-child(2), #field_1 {
+    width: 50% !important;
+}
