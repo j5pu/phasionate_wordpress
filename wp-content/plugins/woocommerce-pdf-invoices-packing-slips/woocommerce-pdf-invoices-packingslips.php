@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce PDF Invoices & Packing Slips
  * Plugin URI: http://www.wpovernight.com
  * Description: Create, print & email PDF invoices & packing slips for WooCommerce orders.
- * Version: 1.5.26
+ * Version: 1.5.27
  * Author: Ewout Fernhout
  * Author URI: http://www.wpovernight.com
  * License: GPLv2 or later
@@ -33,7 +33,7 @@ if ( !class_exists( 'WooCommerce_PDF_Invoices' ) ) {
 			self::$plugin_basename = plugin_basename(__FILE__);
 			self::$plugin_url = plugin_dir_url(self::$plugin_basename);
 			self::$plugin_path = trailingslashit(dirname(__FILE__));
-			self::$version = '1.5.26';
+			self::$version = '1.5.27';
 			
 			// load the localisation & classes
 			add_action( 'plugins_loaded', array( $this, 'translations' ) ); // or use init?
@@ -520,8 +520,16 @@ if ( !class_exists( 'WooCommerce_PDF_Invoices' ) ) {
 		 * Return/Show payment method  
 		 */
 		public function get_payment_method() {
-			$Payment_method_label = __( 'Payment method', 'wpo_wcpdf' );
-			return apply_filters( 'wpo_wcpdf_payment_method', __( $this->export->order->payment_method_title, 'woocommerce' ) );
+			$payment_method_label = __( 'Payment method', 'wpo_wcpdf' );
+
+			$payment_method = __( $this->export->order->payment_method_title, 'woocommerce' );
+			if ( !$payment_method && $parent_order_id = wp_get_post_parent_id( $this->export->order->id ) ) {
+				// try parent
+				$payment_method = get_post_meta( $parent_order_id, '_payment_method_title', true );
+				$payment_method = __( $payment_method, 'woocommerce' );
+			}
+
+			return apply_filters( 'wpo_wcpdf_payment_method', $payment_method );
 		}
 		public function payment_method() {
 			echo $this->get_payment_method();
@@ -796,11 +804,12 @@ if ( !class_exists( 'WooCommerce_PDF_Invoices' ) ) {
 			}
 
 			$discount = array (
-				'label'	=> __('Discount', 'wpo_wcpdf'),
-				'value'	=> $this->export->wc_price($discount_value),
+				'label'		=> __('Discount', 'wpo_wcpdf'),
+				'value'		=> $this->export->wc_price($discount_value),
+				'raw_value'	=> $discount_value,
 			);
 
-			if ( $discount_value > 0 ) {
+			if ( round( $discount_value, 3 ) != 0 ) {
 				return apply_filters( 'wpo_wcpdf_order_discount', $discount, $type, $tax );
 			}
 		}
