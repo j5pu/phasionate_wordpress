@@ -2,9 +2,13 @@
 /**
  * Plugin Name: AMP
  * Description: Add AMP support to your WordPress site.
+ * Plugin URI: https://github.com/automattic/amp-wp
  * Author: Automattic
- * Version: 0.1
- * License: GPLv2
+ * Author URI: https://automattic.com
+ * Version: 0.2
+ * Text Domain: amp
+ * Domain Path: /languages/
+ * License: GPLv2 or later
  */
 
 define( 'AMP_QUERY_VAR', 'amp' );
@@ -12,10 +16,14 @@ if ( ! defined( 'AMP_DEV_MODE' ) ) {
 	define( 'AMP_DEV_MODE', defined( 'WP_DEBUG' ) && WP_DEBUG );
 }
 
-require_once( dirname( __FILE__ ) . '/class-amp-post.php' );
+define( 'AMP__FILE__', __FILE__ );
+define( 'AMP__DIR__', dirname( __FILE__ ) );
+
+require_once( AMP__DIR__ . '/includes/amp-helper-functions.php' );
 
 register_activation_hook( __FILE__, 'amp_activate' );
 function amp_activate(){
+	amp_init();
 	flush_rewrite_rules();
 }
 
@@ -26,50 +34,71 @@ function amp_deactivate(){
 
 add_action( 'init', 'amp_init' );
 function amp_init() {
-	add_rewrite_endpoint( AMP_QUERY_VAR, EP_PERMALINK | EP_PAGES );
+	if ( false === apply_filters( 'amp_is_enabled', true ) ) {
+		return;
+	}
+
+	load_plugin_textdomain( 'amp', false, plugin_basename( AMP__DIR__ ) . '/languages' );
+
+	add_rewrite_endpoint( AMP_QUERY_VAR, EP_PERMALINK );
+	add_post_type_support( 'post', AMP_QUERY_VAR );
+
+	add_action( 'wp', 'amp_maybe_add_actions' );
+
+	if ( class_exists( 'Jetpack' ) ) {
+		require_once( AMP__DIR__ . '/jetpack-helper.php' );
+	}
 }
 
-add_action( 'wp', 'amp_add_actions' );
-function amp_add_actions() {
+function amp_maybe_add_actions() {
 	if ( ! is_singular() ) {
 		return;
 	}
 
-	if ( false !== get_query_var( AMP_QUERY_VAR, false ) ) {
-		// TODO: check if post_type supports amp
-		add_action( 'template_redirect', 'amp_template_redirect' );
-	} else {
-		add_action( 'wp_head', 'amp_canonical' );
-	}
-}
+	$is_amp_endpoint = is_amp_endpoint();
 
-function amp_template_redirect() {
-	amp_render( get_queried_object_id() );
-	exit;
-}
+	$post = get_queried_object();
+	$supports = post_supports_amp( $post );
 
-function amp_get_url( $post_id ) {
-	if ( '' != get_option( 'permalink_structure' ) ) {
-		$amp_url = trailingslashit( get_permalink( $post_id ) ) . user_trailingslashit( AMP_QUERY_VAR, 'single_amp' );
-	} else {
-		$amp_url = add_query_arg( AMP_QUERY_VAR, absint( $post_id ), home_url() );
-	}
-
-	return apply_filters( 'amp_get_url', $amp_url, $post_id );
-}
-
-function amp_canonical() {
-	if ( false === apply_filters( 'show_amp_canonical', true ) ) {
+	if ( ! $supports ) {
+		if ( $is_amp_endpoint ) {
+			wp_safe_redirect( get_permalink( $post->ID ) );
+			exit;
+		}
 		return;
 	}
 
-	$amp_url = amp_get_url( get_queried_object_id() );
-	printf( '<link rel="amphtml" href="%s" />', esc_url( $amp_url ) );
+	if ( $is_amp_endpoint ) {
+		amp_prepare_render();
+	} else {
+		amp_add_frontend_actions();
+	}
 }
 
-function amp_render( $post_id ) {
-	do_action( 'pre_amp_render', $post_id );
-	$amp_post = new AMP_Post( $post_id );
-	include( dirname( __FILE__ ) . '/template.php' );
+function amp_load_classes() {
+	require_once( AMP__DIR__ . '/includes/class-amp-post-template.php' ); // this loads everything else
 }
 
+function amp_add_frontend_actions() {
+	require_once( AMP__DIR__ . '/includes/amp-frontend-actions.php' );
+}
+
+function amp_add_post_template_actions() {
+	require_once( AMP__DIR__ . '/includes/amp-post-template-actions.php' );
+}
+
+function amp_prepare_render() {
+	add_action( 'template_redirect', 'amp_render' );
+}
+
+function amp_render() {
+	amp_load_classes();
+
+	$post_id = get_queried_object_id();
+	do_action( 'pre_amp_render_post', $post_id );
+
+	amp_add_post_template_actions();
+	$template = new AMP_Post_Template( $post_id );
+	$template->load();
+	exit;
+}

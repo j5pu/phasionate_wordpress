@@ -1,10 +1,16 @@
 window.wp = window.wp || {};
+window.eml = window.eml || { l10n: {} };
+
 
 ( function( $, _ ) {
 
     var media = wp.media,
         Attachments = media.model.Attachments,
         Query = media.model.Query;
+
+
+
+    _.extend( eml.l10n, wpuxss_eml_media_models_l10n );
 
 
 
@@ -22,7 +28,7 @@ window.wp = window.wp || {};
             this.created  = new Date();
 
             this.filters.order = function( attachment ) {
-                
+
                 var orderby = this.props.get('orderby'),
                     order = this.props.get('order');
 
@@ -30,10 +36,13 @@ window.wp = window.wp || {};
                     return true;
                 }
 
+                if ( 'title' === orderby ) {
+                    return attachment.get( 'modified' ) >= this.created;
+
                 // We want any items that can be placed before the last
                 // item in the set. If we add any items after the last
                 // item, then we can't guarantee the set is complete.
-                if ( this.length ) {
+                } else if ( this.length ) {
                     return 1 !== this.comparator( attachment, this.last(), { ties: true });
 
                 // Handle the case where there are no items yet and
@@ -73,6 +82,11 @@ window.wp = window.wp || {};
 
 
     _.extend( Query, {
+
+        defaultProps: {
+    		orderby: eml.l10n.media_orderby,
+    		order: eml.l10n.media_order
+    	},
 
         queries: [],
 
@@ -147,5 +161,17 @@ window.wp = window.wp || {};
             };
         }())
     });
+
+
+
+    media.query = function( props ) {
+
+    	return new Attachments( null, {
+    		props: _.extend( _.defaults( props || {}, {
+                orderby: eml.l10n.media_orderby,
+                order: eml.l10n.media_order
+            } ), { query: true } )
+    	});
+    };
 
 })( jQuery, _ );

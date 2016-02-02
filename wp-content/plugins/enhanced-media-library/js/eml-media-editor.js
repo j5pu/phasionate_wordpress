@@ -11,17 +11,10 @@ window.eml = window.eml || { l10n: {} };
 
 
     /**
-     * wp.media.gallery
+     * eml.mediaCollection
      *
      */
-    _.extend( media.gallery.defaults, {
-		orderby : 'menuOrder',
-    });
-
-    delete media.gallery.defaults.id;
-
-
-    _.extend( media.gallery, {
+    eml.mediaCollection = {
 
         collections: {},
 
@@ -31,7 +24,7 @@ window.eml = window.eml || { l10n: {} };
                 shortcodeString = shortcode.string(),
                 result = collections[ shortcodeString ],
                 attrs, args, query, others, self = this,
-                isFilterBased = emlIsGalleryFilterBased( shortcode.attrs.named );
+                isFilterBased = emlIsFilterBased( shortcode.attrs.named );
 
 
             delete collections[ shortcodeString ];
@@ -146,7 +139,7 @@ window.eml = window.eml || { l10n: {} };
                 props = attachments.props.toJSON(),
                 attrs = _.pick( props, 'orderby', 'order' ),
                 shortcode, clone,
-                isFilterBased = emlIsGalleryFilterBased( props );
+                isFilterBased = emlIsFilterBased( props );
 
 
             if ( attachments.type ) {
@@ -283,6 +276,36 @@ window.eml = window.eml || { l10n: {} };
 
             return this.frame;
         }
+    };
+
+
+
+    /**
+     * wp.media.gallery
+     *
+     */
+    _.extend( media.gallery.defaults, {
+		orderby : 'menuOrder'
     });
+
+    delete media.gallery.defaults.id;
+
+    _.extend( media.gallery, eml.mediaCollection );
+
+
+
+    /**
+     * wp.media.playlist
+     *
+     */
+
+    _.extend( media.playlist.defaults, {
+        orderby: 'menuOrder',
+        order: 'ASC'
+    });
+
+    delete media.playlist.defaults.id;
+
+    _.extend( media.playlist, eml.mediaCollection );
 
 })( jQuery, _ );

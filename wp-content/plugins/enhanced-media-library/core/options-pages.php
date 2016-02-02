@@ -568,6 +568,7 @@ if ( ! function_exists( 'wpuxss_eml_print_taxonomies_options' ) ) {
                                                 $html .= '<li><label>' . __('Edit in Media Popup','eml') . '</label><input type="checkbox" class="wpuxss-eml-media_popup_taxonomy_edit" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][media_popup_taxonomy_edit]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['media_popup_taxonomy_edit'], false ) . ' /></li>';
                                                 $html .= '<li><label>' . __('Show in Nav Menu','eml') . '</label><input type="checkbox" class="wpuxss-eml-show_in_nav_menus" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][show_in_nav_menus]" value="1" ' . checked( 1, $taxonomy->show_in_nav_menus, false ) . ' /></li>';
                                                 $html .= '<li><label>' . __('Remember Terms Order (sort)','eml') . '</label><input type="checkbox" class="wpuxss-eml-sort" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][sort]" value="1" ' . checked( 1, $taxonomy->sort, false ) . ' /></li>';
+                                                $html .= '<li><label>' . __('Show in REST','eml') . '</label><input type="checkbox" class="wpuxss-eml-show_in_rest" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][show_in_rest]" value="1" ' . checked( 1, $taxonomy->show_in_rest, false ) . ' /></li>';
                                                 $html .= '<li><label>' . __('Rewrite Slug','eml') . '</label><input type="text" class="wpuxss-eml-slug" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][rewrite][slug]" value="' . esc_attr($taxonomy->rewrite['slug']) . '" /></li>';
                                                 $html .= '<li><label>' . __('Slug with Front','eml') . '</label><input type="checkbox" class="wpuxss-eml-rewrite-with-front" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][rewrite][with_front]" value="1" ' . checked( 1, $taxonomy->rewrite['with_front'], false ) . ' /></li>';
                                                 $html .= '</ul>';
@@ -636,6 +637,7 @@ if ( ! function_exists( 'wpuxss_eml_print_taxonomies_options' ) ) {
                                     $html .= '<li><label>' . __('Edit in Media Popup','eml') . '</label><input class="wpuxss-eml-media_popup_taxonomy_edit" type="checkbox" name="" value="1" /></li>';
                                     $html .= '<li><label>' . __('Show in Nav Menu','eml') . '</label><input type="checkbox" class="wpuxss-eml-show_in_nav_menus" name="" value="1" /></li>';
                                     $html .= '<li><label>' . __('Remember Terms Order (sort)','eml') . '</label><input type="checkbox" class="wpuxss-eml-sort" name="" value="1" /></li>';
+                                    $html .= '<li><label>' . __('Show in REST','eml') . '</label><input type="checkbox" class="wpuxss-eml-show_in_rest" name="" value="1" /></li>';
                                     $html .= '<li><label>' . __('Rewrite Slug','eml') . '</label><input type="text" class="wpuxss-eml-slug" name="" value="" /></li>';
                                     $html .= '<li><label>' . __('Slug with Front','eml') . '</label><input type="checkbox" class="wpuxss-eml-rewrite-with-front" name="" value="1" checked="checked" /></li>';
                                     $html .= '</ul>';
@@ -810,19 +812,21 @@ if ( ! function_exists( 'wpuxss_eml_print_taxonomies_options' ) ) {
 
                             <div class="postbox">
 
-                                <h3 class="hndle"><?php _e('Gallery','eml'); ?></h3>
+                                <h3 class="hndle"><?php _e('Media Shortcodes','eml'); ?></h3>
 
                                 <div class="inside">
 
                                     <table class="form-table">
 
                                         <tr>
-                                            <th scope="row"><?php _e('Enhanced gallery','eml'); ?></th>
+                                            <th scope="row"><?php _e('Enhanced media shortcodes','eml'); ?></th>
                                             <td>
                                                 <fieldset>
-                                                    <legend class="screen-reader-text"><span><?php _e('Enhanced gallery','eml'); ?></span></legend>
-                                                    <label for="wpuxss_eml_tax_options[enhance_gallery_shortcode]"><input name="wpuxss_eml_tax_options[enhance_gallery_shortcode]" type="hidden" value="0" /><input name="wpuxss_eml_tax_options[enhance_gallery_shortcode]" type="checkbox" value="1" <?php checked( true, $wpuxss_eml_tax_options['enhance_gallery_shortcode'], true ); ?> /> <?php _e('Enhance WordPress native gallery shortcode to make it understand media taxonomies, date, and image number limit','eml'); ?></label>
-                                                    <p class="description"><?php _e( 'The example: [gallery media_category="5" limit="10" monthnum="12" year="2015"]', 'eml' ); ?></p>
+                                                    <legend class="screen-reader-text"><span><?php _e('Enhanced media shortcodes','eml'); ?></span></legend>
+                                                    <label for="wpuxss_eml_tax_options[enhance_media_shortcodes]"><input name="wpuxss_eml_tax_options[enhance_media_shortcodes]" type="hidden" value="0" /><input name="wpuxss_eml_tax_options[enhance_media_shortcodes]" type="checkbox" value="1" <?php checked( true, $wpuxss_eml_tax_options['enhance_media_shortcodes'], true ); ?> /> <?php _e('Enhance WordPress media shortcodes to make them understand media taxonomies, uploade date, and media items number limit','eml'); ?></label>
+                                                    <p class="description"><?php _e( 'Gallery example: [gallery media_category="5" limit="10" monthnum="12" year="2015"]', 'eml' ); ?></p>
+                                                    <p class="description"><?php _e( 'Audio playlist example: [playlist media_category="5" limit="10" monthnum="12" year="2015"]', 'eml' ); ?></p>
+                                                    <p class="description"><?php _e( 'Video playlist example: [playlist type="video" media_category="5" limit="10" monthnum="12" year="2015"]', 'eml' ); ?></p>
                                                     <p class="description"><?php
                                                     printf( __( '%sWarning:%s Incompatibility with other gallery plugins or themes possible!', 'eml' ), '<strong style="color:red">', '</strong>' );
 

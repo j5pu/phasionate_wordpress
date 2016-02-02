@@ -22,40 +22,19 @@ window.eml = window.eml || { l10n: {} };
 
         uploading: function( attachment ) {
 
-            var dateFilter, Filters, taxFilter,
-                content = this.frame.content,
-                selection = this.get('selection'),
-                library = this.get('library');
+    		var content = this.frame.content,
+                selection = this.get('selection');
 
 
-            if ( 'upload' === content.mode() ) {
-                this.frame.content.mode('browse');
-            }
+    		if ( 'upload' === content.mode() ) {
+    			this.frame.content.mode('browse');
+    		}
 
             if ( wp.Uploader.queue.length == 1 ) {
-
-                dateFilter = content.get().toolbar.get( 'dateFilter' );
-                Filters = content.get().toolbar.get( 'filters' );
-
-                if ( ! _.isUndefined(dateFilter) && 'all' !== dateFilter.$el.val() ) {
-                    dateFilter.$el.val( 'all' ).change();
-                }
-
-                if ( ! _.isUndefined(Filters) && 'all' !== Filters.$el.val() ) {
-                    Filters.$el.val( 'all' ).change();
-                }
-
-                _.each( eml.l10n.taxonomies, function( values, taxonomy ) {
-
-                    taxFilter = content.get().toolbar.get( taxonomy+'-filter' );
-
-                    if ( ! _.isUndefined(taxFilter) && 'all' !== taxFilter.$el.val() ) {
-                        taxFilter.$el.val( 'all' ).change();
-                    }
-                });
+                $('.attachment-filters:has(option[value!="all"]:selected)').val( 'all' ).change();
             }
 
-            if ( eml.l10n.wp_version < '4.0' || this.get( 'autoSelect' ) ) {
+    		if ( this.get( 'autoSelect' ) ) {
 
                 if ( wp.Uploader.queue.length == 1 && selection.length ) {
                     selection.reset();
@@ -63,8 +42,8 @@ window.eml = window.eml || { l10n: {} };
                 selection.add( attachment );
                 selection.trigger( 'selection:unsingle', selection.model, selection );
                 selection.trigger( 'selection:single', selection.model, selection );
-            }
-        }
+    		}
+    	}
     });
 
 
@@ -153,7 +132,7 @@ window.eml = window.eml || { l10n: {} };
             }
 
 
-            if ( filter && selection && selection.length && ! wp.Uploader.queue.length ) {
+            if ( filter && selection && selection.length && wp.Uploader.queue.length !== 1 ) {
                 selection.reset();
             }
 
@@ -477,7 +456,10 @@ window.eml = window.eml || { l10n: {} };
 
 
             if ( -1 !== $.inArray( this.options.filters, [ 'uploaded', 'all' ] ) ||
-               ( parseInt( eml.l10n.force_filters ) && 'gallery-edit' !== this.controller._state ) ||
+               ( parseInt( eml.l10n.force_filters ) &&
+               'gallery-edit' !== this.controller._state &&
+               'playlist-edit' !== this.controller._state &&
+               'video-playlist-edit' !== this.controller._state ) ||
                'customize' === eml.l10n.current_screen ) {
 
 
@@ -603,7 +585,7 @@ window.eml = window.eml || { l10n: {} };
     original.MediaFrame = {
 
         Post: {
-            activate: media.view.MediaFrame.Post.prototype.activate,
+            activate: media.view.MediaFrame.Post.prototype.activate
         }
     };
 
@@ -611,26 +593,11 @@ window.eml = window.eml || { l10n: {} };
 
         activate: function() {
 
+            var content = this.content.get();
+
             original.MediaFrame.Post.activate.apply( this, arguments );
 
-            var content = this.content.get(),
-                galleryLibrary = this.state( 'gallery' ).get( 'library' ),
-                mainFilter = content.toolbar.get( 'filters' ),
-                resetFilterButton = content.toolbar.get( 'resetFilterButton' ),
-                props;
-
-
             this.on( 'open', content.fixLayout, content );
-
-
-            // TODO: reconsider this
-            if ( mainFilter ) {
-
-                props = _.extend( { type: 'image' }, mainFilter.filters.all.props );
-                galleryLibrary.reset( wp.media.query( props ).models );
-
-                resetFilterButton.click();
-            }
         }
     });
 

@@ -3,40 +3,6 @@
 
 
 /**
- *  unregister_taxonomy_for_object_type
- *
- *  Unassign taxonomy (duplicates native WP(Since: WordPress 3.7.0) for back compatibility)
- *  Based on /wp-includes/taxonomy.php
- *
- *  @since    2.0
- *  @created  05/08/14
- */
-
-if( ! function_exists( 'unregister_taxonomy_for_object_type' ) ) {
-
-    function unregister_taxonomy_for_object_type( $taxonomy, $object_type ) {
-
-        global $wp_taxonomies;
-
-        if ( ! isset( $wp_taxonomies[ $taxonomy ] ) )
-            return false;
-
-        if ( ! get_post_type_object( $object_type ) )
-            return false;
-
-        $key = array_search( $object_type, $wp_taxonomies[ $taxonomy ]->object_type, true );
-        if ( false === $key )
-            return false;
-
-        unset( $wp_taxonomies[ $taxonomy ]->object_type[ $key ] );
-
-        return true;
-    }
-}
-
-
-
-/**
  *  wpuxss_eml_taxonomies_validate
  *
  *  @type     callback function
@@ -62,6 +28,7 @@ if( ! function_exists( 'wpuxss_eml_taxonomies_validate' ) ) {
             }
 
             $input[$taxonomy]['hierarchical'] = isset($params['hierarchical']) && !! $params['hierarchical'] ? 1 : 0;
+            $input[$taxonomy]['show_in_rest'] = isset($params['show_in_rest']) && !! $params['show_in_rest']  ? 1 : 0;
             $input[$taxonomy]['sort'] = isset($params['sort']) && !! $params['sort']  ? 1 : 0;
             $input[$taxonomy]['show_admin_column'] = isset($params['show_admin_column']) && !! $params['show_admin_column'] ? 1 : 0;
             $input[$taxonomy]['show_in_nav_menus'] = isset($params['show_in_nav_menus']) && !! $params['show_in_nav_menus'] ? 1 : 0;

@@ -317,7 +317,7 @@ msgstr "Los archivos incluídos en el directorio %s serán ejecutados automátic
 msgid "You are not allowed to manage these items."
 msgstr "No tienes permisos para gestionar estos elementos."
 
-#: wp-admin/widgets.php:431
+#: wp-admin/widgets.php:436
 msgid "This will clear all items from the inactive widgets list. You will not be able to restore any customizations."
 msgstr "Esto vaciará todos los elementos de la lista de widgets inactivos. No podrás recuperar las personalizaciones."
 
@@ -333,7 +333,7 @@ msgstr "Lista de usuarios"
 msgid "One of the selected users is not a member of this site."
 msgstr "Uno de los usuarios elegidos no es miembro de este sitio."
 
-#: wp-admin/widgets.php:423
+#: wp-admin/widgets.php:426
 msgid "Clear Inactive Widgets"
 msgstr "Vaciar los widgets inactivos"
 
@@ -2758,7 +2758,7 @@ msgstr "Actualización disponible"
 msgid "Show previous theme"
 msgstr "Mostrar tema anterior"
 
-#: wp-admin/widgets.php:498
+#: wp-admin/widgets.php:504
 msgid "Add Widget"
 msgstr "Añadir widget"
 
