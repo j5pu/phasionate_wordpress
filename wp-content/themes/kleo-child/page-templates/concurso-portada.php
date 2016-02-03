@@ -11,7 +11,9 @@
  */
 
 get_header();
+
 ?>
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 
 <?php
 //create full width template
@@ -48,9 +50,17 @@ endif;
     <style>
         /* CSS used here will be applied after bootstrap.css */
         body { font-family: 'Open Sans', sans-serif; }
-        #interstitialModal{
-            position: fixed;
-            top: 7% !important;
+
+        @media screen and (max-width: 700px){
+            #interstitialModal{
+                top: 0% !important;
+            }
+        }
+        @media screen and (min-width: 701px){
+            #interstitialModal{
+                position: fixed;
+                top: 7% !important;
+            }
         }
 
         #interstitialModal .modal-dialog
@@ -86,9 +96,24 @@ endif;
         #trackinglink{
             opacity: 0;
         }
-        .ad_header, .ad_discount, .ad_link{
+        .ad_header, .ad_discount{
             color: black !important;
             text-decoration: none !important;
+            font-family: Oswald;
+        }
+        .ad_header{
+            font-size: 20px;
+        }
+        .ad_link{
+            color: white !important;
+            width: 90%;
+            text-decoration: none !important;
+            font-size: 20px;
+            font-family: Oswald;
+
+        }
+        .old_price{
+            color: grey !important;
         }
     </style>
 
