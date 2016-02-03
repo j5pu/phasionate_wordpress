@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the 2.2.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-01-11 13:35+0100\n"
+"PO-Revision-Date: 2016-02-03 17:51+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.7\n"
 "Project-Id-Version: 2.2.x\n"
 "POT-Creation-Date: \n"
 "Last-Translator: \n"
@@ -1454,7 +1454,7 @@ msgstr "No se ha podido solicitar la amistad"
 
 #: bp-templates/bp-legacy/buddypress-functions.php:1165
 msgid "%s has previously requested to join this group. Sending an invitation will automatically add the member to the group."
-msgstr ""
+msgstr "%s ha solicitado unirse al grupo. Se ha enviado una invitación automáticamente para añadir el nuevo miembro al grupo."
 
 #: bp-templates/bp-legacy/buddypress-functions.php:955
 #: bp-templates/bp-legacy/buddypress-functions.php:991
@@ -3091,7 +3091,7 @@ msgstr "Lo sentimos, este correo electrónico no está permitido."
 
 #: bp-members/bp-members-functions.php:1199
 msgid "User last_activity data is no longer stored in usermeta. Use bp_update_user_last_activity() instead."
-msgstr ""
+msgstr "Los datos de usuario last_activity no se almacenan en usermeta. Usa bp_update_user_last_activity() en su lugar."
 
 #: bp-members/bp-members-functions.php:1406
 #: bp-members/bp-members-functions.php:2440
@@ -3100,7 +3100,7 @@ msgstr "<strong>ERROR</strong>: >Tu cuenta ha sido marcada como spam."
 
 #: bp-members/bp-members-functions.php:1169
 msgid "User last_activity data is no longer stored in usermeta. Use bp_get_user_last_activity() instead."
-msgstr ""
+msgstr "Los datos de usuario last_activity no se almacenan en usermeta. Usa bp_update_user_last_activity() en su lugar."
 
 #: bp-members/bp-members-classes.php:578 bp-members/bp-members-classes.php:665
 #: bp-members/bp-members-classes.php:742
@@ -3145,8 +3145,8 @@ msgstr "Último notificado: %s"
 #: bp-members/bp-members-admin.php:1903
 msgid "You are about to resend an activation email to the following account:"
 msgid_plural "You are about to resend activation emails to the following accounts:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vas a volver a enviar un correo electrónico de activación a la siguiente cuenta:"
+msgstr[1] "Vas a volver a enviar mensajes de correo electrónico de activación a las siguientes cuentas:"
 
 #: bp-members/bp-members-admin.php:1902
 msgid "Resend Activation Emails"
@@ -3202,11 +3202,11 @@ msgstr "\"Eliminar\" permite eliminar una cuenta pendiente desde tu sitio. Se te
 
 #: bp-members/bp-members-admin.php:1425
 msgid "By clicking on a Username you will be able to activate a pending account from the confirmation screen."
-msgstr ""
+msgstr "Al hacer clic en un Nombre de usuario podrás activar la cuenta pendiente desde la pantalla de confirmación."
 
 #: bp-members/bp-members-admin.php:1423
 msgid "\"Email\" takes you to the confirmation screen before being able to send the activation link to the desired pending account. You can only send the activation email once per day."
-msgstr ""
+msgstr "\"Email\" te lleva a la pantalla de confirmación antes de poder enviar el enlace de activación a la cuenta pendiente deseada. Sólo se puede enviar el correo electrónico de activación una vez al día."
 
 #: bp-members/bp-members-admin.php:1422
 msgid "Hovering over a row in the pending accounts list will display action links that allow you to manage pending accounts. You can perform the following actions:"
