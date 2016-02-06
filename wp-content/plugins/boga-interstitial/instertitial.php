@@ -1,0 +1,102 @@
+<!-- Intersitial Modal -->
+<style>
+/* CSS used here will be applied after bootstrap.css */
+body { font-family: 'Open Sans', sans-serif; }
+	@media screen and (max-width: 700px){
+    #interstitialModal{
+    top: 0% !important;
+}
+	}
+	@media screen and (min-width: 701px){
+    #interstitialModal{
+    top: 5% !important;
+}
+	}
+	#interstitialModal .modal-dialog
+	{
+        color: #ffffff;
+    }
+	#interstitialModal .modal-body
+	{
+        padding:0px;
+	}
+	#interstitialModal .modal-dialog a
+	{
+        color: #ffffff;
+        text-decoration:underline;
+	}
+	#interstitialModal .modal-content
+	{
+        width: auto;
+        border: 0px;
+	}
+	.modal-backdrop
+	{
+        opacity:0.8 !important;
+	}
+	button#close-buton.close{
+		opacity: 1 !important;
+		font-size: 25px;
+		color: white;
+	}
+	#trackinglink{
+		opacity: 0;
+	}
+	.ad_header, .ad_discount{
+    color: black !important;
+		text-decoration: none !important;
+		font-family: Oswald;
+	}
+	.ad_header{
+    font-size: 20px;
+		font-style: normal !important;
+	}
+	.ad_link{
+    color: white !important;
+		width: 90%;
+		text-decoration: none !important;
+		font-size: 20px;
+		font-family: Oswald;
+		background-color: #d17b83 !important;
+		border-color: #d17b83 !important;
+	}
+	.old_price{
+    color: grey !important;
+	}
+</style>
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+<div class="modal fade" id="interstitialModal" tabindex="-1" role="dialog" data-width="640" aria-labelledby="interstitialLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<p class="text-center">
+			<a id="trackinglink" href="#">d</a>
+			<button id="close-buton" type="button" class="close" data-dismiss="modal">
+				<span aria-hidden="true">X</span><span class="sr-only text-muted">Close</span>
+			</button>
+		</p>
+		<div class="modal-content">
+			<div class="modal-body text-center">
+				<?php echo adrotate_group(1); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    jQuery(document).ready(function(){
+        var cookie_val = localStorage.getItem('bogatitial');
+        if(cookie_val){
+            if(cookie_val < 2){
+                cookie_val++;
+                localStorage.setItem('bogatitial', cookie_val);
+            }else{
+                localStorage.removeItem('bogatitial');
+            }
+        }else{
+            jQuery('.shareaholic-share-buttons-container.floated').hide();
+            jQuery('#interstitialModal').modal({show:true, backdrop: 'static'});
+            localStorage.setItem('bogatitial', 1);
+        }
+        jQuery('#close-buton').on('click', function(){
+            jQuery('.shareaholic-share-buttons-container.floated').show('slow');
+        });
+    });
+</script>
