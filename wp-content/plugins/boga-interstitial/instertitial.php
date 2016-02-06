@@ -36,8 +36,9 @@ body { font-family: 'Open Sans', sans-serif; }
 	}
 	button#close-buton.close{
 		opacity: 1 !important;
-		font-size: 25px;
+		font-size: 21px;
 		color: white;
+		opacity: 0.8;
 	}
 	#trackinglink{
 		opacity: 0;
@@ -67,17 +68,19 @@ body { font-family: 'Open Sans', sans-serif; }
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 <div class="modal fade" id="interstitialModal" tabindex="-1" role="dialog" data-width="640" aria-labelledby="interstitialLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<p class="text-center">
-			<a id="trackinglink" href="#">d</a>
+		<p class="text-right">
+			<a id="trackinglink" href="#">BOGA</a>
 			<button id="close-buton" type="button" class="close" data-dismiss="modal">
-				<span aria-hidden="true">X</span><span class="sr-only text-muted">Close</span>
+				<span aria-hidden="true">x</span><span class="sr-only text-muted">Close</span>
 			</button>
 		</p>
-		<div class="modal-content">
-			<div class="modal-body text-center">
-				<?php echo adrotate_group(1); ?>
-            </div>
-        </div>
+		<a id="trackinglink_2" href="#">
+			<div class="modal-content">
+				<div class="modal-body text-center">
+					<?php echo adrotate_group(1); ?>
+				</div>
+			</div>
+		</a>
     </div>
 </div>
 <script>
@@ -91,6 +94,8 @@ body { font-family: 'Open Sans', sans-serif; }
                 localStorage.removeItem('bogatitial');
             }
         }else{
+			var tracking_link = jQuery('.ad_link').attr('href');
+			jQuery('#trackinglink').attr('href', tracking_link);
             jQuery('.shareaholic-share-buttons-container.floated').hide();
             jQuery('#interstitialModal').modal({show:true, backdrop: 'static'});
             localStorage.setItem('bogatitial', 1);
