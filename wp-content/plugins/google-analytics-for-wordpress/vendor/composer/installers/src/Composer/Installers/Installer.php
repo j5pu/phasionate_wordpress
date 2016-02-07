@@ -18,6 +18,7 @@ class Installer extends LibraryInstaller
         'agl'          => 'AglInstaller',
         'annotatecms'  => 'AnnotateCmsInstaller',
         'bitrix'       => 'BitrixInstaller',
+        'bonefish'     => 'BonefishInstaller',
         'cakephp'      => 'CakePHPInstaller',
         'chef'         => 'ChefInstaller',
         'ccframework'  => 'ClanCatsFrameworkInstaller',
@@ -35,6 +36,7 @@ class Installer extends LibraryInstaller
         'hurad'        => 'HuradInstaller',
         'joomla'       => 'JoomlaInstaller',
         'kirby'        => 'KirbyInstaller',
+        'kodicms'      => 'KodiCMSInstaller',
         'kohana'       => 'KohanaInstaller',
         'laravel'      => 'LaravelInstaller',
         'lithium'      => 'LithiumInstaller',
@@ -67,7 +69,7 @@ class Installer extends LibraryInstaller
         'wordpress'    => 'WordPressInstaller',
         'zend'         => 'ZendInstaller',
         'zikula'       => 'ZikulaInstaller',
-        'prestashop'   => 'PrestashopInstaller',
+        'prestashop'   => 'PrestashopInstaller'
     );
 
     /**

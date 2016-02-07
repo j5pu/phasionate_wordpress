@@ -82,15 +82,6 @@ class Yoast_GA_Universal extends Yoast_GA_Tracking {
 				$gaq_push[] = "'set', 'anonymizeIp', true";
 			}
 
-			/**
-			* Filter: 'yst_ga_filter_push_vars' - Allow changing the $gaq_push variables before scripts are required.
-			*
-			* @api array
-			*/
-			if ( has_filter( 'yst_ga_filter_push_vars' ) && $value_to_push = apply_filters( 'yst_ga_filter_push_vars', $gaq_push ) ) {
-				$gaq_push[] = $value_to_push;
-			}
-
 			// add demographics
 			if ( $this->options['demographics'] ) {
 				$gaq_push[] = "'require', 'displayfeatures'";
@@ -143,12 +134,15 @@ class Yoast_GA_Universal extends Yoast_GA_Tracking {
 			$ga_settings = $this->options; // Assign the settings to the javascript include view
 
 			// Include the tracking view
-			if ( ! $this->debug_mode() ) {
+			if ( $this->options['debug_mode'] == 1 ) {
+				require( 'views/tracking-debug.php' );
+			}
+			else {
 				require( 'views/tracking-universal.php' );
 			}
 		}
 		else {
-			$this->disabled_usergroup();
+			require( 'views/tracking-usergroup.php' );
 		}
 	}
 
@@ -188,7 +182,7 @@ class Yoast_GA_Universal extends Yoast_GA_Tracking {
 			case 'internal-as-outbound':
 				$label = $this->sanitize_internal_label();
 
-				$onclick = "__gaTracker('send', '" . esc_js( $this->options['track_download_as'] ) . "', '" . esc_js( $link['category'] ) . '-' . esc_js( $label ) . "', '" . esc_js( $full_url ) . "', '" . esc_js( strip_tags( $link['link_text'] ) ) . "');";
+				$onclick = "__gaTracker('send', '" . $this->options['track_download_as'] . "', '" . esc_js( $link['category'] ) . '-' . esc_js( $label ) . "', '" . esc_js( $full_url ) . "', '" . esc_js( strip_tags( $link['link_text'] ) ) . "');";
 
 				break;
 			case 'outbound':
