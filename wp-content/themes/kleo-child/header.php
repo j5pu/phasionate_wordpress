@@ -26,8 +26,6 @@
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<meta name="verification" content="6c2c0d0251a189774a6fe4252ce561a5" /><!-- Código de verifiación para zanox -->
-	<meta name="inmobi-site-verification" content="fa3318c03e3cc17de5c28334685b8964" /><!-- Código de verificación para inmobi -->
-	<meta name="google-site-verification" content="BuWRWkKLQHCNzVM_rzQzg9Q1viqObge5Q-b75x3lpfw" /><!-- Código de verificación para Google Search Console -->
 	<!-- Código de verificación para Google Analitycs -->
 	<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
