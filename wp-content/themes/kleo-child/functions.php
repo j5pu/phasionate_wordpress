@@ -296,6 +296,7 @@ function posts_home(){
 	$c=1;
 
 	while ( have_posts() ) : the_post();
+		$post_id = get_the_ID();
 		if($c>0){ 
 			$category = get_the_category();
 			foreach ($category as $struct ) {
@@ -364,7 +365,6 @@ function posts_home(){
 	echo '<div style="clear:both;"></div>';
 	// Reset Query
 	wp_reset_query();	
-	return $content;
 }
 add_shortcode( 'PostsRecents', 'posts_home' );
 
@@ -428,12 +428,7 @@ function losmasvotados(){
 			'post_status' => 'publish'			
 		);	
 	$likes_posts = get_posts($likes_posts_args);
-		foreach( $likes_posts as $likes_post ) {
-			$count_output = '';
-			if( $display_count ) {
-				$count = get_post_meta( $likes_post->ID, 'ratings_average', true);
-				$count_output = " <span class='item-likes-count'>($count)</span>";
-			}			
+		foreach( $likes_posts as $likes_post ) {		
 			$category = get_the_category($likes_post->ID);
 			echo '<div class="portada_posts">';
 			$link = get_permalink($likes_post->ID);
@@ -470,12 +465,7 @@ function losmaspoupularessidebar(){
 		);	
 	$likes_posts = get_posts($likes_posts_args);
 		echo '<h4 class="widget-title">Lo más visto</h4>';
-		foreach( $likes_posts as $likes_post ) {
-			$count_output = '';
-			if( $display_count ) {
-				$count = get_post_meta( $likes_post->ID, '_item_likes', true);
-				$count_output = " <span class='item-likes-count'>($count)</span>";
-			}			
+		foreach( $likes_posts as $likes_post ) {			
 			$category = get_the_category($likes_post->ID);
 			echo '<div class="portada_posts" style="display: table;">';
 			$link = get_permalink($likes_post->ID);
@@ -511,12 +501,7 @@ function losmasvotadossidebar(){
 		);	
 	$likes_posts = get_posts($likes_posts_args);
 		echo '<h4 class="widget-title">Más votados</h4>';
-		foreach( $likes_posts as $likes_post ) {
-			$count_output = '';
-			if( $display_count ) {
-				$count = get_post_meta( $likes_post->ID, 'ratings_average', true);
-				$count_output = " <span class='item-likes-count'>($count)</span>";
-			}			
+		foreach( $likes_posts as $likes_post ) {		
 			$category = get_the_category($likes_post->ID);
 			echo '<div class="portada_posts" style="display: table;">';
 			$link = get_permalink($likes_post->ID);
@@ -551,11 +536,7 @@ function losultimossidebar(){
 	$lasts_posts = get_posts($lasts_posts_args);
 		echo '<h4 class="widget-title">Los últimos</h4>';
 		foreach( $lasts_posts as $last_post ) {
-			$count_output = '';
-			if( $display_count ) {
-				$count = get_post_meta( $last_post->ID, 'ratings_average', true);
-				$count_output = " <span class='item-likes-count'>($count)</span>";
-			}			
+			$count_output = '';		
 			$category = get_the_category($last_post->ID);
 			echo '<div class="portada_posts" style="display: table;">';
 			$link = get_permalink($last_post->ID);
@@ -595,12 +576,7 @@ function relatedpostsidebar(){
 		if (!empty( $related_posts )){
 			echo '<h4 class="widget-title">También te gustará</h4>';
 		
-			foreach( $related_posts as $related_post ) {
-				$count_output = '';
-				if( $display_count ) {
-					$count = get_post_meta( $related_post->ID, '_item_likes', true);
-					$count_output = " <span class='item-likes-count'>($count)</span>";
-				}			
+			foreach( $related_posts as $related_post ) {			
 				$category = get_the_category($related_post->ID);
 				echo '<div class="portada_posts" style="display: table-row;">';
 				$link = get_permalink($related_post->ID);
@@ -642,12 +618,7 @@ function populares_Categoria_Sidebar( $atts ){
 	<h4 class="widget-title lessFontSize">Lo más visto en <?php echo $atts['cat'];?></h4>
 	<?php
 	$lasts_posts = get_posts($lasts_posts_args);
-		foreach( $lasts_posts as $last_post ) {
-			$count_output = '';
-			if( $display_count ) {
-				$count = get_post_meta( $last_post->ID, '_item_likes', true);
-				$count_output = " <span class='item-likes-count'>($count)</span>";
-			}			
+		foreach( $lasts_posts as $last_post ) {	
 			$category = get_the_category($last_post->ID);
 			echo '<div class="portada_posts" style="display: table-row;">';
 			$link = get_permalink($last_post->ID);
@@ -685,12 +656,7 @@ function lasUltimasNoticiasSidebar(){
 	?>
 	<h4 class="widget-title">#NotiBogadia</h4>
 	<?php
-		foreach( $lasts_posts as $last_post ) {
-			$count_output = '';
-			if( $display_count ) {
-				$count = get_post_meta( $last_post->ID, '_item_likes', true);
-				$count_output = " <span class='item-likes-count'>($count)</span>";
-			}			
+		foreach( $lasts_posts as $last_post ) {		
 			$category = get_the_category($last_post->ID);
 			echo '<div class="portada_posts" style="display: table-row;">';
 			$link = get_permalink($last_post->ID);
