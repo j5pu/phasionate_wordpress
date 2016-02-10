@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-12-22 20:26:46+0000\n"
+"PO-Revision-Date: 2016-02-09 17:53:49+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -914,7 +914,7 @@ msgstr "Entrada publicada."
 
 #: wp-admin/edit-form-advanced.php:127
 msgid "View page"
-msgstr "Ver pagina"
+msgstr "Ver página"
 
 #: wp-admin/edit-form-advanced.php:115 wp-admin/edit-form-advanced.php:121
 msgid "Preview page"
@@ -4533,10 +4533,6 @@ msgstr "Recuerda, una vez eliminado el sitio no puede ser restaurado."
 msgid "You do not have sufficient permissions to delete this site."
 msgstr "No tienes sufientes permisos para eliminar este sitio."
 
-#: wp-admin/ms-delete-site.php:88
-msgid "I'm sure I want to permanently disable my site, and I am aware I can never get it back or use %s again."
-msgstr "Estoy seguro que quiero desactivar mi sitio permanentemente, y soy consciente de que nunca podré recuperarlo o usar %s de nuevo."
-
 #: wp-admin/ms-delete-site.php:23
 msgid "I'm sorry, the link you clicked is stale. Please select another option."
 msgstr "Lo siento, el enlace en el que has hecho clic está caducado. Elige otra opción."
@@ -4552,6 +4548,10 @@ msgstr "Si no quieres usar tu sitio %s más puedes borrarlo usando el siguiente 
 #: wp-admin/ms-delete-site.php:78
 msgid "Thank you. Please check your email for a link to confirm your action. Your site will not be deleted until this link is clicked."
 msgstr "Gracias. Por favor, comprueba si has recibido un enlace en tu correo electrónico para confirmar esta acción. Tu sitio no se borrará hasta que hagas clic en este enlace. "
+
+#: wp-admin/ms-delete-site.php:88
+msgid "I'm sure I want to permanently disable my site, and I am aware I can never get it back or use %s again."
+msgstr "Estoy seguro de que quiero desactivar mi sitio permanentemente, y soy consciente de que nunca podré recuperarlo o utilizar %s de nuevo."
 
 #. translators: Gigabytes
 #: wp-admin/includes/ms.php:453

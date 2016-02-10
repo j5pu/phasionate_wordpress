@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Development (4.4.x) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-01-24 19:37:59+0000\n"
+"PO-Revision-Date: 2016-02-09 11:53:01+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -259,11 +259,6 @@ msgstr "Título publicado:"
 msgid "Author:"
 msgstr "Autor:"
 
-#. translators: %s: support forums URL
-#: wp-includes/wp-db.php:1550 wp-includes/wp-db.php:1654
-msgid "If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href=\"%s\">WordPress Support Forums</a>."
-msgstr "Si no estás seguro que significan estos términos seguramente deberías contactar con tu servidor. Si aún necesitas ayuda siempre puedes visitar los<a href=\"%s\">foros de soporte de WordPress</a>."
-
 #. translators: %s: database host
 #: wp-includes/wp-db.php:1643
 msgid "This means that we lost contact with the database server at %s. This could mean your host&#8217;s database server is down."
@@ -273,10 +268,6 @@ msgstr "Esto significa que hemos pedido el contacto con la base de datos del ser
 msgid "Are you sure that the database server is running?"
 msgstr "¿Estás seguro de que el servidor de base de datos está funcionando?"
 
-#: wp-includes/wp-db.php:1639
-msgid "Error reconnecting to the database"
-msgstr "Error reconectando con la base de datos"
-
 #: wp-includes/wp-db.php:1649
 msgid "Are you sure that the database server is not under particularly heavy load?"
 msgstr "¿Estás seguro de que el servidor de base de datos no esté sometido a una sobrecarga de trabajo?"
@@ -284,6 +275,15 @@ msgstr "¿Estás seguro de que el servidor de base de datos no esté sometido a 
 #: wp-includes/wp-db.php:1544
 msgid "Are you sure that you have typed the correct hostname?"
 msgstr "¿Estás seguro de haber introducido el nombre de host correcto?"
+
+#. translators: %s: support forums URL
+#: wp-includes/wp-db.php:1550 wp-includes/wp-db.php:1654
+msgid "If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href=\"%s\">WordPress Support Forums</a>."
+msgstr "Si no estás seguro de qué significan estos términos seguramente deberías contactar con tu servidor. Si aún necesitas ayuda siempre puedes visitar los<a href=\"%s\">foros de soporte de WordPress</a>."
+
+#: wp-includes/wp-db.php:1639
+msgid "Error reconnecting to the database"
+msgstr "Error al reconectar con la base de datos"
 
 #: wp-includes/wp-db.php:1543
 msgid "Are you sure you have the correct username and password?"
@@ -4544,7 +4544,7 @@ msgstr "Error de la base de datos"
 #: wp-includes/functions.php:3513 wp-includes/ms-load.php:286
 #: wp-includes/wp-db.php:1533
 msgid "Error establishing a database connection"
-msgstr "Error estableciendo una conexión con la base de datos"
+msgstr "Error al establecer una conexión con la base de datos"
 
 #. translators: %s: number of comments
 #: wp-includes/comment-template.php:874
