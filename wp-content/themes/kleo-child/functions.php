@@ -342,9 +342,7 @@ function posts_home(){
 			     data-ad-client="ca-pub-9006336585437783"
 			     data-ad-slot="2858578552"
 			     data-ad-format="auto"></ins>
-			<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>';
+				<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 		}
 		//if($c==7){
 		//	echo '<a style="text-align: center; display: block; margin: 10px 10px 10px 0px; clear: both;" href="https://www.bogadia.com/sorteos/concurso-de-disenadoras/"><img src="https://www.bogadia.com/wp-content/uploads/tienda/banner-sorteo-tienda.jpg" alt="Sorteo de bolso - Tienda Bogadia"/></a>';
