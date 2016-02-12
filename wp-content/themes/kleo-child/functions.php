@@ -335,7 +335,7 @@ function posts_home(){
 				$not_post_in[] = get_the_ID();
 		}
 		if($c==3){
-			echo '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			echo '
 			<!-- Banner Home entre los post (3 y 4) -->
 			<ins class="adsbygoogle"
 			     style="display:block; margin-right: 10px; clear: both;"

@@ -111,7 +111,6 @@ kleo_switch_layout('right');
 	@media(min-width: 768px) { .adv-320x100{ display: none !important; } }
 	@media(max-width: 768px) { .adv-300x600{ display: none !important; } }
 	</style>
-	<script async src="//"></script>
 	<!-- Banner Definitivo Streetstyle (PC) -->
 	<ins class="adsbygoogle streetStyleAdv adv-300x600"
 	     style="display:inline-block;width:300px;height:600px"
@@ -120,7 +119,6 @@ kleo_switch_layout('right');
 	<script>
 	(adsbygoogle = window.adsbygoogle || []).push({});
 	</script>
-	<script async src="//"></script>
 	<!-- Banner Definitivo Streetstyle (Móvil) -->
 	<ins class="adsbygoogle streetStyleAdv adv-320x100"
 	     style="display:inline-block;width:320px;height:100px"
@@ -138,7 +136,6 @@ kleo_switch_layout('right');
 	?>
 
 <!-- Banner Google Adsense -->
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- Banner Street Style MadrEat (Guia) -->
 <ins class="adsbygoogle"
      style="display:block;margin: 20px auto;"
