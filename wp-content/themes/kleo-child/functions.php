@@ -179,7 +179,7 @@ function no_author_base_rewrite_rules($author_rewrite) {
     $author_rewrite = array();
     $authors = $wpdb->get_results("SELECT user_nicename AS nicename from $wpdb->users");   
     foreach($authors as $author) {
-        //$author_rewrite["({$author->nicename})/page/?([0-9]+)/?$"] = 'index.php?author_name=$matches[1]&paged=$matches[2]';
+        $author_rewrite["({$author->nicename})/page/?([0-9]+)/?$"] = 'index.php?author_name=$matches[1]&paged=$matches[2]';
 		$author_rewrite["({$author->nicename})/?([0-9]+)/?$"] = 'index.php?author_name=$matches[1]&paged=$matches[2]';
         $author_rewrite["({$author->nicename})/?$"] = 'index.php?author_name=$matches[1]';
     }  
@@ -336,15 +336,15 @@ function posts_home(){
 		}
 		if($c==3){
 			echo '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Banner Home entre los post (3 y 4) -->
-<ins class="adsbygoogle"
-     style="display:block; margin-right: 10px; clear: both;"
-     data-ad-client="ca-pub-9006336585437783"
-     data-ad-slot="2858578552"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>';
+			<!-- Banner Home entre los post (3 y 4) -->
+			<ins class="adsbygoogle"
+			     style="display:block; margin-right: 10px; clear: both;"
+			     data-ad-client="ca-pub-9006336585437783"
+			     data-ad-slot="2858578552"
+			     data-ad-format="auto"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>';
 		}
 		//if($c==7){
 		//	echo '<a style="text-align: center; display: block; margin: 10px 10px 10px 0px; clear: both;" href="https://www.bogadia.com/sorteos/concurso-de-disenadoras/"><img src="https://www.bogadia.com/wp-content/uploads/tienda/banner-sorteo-tienda.jpg" alt="Sorteo de bolso - Tienda Bogadia"/></a>';
@@ -371,8 +371,7 @@ add_shortcode( 'PostsRecents', 'posts_home' );
 
 /* 
 *
-* Shortcode para sacar en los mas, los post mas pupulares (visitados)
-*
+* Shortcode para sacar los más leidos al final de la Home
 */
 function losmaspoupulares(){	
 	//sacamos los post mas visitadod del un plugin, wp_postviews
@@ -409,41 +408,6 @@ function losmaspoupulares(){
 }
 add_shortcode( 'MasPopulares', 'losmaspoupulares' );
 
-
-
-/* 
-*
-* Shortcode para sacar en los mas, los post mas votados
-*
-*/
-function losmasvotados(){
-	//Sql para la obtencion delos posts:
-	global $not_post_in;
-	$likes_posts_args = array(
-			'numberposts' => 4,
-			'orderby' => 'meta_value',
-			'order' => 'DESC',
-			'meta_key' => 'ratings_average',
-			'post_type' => 'post',
-			'post_status' => 'publish'			
-		);	
-	$likes_posts = get_posts($likes_posts_args);
-		foreach( $likes_posts as $likes_post ) {		
-			$category = get_the_category($likes_post->ID);
-			echo '<div class="portada_posts">';
-			$link = get_permalink($likes_post->ID);
-			$title = get_the_title($likes_post->ID);			
-			echo '<a href="'.$link.'" class="_self element-wrap"><span class="hover-element"><i>.</i></span>'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'</a>';
-			echo '<div class="hr-title hr-long"><abbr><a href="'.get_category_link($category[0]->term_id ).'">'.$category[0]->cat_name.'</a></div>';
-			echo '<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'">'.$title.'</a></h5>';
-			echo '<div class="pt-cv-content"><small>'.$likes_post->post_excerpt.'</small></div>';
-			echo '</div>';
-			wp_reset_query();
-		}
-
-}
-add_shortcode( 'MasVotados', 'losmasvotados' );
-
 /* 
 *
 * Shortcode para sacar en los mas, los post mas vistos en la sidebar
@@ -479,81 +443,9 @@ function losmaspoupularessidebar(){
 }
 add_shortcode( 'MasPopularesSidebar', 'losmaspoupularessidebar' );
 
-
 /* 
 *
-* Shortcode para sacar en los mas, los post mas votados en la sidebar
-*
-*/
-function losmasvotadossidebar(){
-	//Sql para la obtencion delos posts:
-	global $not_post_in;
-	$current_post = get_the_ID();
-	$likes_posts_args = array(
-			'post__not_in' => array($current_post),
-			'numberposts' => 4,
-			'orderby' => 'meta_value',
-			'order' => 'DESC',
-			'meta_key' => 'ratings_average',
-			'post_type' => 'post',
-			'post_status' => 'publish',			
-			'date_query' => array('column' => 'post_date_gmt', 'after' => '1 months ago') // Muestra los post más leidos solo del último mes.	
-		);	
-	$likes_posts = get_posts($likes_posts_args);
-		echo '<h4 class="widget-title">Más votados</h4>';
-		foreach( $likes_posts as $likes_post ) {		
-			$category = get_the_category($likes_post->ID);
-			echo '<div class="portada_posts" style="display: table;">';
-			$link = get_permalink($likes_post->ID);
-			$title = get_the_title($likes_post->ID);		
-			$classTitle = "lessFontSize";
-			echo '<a style="vertical-align: middle; display: table-cell; width: 100px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $likes_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';	
-			echo '</div>';
-			echo '</br>';
-			wp_reset_query();
-		}
-
-}
-add_shortcode( 'MasVotadosSidebar', 'losmasvotadossidebar' );
-
-/* 
-*
-* Shortcode para sacar en los mas, los ultimos post en la sidebar
-*
-*/
-function losultimossidebar(){
-	//Sql para la obtencion delos posts:
-	global $not_post_in;
-	$current_post = get_the_ID();
-	$lasts_posts_args = array(
-			'post__not_in' => array($current_post),
-			'numberposts' => 4,
-			'orderby' => 'post_date',
-			'order' => 'DESC',
-			'post_type' => 'post',
-			'post_status' => 'publish'				
-		);	
-	$lasts_posts = get_posts($lasts_posts_args);
-		echo '<h4 class="widget-title">Los últimos</h4>';
-		foreach( $lasts_posts as $last_post ) {
-			$count_output = '';		
-			$category = get_the_category($last_post->ID);
-			echo '<div class="portada_posts" style="display: table;">';
-			$link = get_permalink($last_post->ID);
-			$title = get_the_title($last_post->ID);		
-			$classTitle = "lessFontSize";
-			echo '<a style="vertical-align: middle; display: table-cell; width: 100px;" class="element-wrap" href="'.$link.'">'.get_the_post_thumbnail( $last_post->ID, 'thumbnail' ).'<span class="hover-element"><i></i></span></a>'.'<h5 style="vertical-align: middle; display: table-cell;"><a href="'.$link.'" class="'.$classTitle.'">'.$title.'</a></h5>';
-			echo '</div>';
-			wp_reset_query();
-		}
-
-}
-add_shortcode( 'UltimosSidebar', 'losultimossidebar' );
-
-/* 
-*
-* Shortcode para sacar post por tags relacionados
-*
+* Shortcode para sacar post relacionados por tags
 */
 function relatedpostsidebar(){
 	global $not_post_in;
@@ -595,7 +487,7 @@ add_shortcode( 'RelatedPostSidebar', 'relatedpostsidebar' );
 
 /* 
 *
-* Shortcode para sacar en los mas, los ultimos post en la sidebar de una categoria en concreto
+* Shortcode para sacar en los ultimos post en la sidebar de una categoria en concreto
 *
 */
 function populares_Categoria_Sidebar( $atts ){
@@ -635,7 +527,7 @@ add_shortcode( 'popularesCategoria', 'populares_Categoria_Sidebar' );
 
 /* 
 *
-* Shortcode para sacar en los mas, los ultimos post en la sidebar
+* Shortcode para sacar en los mas, los ultimas noticias en la sidebar
 *
 */
 function lasUltimasNoticiasSidebar(){
@@ -670,82 +562,6 @@ function lasUltimasNoticiasSidebar(){
 
 }
 add_shortcode( 'UltimasNoticias', 'lasUltimasNoticiasSidebar' );
-
-/* 
-*
-* Shortcode para sacar post en galeria de streetstyle
-*
-*/
-function imagesstreetstylesidebar(){
-	global $not_post_in;
-    global $post;
-
-    //get a random streetstyle post, not current post
-	/*
-    $args = array ( 'category_name' => 'Streetstyle', 'posts_per_page' => -1, 'post__not_in' => array($post->ID) );
-	$streetPosts = get_posts( $args );
-	shuffle($streetPosts);
-	foreach ($streetPosts as $streetPost){
-		echo get_the_title($streetPost->ID)." - id: ".$streetPost->ID."<br/>";		
-	}
-	*/
-	$ids_street = array ( '21204', '21074', '20841', '20601', '20260', '20106');
-	$images_street = array( /*'16366' => array ( 'https://www.bogadia.com/wp-content/uploads/2015/05/52.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/6-copy.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/114.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/72.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/113.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/27-copy.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/4-copy.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/fuencarral-30.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/210.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/3-copy.jpg' ),
-							'16302' => array ( 'https://www.bogadia.com/wp-content/uploads/2015/05/301.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/29-2.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/281.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/fuencarral-15.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/fuencarral-14.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/16-copy.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/231.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/fuencarral-28.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/21-copia-copy.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/261.jpg' ),
-							'16509' => array ( 'https://www.bogadia.com/wp-content/uploads/2015/05/fuecarral16.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/fuencarral-18.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/fuencarral-19.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/142.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/15-copy.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/19-copia-copy.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/fuencarral-24.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/181.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/fuencarral-31.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/05/252.jpg' ),
-							'17692' => array ( 'https://www.bogadia.com/wp-content/uploads/2015/06/nocturna_.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/nocturna_-2.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/nocturna_-3.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/nocturna_-5.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/6-copy.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/nocturna_-4.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/8-copy.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/nocturna_-9.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/nocturna_-10.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/nocturna_-11.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/12.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/13-copy.jpg'),
-							'18527' => array ( 'https://www.bogadia.com/wp-content/uploads/2015/06/3-copy.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/7.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/10.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-9.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-10.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-11.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-12.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-13.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-14.jpg' ),
-							'18505' => array ( 'https://www.bogadia.com/wp-content/uploads/2015/06/1.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/2-copy.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-2.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-3.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-4.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-5.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-6.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-7.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/06/callao-15.jpg' )*/
-							'21204' => array ( 'https://www.bogadia.com/wp-content/uploads/2015/07/15-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/14-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/13-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/12-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/11-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/10-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/9-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/8-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/7-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/6-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/5-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/4-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/3-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/2-600x600.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/1-600x600.jpg'),
-							'21074' => array ( 'https://www.bogadia.com/wp-content/uploads/2015/07/01-Alberto.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/02-Diana.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/03-Mario.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/04-Maria.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/05-Daniel.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/06-Roberto.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/07-Paula.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/08-Elena.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/09-Tanya.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/10-Soraya.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/11-Lorena.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/12-Sonia.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/13-Aitor.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/14-Sergio.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/15-Alejandra.jpg'),
-							'20841' => array ( 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-15.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-14.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-7.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-6.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-5.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-4.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-3.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-9.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-11.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-12.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-2.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-8.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-13.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-10.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/VENTAS-1.jpg'),
-							'20601' => array ( 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0307.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0332.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0333.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0339.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0352.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0366.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0313.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0320.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0327.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0359.jpg'),
-							'20260' => array ( 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-6.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-2.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-3.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-16.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-13.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-1.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-10.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-7.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-9.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-15.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-5.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-11.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-12.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-14.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/serrano-8.jpg'),
-							'20106' => array ( 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0260.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0264.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0267.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0269.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0270.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0282.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0285.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0290.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0292.jpg', 'https://www.bogadia.com/wp-content/uploads/2015/07/DSC0297.jpg')							
-							 );
-	if (($key = array_search($post->ID, $ids_street)) !== false) {
-	    unset($ids_street[$key]);
-	}
-	shuffle($ids_street);
-	//get images for that random post 
-	$link = get_permalink($ids_street[0]);
-	?>
-	<h4 class="widget-title"><?php echo get_the_title($ids_street[0]); ?></h4>
-	<div id="slider1_container" class="streetSliderCont">
-		<div u="slides" id="slider1_incontainer">
-	<?php
-	foreach ($images_street[$ids_street[0]] as $media) {
-		echo "<div><a u='image' href='".$link."'><img src='".$media."'></a></div>";
-	}
-	?>
-		</div>
-        <!-- Arrow Left -->
-		<span u="arrowleft" class="jssora12l" style="top: 123px; left: 0px;"></span>
-        <!-- Arrow Right -->
-        <span u="arrowright" class="jssora12r" style="top: 123px; right: 0px;"></span>
-	</div>
-	<script src="<?php bloginfo('wpurl'); ?>/wp-content/themes/kleo-child/assets/js/jssor.slider.mini.js"></script>
-	<script type="text/javascript">
-	jQuery(document).ready(function ($) {
-			$('#slider1_container').css('height',$('#slider1_container').width());
-			$('#slider1_incontainer').css('height',$('#slider1_incontainer').width());
-			var options = {
-				$AutoPlay: true,
-				$ArrowKeyNavigation: true,   			            //[Optional] Allows keyboard (arrow key) navigation or not, default value is false
-				$ArrowNavigatorOptions: {
-                    $Class: $JssorArrowNavigator$,              //[Requried] Class to create arrow navigator instance
-                    $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
-                    $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
-                }
-			 };
-        	var jssor_slider1 = new $JssorSlider$('slider1_container', options);
-    });
-	</script>
-
-	<?php
-}
-add_shortcode( 'ImagesStreetstyleSidebar', 'imagesstreetstylesidebar' );
-
 
 /*
 *
@@ -930,44 +746,6 @@ function photographer_box( $atts ){
 	<?php
 }
 add_shortcode( 'photoBox', 'photographer_box');
-
-/*
-*
-* Shortcode para promocionar un post en la sidebard
-*
-*/
-function promo_post( $atts ){
-	global $post;
-	$current_url = get_permalink( $post->ID );
-	if ( $current_url != $atts['post_url'] ){
-		echo $atts['title_widget'];
-		?>
-		<a rel="nofollow" href="<?php echo $atts['post_url']; ?>" ><img style="width: 250px; display: block; margin: 0px auto;" src="<?php echo $atts['img_src']; ?>" alt="Post promocionado Bogadia"/></a>
-		<?php
-	}
-}
-add_shortcode( 'promoPost', 'promo_post');
-
-/*
-*
-* Shortcode para promocionar un post en la sidebard
-*
-*/
-function streetstyleAdv(){
-?>
-	<script async src="//"></script>
-	<!-- Banner Street Style MadrEat (Guia) -->
-	<ins class="adsbygoogle streetStyleAdv"
-	     style="display:block"
-	     data-ad-client="ca-pub-9006336585437783"
-	     data-ad-slot="2807354150"
-	     data-ad-format="auto"></ins>
-	<script>
-	(adsbygoogle = window.adsbygoogle || []).push({});
-	</script>
-<?php
-}
-add_shortcode( 'streetstyle_Ad', 'streetstyleAdv');
 
 /*
 *
