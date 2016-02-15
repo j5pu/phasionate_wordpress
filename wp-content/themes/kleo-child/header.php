@@ -64,8 +64,31 @@
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/fontello-ie7.css">
 	<![endif]-->
 	
-	<?php if(function_exists('bp_is_active')) { bp_head(); } ?>	
-	
+	<?php if(function_exists('bp_is_active')) { bp_head(); } ?>
+	<script type='text/javascript'>
+		var googletag = googletag || {};
+		googletag.cmd = googletag.cmd || [];
+		(function() {
+			var gads = document.createElement('script');
+			gads.async = true;
+			gads.type = 'text/javascript';
+			var useSSL = 'https:' == document.location.protocol;
+			gads.src = (useSSL ? 'https:' : 'http:') +
+				'//www.googletagservices.com/tag/js/gpt.js';
+			var node = document.getElementsByTagName('script')[0];
+			node.parentNode.insertBefore(gads, node);
+		})();
+	</script>
+
+	<script type='text/javascript'>
+		googletag.cmd.push(function() {
+			googletag.defineSlot('/61601326/interstitial', [480, 320], 'div-gpt-ad-1455558046937-0').addService(googletag.companionAds()).addService(googletag.pubads());
+			googletag.pubads().enableSingleRequest();
+			googletag.pubads().enableVideoAds();
+			googletag.companionAds().setRefreshUnfilledSlots(true);
+			googletag.enableServices();
+		});
+	</script>
 	<?php wp_head(); ?>
 </head>
 
