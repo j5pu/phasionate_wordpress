@@ -3,14 +3,17 @@
 /* CSS used here will be applied after bootstrap.css */
 body { font-family: 'Open Sans', sans-serif; }
 	@media screen and (max-width: 700px){
-    #interstitialModal{
-    top: 0% !important;
-}
+		#interstitialModal{
+			top: 0% !important;
+		}
 	}
 	@media screen and (min-width: 701px){
-    #interstitialModal{
-    top: 5% !important;
-}
+		#interstitialModal{
+			top: 3% !important;
+		}
+		.modal-dialog {
+			width: 24% !important;
+		}
 	}
 	#interstitialModal .modal-dialog
 	{
@@ -29,6 +32,7 @@ body { font-family: 'Open Sans', sans-serif; }
 	{
         width: auto;
         border: 0px;
+		background-color: transparent !important;
 	}
 	.modal-backdrop
 	{
@@ -64,9 +68,10 @@ body { font-family: 'Open Sans', sans-serif; }
 	.old_price{
     color: grey !important;
 	}
+
 </style>
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-<div class="modal fade" id="interstitialModal" tabindex="-1" role="dialog" data-width="640" aria-labelledby="interstitialLabel" aria-hidden="true">
+<div class="modal fade" id="interstitialModal" tabindex="-1" role="dialog" aria-labelledby="interstitialLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<p class="text-right">
 			<a id="trackinglink" href="#">BOGA</a>
