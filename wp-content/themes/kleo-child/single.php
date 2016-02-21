@@ -24,9 +24,13 @@ if(get_cfield( 'related_posts') != '' ) {
 ?>
 
 <?php
-//create full width template
+include 'Mobile_Detect.php';
+$detect = new Mobile_Detect();
 
-kleo_switch_layout('right');
+if( $detect->isMobile() && !$detect->isTablet() ){
+   kleo_switch_layout('no');
+else
+   kleo_switch_layout('right');
 
 ?>
 
