@@ -24,11 +24,12 @@ if(get_cfield( 'related_posts') != '' ) {
 ?>
 
 <?php
-include 'Mobile_Detect.php';
-$detect = new Mobile_Detect();
+require 'Mobile_Detect.php';
+$detect = new Mobile_Detect;
+$deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
 
 if( $detect->isMobile() && !$detect->isTablet() ){
-   kleo_switch_layout('none');
+   kleo_switch_layout('no');
 else
    kleo_switch_layout('right');
 
