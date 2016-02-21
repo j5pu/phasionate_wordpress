@@ -28,7 +28,7 @@ include 'Mobile_Detect.php';
 $detect = new Mobile_Detect();
 
 if( $detect->isMobile() && !$detect->isTablet() ){
-   kleo_switch_layout('no');
+   kleo_switch_layout('none');
 else
    kleo_switch_layout('right');
 
