@@ -6,7 +6,6 @@
  * @subpackage Kleo
  * @since Kleo 1.0
  */
-
 get_header(); ?>
 
 <?php
@@ -24,15 +23,14 @@ if(get_cfield( 'related_posts') != '' ) {
 ?>
 
 <?php
-require 'Mobile_Detect.php';
-$detect = new Mobile_Detect;
-$deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
+// require 'Mobile_Detect.php';
+// $detect = new Mobile_Detect;
+// $deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
 
-if( $detect->isMobile() && !$detect->isTablet() ){
-   kleo_switch_layout('no');
-else
+// if( $detect->isMobile() && !$detect->isTablet() ){
+//    kleo_switch_layout('no');
+// else
    kleo_switch_layout('right');
-
 ?>
 
 <?php get_template_part( 'page-parts/general-before-wrap' );?>
