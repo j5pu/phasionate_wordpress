@@ -1,0 +1,186 @@
+﻿.ssbl-admin-wrap {
+	background-color: #fff!important;
+	margin-left:-20px;
+	font-size: 16px;
+	line-height: 1.42857143;
+	color: #333333;
+	font-family: "Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.container {
+	width: 100%;
+}
+
+.ssbl-spacer {
+    margin-top: 20px;
+}
+
+.ssbl-navlink-blue {
+    color: #fff !important;
+}
+.ssbl-navlink-blue:hover {
+    color: #4582ec !important;
+}
+
+.ssbl-float-right-btn {
+	float:right;
+	margin: 20px 0 0 20px;
+}
+
+.margin-top--md {
+	margin-top: 45px;
+}
+
+.ssbl-float-right-btn-other {
+	float:right;
+	margin: 10px 0 0 20px;
+}
+
+.ssbl-form-wrap {
+	padding: 20px;
+}
+
+.ssbl-admin-wrap .tab-pane {
+	padding-top:15px;
+}
+
+.ssbl-loading {
+	font-size: 45px;
+	color:#4582ec;
+}
+
+.tab-pane .input-div {
+	margin-bottom: 15px;
+}
+
+#ssblsort2 {
+	width: 100%;
+}
+
+.ssbl-logo-img {
+	width: 165px;
+	height: 47px;
+}
+.ssbl-admin-wrap .navbar {
+	border-radius: 0;
+}
+.ssbl-admin-wrap .modal-dialog {
+	margin-top: 60px;
+}
+.ssbl-btn-inactive {
+	margin-top: 12px;
+}
+
+.ssbl-admin-wrap .btn a:hover {
+	text-decoration: none !important;
+}
+
+.ssbl-admin-wrap .bootstrap-filestyle {
+	width: 100%;
+}
+
+.ssbl-admin-wrap .form-control:not(textarea) {
+	height: 40px !important;
+}
+
+.ssbl-admin-wrap .badge {
+	font-size: inherit;
+}
+
+.ssbl-delete-share {
+	cursor: pointer;
+}
+
+.ssbl-top-shares thead {
+	background-color: #fff;
+}
+
+.checkbox-inline {
+	padding-left:0;
+	font-size:14px;
+}
+
+.ssbl-video-container {
+	margin-top:15px;
+	margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+
+.ssbl-video-container iframe,
+.ssbl-video-container object,
+.ssbl-video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 95%;
+    height: 100%;
+}
+
+.ssbp-wrap .ssbp-list {
+	height: 55px;
+}
+
+.ssbl-include-list {
+	border: 1px dashed #ADADAD;
+}
+
+#ssblsort2 li {
+	margin-top: 6px;
+}
+
+.ssbl-well-instruction {
+	text-align: center;
+	color: #ADADAD;
+	width: 100%;
+	margin-bottom: 15px;
+}
+
+.ssbl-admin-wrap .code-font {
+	font-family:Menlo,Monaco,Consolas,"Courier New",monospace !important;
+	font-size: 12px;
+}
+
+.ssbp--theme-4 .ssbp-list li {
+  margin-left: 5px;
+}
+
+.ssbp--theme-4 .ssbp-btn {
+  width: 2.5em;
+  height: 2.5em;
+  line-height: 2.5em;
+}
+
+.ssbp-btn:before {
+	font-size: 18px;
+}
+
+.ssbl-btn-save-success {
+	display: none;
+}
+
+.ssbl-btn-save, .ssbl-btn-save-success {
+	width:65px;
+	border-radius: 5px 0 0 5px;
+	position: fixed;
+	z-index: 10;
+	right: 0;
+  	top: 130px;
+}
+
+.ssbl-btn-thank-you {
+	margin-top: -10px;
+}
+
+.ssbg-flag-small {
+  width: 32px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.ssbl-admin-wrap footer {
+	margin-top: 40px;
+	padding: 20px 0 15px 0;
+	border-top: 1px solid #dddddd;
+}
