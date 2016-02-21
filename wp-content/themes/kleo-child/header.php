@@ -26,18 +26,6 @@
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<meta name="verification" content="6c2c0d0251a189774a6fe4252ce561a5" /><!-- Código de verifiación para zanox -->
-	<!-- Código de verificación para Google Analitycs -->
-	<script>
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-		  ga('create', 'UA-55975132-1', 'auto');
-		  ga('send', 'pageview');
-
-	</script>
-	<!-- Código de verificación para Google Analitycs -->
 	<!-- Fav and touch icons -->
 	<?php if (sq_option_url('favicon')) { ?>
 	<link rel="shortcut icon" href="<?php echo sq_option_url('favicon'); ?>">
@@ -64,7 +52,7 @@
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/fontello-ie7.css">
 	<![endif]-->
 	
-	<?php if(function_exists('bp_is_active')) { bp_head(); } ?>
+	<!--<?php if(function_exists('bp_is_active')) { bp_head(); } ?>
 	<script type='text/javascript'>
 		var googletag = googletag || {};
 		googletag.cmd = googletag.cmd || [];
@@ -88,7 +76,7 @@
 			googletag.companionAds().setRefreshUnfilledSlots(true);
 			googletag.enableServices();
 		});
-	</script>
+	</script>-->
 	<?php wp_head(); ?>
 </head>
 
