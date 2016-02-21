@@ -296,7 +296,7 @@ li:hover>a.next.page-numbers:before, li:hover>a.prev.page-numbers:before {
 
 body {
 	background-image:none;
-	background-color: #222 !important;
+	background-color: #FFF !important;
 }
 
 #socket{
