@@ -334,7 +334,7 @@ function posts_home(){
 				//Mirar los post que ya han salido y cargararlo en la variable de wordpress que permite obviar los que se han mostrado
 				$not_post_in[] = get_the_ID();
 		}
-		if($c==3){
+		/*if($c==3){
 			echo '
 			<!-- Banner Home entre los post (3 y 4) -->
 			<ins class="adsbygoogle"
@@ -343,7 +343,7 @@ function posts_home(){
 			     data-ad-slot="2858578552"
 			     data-ad-format="auto"></ins>
 				<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
-		}
+		}*/
 		//if($c==7){
 		//	echo '<a style="text-align: center; display: block; margin: 10px 10px 10px 0px; clear: both;" href="https://www.bogadia.com/sorteos/concurso-de-disenadoras/"><img src="https://www.bogadia.com/wp-content/uploads/tienda/banner-sorteo-tienda.jpg" alt="Sorteo de bolso - Tienda Bogadia"/></a>';
 		//}

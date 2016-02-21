@@ -131,12 +131,12 @@ kleo_switch_layout('right');
 
 <!-- Banner Google Adsense -->
 <!-- Banner Street Style MadrEat (Guia) -->
-<ins class="adsbygoogle"
+<!--<ins class="adsbygoogle"
      style="display:block;margin: 20px auto;"
      data-ad-client="ca-pub-9006336585437783"
      data-ad-slot="2807354150"
      data-ad-format="auto">
- 	<script>(adsbygoogle = window.adsbygoogle || []).push({});</script></ins>
+ 	<script>(adsbygoogle = window.adsbygoogle || []).push({});</script></ins>-->
 <!-- Banner Google Adsense -->		
     <!-- Begin Comments -->
     <?php comments_template( '', true ); ?>
