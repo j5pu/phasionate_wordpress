@@ -52,7 +52,7 @@
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/fontello-ie7.css">
 	<![endif]-->
 	
-	<!--<?php if(function_exists('bp_is_active')) { bp_head(); } ?>
+	<?php if(function_exists('bp_is_active')) { bp_head(); } ?>
 	<script type='text/javascript'>
 		var googletag = googletag || {};
 		googletag.cmd = googletag.cmd || [];
@@ -76,7 +76,7 @@
 			googletag.companionAds().setRefreshUnfilledSlots(true);
 			googletag.enableServices();
 		});
-	</script>-->
+	</script>
 	<?php wp_head(); ?>
 </head>
 
