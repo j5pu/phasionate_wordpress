@@ -29,7 +29,7 @@ $args['opt_name'] = $opt_name;
 /** AJAX saving theme options. Disable it in child theme if you encounter problems
  * Code example: add_filter( 'kleo_theme_options_ajax', '__return_false' ); */
 
-$args['ajax_save'] = apply_filters( 'kleo_theme_options_ajax', true );
+$args['ajax_save'] = apply_filters( 'kleo_theme_options_ajax', false );
 
 $args['global_variable'] = false;
 $args['compiler'] = false;
@@ -261,6 +261,183 @@ $style_defaults['socket']['alt_bg'] = "#f7f7f7";
 $style_defaults['socket']['alt_border'] = "#272727";
 
 
+/**
+ * Get Default section colors presets
+ * @return mixed|null|void
+ */
+function kleo_get_color_presets() {
+	$presets = array(
+		'default' => array(
+			'alt'     => 'Default',
+			'img'     => KLEO_LIB_URI . '/assets/images/presets/default.jpg',
+			'presets' => array(
+				'text'    => '#777777',
+				'headings'    => '#444444',
+				'bg'    => '#ffffff',
+				'border'    => '#e5e5e5',
+				'link'    => '#367bb7',
+				'link_hover'    => '#00b9f7',
+				'high_color'    => '#ffffff',
+				'high_bg'    => '#00b9f7',
+				'alt_bg'    => '#f7f7f7',
+				'alt_border'    => '#e5e5e5',
+			)
+		),
+		'dark' => array(
+			'alt'     => 'Dark',
+			'img'     => KLEO_LIB_URI . '/assets/images/presets/dark.jpg',
+			'presets' => array(
+				'text'    => '#777777',
+				'headings'    => '#aaaaaa',
+				'bg'    => '#1c1c1c',
+				'border'    => '#333333',
+				'link'    => '#cccccc',
+				'link_hover'    => '#777777',
+				'high_color'    => '#ffffff',
+				'high_bg'    => '#00b9f7',
+				'alt_bg'    => '#272727',
+				'alt_border'    => '#333333',
+			)
+		),
+		'amber-brown' => array(
+			'alt'     => 'Amber/Brown',
+			'img'     => KLEO_LIB_URI . '/assets/images/presets/amber-ac-brown.jpg',
+			'presets' => array(
+				'text'    => '#000000',
+				'headings'    => '#000000',
+				'bg'    => '#ffc107',
+				'border'    => '#ffca28',
+				'link'    => '#000000',
+				'link_hover'    => '#616161',
+				'high_color'    => '#ffffff',
+				'high_bg'    => '#795548',
+				'alt_bg'    => '#ffca28',
+				'alt_border'    => '#ffca28',
+			)
+		),
+		'blue-orange' => array(
+			'alt'     => 'Blue-Gray/Deep-Orange',
+			'img'     => KLEO_LIB_URI . '/assets/images/presets/blue-gray-ac-deep-orange.jpg',
+			'presets' => array(
+				'text'    => '#ffffff',
+				'headings'    => '#ffffff',
+				'bg'    => '#607d8b',
+				'border'    => '#78909c',
+				'link'    => '#ffffff',
+				'link_hover'    => '#cfd8dc',
+				'high_color'    => '#ffffff',
+				'high_bg'    => '#ff5722',
+				'alt_bg'    => '#78909c',
+				'alt_border'    => '#78909c',
+			)
+		),
+		'brown-amber' => array(
+			'alt'     => 'Brown/Amber',
+			'img'     => KLEO_LIB_URI . '/assets/images/presets/brown-ac-amber.jpg',
+			'presets' => array(
+				'text'    => '#ffffff',
+				'headings'    => '#ffffff',
+				'bg'    => '#795548',
+				'border'    => '#8d6e63',
+				'link'    => '#ffffff',
+				'link_hover'    => '#d7ccc8',
+				'high_color'    => '#ffffff',
+				'high_bg'    => '#ffc107',
+				'alt_bg'    => '#8d6e63',
+				'alt_border'    => '#8d6e63',
+			)
+		),
+		'green-amber' => array(
+			'alt'     => 'Green/Amber',
+			'img'     => KLEO_LIB_URI . '/assets/images/presets/green-ac-amber.jpg',
+			'presets' => array(
+				'text'    => '#ffffff',
+				'headings'    => '#ffffff',
+				'bg'    => '#4caf50',
+				'border'    => '#66bb6a',
+				'link'    => '#ffffff',
+				'link_hover'    => '#c8e6c9',
+				'high_color'    => '#ffffff',
+				'high_bg'    => '#ffc107',
+				'alt_bg'    => '#66bb6a',
+				'alt_border'    => '#66bb6a',
+			)
+		),
+		'indigo-light-blue' => array(
+			'alt'     => 'Indigo/Light Blue',
+			'img'     => KLEO_LIB_URI . '/assets/images/presets/indigo-ac-light-blue.jpg',
+			'presets' => array(
+				'text'    => '#ffffff',
+				'headings'    => '#ffffff',
+				'bg'    => '#3f51b5',
+				'border'    => '#5c6bc0',
+				'link'    => '#ffffff',
+				'link_hover'    => '#c5cae9',
+				'high_color'    => '#ffffff',
+				'high_bg'    => '#03a9f4',
+				'alt_bg'    => '#5c6bc0',
+				'alt_border'    => '#5c6bc0',
+			)
+		),
+		'pink-deep-orange' => array(
+			'alt'     => 'Pink/Deep Orange',
+			'img'     => KLEO_LIB_URI . '/assets/images/presets/pink-ac-deep-orange.jpg',
+			'presets' => array(
+				'text'    => '#ffffff',
+				'headings'    => '#ffffff',
+				'bg'    => '#e91e63',
+				'border'    => '#ec407a',
+				'link'    => '#ffffff',
+				'link_hover'    => '#f8bbd0',
+				'high_color'    => '#ffffff',
+				'high_bg'    => '#ff5722',
+				'alt_bg'    => '#ec407a',
+				'alt_border'    => '#ec407a',
+			)
+		),
+		'deep-purple-amber' => array(
+			'alt'     => 'Deep Purple/Amber',
+			'img'     => KLEO_LIB_URI . '/assets/images/presets/deep-purple-ac-amber.jpg',
+			'presets' => array(
+				'text'    => '#ffffff',
+				'headings'    => '#ffffff',
+				'bg'    => '#673ab7',
+				'border'    => 'transparent',
+				'link'    => '#ffffff',
+				'link_hover'    => '#d1c4e9',
+				'high_color'    => '#ffffff',
+				'high_bg'    => '#ffc107',
+				'alt_bg'    => '#7e57c2',
+				'alt_border'    => '#7e57c2',
+			)
+		),
+	);
+
+	return apply_filters('section_color_presets', $presets);
+}
+
+/**
+ * Return the prepared array for the color presets sections
+ * @param string $name
+ *
+ * @return mixed|null|void
+ */
+function kleo_get_color_presets_array( $name ) {
+	$color_sets = kleo_get_color_presets();
+
+	if ( $color_sets && ! empty( $color_sets ) ) {
+		foreach ( $color_sets as $key => $set ) {
+			foreach( $set['presets'] as $preset_key => $preset_value ) {
+				$color_sets[$key]['presets'][ $name . $preset_key ] = $preset_value;
+				unset($color_sets[$key]['presets'][$preset_key]);
+			}
+		}
+	}
+
+	return $color_sets;
+}
+
+
 global $kleo_config;
 $style_sets = $kleo_config['style_sets'];
 
@@ -409,7 +586,7 @@ $sections[] = array(
 $sections[] = array(
 		'icon' => 'el-icon-website',
 		'icon_class' => 'icon-large',
-		 'title' => __('Layout settings', 'kleo_framework'),
+		'title' => __('Layout settings', 'kleo_framework'),
         'customizer' => false,
 		'desc' => __('<p class="description">Here you set options for the layout.</p>', 'kleo_framework'),
 
@@ -507,6 +684,14 @@ $sections[] = array(
 						'subtitle' => __('Enable or disable the contact form bottom screen', 'kleo_framework'),
 						'default' => '1' // 1 = checked | 0 = unchecked
 				),
+				array(
+						'id' => 'contact_form_builtin',
+						'type' => 'switch',
+						'required' => array('contact_form','equals','1'),
+						'title' => __('Built-in Contact Form', 'kleo_framework'),
+						'subtitle' => __('Enable or disable the built-in contact form. You can choose to disable it if you want to use your own custom form by adding shortcodes in the Contact Form Text box below.', 'kleo_framework'),
+						'default' => '1' // 1 = checked | 0 = unchecked
+				),
 			array(
 				'id' => 'contact_form_to',
 				'type' => 'text',
@@ -531,6 +716,7 @@ $sections[] = array(
 				'type' => 'textarea',
 				'required' => array('contact_form','equals','1'),
 				'title' => __('Contact form text', 'kleo_framework'),
+				'subtitle' => __('Enter the content to show in the contact floating box. You can even use shortcodes to output whatever you like in it.', 'kleo_framework'),
 				'sub_desc' => "",
 				'desc' => '',
 				'default' => "We're not around right now. But you can send us an email and we'll get back to you, asap."
@@ -584,7 +770,14 @@ $sections[] = array(
                 'subtitle' => 'You can add content to the banner section in the menu. It can include shortcodes as well.<br> Examples: <br>- show main sidebar: [vc_widget_sidebar sidebar_id="sidebar-1"]',
                 'default' => 'Banner text/AD here',
             ),
-            array(
+			array(
+				'id' => 'menu_full_width',
+				'type' => 'switch',
+				'title' => __('Main Menu Full Width', 'kleo_framework'),
+				'subtitle' => __('Enable full browser width menu style.', 'kleo_framework'),
+				'default' => '0' // 1 = checked | 0 = unchecked
+			),
+			array(
                 'id' => 'menu_size',
                 'type' => 'text',
                 'title' => __('Main Menu Font size', 'kleo_framework'),
@@ -960,6 +1153,21 @@ $sections[] = array(
                 'options' => array( 'left' => 'Left side', 'inline' => 'Inline under title' ),
                 'default' => 'left'
             ),
+			array(
+				'id' => 'blog_single_meta',
+				'type' => 'select',
+				'title' => __( 'Post meta style for single post page', 'kleo_framework' ),
+				'subtitle' => __('How the display meta, left side or before content.', 'kleo_framework'),
+				'options' => array( 'left' => 'Left side', 'inline' => 'Inline before content' ),
+				'default' => 'left'
+			),
+			array(
+				'id' => 'blog_tags_footer',
+				'type' => 'switch',
+				'title' => __('Display post tags after the content', 'kleo_framework'),
+				'subtitle' => __('If enabled it will show post tags after the post content in single pages. Make sure to remove the Tags options above in Display meta fields.', 'kleo_framework'),
+				'default' => '0' // 1 = checked | 0 = unchecked
+			),
             array(
                 'id' => 'section-title-blog-meta-end',
                 'type' => 'section',
@@ -1080,6 +1288,56 @@ $sections[] = array(
             'subtitle' => __('List of Post IDs separated by comma to exclude from showing.', 'kleo_framework'),
             'default' => ''
         ),
+
+	    array(
+		    'id' => 'blog_social_share_facebook',
+		    'type' => 'switch',
+		    'title' => __('Enable Facebook sharing', 'kleo_framework'),
+		    'subtitle' => __('Show Facebook sharing icon', 'kleo_framework'),
+		    'default' => '1' // 1 = checked | 0 = unchecked
+	    ),
+	    array(
+		    'id' => 'blog_social_share_twitter',
+		    'type' => 'switch',
+		    'title' => __('Enable Twitter sharing', 'kleo_framework'),
+		    'subtitle' => __('Show Twitter sharing icon', 'kleo_framework'),
+		    'default' => '1' // 1 = checked | 0 = unchecked
+	    ),
+	    array(
+		    'id' => 'blog_social_share_googleplus',
+		    'type' => 'switch',
+		    'title' => __('Enable Google+ sharing', 'kleo_framework'),
+		    'subtitle' => __('Show Google+ sharing icon', 'kleo_framework'),
+		    'default' => '1' // 1 = checked | 0 = unchecked
+	    ),
+	    array(
+		    'id' => 'blog_social_share_pinterest',
+		    'type' => 'switch',
+		    'title' => __('Enable Pinterest sharing', 'kleo_framework'),
+		    'subtitle' => __('Show Pinterest sharing icon', 'kleo_framework'),
+		    'default' => '1' // 1 = checked | 0 = unchecked
+	    ),
+	    array(
+		    'id' => 'blog_social_share_linkedin',
+		    'type' => 'switch',
+		    'title' => __('Enable Linkedin sharing', 'kleo_framework'),
+		    'subtitle' => __('Show Linkedin sharing icon', 'kleo_framework'),
+		    'default' => '0' // 1 = checked | 0 = unchecked
+	    ),
+	    array(
+		    'id' => 'blog_social_share_whatsapp',
+		    'type' => 'switch',
+		    'title' => __('Enable Whatsapp sharing', 'kleo_framework'),
+		    'subtitle' => __('Show Whatsapp sharing icon on mobile and tablet devices', 'kleo_framework'),
+		    'default' => '0' // 1 = checked | 0 = unchecked
+	    ),
+	    array(
+		    'id' => 'blog_social_share_mail',
+		    'type' => 'switch',
+		    'title' => __('Enable Mail sharing', 'kleo_framework'),
+		    'subtitle' => __('Show Mail sharing icon', 'kleo_framework'),
+		    'default' => '1' // 1 = checked | 0 = unchecked
+	    ),
 
 			array(
                 'id' => 'likes_status',
@@ -1203,13 +1461,14 @@ $sections[] = $style_sections[] = array(
             'type' => 'info',
             'notice' => true,
             'style' => 'success',
-            'desc' => 'Style colors and backgrounds for each section of your site.<br>Start by selecting a submenu from the left.',
+            'desc' => __('Style colors and backgrounds for each section of your site.<br>Start by selecting a sub-menu from the left.', 'kleo_framework'),
         ),
     )
 );
 
-foreach ($style_sets as $set )
-{
+
+/* Generate the Styling options sections */
+foreach ($style_sets as $set ) {
     $style_fields = array();
 
     foreach( $style_elements as $elem ) {
@@ -1257,152 +1516,7 @@ foreach ($style_sets as $set )
                 'subtitle' => 'Change section colors based on these presets',
                 'presets'    => true,
                 'default'    => 0,
-                'options'    => array(
-                    'default' => array(
-                        'alt'     => 'Default',
-                        'img'     => KLEO_LIB_URI . '/assets/images/presets/default.jpg',
-                        'presets' => array(
-                            'st__' . $set . '__' . 'text'    => '#777777',
-                            'st__' . $set . '__' . 'headings'    => '#444444',
-                            'st__' . $set . '__' . 'bg'    => '#ffffff',
-                            'st__' . $set . '__' . 'border'    => '#e5e5e5',
-                            'st__' . $set . '__' . 'link'    => '#367bb7',
-                            'st__' . $set . '__' . 'link_hover'    => '#00b9f7',
-                            'st__' . $set . '__' . 'high_color'    => '#ffffff',
-                            'st__' . $set . '__' . 'high_bg'    => '#00b9f7',
-                            'st__' . $set . '__' . 'alt_bg'    => '#f7f7f7',
-                            'st__' . $set . '__' . 'alt_border'    => '#e5e5e5',
-                        )
-                    ),
-                    'dark' => array(
-                        'alt'     => 'Dark',
-                        'img'     => KLEO_LIB_URI . '/assets/images/presets/dark.jpg',
-                        'presets' => array(
-                            'st__' . $set . '__' . 'text'    => '#777777',
-                            'st__' . $set . '__' . 'headings'    => '#aaaaaa',
-                            'st__' . $set . '__' . 'bg'    => '#1c1c1c',
-                            'st__' . $set . '__' . 'border'    => '#333333',
-                            'st__' . $set . '__' . 'link'    => '#cccccc',
-                            'st__' . $set . '__' . 'link_hover'    => '#777777',
-                            'st__' . $set . '__' . 'high_color'    => '#ffffff',
-                            'st__' . $set . '__' . 'high_bg'    => '#00b9f7',
-                            'st__' . $set . '__' . 'alt_bg'    => '#272727',
-                            'st__' . $set . '__' . 'alt_border'    => '#333333',
-                        )
-                    ),
-                    'amber-brown' => array(
-                        'alt'     => 'Amber/Brown',
-                        'img'     => KLEO_LIB_URI . '/assets/images/presets/amber-ac-brown.jpg',
-                        'presets' => array(
-                            'st__' . $set . '__' . 'text'    => '#000000',
-                            'st__' . $set . '__' . 'headings'    => '#000000',
-                            'st__' . $set . '__' . 'bg'    => '#ffc107',
-                            'st__' . $set . '__' . 'border'    => '#ffca28',
-                            'st__' . $set . '__' . 'link'    => '#000000',
-                            'st__' . $set . '__' . 'link_hover'    => '#616161',
-                            'st__' . $set . '__' . 'high_color'    => '#ffffff',
-                            'st__' . $set . '__' . 'high_bg'    => '#795548',
-                            'st__' . $set . '__' . 'alt_bg'    => '#ffca28',
-                            'st__' . $set . '__' . 'alt_border'    => '#ffca28',
-                        )
-                    ),
-                    'blue-orange' => array(
-                        'alt'     => 'Blue-Gray/Deep-Orange',
-                        'img'     => KLEO_LIB_URI . '/assets/images/presets/blue-gray-ac-deep-orange.jpg',
-                        'presets' => array(
-                            'st__' . $set . '__' . 'text'    => '#ffffff',
-                            'st__' . $set . '__' . 'headings'    => '#ffffff',
-                            'st__' . $set . '__' . 'bg'    => '#607d8b',
-                            'st__' . $set . '__' . 'border'    => '#78909c',
-                            'st__' . $set . '__' . 'link'    => '#ffffff',
-                            'st__' . $set . '__' . 'link_hover'    => '#cfd8dc',
-                            'st__' . $set . '__' . 'high_color'    => '#ffffff',
-                            'st__' . $set . '__' . 'high_bg'    => '#ff5722',
-                            'st__' . $set . '__' . 'alt_bg'    => '#78909c',
-                            'st__' . $set . '__' . 'alt_border'    => '#78909c',
-                        )
-                    ),
-                    'brown-amber' => array(
-                        'alt'     => 'Brown/Amber',
-                        'img'     => KLEO_LIB_URI . '/assets/images/presets/brown-ac-amber.jpg',
-                        'presets' => array(
-                            'st__' . $set . '__' . 'text'    => '#ffffff',
-                            'st__' . $set . '__' . 'headings'    => '#ffffff',
-                            'st__' . $set . '__' . 'bg'    => '#795548',
-                            'st__' . $set . '__' . 'border'    => '#8d6e63',
-                            'st__' . $set . '__' . 'link'    => '#ffffff',
-                            'st__' . $set . '__' . 'link_hover'    => '#d7ccc8',
-                            'st__' . $set . '__' . 'high_color'    => '#ffffff',
-                            'st__' . $set . '__' . 'high_bg'    => '#ffc107',
-                            'st__' . $set . '__' . 'alt_bg'    => '#8d6e63',
-                            'st__' . $set . '__' . 'alt_border'    => '#8d6e63',
-                        )
-                    ),
-                    'green-amber' => array(
-                        'alt'     => 'Green/Amber',
-                        'img'     => KLEO_LIB_URI . '/assets/images/presets/green-ac-amber.jpg',
-                        'presets' => array(
-                            'st__' . $set . '__' . 'text'    => '#ffffff',
-                            'st__' . $set . '__' . 'headings'    => '#ffffff',
-                            'st__' . $set . '__' . 'bg'    => '#4caf50',
-                            'st__' . $set . '__' . 'border'    => '#66bb6a',
-                            'st__' . $set . '__' . 'link'    => '#ffffff',
-                            'st__' . $set . '__' . 'link_hover'    => '#c8e6c9',
-                            'st__' . $set . '__' . 'high_color'    => '#ffffff',
-                            'st__' . $set . '__' . 'high_bg'    => '#ffc107',
-                            'st__' . $set . '__' . 'alt_bg'    => '#66bb6a',
-                            'st__' . $set . '__' . 'alt_border'    => '#66bb6a',
-                        )
-                    ),
-                    'indigo-light-blue' => array(
-                        'alt'     => 'Indigo/Light Blue',
-                        'img'     => KLEO_LIB_URI . '/assets/images/presets/indigo-ac-light-blue.jpg',
-                        'presets' => array(
-                            'st__' . $set . '__' . 'text'    => '#ffffff',
-                            'st__' . $set . '__' . 'headings'    => '#ffffff',
-                            'st__' . $set . '__' . 'bg'    => '#3f51b5',
-                            'st__' . $set . '__' . 'border'    => '#5c6bc0',
-                            'st__' . $set . '__' . 'link'    => '#ffffff',
-                            'st__' . $set . '__' . 'link_hover'    => '#c5cae9',
-                            'st__' . $set . '__' . 'high_color'    => '#ffffff',
-                            'st__' . $set . '__' . 'high_bg'    => '#03a9f4',
-                            'st__' . $set . '__' . 'alt_bg'    => '#5c6bc0',
-                            'st__' . $set . '__' . 'alt_border'    => '#5c6bc0',
-                        )
-                    ),
-                    'pink-deep-orange' => array(
-                        'alt'     => 'Pink/Deep Orange',
-                        'img'     => KLEO_LIB_URI . '/assets/images/presets/pink-ac-deep-orange.jpg',
-                        'presets' => array(
-                            'st__' . $set . '__' . 'text'    => '#ffffff',
-                            'st__' . $set . '__' . 'headings'    => '#ffffff',
-                            'st__' . $set . '__' . 'bg'    => '#e91e63',
-                            'st__' . $set . '__' . 'border'    => '#ec407a',
-                            'st__' . $set . '__' . 'link'    => '#ffffff',
-                            'st__' . $set . '__' . 'link_hover'    => '#f8bbd0',
-                            'st__' . $set . '__' . 'high_color'    => '#ffffff',
-                            'st__' . $set . '__' . 'high_bg'    => '#ff5722',
-                            'st__' . $set . '__' . 'alt_bg'    => '#ec407a',
-                            'st__' . $set . '__' . 'alt_border'    => '#ec407a',
-                        )
-                    ),
-                    'deep-purple-amber' => array(
-                        'alt'     => 'Deep Purple/Amber',
-                        'img'     => KLEO_LIB_URI . '/assets/images/presets/deep-purple-ac-amber.jpg',
-                        'presets' => array(
-                            'st__' . $set . '__' . 'text'    => '#ffffff',
-                            'st__' . $set . '__' . 'headings'    => '#ffffff',
-                            'st__' . $set . '__' . 'bg'    => '#673ab7',
-                            'st__' . $set . '__' . 'border'    => 'transparent',
-                            'st__' . $set . '__' . 'link'    => '#ffffff',
-                            'st__' . $set . '__' . 'link_hover'    => '#d1c4e9',
-                            'st__' . $set . '__' . 'high_color'    => '#ffffff',
-                            'st__' . $set . '__' . 'high_bg'    => '#ffc107',
-                            'st__' . $set . '__' . 'alt_bg'    => '#7e57c2',
-                            'st__' . $set . '__' . 'alt_border'    => '#7e57c2',
-                        )
-                    ),
-                ),
+                'options'    => kleo_get_color_presets_array( 'st__' . $set . '__' )
             );
         }
     }
@@ -1881,6 +1995,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                 'subtitle' => '',
                 'default' => '#000000' // 1 = checked | 0 = unchecked
             ),
+			array(
+				'id' => 'woo_free_badge',
+				'type' => 'switch',
+				'title' => __('Show free badge on products list', 'kleo_framework'),
+				'default' => '1' // 1 = checked | 0 = unchecked
+			),
 
             array(
                 'id' => 'woo_new_badge',
@@ -2075,6 +2195,16 @@ $sections[] = array(
 	'desc' => "",
 	'fields' => array(
 			array(
+				'id' => 'sitewide_animations',
+				'type' => 'button_set',
+				'title' => __('Site-Wide Animations', 'kleo_framework'),
+				'subtitle' => __('Options to turn site-wide animations on/off.', 'kleo_framework'),
+				'options' => array(
+					'enabled' => 'On', 'disable-all' => 'Disable on all devices ', 'disable-mobile' => 'Disable on mobile devices only'
+				),
+				'default' => 'enabled'
+			),
+			array(
 					'id' => 'admin_bar',
 					'type' => 'switch',
 					'title' => __('Admin toolbar', 'kleo_framework'),
@@ -2093,15 +2223,36 @@ $sections[] = array(
                 ),
                 'default' => 'default'
             ),
-        array(
-            'id' => 'login_redirect_custom',
-            'type' => 'text',
-            'title' => __('Custom link redirect', 'kleo_framework'),
-            'description' => __('Set a link like http://yoursite.com/homepage for users to get redirected on login.<br>' .
-                ' For more complex redirect logic please set Login redirect to Default WordPress and use Peter\'s redirect plugin or a similar plugin.', 'kleo_framework'),
-            'default' => '',
-            'required' => array('login_redirect', '=' , 'custom'),
-        ),
+			array(
+				'id' => 'login_redirect_custom',
+				'type' => 'text',
+				'title' => __('Custom link redirect', 'kleo_framework'),
+				'description' => __('Set a link like http://yoursite.com/homepage for users to get redirected on login.<br>' .
+					' For more complex redirect logic please set Login redirect to Default WordPress and use Peter\'s redirect plugin or a similar plugin.', 'kleo_framework'),
+				'default' => '',
+				'required' => array('login_redirect', '=' , 'custom'),
+			),
+			 array(
+                'id' => 'homepage_redirect',
+                'type' => 'select',
+                'title' => __('Homepage redirect', 'kleo_framework'),
+                'subtitle' => __('This option will help you redirect your users away from the homepage once they are logged in.', 'kleo_framework'),
+                'options' => array(
+                    'disabled' => __( 'Disabled', 'kleo_framework' ),
+                    'profile' => __( 'Redirect to current user profile or author page' ,'kleo_framework' ),
+                    'custom' => __( 'Custom link' ,'kleo_framework' ),
+                ),
+                'default' => 'disabled'
+            ),
+			array(
+				'id' => 'homepage_redirect_custom',
+				'type' => 'text',
+				'title' => __('Custom link redirect', 'kleo_framework'),
+				'description' => __('Set a link like http://yoursite.com/custompage to redirect logged in users away from your homepage.<br>' .
+					' With BuddyPress/bbPress installed you can add a link to your profile with ##profile_link## in the URL input. Example: ##profile_link##/messages', 'kleo_framework'),
+				'default' => '',
+				'required' => array('homepage_redirect', '=' , 'custom'),
+			),
 			array(
 					'id' => 'facebook_login',
 					'type' => 'switch',

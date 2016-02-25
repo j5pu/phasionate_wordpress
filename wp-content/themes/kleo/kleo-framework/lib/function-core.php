@@ -697,3 +697,113 @@ if ( ! function_exists( 'kleo_parse_multi_attribute' ) ) {
         return $result;
     }
 }
+
+
+if ( ! function_exists( 'sq_remove_img_srcset' ) ) {
+
+	function sq_remove_img_srcset( $attr ) {
+		if (! empty($attr)) {
+			unset($attr['srcset']);
+			unset($attr['sizes']);
+		}
+
+		return $attr;
+	}
+
+}
+
+
+if (! function_exists('kleo_set_default_unit')) {
+	function kleo_set_default_unit( $text, $default = 'px' ) {
+		return preg_match( '/(px|em|\%|pt|cm|vh|vw)$/', $text ) ? $text : $text . $default;
+	}
+}
+
+
+/**
+ * Try to write a file using WP File system API
+ *
+ * @param string $file_path
+ * @param string $contents
+ * @param int $mode
+ * @return bool
+ */
+function sq_fs_put_contents( $file_path, $contents, $mode = '' ) {
+
+	global $kleo_config;
+
+	/* Frontend or customizer fallback */
+	if ( ! function_exists( 'get_filesystem_method' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+	}
+
+	if ( $mode == '' ) {
+		if (defined('FS_CHMOD_FILE')) {
+			$mode = FS_CHMOD_FILE;
+		} else {
+			$mode = 0644;
+		}
+	}
+
+	$context = $kleo_config['custom_style_path'];
+	$allow_relaxed_file_ownership = true;
+
+	if( function_exists( 'get_filesystem_method' ) && get_filesystem_method( array(), $context , $allow_relaxed_file_ownership ) === 'direct' ) {
+		/* you can safely run request_filesystem_credentials() without any issues and don't need to worry about passing in a URL */
+		$creds = request_filesystem_credentials( site_url() . '/wp-admin/', '', false, $context, null, $allow_relaxed_file_ownership );
+
+		/* initialize the API */
+		if ( ! WP_Filesystem( $creds, $context, $allow_relaxed_file_ownership ) ) {
+			/* any problems and we exit */
+			return false;
+		}
+
+		global $wp_filesystem;
+		/* do our file manipulations below */
+
+		$wp_filesystem->put_contents( $file_path, $contents, $mode );
+
+		return true;
+
+	} else {
+		return false;
+	}
+}
+
+
+/**
+ * Try to get a file content using WP File system API
+ * @param $file_path
+ * @return bool
+ */
+function sq_fs_get_contents( $file_path ) {
+
+	global $kleo_config;
+
+	/* Frontend or customizer fallback */
+	if ( ! function_exists( 'get_filesystem_method' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+	}
+
+	$context = $kleo_config['custom_style_path'];
+	$allow_relaxed_file_ownership = true;
+
+	if( function_exists( 'get_filesystem_method' ) && get_filesystem_method( array(), $context , $allow_relaxed_file_ownership ) === 'direct' ) {
+		/* you can safely run request_filesystem_credentials() without any issues and don't need to worry about passing in a URL */
+		$creds = request_filesystem_credentials( site_url() . '/wp-admin/', '', false, $context, null, $allow_relaxed_file_ownership );
+
+		/* initialize the API */
+		if ( ! WP_Filesystem( $creds, $context, $allow_relaxed_file_ownership ) ) {
+			/* any problems and we exit */
+			return false;
+		}
+
+		global $wp_filesystem;
+		/* do our file manipulations below */
+
+		return $wp_filesystem->get_contents( $file_path );
+
+	} else {
+		return false;
+	}
+}

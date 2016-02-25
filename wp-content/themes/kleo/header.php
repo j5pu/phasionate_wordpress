@@ -65,18 +65,17 @@ if ( defined('WP_INSTALLING') && WP_INSTALLING == true && ! function_exists('kle
 ***************************************************/
 
 $site_style = sq_option('site_style', 'wide') == 'boxed' ? ' page-boxed' : '';
-$site_style = apply_filters('kleo_site_style', $site_style);
+$site_style = apply_filters( 'kleo_site_style', $site_style );
 ?>
 
 <body <?php body_class(); ?> itemscope itemtype="http://schema.org/WebPage">
 	
 	<?php do_action('kleo_after_body');?>
-	
+
 	<!-- PAGE LAYOUT
 	================================================ -->
 	<!--Attributes-->
 	<div class="kleo-page<?php echo $site_style;?>">
-
 
 	<!-- HEADER SECTION
 	================================================ -->
@@ -87,7 +86,10 @@ $site_style = apply_filters('kleo_site_style', $site_style);
 	 */
 	do_action('kleo_header');
 	?>
-	
+
+
+
+
 	<!-- MAIN SECTION
 	================================================ -->
 	<div id="main">

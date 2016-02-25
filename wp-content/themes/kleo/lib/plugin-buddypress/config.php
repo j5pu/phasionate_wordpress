@@ -51,9 +51,8 @@ if ( ! function_exists( 'kleo_menu_user_avatar' ) ) {
             $url = bp_loggedin_user_domain();
 
             $attr_title = strip_tags( $item->attr_title );
-
             $output .= '<a title="' . bp_get_loggedin_user_fullname() . '" class="kleo-bp-user-avatar' . ( $args->has_children && in_array($depth, array(0,1)) ? ' js-activated' : '' ) . '" href="' . $url . '" title="' . $attr_title .'">'
-                .  '<img src="' . bp_get_loggedin_user_avatar(array('width' => 25, 'height' => 25, 'html' => false)) . '" class="kleo-rounded" alt="">' . ($item->attr_title != '' ? ' ' . $item->attr_title : '');
+                .  '<img src="' . esc_attr( bp_get_loggedin_user_avatar(array('width' => 25, 'height' => 25, 'html' => false)) ) . '" class="kleo-rounded" alt="">' . ($item->attr_title != '' ? ' ' . $item->attr_title : '');
 
             $output .= ( $args->has_children && in_array($depth, array(0,1))) ? ' <span class="caret"></span></a>' : '</a>';
 
@@ -407,6 +406,8 @@ function kleo_bp_cover_image_css( $settings = array() ) {
     $theme_handle = 'bp-parent-css';
 
     $settings['theme_handle'] = $theme_handle;
+    $settings['width']  = 1400;
+    $settings['height'] = 440;
 
     /**
      * Then you'll probably also need to use your own callback function
@@ -423,12 +424,15 @@ add_filter( 'bp_before_groups_cover_image_settings_parse_args', 'kleo_bp_cover_i
 
 function kleo_bp_cover_html() {
 
+    if( ! bp_displayed_user_use_cover_image_header() ) {
+        return;
+    }
+
     global $bp;
 
     $output = '<div class="profile-cover-inner"></div>';
 
-
-	if ( bp_is_my_profile() || is_super_admin() ) {
+    if ( bp_is_my_profile() || is_super_admin() ) {
 
         $output .= '<div class="profile-cover-action">';
         $output .= '<a href="' . bp_displayed_user_domain() . $bp->profile->slug . '/change-cover-image/" class="button">' . __( "Change Cover", "kleo_framework" ) . '</a>';
@@ -438,6 +442,38 @@ function kleo_bp_cover_html() {
     echo $output;
 }
 
+function kleo_bp_group_cover_html() {
+
+    if ( ! bp_group_use_cover_image_header() ) {
+        return;
+    }
+
+    global $bp;
+
+    $output ='';
+
+    if ( is_user_logged_in() ) {
+
+        $user_ID = get_current_user_id();
+        $group_id = bp_get_current_group_id();
+
+        if (groups_is_user_mod($user_ID, $group_id) || groups_is_user_admin($user_ID, $group_id)) {
+
+            $message = __("Change Cover", 'bpcp');
+
+            $group = groups_get_group(array('group_id' => $group_id));
+            $group_permalink = trailingslashit(bp_get_root_domain() . '/' . bp_get_groups_root_slug() . '/' . $group->slug . '/');
+
+            $output .= '<div class="profile-cover-action">';
+            $output .= '<a href="' . trailingslashit($group_permalink . 'admin/group-cover-image') . '" class="button">' . $message . '</a>';
+            $output .= '</div>';
+        }
+    }
+
+    echo $output;
+}
+
 if ( version_compare( BP_VERSION, '2.4', '>=' ) ) {
     add_action('bp_before_member_header', 'kleo_bp_cover_html', 20);
+    add_action('bp_before_group_header', 'kleo_bp_group_cover_html', 20);
 }

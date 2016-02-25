@@ -1765,7 +1765,7 @@ function bp_legacy_theme_cover_image( $params = array() ) {
 			'background-repeat: no-repeat; background-size: cover; background-position: center center !important;';
 	return '
 		/* Cover image */
-		body.buddypress div#item-header {
+		body.buddypress div#item-header #header-cover-image {
 			' . $cover_image . '
 		}';
 }

@@ -36,7 +36,7 @@ if( is_single() && get_cfield( 'centered_text' ) == 1 ) { $post_class .= ' text-
 	if ( kleo_postmedia_enabled() && !empty( $slides ) ) 
 	{
 		echo '<div class="article-media kleo-banner-slider">'
-			.'<div class="kleo-banner-items" >';
+			.'<div class="kleo-banner-items modal-gallery">';
 
 		foreach($slides as $slide) {
 			if ($slide) {

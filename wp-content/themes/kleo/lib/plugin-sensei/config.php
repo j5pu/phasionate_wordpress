@@ -27,7 +27,7 @@ function kleo_sensei_wrapper_end() {
 add_filter('kleo_title_args', 'kleo_sensei_title', 10, 1);
 function kleo_sensei_title($args){
     $title = false;
-    global $post, $wp_query;
+    global $post, $wp_query, $woothemes_sensei;
     if ( is_tax( 'course-category' ) ) {
         $taxonomy_obj = $wp_query->get_queried_object();
         $taxonomy_short_name = $taxonomy_obj->taxonomy;
@@ -47,6 +47,16 @@ function kleo_sensei_title($args){
     if( is_singular('lesson') ){
         remove_all_actions('sensei_lesson_image');
         remove_all_actions('sensei_lesson_single_title');
+    }
+    if( isset( $wp_query->query_vars['learner_profile'] ) ) {
+        $user = get_user_by( 'login', $wp_query->query_vars['learner_profile'] );
+        if( strlen( $user->first_name ) > 0 ) {
+            $name = $user->first_name;
+        } else {
+            $name = $user->display_name;
+        }
+        $name = apply_filters( 'sensei_learner_profile_courses_heading_name', $name );
+        $title = apply_filters( 'sensei_learner_profile_courses_heading', sprintf( __( 'Courses %s is taking', 'woothemes-sensei' ), $name ) );
     }
     if($title){
         $breadcrumb_data = kleo_breadcrumb(array(

@@ -31,6 +31,18 @@ function kleo_metaboxes( array $meta_boxes ) {
 				'type' => 'tab'
 			),
 			array(
+				'name' => 'Site Layout',
+				'desc' => 'Override default site layout',
+				'id'   => $prefix . 'site_style',
+				'type' => 'select',
+				'options' => array(
+					array('value' => '', 'name' => 'Default'),
+					array('value' => 'wide', 'name' => 'Wide'),
+					array('value' => 'boxed', 'name' => 'Boxed')
+				),
+				'value' => ''
+			),
+			array(
 				'name' => 'Centered text',
 				'desc' => 'Check to have centered text on this page',
 				'id'   => $prefix . 'centered_text',
@@ -81,6 +93,13 @@ function kleo_metaboxes( array $meta_boxes ) {
 				'desc' => 'Use a custom retina logo for this page only',
 				'id'   => $prefix . 'logo_retina',
 				'type' => 'file',
+			),
+			array(
+				'name' => 'Main Menu Full Width',
+				'desc' => 'Check to enable full browser width menu style.',
+				'id'   => $prefix . 'menu_full_width',
+				'type' => 'checkbox',
+				'value' => '1'
 			),
 			array(
 				'name' => 'Transparent Main menu',

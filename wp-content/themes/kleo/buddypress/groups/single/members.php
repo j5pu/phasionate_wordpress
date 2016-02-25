@@ -1,4 +1,4 @@
-<?php if ( bp_group_has_members( 'exclude_admins_mods=0&per_page='.sq_option('bp_members_perpage', 12) ) ) : ?>
+<?php if ( bp_group_has_members( bp_ajax_querystring( 'group_members' ) . '&exclude_admins_mods=0&per_page='.sq_option('bp_members_perpage', 12) ) ) : ?>
 
 	<?php do_action( 'bp_before_group_members_content' ); ?>
 

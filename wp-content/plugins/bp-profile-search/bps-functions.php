@@ -130,42 +130,78 @@ function bps_field_select ($name, $id, $value)
 
 function bps_get_fields ()
 {
-	global $group, $field;
-
 	static $groups = array ();
 	static $fields = array ();
 
 	if (count ($groups))  return array ($groups, $fields);
 
+	$field_list = apply_filters ('bps_field_list', array ());
+	foreach ($field_list as $f)
+	{
+		$f = apply_filters ('bps_field_data', $f);
+		$groups[$f->group][] = array ('id' => $f->id, 'name' => $f->name);
+		$fields[$f->id] = $f;
+	}
+
+	return array ($groups, $fields);
+}
+
+add_filter ('bps_field_list', 'bps_xprofile_field_list');
+function bps_xprofile_field_list ($fields)
+{
+	global $group, $field;
+
 	if (!function_exists ('bp_has_profile'))
 	{
 		printf ('<p class="bps_error">'. __('%s: The BuddyPress Extended Profiles component is not active.', 'bp-profile-search'). '</p>',
 			'<strong>BP Profile Search '. BPS_VERSION. '</strong>');
-		return array ($groups, $fields);
+		return $fields;
 	}
+
+	$format = array
+	(
+		'textbox'			=> 'text/number',
+		'number'			=> 'number',
+		'url'				=> 'text',
+		'textarea'			=> 'text',
+		'selectbox'			=> 'text/number',
+		'radio'				=> 'text/number',
+		'multiselectbox'	=> 'serialized',
+		'checkbox'			=> 'serialized',
+		'datebox'			=> 'date',
+		'others'			=> 'text/number',
+	);
 
 	$args = array ('hide_empty_fields' => false, 'member_type' => bp_get_member_types ());
 	if (bp_has_profile ($args))
 	{
 		while (bp_profile_groups ())
 		{
-			bp_the_profile_group (); 
-			$group->name = str_replace ('&amp;', '&', stripslashes ($group->name));
-			$groups[$group->name] = array ();
+			bp_the_profile_group ();
+			$group_name = str_replace ('&amp;', '&', stripslashes ($group->name));
 
 			while (bp_profile_fields ())
 			{
 				bp_the_profile_field ();
-				$field->name = str_replace ('&amp;', '&', stripslashes ($field->name));
-				$field->description = str_replace ('&amp;', '&', stripslashes ($field->description));
-				$groups[$group->name][] = array ('id' => $field->id, 'name' => $field->name);
-				$fields[$field->id] = $field;
+				$f = new stdClass;
+
+				$f->group = $group_name;
+				$f->id = $field->id;
+				$f->code = 'field_'. $field->id;
+				$f->name = str_replace ('&amp;', '&', stripslashes ($field->name));
+				$f->description = str_replace ('&amp;', '&', stripslashes ($field->description));
+				$f->type = $field->type;
+				$f->display = $field->type;
+				$f->options = bps_field_options ($field->id);
+				$f->format = isset ($format[$field->type])? $format[$field->type]: $format['others'];
+				$f->search = 'bps_xprofile_search';
+
+				$fields[] = $f;
 			}
 		}
 	}
 
-	list ($groups, $fields) = apply_filters ('bps_get_fields', array ($groups, $fields));
-	return array ($groups, $fields);
+	return $fields;
 }
 
 function bps_custom_field ($type)

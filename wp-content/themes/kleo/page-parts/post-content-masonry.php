@@ -96,7 +96,7 @@
 			
 				$slides = get_cfield('slider');
 				echo '<div class="kleo-banner-slider">'
-					.'<div class="kleo-banner-items" data-speed="2000">';
+					.'<div class="kleo-banner-items modal-gallery" data-speed="2000">';
 				if ( $slides ) {
 					foreach( $slides as $slide ) {
 						if ( $slide ) {

@@ -13,7 +13,10 @@ get_header(); ?>
 //Specific class for post listing */
 if ( kleo_postmeta_enabled() ) {
 	$meta_status = ' with-meta';
-	add_filter( 'kleo_main_template_classes', create_function( '$cls','$cls .= "'.$meta_status.'"; return $cls;' ) );
+	if ( sq_option( 'blog_single_meta', 'left' ) == 'inline' ) {
+		$meta_status .= ' inline-meta';
+	}
+	add_filter( 'kleo_main_template_classes', create_function( '$cls','$cls .= "' . $meta_status . '"; return $cls;' ) );
 }
 
 /* Related posts logic */

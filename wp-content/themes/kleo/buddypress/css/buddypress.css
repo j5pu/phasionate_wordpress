@@ -294,6 +294,10 @@ body[class*="rtm-3.7"] #rtmedia-whts-new-upload-container {
 	list-style: none;
 }
 
+#buddypress ul.activity-list > li {
+	overflow: visible;
+}
+
 #buddypress .activity-list .activity-avatar {
 	float: left;
 	display: block;
@@ -3334,3 +3338,36 @@ User avatar in menu
 		margin: 10px 0 20px;
 	}*/
 }
+
+/*#item-header {*/
+	/*position:relative;*/
+/*}*/
+
+
+/*--------------------------------------------------------------
+Cover Photo
+--------------------------------------------------------------*/
+#item-header > #item-header-avatar,
+#item-header > #item-header-content {
+	z-index:2;
+	position:relative;
+}
+#header-cover-image{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-size: cover;
+	z-index: 1;
+}
+.group-create #header-cover-image{
+	position: relative;
+	width:100%;
+	height:250px;
+	display:none;
+}
+.group-create #header-cover-image[style*="url"]{
+	display: block;
+}
+

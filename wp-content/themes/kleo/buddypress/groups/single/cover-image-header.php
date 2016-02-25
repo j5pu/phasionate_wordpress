@@ -5,9 +5,10 @@
  *
  * @since 1.2.0
  */
-do_action( 'bp_before_group_header' ); ?>
+?>
+	<div id="header-cover-image"></div>
 
-
+	<?php do_action( 'bp_before_group_header' ); ?>
 
 	<div id="item-header-avatar" class="rounded">
 		<a href="<?php bp_group_permalink(); ?>" title="<?php bp_group_name(); ?>">
@@ -103,3 +104,22 @@ do_action( 'bp_after_group_header' );
 
 /** This action is documented in bp-templates/bp-legacy/buddypress/activity/index.php */
 do_action( 'template_notices' ); ?>
+
+<script>
+	(function($) {
+		$(document).ready(function () {
+			$(document).ajaxComplete(function (event, xhr, settings) {
+				if(settings.data){
+					if(settings.data.indexOf("action=bp_cover_image_delete") != -1){
+						$('body').removeClass('is-user-profile');
+					}
+				}
+			});
+			if(typeof(bp) !== 'undefined' && typeof(bp.Uploader) !== 'undefined' && typeof(bp.Uploader.filesQueue) !== 'undefined'){
+				bp.Uploader.filesQueue.on( 'add', function(){
+					$('body').addClass('is-user-profile');
+				});
+			}
+		});
+	})(jQuery);
+</script>

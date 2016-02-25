@@ -1,7 +1,7 @@
 <?php
 global $kleo_config;
 
-$grid_link = $grid_layout_mode = $title = $filter = $show_thumb = $inline_meta = $show_footer = '';
+$grid_link = $grid_layout_mode = $title = $filter = $post_layout = $query_offset = $show_thumb = $inline_meta = $show_footer = '';
 $posts = array();
 extract(shortcode_atts(array(
     'title' => '',
@@ -10,6 +10,7 @@ extract(shortcode_atts(array(
     'orderby' => NULL,
     'order' => 'DESC',
     'loop' => '',
+    'query_offset' => '0',
     'post_layout' => 'grid',
     'show_thumb' => 'yes',
     'show_meta' => 'yes',
@@ -25,6 +26,10 @@ if( empty( $loop ) ) return;
 $this->getLoop( $loop );
 $my_query = $this->query;
 $args = $this->loop_args;
+
+if ( (int)$query_offset > 0 ) {
+    $args['offset'] = $query_offset;
+}
 
 $el_class = $el_class != "" ? " ".$el_class : "";
 
@@ -50,7 +55,7 @@ if ( $show_meta == 'yes' ) {
 }
 
 if ( $show_footer == 'no' ) {
-    $el_class .= ' no-footer';
+    $el_class .= ' no-footer';  
 }
 
 if ( $show_excerpt == 'no' ) {
@@ -63,15 +68,15 @@ if ( $inline_meta == 'yes' ) {
 
 $el_class .= " " . $post_layout . '-listing';
 
-	query_posts($args);
+	query_posts( $args );
 
 	if ( have_posts() ) : ?>
 
-        <?php if ( $show_switcher  == 'yes' ) : ?>
+        <?php if ( $show_switcher  == 'yes' && ! empty( $switcher_layouts ) ) : ?>
 
             <?php
-            if(!is_array($switcher_layouts)){
-                $switcher_layouts = explode( ',',$switcher_layouts );
+            if( ! is_array( $switcher_layouts ) ) {
+                $switcher_layouts = explode( ',' , $switcher_layouts );
             }
             kleo_view_switch( $switcher_layouts, $post_layout, get_the_ID() );
             ?>

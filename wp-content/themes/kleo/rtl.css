@@ -3070,8 +3070,9 @@ select {
 /* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     select {
-        padding-left: 35px !important;
+        padding-left: 0 !important;
         padding-right: 0;
+        padding-right: 35px !important;
     }
 }
 .lt-ie9 select,
@@ -4523,8 +4524,9 @@ form.pmpro_form .pmpro_submit {
 .yith-wcwl-wishlistexistsbrowse a:before,
 .yith-wcwl-add-button a.add_to_wishlist:before,
 .yith-wcwl-wishlistaddedbrowse a:before {
-    right: 0;
+    right: -110px !important;
     left: 0;
+    top: 0px !important;
 }
 
 .yith-wcwl-add-button a.add_to_wishlist:after,
@@ -5522,5 +5524,7 @@ li.product figcaption .shop-actions .quick-view:before {
     right: auto;
 }
 
-
-
+.entry-summary form.cart, .entry-summary .yith-wcwl-add-to-wishlist {
+    display: inline-block!important;
+    float: right !important;
+}

@@ -42,8 +42,9 @@ if ( ! empty ( $_SERVER[ 'HTTP_X_REQUESTED_WITH' ] ) &&
                                     <?php if( sq_option( 'bp_full_profile', 0 ) == 0 ): ?>
 									<div class="col-sm-12">
 										<div id="item-header">
-
-												<?php bp_get_template_part ( 'members/single/member-header' ) ?>
+                                            
+                                            <div id="header-cover-image"></div>
+                                            <?php bp_get_template_part ( 'members/single/member-header' ) ?>
 
 										</div><!--#item-header-->
 									</div>

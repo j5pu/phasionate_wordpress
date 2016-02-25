@@ -20,16 +20,6 @@
         exit;
     }
 
-// Fix for the GT3 page builder: http://www.gt3themes.com/wordpress-gt3-page-builder-plugin/
-    /** @global string $pagenow */
-    if ( has_action( 'ecpt_field_options_' ) ) {
-        global $pagenow;
-        if ( $pagenow === 'admin.php' ) {
-
-            remove_action( 'admin_init', 'pb_admin_init' );
-        }
-    }
-
     if ( ! class_exists( 'ReduxFrameworkInstances' ) ) {
         // Instance Container
         require_once dirname( __FILE__ ) . '/inc/class.redux_instances.php';
@@ -56,6 +46,8 @@
         require_once dirname( __FILE__ ) . '/inc/class.redux_functions.php';
         require_once dirname( __FILE__ ) . '/inc/class.p.php';
 
+        require_once dirname( __FILE__ ) . '/inc/class.thirdparty.fixes.php';
+
         require_once dirname( __FILE__ ) . '/inc/class.redux_filesystem.php';
 
         require_once dirname( __FILE__ ) . '/inc/class.redux_admin_notices.php';
@@ -77,7 +69,7 @@
             // Please update the build number with each push, no matter how small.
             // This will make for easier support when we ask users what version they are using.
 
-            public static $_version = '3.5.8.1';
+            public static $_version = '3.5.9';
             public static $_dir;
             public static $_url;
             public static $_upload_dir;
@@ -141,6 +133,10 @@
 
             // ::init()
 
+            public static function christine() {
+                return;
+            }
+            
             public $framework_url = 'http://www.reduxframework.com/';
             public static $instance = null;
             public $admin_notices = array();
@@ -184,6 +180,8 @@
             public $lang = "";
             public $dev_mode_forced = false;
             public $reload_fields = array();
+            public $omit_share_icons = false;
+            public $omit_admin_items = false;
 
             /**
              * Class Constructor. Defines the args for the theme options class
@@ -259,6 +257,8 @@
                     $this->args['save_defaults'] = false;
                 }
 
+                $this->change_demo_defaults();
+                
                 if ( ! empty ( $this->args['opt_name'] ) ) {
                     /**
                      * SHIM SECTION
@@ -323,7 +323,7 @@
                     $this->_default_cleanup();
 
                     // Internataionalization
-                    $this->_internationalization();
+                    //$this->_internationalization();
 
                     $this->filesystem = Redux_Filesystem::get_instance( $this );
 
@@ -412,13 +412,14 @@
 
                     if ( $this->args['dev_mode'] == true || Redux_Helpers::isLocalHost() == true ) {
                         require_once 'core/dashboard.php';
+                        //new reduxDashboardWidget($this);
 
                         if ( ! isset ( $GLOBALS['redux_notice_check'] ) ) {
                             require_once 'core/newsflash.php';
 
                             $params = array(
                                 'dir_name'    => 'notice',
-                                'server_file' => 'http://reduxframework.com/' . 'wp-content/uploads/redux/redux_notice.json',
+                                'server_file' => 'http://reduxframework.com/wp-content/uploads/redux/redux_notice.json',
                                 'interval'    => 3,
                                 'cookie_id'   => 'redux_blast',
                             );
@@ -443,7 +444,7 @@
             private function set_redux_content() {
                 $upload_dir        = wp_upload_dir();
                 self::$_upload_dir = $upload_dir['basedir'] . '/redux/';
-                self::$_upload_url = $upload_dir['baseurl'] . '/redux/';
+                self::$_upload_url = str_replace( array( 'https://', 'http://' ), '//', $upload_dir['baseurl'] . '/redux/' );
             }
 
             private function set_default_args() {
@@ -1066,7 +1067,16 @@
                                 $args = array( $args );
                             }
                             $data = call_user_func( $args[0] );
-                        }
+                        } else if ( $type == "users" || $type == "users" ) {
+                            $users = get_users( $args );
+                            if ( ! empty ( $users ) ) {
+                                foreach ( $users as $user ) {
+                                    $data[ $user->ID ] = $user->display_name;
+                                }
+                                //foreach
+                            }
+                            //if
+                        } 
                         //if
                     }
                     //if
@@ -1150,7 +1160,7 @@
                         if ( is_array( $field['data'] ) && ! empty( $field['data'] ) ) {
                             foreach ( $field['data'] as $key => $data ) {
                                 if ( ! empty( $data ) ) {
-                                    if ( ! isset ( $this->field['args'][ $key ] ) ) {
+                                    if ( ! isset ( $field['args'][ $key ] ) ) {
                                         $field['args'][ $key ] = array();
                                     }
                                     $field['options'][ $key ] = $this->get_wordpress_data( $data, $field['args'][ $key ] );
@@ -1511,6 +1521,10 @@
                     // Let's deal with external links
                     if ( isset ( $this->args['admin_bar_links'] ) ) {
 
+                        if (!$this->args['dev_mode'] && $this->omit_admin_items) {
+                            return;
+                        }
+                        
                         // Group for Main Root Menu (External Group)
                         $wp_admin_bar->add_node( array(
                             'id'     => $this->args["page_slug"] . '-external',
@@ -1729,7 +1743,7 @@
 
                     $curTab = '0';
                     if ( isset ( $_GET['tab'] ) ) {
-                        $curTab = $_GET['tab'];
+                        $curTab = esc_attr($_GET['tab']);
                     }
 
                     // Default url values for enabling hints.
@@ -1911,9 +1925,11 @@
                         // Set show_hints flag to true, so helptab will be displayed.
                         $this->show_hints = true;
 
+                        $hint = apply_filters( 'redux/hints/html', $hint, $field, $this->args );
+                        
                         // Get user pref for displaying hints.
                         $metaVal = get_user_meta( $current_user->ID, 'ignore_hints', true );
-                        if ( 'true' == $metaVal || empty ( $metaVal ) ) {
+                        if ( 'true' == $metaVal || empty ( $metaVal ) && empty( $hint )  ) {
 
                             // Set hand cursor for clickable hints
                             $pointer = '';
@@ -2446,11 +2462,12 @@
                     $class_file = apply_filters( "redux/extension/{$this->args['opt_name']}/$folder", "$path/$folder/extension_{$folder}.php", $class_file );
 
                     if ( $class_file ) {
+                        
                         if ( file_exists( $class_file ) ) {
                             require_once $class_file;
+                            
+                            $this->extensions[ $folder ] = new $extension_class ( $this );
                         }
-
-                        $this->extensions[ $folder ] = new $extension_class ( $this );
                     }
                 }
 
@@ -3931,6 +3948,64 @@
                 }
 
                 return $merged;
+            }
+            
+            private function change_demo_defaults() {
+                if ($this->args['dev_mode'] == true || Redux_Helpers::isLocalHost() == true) {
+                    if (!empty($this->args['admin_bar_links'])) {
+                        foreach($this->args['admin_bar_links'] as $idx => $arr) {
+                            if (is_array($arr) && !empty($arr)) {
+                                foreach($arr as $x => $y) {
+                                    if (strpos(strtolower($y), 'redux') >= 0) {
+                                        $msg = __('<strong>Redux Framework Notice: </strong>There are references to the Redux Framework support site in your config\'s <code>admin_bar_links</code> argument.  This is sample data.  Please change or remove this data before shipping your product.', 'redux-framework');
+                                        $this->display_arg_change_notice('admin', $msg);
+                                        $this->omit_admin_items = true;
+                                        continue;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    if (!empty($this->args['share_icons'])) {
+                        foreach($this->args['share_icons'] as $idx => $arr) {
+                            if (is_array($arr) && !empty($arr)) {
+                                foreach($arr as $x => $y) {
+                                    if (strpos(strtolower($y), 'redux') >= 0) {
+                                        $msg = __('<strong>Redux Framework Notice: </strong>There are references to the Redux Framework support site in your config\'s <code>share_icons</code> argument.  This is sample data.  Please change or remove this data before shipping your product.', 'redux-framework');
+                                        $this->display_arg_change_notice('share', $msg);
+                                        $this->omit_share_icons = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            
+            private function display_arg_change_notice($mode, $msg = '') {
+                if ($mode == 'admin') {
+                    if (!$this->omit_admin_items) {
+                        $this->admin_notices[] = array(
+                            'type'    => 'error',
+                            'msg'     => $msg,
+                            'id'      => 'admin_config',
+                            'dismiss' => true,
+                        );                    
+                    }
+                }
+                
+                if ($mode == 'share') {
+                    if (!$this->omit_share_icons) {
+                        $this->admin_notices[] = array(
+                            'type'    => 'error',
+                            'msg'     => $msg,
+                            'id'      => 'share_config',
+                            'dismiss' => true,
+                        );                    
+                    }
+                }
             }
         }
 

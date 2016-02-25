@@ -35,7 +35,7 @@ if ( post_password_required() || ! comments_open() ) {
 				</div><!-- #comments-nav-above -->
 				<?php endif; // Check for comment navigation. ?>
 				<ol>
-					<?php wp_list_comments('type=comment&callback=kleo_custom_comments'); ?>
+					<?php wp_list_comments('type=all&callback=kleo_custom_comments'); ?>
 				</ol>
 
 				<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : ?>

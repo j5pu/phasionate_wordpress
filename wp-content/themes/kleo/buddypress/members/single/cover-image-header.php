@@ -8,7 +8,7 @@
  */
 
 ?>
-
+	<div id="header-cover-image"></div>
 <?php
 
 /**
@@ -17,8 +17,6 @@
  * @since 1.2.0
  */
 do_action( 'bp_before_member_header' ); ?>
-
-
 
 	<div id="item-header-avatar" class="rounded">
 		<a href="<?php bp_displayed_user_link(); ?>">
@@ -74,3 +72,22 @@ do_action( 'bp_before_member_header' ); ?>
 <?php do_action( 'bp_after_member_header' ); ?>
 
 <?php do_action( 'template_notices' ); ?>
+
+<script>
+	(function($) {
+		$(document).ready(function () {
+			$(document).ajaxComplete(function (event, xhr, settings) {
+				if(settings.data){
+					if(settings.data.indexOf("action=bp_cover_image_delete") != -1){
+						$('body').removeClass('is-user-profile');
+					}
+				}
+			});
+			if(typeof(bp) !== 'undefined' && typeof(bp.Uploader) !== 'undefined' && typeof(bp.Uploader.filesQueue) !== 'undefined'){
+				bp.Uploader.filesQueue.on( 'add', function(){
+					$('body').addClass('is-user-profile');
+				});
+			}
+		});
+	})(jQuery);
+</script>

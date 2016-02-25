@@ -258,22 +258,26 @@
 
 /* Search Bar */
 
+.geodir_advanced_search_widget *,
 .geodir_advance_search_widget * {
     border-sizing: border-box;
     padding: 0;
     margin: 0;
     border: 0
 }
+.geodir_advanced_search_widget .geodir-loc-bar,
 .geodir_advance_search_widget .geodir-loc-bar{
     margin: 0 0 20px 0;
 }
 .geodir_advance_search_widget .geodir-loc-bar .geodir-loc-bar-in{
 }
+.geodir_advanced_search_widget .geodir-loc-bar .geodir-loc-bar-in .geodir-search,
 .geodir_advance_search_widget .geodir-loc-bar .geodir-loc-bar-in .geodir-search{
     width: 100%;
     text-align: center;
     padding: 15px;
 }
+.geodir_advanced_search_widget .geodir-loc-bar .geodir-loc-bar-in .geodir-search input,
 .geodir_advance_search_widget .geodir-loc-bar .geodir-loc-bar-in .geodir-search input{
     float: left;
     display: inline-block;
@@ -283,18 +287,22 @@
     height: 40px;
     padding: 10px;
 }
+.geodir_advanced_search_widget .geodir-loc-bar .geodir-loc-bar-in .geodir-search input.search_text,
 .geodir_advance_search_widget .geodir-loc-bar .geodir-loc-bar-in .geodir-search input.search_text{
     width: 40%;
 }
+.geodir_advanced_search_widget .geodir-loc-bar .geodir-loc-bar-in .geodir-search input.snear,
 .geodir_advance_search_widget .geodir-loc-bar .geodir-loc-bar-in .geodir-search input.snear{
     width: 39%;
     margin: 0 0.5%;
 }
+.geodir_advanced_search_widget .geodir-loc-bar .geodir-loc-bar-in .geodir-search input.geodir_submit_search,
 .geodir_advance_search_widget .geodir-loc-bar .geodir-loc-bar-in .geodir-search input.geodir_submit_search{
     width: 20%;
     line-height: 20px;
     border-radius: 3px;
 }
+.geodir-sidebar-right .geodir_advanced_search_widget input, .geodir-sidebar-left .geodir_advanced_search_widget input,
 .geodir-sidebar-right .geodir_advance_search_widget input, .geodir-sidebar-left .geodir_advance_search_widget input{
     display: block !important;
     margin: 2px !important;
@@ -302,6 +310,7 @@
 }
 
 @media (max-width: 600px) {
+    .geodir_advanced_search_widget input,
     .geodir_advance_search_widget input{
         display: block !important;
         margin: 2px !important;
@@ -443,4 +452,54 @@ input.geodir_button, input.btn_submit{
 
 .geodir-addtofav-icon i, .geodir-removetofav-icon i {
     text-shadow: none;
+}
+
+.gd-location-switcher {
+    z-index:1600 !important;
+}
+.gd-location-switcher > a > i {
+    margin-right:5px;
+}
+#header .geodir_location_sugestion{
+    padding-top:15px;
+}
+#header .geodir_location_tab_container{
+    background: none !important;
+    position:relative;
+}
+#header .geodir_location_tab_container dd.geodir_location_tabs a{
+    background: #fff !important;
+    border:0;
+    margin:0;
+    padding:0;
+    color: rgba(68, 68, 68, 0.4);
+    border-bottom:1px solid rgba(68, 68, 68, 0.4);
+    margin-left:1px;
+    padding-bottom:10px;
+    text-align:center !important;
+    display:block;
+    position:relative;
+}
+#header .geodir_location_tab_container dd.geodir_location_tabs a:after{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 5px 0 5px;
+    border-color: rgba(68, 68, 68, 0.4) transparent transparent transparent;
+    position:absolute;
+    display:block;
+    content:"";
+    bottom:-6px;
+    left:50%;
+    margin-left:-5px;
+}
+
+#header .geodir_location_tab_container dd.geodir_location_tabs a:hover,
+#header .geodir_location_tab_container dd.geodir_location_tabs.gd-tab-active a {
+    color:#000;
+    border-bottom:1px solid #000;
+}
+#header .geodir_location_tab_container dd.geodir_location_tabs:hover a:after,
+#header .geodir_location_tab_container dd.geodir_location_tabs.gd-tab-active a:after {
+    border-color: #000 transparent transparent transparent;
 }

@@ -1,5 +1,5 @@
 <?php
-$posts_query = $el_class = $args = $my_query = $speed = $mode = $swiper_options = $layout = '';
+$posts_query = $el_class = $args = $my_query = $speed = $mode = $swiper_options = $layout = $query_offset = '';
 $content = $link = $layout = $thumb_size = $link_target = $slides_per_view = $wrap = '';
 $autoplay = $hide_pagination_control = $hide_prev_next_buttons = $title = '';
 $posts = array();
@@ -11,9 +11,15 @@ extract(shortcode_atts(array(
     'min_items' => 3,
     'max_items' => 6,
     'height' => '',
+    'query_offset' => '0',
     'layout' => ''
 ), $atts));
 list($args, $my_query) = vc_build_loop_query($posts_query);
+
+if ( (int)$query_offset > 0 ) {
+	$args['offset'] = $query_offset;
+}
+
 
 $extra_data = '';
 

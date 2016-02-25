@@ -1,9 +1,10 @@
 <?php
-$output = $el_class = $css_animation = '';
+$output = $lead = $text_color = $font_size = $font_weight = $el_class = $animation = $css_animation = '';
 
 extract(shortcode_atts(array(
     'el_class' => '',
     'lead' => false,
+	'text_color' => '',
     'font_size' => '',
     'font_weight' => '',
     'animation' => '',
@@ -16,7 +17,7 @@ $el_class = $this->getExtraClass($el_class);
 if ( version_compare(WPB_VC_VERSION, '4.4' ) >= 0) {
     $css_class = apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'kleo_text_column wpb_content_element ' . $el_class . vc_shortcode_custom_css_class($css, ' '), $this->settings['base'], $atts);
 } else {
-    $css_class = apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'kleo_text_column wpb_content_element ' . $el_class, $this->settings['base']);
+    $css_class = apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'kleo_text_column wpb_content_element ' . $el_class, $this->settings['base'], $atts);
 }
 
 if ( $animation != '' ) {
@@ -32,12 +33,16 @@ if( $lead ) {
 $style_inline = '';
 $styles = '';
 
-if ( $font_size && (int)$font_size != 0 ) {
-	$styles .= ' font-size:' . $font_size . 'px;';
+if ( $font_size != '' ) {
+	$styles .= ' font-size:' . kleo_set_default_unit( $font_size ) . ';';
 }
 if ( $font_weight && $font_weight != 'normal' ) {
 	$styles .= ' font-weight:' . $font_weight . ';';
 }
+if ( $text_color != '' ) {
+	$styles .= ' color:' . $text_color . ';';
+}
+
 if ( $styles != '' ) {
 	$style_inline = ' style="' . $styles . '"';
 }

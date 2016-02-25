@@ -28,6 +28,15 @@ require_once( trailingslashit( get_template_directory() ) . 'lib/theme-functions
 
 
 
+/***************************************************
+:: SideKick Integration
+ ***************************************************/
+
+define('SK_PRODUCT_ID',457);
+define('SK_ENVATO_PARTNER', 'Qjq0CBU+3zqUohNf6gfTpvfnRX3eCVM+HwoqKeVL4/k=');
+define('SK_ENVATO_SECRET', 'RqjBt/YyaTOjDq+lKLWhL10sFCMCJciT9SPUKLBBmso=');
+
+
 /**
  * Sets up theme defaults and registers the various WordPress features
  *
@@ -1105,7 +1114,7 @@ if ( ! function_exists( 'kleo_title_main_content' ) ) {
 
 /* Change the html page title if we set a custom title */
 add_filter( 'single_post_title', 'kleo_check_single_post_title', 10, 2 );
-function kleo_check_single_post_title( $title, $post ) {
+function kleo_check_single_post_title( $title, $post = false ) {
 
     if ( ! $post || ! isset( $post->ID ) ) {
         return $title;
@@ -1154,15 +1163,16 @@ function kleo_body_classes($classes = '') {
         $classes[] = 'not-responsive';
     }
 
-    if (sq_option('sticky_menu',1) == 1) {
+    if (sq_option('sticky_menu', 1) == 1) {
         $classes[] = 'kleo-navbar-fixed';
 
-        if (sq_option('resize_logo',1) == 1) {
+        if (sq_option('resize_logo', 1) == 1) {
             $classes[] = 'navbar-resize';
         }
     }
 
-    if ( sq_option( 'transparent_logo', 1 ) == 1 || ( is_singular() && get_cfield( 'transparent_menu' )) ) {
+    if ( ( sq_option('sticky_menu', 1) == 1 && sq_option( 'transparent_logo', 1 ) == 1 )
+         || ( is_singular() && get_cfield( 'transparent_menu' )) ) {
         $classes[] = 'navbar-transparent';
     }
 
@@ -1173,6 +1183,18 @@ function kleo_body_classes($classes = '') {
         } else {
             $classes[] = 'on-dark-bg';
         }
+    }
+
+    if (sq_option('sitewide_animations', 'enabled') == 'disable-all') {
+        $classes[] = 'disable-all-animations';
+    }
+
+    if (sq_option('sitewide_animations', 'enabled') == 'disable-mobile') {
+        $classes[] = 'disable-all-animations-on-mobile';
+    }
+
+    if ( sq_option( 'menu_full_width', 0 ) == 1 || ( is_singular() && get_cfield( 'menu_full_width' )) ) {
+        $classes[] = 'navbar-full-width';
     }
 
     return $classes;

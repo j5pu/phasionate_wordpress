@@ -146,7 +146,7 @@ if ( ! function_exists( 'kleo_portfolio_filter' ) ) {
         $filter_output .= '<ul class="portfolio-filter-tabs bar-styling filtering col-sm-12 clearfix">'. "\n";
         $filter_output .= '<li class="all selected"><a data-filter="*" href="#"><span class="item-name">'. __("All", "kleo_framework").'</span></a></li>'. "\n";
         foreach ($tax_terms as $tax_term) {
-            $term = get_term_by('name', $tax_term, 'portfolio-category');
+            $term = get_term_by('slug', $tax_term, 'portfolio-category');
             if ( $term && ! in_array( $term->term_id, $exclude_categories ) ) {
                 $filter_output .= '<li><a href="#" data-filter=".' . $term->slug . '"><span class="item-name">' . $term->name . '</span></a></li>'. "\n";
             }

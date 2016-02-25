@@ -93,7 +93,7 @@ global $kleo_config;
 
 			$slides = get_cfield('slider');
 			echo '<div class="kleo-banner-slider">'
-				.'<div class="kleo-banner-items" >';
+				.'<div class="kleo-banner-items modal-gallery">';
 			if ( $slides ) {
 				foreach( $slides as $slide ) {
 					if ( $slide ) {

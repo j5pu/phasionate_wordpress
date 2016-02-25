@@ -1106,7 +1106,8 @@ body.reply-edit .bbp-reply-form code {
 	display: block;
 	padding: 8px;
 	margin-top: 5px;
-	width: 369px;
+	white-space: normal !important;
+	width: 100%;
 }
 
 #merge_tag,
@@ -1872,9 +1873,58 @@ body.my-account #bbpress-forums {
 }
 
 
+/* Strip down the the forum and topics tables for small resolutions */
+@media (max-width: 1024px) {
+	.bbp-forums .bbp-body{
+		display:block;
+		width:100%;
+	}
+	.bbp-forums .bbp-body .bbp-forum-info{
+		display:block;
+		width:100%;
+	}
+	.bbp-forums .bbp-header .bbp-forum-topic-count,
+	.bbp-forums .bbp-header .bbp-forum-reply-count,
+	.bbp-forums .bbp-header .bbp-forum-freshness,
+	.bbp-forums .bbp-body .bbp-forum-topic-count,
+	.bbp-forums .bbp-body .bbp-forum-reply-count,
+	.bbp-forums .bbp-body .bbp-forum-freshness{
+		display:none;
+	}
+	.bbp-topics .bbp-body{
+		display:block;
+		width:100%;
+	}
+	.bbp-topics .bbp-body .bbp-topic-title{
+		display:block;
+		width:100%;
+	}
+	.bbp-topics .bbp-header .bbp-topic-voice-count,
+	.bbp-topics .bbp-header .bbp-topic-reply-count,
+	.bbp-topics .bbp-header .bbp-topic-freshness,
+	.bbp-topics .bbp-body .bbp-topic-voice-count,
+	.bbp-topics .bbp-body .bbp-topic-reply-count,
+	.bbp-topics .bbp-body .bbp-topic-freshness > a,
+	.bbp-topics .bbp-body .bbp-topic-freshness .bbp-author-name{
+		display:none;
+	}
+	.bbp-topics .bbp-body .bbp-topic-freshness{
+		width:40px;
+		text-indent:-9999px;
+		position:relative;
+		height:auto;
+	}
+	.bbp-topics .bbp-body .bbp-topic-freshness img.avatar{
+		position:absolute;
+		display:block;
+		width:30px;
+		height:30px;
+		top:50%;
+		margin-top:-15px;
+		margin-left:5px;
+	}
 
-
-
+}
 
 
 

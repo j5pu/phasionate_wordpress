@@ -20,6 +20,11 @@ if ( ! function_exists('kleo_breadcrumb')) {
      */
     function kleo_breadcrumb( $args = array() )
     {
+        $breadcrumb_filter = apply_filters( 'kleo_breadcrumb_data', false );
+        if($breadcrumb_filter){
+            return $breadcrumb_filter;
+        }
+
         if ( function_exists('bp_is_active') && !bp_is_blog_page() ) {
             $breadcrumb = new buddypress_Breadcrumb_Trail($args);
         }

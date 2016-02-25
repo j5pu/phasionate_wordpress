@@ -316,9 +316,27 @@ if ( ! function_exists( 'kleo_woocommerce_after_content' ) )
 	}
 }
 
-
 //Remove breadcrumb
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
+
+
+function kleo_woo_breadcrumb_data(){
+	ob_start();
+	woocommerce_breadcrumb(array(
+		'delimiter' => '<span class="sep"></span>',
+		'wrap_before' => '<div class="kleo_framework breadcrumb kleo-custom-breadcrumb" ' . ( is_single() ? 'itemprop="breadcrumb"' : '' ) . '>',
+		'wrap_after'  => '</div>',
+	));
+	$breadcrumb = ob_get_clean();
+	return $breadcrumb;
+}
+
+function kleo_woo_breadcrumb_replace(){
+	if(is_woocommerce()) {
+		add_filter('kleo_breadcrumb_data', 'kleo_woo_breadcrumb_data');
+	}
+}
+add_filter('wp', 'kleo_woo_breadcrumb_replace');
 
 
 //Change page layout to match theme options settings
@@ -517,30 +535,32 @@ function kleo_woo_sale_flash( $data, $post, $product ) {
     return $output;
 }
 
-function kleo_woo_loop_badges() {
-	global $product, $post;
-	if (kleo_woo_out_of_stock()) {
-		
-		echo '<span class="out-of-stock-badge">' . __( 'Out of stock', 'woocommerce' ) . '</span>';
+if (! function_exists('kleo_woo_loop_badges')) {
+	function kleo_woo_loop_badges() {
+		global $product, $post;
+		if (kleo_woo_out_of_stock()) {
 
-	} else if ($product->is_on_sale()) {
+			echo '<span class="out-of-stock-badge">' . __('Out of stock', 'woocommerce') . '</span>';
 
-		wc_get_template( 'loop/sale-flash.php' );
-		
-	} else if (!$product->get_price()) {
+		} else if ($product->is_on_sale()) {
 
-		echo '<span class="free-badge">' . __( 'Free', 'woocommerce' ) . '</span>';
+			wc_get_template('loop/sale-flash.php');
 
-	} else if ( sq_option( 'woo_new_badge', 1 ) == 1 ) {
+		} else if (!$product->get_price() and sq_option('woo_free_badge', 1) == 1) {
 
-		$postdate 		= get_the_time( 'Y-m-d' );			// Post date
-		$postdatestamp 	= strtotime( $postdate );			// Timestamped post date
-		$newness 		= sq_option( 'woo_new_days', 7 ); 	// Number of days to treat a product as new
+			echo '<span class="free-badge">' . __('Free', 'woocommerce') . '</span>';
 
-		if ( ( time() - ( 60 * 60 * 24 * $newness ) ) < $postdatestamp ) { 
-			echo '<span class="new-badge">' . __( 'New', 'kleo_framework' ) . '</span>';
+		} else if (sq_option('woo_new_badge', 1) == 1) {
+
+			$postdate = get_the_time('Y-m-d');            // Post date
+			$postdatestamp = strtotime($postdate);            // Timestamped post date
+			$newness = sq_option('woo_new_days', 7);    // Number of days to treat a product as new
+
+			if ((time() - (60 * 60 * 24 * $newness)) < $postdatestamp) {
+				echo '<span class="new-badge">' . __('New', 'kleo_framework') . '</span>';
+			}
+
 		}
-		
 	}
 }
 
@@ -1734,3 +1754,16 @@ function kleo_title_args_singular_product( $args ){
 	return $args;
 }
 add_filter('kleo_title_args', 'kleo_title_args_singular_product');
+
+/* Trigger the reviews tab when clicking on the reviews starts */
+function kleo_woocommerce_wp_footer(){
+	if( is_singular('product') ){
+		echo '<script>jQuery(document).ready(function(){ jQuery(\'a[href="#reviews"]\').on("click", function(){ jQuery(\'a[href="#reviews_tab"]\').trigger("click"); return false; }); });</script>';
+	}
+}
+add_action( 'wp_footer', 'kleo_woocommerce_wp_footer' );
+
+
+/* Remove product loop link wrapper */
+remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );

@@ -15,7 +15,7 @@ $blog_type = sq_option('blog_type','masonry');
 $blog_type = apply_filters( 'kleo_blog_type', $blog_type );
 
 $template_classes = $blog_type . '-listing';
-if (sq_option('blog_meta_status', 1) == 1) { $template_classes .= ' with-meta'; } else { $template_classes .= ' no-meta'; }
+if (sq_option('blog_archive_meta', 1) == 1) { $template_classes .= ' with-meta'; } else { $template_classes .= ' no-meta'; }
 add_filter('kleo_main_template_classes', create_function('$cls','$cls .=" posts-listing '.$template_classes.'"; return $cls;'));
 
 

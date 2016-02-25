@@ -30,7 +30,7 @@ if (! class_exists('sidebar_generator')) {
 	class sidebar_generator
 	{
 
-		function sidebar_generator()
+		public function __construct()
 		{
 			add_action('init', array('sidebar_generator', 'init'));
 			add_action('admin_menu', array('sidebar_generator', 'admin_menu'));
@@ -67,8 +67,8 @@ if (! class_exists('sidebar_generator')) {
 							'id' => 'sidebar-' . $i,
 							'before_widget' => '<div id="%1$s" class="widget clearfix %2$s">',
 							'after_widget' => '</div>',
-							'before_title' => apply_filters( 'sq_ms_before_title', '<h5>' ),
-							'after_title' => apply_filters( 'sq_ms_after_title', '</h5>' ),
+							'before_title' => apply_filters( 'sq_ms_before_title', '<h4>' ),
+							'after_title' => apply_filters( 'sq_ms_after_title', '</h4>' ),
 					));
 				}
 			}

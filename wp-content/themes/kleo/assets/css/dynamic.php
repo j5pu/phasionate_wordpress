@@ -53,6 +53,10 @@ $section['mat-color-bg'] = kleo_calc_similar_color($section['bg'], (kleo_calc_pe
 
 
 <?php if ( $name == 'main' ) { //only for main-color ?>
+
+        #main {
+        background-color: <?php echo $section['bg']; ?>;
+        }
 /*** Popover ***/
 .popover-content {
 color: <?php echo $section['text']; ?>;
@@ -467,7 +471,9 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color .bbp_widget_login .button.user-submit,
 .<?php echo $name; ?>-color #wp-calendar caption,
 .<?php echo $name; ?>-color .wp-caption,
+.<?php echo $name; ?>-color .widget .woocommerce-product-search,
 .<?php echo $name; ?>-color .widget form#bbp-search-form > div,
+.<?php echo $name; ?>-color .page-content #searchform > div,
 .<?php echo $name; ?>-color .widget_search #searchform > div,
 .<?php echo $name; ?>-color #bp-login-widget-form input[type="text"],
 .<?php echo $name; ?>-color #bp-login-widget-form input[type="password"],
@@ -1389,8 +1395,10 @@ border-top-color: <?php echo $section['border']; ?>;
 /*** SPECIFIC FOR MEDIA QUERY ***/
 @media (max-width: 991px) {
 	.<?php echo $name; ?>-color .navbar-nav li .caret:after {
-  	color: <?php echo $section['border']; ?>;
-	}
+
+    color: rgba(<?php echo $section['text_color_rgb']['r']; ?>,<?php echo $section['text_color_rgb']['g']; ?>,<?php echo $section['text_color_rgb']['b']; ?>, 0.2);
+
+    }
 }
 
 
@@ -1411,9 +1419,7 @@ if ( $extra_section_css != '' ) {
 
 }
 /* Body Background */
-if ( sq_option( 'site_style' )  == 'boxed' ) {
-	echo $kleo_theme->get_bg_css('body_bg', 'body');
-}
+echo $kleo_theme->get_bg_css('body_bg', 'body.page-boxed-bg');
 
 /* Sections background */
 foreach( $style_sets as $set ) {
@@ -1439,6 +1445,14 @@ if ( sq_option( 'menu_size', '' ) != '' ) {
 
 if ( sq_option( 'boxed_size', '1440' ) != '1440' ) {
     echo '.page-boxed, .kleo-navbar-fixed .page-boxed .kleo-main-header, .kleo-navbar-fixed.navbar-transparent .page-boxed #header { max-width: ' . sq_option( 'boxed_size' ) . 'px; }';
+    echo '.navbar-full-width .page-boxed #main, .navbar-full-width .page-boxed #footer, .navbar-full-width .page-boxed #socket { max-width: ' . sq_option( 'boxed_size' ) . 'px; }';
+
+    if ( sq_option( 'boxed_size', '1440' ) == '1024' ) {
+        echo '@media (min-width: 1440px) { .container { max-width: 996px;} }';
+    }
+    elseif ( sq_option( 'boxed_size', '1440' ) == '1200' ) {
+        echo '@media (min-width: 1440px) { .container { max-width: 1170px;} }';
+    }
 }
 
 //title padding

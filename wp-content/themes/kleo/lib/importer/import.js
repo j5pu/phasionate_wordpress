@@ -11,7 +11,7 @@
 		$('select.import', importer).val('');
 
 		// disable submit button
-		$('.button', importer).attr('disabled','disabled');
+		$('.button.advanced', importer).attr('disabled','disabled');
 
 		// select.import change
 		$('select.import', importer).change(function(){
@@ -20,9 +20,9 @@
 
 			// submit button
 			if( val ){
-				$('.button', importer).removeAttr('disabled');
+				$('.button.advanced', importer).removeAttr('disabled');
 			} else {
-				$('.button', importer).attr('disabled','disabled');
+				$('.button.advanced', importer).attr('disabled','disabled');
 			}
 
 			// content
@@ -50,6 +50,29 @@
             }
 
         });
+
+		$("input.check-attachment").on("change", function() {
+			if( $(this).is(":checked")) {
+				$(this).closest('.to-left').find("input.check-page").prop('checked', true);
+			} else {
+				$(this).closest('.to-left').find("input.check-page").prop('checked', false);
+			}
+		});
+
+		$(".to-left input[type=checkbox]").on("change", function() {
+			var $isChecked = false;
+			$(this).closest('.to-left').find('input[type=checkbox]').each(function (index, element) {
+				if( $(this).is(":checked")) {
+					$isChecked = true;
+				}
+			});
+
+			if ($isChecked === false) {
+				$(this).closest(".demo-options").find('.import-demo-btn').prop('disabled', true);
+			} else {
+				$(this).closest(".demo-options").find('.import-demo-btn').prop('disabled', false);
+			}
+		});
 		
 	});
 

@@ -2035,8 +2035,8 @@ function bp_activity_request(scope, filter) {
 	function(response)
 	{
 		jq('.widget_bp_activity_widget h2 span.ajax-loader').hide();
-
-		jq('div.activity').fadeOut( 100, function() {
+		/* KLEO modified */
+		jq('#buddypress div.activity').fadeOut( 100, function() {
 			jq(this).html(response.contents);
 			jq(this).fadeIn(100, function(){
 				jq("body").trigger('bpActivityLoaded');

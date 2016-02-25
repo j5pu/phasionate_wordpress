@@ -939,7 +939,9 @@ p.demo_store {
 }
 .woocommerce .kleo-woo-gallery .kleo-thumbs-carousel img.attachment-shop_thumbnail {
 }
-
+.woocommerce #accordion-woo {
+	clear: both;
+}
 .woocommerce #accordion-woo .panel-heading {
 	padding: 10px 0;
 }
@@ -1414,6 +1416,12 @@ p.demo_store {
 	transform: translate( 0, -100%);
 	-webkit-transition: transform 0.3s ease 0s;
 	transition: transform 0.3s ease 0s;
+}
+@media screen and (max-width: 480px) {
+	.kleo-desktop ul.products li.product figure.product-transition-default:hover > a {
+		-webkit-transform: none;
+		transform: none;
+	}
 }
 
 .kleo-desktop ul.products li.product figure.product-transition-alt > a {

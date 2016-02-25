@@ -387,8 +387,18 @@ class Kleo {
 
 			foreach($sections as $section) {
 				$font = sq_option('font_'.$section);
+
 				//family
-				$output .= $section . ' {font-family:'.$font['font-family'].';}';
+				if ( isset($font['google']) && $font['google'] == 1 ) {
+					$font_backup = '';
+					if ( isset($font['font-backup']) && ! empty($font['font-backup']) ) {
+						$font_backup = ', ' . $font['font-backup'];
+					}
+					$output .= $section . ' {font-family:"' . $font['font-family'] . '"' . $font_backup . ';}';
+				} else {
+					$output .= $section . ' {font-family:' . $font['font-family'] . ';}';
+				}
+
 				if ( $section == 'h1' ) {
                     $output .= '.lead p, p.lead, article .article-meta .entry-date, .single-attachment .post-time, #buddypress #groups-list .item-title, .popover-title, .nav-tabs > li > a, .nav-pills > li > a, .panel-kleo .panel-title {font-family:'.$font['font-family'].';}';
                     $output .= '#rtm-gallery-title-container .rtm-gallery-title, #item-body .rtmedia-container h2 {font-family:' . $font['font-family'] . ' !important;}';
@@ -421,7 +431,7 @@ class Kleo {
         }
         $link .= $family;
 
-        if ( !empty( $font['font-style'] ) || !is_array( $font['all-styles'] )) {
+        if ( isset( $font['font-style'] ) && ! empty( $font['font-style'] ) || ( isset($font['all-styles']) && ! is_array( $font['all-styles'] ) ) ) {
             $link .= ':';
             if ( isset( $font['all-styles'] ) && !is_array($font['all-styles']) ) {
                 $link .= implode( ',', $font['all-styles'] );

@@ -57,9 +57,18 @@ $tabs_nav .= '<ul class="nav nav-' . $type . ' responsive-' . $type . ' ' . $typ
 foreach ( $tab_titles as $tab ) {
     $tab_atts = shortcode_parse_atts( $tab[0] );
 
+    $iconClass = '';
+    if ( isset( $tab_atts['icon'] ) && $tab_atts['icon'] ) {
+        $iconClass = 'icon-' . str_replace( "icon-", "", $tab_atts['icon']);
+    }
+    elseif (isset($tab_atts['icon_type'])) {
+        $iconClass = isset( $tab_atts[ "icon_" . $tab_atts['icon_type'] ] ) ? $tab_atts[ "icon_" . $tab_atts['icon_type'] ] :"";
+    }
     if ( isset( $tab_atts['title'] ) ) {
         $tabid = ( (isset( $tab_atts['tab_id'] ) && $tab_atts['tab_id'] != __( "Tab", "js_composer" ) ) ? $tab_atts['tab_id'] : esc_attr(str_replace("%", "",sanitize_title_with_dashes( $tab_atts['title'] ))) );
-        $icon = (isset($tab_atts['icon']) && $tab_atts['icon']) ? '<i class="icon-' . str_replace( "icon-", "", $tab_atts['icon'] ) . '"></i> ' : "";
+
+        $icon = $iconClass != '' ? '<i class="' . $iconClass . '"></i> ' : '';
+
         $tabs_nav .= '<li' . ($i == $active_tab ? ' class="active"' : '') . '><a href="#tab-'. $tabid .'" data-toggle="tab" onclick="return false;">' .$icon. $tab_atts['title'] . '</a></li>';
         if ($i == $active_tab) {$kleo_tab_active = $tabid;}
     }
@@ -67,7 +76,7 @@ foreach ( $tab_titles as $tab ) {
 }
 $tabs_nav .= '</ul>'."\n";
 
-$css_class =  apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, trim($element.' tabbable '.$el_class), $this->settings['base']);
+$css_class =  apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, trim($element.' tabbable '.$el_class), $this->settings['base'], $atts);
 
 if ( $position != '' ) {
     $css_class .= ' pos-' . $position;

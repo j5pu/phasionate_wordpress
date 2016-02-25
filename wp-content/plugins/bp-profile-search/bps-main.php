@@ -3,13 +3,13 @@
 Plugin Name: BP Profile Search
 Plugin URI: http://www.dontdream.it/bp-profile-search/
 Description: Search your BuddyPress Members Directory.
-Version: 4.4.2
+Version: 4.4.3
 Author: Andrea Tarantini
 Author URI: http://www.dontdream.it/
 Text Domain: bp-profile-search
 */
 
-define ('BPS_VERSION', '4.4.2');
+define ('BPS_VERSION', '4.4.3');
 include 'bps-functions.php';
 
 $addons = array ('bps-custom.php');
@@ -82,6 +82,7 @@ function bps_meta ($form)
 
 	$default = array ();
 	$default['field_name'] = array ();
+//	$default['field_code'] = array ();
 	$default['field_label'] = array ();
 	$default['field_desc'] = array ();
 	$default['field_range'] = array ();
@@ -96,6 +97,10 @@ function bps_meta ($form)
 
 	$meta = get_post_meta ($form);
 	$options[$form] = isset ($meta['bps_options'])? unserialize ($meta['bps_options'][0]): $default;
+
+	if (empty ($options[$form]['field_code']))
+		foreach ($options[$form]['field_name'] as $k => $id)
+			$options[$form]['field_code'][$k] = 'field_'. $id;
 
 	return $options[$form];
 }
@@ -285,21 +290,40 @@ function bps_attributes ($post)
 
 	<p><strong><?php _e('Form Action (Results Directory)', 'bp-profile-search'); ?></strong></p>
 	<label class="screen-reader-text" for="action"><?php _e('Form Action (Results Directory)', 'bp-profile-search'); ?></label>
+	<select name="options[action]" id="action">
 <?php
-	$bp_pages = array ();
-	$default = 0;
+	$dirs = bps_directories ();
+	foreach ($dirs as $id => $title)
+	{
+?>
+		<option value='<?php echo $id; ?>' <?php selected ($options['action'], $id); ?>><?php echo esc_attr ($title); ?></option>
+<?php
+	}
+?>
+	</select>
+
+	<p><?php _e('Need help? Use the Help tab in the upper right of your screen.'); ?></p>
+<?php
+}
+
+function bps_directories ()
+{
+	$dirs = array ();
+
 	if (function_exists ('bp_core_get_directory_page_ids'))
 	{
 		$bp_pages = bp_core_get_directory_page_ids ();
-		$default = $bp_pages['members'];
-		unset ($bp_pages['members']);
+		$members = $bp_pages['members'];
+		$dirs[$members] = get_the_title ($members);
 	}
-	$selected = $options['action']? $options['action']: $default;
-	$args = array ('name' => 'options[action]', 'id' => 'action', 'selected' => $selected, 'exclude' => $bp_pages);
-	wp_dropdown_pages ($args);
-?>
-	<p><?php _e('Need help? Use the Help tab in the upper right of your screen.'); ?></p>
-<?php
+
+	if (!shortcode_exists ('bps_directory'))  return $dirs;
+
+	$pages = get_pages ();
+	foreach ($pages as $page)
+		if (has_shortcode ($page->post_content, 'bps_directory'))  $dirs[$page->ID] = $page->post_title;
+
+	return $dirs;
 }
 
 function bps_searchmode ($post)

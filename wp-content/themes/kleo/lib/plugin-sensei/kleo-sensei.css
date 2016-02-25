@@ -220,3 +220,5 @@ article.course>a{
     border-radius: 0;
     padding-bottom:15px;
 }
+
+.sensei-course-participant.fix.hide[style="display: list-item;"]{ display:inline-block !important; }

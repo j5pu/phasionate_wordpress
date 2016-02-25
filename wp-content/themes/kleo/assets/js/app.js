@@ -571,6 +571,12 @@ var kleoPage = {
             return false;
         });
 
+        /* Feature items open link */
+        $(document).on('click', '.kleo-open-href', function(e) {
+            if( $(this).attr('data-href') != '' ){
+                window.location.href = $(this).attr('data-href');
+            }
+        });
 
         /* Portfolio */
         if (($(".porto-video").length || $(".porto-hosted_video").length)) {
@@ -600,6 +606,22 @@ var kleoPage = {
             });
         }
 
+        $('a.kleo-login-switch').on('click', function(){
+            var thisParent = $(this).parent().parent().parent();
+            thisParent.find('.lostpass-form-inline').slideUp(100, function(){
+                thisParent.find('.login-form-inline').slideDown(400);
+            });
+            return false;
+        });
+
+        $('a.kleo-lostpass-switch').on('click', function(){
+            var thisParent = $(this).parent().parent().parent();
+            thisParent.find('.login-form-inline').slideUp(100, function(){
+                thisParent.find('.lostpass-form-inline').slideDown(400)
+            });
+            return false;
+        });
+
         /* Equal column heights fallback */
         kleoPage.flexFallback();
 	},
@@ -621,17 +643,14 @@ var kleoPage = {
         var elements  = $(".porto-video .kleo-video-embed");
         elements.height(function () {
             var image = $(this).closest(".portfolio-items").find('.portfolio-image img, .kleo-banner-slider img').eq(0);
-            return image.length && image.height() > 0 ? image.height() : "160";
+            return image.length && image.height() > 50 ? image.height() : "160";
         });
     },
 	
 	notReadyInit: function() {
 		//Preload logo
 		//$("#logo_img").imgpreload();
-        if (kleoHeader.isLogo && ! kleoHeader.logoImg) {
-            kleoHeader.logoImg = new Image();
-            kleoHeader.logoImg.src = kleoFramework.logo;
-        }
+        kleoHeader.loadLogoImg();
 
 		$('.responsive-tabs, .nav-pills, .top-menu > ul, #top-social > ul').tabdrop();
 		
@@ -1100,7 +1119,7 @@ var kleoPage = {
           items: {
             src: '#kleo-lostpass-modal',
             type: 'inline',
-            focus: '#username'
+            focus: '#forgot-email'
           },
           preloader: false,
           mainClass: 'kleo-mfp-zoom',
@@ -1118,8 +1137,31 @@ var kleoPage = {
           }
         });
 
+        /* Register modal */
+        $('.kleo-show-register').magnificPopup({
+          items: {
+            src: '#kleo-register-modal',
+            type: 'inline',
+            focus: '#reg-username'
+          },
+          preloader: false,
+          mainClass: 'kleo-mfp-zoom',
+
+          // When elemened is focused, some mobile browsers in some cases zoom in
+          // It looks not nice, so we disable it:
+          callbacks: {
+            beforeOpen: function() {
+              if($(window).width() < 700) {
+                this.st.focus = false;
+              } else {
+                this.st.focus = '#reg-username';
+              }
+            }
+          }
+        });
+
 		/* Regular popup images */
-		$("a[data-rel^='prettyPhoto'], a[rel^='prettyPhoto'], a[rel^='modalPhoto'], a[data-rel^='modalPhoto'], .article-content a[href$=jpg]:has(img), .article-content a[href$=JPG]:has(img), .article-content a[href$=jpeg]:has(img), .article-content a[href$=JPEG]:has(img), .article-content a[href$=gif]:has(img), .article-content a[href$=bmp]:has(img), .article-content a[href$=png]:has(img)").magnificPopup({
+		$("a[data-rel^='prettyPhoto'], a[rel^='prettyPhoto'], a[rel^='modalPhoto'], a[data-rel^='modalPhoto'], .article-content a[href$=jpg]:has(img), .article-content a[href$=JPG]:has(img), .article-content a[href$=jpeg]:has(img), .article-content a[href$=JPEG]:has(img), .article-content a[href$=gif]:has(img), .article-content a[href$=GIF]:has(img), .article-content a[href$=bmp]:has(img), .article-content a[href$=BMP]:has(img), .article-content a[href$=png]:has(img), .article-content a[href$=PNG]:has(img)").magnificPopup({
 			type: 'image',
 			mainClass: 'mfp-img-pop',
 			gallery:{
@@ -1127,18 +1169,20 @@ var kleoPage = {
 			}
 		});
 
-		/* WordPress Gallery */
-		$(".gallery a[href$=jpg], .gallery a[href$=JPG], .gallery a[href$=jpeg], .gallery a[href$=JPEG], .gallery a[href$=png], .gallery a[href$=gif], .gallery a[href$=bmp] :has(img)").parent().magnificPopup({
-			delegate: 'a',
-			type: 'image',
-			mainClass: 'mfp-gallery-pop',
-			navigateByImgClick: true,
-			gallery: {
-				enabled: true,
-				navigateByImgClick: true,
-				preload: [0,1]
-			}
-		});
+        /* Galleries */
+        $('.gallery, .modal-gallery').each(function() { 
+            $(this).magnificPopup({
+                delegate: $(this).find("a[href$=jpg], a[href$=JPG], a[href$=jpeg], a[href$=JPEG], a[href$=png], a[href$=PNG], a[href$=gif], a[href$=GIF], a[href$=bmp], a[href$=BMP]").has('img'),
+                type: 'image',
+                mainClass: 'mfp-gallery-pop',
+                navigateByImgClick: true,
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0,1]
+                }
+            });
+        });
 	},
 
     doingLikesRequest: false,
@@ -1790,17 +1834,14 @@ var kleoHeader = {
     header:				    $('.kleo-main-header'),
 	logo:					$('.navbar-header .logo img'),
 	elements:				$('.navbar-header, .kleo-main-header .navbar-collapse > ul > li > a, .header-banner'),
-	
-	init: function() {
+
+    init: function() {
 
         //set logo size
         if (kleoHeader.isLogo) {
-            if (! kleoHeader.logoImg) {
-                kleoHeader.logoImg = new Image();
-                kleoHeader.logoImg.src = kleoFramework.logo;
-            }
 
-            kleoHeader.logoImg.addEventListener('load', function () {
+            kleoHeader.loadLogoImg();
+            $(kleoHeader.logoImg).imagesLoaded( function () {
                 kleoHeader.updateLogoSize(kleoHeader.logoImg.height);
             }, false);
         }
@@ -1828,7 +1869,8 @@ var kleoHeader = {
 			if ($("body.kleo-navbar-fixed.navbar-resize").length && ! kleoHeader.header.hasClass("header-left")) {
 
                 if (kleoHeader.isLogo) {
-                    kleoHeader.logoImg.addEventListener('load', function () {
+                    kleoHeader.loadLogoImg();
+                    $(kleoHeader.logoImg).imagesLoaded( function () {
                         kleoHeader.resizeLogo();
                     }, false);
                 } else {
@@ -1941,6 +1983,13 @@ var kleoHeader = {
 		
 	},
 
+    loadLogoImg: function() {
+        if (kleoHeader.isLogo && ! kleoHeader.logoImg) {
+            kleoHeader.logoImg = new Image();
+            kleoHeader.logoImg.src = kleoFramework.logo;
+        }
+    },
+
     sideMenu: function() {
         $('.open-sidebar').on('click', function() {
             $('body').toggleClass('offcanvas-open');
@@ -1960,8 +2009,16 @@ var kleoHeader = {
     },
 
     scrollTo: function() {
-        $('.kleo-main-header .nav > li a[href^="#"], a.kleo-scroll-to[href^="#"]').on('click', function(event) {
-            var target = kleoHeader.getRelatedContent(this);
+        $('.kleo-main-header .nav > li a[href^="#"], .kleo-scroll-to').on('click', function(event) {
+
+            var target = '';
+
+            if ($(this).is("a")) {
+                 target = kleoHeader.getRelatedContent(this);
+            } else {
+                target = kleoHeader.getRelatedContent($(this).find('a[href^="#"]'));
+            }
+
 
             var topHeight = 0;
 
@@ -2019,7 +2076,10 @@ var kleoHeader = {
         kleoHeader.elements.filter(':first').css({'height' :  kleoHeader.initialSize + 'px'});
 
         if (kleoFramework.retinaLogo != '') {
-            kleoHeader.logo.css({'maxHeight': kleoHeader.logoSize + 'px'});
+            kleoHeader.loadLogoImg();
+            $(kleoHeader.logoImg).imagesLoaded( function () {
+                kleoHeader.logo.css({'maxHeight': kleoHeader.logoSize + 'px'});
+            }, false);
         }
 	},
 
@@ -2100,9 +2160,8 @@ var kleoHeader = {
                 imageName = kleoFramework.retinaLogo,
                 imageHeight;
 
-            kleoHeader.logoImg.addEventListener('load', function() {
-
-                //kleoHeader.updateLogoSize(kleoHeader.logoImg.height);
+            kleoHeader.loadLogoImg();
+            $(kleoHeader.logoImg).imagesLoaded( function() {
 
                 //rename image
                 image.attr('src', imageName);
@@ -2304,7 +2363,7 @@ var kleoHeader = {
 var parallax = {
 		init: function() {
 
-            if($window.width() > 480) {
+            if($window.width() > 1024) {
 
                 $('.bg-parallax').each(function () {
                     // assigning the object
