@@ -477,3 +477,6 @@ if ( version_compare( BP_VERSION, '2.4', '>=' ) ) {
     add_action('bp_before_member_header', 'kleo_bp_cover_html', 20);
     add_action('bp_before_group_header', 'kleo_bp_group_cover_html', 20);
 }
+
+/* BP DOCS compatibility */
+add_filter( 'bp_docs_allow_comment_section', '__return_true', 100 );

@@ -47,7 +47,7 @@ $primary_menu = wp_nav_menu( array(
 	
 	<div class="navbar" role="navigation">
 
-		<?php if ($top_bar == 1) { //top bar enabled ?>
+		<?php if ( $top_bar == 1 ) { //top bar enabled ?>
 		
 		<!--Attributes-->
 		<!--class = social-header inverse-->
@@ -55,8 +55,19 @@ $primary_menu = wp_nav_menu( array(
         <div class="container">
             <div class="top-bar">
 
-                <div id="top-social" class="col-sm-12 col-md-5 no-padd">
-                    <?php echo kleo_get_social_profiles(); ?>
+	            <?php
+	            $social_icons_data = kleo_get_social_profiles();
+	            $social_icons_class = '';
+
+	            //empty data or disabled social icons
+	            if ( ! $social_icons || ! $social_icons_data ) {
+		            $social_icons_class = ' hidden-xs hidden-sm';
+	            }
+	            ?>
+                <div id="top-social" class="col-sm-12 col-md-5 no-padd<?php echo $social_icons_class;?>">
+                    <?php if ( $social_icons == 1 ) {
+                        echo $social_icons_data;
+                    } ?>
                 </div>
 
                 <?php

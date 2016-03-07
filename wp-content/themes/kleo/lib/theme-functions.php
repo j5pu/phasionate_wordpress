@@ -1,5 +1,5 @@
 <?php
-define( 'KLEO_THEME_VERSION', '4.0.1' );
+define( 'KLEO_THEME_VERSION', '4.0.2' );
 
 /* Configuration array */
 global $kleo_config;
@@ -107,7 +107,7 @@ $theme_args = array(
 				'slug'			=> 'k-elements', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/k-elements.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '4.0.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '4.0.2', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -117,7 +117,7 @@ $theme_args = array(
             'slug'			=> 'go_pricing', // The plugin slug (typically the folder name)
             'source'			=> get_template_directory() . '/lib/inc/go_pricing.zip', // The plugin source
             'required'			=> false, // If false, the plugin is only 'recommended' instead of required
-            'version'			=> '3.2.0', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+            'version'			=> '3.2.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
             'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
             'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
             'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -140,8 +140,6 @@ $theme_args = array(
             'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
             'external_url'          => '', // If set, overrides default API URL and points to an external URL
         ),
-
-
 		array(
 			'name'                  => 'rtMedia', // The plugin name
 			'slug'                  => 'buddypress-media', // The plugin slug (typically the folder name)
@@ -160,15 +158,6 @@ $theme_args = array(
 			'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 			'external_url'          => '', // If set, overrides default API URL and points to an external URL
 		),
-		/*array(
-			'name'                  => 'Taxonomy Metadata', // The plugin name
-			'slug'                  => 'taxonomy-metadata', // The plugin slug (typically the folder name)
-			'required'              => false, // If false, the plugin is only 'recommended' instead of required
-			'version'               => '0.4', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
-			'force_activation'      => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
-			'force_deactivation'    => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
-			'external_url'          => '', // If set, overrides default API URL and points to an external URL
-		),*/
 		array(
 			'name'                  => 'YITH WooCommerce Wishlist', // The plugin name
 			'slug'                  => 'yith-woocommerce-wishlist', // The plugin slug (typically the folder name)
@@ -518,11 +507,11 @@ if (!function_exists('kleo_get_social_profiles')):
 		$icons = '';
 		$all_options = get_option("kleo_".KLEO_DOMAIN);
 		
-    $defaults 	 = array(
-				'container'	=> 'ul',
-				'item_tag' => 'li',
-				'target' => '_blank'
-    );
+	    $defaults 	 = array(
+					'container'	=> 'ul',
+					'item_tag' => 'li',
+					'target' => '_blank'
+	    );
 		// Parse incomming $args into an array and merge it with $defaults
 		$args = wp_parse_args( $args, $defaults );
 		$args = apply_filters('kleo_get_social_profiles_args', $args);
@@ -1480,6 +1469,18 @@ if (!function_exists('kleo_get_fb_button_regpage')) :
 
 		return $output;
 	}
+endif;
+
+if (!function_exists('kleo_fb_button_shortcode')) :
+	function kleo_fb_button_shortcode()
+	{
+		$output = '';
+		if ( sq_option( 'facebook_login', 0 ) == 1 && get_option( 'users_can_register' ) && !is_user_logged_in() ) {
+			$output .= '<a href="#" class="kleo-facebook-connect btn btn-default "><i class="icon-facebook"></i> &nbsp; ' . __("Log in with Facebook", 'kleo_framework') . '</a>';
+		}
+		return $output;
+	}
+	add_shortcode('kleo_fb_button', 'kleo_fb_button_shortcode');
 endif;
 
 if ( sq_option( 'facebook_login', 0 ) == 1 ) {

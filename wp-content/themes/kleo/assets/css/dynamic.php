@@ -1448,10 +1448,10 @@ if ( sq_option( 'boxed_size', '1440' ) != '1440' ) {
     echo '.navbar-full-width .page-boxed #main, .navbar-full-width .page-boxed #footer, .navbar-full-width .page-boxed #socket { max-width: ' . sq_option( 'boxed_size' ) . 'px; }';
 
     if ( sq_option( 'boxed_size', '1440' ) == '1024' ) {
-        echo '@media (min-width: 1440px) { .container { max-width: 996px;} }';
+        echo '@media (min-width: 1440px) { .page-boxed .container { max-width: 996px;} }';
     }
     elseif ( sq_option( 'boxed_size', '1440' ) == '1200' ) {
-        echo '@media (min-width: 1440px) { .container { max-width: 1170px;} }';
+        echo '@media (min-width: 1440px) { .page-boxed .container { max-width: 1170px;} }';
     }
 }
 

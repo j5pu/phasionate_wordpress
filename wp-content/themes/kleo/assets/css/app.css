@@ -264,6 +264,15 @@ ins {
 	margin: 0 auto;
 }
 
+.clear:before,
+.clear:after {
+	display: table;
+	content: " ";
+}
+.clear:after {
+	clear: both;
+}
+
 .kleo-rounded {
   border-radius: 100%;
 }
@@ -984,7 +993,7 @@ a .link-icon {
 	margin: 0;
 	padding: 0;
 	border: 1px solid #e5e5e5;
-	border-radius: none;
+	border-radius: 0;
 	box-shadow: 1px 1px 3px rgba(102, 102, 102, 0.1);
 	min-width: 160px;
 }
@@ -2317,6 +2326,9 @@ margin-right: 0px !important;
 	margin-left: -13px;
 	margin-bottom: 10px;
 	padding-left: 10px;
+}
+.masonry-listing .post-image img {
+	width: 100%;
 }
 .masonry-listing article .post-header .post-meta .meta-author,
 .masonry-listing article .article-meta .post-meta .meta-author {
@@ -10349,7 +10361,8 @@ h4.kb-section-name i.icon {
 }
 
 
-.kleo-register-inline .kleo-form-register{
+.kleo-register-inline .kleo-form-register,
+.kleo-register-inline .kleo-form-signin{
 	padding: 0;
 }
 
@@ -10437,7 +10450,8 @@ h4.kb-section-name i.icon {
 .kleo-register-size-large input[type="password"],
 .kleo-register-size-large input[type="text"]:focus,
 .kleo-register-size-large input[type="password"]:focus{
-	padding: 1.6em;
+	height: 50px;
+	padding: 10px 15px;
 	border-width: 2px !important;
 }
 
