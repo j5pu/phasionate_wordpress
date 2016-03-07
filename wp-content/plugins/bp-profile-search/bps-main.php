@@ -3,13 +3,13 @@
 Plugin Name: BP Profile Search
 Plugin URI: http://www.dontdream.it/bp-profile-search/
 Description: Search your BuddyPress Members Directory.
-Version: 4.4.3
+Version: 4.4.4
 Author: Andrea Tarantini
 Author URI: http://www.dontdream.it/
 Text Domain: bp-profile-search
 */
 
-define ('BPS_VERSION', '4.4.3');
+define ('BPS_VERSION', '4.4.4');
 include 'bps-functions.php';
 
 $addons = array ('bps-custom.php');
@@ -345,7 +345,7 @@ function bps_save_post ($post_id, $post)
 	if ($post->post_status != 'publish')  return false;
 	if (empty ($_POST['options']) && empty ($_POST['bps_options']))  return false;
 
-	$options = bps_update_meta ();
+	$options = bps_update_meta ($post_id);
 	foreach (array ('directory', 'template', 'header', 'toggle', 'button', 'method', 'action', 'searchmode') as $key)
 		$options[$key] = stripslashes ($_POST['options'][$key]);
 

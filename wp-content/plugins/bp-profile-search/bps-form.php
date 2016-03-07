@@ -11,6 +11,8 @@ function bps_add_form ()
 		$bp_pages = bp_core_get_directory_page_ids ();
 		$page = $bp_pages['members'];
 	}
+
+	$page = bps_wpml_id ($page, 'default');
 	$len = strlen ((string)$page);
 
 	$args = array (
@@ -110,7 +112,7 @@ function bps_set_request_data ($form, $location)
 	$F->toggle = ($meta['toggle'] == 'Enabled');
 	$F->toggle_text = $meta['button'];
 
-	$F->action = get_page_link ($meta['action']);
+	$F->action = get_page_link (bps_wpml_id ($meta['action']));
 	$F->method = $meta['method'];
 	$F->fields = array ();
 
@@ -131,11 +133,11 @@ function bps_set_request_data ($form, $location)
 		$f->type = apply_filters ('bps_field_type_for_search_form', $f->type, $field);
 		$f->display = $f->type;
 
-		$f->label = $custom_label = $meta['field_label'][$k];
-		if (empty ($f->label))  $f->label = $field->name;
+		$f->label = $custom_label = bps_wpml ($form, $id, 'label', $meta['field_label'][$k]);
+		if (empty ($f->label))  $f->label = bps_wpml ($form, $id, 'name', $field->name);
 
-		$f->description = $meta['field_desc'][$k];
-		if (empty ($f->description))  $f->description = $field->description;
+		$f->description = bps_wpml ($form, $id, 'comment', $meta['field_desc'][$k]);
+		if (empty ($f->description))  $f->description = bps_wpml ($form, $id, 'description', $field->description);
 
 		$range = isset ($meta['field_range'][$k]);
 		$f->code = 'field_'. $f->id;
@@ -163,6 +165,8 @@ function bps_set_request_data ($form, $location)
 		case 'checkbox':
 			$f->values = isset ($request[$f->code])? (array)$request[$f->code]: array ();
 			$f->options = bps_field_options ($f->id);
+			foreach ($f->options as $key => $label)
+				$f->options[$key] = bps_wpml ($form, $f->id, 'option', $label);
 			break;
 		}
 
@@ -219,10 +223,12 @@ function bps_escaped_request_data ()
 
 	foreach ($F->fields as $f)
 	{
+		$f->value = esc_attr ($f->value);
+		if ($f->display == 'hidden')  continue;
+
 		$f->name = esc_attr ($f->name);
 		$f->label = esc_attr ($f->label);
 		$f->description = esc_attr ($f->description);
-		$f->value = esc_attr ($f->value);
 		foreach ($f->values as $k => $value)  $f->values[$k] = esc_attr ($value);
 		$options = array ();
 		foreach ($f->options as $key => $label)  $options[esc_attr ($key)] = esc_attr ($label);
@@ -230,6 +236,48 @@ function bps_escaped_request_data ()
 	}
 
 	return apply_filters ('bps_escaped_request_data', $F);
+}
+
+function bps_set_wpml ($form, $code, $key, $value)
+{
+	if (!class_exists ('BPML_XProfile'))  return false;
+	if (empty ($value))  return false;
+
+	icl_register_string ('Profile Search', "form $form $code $key", $value);
+}
+
+function bps_wpml ($form, $id, $key, $value)
+{
+	if (!class_exists ('BPML_XProfile'))  return $value;
+	if (empty ($value))  return $value;
+
+	switch ($key)
+	{
+	case 'name':
+		return icl_t ('Buddypress Multilingual', "profile field $id name", $value);
+	case 'label':
+		return icl_t ('Profile Search', "form $form field_$id label", $value);
+	case 'description':
+		return icl_t ('Buddypress Multilingual', "profile field $id description", $value);
+	case 'comment':
+		return icl_t ('Profile Search', "form $form field_$id comment", $value);
+	case 'option':
+		$option = bpml_sanitize_string_name ($value, 30);
+		return icl_t ('Buddypress Multilingual', "profile field $id - option '$option' name", $value);
+	}
+}
+
+function bps_wpml_id ($id, $lang='current')
+{
+	if (class_exists ('BPML_XProfile'))
+	{
+		global $sitepress;
+
+		if ($lang == 'current')  $id = icl_object_id ($id, 'page', true);
+		if ($lang == 'default')  $id = icl_object_id ($id, 'page', true, $sitepress->get_default_language ());
+	}
+
+	return $id;
 }
 
 add_shortcode ('bps_display', 'bps_show_form');

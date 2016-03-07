@@ -39,22 +39,15 @@ function bps_search ($request)
 {
 	global $bp, $wpdb;
 
-	$done = array ();
 	$results = array ('users' => array (0), 'validated' => true);
 
-	list ($x, $fields) = bps_get_fields ();
-	foreach ($request as $key => $value)
+	$F = bps_query_data ($request);
+	foreach ($F->fields as $field)
 	{
-		if ($value === '')  continue;
+		$id = $field->id;
+		$key = $field->code;
+		if (isset ($field->value))  $value = $field->value;
 
-		$split = explode ('_', $key);
-		if ($split[0] != 'field')  continue;
-
-		$id = $split[1];
-		$op = isset ($split[2])? $split[2]: 'eq';
-		if (isset ($done[$id]) || empty ($fields[$id]))  continue;
-
-		$field = $fields[$id];
 		$field_type = $field->type;
 		$field_type = apply_filters ('bps_field_query_type', $field_type, $field);
 		$field_type = apply_filters ('bps_field_type_for_query', $field_type, $field);
@@ -68,12 +61,12 @@ function bps_search ($request)
 			$sql = $wpdb->prepare ("SELECT user_id FROM {$bp->profile->table_name_data} WHERE field_id = %d ", $id);
 			$sql = apply_filters ('bps_field_sql', $sql, $field);
 
-			if ($op == 'min' || $op == 'max')
+			if ($field->filter == 'range')
 			{
 				if ($field_type == 'multiselectbox' || $field_type == 'checkbox')  continue;
 
-				list ($min, $max) = bps_minmax ($request, $id, $field_type);
-				if ($min === '' && $max === '')  continue;
+				$min = isset ($field->min)? $field->min: '';
+				$max = isset ($field->max)? $field->max: '';
 
 				switch ($field_type)
 				{
@@ -91,15 +84,15 @@ function bps_search ($request)
 					$day = date ("j", $time);
 					$month = date ("n", $time);
 					$year = date ("Y", $time);
-					$ymin = $year - $max - 1;
-					$ymax = $year - $min;
+					$ymin = $year - (int)$max - 1;
+					$ymax = $year - (int)$min;
 
 					if ($max !== '')  $sql .= $wpdb->prepare ("AND DATE(value) > %s", "$ymin-$month-$day");
 					if ($min !== '')  $sql .= $wpdb->prepare ("AND DATE(value) <= %s", "$ymax-$month-$day");
 					break;
 				}
 			}
-			else if ($op == 'eq')
+			else if ($field->filter == 'default')
 			{
 				if ($field_type == 'datebox')  continue;
 
@@ -157,24 +150,19 @@ function bps_search ($request)
 					break;
 				}
 			}
-			else continue;
 
 			$found = $wpdb->get_col ($sql);
 		}
 
 		$users = isset ($users)? array_intersect ($users, $found): $found;
 		if (count ($users) == 0)  return $results;
-
-		$done [$id] = true;
 	}
 
-	if (count ($done) == 0)
-	{
+	if (isset ($users))
+		$results['users'] = $users;
+	else
 		$results['validated'] = false;
-		return $results;
-	}
 
-	$results['users'] = $users;
 	return $results;
 }
 
@@ -210,4 +198,57 @@ function bps_filter_members ($qs=false, $object=false)
 function bps_esc_like ($text)
 {
     return addcslashes ($text, '_%\\');
+}
+
+function bps_query_data ($request)
+{
+	$F = new stdClass;
+	$F->fields = array ();
+
+	list ($x, $fields) = bps_get_fields ();
+	foreach ($request as $key => $value)
+	{
+		if ($value === '')  continue;
+
+		$k = bps_match_key ($key, $fields);
+		if ($k == 0)  continue;
+
+		if (!isset ($F->fields[$k]))  $F->fields[$k] = clone $fields[$k];
+		$f = $F->fields[$k];
+
+		$filter = substr ($key, strlen ($f->code));
+		switch ($filter)
+		{
+		case '':
+			$f->filter = 'default';
+			$f->value = $value;
+			break;
+		case '_min':
+			if (!is_numeric ($value))  break;
+			$f->filter = 'range';
+			$f->min = $value;
+			break;
+		case '_max':
+			if (!is_numeric ($value))  break;
+			$f->filter = 'range';
+			$f->max = $value;
+			break;
+		case '_label':
+			$f->label = $value;
+			break;
+		}
+	}
+
+	foreach ($F->fields as $k => $f)
+		if (!isset ($f->filter))  unset ($F->fields[$k]);
+
+	return $F;
+}
+
+function bps_match_key ($key, $fields)
+{
+	foreach ($fields as $k => $f)
+		if ($key == $f->code || strpos ($key, $f->code. '_') === 0)  return $k;
+
+	return 0;
 }

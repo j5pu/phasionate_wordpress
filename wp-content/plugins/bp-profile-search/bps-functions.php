@@ -15,7 +15,7 @@ function bps_admin_js ()
 	wp_localize_script ('bps-admin', 'bps_strings', $translations);
 }
 
-function bps_update_meta ()
+function bps_update_meta ($form)
 {
 	$bps_options = array ();
 
@@ -58,6 +58,9 @@ function bps_update_meta ()
 		}
 
 		if ($bps_options['field_range'][$j] == false)  $bps_options['field_range'][$j] = null;
+
+		bps_set_wpml ($form, 'field_'. $field->id, 'label', $bps_options['field_label'][$j]);
+		bps_set_wpml ($form, 'field_'. $field->id, 'comment', $bps_options['field_desc'][$j]);
 		$j = $j + 1;
 	}
 
@@ -135,10 +138,10 @@ function bps_get_fields ()
 
 	if (count ($groups))  return array ($groups, $fields);
 
-	$field_list = apply_filters ('bps_field_list', array ());
+	$field_list = apply_filters ('bps_fields_setup', array ());
 	foreach ($field_list as $f)
 	{
-		$f = apply_filters ('bps_field_data', $f);
+		$f = apply_filters ('bps_field_setup_data', $f);
 		$groups[$f->group][] = array ('id' => $f->id, 'name' => $f->name);
 		$fields[$f->id] = $f;
 	}
@@ -146,8 +149,8 @@ function bps_get_fields ()
 	return array ($groups, $fields);
 }
 
-add_filter ('bps_field_list', 'bps_xprofile_field_list');
-function bps_xprofile_field_list ($fields)
+add_filter ('bps_fields_setup', 'bps_xprofile_setup');
+function bps_xprofile_setup ($fields)
 {
 	global $group, $field;
 
@@ -169,7 +172,6 @@ function bps_xprofile_field_list ($fields)
 		'multiselectbox'	=> 'serialized',
 		'checkbox'			=> 'serialized',
 		'datebox'			=> 'date',
-		'others'			=> 'text/number',
 	);
 
 	$args = array ('hide_empty_fields' => false, 'member_type' => bp_get_member_types ());
@@ -193,7 +195,7 @@ function bps_xprofile_field_list ($fields)
 				$f->type = $field->type;
 				$f->display = $field->type;
 				$f->options = bps_field_options ($field->id);
-				$f->format = isset ($format[$field->type])? $format[$field->type]: $format['others'];
+				$f->format = isset ($format[$field->type])? $format[$field->type]: $field->type;
 				$f->search = 'bps_xprofile_search';
 
 				$fields[] = $f;
