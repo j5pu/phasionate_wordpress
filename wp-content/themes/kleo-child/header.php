@@ -70,10 +70,8 @@
 
 	<script type='text/javascript'>
 		googletag.cmd.push(function() {
-			googletag.defineSlot('/61601326/interstitial', [480, 320], 'div-gpt-ad-1455558046937-0').addService(googletag.companionAds()).addService(googletag.pubads());
+			googletag.defineSlot('/61601326/mayor', [300, 600], 'div-gpt-ad-1457369265323-0').addService(googletag.pubads());
 			googletag.pubads().enableSingleRequest();
-			googletag.pubads().enableVideoAds();
-			googletag.companionAds().setRefreshUnfilledSlots(true);
 			googletag.enableServices();
 		});
 	</script>
