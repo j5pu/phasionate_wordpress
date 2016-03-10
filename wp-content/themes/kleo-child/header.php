@@ -51,7 +51,7 @@
 	<!--[if IE 7]>
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/fontello-ie7.css">
 	<![endif]-->
-	
+
 	<?php if(function_exists('bp_is_active')) { bp_head(); } ?>
 	<script type='text/javascript'>
 		var googletag = googletag || {};
@@ -70,7 +70,9 @@
 
 	<script type='text/javascript'>
 		googletag.cmd.push(function() {
-			googletag.defineSlot('/61601326/mayor', [300, 600], 'div-gpt-ad-1457369265323-0').addService(googletag.pubads());
+			googletag.defineSlot('/61601326/mayor', [[300, 250], [300, 600], [300, 100]], 'div-gpt-ad-1457625928117-0').addService(googletag.pubads());
+			googletag.defineSlot('/61601326/u_lateral_derecho', [300, 600], 'div-gpt-ad-1457625928117-1').addService(googletag.pubads());
+			googletag.defineSlot('/61601326/u_lateral_izquierdo', [300, 600], 'div-gpt-ad-1457625928117-2').addService(googletag.pubads());
 			googletag.pubads().enableSingleRequest();
 			googletag.enableServices();
 		});
