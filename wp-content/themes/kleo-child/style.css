@@ -6004,3 +6004,28 @@ li.bp-menu.bp-login-nav.menu-item.menu-item-type-bp_nav.menu-item-object-bp_logg
 		margin-left: 5%;
 	}
 }
+@media screen and (min-width: 1670px) and (max-width: 1769px){
+	.div-gpt-ad-1457625928117-1 {
+		margin-right: 2%;
+	}
+	.div-gpt-ad-1457625928117-2 {
+		margin-left: 2%;
+	}
+}
+@media screen and (min-width: 1570px) and (max-width: 1669px){
+	.div-gpt-ad-1457625928117-1 {
+		margin-right: 1%;
+	}
+	.div-gpt-ad-1457625928117-2 {
+		margin-left: 1%;
+	}
+}
+.div-gpt-ad-1457625928117-1 {
+	margin-right: 0%;
+}
+.div-gpt-ad-1457625928117-2 {
+	margin-left: 0%;
+}
+.sidebar.sidebar-main.col-sm-4.sidebar-right{
+	background-color: white;
+}
