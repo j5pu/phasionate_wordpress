@@ -32,14 +32,14 @@ kleo_switch_layout('right');
 ?>
 
 <!-- /61601326/u_lateral_derecho -->
-<div id='div-gpt-ad-1457625928117-1' style='height:600px; width:300px; float:right'>
+<div id='div-gpt-ad-1457625928117-1' style='height:600px; width:300px;position: fixed;right: 0;z-index: 0;margin-right: 5%;margin-top: 24px;'>
     <script type='text/javascript'>
         googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457625928117-1'); });
     </script>
 </div>
 
 <!-- /61601326/u_lateral_izquierdo -->
-<div id='div-gpt-ad-1457625928117-2' style='height:600px; width:300px; float:left'>
+<div id='div-gpt-ad-1457625928117-2' style='height:600px; width:300px; position: fixed; left: 0; margin-left: 5%;margin-top: 24px;'>
     <script type='text/javascript'>
         googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457625928117-2'); });
     </script>
