@@ -70,9 +70,24 @@
 
 	<script type='text/javascript'>
 		googletag.cmd.push(function() {
+
+			var width = window.innerWidth || document.documentElement.clientWidth;
+
+			if (width >= 1635) {
+				googletag.defineSlot('/61601326/u_lateral_derecho', [300, 600], 'div-gpt-ad-1457625928117-1').addService(googletag.pubads());
+				googletag.defineSlot('/61601326/u_lateral_izquierdo', [300, 600], 'div-gpt-ad-1457625928117-2').addService(googletag.pubads());
+				jQuery("#div-gpt-ad-1457722273425-0").hide();
+				jQuery("#div-gpt-ad-1457722273425-1").hide();
+			}
+			else {
+				googletag.defineSlot('/61601326/u_lateral_derecho_pequeño', [120, 600], 'div-gpt-ad-1457722273425-0').addService(googletag.pubads());
+				googletag.defineSlot('/61601326/u_lateral_izquierda_pequeño', [120, 600], 'div-gpt-ad-1457722273425-1').addService(googletag.pubads());
+				jQuery("#div-gpt-ad-1457625928117-1").hide();
+				jQuery("#div-gpt-ad-1457625928117-2").hide();
+			}
+
 			googletag.defineSlot('/61601326/mayor', [[300, 250], [300, 600], [300, 100]], 'div-gpt-ad-1457625928117-0').addService(googletag.pubads());
-			googletag.defineSlot('/61601326/u_lateral_derecho', [300, 600], 'div-gpt-ad-1457625928117-1').addService(googletag.pubads());
-			googletag.defineSlot('/61601326/u_lateral_izquierdo', [300, 600], 'div-gpt-ad-1457625928117-2').addService(googletag.pubads());
+
 			googletag.pubads().enableSingleRequest();
 			googletag.enableServices();
 		});

@@ -45,6 +45,20 @@ if (!wp_is_mobile()){ ?>
             googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457625928117-2'); });
         </script>
     </div>
+
+    <!-- /61601326/u_lateral_derecho_pequeño -->
+    <div id='div-gpt-ad-1457722273425-0' style='height:600px; width:120px;position: fixed;right: 0;z-index: 0;margin-top: 24px;'>
+        <script type='text/javascript'>
+            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457722273425-0'); });
+        </script>
+    </div>
+
+    <!-- /61601326/u_lateral_izquierda_pequeño -->
+    <div id='div-gpt-ad-1457722273425-1' style='height:600px; width:120px; position: fixed; left: 0;margin-top: 24px;'>
+        <script type='text/javascript'>
+            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457722273425-1'); });
+        </script>
+    </div>
 <?php } ?>
 
 

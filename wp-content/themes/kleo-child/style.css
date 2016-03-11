@@ -6032,11 +6032,31 @@ li.bp-menu.bp-login-nav.menu-item.menu-item-type-bp_nav.menu-item-object-bp_logg
 .sidebar.sidebar-main.col-sm-4.sidebar-right{
 	background-color: white;
 }
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 1635px){
 	#div-gpt-ad-1457625928117-1 {
 		display: none;
 	}
 	#div-gpt-ad-1457625928117-2 {
+		display: none;
+	}
+	#div-gpt-ad-1457722273425-0 {
+		display: block;
+	}
+	#div-gpt-ad-1457722273425-1 {
+		display: block;
+	}
+}
+@media screen and (min-width: 1636px){
+	#div-gpt-ad-1457625928117-1 {
+		display: block;
+	}
+	#div-gpt-ad-1457625928117-2 {
+		display: block;
+	}
+	#div-gpt-ad-1457722273425-0 {
+		display: none;
+	}
+	#div-gpt-ad-1457722273425-1 {
 		display: none;
 	}
 }
