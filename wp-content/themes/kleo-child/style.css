@@ -5995,3 +5995,12 @@ li.bp-menu.bp-login-nav.menu-item.menu-item-type-bp_nav.menu-item-object-bp_logg
 .page-id-23426 div.col-sm-6:nth-child(2), #field_1 {
     width: 50% !important;
 }
+
+@media screen and (min-width: 1770px){
+	.div-gpt-ad-1457625928117-1 {
+		margin-right: 5%;
+	}
+	.div-gpt-ad-1457625928117-2 {
+		margin-left: 5%;
+	}
+}
