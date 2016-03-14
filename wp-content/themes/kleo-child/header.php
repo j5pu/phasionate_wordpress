@@ -85,7 +85,7 @@
 				jQuery("#div-gpt-ad-1457625928117-2").hide();
 			}
 			if (width <= 1237){
-				googletag.defineSlot('/61601326/mayor', [[300, 250], [300, 600], [300, 100]], 'div-gpt-ad-1457625928117-0').addService(googletag.pubads());
+				googletag.defineSlot('/61601326/mayor', [300, 600], 'div-gpt-ad-1457972362060-0').addService(googletag.pubads());
 			}
 			googletag.pubads().enableSingleRequest();
 			googletag.enableServices();

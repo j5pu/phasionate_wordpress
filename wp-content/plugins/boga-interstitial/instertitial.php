@@ -82,7 +82,12 @@ body { font-family: 'Open Sans', sans-serif; }
 		<a id="trackinglink_2" href="#">
 			<div class="modal-content">
 				<div class="modal-body text-center">
-					<?php echo adrotate_group(1); ?>
+					<!-- /61601326/mayor -->
+					<div id='div-gpt-ad-1457972362060-0' style='height:600px; width:300px;'>
+						<script type='text/javascript'>
+							googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457972362060-0'); });
+						</script>
+					</div>
 				</div>
 			</div>
 		</a>
