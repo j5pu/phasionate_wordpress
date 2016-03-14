@@ -669,7 +669,7 @@ body #footer{
 
 .kleo-main-header .nav > li.active > a {
 	color: #d17b83;
-	/*box-shadow: none !important;*/
+	box-shadow: none !important;
 }
 #header .kleo-main-header .container{
 	max-width: 100%;
@@ -1143,7 +1143,7 @@ strong.logo {
 
 .kleo-main-header {
 	position: fixed !important;
-	box-shadow: rgba(0, 0, 0, 0.74902) 0px 0px 10px 0px
+	/*box-shadow: rgba(0, 0, 0, 0.74902) 0px 0px 10px 0px*/
 }
 
 /*
