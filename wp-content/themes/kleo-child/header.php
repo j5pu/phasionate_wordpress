@@ -139,7 +139,7 @@ $site_style = apply_filters('kleo_site_style', $site_style);
 
 	<?php if (!wp_is_mobile()){ ?>
 	<!-- /61601326/cabecera -->
-	<div id='div-gpt-ad-1457985102265-0' style='height:90px; width:970px; top: 0; margin: 0 auto;'>
+	<div id='div-gpt-ad-1457985102265-0' style='height:90px; width:970px; top: 0 !important;margin: 0px 18px;position: fixed;z-index: 99999;'>
 		<script type='text/javascript'>
 			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457985102265-0'); });
 		</script>

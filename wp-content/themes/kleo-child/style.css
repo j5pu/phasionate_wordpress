@@ -6106,4 +6106,11 @@ li.bp-menu.bp-login-nav.menu-item.menu-item-type-bp_nav.menu-item-object-bp_logg
 	#main{
 		margin-top: 90px;
 	}
+	#header .is-sticky .kleo-main-header{
+		margin-top: 90px !important;
+	}
+	#kleo-main-header{
+	 margin-top: 90px;
+	}
 }
+
