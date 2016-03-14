@@ -30,45 +30,6 @@ get_header(); ?>
 //create right sidebar template
 kleo_switch_layout('right');
 
-
-if (!wp_is_mobile()){ ?>
-    <!-- /61601326/cabecera -->
-    <!--<div id='div-gpt-ad-1457958683619-0' style='height:90px; width:970px; position: fixed; top: 0; margin: 0 auto;'>
-        <script type='text/javascript'>
-            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457958683619-0'); });
-        </script>
-    </div> -->
-
-    <!-- /61601326/u_lateral_derecho -->
-    <div id='div-gpt-ad-1457625928117-1' style='height:600px; width:300px;position: fixed;right: 0;z-index: 0;margin-top: 24px;'>
-        <script type='text/javascript'>
-            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457625928117-1'); });
-        </script>
-    </div>
-
-    <!-- /61601326/u_lateral_izquierdo -->
-    <div id='div-gpt-ad-1457625928117-2' style='height:600px; width:300px; position: fixed; left: 0;margin-top: 24px;'>
-        <script type='text/javascript'>
-            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457625928117-2'); });
-        </script>
-    </div>
-
-    <!-- /61601326/u_lateral_derecho_pequeño -->
-    <div id='div-gpt-ad-1457722273425-0' style='height:600px; width:120px;position: fixed;right: 0;z-index: 0;margin-top: 24px;'>
-        <script type='text/javascript'>
-            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457722273425-0'); });
-        </script>
-    </div>
-
-    <!-- /61601326/u_lateral_izquierda_pequeño -->
-    <div id='div-gpt-ad-1457722273425-1' style='height:600px; width:120px; position: fixed; left: 0;margin-top: 24px;'>
-        <script type='text/javascript'>
-            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457722273425-1'); });
-        </script>
-    </div>
-<?php } ?>
-
-
 <?php get_template_part('page-parts/general-title-section'); ?>
 
 <?php get_template_part('page-parts/general-before-wrap'); ?>
