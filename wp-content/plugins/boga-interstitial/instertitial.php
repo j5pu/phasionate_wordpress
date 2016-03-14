@@ -83,7 +83,7 @@ body { font-family: 'Open Sans', sans-serif; }
 			<div class="modal-content">
 				<div class="modal-body text-center">
 					<!-- /61601326/mayor -->
-					<div id='div-gpt-ad-1457972362060-0' style='height:600px; width:300px;'>
+					<div id='div-gpt-ad-1457972362060-0' style='height:600px; width:300px; margin: 0 auto;'>
 						<script type='text/javascript'>
 							googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457972362060-0'); });
 						</script>
