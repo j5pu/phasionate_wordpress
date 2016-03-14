@@ -71,7 +71,7 @@
 	<script type='text/javascript'>
 		googletag.cmd.push(function() {
 			var width = window.innerWidth || document.documentElement.clientWidth;
-			googletag.defineSlot('/61601326/cabecera', [970, 90], 'div-gpt-ad-1457973217387-0').addService(googletag.pubads());
+			googletag.defineSlot('/61601326/cabecera', [970, 90], 'div-gpt-ad-1457975907235-0').addService(googletag.pubads());
 			if (width >= 1635) {
 				googletag.defineSlot('/61601326/u_lateral_derecho', [300, 600], 'div-gpt-ad-1457625928117-1').addService(googletag.pubads());
 				googletag.defineSlot('/61601326/u_lateral_izquierdo', [300, 600], 'div-gpt-ad-1457625928117-2').addService(googletag.pubads());
@@ -137,9 +137,9 @@ $site_style = apply_filters('kleo_site_style', $site_style);
 
 	<?php if (!wp_is_mobile()){ ?>
 	<!-- /61601326/cabecera -->
-	<div id='div-gpt-ad-1457958683619-0' style='height:90px; width:970px; position: fixed; top: 0; margin: 0 27px;'>
+	<div id='div-gpt-ad-1457975907235-0' style='height:90px; width:970px; margin: 0 auto; position: fixed; top: 0;'>
 		<script type='text/javascript'>
-			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457958683619-0'); });
+			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457975907235-0'); });
 		</script>
 	</div>
 
