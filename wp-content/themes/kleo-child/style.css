@@ -6110,7 +6110,11 @@ li.bp-menu.bp-login-nav.menu-item.menu-item-type-bp_nav.menu-item-object-bp_logg
 		margin-top: 90px !important;
 	}
 	#kleo-main-header{
-	 margin-top: 90px;
+		margin-top: 90px;
+	}
+	#div-gpt-ad-1457985102265-0{
+		z-index: 99999;
+		background-color: white;
 	}
 }
 
