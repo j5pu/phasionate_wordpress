@@ -604,7 +604,7 @@ p.tags:before {
 }
 .header-color .logo a, #footer .logo a {
 	font-family: 'phasionate';
-	font-size: 44px;
+	font-size: 62px;
 	color:#222;
 }
 .header-color .header-scrolled .logo a {
@@ -6096,7 +6096,7 @@ li.bp-menu.bp-login-nav.menu-item.menu-item-type-bp_nav.menu-item-object-bp_logg
 }
 
 .page-boxed, .kleo-navbar-fixed .page-boxed .kleo-main-header, .kleo-navbar-fixed.navbar-transparent .page-boxed #header{
-	max-width: 1024px !important;
+	max-width: 970px !important;
 }
 
 @media screen and (min-width: 991px) and (max-width: 1237px){
