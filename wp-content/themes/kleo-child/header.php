@@ -86,7 +86,7 @@
 			if (width >= 999 && width <= 1237) {
 				googletag.defineSlot('/61601326/cabecera', [970, 90], 'div-gpt-ad-1457985102265-0').addService(googletag.pubads());
 			}
-			if (width <= 989){
+			if (width <= 998){
 				googletag.defineSlot('/61601326/mayor', [300, 600], 'div-gpt-ad-1457972362060-0').addService(googletag.pubads());
 			}
 			googletag.pubads().enableSingleRequest();

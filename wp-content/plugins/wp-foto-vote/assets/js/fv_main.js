@@ -1188,7 +1188,7 @@ if ( fv.soc_counter ) {
 jQuery(document).ready( function(){
     if (jQuery("#bogadia_switcher").length){
         jQuery('.clg-like-button, .tabbed_a').on('click', function(){
-            jQuery('.bp-menu.bp-login-nav.menu-item.menu-item-type-bp_nav.menu-item-object-bp_loggedout_nav').find('a').trigger('click');
+            jQuery('#bogacontest_show_login').trigger('click');
             jQuery('.b-modal').fadeOut('fast');
             jQuery('#modal-widget').slideUp('slow');
         });
