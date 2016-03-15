@@ -76,10 +76,24 @@ function kleo_css_classes_for_vc_row_and_vc_column( $class_string, $tag ) {
 	return $class_string;
 }
 
-function kleo_css_classes_for_elements( $class_string, $tag ) {
+function kleo_css_classes_for_elements( $class_string, $tag, $atts = array() ) {
 	if ( $tag == 'vc_widget_sidebar' ) {
 		$class_string .= ' sidebar';
 	}
+
+	if ($tag == 'vc_column_text' || $tag == 'vc_custom_heading' ) {
+
+		if (isset($atts['letter_spacing']) && $atts['letter_spacing'] != '') {
+			$class_string .= ' letter-spacing-' . $atts['letter_spacing'];
+		}
+		if (isset($atts['vertical_separator']) && $atts['vertical_separator'] != '') {
+			$class_string .= ' vertical-separator';
+			if ($atts['vertical_separator'] == 'dark') {
+				$class_string .= ' vertical-dark';
+			}
+		}
+	}
+
 	return $class_string;
 }
 
@@ -88,9 +102,9 @@ function kleo_css_classes_for_elements( $class_string, $tag ) {
  */
 function kleo_vc_replace_classes() {
 	if ( defined( 'KLEO_THEME_VERSION' ) &&  KLEO_THEME_VERSION <= '3.0' ) {
-		add_filter('vc_shortcodes_css_class', 'kleo_css_classes_for_vc_row_and_vc_column', 10, 2);
+		add_filter('vc_shortcodes_css_class', 'kleo_css_classes_for_vc_row_and_vc_column', 10, 3);
 	}
-	add_filter('vc_shortcodes_css_class', 'kleo_css_classes_for_elements', 10, 2);
+	add_filter('vc_shortcodes_css_class', 'kleo_css_classes_for_elements', 10, 3);
 }
 add_action( 'after_setup_theme', 'kleo_vc_replace_classes', 12 );
 
@@ -123,7 +137,7 @@ function kleo_vc_manipulate_shortcodes() {
 		"class" => "hide hidden",
 		"holder" => 'div',	
 		"heading" => __("Animation type"),
-		"admin_label" => true,
+		//"admin_label" => true,
 		"param_name" => "css_animation",
 		"value" => array(
 			"Right to Left" => "right-to-left",
@@ -141,7 +155,61 @@ function kleo_vc_manipulate_shortcodes() {
 		"description" => ""
 	);
 
-    $icon = array(
+	$visibility = array(
+		'param_name'  => 'visibility',
+		'heading'     => __( 'Responsive Visibility', 'kleo_framework' ),
+		'description' => __( 'Hide/Show content by screen size.', 'kleo_framework' ),
+		'type'        => 'checkbox',
+		'holder'      => 'div',
+		'value'       => array(
+			'Hidden Phones (max 768px)'    => 'hidden-xs',
+			'Hidden Tablets (768px - 991px)'   => 'hidden-sm',
+			'Hidden Desktops (992px - 1199px)'  => 'hidden-md',
+			'Hidden Large Desktops (min 1200px)'  => 'hidden-lg',
+			'Hidden XLarge Desktops (min 1440px)'  => 'hidden-xlg',
+			'Visible Phones (max 767px)'   => 'visible-xs',
+			'Visible Tablets (768px - 991px)'  => 'visible-sm',
+			'Visible Desktops (992px - 1199px)' => 'visible-md',
+			'Visible Large Desktops (min 1200px)' => 'visible-lg',
+			'Visible XLarge Desktops (min 1440px)' => 'visible-xlg'
+		),
+		'group' => __( 'Responsive Visibility', 'js_composer' ),
+	);
+
+	$letter_spacing = array(
+		'param_name'  => 'letter_spacing',
+		'heading'     => __( 'Letter spacing', 'kleo_framework' ),
+		'description' => __( 'Set a custom letter spacing.', 'kleo_framework' ),
+		'type'        => 'dropdown',
+		'class' => 'hide hidden',
+		'holder'      => 'div',
+		'value'       => array(
+			'Default'    => '',
+			'25'    => '25',
+			'50'    => '50',
+			'75'    => '75',
+			'100'    => '100',
+			'2px'    => '2px',
+			'4px'    => '4px',
+		),
+	);
+	$vertical_separator = array(
+		'param_name'  => 'vertical_separator',
+		'heading'     => __( 'Vertical separator', 'kleo_framework' ),
+		'description' => __( 'Set a fancy vertical line separator to the left side.', 'kleo_framework' ),
+		'type'        => 'dropdown',
+		'class' => 'hide hidden',
+		'holder'      => 'div',
+		'value'       => array(
+			'No'    => '',
+			'Yes'    => 'yes',
+			'Dark'    => 'dark'
+		),
+		'group' => __( 'Vertical separator', 'js_composer' ),
+	);
+
+
+	$icon = array(
         'type' => 'iconpicker',
         'heading' => __( 'Icon', 'js_composer' ),
         'param_name' => 'icon',
@@ -251,142 +319,380 @@ function kleo_vc_manipulate_shortcodes() {
 		),		
 		"description" => __("When to trigger the popover"),
 	);
-	
-	$button_args = array(
-					array(
-						"param_name" => "title",
-						"type" => "textfield",
-						"holder" => "div",
-						"class" => "",
-						"heading" => __("Title"),
-						"value" => __('Text on the button', "kleo_framework"),
-						"description" => __("Button text.")
-					),
-					array(
-						"param_name" => "href",
-						"type" => "textfield",
-						"holder" => "div",
-						"class" => "",
-						"heading" => __("URL(Link)"),
-						"value" => '',
-						"description" => ""
-					),
-				array(
-						"type" => "dropdown",
-						"holder" => "div",
-						"class" => "hide hidden",
-						"heading" => __("Target"),
-						"param_name" => "target",
-						"value" => array(
-								'Same window' => '_self',
-								'New window' => '_blank'
-							),
-						"description" => ""
-					),
-					array(
-						"param_name" => "style",
-						"type" => "dropdown",
-						"holder" => "div",
-						"class" => "hide hidden",
-						"heading" => __("Style"),
-						"value" => array(
-								'Default' => 'default',
-								'Primary' => 'primary',
-								'See through' => 'see-through',
-								'Highlight' => 'highlight',
-								'Highlight style 2' => 'highlight style2',
-								'Link' => 'link',
-                                'Custom' => 'custom'
-							),
-						"description" => "Choose the button style"
-					),
-                    array(
-                        'type' => 'colorpicker',
-                        'heading' => __( 'Background', 'js_composer' ),
-                        'param_name' => 'custom_background',
-                        'description' => __( 'Select custom background color.', 'js_composer' ),
-                        'dependency' => array(
-                            'element' => 'style',
-                            'value' => array( 'custom' )
-                        ),
-                        'edit_field_class' => 'vc_col-sm-6 vc_column',
-                    ),
-                    array(
-                        'type' => 'colorpicker',
-                        'heading' => __( 'Text', 'js_composer' ),
-                        'param_name' => 'custom_text',
-                        'description' => __( 'Select custom text color.', 'js_composer' ),
-                        'dependency' => array(
-                            'element' => 'style',
-                            'value' => array( 'custom' )
-                        ),
-                        'edit_field_class' => 'vc_col-sm-6 vc_column',
-                    ),
-					array(
-						"param_name" => "size",
-						"type" => "dropdown",
-						"holder" => "div",
-						"class" => "hide hidden",
-						"heading" => __("Size"),
-						"value" => array(
-								'Default' => '',
-								'Extra small' => 'xs',
-								'Small' => 'sm',
-								'Large' => 'lg',
-							),
-						"description" => "Choose how you want them to appear"
-					),
-					array(
-						"param_name" => "type",
-						"type" => "dropdown",
-						"holder" => "div",
-						"class" => "hide hidden",
-						"heading" => __("Type"),
-						"value" => array(
-								'Regular' => '',
-								'Animated' => 'text-animated',
-								'Subtext' => 'subtext',
-								'App button' => 'app'
-							),
-						"description" => "Choose between several button types."
-					),
-					
-						array(
-						"param_name" => "title_alt",
-						"type" => "textfield",
-						"holder" => "div",
-						"class" => "",
-						"heading" => __("Second title"),
-						"value" => '',
-						"dependency" => array(
-							"element" => "type",
-							"value" => array( 'text-animated', 'subtext', 'app' )
-						),
-						"description" => ""
-					),
-					
-				array(
-						"param_name" => "special",
-						"type" => "dropdown",
-						"holder" => "div",
-						"class" => "hide hidden",
-						"heading" => __("Extra rounded(special)"),
-						"value" => array(
-								'No' => '',
-								'Yes' => 'yes',
-                                'No-border' => 'no_border'
-							),
-						"description" => "Make the button extra rounded"
-					),
 
-					$icon,
-					$tooltip,
-					$tooltip_position,
-					$tooltip_title,
-					$tooltip_text,
-					$tooltip_action,
+	$button_args = array(
+		array(
+			"param_name"  => "title",
+			"type"        => "textfield",
+			"holder"      => "div",
+			"class"       => "",
+			"heading"     => __( "Title" ),
+			"value"       => __( 'Text on the button', "kleo_framework" ),
+			"description" => __( "Button text." )
+		),
+		array(
+			"param_name"  => "href",
+			"type"        => "textfield",
+			"holder"      => "div",
+			"class"       => "",
+			"heading"     => __( "URL(Link)" ),
+			"value"       => '',
+			"description" => ""
+		),
+		array(
+			"type"        => "dropdown",
+			"holder"      => "div",
+			"class"       => "hide hidden",
+			"heading"     => __( "Target" ),
+			"param_name"  => "target",
+			"value"       => array(
+				'Same window' => '_self',
+				'New window'  => '_blank'
+			),
+			"description" => ""
+		),
+		array(
+			"param_name"  => "style",
+			"type"        => "dropdown",
+			"holder"      => "div",
+			"class"       => "hide hidden",
+			"heading"     => __( "Style" ),
+			"value"       => array(
+				'Default'           => 'default',
+				'Primary'           => 'primary',
+				'See through'       => 'see-through',
+				'Highlight'         => 'highlight',
+				'Highlight style 2' => 'highlight style2',
+				'Link'              => 'link',
+				'Custom'            => 'custom'
+			),
+			"description" => "Choose the button style",
+		),
+		array(
+			'type'             => 'colorpicker',
+			'heading'          => __( 'Background color', 'js_composer' ),
+			'param_name'       => 'custom_background',
+			'description'      => __( 'Select custom background color.', 'js_composer' ),
+			'edit_field_class' => 'vc_col-sm-6 vc_column',
+			'group' => __( 'Custom button', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'style',
+				'value' => array( 'custom' )
+			),
+		),
+		array(
+			'type'             => 'colorpicker',
+			'heading'          => __( 'Hover Background color', 'js_composer' ),
+			'param_name'       => 'custom_bg_hover',
+			'description'      => __( 'Select custom background color on hover.', 'js_composer' ),
+			'edit_field_class' => 'vc_col-sm-6 vc_column',
+			'group' => __( 'Custom button', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'style',
+				'value' => array( 'custom' )
+			),
+		),
+		array(
+			'type'             => 'colorpicker',
+			'heading'          => __( 'Text color', 'js_composer' ),
+			'param_name'       => 'custom_text',
+			'description'      => __( 'Select custom text color.', 'js_composer' ),
+			'edit_field_class' => 'vc_col-sm-6 vc_column',
+			'group' => __( 'Custom button', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'style',
+				'value' => array( 'custom' )
+			),
+		),
+		array(
+			'type'             => 'colorpicker',
+			'heading'          => __( 'Hover Text color', 'js_composer' ),
+			'param_name'       => 'custom_text_hover',
+			'description'      => __( 'Select custom text color on hover.', 'js_composer' ),
+			'edit_field_class' => 'vc_col-sm-6 vc_column',
+			'group' => __( 'Custom button', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'style',
+				'value' => array( 'custom' )
+			),
+		),
+		array(
+			'type'             => 'colorpicker',
+			'heading'          => __( 'Border color', 'js_composer' ),
+			'param_name'       => 'custom_border',
+			'description'      => __( 'Select custom border color.', 'js_composer' ),
+			'edit_field_class' => 'vc_col-sm-6 vc_column',
+			'group' => __( 'Custom button', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'style',
+				'value' => array( 'custom' )
+			),
+		),
+		array(
+			'type'             => 'colorpicker',
+			'heading'          => __( 'Hover border color', 'js_composer' ),
+			'param_name'       => 'custom_border_hover',
+			'description'      => __( 'Select custom border color on hover.', 'js_composer' ),
+			'edit_field_class' => 'vc_col-sm-6 vc_column',
+			'group' => __( 'Custom button', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'style',
+				'value' => array( 'custom' )
+			),
+		),
+		array(
+			"param_name"  => "border_width",
+			"type"        => "dropdown",
+			"holder"      => "div",
+			"class"       => "hide hidden",
+			"heading"     => __( "Border width" ),
+			"value"       => array(
+				'Default' => '',
+				'1px'   => '1px',
+				'2px'   => '2px',
+				'3px'   => '3px',
+				'4px'   => '4px',
+				'5px'   => '5px',
+				'6px'   => '6px',
+				'7px'   => '7px',
+				'8px'   => '8px',
+				'9px'   => '9px',
+				'10px'   => '10px',
+			),
+			"description" => 'Custom border width',
+			'group' => __( 'Custom button', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'style',
+				'value' => array( 'custom' )
+			),
+		),
+		array(
+			'type'             => 'colorpicker',
+			'heading'          => __( 'Boxed Icon Type - Icon Background', 'js_composer' ),
+			'param_name'       => 'icon_custom_background',
+			'description'      => __( 'Select custom background color.', 'js_composer' ),
+			'edit_field_class' => 'vc_col-sm-6 vc_column',
+			'group' => __( 'Custom button', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'type',
+				'value' => array( 'boxed-icon' )
+			),
+		),
+		array(
+			'type'             => 'colorpicker',
+			'heading'          => __( 'Boxed Icon Type - Icon Text color', 'js_composer' ),
+			'param_name'       => 'icon_custom_text',
+			'description'      => __( 'Select custom text color.', 'js_composer' ),
+			'edit_field_class' => 'vc_col-sm-6 vc_column',
+			'group' => __( 'Custom button', 'js_composer' ),
+			'dependency' => array(
+				'element' => 'type',
+				'value' => array( 'boxed-icon' )
+			),
+		),
+		array(
+			"param_name"  => "position",
+			"type"        => "dropdown",
+			"holder"      => "div",
+			"class"       => "hide hidden",
+			"heading"     => __( "Position" ),
+			"value"       => array(
+				'Inline'     => 'inline',
+				'Left'      => 'left',
+				'Right'       => 'right',
+				'Center'       => 'center',
+			),
+			"description" => "Choose how to position the button"
+		),
+		array(
+			"param_name"  => "size",
+			"type"        => "dropdown",
+			"holder"      => "div",
+			"class"       => "hide hidden",
+			"heading"     => __( "Size" ),
+			"value"       => array(
+				'Default'     => '',
+				'Extra small' => 'xs',
+				'Small'       => 'sm',
+				'Large'       => 'lg',
+				'XLarge'       => 'xl',
+				'XXLarge'       => 'xxl',
+			),
+			"description" => "Choose how you want them to appear"
+		),
+		array(
+			"param_name"  => "type",
+			"type"        => "dropdown",
+			"holder"      => "div",
+			"class"       => "hide hidden",
+			"heading"     => __( "Type" ),
+			"value"       => array(
+				'Regular'    => '',
+				'Boxed Left Icon'   => 'boxed-icon',
+				'Animated'   => 'text-animated',
+				'Subtext'    => 'subtext',
+				'App button' => 'app'
+			),
+			"description" => "Choose between several button types. Fox Boxed Let Icon type check Advanced styling for custom colors "
+		),
+
+
+		array(
+			"param_name"  => "title_alt",
+			"type"        => "textfield",
+			"holder"      => "div",
+			"class"       => "",
+			"heading"     => __( "Second title" ),
+			"value"       => '',
+			"dependency"  => array(
+				"element" => "type",
+				"value"   => array( 'text-animated', 'subtext', 'app' )
+			),
+			"description" => ""
+		),
+
+		array(
+			"param_name"  => "special",
+			"type"        => "dropdown",
+			"holder"      => "div",
+			"class"       => "hide hidden",
+			"heading"     => __( "Rounded button" ),
+			"value"       => array(
+				'Default(2px)'               => '',
+				'Extra rounded(Special)'     => 'yes',
+				'Extra rounded - no border'      => 'no_border',
+				'Not rounded'   => 'no',
+			),
+			"description" => "Make the button extra rounded"
+		),
+		array(
+			"param_name"  => "border",
+			"type"        => "dropdown",
+			"holder"      => "div",
+			"class"       => "hide hidden",
+			"heading"     => __( "Border" ),
+			"value"       => array(
+				'Default'               => '',
+				'No border'   => 'no',
+			),
+			"description" => 'Remove button border'
+		),
+
+		$icon,
+		$tooltip,
+		$tooltip_position,
+		$tooltip_title,
+		$tooltip_text,
+		$tooltip_action,
+		array(
+			"param_name"  => "font_size",
+			"type"        => "textfield",
+			"holder"      => "div",
+			"class"       => "hide hidden",
+			"heading"     => __( "Font size. Use px|em|pt" ),
+			"value"       => '',
+			"description" => "",
+			//'group' => __( 'Advanced styling', 'js_composer' ),
+			'edit_field_class' => 'vc_col-sm-6 vc_column',
+		),
+		array(
+			"param_name"  => "font_weight",
+			"type"        => "dropdown",
+			"holder"      => "div",
+			"class"       => "hide hidden",
+			"heading"     => __( "Font weight" ),
+			"value"       => array(
+				'Theme Default'    => '',
+				'Regular'    => '400',
+				'Bold'    => '700',
+
+			),
+			"description" => "Set a custom font weight.",
+			//'group' => __( 'Advanced styling', 'js_composer' ),
+			'edit_field_class' => 'vc_col-sm-6 vc_column',
+		),
+		array(
+			"param_name"  => "uppercase",
+			"type"        => "checkbox",
+			"holder"      => "div",
+			"class"       => "hide hidden",
+			"heading"     => __( "Make text uppercase" ),
+			"value" => array(
+				"Yes" => "yes"
+			),
+			"description" => "",
+			//'group' => __( 'Advanced styling', 'js_composer' ),
+		),
 	);
 
+
+
+	$box_shadow = array(
+		array(
+			"type" => "colorpicker",
+			"holder" => "div",
+			"class" => "hide hidden",
+			"heading" => __("Shadow color"),
+			"param_name" => "box_shadow_color",
+			"value" => "#000000",
+			'group' => __( 'Box shadow', 'js_composer' ),
+		),
+		array(
+			"type" => "textfield",
+			"holder" => "div",
+			"class" => "hide hidden",
+			"heading" => __("Horizontal Length"),
+			"param_name" => "box_shadow_x",
+			"value" => "0",
+			"description" => __("Length in pixels"),
+			'edit_field_class' => 'vc_col-sm-3 vc_column',
+			'group' => __( 'Box shadow', 'js_composer' ),
+		),
+		array(
+			"type" => "textfield",
+			"holder" => "div",
+			"class" => "hide hidden",
+			"heading" => __("Vertical Length"),
+			"param_name" => "box_shadow_y",
+			"value" => "0",
+			"description" => __("Length in pixels"),
+			'edit_field_class' => 'vc_col-sm-3 vc_column',
+			'group' => __( 'Box shadow', 'js_composer' ),
+		),
+		array(
+			"type" => "textfield",
+			"holder" => "div",
+			"class" => "hide hidden",
+			"heading" => __("Blur Radius"),
+			"param_name" => "box_shadow_blur",
+			"value" => "0",
+			"description" => __("Length in pixels"),
+			'edit_field_class' => 'vc_col-sm-3 vc_column',
+			'group' => __( 'Box shadow', 'js_composer' ),
+		),
+		array(
+			"type" => "textfield",
+			"holder" => "div",
+			"class" => "hide hidden",
+			"heading" => __("Spread Radius"),
+			"param_name" => "box_shadow_spread",
+			"value" => "0",
+			"description" => __("Length in pixels"),
+			'edit_field_class' => 'vc_col-sm-3 vc_column',
+			'group' => __( 'Box shadow', 'js_composer' ),
+		),
+	);
+
+
+	$query_offset = array(
+		"param_name" => "query_offset",
+		"type" => "textfield",
+		"holder" => "div",
+		"class" => "hide hidden",
+		"heading" => __('Query offset', 'kleo_framework'),
+		"value" => '0',
+		"description" => 'Enter an offset for the posts query(numerical value)',
+	);
 	
 
 	/* ROW */
@@ -401,6 +707,7 @@ function kleo_vc_manipulate_shortcodes() {
     vc_remove_param( 'vc_row', 'css' );
     vc_remove_param( 'vc_row', 'parallax' );
     vc_remove_param( 'vc_row', 'parallax_image' );
+	vc_remove_param( 'vc_row', 'parallax_speed_bg' );
 	
 	vc_add_param( 'vc_row', array(
 			'param_name'  => 'front_status',
@@ -445,13 +752,13 @@ function kleo_vc_manipulate_shortcodes() {
 
 	vc_add_param("vc_row", array(
 		"type" => "colorpicker",
-		"class" => "",
 		"holder" => 'div',
 		'class' => 'hide hidden',
 		"heading" => __("Text color"),
 		"param_name" => "text_color",
 		"value" => "",
-		"description" => __("")
+		"description" => __("Try to force a color for the whole section."),
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 
 	vc_add_param("vc_row", array(
@@ -468,7 +775,8 @@ function kleo_vc_manipulate_shortcodes() {
 			"Footer style" => "footer",
 			"Socket style" => "socket"
 		),
-		"description" => __("These styles are set under Theme options.")
+		"description" => __("These styles are set under Theme options."),
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 
 	vc_add_param("vc_row", array(
@@ -484,7 +792,8 @@ function kleo_vc_manipulate_shortcodes() {
 			"Image" => "image",
 			"Video" => "video"
 		),
-		"description" => ""
+		"description" => "",
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 
 
@@ -499,7 +808,8 @@ function kleo_vc_manipulate_shortcodes() {
 		"dependency" => array(
 			"element" => "type",
 			"value" => array("color", "image")
-		)
+		),
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 	vc_add_param("vc_row", array(
 		"type" => "attach_image", //attach_images
@@ -511,13 +821,31 @@ function kleo_vc_manipulate_shortcodes() {
 		"dependency" => array(
 			"element" => "type",
 			"value" => "image"
-		)
+		),
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
+	vc_add_param("vc_row", array(
+		"type" => "checkbox", //attach_images
+		"holder" => 'div',
+		'class' => 'hide hidden',
+		"heading" => __("Enable dark gradient"),
+		"param_name" => "bg_gradient",
+		"description" => "",
+		"dependency" => array(
+			"element" => "type",
+			"value" => "image"
+		),
+		'value' => array(
+			'Yes' => 'yes'
+		),
+		'group' => __( 'Text & Background', 'js_composer' ),
+	));
+
 	vc_add_param("vc_row", array(
 		"type" => "dropdown",
 		"holder" => 'div',
 		'class' => 'hide hidden',
-		"heading" => __("Background vertical position"),
+		"heading" => __("BG vertical position"),
 		"param_name" => "bg_position",
 		"value" => array(
 			"Top" => "top",
@@ -528,13 +856,15 @@ function kleo_vc_manipulate_shortcodes() {
 		"dependency" => array(
 			"element" => "type",
 			"value" => "image"
-		)
+		),
+		'edit_field_class' => 'vc_col-sm-3 vc_column',
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 	vc_add_param("vc_row", array(
 		"type" => "dropdown",
 		"holder" => 'div',
 		'class' => 'hide hidden',
-		"heading" => __("Background horizontal position"),
+		"heading" => __("BG horizontal position"),
 		"param_name" => "bg_position_horizontal",
 		"value" => array(
 			"Left" => "left",
@@ -545,7 +875,9 @@ function kleo_vc_manipulate_shortcodes() {
 		"dependency" => array(
 			"element" => "type",
 			"value" => "image"
-		)
+		),
+		'edit_field_class' => 'vc_col-sm-3 vc_column',
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 	vc_add_param("vc_row", array(
 		"type" => "dropdown",
@@ -563,7 +895,9 @@ function kleo_vc_manipulate_shortcodes() {
 		"dependency" => array(
 			"element" => "type",
 			"value" => "image"
-		)
+		),
+		'edit_field_class' => 'vc_col-sm-3 vc_column',
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 	vc_add_param("vc_row", array(
 		"type" => "dropdown",
@@ -579,7 +913,9 @@ function kleo_vc_manipulate_shortcodes() {
 		"dependency" => array(
 			"element" => "type",
 			"value" => "image"
-		)
+		),
+		'edit_field_class' => 'vc_col-sm-3 vc_column',
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 	vc_add_param("vc_row", array(
 		"type" => "dropdown",
@@ -595,7 +931,8 @@ function kleo_vc_manipulate_shortcodes() {
 		"dependency" => array(
 			"element" => "type",
 			"value" => "image"
-		)
+		),
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 	// parallax enable
 	vc_add_param("vc_row", array(
@@ -610,7 +947,8 @@ function kleo_vc_manipulate_shortcodes() {
 		"dependency" => array(
 			"element" => "type",
 			"value" => "image"
-		)
+		),
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 	vc_add_param("vc_row", array(
 		"type" => "textfield",
@@ -622,7 +960,8 @@ function kleo_vc_manipulate_shortcodes() {
 		"dependency" => array(
 			"element" => "enable_parallax",
 			"not_empty" => true
-		)
+		),
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 	// video background
 	vc_add_param("vc_row", array(
@@ -635,7 +974,8 @@ function kleo_vc_manipulate_shortcodes() {
 		"dependency" => array(
 			"element" => "type",
 			"value" => "video"
-		)
+		),
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 	vc_add_param("vc_row", array(
 		"type" => "textfield",
@@ -647,7 +987,8 @@ function kleo_vc_manipulate_shortcodes() {
 		"dependency" => array(
 			"element" => "type",
 			"value" => "video"
-		)
+		),
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
 	vc_add_param("vc_row", array(
 		"type" => "textfield",
@@ -659,7 +1000,8 @@ function kleo_vc_manipulate_shortcodes() {
 		"dependency" => array(
 			"element" => "type",
 			"value" => "video"
-		)
+		),
+		'group' => __( 'Text & Background', 'js_composer' ),
 	));
     vc_add_param("vc_row", array(
         "type" => "attach_image", //attach_images
@@ -671,7 +1013,8 @@ function kleo_vc_manipulate_shortcodes() {
         "dependency" => array(
             "element" => "type",
             "value" => "video"
-        )
+        ),
+        'group' => __( 'Text & Background', 'js_composer' ),
     ));
 
     vc_add_param("vc_row", array(
@@ -696,7 +1039,7 @@ function kleo_vc_manipulate_shortcodes() {
             "Yes" => '',
             "No" => "no"
         ),
-        "description" => "Set to No only if you want the inner columns not to have gaps between them."
+        "description" => "Set to No only when you want to remove inner Columns padding."
     ));
 
 	vc_add_param("vc_row", array(
@@ -707,6 +1050,7 @@ function kleo_vc_manipulate_shortcodes() {
 		"param_name" => "padding_top",
 		"value" => "40",
 		"description" => __("Allowed measures: px,em,%,pt,cm."),
+		'edit_field_class' => 'vc_col-sm-3 vc_column',
 	));
 	vc_add_param("vc_row", array(
 		"type" => "textfield",
@@ -716,6 +1060,7 @@ function kleo_vc_manipulate_shortcodes() {
 		"param_name" => "padding_bottom",
 		"value" => "40",
 		"description" => __("Allowed measures: px,em,%,pt,cm."),
+		'edit_field_class' => 'vc_col-sm-3 vc_column',
 	));
 	vc_add_param("vc_row", array(
 		"type" => "textfield",
@@ -725,6 +1070,7 @@ function kleo_vc_manipulate_shortcodes() {
 		"param_name" => "padding_left",
 		"value" => "",
 		"description" => __("Allowed measures: px,em,%,pt,cm."),
+		'edit_field_class' => 'vc_col-sm-3 vc_column',
 	));
 	vc_add_param("vc_row", array(
 		"type" => "textfield",
@@ -734,6 +1080,7 @@ function kleo_vc_manipulate_shortcodes() {
 		"param_name" => "padding_right",
 		"value" => "",
 		"description" => __("Allowed measures: px,em,%,pt,cm."),
+		'edit_field_class' => 'vc_col-sm-3 vc_column',
 	));
 
 
@@ -745,6 +1092,7 @@ function kleo_vc_manipulate_shortcodes() {
 		"param_name" => "margin_top",
 		"value" => "",
 		"description" => __("Allowed measures: px,em,%,pt,cm."),
+		'edit_field_class' => 'vc_col-sm-6 vc_column',
 	));
 	vc_add_param("vc_row", array(
 		"type" => "textfield",
@@ -754,6 +1102,7 @@ function kleo_vc_manipulate_shortcodes() {
 		"param_name" => "margin_bottom",
 		"value" => "",
 		"description" => __("Allowed measures: px,em,%,pt,cm."),
+		'edit_field_class' => 'vc_col-sm-6 vc_column',
 	));
 	vc_add_param("vc_row", array(
 		"type" => "textfield",
@@ -763,6 +1112,17 @@ function kleo_vc_manipulate_shortcodes() {
 		"param_name" => "min_height",
 		"value" => "0",
 		"description" => __("Allowed measures: px,em,%,pt,cm."),
+		'edit_field_class' => 'vc_col-sm-6 vc_column',
+	));
+	vc_add_param("vc_row", array(
+		"type" => "textfield",
+		"holder" => 'div',
+		'class' => 'hide hidden',
+		"heading" => __("Fixed height"),
+		"param_name" => "fixed_height",
+		"value" => "0",
+		"description" => __("Allowed measures: px,em,%,pt,cm."),
+		'edit_field_class' => 'vc_col-sm-6 vc_column',
 	));
 
 	vc_add_param( 'vc_row', array(
@@ -773,14 +1133,14 @@ function kleo_vc_manipulate_shortcodes() {
 		"holder" => 'div',
 		'class' => 'hide hidden',
 		'value'       => array(
-		'Bottom'     => 'bottom',
+			'None'       => 'none',
+			'Bottom'     => 'bottom',
 			'Top'        => 'top',
 			'Left'       => 'left',
 			'Right'      => 'right',
 			'Horizontal' => 'horizontal',
 			'Vertical'   => 'vertical',
-			'All'        => 'all',
-			'None'       => 'none'
+			'All'        => 'all'
 		)
 	) );
 	
@@ -800,24 +1160,7 @@ function kleo_vc_manipulate_shortcodes() {
 	vc_add_param("vc_row", $animation);
 	vc_add_param("vc_row", $css_animation);
 
-	vc_add_param("vc_row", array(
-			'param_name'  => 'visibility',
-			'heading'     => __( 'Responsive Visibility', 'kleo_framework' ),
-			'description' => __( 'Hide/Show content by screen size.', 'kleo_framework' ),
-			'type'        => 'checkbox',
-			'holder'      => 'div',
-			'value'       => array(
-				'Hidden Phones (max 768px)'    => 'hidden-xs',
-				'Hidden Tablets (768px - 991px)'   => 'hidden-sm',
-				'Hidden Desktops (992px - 1199px)'  => 'hidden-md',
-				'Hidden Large Desktops (min 1200px)'  => 'hidden-lg',
-				'Visible Phones (max 767px)'   => 'visible-xs',
-				'Visible Tablets (768px - 991px)'  => 'visible-sm',
-				'Visible Desktops (992px - 1199px)' => 'visible-md',
-				'Visible Large Desktops (min 1200px)' => 'visible-lg'
-			)
-		)
-	);
+	vc_add_param( "vc_row", $visibility );
 	
 	vc_add_param("vc_row", array(
 		"type" => "textfield",
@@ -855,182 +1198,141 @@ function kleo_vc_manipulate_shortcodes() {
 					'Yes' => 'yes'
 			)
 	) );
+	vc_add_param( 'vc_row_inner', array(
+		"type" => "textfield",
+		"holder" => "div",
+		"class" => "hide hidden",
+		"heading" => __("Min. height"),
+		"param_name" => "min_height",
+		"value" => "",
+		"description" => __("Force a minimum height. Use px|em|%|pt|cm"),
+		'edit_field_class' => 'vc_col-sm-6 vc_column',
+	));
+
+	vc_add_param( 'vc_row_inner', array(
+		"type"             => "textfield",
+		"holder"           => "div",
+		"class"            => "hide hidden",
+		"heading"          => __( "Fixed height" ),
+		"param_name"       => "fixed_height",
+		"value"            => "",
+		"description"      => __( "Force a fixed height. Use px|em|%|pt|cm" ),
+		'edit_field_class' => 'vc_col-sm-6 vc_column',
+	) );
+	vc_add_param("vc_row_inner", array(
+		"type" => "dropdown",
+		"holder" => 'div',
+		'class' => 'hide hidden',
+		"heading" => __("Background horizontal position"),
+		"param_name" => "bg_pos_h",
+		"value" => array(
+			"Default" => "",
+			"Left" => "left",
+			"Center" => "center",
+			"Right" => "right"
+		),
+		"description" => __(""),
+		'edit_field_class' => 'vc_col-sm-6 vc_column',
+		'group' => __( 'Design Options', 'js_composer' ),
+	));
+
+	vc_add_param("vc_row_inner", array(
+		"type" => "dropdown",
+		"holder" => 'div',
+		'class' => 'hide hidden',
+		"heading" => __("Background vertical position"),
+		"param_name" => "bg_pos_v",
+		"value" => array(
+			"Default" => "",
+			"Top" => "top",
+			"Center" => "center",
+			"Bottom" => "bottom"
+		),
+		"description" => __(""),
+		'edit_field_class' => 'vc_col-sm-6 vc_column',
+		'group' => __( 'Design Options', 'js_composer' ),
+	));
+
+	vc_add_param("vc_row_inner", array(
+		"type" => "checkbox",
+		"holder" => 'div',
+		'class' => 'hide hidden',
+		"heading" => __("Enable dark gradient"),
+		"param_name" => "bg_gradient",
+		"description" => "",
+		'value' => array(
+			'Yes' => 'yes'
+		),
+		'group' => __( 'Design Options', 'js_composer' ),
+	));
+
+
 
 
     /* Inner column */
 
     vc_map_update("vc_column_inner", array("allowed_container_element" => true));
 
-	/* Alert */
 
-    global $pixel_icons;
-    $pixel_icons = array(
-        array( 'vc_pixel_icon vc_pixel_icon-alert' => __( 'Alert', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-info' => __( 'Info', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-tick' => __( 'Tick', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-explanation' => __( 'Explanation', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-address_book' => __( 'Address book', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-alarm_clock' => __( 'Alarm clock', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-anchor' => __( 'Anchor', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-application_image' => __( 'Application Image', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-arrow' => __( 'Arrow', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-asterisk' => __( 'Asterisk', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-hammer' => __( 'Hammer', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-balloon' => __( 'Balloon', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-balloon_buzz' => __( 'Balloon Buzz', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-balloon_facebook' => __( 'Balloon Facebook', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-balloon_twitter' => __( 'Balloon Twitter', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-battery' => __( 'Battery', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-binocular' => __( 'Binocular', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_excel' => __( 'Document Excel', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_image' => __( 'Document Image', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_music' => __( 'Document Music', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_office' => __( 'Document Office', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_pdf' => __( 'Document PDF', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_powerpoint' => __( 'Document Powerpoint', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_word' => __( 'Document Word', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-bookmark' => __( 'Bookmark', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-camcorder' => __( 'Camcorder', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-camera' => __( 'Camera', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-chart' => __( 'Chart', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-chart_pie' => __( 'Chart pie', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-clock' => __( 'Clock', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-fire' => __( 'Fire', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-heart' => __( 'Heart', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-mail' => __( 'Mail', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-play' => __( 'Play', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-shield' => __( 'Shield', 'js_composer' ) ),
-        array( 'vc_pixel_icon vc_pixel_icon-video' => __( 'Video', 'js_composer' ) ),
-    );
+	vc_add_param("vc_column_inner", array(
+		"type" => "checkbox",
+		"holder" => 'div',
+		'class' => 'hide hidden',
+		"heading" => __("Enable dark gradient"),
+		"param_name" => "bg_gradient",
+		"description" => "",
+		'value' => array(
+			'Yes' => 'yes'
+		),
+		'group' => __( 'Design Options', 'js_composer' ),
+	));
 
-    vc_remove_param( 'vc_message', 'icon_type' );
-    vc_remove_param( 'vc_message', 'icon_fontawesome' );
-    vc_remove_param( 'vc_message', 'icon_openiconic' );
-    vc_remove_param( 'vc_message', 'icon_typicons' );
-    vc_remove_param( 'vc_message', 'icon_entypo' );
-    vc_remove_param( 'vc_message', 'icon_linecons' );
-    vc_remove_param( 'vc_message', 'icon_pixelicons' );
+	vc_add_param("vc_column", array(
+		"type" => "checkbox",
+		"holder" => 'div',
+		'class' => 'hide hidden',
+		"heading" => __("Enable dark gradient"),
+		"param_name" => "bg_gradient",
+		"description" => "",
+		'value' => array(
+			'Yes' => 'yes'
+		),
+		'group' => __( 'Design Options', 'js_composer' ),
+	));
 
-    vc_add_param("vc_message", array(
-        'type' => 'dropdown',
-        'heading' => __( 'Icon library', 'js_composer' ),
-        'value' => array(
-            __( 'Fontello(theme default)', 'js_composer' ) => 'fontello',
-            __( 'Font Awesome', 'js_composer' ) => 'fontawesome',
-            __( 'Open Iconic', 'js_composer' ) => 'openiconic',
-            __( 'Typicons', 'js_composer' ) => 'typicons',
-            __( 'Entypo', 'js_composer' ) => 'entypo',
-            __( 'Linecons', 'js_composer' ) => 'linecons',
-            __( 'Pixel', 'js_composer' ) => 'pixelicons',
-        ),
-        'param_name' => 'icon_type',
-        'description' => __( 'Select icon library.', 'js_composer' ),
-    ));
-    vc_add_param("vc_message",	array(
-            'type' => 'iconpicker',
-            'heading' => __( 'Icon', 'js_composer' ),
-            'param_name' => 'icon_fontello',
-            'value' => 'icon-info-circled', // default value to backend editor admin_label
-            'settings' => array(
-                'emptyIcon' => false,
-                'type' => 'fontello',
-                'iconsPerPage' => 4000,
-            ),
-            'dependency' => array(
-                'element' => 'icon_type',
-                'value' => 'fontello',
-            ),
-            'description' => __( 'Select icon from library.', 'js_composer' ),
-    ));
-    vc_add_param("vc_message", array(
-        'type' => 'iconpicker',
-        'heading' => __( 'Icon', 'js_composer' ),
-        'param_name' => 'icon_fontawesome',
-        'value' => 'fa fa-info-circle',
-        'settings' => array(
-            'emptyIcon' => false, // default true, display an "EMPTY" icon?
-            'iconsPerPage' => 200, // default 100, how many icons per/page to display
-        ),
-        'dependency' => array(
-            'element' => 'icon_type',
-            'value' => 'fontawesome',
-        ),
-        'description' => __( 'Select icon from library.', 'js_composer' ),
-    ));
-    vc_add_param("vc_message",	array(
-            'type' => 'iconpicker',
-            'heading' => __( 'Icon', 'js_composer' ),
-            'param_name' => 'icon_openiconic',
-            'settings' => array(
-                'emptyIcon' => false, // default true, display an "EMPTY" icon?
-                'type' => 'openiconic',
-                'iconsPerPage' => 200, // default 100, how many icons per/page to display
-            ),
-            'dependency' => array(
-                'element' => 'icon_type',
-                'value' => 'openiconic',
-            ),
-            'description' => __( 'Select icon from library.', 'js_composer' ),
-        ));
-    vc_add_param("vc_message",	array(
-            'type' => 'iconpicker',
-            'heading' => __( 'Icon', 'js_composer' ),
-            'param_name' => 'icon_typicons',
-            'settings' => array(
-                'emptyIcon' => false, // default true, display an "EMPTY" icon?
-                'type' => 'typicons',
-                'iconsPerPage' => 200, // default 100, how many icons per/page to display
-            ),
-            'dependency' => array(
-                'element' => 'icon_type',
-                'value' => 'typicons',
-            ),
-            'description' => __( 'Select icon from library.', 'js_composer' ),
-        ));
-    vc_add_param("vc_message", array(
-            'type' => 'iconpicker',
-            'heading' => __( 'Icon', 'js_composer' ),
-            'param_name' => 'icon_entypo',
-            'settings' => array(
-                'emptyIcon' => false, // default true, display an "EMPTY" icon?
-                'type' => 'entypo',
-                'iconsPerPage' => 300, // default 100, how many icons per/page to display
-            ),
-            'dependency' => array(
-                'element' => 'icon_type',
-                'value' => 'entypo',
-            ),
-        ));
-    vc_add_param("vc_message", array(
-            'type' => 'iconpicker',
-            'heading' => __( 'Icon', 'js_composer' ),
-            'param_name' => 'icon_linecons',
-            'settings' => array(
-                'emptyIcon' => false, // default true, display an "EMPTY" icon?
-                'type' => 'linecons',
-                'iconsPerPage' => 200, // default 100, how many icons per/page to display
-            ),
-            'dependency' => array(
-                'element' => 'icon_type',
-                'value' => 'linecons',
-            ),
-            'description' => __( 'Select icon from library.', 'js_composer' ),
-        ));
-    vc_add_param("vc_message", array(
-            'type' => 'iconpicker',
-            'heading' => __( 'Icon', 'js_composer' ),
-            'param_name' => 'icon_pixelicons',
-            'settings' => array(
-                'emptyIcon' => false, // default true, display an "EMPTY" icon?
-                'type' => 'pixelicons',
-                'source' => $pixel_icons,
-            ),
-            'dependency' => array(
-                'element' => 'icon_type',
-                'value' => 'pixelicons',
-            ),
-            'description' => __( 'Select icon from library.', 'js_composer' ),
-        ));
+	vc_add_param("vc_column", array(
+		"type" => "textfield",
+		"holder" => 'div',
+		'class' => 'hide hidden',
+		"heading" => __("Z-index"),
+		"param_name" => "z_index",
+		"value" => '',
+		"description" => __("Stack order for overlapping elements. Use integer value."),
+	));
+
+
+	/* VC Message */
+
+	add_action( 'vc_after_init', 'kleo_add_icons_to_vc_message' );
+
+	vc_add_param( 'vc_message', array(
+		'type'        => 'iconpicker',
+		'heading'     => __( 'Icon', 'js_composer' ),
+		'param_name'  => 'icon_fontello',
+		'value'       => 'icon-info-circled', // default value to backend editor admin_label
+		'settings'    => array(
+			'emptyIcon'    => false,
+			'type'         => 'fontello',
+			'iconsPerPage' => 4000,
+		),
+		'dependency'  => array(
+			'element' => 'icon_type',
+			'value'   => 'fontello',
+		),
+		'description' => __( 'Select icon from library.', 'js_composer' ),
+		'weight' => 1,
+	) );
+
 
 	vc_remove_param( 'vc_message', 'css_animation' );
 	vc_add_param( "vc_message", $animation );
@@ -1039,6 +1341,7 @@ function kleo_vc_manipulate_shortcodes() {
 
 	/* Text column */
 	vc_remove_param( 'vc_column_text', 'css_animation' );
+	vc_remove_param( 'vc_column_text', 'el_class' );
 	vc_map_update('vc_column_text', array('weight' => '990'));
 	vc_add_param("vc_column_text", array(
 		"type" => "dropdown",
@@ -1054,6 +1357,16 @@ function kleo_vc_manipulate_shortcodes() {
 		"description" => ""
 	));
 	vc_add_param("vc_column_text", array(
+		"type" => "colorpicker",
+		"class" => "hide hidden",
+		"holder" => 'div',
+		"heading" => __("Text color"),
+		"admin_label" => true,
+		"param_name" => "text_color",
+		"value" => "",
+		"description" => "Set a custom text color."
+	));
+	vc_add_param("vc_column_text", array(
 		"type" => "textfield",
 		"class" => "hide hidden",
 		"holder" => 'div',	
@@ -1061,7 +1374,7 @@ function kleo_vc_manipulate_shortcodes() {
 		"admin_label" => true,
 		"param_name" => "font_size",
 		"value" => "",
-		"description" => "Set a custom Font size in pixels. Example: writing 16 in the text box will make a 16px font size"
+		"description" => "Set a custom Font size. Use px|em|%|pt|cm"
 	));
 	vc_add_param("vc_column_text", array(
 		"type" => "dropdown",
@@ -1077,9 +1390,18 @@ function kleo_vc_manipulate_shortcodes() {
 		"description" => "Set a custom Font Weight for this text"
 	));
 
-	vc_add_param("vc_column_text", $animation);	
-	vc_add_param("vc_column_text", $css_animation);
+	vc_add_param( "vc_column_text", $vertical_separator );
 
+	vc_add_param( "vc_column_text", $letter_spacing );
+
+	vc_add_param( "vc_column_text", $animation );
+	vc_add_param( "vc_column_text", $css_animation );
+	vc_add_param( "vc_column_text", $el_class );
+
+
+	/* VC CUSTOM HEADING */
+	vc_add_param( "vc_custom_heading", $letter_spacing );
+	vc_add_param( "vc_custom_heading", $vertical_separator );
 
 
 	/* Toggle */
@@ -1332,7 +1654,24 @@ function kleo_vc_manipulate_shortcodes() {
 					'holder'      => "div",
 					'value'       => ""
 				),
+				array(
+					'param_name'  => 'href',
+					'heading'     => 'Link',
+					'description' => "Enter your link here",
+					'type'        => 'textfield',
+					'holder'      => "div",
+					'value'       => ""
+				),
 				$icon, //Icons select
+				array(
+					"type" => "colorpicker",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Custom icon color"),
+					"param_name" => "icon_color",
+					"value" => '',
+					"description" => ''
+				),
 				array(
 					"type" => "dropdown",
 					"holder" => "div",
@@ -1613,9 +1952,26 @@ function kleo_vc_manipulate_shortcodes() {
 	
 	vc_add_param('vc_tabs', $el_class);
 	
-	vc_map_update("vc_tab", array("allowed_container_element" => true));
-	
-	vc_add_param('vc_tab', $icon);
+	vc_map_update(
+		"vc_tab",
+		array(
+			"allowed_container_element" => true,
+			"deprecated" => null
+		)
+	);
+
+	vc_remove_param( 'vc_tab', 'tab_id' );
+	vc_add_param('vc_tab',array(
+		'param_name'  => 'tab_id',
+		'heading'     => 'Tab ID',
+		'type'        => 'textfield',
+		'holder'      => "div",
+		'class'      => "hide hidden",
+		'value'       => ""
+	));
+
+	kleo_vc_add_icon('vc_tab');
+	//vc_add_param('vc_tab', $icon);
 
 
     /* Tours */
@@ -1711,43 +2067,125 @@ function kleo_vc_manipulate_shortcodes() {
 			'name'        => 'Kleo Icon',
 			'weight'      => 5,
 			'class'       => '',
-			'icon'        => 'icon-wpb-ui-icon',
+			'icon'        => 'icon-wpb-vc_icon',
 			'category'    => __("Content",'js_composer'),
 			'description' => __('Insert an icon into your content','kleo_framework'),
 			'params'      => array(
-					$icon, 
-					$icon_size,
-					$tooltip,
-					$tooltip_position,
-					$tooltip_title,
-					$tooltip_text,
-					$tooltip_action,
-                    array(
-                        'param_name'  => 'href',
-                        'heading'     => __( 'Add a link', 'kleo_framework' ),
-                        'description' => __( 'Type a http:// address', 'kleo_framework' ),
-                        'type'        => 'textfield',
-                        'class' => 'hide hidden',
-                        'holder'      => 'div',
-                        'value'       => ''
+				$icon,
+				$icon_size,
+				array(
+					'param_name' => 'icon_color',
+					'type' => 'colorpicker',
+					'heading' => __( 'Icon color', 'js_composer' ),
+					'class' => 'hide hidden',
+					'description' => __( 'Select custom icon color.', 'js_composer' ),
+				),
+				$tooltip,
+				$tooltip_position,
+				$tooltip_title,
+				$tooltip_text,
+				$tooltip_action,
+				array(
+					"param_name"  => "position",
+					"type"        => "dropdown",
+					"holder"      => "div",
+					"class"       => "hide hidden",
+					"heading"     => __( "Position" ),
+					"value"       => array(
+						'Inline'     => 'inline',
+						'Left'      => 'left',
+						'Right'       => 'right',
+						'Center'       => 'center',
+					),
+					"description" => "Choose how to position the icon"
+				),
+				array(
+					'param_name'  => 'text',
+					'heading'     => __( 'Add a text to the icon', 'kleo_framework' ),
+					'type'        => 'textfield',
+					'class' => 'hide hidden',
+					'holder'      => 'div',
+					'value'       => ''
+				),
+				array(
+					'param_name'  => 'text_position',
+					'heading'     => __( 'Text position', 'kleo_framework' ),
+					'description' => '',
+					'type'        => 'dropdown',
+					'class' => 'hide hidden',
+					'holder'      => 'div',
+					"dependency" => array(
+						"element" => "text",
+						"not_empty" => true
+					),
+					'value'       => array(
+						'Left'    => 'left',
+						'Right'   => 'right'
+					)
+				),
+				array(
+					'param_name'  => 'font_size',
+					'heading'     => __( 'Font size', 'kleo_framework' ),
+					'description' => 'Use px|em|pt|cm',
+					'type'        => 'textfield',
+					'class' => 'hide hidden',
+					'holder'      => 'div',
+					"dependency" => array(
+						"element" => "text",
+						"not_empty" => true
+					),
+					'value' => ''
+				),
+				array(
+					'param_name'  => 'href',
+					'heading'     => __( 'Add a link', 'kleo_framework' ),
+					'description' => __( 'Type a http:// address', 'kleo_framework' ),
+					'type'        => 'textfield',
+					'class' => 'hide hidden',
+					'holder'      => 'div',
+					'value'       => ''
+				),
+                array(
+                    'param_name'  => 'target',
+                    'heading'     => __( 'Target window', 'kleo_framework' ),
+                    'description' => '',
+                    'type'        => 'dropdown',
+                    'class' => 'hide hidden',
+                    'holder'      => 'div',
+                    "dependency" => array(
+                        "element" => "href",
+                        "not_empty" => true
                     ),
-                    array(
-                        'param_name'  => 'target',
-                        'heading'     => __( 'Target window', 'kleo_framework' ),
-                        'description' => '',
-                        'type'        => 'dropdown',
-                        'class' => 'hide hidden',
-                        'holder'      => 'div',
-                        "dependency" => array(
-                            "element" => "href",
-                            "not_empty" => true
-                        ),
-                        'value'       => array(
-                            'Same window'    => '_self',
-                            'New window'   => '_blank'
-                        )
-                    ),
-					$el_class
+                    'value'       => array(
+                        'Same window'    => '_self',
+                        'New window'   => '_blank'
+                    )
+                ),
+				array(
+					'param_name'  => 'scroll_to',
+					'heading'     => __( 'Enable smooth scroll to page section.', 'kleo_framework' ),
+					'description' => 'Works only when you have links to sections in the current page, like #section',
+					'type'        => 'checkbox',
+					'class' => 'hide hidden',
+					'holder'      => 'div',
+					"dependency" => array(
+						"element" => "href",
+						"not_empty" => true
+					),
+					'value'       => array(
+						'Yes'    => 'yes',
+					)
+				),
+				array(
+					'param_name'  => 'padding',
+					'heading'     => 'Left/right padding',
+					'description' => "Adds padding to the left and right sides of the icon",
+					'type'        => 'textfield',
+					'class' => 'hide hidden',
+					'holder'      => "div",
+					'value'       => ""
+				),
+				$el_class
 			)
 					
 	));
@@ -1881,8 +2319,8 @@ function kleo_vc_manipulate_shortcodes() {
 					'class' => 'hide hidden',
 					'holder'      => 'div',
 					'value'       => array(
-						'Yes'    => 'yes',
-						'No'   => 'no'
+						'No'   => 'no',
+						'Yes'    => 'yes'
 					)
 				),
 				array(
@@ -2094,8 +2532,12 @@ function kleo_vc_manipulate_shortcodes() {
 			'params'      => $button_args
 		)
 	);
-	vc_add_param('kleo_button', $el_class);
-	
+
+	vc_add_param( 'kleo_button', $letter_spacing );
+	vc_add_params( 'kleo_button', $box_shadow );
+	vc_add_param( 'kleo_button', $el_class );
+
+
 	
 	/* Animated numbers */
 	vc_map(
@@ -2126,6 +2568,43 @@ function kleo_vc_manipulate_shortcodes() {
 					'holder'      => "div",
 					'class'      => "hide hidden",
 					'value'       => ""
+				),
+				array(
+					'param_name'  => 'element',
+					'heading'     => __( 'HTML Element', 'kleo_framework' ),
+					'description' => __( 'What type of HTML tag to render. Default if span', 'kleo_framework' ),
+					'type'        => 'dropdown',
+					'holder'      => 'div',
+					'value'       => array(
+						'span'    => 'span',
+						'p'   => 'p',
+						'H1' => 'h1',
+						'H2' => 'h2',
+						'H3' => 'h3',
+						'H4' => 'h4',
+						'H5' => 'h5',
+						'H6' => 'h6'
+					)
+				),
+				array(
+					"param_name"  => "font_size",
+					"type"        => "textfield",
+					"holder"      => "div",
+					"class"       => "hide hidden",
+					"heading"     => __( "Font size. Use px|em|pt" ),
+					"value"       => '',
+					"description" => "",
+				),
+				array(
+					'param_name'  => 'font_weight',
+					'heading'     => __( 'Font Weight', 'kleo_framework' ),
+					'description' => '',
+					'type'        => 'dropdown',
+					'holder'      => 'div',
+					'value'       => array(
+						'Regular'    => '',
+						'Bold'   => 'bold'
+					)
 				),
 					$el_class
 			)
@@ -2161,10 +2640,12 @@ function kleo_vc_manipulate_shortcodes() {
 						'Hidden Tablets (768px - 991px)'   => 'hidden-sm',
 						'Hidden Desktops (992px - 1199px)'  => 'hidden-md',
 						'Hidden Large Desktops (min 1200px)'  => 'hidden-lg',
+						'Hidden XLarge Desktops (min 1440px)'  => 'hidden-xlg',
 						'Visible Phones (max 767px)'   => 'visible-xs',
 						'Visible Tablets (768px - 991px)'  => 'visible-sm',
 						'Visible Desktops (992px - 1199px)' => 'visible-md',
-						'Visible Large Desktops (min 1200px)' => 'visible-lg'
+						'Visible Large Desktops (min 1200px)' => 'visible-lg',
+						'Visible XLarge Desktops (min 1440px)' => 'visible-xlg'
 					)
 				),
 				$el_class
@@ -2251,7 +2732,8 @@ function kleo_vc_manipulate_shortcodes() {
 						"holder" => 'div',	
 						"heading" => __("Custom inline style"),
 						"value" => ""
-					),
+				),
+				$visibility
 			)
 		)
 	);
@@ -2308,57 +2790,61 @@ function kleo_vc_manipulate_shortcodes() {
 								'Right' => 'right'
 							),
 						"description" => ""
-					),
-					$icon, //Icons select
-					array(
-						"type" => "dropdown",
-						"holder" => "div",
-						"class" => "hide hidden",
-						"heading" => __("Icon size"),
-						"param_name" => "icon_size",
-						"value" => array(
-								'Normal' => '',
-								'Large' => 'large'
-							),
-						"description" => ""
-					),
-					array(
-						"param_name" => "text",
-						"type" => "textfield",
-						"holder" => "div",
-						"class" => "",
-						"heading" => __("Text"),
-						"value" => '',
-						"description" => __("This text wil show inside the divider")
-					),
+					)
+	)	)   );
 
-				array(
-					'param_name'  => "id",
-					'heading'     => "Id",
-					'description' => __( 'Unique id to add to the element for CSS referrences', 'kleo_framework' ),
-					'type'        => "textfield",
-					'holder'      => "div"
-				),
-					array(
-						"param_name" => "class",
-						"type" => "textfield",
-						"holder" => "div",
-						"class" => "",
-						"heading" => __("Class"),
-						"value" => '',
-						"description" => __("A class to add to the element for CSS referrences.")
-					),
-				array(
-						"param_name" => "style",
-						"type" => "textfield",
-						"class" => "",
-						"holder" => 'div',	
-						"heading" => __("Custom inline style"),
-						"value" => ""
-					),
-			)
-		)
-	);
+	kleo_vc_add_icon( 'kleo_divider' );
+
+	vc_add_params( 'kleo_divider', array(
+
+		array(
+			"type"        => "dropdown",
+			"holder"      => "div",
+			"class"       => "hide hidden",
+			"heading"     => __( "Icon size" ),
+			"param_name"  => "icon_size",
+			"value"       => array(
+				'Normal' => '',
+				'Large'  => 'large'
+			),
+			"description" => ""
+		),
+		array(
+			"param_name"  => "text",
+			"type"        => "textfield",
+			"holder"      => "div",
+			"class"       => "",
+			"heading"     => __( "Text" ),
+			"value"       => '',
+			"description" => __( "This text wil show inside the divider" )
+		),
+
+		array(
+			'param_name'  => "id",
+			'heading'     => "Id",
+			'description' => __( 'Unique id to add to the element for CSS referrences', 'kleo_framework' ),
+			'type'        => "textfield",
+			'holder'      => "div"
+		),
+		array(
+			"param_name"  => "class",
+			"type"        => "textfield",
+			"holder"      => "div",
+			"class"       => "",
+			"heading"     => __( "Class" ),
+			"value"       => '',
+			"description" => __( "A class to add to the element for CSS referrences." )
+		),
+		array(
+			"param_name" => "style",
+			"type"       => "textfield",
+			"class"      => "",
+			"holder"     => 'div',
+			"heading"    => __( "Custom inline style" ),
+			"value"      => ""
+		),
+	) );
+
 
 	
 	/* Posts grid */
@@ -2380,7 +2866,10 @@ function kleo_vc_manipulate_shortcodes() {
 	vc_remove_param('vc_posts_grid','grid_layout_mode');
 	vc_remove_param('vc_posts_grid','grid_thumb_size');
     vc_remove_param('vc_posts_grid','el_class');
-    vc_add_param("vc_posts_grid", array(
+
+	vc_add_param( "vc_posts_grid", $query_offset);
+
+	vc_add_param("vc_posts_grid", array(
         "type" => "dropdown",
         "holder" => "div",
         "class" => "hide hidden",
@@ -2538,7 +3027,9 @@ function kleo_vc_manipulate_shortcodes() {
 	vc_remove_param('vc_carousel','hide_pagination_control');
 	vc_remove_param('vc_carousel','hide_prev_next_buttons');
 
-    vc_add_param("vc_carousel", array(
+	vc_add_param( "vc_carousel", $query_offset );
+
+	vc_add_param("vc_carousel", array(
         "type" => "dropdown",
         "holder" => "div",
         "class" => "hide hidden",
@@ -3183,8 +3674,434 @@ function kleo_vc_manipulate_shortcodes() {
         )
     );
 
+	/* Kleo Login */
+	vc_map(
+		array(
+			"name" => __("Kleo Login"),
+			"base" => "kleo_login",
+			"class" => "",
+			"category" => __('Content'),
+			"icon" => "kleo-login",
+			"description" => __("Login / Lost Password Forms (Hidden from logged in users.)"),
+			"params" => array(
+				array(
+					"type" => "dropdown",
+					"holder" => "div",
+					"class" => "",
+					"heading" => __("Show"),
+					"param_name" => "show",
+					"value" => array(
+						'Login' => 'login',
+						'Lost Password' => 'lostpass',
+					),
+					"description" => __("Initial form to show.")
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Login Title"),
+					"param_name" => "login_title",
+					"value" => "Log in with your credentials",
+					"description" => __("Enter the login title.")
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Lost Password Title"),
+					"param_name" => "lostpass_title",
+					"value" => "Forgot your details?",
+					"description" => __("Enter the login title.")
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Login Link"),
+					"param_name" => "login_link",
+					"value" => "#",
+					"description" => __("Use # or custom url. Using # will allow inline switching between login and lost password boxes.")
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Lost Password Link"),
+					"param_name" => "lostpass_link",
+					"value" => "#",
+					"description" => __("Use # or custom url. Using # will allow inline switching between login and lost password boxes.")
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Register Link"),
+					"param_name" => "register_link",
+					"value" => "",
+					"description" => __("Leave empty for WordPress or BuddyPress default url. Use 'hide' or custom url. Using 'hide will allow you to hide any registration information.")
+				),
+				array(
+					"type" => "dropdown",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"admin_label" => true,
+					"heading" => __("Style"),
+					"param_name" => "style",
+					"value" => array(
+						'Transparent White' => 'white',
+						'Transparent Black' => 'black',
+						'Theme Default' => 'default',
+					),
+					"description" => __("Form style. If you don't use this form with a background behind then you should set the form style to 'Theme Default'")
+				),
+				array(
+					"type" => "dropdown",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Input Size"),
+					"param_name" => "input_size",
+					"value" => array(
+						'Normal' => 'normal',
+						'Large' => 'large',
+					),
+					"description" => __("Form input sizes.")
+				),
+				array(
+					"type" => "dropdown",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"admin_label" => true,
+					"heading" => __("Show for logged in users too"),
+					"param_name" => "show_for_users",
+					"value" => array(
+						'No' => '',
+						'Yes' => 'yes',
+					),
+					"description" => __("The form will be displayed for registered users too if enabled. <br> " .
+						"Note: Use only on testing environment.")
+				),
+				$el_class
+			)
+		)
+	);
 
-    /* Kleo News Focus */
+	/* Kleo Login */
+	vc_map(
+		array(
+			"name" => __("Kleo Social Sharing"),
+			"base" => "kleo_social_share",
+			"class" => "",
+			"category" => __('Content'),
+			"icon" => "kleo-social-share",
+			"description" => __("Adds Kleo Likes and social sharing.)"),
+			"params" => array(
+				$el_class
+			)
+		)
+	);
+
+	/* Kleo Magic container */
+	vc_map(
+		array(
+			"name" => __("Kleo Magic Container"),
+			"base" => "kleo_magic_container",
+			"class" => "",
+			"category" => __('Content'),
+			"icon" => "kleo-magic-container",
+			"description" => __("Very customizable container element"),
+			'as_parent'       => array( 'except' => '' ),
+			'content_element' => true,
+			'js_view'         => 'VcColumnView',
+			"params" => array(
+				array(
+					"type" => "dropdown",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("CSS Position"),
+					"param_name" => "position",
+					"value" => array(
+						'Static' => '',
+						'Relative' => 'relative',
+						'Absolute' => 'absolute',
+						'Fixed' => 'fixed',
+					),
+					"description" => __("Set the content position."),
+					//'edit_field_class' => 'vc_col-sm-6 vc_column',
+				),
+				array(
+					"type" => "dropdown",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("CSS Float"),
+					"param_name" => "float",
+					"value" => array(
+						'None' => '',
+						'Left' => 'left',
+						'Right' => 'right'
+					),
+					"description" => __("Set the content position."),
+					//'edit_field_class' => 'vc_col-sm-6 vc_column',
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("CSS Top"),
+					"param_name" => "top",
+					"value" => "",
+					"description" => __("Css Top value. Use px|em|%|pt|cm"),
+					'edit_field_class' => 'vc_col-sm-3 vc_column',
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("CSS Right"),
+					"param_name" => "right",
+					"value" => "",
+					"description" => __("Css RIGHT value. Use px|em|%|pt|cm"),
+					'edit_field_class' => 'vc_col-sm-3 vc_column',
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("CSS Bottom"),
+					"param_name" => "bottom",
+					"value" => "",
+					"description" => __("Css BOTTOM value. Use px|em|%|pt|cm"),
+					'edit_field_class' => 'vc_col-sm-3 vc_column',
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("CSS Left"),
+					"param_name" => "left",
+					"value" => "",
+					"description" => __("Css LEFT value. Use px|em|%|pt|cm"),
+					'edit_field_class' => 'vc_col-sm-3 vc_column',
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Min. width"),
+					"param_name" => "min_width",
+					"value" => "",
+					"description" => __("Force a minimum width. Use px|em|%|pt|cm"),
+					'edit_field_class' => 'vc_col-sm-6 vc_column',
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Min. height"),
+					"param_name" => "min_height",
+					"value" => "",
+					"description" => __("Force a minimum height. Use px|em|%|pt|cm"),
+					'edit_field_class' => 'vc_col-sm-6 vc_column',
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Fixed width"),
+					"param_name" => "width",
+					"value" => "",
+					"description" => __("Force a fixed width. Use px|em|%|pt|cm"),
+					'edit_field_class' => 'vc_col-sm-6 vc_column',
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Fixed height"),
+					"param_name" => "height",
+					"value" => "",
+					"description" => __("Force a fixed height. Use px|em|%|pt|cm"),
+					'edit_field_class' => 'vc_col-sm-6 vc_column',
+				),
+				array(
+					"type" => "dropdown",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Content vertical position in container"),
+					"param_name" => "content_position",
+					"value" => array(
+						'Default top' => '',
+						'Center' => 'center',
+						'Bottom' => 'bottom'
+					),
+					"description" => __("Set the content position related to the container. Works when you set a custom container height."),
+					'edit_field_class' => 'vc_col-sm-6 vc_column',
+				),
+				array(
+					"type" => "checkbox",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Center text horizontally"),
+					"param_name" => "text_center",
+					"value" => array(
+						"Yes" => "yes"
+					),
+					"description" => __("Enabling this option will center any text inside the container"),
+					'edit_field_class' => 'vc_col-sm-6 vc_column',
+				),
+				array(
+					"type" => "checkbox",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Center the container box horizontally"),
+					"param_name" => "div_center",
+					"value" => array(
+						"Yes" => "yes"
+					),
+					"description" => __("Works when you set a custom container width."),
+				),
+				array(
+					"type" => "checkbox",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Full height content"),
+					"param_name" => "full_height",
+					"value" => array(
+						"Yes" => "yes"
+					),
+					"description" => __("Stretch the content to the container height. Works when you set a custom container height.")
+				),
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Border Radius"),
+					"param_name" => "border_radius",
+					"value" => "",
+					"description" => __("Set container border radius. Use px|em|%|pt|cm"),
+				),
+				array(
+					"type" => "textfield",
+					"holder" => 'div',
+					'class' => 'hide hidden',
+					"heading" => __("Z-index"),
+					"param_name" => "z_index",
+					"value" => '',
+					"description" => __("Stack order for overlapping elements. Use integer value."),
+				),
+				array(
+					'type' => 'css_editor',
+					'heading' => __( 'Css', 'js_composer' ),
+					'param_name' => 'css',
+					'group' => __( 'Design Options', 'js_composer' ),
+				),
+				array(
+					"type" => "dropdown",
+					"holder" => 'div',
+					'class' => 'hide hidden',
+					"heading" => __("Background horizontal position"),
+					"param_name" => "bg_pos_h",
+					"value" => array(
+						"Default" => "",
+						"Left" => "left",
+						"Center" => "center",
+						"Right" => "right"
+					),
+					"description" => __(""),
+					'edit_field_class' => 'vc_col-sm-6 vc_column',
+					'group' => __( 'Design Options', 'js_composer' ),
+				),
+
+				array(
+					"type" => "dropdown",
+					"holder" => 'div',
+					'class' => 'hide hidden',
+					"heading" => __("Background vertical position"),
+					"param_name" => "bg_pos_v",
+					"value" => array(
+						"Default" => "",
+						"Top" => "top",
+						"Center" => "center",
+						"Bottom" => "bottom"
+					),
+					"description" => __(""),
+					'edit_field_class' => 'vc_col-sm-6 vc_column',
+					'group' => __( 'Design Options', 'js_composer' ),
+				),
+				$el_class
+			)
+		)
+	);
+	vc_add_params( 'kleo_magic_container', $box_shadow );
+	vc_add_param( "kleo_magic_container", $vertical_separator );
+
+	/* Kleo Register */
+	vc_map(
+		array(
+			"name" => __("Kleo Register"),
+			"base" => "kleo_register",
+			"class" => "",
+			"category" => __('Content'),
+			"icon" => "kleo-register",
+			"description" => __("Register Form (Hidden from logged in users.)"),
+			"params" => array(
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"admin_label" => true,
+					"heading" => __("Register Title"),
+					"param_name" => "register_title",
+					"value" => "Create Account",
+					"description" => __("Enter the register title.")
+				),
+				array(
+					"type" => "dropdown",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"admin_label" => true,
+					"heading" => __("Style"),
+					"param_name" => "style",
+					"value" => array(
+						'Transparent White' => 'white',
+						'Transparent Black' => 'black',
+						'Theme Default' => 'default',
+					),
+					"description" => __("Form style. If you don't use this form with a background behind then you should set the form style to 'Theme Default'")
+				),
+				array(
+					"type" => "dropdown",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"heading" => __("Input Size"),
+					"param_name" => "input_size",
+					"value" => array(
+						'Normal' => 'normal',
+						'Large' => 'large',
+					),
+					"description" => __("Form input sizes.")
+				),
+				array(
+					"type" => "dropdown",
+					"holder" => "div",
+					"class" => "hide hidden",
+					"admin_label" => true,
+					"heading" => __("Show for logged in users too"),
+					"param_name" => "show_for_users",
+					"value" => array(
+						'No' => '',
+						'Yes' => 'yes',
+					),
+					"description" => __("The form will be displayed for registered users too if enabled. <br> " .
+						"Note: Use only on testing environment.")
+				),
+				$el_class
+			)
+		)
+	);
+
+
+	/* Kleo News Focus */
     vc_map(
         array(
             "name" => __("NEWS Focus"),
@@ -3222,6 +4139,7 @@ function kleo_vc_manipulate_shortcodes() {
                     ),
                     'description' => __( 'If you refine your posts by category then they will show as tabbed content in the shortcode', 'js_composer' )
                 ),
+	            $query_offset,
                 $el_class
             )
         )
@@ -3257,6 +4175,7 @@ function kleo_vc_manipulate_shortcodes() {
                     ),
                     'description' => __( 'If you refine your posts by category then the first category will show as a label on first post image', 'js_composer' )
                 ),
+	            $query_offset,
                 $el_class
             )
         )
@@ -3283,6 +4202,7 @@ function kleo_vc_manipulate_shortcodes() {
                     ),
                     'description' => __( 'Refine your posts by specific filters', 'js_composer' )
                 ),
+	            $query_offset,
                 $el_class
             )
 
@@ -3348,8 +4268,13 @@ function kleo_vc_manipulate_shortcodes() {
         )
     );
 
+	/* Get registered member types */
+	$kleo_member_types = array("All" => 'all');
+	if (function_exists('bp_get_member_types')) {
+		$kleo_member_types = $kleo_member_types + bp_get_member_types( array(), 'names' );
+	}
 
-    // Buddypress Members Carousel
+	// Buddypress Members Carousel
 
 	vc_map(
 		array(
@@ -3363,7 +4288,16 @@ function kleo_vc_manipulate_shortcodes() {
 						"type" => "dropdown",
 						"holder" => "div",
 						"class" => "",
-						"heading" => __("Type"),
+						"heading" => __("Member Type"),
+						"param_name" => "member_type",
+						"value" => $kleo_member_types,
+						"description" => __("The type of members to display.")
+					),
+					array(
+						"type" => "dropdown",
+						"holder" => "div",
+						"class" => "",
+						"heading" => __("Filter"),
 						"param_name" => "type",
 						"value" => array(
 								'Active' => 'active',
@@ -3373,7 +4307,7 @@ function kleo_vc_manipulate_shortcodes() {
 								'Alphabetical' => 'alphabetical',
 								'Random' => 'random'
 							),
-						"description" => __("The type of members to display.")
+						"description" => __("Filter the members by.")
 					),
 					array(
 						"type" => "textfield",
@@ -3489,7 +4423,16 @@ function kleo_vc_manipulate_shortcodes() {
 						"type" => "dropdown",
 						"holder" => "div",
 						"class" => "",
-						"heading" => __("Type"),
+						"heading" => __("Member Type"),
+						"param_name" => "member_type",
+						"value" => $kleo_member_types,
+						"description" => __("The type of members to display.")
+					),
+					array(
+						"type" => "dropdown",
+						"holder" => "div",
+						"class" => "",
+						"heading" => __("Filter"),
 						"param_name" => "type",
 						"value" => array(
 								'Active' => 'active',
@@ -3499,7 +4442,7 @@ function kleo_vc_manipulate_shortcodes() {
 								'Alphabetical' => 'alphabetical',
 								'Random' => 'random'
 							),
-						"description" => __("The type of members to display.")
+						"description" => __("Filter the members by.")
 					),
 					array(
 						"type" => "textfield",
@@ -3564,7 +4507,16 @@ function kleo_vc_manipulate_shortcodes() {
 						"type" => "dropdown",
 						"holder" => "div",
 						"class" => "",
-						"heading" => __("Type"),
+						"heading" => __("Member Type"),
+						"param_name" => "member_type",
+						"value" => $kleo_member_types,
+						"description" => __("The type of members to display.")
+					),
+					array(
+						"type" => "dropdown",
+						"holder" => "div",
+						"class" => "",
+						"heading" => __("Filter"),
 						"param_name" => "type",
 						"value" => array(
 								'Active' => 'active',
@@ -3574,7 +4526,7 @@ function kleo_vc_manipulate_shortcodes() {
 								'Alphabetical' => 'alphabetical',
 								'Random' => 'random'
 							),
-						"description" => __("The type of members to display.")
+						"description" => __("Filter the members by.")
 					),
 					array(
 						"type" => "textfield",
@@ -4027,6 +4979,38 @@ function kleo_vc_manipulate_shortcodes() {
 add_action('vc_before_init', 'kleo_vc_manipulate_shortcodes');
 
 
+function kleo_vc_manipulate_shortcodes_after() {
+
+	if (version_compare( WPB_VC_VERSION, '4.10' ) >= 0) {
+
+		//Get current values stored in the width param in "Column" element
+		$param          = WPBMap::getParam( 'vc_row', 'video_bg' );
+		$param['group'] = __( 'Text & Background', 'js_composer' );
+		//Finally "mutate" param with new values
+		vc_update_shortcode_param( 'vc_row', $param );
+
+		//Get current values stored in the width param in "Column" element
+		$param          = WPBMap::getParam( 'vc_row', 'video_bg_url' );
+		$param['group'] = __( 'Text & Background', 'js_composer' );
+		//Finally "mutate" param with new values
+		vc_update_shortcode_param( 'vc_row', $param );
+
+		//Get current values stored in the width param in "Column" element
+		$param          = WPBMap::getParam( 'vc_row', 'video_bg_parallax' );
+		$param['group'] = __( 'Text & Background', 'js_composer' );
+		//Finally "mutate" param with new values
+		vc_update_shortcode_param( 'vc_row', $param );
+
+		//Get current values stored in the width param in "Column" element
+		$param          = WPBMap::getParam( 'vc_row', 'parallax_speed_video' );
+		$param['group'] = __( 'Text & Background', 'js_composer' );
+		//Finally "mutate" param with new values
+		vc_update_shortcode_param( 'vc_row', $param );
+	}
+}
+add_action( 'vc_after_init', 'kleo_vc_manipulate_shortcodes_after' );
+
+
 /* Load theme Fontello icons */
 add_filter( 'vc_iconpicker-type-fontello', 'kleo_vc_iconpicker_fontello' );
 
@@ -4062,6 +5046,7 @@ class WPBakeryShortCode_Kleo_List extends WPBakeryShortCodesContainer { }
 class WPBakeryShortCode_Kleo_Feature_item extends WPBakeryShortCode { }
 class WPBakeryShortCode_Kleo_List_item extends WPBakeryShortCode { }
 class WPBakeryShortCode_Kleo_Pricing_Table extends WPBakeryShortCodesContainer { }
+class WPBakeryShortCode_Kleo_Magic_Container extends WPBakeryShortCodesContainer { }
 
 
 
@@ -4287,4 +5272,221 @@ CONTENT;
     vc_add_default_templates( $data7 );
     vc_add_default_templates( $data8 );
     vc_add_default_templates( $data9 );
+}
+
+
+function kleo_add_icons_to_vc_message() {
+	//Get current values stored in the width param in "Column" element
+	$param = WPBMap::getParam( 'vc_message', 'icon_type' );
+	$my_val = array(__( 'Fontello(theme default)', 'js_composer' ) => 'fontello');
+	$param['value'] = array_merge($my_val, $param['value']);
+	//Finally "mutate" param with new values
+	vc_update_shortcode_param( 'vc_message', $param );
+
+	//Get current values stored in the width param in "Column" element
+	$param = WPBMap::getParam( 'vc_message', 'color' );
+	$param['weight'] = 2;
+	//Finally "mutate" param with new values
+	vc_update_shortcode_param( 'vc_message', $param );
+
+	//Get current values stored in the width param in "Column" element
+	$param = WPBMap::getParam( 'vc_message', 'message_box_style' );
+	$param['weight'] = 2;
+	//Finally "mutate" param with new values
+	vc_update_shortcode_param( 'vc_message', $param );
+
+	//Get current values stored in the width param in "Column" element
+	$param = WPBMap::getParam( 'vc_message', 'style' );
+	$param['weight'] = 2;
+	//Finally "mutate" param with new values
+	vc_update_shortcode_param( 'vc_message', $param );
+
+	//Get current values stored in the width param in "Column" element
+	$param = WPBMap::getParam( 'vc_message', 'message_box_color' );
+	$param['weight'] = 2;
+	//Finally "mutate" param with new values
+	vc_update_shortcode_param( 'vc_message', $param );
+
+	//Get current values stored in the width param in "Column" element
+	$param = WPBMap::getParam( 'vc_message', 'icon_type' );
+	$param['weight'] = 2;
+	//Finally "mutate" param with new values
+	vc_update_shortcode_param( 'vc_message', $param );
+
+}
+
+
+function kleo_vc_add_icon( $shortcode = null ) {
+	if (! $shortcode) {
+		return;
+	}
+
+	global $pixel_icons;
+	$pixel_icons = array(
+		array( 'vc_pixel_icon vc_pixel_icon-alert' => __( 'Alert', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-info' => __( 'Info', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-tick' => __( 'Tick', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-explanation' => __( 'Explanation', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-address_book' => __( 'Address book', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-alarm_clock' => __( 'Alarm clock', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-anchor' => __( 'Anchor', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-application_image' => __( 'Application Image', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-arrow' => __( 'Arrow', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-asterisk' => __( 'Asterisk', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-hammer' => __( 'Hammer', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-balloon' => __( 'Balloon', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-balloon_buzz' => __( 'Balloon Buzz', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-balloon_facebook' => __( 'Balloon Facebook', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-balloon_twitter' => __( 'Balloon Twitter', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-battery' => __( 'Battery', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-binocular' => __( 'Binocular', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_excel' => __( 'Document Excel', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_image' => __( 'Document Image', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_music' => __( 'Document Music', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_office' => __( 'Document Office', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_pdf' => __( 'Document PDF', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_powerpoint' => __( 'Document Powerpoint', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_word' => __( 'Document Word', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-bookmark' => __( 'Bookmark', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-camcorder' => __( 'Camcorder', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-camera' => __( 'Camera', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-chart' => __( 'Chart', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-chart_pie' => __( 'Chart pie', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-clock' => __( 'Clock', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-fire' => __( 'Fire', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-heart' => __( 'Heart', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-mail' => __( 'Mail', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-play' => __( 'Play', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-shield' => __( 'Shield', 'js_composer' ) ),
+		array( 'vc_pixel_icon vc_pixel_icon-video' => __( 'Video', 'js_composer' ) ),
+	);
+
+	vc_remove_param( $shortcode, 'icon_type' );
+	vc_remove_param( $shortcode, 'icon_fontawesome' );
+	vc_remove_param( $shortcode, 'icon_openiconic' );
+	vc_remove_param( $shortcode, 'icon_typicons' );
+	vc_remove_param( $shortcode, 'icon_entypo' );
+	vc_remove_param( $shortcode, 'icon_linecons' );
+	vc_remove_param( $shortcode, 'icon_pixelicons' );
+
+	vc_add_param( $shortcode, array(
+		'type'        => 'dropdown',
+		'heading'     => __( 'Icon library', 'js_composer' ),
+		'value'       => array(
+			__( 'Fontello(theme default)', 'js_composer' ) => 'fontello',
+			__( 'Font Awesome', 'js_composer' )            => 'fontawesome',
+			__( 'Open Iconic', 'js_composer' )             => 'openiconic',
+			__( 'Typicons', 'js_composer' )                => 'typicons',
+			__( 'Entypo', 'js_composer' )                  => 'entypo',
+			__( 'Linecons', 'js_composer' )                => 'linecons',
+			__( 'Pixel', 'js_composer' )                   => 'pixelicons',
+		),
+		'param_name'  => 'icon_type',
+		'description' => __( 'Select icon library.', 'js_composer' ),
+	) );
+	vc_add_param( $shortcode, array(
+		'type'        => 'iconpicker',
+		'heading'     => __( 'Icon', 'js_composer' ),
+		'param_name'  => 'icon',
+		'value'       => '', // default value to backend editor admin_label
+		'settings'    => array(
+			'emptyIcon'    => false,
+			'type'         => 'fontello',
+			'iconsPerPage' => 4000,
+		),
+		'dependency'  => array(
+			'element' => 'icon_type',
+			'value'   => 'fontello',
+		),
+		'description' => __( 'Select icon from library.', 'js_composer' ),
+	) );
+	vc_add_param( $shortcode, array(
+		'type'        => 'iconpicker',
+		'heading'     => __( 'Icon', 'js_composer' ),
+		'param_name'  => 'icon_fontawesome',
+		'value'       => 'fa fa-info-circle',
+		'settings'    => array(
+			'emptyIcon'    => false, // default true, display an "EMPTY" icon?
+			'iconsPerPage' => 200, // default 100, how many icons per/page to display
+		),
+		'dependency'  => array(
+			'element' => 'icon_type',
+			'value'   => 'fontawesome',
+		),
+		'description' => __( 'Select icon from library.', 'js_composer' ),
+	) );
+	vc_add_param( $shortcode, array(
+		'type'        => 'iconpicker',
+		'heading'     => __( 'Icon', 'js_composer' ),
+		'param_name'  => 'icon_openiconic',
+		'settings'    => array(
+			'emptyIcon'    => false, // default true, display an "EMPTY" icon?
+			'type'         => 'openiconic',
+			'iconsPerPage' => 200, // default 100, how many icons per/page to display
+		),
+		'dependency'  => array(
+			'element' => 'icon_type',
+			'value'   => 'openiconic',
+		),
+		'description' => __( 'Select icon from library.', 'js_composer' ),
+	) );
+	vc_add_param( $shortcode, array(
+		'type'        => 'iconpicker',
+		'heading'     => __( 'Icon', 'js_composer' ),
+		'param_name'  => 'icon_typicons',
+		'settings'    => array(
+			'emptyIcon'    => false, // default true, display an "EMPTY" icon?
+			'type'         => 'typicons',
+			'iconsPerPage' => 200, // default 100, how many icons per/page to display
+		),
+		'dependency'  => array(
+			'element' => 'icon_type',
+			'value'   => 'typicons',
+		),
+		'description' => __( 'Select icon from library.', 'js_composer' ),
+	) );
+	vc_add_param( $shortcode, array(
+		'type'       => 'iconpicker',
+		'heading'    => __( 'Icon', 'js_composer' ),
+		'param_name' => 'icon_entypo',
+		'settings'   => array(
+			'emptyIcon'    => false, // default true, display an "EMPTY" icon?
+			'type'         => 'entypo',
+			'iconsPerPage' => 300, // default 100, how many icons per/page to display
+		),
+		'dependency' => array(
+			'element' => 'icon_type',
+			'value'   => 'entypo',
+		),
+	) );
+	vc_add_param( $shortcode, array(
+		'type'        => 'iconpicker',
+		'heading'     => __( 'Icon', 'js_composer' ),
+		'param_name'  => 'icon_linecons',
+		'settings'    => array(
+			'emptyIcon'    => false, // default true, display an "EMPTY" icon?
+			'type'         => 'linecons',
+			'iconsPerPage' => 200, // default 100, how many icons per/page to display
+		),
+		'dependency'  => array(
+			'element' => 'icon_type',
+			'value'   => 'linecons',
+		),
+		'description' => __( 'Select icon from library.', 'js_composer' ),
+	) );
+	vc_add_param( $shortcode, array(
+		'type'        => 'iconpicker',
+		'heading'     => __( 'Icon', 'js_composer' ),
+		'param_name'  => 'icon_pixelicons',
+		'settings'    => array(
+			'emptyIcon' => false, // default true, display an "EMPTY" icon?
+			'type'      => 'pixelicons',
+			'source'    => $pixel_icons,
+		),
+		'dependency'  => array(
+			'element' => 'icon_type',
+			'value'   => 'pixelicons',
+		),
+		'description' => __( 'Select icon from library.', 'js_composer' ),
+	) );
 }

@@ -6,7 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 VcShortcodeAutoloader::getInstance()->includeClass( 'WPBakeryShortCode_VC_Gitem_Animated_Block' );
 
 global $vc_column_width_list;
-global $vc_add_css_animation;
 global $vc_gitem_add_link_param;
 $vc_gitem_add_link_param = apply_filters( 'vc_gitem_add_link_param', array(
 	'type' => 'dropdown',
@@ -15,6 +14,7 @@ $vc_gitem_add_link_param = apply_filters( 'vc_gitem_add_link_param', array(
 	'value' => array(
 		__( 'None', 'js_composer' ) => 'none',
 		__( 'Post link', 'js_composer' ) => 'post_link',
+		__( 'Post author', 'js_composer' ) => 'post_author',
 		__( 'Large image', 'js_composer' ) => 'image',
 		__( 'Large image (prettyPhoto)', 'js_composer' ) => 'image_lightbox',
 		__( 'Custom', 'js_composer' ) => 'custom',
@@ -409,6 +409,101 @@ $list = array(
 		) ),
 		'post_type' => Vc_Grid_Item_Editor::postType(),
 	),
+	'vc_gitem_post_author' => array(
+		'name' => __( 'Post Author', 'js_composer' ),
+		'base' => 'vc_gitem_post_author',
+		'icon' => 'vc_icon-vc-gitem-post-author', // @todo change icon ?
+		'category' => __( 'Post', 'js_composer' ),
+		'description' => __( 'Author of current post', 'js_composer' ),
+		'params' => array_merge( array(
+			array(
+				'type' => 'checkbox',
+				'heading' => __( 'Add link', 'js_composer' ),
+				'param_name' => 'link',
+				'value' => '',
+				'description' => __( 'Add link to author?', 'js_composer' ),
+			),
+			array(
+				'type' => 'css_editor',
+				'heading' => __( 'CSS box', 'js_composer' ),
+				'param_name' => 'css',
+				'group' => __( 'Design Options', 'js_composer' ),
+			),
+		), $custom_fonts_params, array(
+			array(
+				'type' => 'textfield',
+				'heading' => __( 'Extra class name', 'js_composer' ),
+				'param_name' => 'el_class',
+				'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
+			),
+		) ),
+		'post_type' => Vc_Grid_Item_Editor::postType(),
+	),
+	'vc_gitem_post_categories' => array(
+		'name' => __( 'Post Categories', 'js_composer' ),
+		'base' => 'vc_gitem_post_categories',
+		'icon' => 'vc_icon-vc-gitem-post-categories', // @todo change icon ?
+		'category' => __( 'Post', 'js_composer' ),
+		'description' => __( 'Categories of current post', 'js_composer' ),
+		'params' => array(
+			array(
+				'type' => 'checkbox',
+				'heading' => __( 'Add link', 'js_composer' ),
+				'param_name' => 'link',
+				'value' => '',
+				'description' => __( 'Add link to category?', 'js_composer' ),
+			),
+			array(
+				'type' => 'dropdown',
+				'heading' => __( 'Style', 'js_composer' ),
+				'param_name' => 'category_style',
+				'value' => array(
+					__( 'None', 'js_composer' ) => ' ',
+					__( 'Comma', 'js_composer' ) => ', ',
+					__( 'Rounded', 'js_composer' ) => 'filled vc_grid-filter-filled-round-all',
+					__( 'Less Rounded', 'js_composer' ) => 'filled vc_grid-filter-filled-rounded-all',
+					__( 'Border', 'js_composer' ) => 'bordered',
+					__( 'Rounded Border', 'js_composer' ) => 'bordered-rounded vc_grid-filter-filled-round-all',
+					__( 'Less Rounded Border', 'js_composer' ) => 'bordered-rounded-less vc_grid-filter-filled-rounded-all',
+				),
+				'description' => __( 'Select category display style.', 'js_composer' ),
+			),
+			array(
+				'type' => 'dropdown',
+				'heading' => __( 'Color', 'js_composer' ),
+				'param_name' => 'category_color',
+				'value' => getVcShared( 'colors' ),
+				'std' => 'grey',
+				'param_holder_class' => 'vc_colored-dropdown',
+				'dependency' => array(
+					'element' => 'category_style',
+					'value_not_equal_to' => array( ' ', ', ' ),
+				),
+				'description' => __( 'Select category color.', 'js_composer' ),
+			),
+			array(
+				'type' => 'dropdown',
+				'heading' => __( 'Category size', 'js_composer' ),
+				'param_name' => 'category_size',
+				'value' => getVcShared( 'sizes' ),
+				'std' => 'md',
+				'description' => __( 'Select category size.', 'js_composer' ),
+			),
+			array(
+				'type' => 'textfield',
+				'heading' => __( 'Extra class name', 'js_composer' ),
+				'param_name' => 'el_class',
+				'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
+			),
+			array(
+				'type' => 'css_editor',
+				'heading' => __( 'CSS box', 'js_composer' ),
+				'param_name' => 'css',
+				'group' => __( 'Design Options', 'js_composer' ),
+			),
+		),
+		'post_type' => Vc_Grid_Item_Editor::postType(),
+	),
 	'vc_gitem_image' => array(
 		'name' => __( 'Post Image', 'js_composer' ),
 		'base' => 'vc_gitem_image',
@@ -469,7 +564,7 @@ $list = array(
 				'description' => __( 'Border color.', 'js_composer' ),
 				'param_holder_class' => 'vc_colored-dropdown',
 			),
-			$vc_add_css_animation,
+			vc_add_css_animation(),
 			array(
 				'type' => 'textfield',
 				'heading' => __( 'Extra class name', 'js_composer' ),
@@ -610,7 +705,7 @@ $list['vc_single_image'] = array(
 				'value' => 'external_link',
 			),
 		),
-		$vc_add_css_animation,
+		vc_add_css_animation(),
 		array(
 			'type' => 'textfield',
 			'heading' => __( 'Image size', 'js_composer' ),

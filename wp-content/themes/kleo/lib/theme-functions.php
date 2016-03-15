@@ -1,5 +1,5 @@
 <?php
-define( 'KLEO_THEME_VERSION', '4.0.2' );
+define( 'KLEO_THEME_VERSION', '4.0.3' );
 
 /* Configuration array */
 global $kleo_config;
@@ -95,9 +95,9 @@ $theme_args = array(
         array(
 				'name'			=> 'Revolution Slider', // The plugin name
 				'slug'			=> 'revslider', // The plugin slug (typically the folder name)
-				'source'			=> get_template_directory() . '/lib/inc/revslider.zip', // The plugin source
+				'source'			=> 'http://seventhqueen.com/support/files/kleo/plugins/revslider.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '5.1.6', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> kleo_get_plugin_version('revslider', '5.2.1'), // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -115,9 +115,9 @@ $theme_args = array(
         array(
             'name'			=> 'Go Pricing', // The plugin name
             'slug'			=> 'go_pricing', // The plugin slug (typically the folder name)
-            'source'			=> get_template_directory() . '/lib/inc/go_pricing.zip', // The plugin source
+            'source'			=> 'http://seventhqueen.com/support/files/kleo/plugins/go_pricing.zip', // The plugin source
             'required'			=> false, // If false, the plugin is only 'recommended' instead of required
-            'version'			=> '3.2.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+            'version'			=> kleo_get_plugin_version('go_pricing', '3.2.1'), // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
             'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
             'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
             'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -202,6 +202,37 @@ $theme_args = array(
 //instance of our theme framework
 global $kleo_theme;
 $kleo_theme = new Kleo($theme_args);
+
+
+/**
+ * @param string $name Plugin name
+ * @param string $version Default version in case of error
+ *
+ * @return mixed|string
+ */
+function kleo_get_plugin_version( $name, $version ) {
+
+	$final_version = $version;
+
+	if( get_transient( 'kleo_'. $name ) ) {
+		$final_version = get_transient('kleo_'. $name);
+	} else {
+		$version_get = wp_remote_get( 'http://seventhqueen.com/support/files/kleo/plugins/plugin_version.php?name='. $name );
+		// Check for error
+		if ( ! is_wp_error( $version_get ) ) {
+			$url_version = wp_remote_retrieve_body( $version_get );
+
+			// Check for error
+			if ( ! is_wp_error( $url_version ) ) {
+				$final_version = $url_version;
+
+				set_transient( 'kleo_'. $name, $url_version, 86400 );
+			}
+		}
+	}
+
+	return $final_version;
+}
 
 
 
@@ -2499,3 +2530,17 @@ function kleo_remove_hentry_on_pages( $classes ) {
 	return $classes;
 }
 add_filter( 'post_class','kleo_remove_hentry_on_pages' );
+
+
+
+/* Re-enable theme auto-update for Go Pricing Tables */
+add_action( 'admin_init', 'kleo_go_pricing_enable_updates', 11 );
+
+function kleo_go_pricing_enable_updates() {
+	if (class_exists('GW_GoPricing_Update')) {
+		remove_filter( 'pre_set_site_transient_update_plugins', array(
+			GW_GoPricing_Update::instance(),
+			'check_update'
+		) );
+	}
+}

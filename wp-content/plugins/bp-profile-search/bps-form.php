@@ -63,15 +63,9 @@ function bps_display_form ($form, $template='', $location='')
 		return false;
 	}
 
-	$version = BPS_VERSION;
 	if (empty ($template))  $template = bps_default_template ();
-	bps_set_request_data ($form, $location);
-
-	echo "\n<!-- BP Profile Search $version $form $template $location -->\n";
-	$found = bp_get_template_part ($template);
-	if (!$found)  printf ('<p class="bps_error">'. __('%s: The form template "%s" was not found.', 'bp-profile-search'). '</p>',
-		'<strong>BP Profile Search '. BPS_VERSION. '</strong>', $template);
-	echo "\n<!-- BP Profile Search $version $form $template $location - end -->\n";
+	bps_set_template_args ($form, $location);
+	bps_call_template ($template);
 
 	return true;
 }
@@ -79,163 +73,13 @@ function bps_display_form ($form, $template='', $location='')
 add_action ('bp_before_directory_members_content', 'bps_display_filters');
 function bps_display_filters ()
 {
-	$request = bps_get_request ();
-	if (empty ($request))  return false;
+	$form = bps_active_form ();
+	if ($form === false)  return false;
 
-	$version = BPS_VERSION;
-	$form = $request['bp_profile_search'];
-	$template = 'members/bps-filters';
-	$location = 'filters';
-	bps_set_request_data ($form, $location);
-
-	echo "\n<!-- BP Profile Search $version $form $template $location -->\n";
-	$found = bp_get_template_part ($template);
-	if (!$found)  printf ('<p class="bps_error">'. __('%s: The filters template "%s" was not found.', 'bp-profile-search'). '</p>',
-		'<strong>BP Profile Search '. BPS_VERSION. '</strong>', $template);
-	echo "\n<!-- BP Profile Search $version $form $template $location - end -->\n";
+	bps_set_template_args ($form, 'filters');
+	bps_call_template ('members/bps-filters');
 
 	return true;
-}
-
-function bps_set_request_data ($form, $location)
-{
-	global $bps_request_data;
-
-	$meta = bps_meta ($form);
-	list ($x, $fields) = bps_get_fields ();
-	$request = stripslashes_deep ($_REQUEST);
-
-	$F = new stdClass;
-	$F->id = $form;
-	$F->location = $location;
-	$F->header = $meta['header'];
-	$F->toggle = ($meta['toggle'] == 'Enabled');
-	$F->toggle_text = $meta['button'];
-
-	$F->action = get_page_link (bps_wpml_id ($meta['action']));
-	$F->method = $meta['method'];
-	$F->fields = array ();
-
-	foreach ($meta['field_name'] as $k => $id)
-	{
-		if (empty ($fields[$id]))  continue;
-
-		$field = $fields[$id];
-
-		$f = new stdClass;
-		$f->id = $id;
-		$f->name = $field->name;
-		$f->type = $field->type;
-		$f->type = apply_filters ('bps_field_criteria_type', $f->type, $field);	// deprecated
-		$f->type = apply_filters ('bps_field_html_type', $f->type, $field);	// deprecated
-		$f->type = apply_filters ('bps_field_request_data_type', $f->type, $field);	// deprecated
-		$f->type = apply_filters ('bps_field_type_for_filters', $f->type, $field);
-		$f->type = apply_filters ('bps_field_type_for_search_form', $f->type, $field);
-		$f->display = $f->type;
-
-		$f->label = $custom_label = bps_wpml ($form, $id, 'label', $meta['field_label'][$k]);
-		if (empty ($f->label))  $f->label = bps_wpml ($form, $id, 'name', $field->name);
-
-		$f->description = bps_wpml ($form, $id, 'comment', $meta['field_desc'][$k]);
-		if (empty ($f->description))  $f->description = bps_wpml ($form, $id, 'description', $field->description);
-
-		$range = isset ($meta['field_range'][$k]);
-		$f->code = 'field_'. $f->id;
-		$f->value = '';
-		$f->values = array ();
-		$f->options = array ();
-
-		if ($range)
-		{
-			$f->display = 'range';
-			list ($f->min, $f->max) = bps_minmax ($request, $f->id, $f->type);
-		}
-		else switch ($f->type)
-		{
-		case 'textbox':
-		case 'number':
-		case 'url':
-		case 'textarea':
-			$f->value = isset ($request[$f->code])? $request[$f->code]: '';
-			break;
-
-		case 'selectbox':
-		case 'radio':
-		case 'multiselectbox':
-		case 'checkbox':
-			$f->values = isset ($request[$f->code])? (array)$request[$f->code]: array ();
-			$f->options = bps_field_options ($f->id);
-			foreach ($f->options as $key => $label)
-				$f->options[$key] = bps_wpml ($form, $f->id, 'option', $label);
-			break;
-		}
-
-		$f = apply_filters ('bps_field_request_data', $f);
-		$f = apply_filters ('bps_field_data_for_filters', $f);
-		$f = apply_filters ('bps_field_data_for_search_form', $f);
-		$F->fields[] = $f;
-
-		if (!empty ($custom_label))
-		{
-			$cl = clone $f;
-			$cl->display = 'hidden';
-			$cl->code = 'field_'. $f->id. '_label';
-			$cl->value = $custom_label;
-			$F->fields[] = $cl;
-		}
-	}
-
-	$ts = new stdClass;
-	$ts->display = 'hidden';
-	$ts->code = 'text_search';
-	$ts->value = $meta['searchmode'];
-	$ts->name = $ts->label = $ts->description = '';
-	$ts->values = $ts->options = array ();
-	$F->fields[] = $ts;
-
-	$bps_request_data = $F;
-	return true;
-}
-
-function bps_request_data ()
-{
-	global $bps_request_data;
-
-	$F = $bps_request_data;
-	return apply_filters ('bps_request_data', $F);
-}
-
-function bps_escaped_filters_data ()
-{
-	return bps_escaped_request_data ();
-}
-
-function bps_escaped_form_data ()
-{
-	return bps_escaped_request_data ();
-}
-
-function bps_escaped_request_data ()
-{
-	$F = bps_request_data ();
-
-	$F->toggle_text = esc_attr ($F->toggle_text);
-
-	foreach ($F->fields as $f)
-	{
-		$f->value = esc_attr ($f->value);
-		if ($f->display == 'hidden')  continue;
-
-		$f->name = esc_attr ($f->name);
-		$f->label = esc_attr ($f->label);
-		$f->description = esc_attr ($f->description);
-		foreach ($f->values as $k => $value)  $f->values[$k] = esc_attr ($value);
-		$options = array ();
-		foreach ($f->options as $key => $label)  $options[esc_attr ($key)] = esc_attr ($label);
-		$f->options = $options;
-	}
-
-	return apply_filters ('bps_escaped_request_data', $F);
 }
 
 function bps_set_wpml ($form, $code, $key, $value)
@@ -403,4 +247,157 @@ add_action ('widgets_init', 'bps_widget_init');
 function bps_widget_init ()
 {
 	register_widget ('bps_widget');
+}
+
+function bps_escaped_form_data ()
+{
+	list ($form, $location) = bps_template_args ();
+
+	$meta = bps_meta ($form);
+	list ($x, $fields) = bps_get_fields ();
+
+	$F = new stdClass;
+	$F->id = $form;
+	$F->location = $location;
+	$F->header = $meta['header'];
+	$F->toggle = ($meta['toggle'] == 'Enabled');
+	$F->toggle_text = $meta['button'];
+	if ($location == 'directory')
+		$F->action = parse_url ($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+	else
+		$F->action = get_page_link (bps_wpml_id ($meta['action']));
+	
+	$F->method = $meta['method'];
+	$F->fields = array ();
+
+	foreach ($meta['field_name'] as $k => $id)
+	{
+		if (empty ($fields[$id]))  continue;
+
+		$f = clone $fields[$id];
+		if (isset ($meta['field_range'][$k]))  $f->display = 'range';
+		if (empty ($f->display))
+		{
+			$f->display = apply_filters ('bps_field_type_for_filters', $f->type, $f);
+			$f->display = apply_filters ('bps_field_type_for_search_form', $f->display, $f);
+		}
+
+		$f->label = $f->name;
+		$custom_label = bps_wpml ($form, $f->id, 'label', $meta['field_label'][$k]);
+		if (!empty ($custom_label))  $f->label = $custom_label;
+
+		$custom_desc = bps_wpml ($form, $id, 'comment', $meta['field_desc'][$k]);
+		if ($custom_desc == '-')
+			$f->description = '';
+		else if (!empty ($custom_desc))
+			$f->description = $custom_desc;
+
+		if ($form != bps_active_form () || !isset ($f->filter))
+		{
+			$f->min = $f->max = $f->value = '';
+			$f->values = array ();
+		}
+
+		$f = apply_filters ('bps_field_data_for_filters', $f);
+		$f = apply_filters ('bps_field_data_for_search_form', $f);
+		$F->fields[] = $f;
+
+		if (!empty ($custom_label))
+			$F->fields[] = bps_set_hidden_field ($f->code. '_label', $custom_label);
+	}
+
+	$F->fields[] = bps_set_hidden_field ('text_search', $meta['searchmode']);
+//	$F->fields[] = bps_set_hidden_field ('bp_profile_search', $form);
+
+	$F = apply_filters ('bps_search_form_data', $F);
+
+	$F->toggle_text = esc_attr ($F->toggle_text);
+	foreach ($F->fields as $f)
+	{
+		if (!is_array ($f->value))  $f->value = esc_attr (stripslashes ($f->value));
+		if ($f->display == 'hidden')  continue;
+
+		$f->label = esc_attr ($f->label);
+		$f->description = esc_attr ($f->description);
+		foreach ($f->values as $k => $value)  $f->values[$k] = esc_attr (stripslashes ($value));
+		$options = array ();
+		foreach ($f->options as $key => $label)  $options[esc_attr ($key)] = esc_attr ($label);
+		$f->options = $options;
+	}
+
+	return $F;
+}
+
+function bps_escaped_filters_data ()
+{
+	$F = new stdClass;
+	$F->action = parse_url ($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+	$F->fields = array ();
+
+	list ($x, $fields) = bps_get_fields ();
+	foreach ($fields as $field)
+	{
+		if (!isset ($field->filter))  continue;
+
+		$f = clone $field;
+		if ($f->filter == 'range')  $f->display = 'range';
+		if (empty ($f->display))
+		{
+			$f->display = apply_filters ('bps_field_type_for_filters', $f->type, $f);
+			$f->display = apply_filters ('bps_field_type_for_search_form', $f->display, $f);
+		}
+
+		if (empty ($f->label))  $f->label = $f->name;
+
+		$f = apply_filters ('bps_field_data_for_filters', $f);
+		$f = apply_filters ('bps_field_data_for_search_form', $f);
+		$F->fields[] = $f;
+	}
+
+	$F = apply_filters ('bps_filters_data', $F);
+
+	foreach ($F->fields as $f)
+	{
+		$f->label = esc_attr ($f->label);
+		if (!is_array ($f->value))  $f->value = esc_attr (stripslashes ($f->value));
+		foreach ($f->values as $k => $value)  $f->values[$k] = stripslashes ($value);
+
+		foreach ($f->options as $key => $label)  $f->options[$key] = esc_attr ($label);
+	}
+
+	return $F;
+}
+
+function bps_set_template_args ()
+{
+	$GLOBALS['bps_template_args'] = func_get_args ();
+}
+
+function bps_template_args ()
+{
+	return $GLOBALS['bps_template_args'];
+}
+
+function bps_call_template ($template)
+{
+	$version = BPS_VERSION;
+	$args = implode (', ', bps_template_args ());
+
+	echo "\n<!-- BP Profile Search $version $template ($args) -->\n";
+	$found = bp_get_template_part ($template);
+	if (!$found)  printf ('<p class="bps_error">'. __('%s: Template "%s" not found.', 'bp-profile-search'). '</p>',
+		"<strong>BP Profile Search $version</strong>", $template);
+	echo "\n<!-- BP Profile Search $version $template ($args) - end -->\n";
+
+	return true;
+}
+
+function bps_set_hidden_field ($code, $value)
+{
+	$new = new stdClass;
+	$new->display = 'hidden';
+	$new->code = $code;
+	$new->value = $value;
+
+	return $new;
 }

@@ -11,9 +11,6 @@ require_once vc_path_dir( 'PARAMS_DIR', 'vc_grid_item/editor/popups/class-vc-tem
 $templates_editor = new Vc_Templates_Editor_Grid_Item();
 $templates_editor->renderUITemplate();
 
-require_once vc_path_dir( 'EDITORS_DIR', 'popups/class-vc-edit-layout.php' );
-$edit_layout = new Vc_Edit_Layout();
-$edit_layout->render();
 $grid_item = new Vc_Grid_Item();
 $shortcodes = $grid_item->shortcodes();
 
@@ -40,7 +37,7 @@ if ( vc_user_access()->part( 'presets' )->can()->get() ) {
 	<script type="text/html" id="vc_settings-image-block">
 		<li class="added">
 			<div class="inner" style="width: 80px; height: 80px; overflow: hidden;text-align: center;">
-				<img rel="<%= id %>" src="<%= url %>"/>
+				<img rel="{{ id }}" src="<# if(sizes && sizes.thumbnail) { #>{{ sizes.thumbnail.url }}<# } else {#>{{ url }}<# } #>"/>
 			</div>
 			<a href="#" class="vc_icon-remove"></a>
 		</li>

@@ -286,3 +286,15 @@ $.fn.kleo_general_onebyone = function(options)
 	};
 	
 })( jQuery );
+
+
+
+(function($) {
+	$(document).ready(function () {
+		$(document).on('click', '.kleo-open-href', function(e) {
+			if( $(this).attr('data-href') != '' ){
+				window.location.href = $(this).attr('data-href');
+			}
+		});
+	});
+})( jQuery );

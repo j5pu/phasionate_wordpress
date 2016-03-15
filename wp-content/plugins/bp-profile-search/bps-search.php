@@ -11,14 +11,25 @@ function bps_set_cookie ()
 
 function bps_get_request ()
 {
+	$request = array ();
 	if (isset ($_REQUEST['bp_profile_search']))
 		$request = $_REQUEST;
 	else if (isset ($_COOKIE['bps_request']) && defined ('DOING_AJAX'))
 		$request = unserialize (stripslashes ($_COOKIE['bps_request']));
-	else
-		$request = array ();
 
 	return apply_filters ('bps_request', $request);
+}
+
+function bps_active_form ()
+{
+	$request = bps_get_request ();
+	return isset ($request['bp_profile_search'])? $request['bp_profile_search']: false;
+}
+
+function bps_text_search ()
+{
+	$request = bps_get_request ();
+	return isset ($request['text_search'])? $request['text_search']: '';
 }
 
 function bps_minmax ($request, $id, $type)
@@ -35,13 +46,13 @@ function bps_minmax ($request, $id, $type)
 	return array ($min, $max);
 }
 
-function bps_search ($request)
+function bps_search ()
 {
 	global $bp, $wpdb;
 
 	$results = array ('users' => array (0), 'validated' => true);
 
-	$F = bps_query_data ($request);
+	$F = bps_query_data ();
 	foreach ($F->fields as $field)
 	{
 		$id = $field->id;
@@ -103,7 +114,7 @@ function bps_search ($request)
 				case 'url':
 					$value = str_replace ('&', '&amp;', $value);
 					$escaped = '%'. bps_esc_like ($value). '%';
-					switch ($request['text_search'])
+					switch (bps_text_search ())
 					{
 					default:	// contains
 						$sql .= $wpdb->prepare ("AND value LIKE %s", $escaped);
@@ -166,15 +177,13 @@ function bps_search ($request)
 	return $results;
 }
 
-add_action ('bp_ajax_querystring', 'bps_filter_members', 30, 2);
-function bps_filter_members ($qs=false, $object=false)
+add_action ('bp_ajax_querystring', 'bps_filter_members', 99, 2);
+function bps_filter_members ($qs, $object)
 {
 	if ($object != 'members')  return $qs;
+	if (bps_active_form () === false)  return $qs;
 
-	$request = bps_get_request ();
-	if (empty ($request))  return $qs;
-
-	$bps_results = bps_search ($request);
+	$bps_results = bps_search ();
 	if ($bps_results['validated'])
 	{
 		$args = wp_parse_args ($qs);
@@ -200,49 +209,66 @@ function bps_esc_like ($text)
     return addcslashes ($text, '_%\\');
 }
 
-function bps_query_data ($request)
+function bps_query_data ()
 {
+	list ($x, $fields) = bps_get_fields ();
+
 	$F = new stdClass;
 	$F->fields = array ();
 
-	list ($x, $fields) = bps_get_fields ();
+	foreach ($fields as $f)
+		if (isset ($f->filter))  $F->fields[] = $f;
+
+	return $F;
+}
+
+function bps_parse_request ($fields)
+{
+	$request = bps_get_request ();
 	foreach ($request as $key => $value)
 	{
 		if ($value === '')  continue;
 
 		$k = bps_match_key ($key, $fields);
-		if ($k == 0)  continue;
+		if ($k === false)  continue;
 
-		if (!isset ($F->fields[$k]))  $F->fields[$k] = clone $fields[$k];
-		$f = $F->fields[$k];
-
+		$f = $fields[$k];
 		$filter = substr ($key, strlen ($f->code));
 		switch ($filter)
 		{
 		case '':
 			$f->filter = 'default';
 			$f->value = $value;
+			$f->values = (array)$f->value;
+			$f->min = $f->max = '';
 			break;
 		case '_min':
 			if (!is_numeric ($value))  break;
 			$f->filter = 'range';
 			$f->min = $value;
+			if ($f->type == 'datebox')  $f->min = (int)$f->min;
+			if ($f->type == 'birthdate')  $f->min = (int)$f->min;
+			if (!isset ($f->max))  $f->max = '';
+			$f->value = '';
+			$f->values = array ();
 			break;
 		case '_max':
 			if (!is_numeric ($value))  break;
 			$f->filter = 'range';
 			$f->max = $value;
+			if ($f->type == 'datebox')  $f->max = (int)$f->max;
+			if ($f->type == 'birthdate')  $f->max = (int)$f->max;
+			if (!isset ($f->min))  $f->min = '';
+			$f->value = '';
+			$f->values = array ();
 			break;
 		case '_label':
-			$f->label = $value;
+			$f->label = stripslashes ($value);
 			break;
 		}
 	}
 
-	foreach ($F->fields as $k => $f)
-		if (!isset ($f->filter))  unset ($F->fields[$k]);
-
-	return $F;
+	return true;
 }
 
 function bps_match_key ($key, $fields)
@@ -250,5 +276,5 @@ function bps_match_key ($key, $fields)
 	foreach ($fields as $k => $f)
 		if ($key == $f->code || strpos ($key, $f->code. '_') === 0)  return $k;
 
-	return 0;
+	return false;
 }

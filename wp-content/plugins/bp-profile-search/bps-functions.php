@@ -2,6 +2,7 @@
 include 'bps-form.php';
 include 'bps-help.php';
 include 'bps-search.php';
+include 'bps-xprofile.php';
 
 function bps_admin_js ()
 {
@@ -145,6 +146,7 @@ function bps_get_fields ()
 		$groups[$f->group][] = array ('id' => $f->id, 'name' => $f->name);
 		$fields[$f->id] = $f;
 	}
+	bps_parse_request ($fields);
 
 	return array ($groups, $fields);
 }
@@ -191,11 +193,17 @@ function bps_xprofile_setup ($fields)
 				$f->id = $field->id;
 				$f->code = 'field_'. $field->id;
 				$f->name = str_replace ('&amp;', '&', stripslashes ($field->name));
+				$f->name = bps_wpml (0, $f->id, 'name', $f->name);
 				$f->description = str_replace ('&amp;', '&', stripslashes ($field->description));
+				$f->description = bps_wpml (0, $f->id, 'description', $f->description);
 				$f->type = $field->type;
-				$f->display = $field->type;
-				$f->options = bps_field_options ($field->id);
-				$f->format = isset ($format[$field->type])? $format[$field->type]: $field->type;
+				$f->options = bps_xprofile_options ($field->id);
+				foreach ($f->options as $key => $label)  $f->options[$key] = bps_wpml (0, $f->id, 'option', $label);
+				if (isset ($format[$field->type]))
+				{
+					$f->display = $field->type;
+					$f->format = $format[$field->type];
+				}
 				$f->search = 'bps_xprofile_search';
 
 				$fields[] = $f;
@@ -223,7 +231,7 @@ function bps_get_widget ($form)
 	return count ($titles)? implode ('<br/>', $titles): __('unused', 'bp-profile-search');
 }
 
-function bps_field_options ($id)
+function bps_xprofile_options ($id)
 {
 	static $options = array ();
 

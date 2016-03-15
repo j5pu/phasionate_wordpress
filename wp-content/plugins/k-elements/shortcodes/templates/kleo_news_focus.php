@@ -18,6 +18,7 @@ extract( shortcode_atts( array(
     'name' => '',
     'featured' => 1,
     'posts_query' => '',
+    'query_offset' => '0',
     'el_class' => '',
 ), $atts ) );
 
@@ -28,6 +29,10 @@ if ( $featured < 1 ) {
 $el_class = ( $el_class != '' ) ? 'news-focus ' . esc_attr( $el_class ) : 'news-focus';
 
 list( $args, $my_query ) = vc_build_loop_query( $posts_query );
+
+if ( (int)$query_offset > 0 ) {
+    $args['offset'] = $query_offset;
+}
 
 $main_args = $args;
 

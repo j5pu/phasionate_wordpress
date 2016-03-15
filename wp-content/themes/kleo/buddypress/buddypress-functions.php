@@ -2079,12 +2079,13 @@ function filter_message_button_link( $link = '' ) {
 }
 function kleo_bp_dir_send_private_message_button() {
 	if( bp_get_member_user_id() != bp_loggedin_user_id() ) {
-		//add_filter('bp_get_send_private_message_link', 'filter_message_button_link', 1, 1 );
+		add_filter('bp_get_send_private_message_link', 'filter_message_button_link', 1, 1 );
+		add_filter('bp_get_send_message_button_args', 'kleo_bp_private_msg_args');
 		bp_send_message_button();
 	}
 }
 
-add_filter('bp_get_send_message_button_args', 'kleo_bp_private_msg_args');
+
 /**
  * Override default BP private message button to work on Friends tab
  * @since 2.2

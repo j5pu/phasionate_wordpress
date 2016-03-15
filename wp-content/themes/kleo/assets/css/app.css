@@ -10465,3 +10465,5 @@ h4.kb-section-name i.icon {
 	background: rgba(0,0,0, 0.8);
 	color: rgba(255,255,255, 0.8);
 }
+
+.kleo-register-inline .col-sm-12{ position: initial; }

@@ -58,6 +58,7 @@ if ( 'nivo' === $type ) {
 } elseif ( 'image_grid' === $type ) {
 	wp_enqueue_script( 'vc_grid-js-imagesloaded' );
 	wp_enqueue_script( 'isotope' );
+	wp_enqueue_style( 'isotope-css' );
 
 	$el_start = '<li class="isotope-item">';
 	$el_end = '</li>';
@@ -88,6 +89,7 @@ if ( '' === $images ) {
 $pretty_rel_random = ' rel="prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']"';
 
 if ( 'custom_link' === $onclick ) {
+	$custom_links = vc_value_from_safe( $custom_links );
 	$custom_links = explode( ',', $custom_links );
 }
 
@@ -97,7 +99,9 @@ switch ( $source ) {
 		break;
 
 	case 'external_link':
-		$images = explode( ',', $custom_srcs );
+		$images = vc_value_from_safe( $custom_srcs );
+		$images = explode( ',', $images );
+
 		break;
 }
 foreach ( $images as $i => $image ) {

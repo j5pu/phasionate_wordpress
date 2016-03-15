@@ -21,8 +21,9 @@ extract(
 		'item_width' => 150,
 		'image_size' => 'full',
 		'class' => '',
-		'rounded' => "rounded"
-	), $atts ) 
+		'rounded' => "rounded",
+		'autoplay' => ''
+	), $atts )
 );
 
 $params = array(

@@ -15,6 +15,7 @@ $output = '';
 extract(
 	shortcode_atts( array(
 		'type' => 'newest',
+        'member_type' => 'all',
 		'number' => 10,
 		'min_items' => 1,
 		'max_items' => 6,
@@ -29,6 +30,7 @@ extract(
 
 $params = array(
 	'type' => $type,
+    'scope' => $member_type,
 	'per_page' => $number
 );
 if ($rounded == 'rounded') {

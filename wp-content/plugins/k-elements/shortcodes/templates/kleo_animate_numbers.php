@@ -9,16 +9,20 @@
  * @since K Elements 1.0
  */
 
-$output = '';
+$output = $timer = $element = $el_class = '';
 wp_enqueue_script( 'waypoints' );
 
 extract(shortcode_atts(array(
-		'timer' => '',
-		'animation' => 'animate-when-almost-visible',
-		'el_class' => ''
+	'timer' => '',
+	'element' => 'span',
+	'font_size' => '',
+	'font_weight' => '',
+	'animation' => 'animate-when-almost-visible',
+	'el_class' => ''
 ), $atts));
 
 $data_attr = '';
+$style = array();
 $class = esc_attr($el_class);
 
 if ( $animation != '' ) {
@@ -29,6 +33,18 @@ if ($timer != '') {
 	$data_attr .= ' data-timer="'. (int)$timer .'"';
 }
 
-$inner_content = do_shortcode($content);
+if ($font_size != '') {
+	$style[] ='font-size: ' . kleo_set_default_unit( $font_size );
+}
 
-$output = '<span data-number="'.(int)$inner_content.'" class="'.$class.'"'.$data_attr.'>' . (int)$inner_content . '</span>';
+if ($font_weight != '') {
+	$style[] ='font-weight: ' . $font_weight;
+}
+
+if (! empty( $style )) {
+	$data_attr .= ' style="' . implode( ';', $style ) . '"';
+}
+
+$inner_content = do_shortcode( $content );
+
+$output = '<' . $element . ' data-number="'.(int)$inner_content.'" class="'.$class.'"'.$data_attr.'>' . (int)$inner_content . '</' . $element . '>';

@@ -15,6 +15,7 @@ $output = $anim1 = '';
 extract( 
 	shortcode_atts( array(
 			'type' => 'newest',
+			'member_type' => 'all',
 			'number' => 12,
 			'perline' => '',
 			'animation' => '',
@@ -25,6 +26,7 @@ extract(
 
 $params = array(
 	'type' => $type,
+	'scope' => $member_type,
 	'per_page' => $number,
 
 );

@@ -12,12 +12,12 @@
 
 $output = '';
 extract( shortcode_atts( array(
-	'class'  => '',
+	'el_class'  => '',
 	'type'   => '',
 	'inline' => ''
 ), $atts ) );
 
-$class = ( $class != '' ) ? 'kleo-visibility ' . esc_attr( $class ) : 'kleo-visibility';
+$class = ( $el_class != '' ) ? 'kleo-visibility ' . esc_attr( $el_class ) : 'kleo-visibility';
 $class .= ( $type  != '' ) ? " ".str_replace(',', ' ', $type) : '';
 
 $output = "<div class=\"{$class}\">" . do_shortcode( $content ) . "</div>";

@@ -9,6 +9,7 @@
  * @since K Elements 1.0
  */
 
+$style = $el_class = $colored_icons = $bordered_icons = '';
 
 extract( shortcode_atts( array(
 		'el_class' => '',
@@ -38,7 +39,7 @@ $col = floor(12/$type);
 
 //Find items
 $innersh = '';
-$sh = preg_match_all('~\[kleo_feature_item(.*?)?\](?:(.+?)?\[\/kleo_feature_item\])~s', $content, $childs);
+$sh = preg_match_all('~\[(\[?)(kleo_feature_item)(?![\w-])([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]*+(?:\[(?!\/\2\])[^\[]*+)*+)\[\/\2\])?)(\]?)~s', $content, $childs);
 
 if( $sh && isset( $childs[0] ) && ! empty( $childs[0] )) {
 

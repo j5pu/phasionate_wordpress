@@ -83,17 +83,17 @@ $k_elements = array(
     'kleo_bp_members_carousel' => array(
         'name' => 'Members Carousel',
         'category' => 'buddypress',
-        'example' => '[kleo_bp_members_carousel type="newest" number="12" min_items="1" max_items="6" item_width="150" image_size="full" rounded="rounded" online="show" class=""]'
+        'example' => '[kleo_bp_members_carousel member_type="all" type="newest" number="12" min_items="1" max_items="6" item_width="150" image_size="full" rounded="rounded" online="show" class=""]'
     ),
     'kleo_bp_members_grid' => array(
         'name' => 'Members Grid',
         'category' => 'buddypress',
-        'example' => '[kleo_bp_members_grid type="newest" number="12" size="150" class=""]'
+        'example' => '[kleo_bp_members_grid member_type="all" type="newest" number="12" size="150" class=""]'
     ),
     'kleo_bp_members_masonry' => array(
         'name' => 'Members Masonry',
         'category' => 'buddypress',
-        'example' => '[kleo_bp_members_masonry type="newest" number="12" rounded="rounded" class=""]'
+        'example' => '[kleo_bp_members_masonry member_type="all" type="newest" number="12" rounded="rounded" class=""]'
     ),
     'kleo_bp_groups_carousel' => array(
         'name' => 'Groups Carousel',
@@ -149,6 +149,26 @@ $k_elements = array(
         'name' => 'News Ticker',
         'category' => '',
         'example' => '[kleo_news_ticker]'
+    ),
+	'kleo_login' => array(
+        'name' => 'Login / Lost Password Forms',
+        'category' => '',
+        'example' => '[kleo_login show="login|lostpass" login_title="Log in with your credentials" lostpass_title="Forgot your details?" login_link="#|url" lostpass_link="#|url" register_url="hide|url"]'
+    ),
+	'kleo_register' => array(
+        'name' => 'Register Form',
+        'category' => '',
+        'example' => '[kleo_register register_title="Create Account"]'
+    ),
+	'kleo_social_share' => array(
+		'name' => 'Kleo Social Share',
+		'category' => '',
+		'example' => '[kleo_social_share]'
+	),
+    'kleo_magic_container' => array(
+	    'name' => 'Magic Container',
+	    'category' => '',
+	    'example' => '[kleo_magic_container]'
     ),
 );
 
@@ -1827,4 +1847,211 @@ function kleo_news_ticker_mce($args) {
         "code" => $shortcode["example"]
     );
     return $args;
+}
+
+
+
+/**
+ * Login / Lost Password Forms shortcode
+ */
+
+add_shortcode( "kleo_login", "kleo_login_func");
+add_filter('kleo_tinymce_shortcodes', "kleo_login_mce");
+
+
+function kleo_login_func( $atts, $content = null ) {
+
+	global $kleo_config;
+	$shortcode = $kleo_config['shortcodes']['kleo_login'];
+	$output = '';
+
+	if(! isset($shortcode)) {
+		return;
+	}
+
+	$sh_category = '';
+	if ( isset($shortcode['category']) && !empty($shortcode['category']) ) {
+		$sh_category = trailingslashit($shortcode['category']);
+	}
+	$shortcode_path = $sh_category .'kleo_login';
+
+	if(find_shortcode_template( $shortcode_path )) {
+		include find_shortcode_template( $shortcode_path );
+	} else {
+		$output = kleo_shortcode_not_found();
+	}
+
+	return $output;
+}
+
+function kleo_login_mce($args) {
+
+	global $kleo_config;
+	$shortcode = $kleo_config['shortcodes']['kleo_login'];
+	if(!isset($shortcode)) {
+		return $args;
+	}
+
+	$shortcode = $kleo_config['shortcodes']['kleo_login'];
+
+	$args[$shortcode["category"]][] = array(
+		"name" => $shortcode["name"],
+		"category" => $shortcode["category"],
+		"code" => $shortcode["example"]
+	);
+	return $args;
+}
+
+/**
+ * Register Form shortcode
+ */
+
+add_shortcode( "kleo_register", "kleo_register_func");
+add_filter('kleo_tinymce_shortcodes', "kleo_register_mce");
+
+
+function kleo_register_func( $atts, $content = null ) {
+
+	global $kleo_config;
+	$shortcode = $kleo_config['shortcodes']['kleo_register'];
+	$output = '';
+
+	if(! isset($shortcode)) {
+		return;
+	}
+
+	$sh_category = '';
+	if ( isset($shortcode['category']) && !empty($shortcode['category']) ) {
+		$sh_category = trailingslashit($shortcode['category']);
+	}
+	$shortcode_path = $sh_category .'kleo_register';
+
+	if(find_shortcode_template( $shortcode_path )) {
+		include find_shortcode_template( $shortcode_path );
+	} else {
+		$output = kleo_shortcode_not_found();
+	}
+
+	return $output;
+}
+
+function kleo_register_mce($args) {
+
+	global $kleo_config;
+	$shortcode = $kleo_config['shortcodes']['kleo_register'];
+	if(!isset($shortcode)) {
+		return $args;
+	}
+
+	$shortcode = $kleo_config['shortcodes']['kleo_register'];
+
+	$args[$shortcode["category"]][] = array(
+		"name" => $shortcode["name"],
+		"category" => $shortcode["category"],
+		"code" => $shortcode["example"]
+	);
+	return $args;
+}
+
+/**
+ * Kleo Social Share shortcode
+ */
+
+add_shortcode( "kleo_social_share", "kleo_social_share_func");
+add_filter('kleo_tinymce_shortcodes', "kleo_social_share_mce");
+
+
+function kleo_social_share_func( $atts, $content = null ) {
+
+	global $kleo_config;
+	$shortcode = $kleo_config['shortcodes']['kleo_social_share'];
+	$output = '';
+
+	if(! isset($shortcode)) {
+		return;
+	}
+
+	$sh_category = '';
+	if ( isset($shortcode['category']) && !empty($shortcode['category']) ) {
+		$sh_category = trailingslashit($shortcode['category']);
+	}
+	$shortcode_path = $sh_category .'kleo_social_share';
+
+	if(find_shortcode_template( $shortcode_path )) {
+		include find_shortcode_template( $shortcode_path );
+	} else {
+		$output = kleo_shortcode_not_found();
+	}
+
+	return $output;
+}
+
+function kleo_social_share_mce($args) {
+
+	global $kleo_config;
+	$shortcode = $kleo_config['shortcodes']['kleo_social_share'];
+	if(!isset($shortcode)) {
+		return $args;
+	}
+
+	$shortcode = $kleo_config['shortcodes']['kleo_social_share'];
+
+	$args[$shortcode["category"]][] = array(
+		"name" => $shortcode["name"],
+		"category" => $shortcode["category"],
+		"code" => $shortcode["example"]
+	);
+	return $args;
+}
+
+
+/**
+ * Magic Container
+ */
+
+add_shortcode( "kleo_magic_container", "kleo_magic_container_func");
+add_filter('kleo_tinymce_shortcodes', "kleo_magic_container_mce");
+
+
+function kleo_magic_container_func( $atts, $content = null ) {
+
+	global $kleo_config;
+	$shortcode = $kleo_config['shortcodes']['kleo_magic_container'];
+	$output = '';
+
+	if(! isset($shortcode)) {
+		return;
+	}
+
+	$sh_category = '';
+	if ( isset($shortcode['category']) && !empty($shortcode['category']) ) {
+		$sh_category = trailingslashit($shortcode['category']);
+	}
+	$shortcode_path = $sh_category .'kleo_magic_container';
+
+	if(find_shortcode_template( $shortcode_path )) {
+		include find_shortcode_template( $shortcode_path );
+	} else {
+		$output = kleo_shortcode_not_found();
+	}
+
+	return $output;
+}
+
+function kleo_magic_container_mce($args) {
+
+	global $kleo_config;
+	$shortcode = $kleo_config['shortcodes']['kleo_magic_container'];
+	if(!isset($shortcode)) {
+		return $args;
+	}
+
+	$shortcode = $kleo_config['shortcodes']['kleo_magic_container'];
+
+	$args[$shortcode["category"]][] = array(
+		"name" => $shortcode["name"],
+		"category" => $shortcode["category"],
+		"code" => $shortcode["example"]
+	);
+	return $args;
 }

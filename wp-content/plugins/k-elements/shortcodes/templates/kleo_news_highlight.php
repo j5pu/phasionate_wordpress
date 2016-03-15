@@ -17,6 +17,7 @@ $output = $args = $my_query = $output_inside = '';
 extract( shortcode_atts( array(
     'featured' => 1,
     'posts_query' => '',
+    'query_offset' => '0',
     'el_class' => '',
 ), $atts ) );
 
@@ -28,6 +29,10 @@ if ( $featured < 1 ) {
 $el_class = ( $el_class != '' ) ? 'news-highlight ' . esc_attr( $el_class ) : 'news-highlight';
 
 list( $args, $my_query ) = vc_build_loop_query( $posts_query );
+
+if ( (int)$query_offset > 0 ) {
+    $args['offset'] = $query_offset;
+}
 
 if ( isset( $args['cat'] ) ) {
     $cats = explode(',', $args['cat']);

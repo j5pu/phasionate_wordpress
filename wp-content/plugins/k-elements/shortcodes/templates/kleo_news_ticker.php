@@ -16,12 +16,17 @@ if ( ! function_exists( 'vc_build_loop_query' )) {
 $output = $args = $my_query = $output_inside = '';
 extract( shortcode_atts( array(
     'posts_query' => '',
+    'query_offset' => '0',
     'el_class' => '',
 ), $atts ) );
 
 $el_class = ( $el_class != '' ) ? 'news-ticker ' . esc_attr( $el_class ) : 'news-ticker';
 
 list( $args, $my_query ) = vc_build_loop_query( $posts_query );
+
+if ( (int)$query_offset > 0 ) {
+    $args['offset'] = $query_offset;
+}
 
 query_posts( $args );
 

@@ -8,10 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div>
 			<img class="vc-featured-img" src="<?php echo vc_asset_url( 'vc/vc-welcome/screenshot.png' ); ?>"/>
 
-			<h3><?php _e( 'More Control and Lighter Interface', 'js_composer' ); ?></h3>
+			<h3><?php _e( 'New Elements and Options', 'js_composer' ); ?></h3>
 
-			<p><?php _e( 'Visual Composer 4.8 offers smart controls for easy and powerful user group role access. Now you can reduce number of options and features available to your content editors or people with non-IT skills. This results in less things to learn in order to start managing content of your site.', 'js_composer' ); ?></p>
-			<p><?php _e( 'Carefully crafted preview of templates allows you to see Backend editor style template layouts before adding them to your page or post. There is no more need to remember title of each and every template within your list - simply reveal preview and decide yourself if this is a best match for your page.', 'js_composer' ); ?></p>
+			<p><?php _e( 'Visual Composer 4.10 offers new and enhanced elements to improve your page building process. You will discover new options that will help you build even better layouts and use unlimited options of page building plugin.', 'js_composer' ); ?></p>
+			<p><?php _e( 'We have been constantly following your feature requests and latest update contains all the best of what you have been looking for. We are aiming to offer you most flexible tools and options with everything you will ever need to creating a website.', 'js_composer' ); ?></p>
 		</div>
 	</div>
 
@@ -19,46 +19,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="vc_col-xs-4">
 			<img class="vc-img-center"
 			     src="<?php echo vc_asset_url( 'vc/vc-welcome/01.png' ); ?>"/>
-			<h4><?php _e( 'User Group Roles Access', 'js_composer' ); ?></h4>
+			<h4><?php _e( 'ACF Support', 'js_composer' ); ?></h4>
 
-			<p><?php _e( 'Powerful control mechanisms for managing options and features available for different user group roles.', 'js_composer' ); ?></p>
+			<p><?php _e( 'Combine power of Visual Composer and ACF - add any custom field of ACF to your page, post and even custom post type.', 'js_composer' ); ?></p>
 		</div>
 		<div class="vc_col-xs-4">
 			<img class="vc-img-center"
 			     src="<?php echo vc_asset_url( 'vc/vc-welcome/02.png' ); ?>"/>
-			<h4><?php _e( 'Template Preview', 'js_composer' ); ?></h4>
+			<h4><?php _e( 'Categories and Authors', 'js_composer' ); ?></h4>
 
-			<p><?php _e( 'See before you add - now you can reveal quick Backend editor style preview of any template including Grid Builder templates.', 'js_composer' ); ?></p>
+			<p><?php _e( 'Visual Composer Grid Builder has 2 more content elements allowing you to add data about categories and authors to your post grid.', 'js_composer' ); ?></p>
 		</div>
 		<div class="vc_col-xs-4">
 			<img class="vc-img-center"
 			     src="<?php echo vc_asset_url( 'vc/vc-welcome/03.png' ); ?>"/>
-			<h4><?php _e( 'Minimized CSS', 'js_composer' ); ?></h4>
+			<h4><?php _e( 'Parallax Speed', 'js_composer' ); ?></h4>
 
-			<p><?php _e( 'Minimized CSS allows reducing size of Visual Composer plugin and also have positive effect on overall performance as there is less data to load.', 'js_composer' ); ?></p>
-		</div>
-	</div>
-
-	<h3>Other valuable features</h3>
-	<div class="feature-section vc_row">
-		<div class="vc_col-xs-3">
-			<h4><?php _e( 'Element Presets Controls API', 'js_composer' ); ?></h4>
-			<p><?php _e( 'Control element presets and set default by using Visual Composer API.', 'js_composer' ); ?></p>
-		</div>
-
-		<div class="vc_col-xs-3">
-			<h4><?php _e( 'Separator Enhancements', 'js_composer' ); ?></h4>
-			<p><?php _e( 'Add icons to "Separator with Text" and use new shadow style in both separator elements.', 'js_composer' ); ?></p>
-		</div>
-
-		<div class="vc_col-xs-3">
-			<h4><?php _e( 'Welcome Screen Design', 'js_composer' ); ?></h4>
-			<p><?php _e( 'More clean and simple Blank Welcome Screen design focusing on most important parts.', 'js_composer' ); ?></p>
-		</div>
-
-		<div class="vc_col-xs-3">
-			<h4><?php _e( 'Load More Button in Grid', 'js_composer' ); ?></h4>
-			<p><?php _e( 'Load more button in Grid elements are now using latest button with all available features.', 'js_composer' ); ?></p>
+			<p><?php _e( 'Control speed of Visual Composer parallax to align this effect with your overall website mood by simply adjusting speed parameter.', 'js_composer' ); ?></p>
 		</div>
 	</div>
 

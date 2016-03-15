@@ -113,9 +113,6 @@ function kleo_pmpro_restrict_rules()
 	//members directory restriction rule
 	$final["/^\/".$members_slug."\/?$/"] = array('name' => 'members_dir', 'type' => $restrict_options['members_dir']['type'], 'levels' => isset($restrict_options['members_dir']['levels'])?$restrict_options['members_dir']['levels']:array());
 
-	//members single profile restriction rule
-	$final["/^\/".$members_slug."\/[".$allowed_chars."\/]+\/?$/"] = array('name' => 'view_profiles', 'type' => $restrict_options['view_profiles']['type'], 'levels' => isset($restrict_options['view_profiles']['levels'])?$restrict_options['view_profiles']['levels']:array());
-
 	if (function_exists('bp_get_groups_root_slug'))
 	{
 		$groups_slug = str_replace('/', '\/', bp_get_groups_root_slug());
@@ -169,8 +166,13 @@ function kleo_pmpro_restrict_rules()
 			return false;
 		}
 	}
-    
-	//loop trough remaining restrictions
+
+	//members single profile restriction rule
+	if (bp_is_user()) {
+		kleo_check_access('view_profiles', $restrict_options);
+	}
+
+	//loop through remaining restrictions
 	foreach($final as $rk => $rv)
 	{
 		if(preg_match($rk, $uri))
@@ -195,9 +197,12 @@ if (!function_exists('kleo_check_access')) :
  * @global object $current_user
  * @param string $area
  * @param array $restrict_options
+ * @param boolean $return Whether to just return true if the restriction should be applied
+ *
+ * @return boolean|void
  * @since 2.0
  */
-function kleo_check_access($area, $restrict_options=null)
+function kleo_check_access($area, $restrict_options=null, $return = false)
 {
   global $current_user;
 	
@@ -216,7 +221,7 @@ function kleo_check_access($area, $restrict_options=null)
 	//no restriction
   if ($restrict_options[$area]['type'] == 0) 
   {
-		return;
+		return false;
 	}
 	
   //restrict all members -> go to home url
@@ -230,30 +235,49 @@ function kleo_check_access($area, $restrict_options=null)
   if (isset($current_user->membership_level) && $current_user->membership_level->ID) {
 
     //if restrict my level
-    if ($restrict_options[$area]['type'] == 2 && is_array($restrict_options[$area]['levels']) && !empty($restrict_options[$area]['levels']) && pmpro_hasMembershipLevel($restrict_options[$area]['levels']) )
+    if ($restrict_options[$area]['type'] == 2 && isset($restrict_options[$area]['levels']) && is_array($restrict_options[$area]['levels']) && !empty($restrict_options[$area]['levels']) && pmpro_hasMembershipLevel($restrict_options[$area]['levels']) )
     {
-      wp_redirect($default_redirect);
-      exit;
+	    return kleo_pmpro_return_restriction($return, $default_redirect);
+	    exit;
     }
     
   //logged in but not a member
   } else if (is_user_logged_in()) {
     if ($restrict_options[$area]['type'] == 2 && isset($restrict_options[$area]['not_member']) && $restrict_options[$area]['not_member'] == 1)
     {
-      wp_redirect($default_redirect);
-      exit;
+	    return kleo_pmpro_return_restriction($return, $default_redirect);
+	    exit;
     }
   }
   //not logged in
   else {
     if ($restrict_options[$area]['type'] == 2 && isset($restrict_options[$area]['guest']) && $restrict_options[$area]['guest'] == 1)
     {
-      wp_redirect($default_redirect);
-      exit;
+	    return kleo_pmpro_return_restriction($return, $default_redirect);
+	    exit;
     }
   }
 }
 endif;
+
+/**
+ * Calculate if we want to apply the redirect or just return true when restriction is applied
+ *
+ * @param boolean $return
+ * @param string $default_redirect
+ * @return boolean
+ *
+ * @since 4.0.3
+ */
+function kleo_pmpro_return_restriction($return = false, $default_redirect = null) {
+	if ($return === false) {
+		wp_redirect($default_redirect);
+		exit;
+	} else {
+		return true;
+	}
+}
+
 
 if (!function_exists('kleo_membership_info')) :
 /**
@@ -357,6 +381,24 @@ function pmpro_checkout_shortcode_custom($atts, $content=null, $code="")
 	return apply_filters("pmpro_pages_shortcode_checkout", $temp_content);			
 }
 add_shortcode("pmpro_checkout", "pmpro_checkout_shortcode_custom");
+
+
+/**
+ * BP Profile Message UX compatibility
+ * @since 4.0.3
+ */
+function kleo_bp_profile_message_ux_send_private_message() {
+	if ( isset( $_POST['private_message_content'] ) && ! empty( $_POST['private_message_content'] ) ) {
+		$content_restricted = __("You aren't allowed to perform this action", "kleo_framework");
+
+		if (kleo_check_access('pm', null, true)) {
+			bp_core_add_message( $content_restricted, 'error' );
+			bp_core_redirect( bp_displayed_user_domain() );
+		}
+	}
+}
+
+add_action( 'wp', 'kleo_bp_profile_message_ux_send_private_message', 2 );
 
 
 /**

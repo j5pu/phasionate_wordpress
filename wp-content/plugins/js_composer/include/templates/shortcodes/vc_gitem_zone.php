@@ -27,8 +27,6 @@ $image_block = $image = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
-extract( $atts );
-
 if ( 'no' === $render ) {
 	echo '';
 
@@ -81,6 +79,8 @@ if ( strlen( $link ) > 0 && 'none' !== $link ) {
 			. '" class="vc_gitem-link vc-zone-link"></a>';
 	} elseif ( 'post_link' === $link ) {
 		$image_block = '<a href="{{ post_link_url }}" title="{{ post_title }}" class="vc_gitem-link vc-zone-link"></a>';
+	} elseif ( 'post_author' === $link ) {
+		$image_block = '<a href="{{ post_author_href }}" title="{{ post_author }}" class="vc_gitem-link vc-zone-link"></a>';
 	} elseif ( 'image' === $link ) {
 		$image_block = '<a href="{{ post_image_url }}" title="{{ post_title }}" class="vc_gitem-link vc-zone-link"></a>';
 	} elseif ( 'image_lightbox' === $link ) {

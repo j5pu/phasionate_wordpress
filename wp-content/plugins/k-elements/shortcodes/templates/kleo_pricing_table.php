@@ -11,7 +11,7 @@
 
 
 extract( shortcode_atts( array(
-    'columns' => '3',
+    'columns' => '2',
     'style' => '',
     'heading_bg' => '',
     'price_bg' => '',

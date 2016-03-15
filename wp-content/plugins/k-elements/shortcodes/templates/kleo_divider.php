@@ -16,6 +16,13 @@ extract( shortcode_atts( array(
 		'style' => '',
 		'type'  => 'full',
 		'double' => false,
+		'icon_type' => 'fontello',
+		'icon_fontawesome' => '',
+		'icon_openiconic' => '',
+		'icon_typicons' => '',
+		'icon_entypo' => '',
+		'icon_linecons' => '',
+		'icon_pixelicons' => '',
 		'icon' => '',
 		'icon_size' => '',
 		'position' => 'center',
@@ -37,16 +44,25 @@ if ($double) {
 	$class .= ' hr-double';
 }
 
-$text_inside = '';
+$text_inside = $iconClass = '';
+
 if( $icon != '' && $icon != '0'  ) {
-	$icon = 'icon-' . str_replace( "icon-", "", $icon );
+	$iconClass = 'icon-' . str_replace( "icon-", "", $icon );
 	if ( $icon_size != '' ) {
-		$icon .= ' icon-' . $icon_size;
+		$iconClass .= ' icon-' . $icon_size;
 	}
-	$icon_el = '<i class="' . $icon . '"></i> ';
+} elseif( $icon_type != 'fontello' ) {
+	$iconClass = isset( ${"icon_" . $icon_type} ) ? ${"icon_" . $icon_type} : '';
 }
+$icon_el = '<i class="' . $iconClass . '"></i> ';
+
 $text = ( $text != '' ) ? $text : '';
 
 $text_inside = '<abbr>' . $icon_el . $text . '</abbr>';
+
+// Enqueue needed font for icon element
+if ( function_exists('vc_icon_element_fonts_enqueue') && 'pixelicons' !== $icon_type && 'fontello' != $icon_type ) {
+	vc_icon_element_fonts_enqueue( $icon_type );
+}
 
 $output .= "\n\t"."<div {$id} class=\"{$class}\" style=\"{$style}\">{$text_inside}</div>";

@@ -4,7 +4,7 @@
 Plugin Name: K Elements
 Plugin URL: http://seventhqueen.com/
 Description: WordPress elements using easy to add shortcodes
-Version: 3.1.1
+Version: 4.0.2
 Author: SeventhQueen
 Author URI: http://seventhqueen.com/
 Domain Path: /languages
@@ -25,7 +25,7 @@ Text Domain: k-elements
 // =============================================================================
 
 if ( ! defined( 'K_ELEM_VERSION' ) ) {
-	define( 'K_ELEM_VERSION', '3.1.1' );
+	define( 'K_ELEM_VERSION', '4.0.2' );
 }
 
 // Plugin Folder Path
@@ -57,17 +57,25 @@ function k_elements_load_textdomain() {
 // Require Files
 // =============================================================================
 
+function k_elements_init_helpers() {
+	if ( ! class_exists( 'Kleo' ) ) {
+		require_once( trailingslashit( K_ELEM_PLUGIN_DIR ) . 'functions/helpers.php' );
+	}
+}
+add_action( 'init', 'k_elements_init_helpers' );
+
+
 function k_elements_init() {
-    require_once( trailingslashit(K_ELEM_PLUGIN_DIR) . 'functions/helpers.php' );
+    require_once( trailingslashit(K_ELEM_PLUGIN_DIR) . 'functions/functions.php' );
     require_once( trailingslashit(K_ELEM_PLUGIN_DIR) . 'admin/tiny_mce.php' );
     require_once( trailingslashit(K_ELEM_PLUGIN_DIR) . 'shortcodes/shortcodes.php' );
 }
+add_action( 'init', 'k_elements_init', 6 );
+
 
 if(function_exists('vc_set_as_theme')) {
 	require_once( trailingslashit(K_ELEM_PLUGIN_DIR) . 'compat/plugin-js-composer/config.php' );	//compatibility with Visual composer plugin
 }
-
-add_action( 'init', 'k_elements_init', 6 );
 
 
 
@@ -132,8 +140,3 @@ function k_elements_enqueue_site_styles() {
 }
 
 add_action( 'wp_enqueue_scripts', 'k_elements_enqueue_site_styles' );
-
-
-// Auto updater
-require_once('wp-updates-plugin.php');
-new WPUpdatesPluginUpdater_403( 'http://wp-updates.com/api/2/plugin', plugin_basename(__FILE__));

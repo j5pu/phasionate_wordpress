@@ -3219,3 +3219,7 @@ blockquote cite {
     left: 0;
     height: 100%;
 }
+
+.kleo-open-href{
+    cursor: pointer !important;
+}
