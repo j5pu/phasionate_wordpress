@@ -52,7 +52,7 @@ if( is_single() && get_cfield( 'centered_text' ) == 1 ) { $post_class .= ' text-
 
 		<?php the_content( esc_html__( 'Continue reading <span class="meta-nav">&rarr;</span>', 'kleo_framework' ) ); ?>
 		<?php wp_link_pages( array( 'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'kleo_framework' ), 'after' => '</div>' ) ); ?>
-
+		<?php echo str_replace("Tags","Te puede interesar","Tags: "); ?>
 	<?php endif; ?>
 	</div><!--end article-content-->
 
