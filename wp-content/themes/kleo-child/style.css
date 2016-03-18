@@ -6119,3 +6119,12 @@ li.bp-menu.bp-login-nav.menu-item.menu-item-type-bp_nav.menu-item-object-bp_logg
 	}
 }
 
+body.registration.register.buddypress > .page-boxed{
+	max-width: 100% !important;
+}
+body.registration.register.buddypress > .kleo-main-header{
+	max-width: 100% !important;
+}
+.header-scrolled{
+	max-width: 100% !important;
+}
