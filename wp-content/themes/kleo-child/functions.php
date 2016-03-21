@@ -1025,7 +1025,7 @@ add_action('wp_footer', 'add_my_script');
 /*
  *Redirigir a los suscriptores a la web del concurso
  */
-function subscriber_login_redirect( $redirect_to, $request, $user  ) {
+/* function subscriber_login_redirect( $redirect_to, $request, $user  ) {
 	return ( is_array( $user->roles ) && in_array( 'subscriber', $user->roles ) ) ? '/concurso-portada' : admin_url();
 }
 add_filter( 'login_redirect', 'subscriber_login_redirect', 10, 3 );
@@ -1040,7 +1040,7 @@ function __my_registration_redirect()
 {
 	return home_url( '/concurso-portada' );
 }
-add_filter( 'registration_redirect', '__my_registration_redirect' );
+add_filter( 'registration_redirect', '__my_registration_redirect' ); */
 /*
 
 -----BORRA ESTE COMENTARIO UNA VEZ HECHOS ESTOS PASOS
