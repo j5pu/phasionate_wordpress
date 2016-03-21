@@ -1035,6 +1035,12 @@ function bp_redirect($user) {
 	bp_core_redirect($redirect_url);
 }
 add_action('bp_core_signup_user', 'bp_redirect', 100, 1);
+
+function __my_registration_redirect()
+{
+	return home_url( '/concurso-portada' );
+}
+add_filter( 'registration_redirect', '__my_registration_redirect' );
 /*
 
 -----BORRA ESTE COMENTARIO UNA VEZ HECHOS ESTOS PASOS
