@@ -6099,31 +6099,14 @@ li.bp-menu.bp-login-nav.menu-item.menu-item-type-bp_nav.menu-item-object-bp_logg
 	max-width: 970px !important;
 }
 
-@media screen and (min-width: 991px) and (max-width: 1237px){
-	.kleo-navbar-fixed .page-boxed .kleo-main-header, .kleo-navbar-fixed.navbar-transparent .page-boxed #header{
-		top: 90px;
-	}
-	#main{
-		margin-top: 90px;
-	}
-	#header .is-sticky .kleo-main-header{
-		margin-top: 90px !important;
-	}
-	#kleo-main-header{
-		margin-top: 90px;
-	}
-	#div-gpt-ad-1457985102265-0{
-		z-index: 99999;
-		background-color: white;
-		visibility: visible !important;
-	}
-}
-
 body.registration.register.buddypress > .page-boxed{
 	max-width: 100% !important;
 }
-body.registration.register.buddypress > .kleo-main-header{
-	max-width: 100% !important;
+body.registration.register.buddypress > .page-boxed > #main > #ads_container{
+	visibility: hidden !important;
+}
+body.woocommerce-page > .page-boxed > #main > #div-gpt-ad-1457625928117-1{
+	visibility: hidden !important;
 }
 .header-scrolled{
 	max-width: 100% !important;

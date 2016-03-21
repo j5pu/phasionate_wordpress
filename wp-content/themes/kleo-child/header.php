@@ -69,31 +69,33 @@
 	</script>
 
 	<script type='text/javascript'>
-		if(!jQuery('body').hasClass('registration')){
-			googletag.cmd.push(function() {
-				var width = window.innerWidth || document.documentElement.clientWidth;
-				if (width >= 1635) {
-					googletag.defineSlot('/61601326/u_lateral_derecho', [300, 600], 'div-gpt-ad-1457625928117-1').addService(googletag.pubads());
-					googletag.defineSlot('/61601326/u_lateral_izquierdo', [300, 600], 'div-gpt-ad-1457625928117-2').addService(googletag.pubads());
-					jQuery("#div-gpt-ad-1457722273425-0").hide();
-					jQuery("#div-gpt-ad-1457722273425-1").hide();
-				}
-				if (width >= 1238 && width <= 1635) {
-					googletag.defineSlot('/61601326/u_lateral_derecho_pequeño', [120, 600], 'div-gpt-ad-1457722273425-0').addService(googletag.pubads());
-					googletag.defineSlot('/61601326/u_lateral_izquierda_pequeño', [120, 600], 'div-gpt-ad-1457722273425-1').addService(googletag.pubads());
-					jQuery("#div-gpt-ad-1457625928117-1").hide();
-					jQuery("#div-gpt-ad-1457625928117-2").hide();
-				}
-				if (width >= 999 && width <= 1237) {
-					googletag.defineSlot('/61601326/cabecera', [970, 90], 'div-gpt-ad-1457985102265-0').addService(googletag.pubads());
-				}
-				if (width <= 998){
-					googletag.defineSlot('/61601326/mayor', [300, 600], 'div-gpt-ad-1457972362060-0').addService(googletag.pubads());
-				}
-				googletag.pubads().enableSingleRequest();
-				googletag.enableServices();
-			});
-		}
+		googletag.cmd.push(function() {
+			var width = window.innerWidth || document.documentElement.clientWidth;
+			if (width >= 1635) {
+				googletag.defineSlot('/61601326/u_lateral_derecho', [300, 600], 'div-gpt-ad-1457625928117-1').addService(googletag.pubads());
+				googletag.defineSlot('/61601326/u_lateral_izquierdo', [300, 600], 'div-gpt-ad-1457625928117-2').addService(googletag.pubads());
+				jQuery("#div-gpt-ad-1457722273425-0").hide();
+				jQuery("#div-gpt-ad-1457722273425-1").hide();
+			}
+			if (width >= 1238 && width <= 1635) {
+				googletag.defineSlot('/61601326/u_lateral_derecho_pequeño', [120, 600], 'div-gpt-ad-1457722273425-0').addService(googletag.pubads());
+				googletag.defineSlot('/61601326/u_lateral_izquierda_pequeño', [120, 600], 'div-gpt-ad-1457722273425-1').addService(googletag.pubads());
+				jQuery("#div-gpt-ad-1457625928117-1").hide();
+				jQuery("#div-gpt-ad-1457625928117-2").hide();
+			}
+			if (width >= 991 && width <= 1237) {
+				googletag.defineSlot('/61601326/cabecera', [970, 90], 'div-gpt-ad-1457985102265-0').addService(googletag.pubads());
+				var ls = document.createElement('link');
+				ls.rel="stylesheet";
+				ls.href="/wp-content/themes/kleo-child/assets/css/cabecera_ad.css";
+				document.getElementsByTagName('head')[0].appendChild(ls);
+			}
+			if (width <= 990){
+				googletag.defineSlot('/61601326/mayor', [300, 600], 'div-gpt-ad-1457972362060-0').addService(googletag.pubads());
+			}
+			googletag.pubads().enableSingleRequest();
+			googletag.enableServices();
+		});
 	</script>
 	<meta name="p:domain_verify" content="fd4dd19485ea9f51eccc6866100da866"/> <!-- pinterest -->
 	<?php wp_head(); ?>
@@ -141,38 +143,37 @@ $site_style = apply_filters('kleo_site_style', $site_style);
 	?>
 
 	<?php if (!wp_is_mobile()){ ?>
-	<!-- /61601326/cabecera -->
-	<div id='div-gpt-ad-1457985102265-0' style='height:90px; width:970px; top: 0 !important;margin: 0px 0px;position: fixed;visibility: hidden;'>
-		<script type='text/javascript'>
-			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457985102265-0'); });
-		</script>
-	</div>
-	<!-- /61601326/u_lateral_derecho -->
-	<div id='div-gpt-ad-1457625928117-1' style='height:600px; width:300px;position: fixed;right: 0;z-index: 0;margin-top: 24px;'>
-		<script type='text/javascript'>
-			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457625928117-1'); });
-		</script>
-	</div>
-
-	<!-- /61601326/u_lateral_izquierdo -->
-	<div id='div-gpt-ad-1457625928117-2' style='height:600px; width:300px; position: fixed; left: 0;margin-top: 24px;'>
-		<script type='text/javascript'>
-			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457625928117-2'); });
-		</script>
-	</div>
-
-	<!-- /61601326/u_lateral_derecho_pequeño -->
-	<div id='div-gpt-ad-1457722273425-0' style='height:600px; width:120px;position: fixed;right: 0;z-index: 0;margin-top: 24px;'>
-		<script type='text/javascript'>
-			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457722273425-0'); });
-		</script>
-	</div>
-
-	<!-- /61601326/u_lateral_izquierda_pequeño -->
-	<div id='div-gpt-ad-1457722273425-1' style='height:600px; width:120px; position: fixed; left: 0;margin-top: 24px;'>
-		<script type='text/javascript'>
-			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457722273425-1'); });
-		</script>
-	</div>
+		<div id="ads_container">
+			<!-- /61601326/cabecera -->
+			<div id='div-gpt-ad-1457985102265-0' style='height:90px; width:970px; top: 0 !important;margin: 0px 0px;position: fixed;visibility: hidden;'>
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457985102265-0'); });
+				</script>
+			</div>
+			<!-- /61601326/u_lateral_derecho -->
+			<div id='div-gpt-ad-1457625928117-1' style='height:600px; width:300px;position: fixed;right: 0;z-index: 0;margin-top: 24px;'>
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457625928117-1'); });
+				</script>
+			</div>
+			<!-- /61601326/u_lateral_izquierdo -->
+			<div id='div-gpt-ad-1457625928117-2' style='height:600px; width:300px; position: fixed; left: 0;margin-top: 24px;'>
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457625928117-2'); });
+				</script>
+			</div>
+			<!-- /61601326/u_lateral_derecho_pequeño -->
+			<div id='div-gpt-ad-1457722273425-0' style='height:600px; width:120px;position: fixed;right: 0;z-index: 0;margin-top: 24px;'>
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457722273425-0'); });
+				</script>
+			</div>
+			<!-- /61601326/u_lateral_izquierda_pequeño -->
+			<div id='div-gpt-ad-1457722273425-1' style='height:600px; width:120px; position: fixed; left: 0;margin-top: 24px;'>
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('div-gpt-ad-1457722273425-1'); });
+				</script>
+			</div>
+		</div>
 	<?php } ?>
 		
