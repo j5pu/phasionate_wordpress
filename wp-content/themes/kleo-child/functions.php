@@ -1022,6 +1022,13 @@ function add_my_script() {
 }
 add_action('wp_footer', 'add_my_script');
 
+function bbg_bp_loggedin_register_page_redirect_to( $redirect_to ) {
+	if ( bp_is_component_front_page( 'register' ) )
+		$redirect_to = bp_get_root_domain() . '/concurso-portada/';
+
+	return $redirect_to;
+}
+add_filter( 'bp_loggedin_register_page_redirect_to', 'bbg_bp_loggedin_register_page_redirect_to' );
 /*
  *Redirigir a los suscriptores a la web del concurso
  */
