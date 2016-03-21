@@ -1030,12 +1030,11 @@ function subscriber_login_redirect( $redirect_to, $request, $user  ) {
 }
 add_filter( 'login_redirect', 'subscriber_login_redirect', 10, 3 );
 
-
-function my_signup_redirect( $user_id, $user_login, $user_password, $user_email, $usermeta ) {
-	wp_redirect( home_url() . '/concurso-portada' );
-	exit();
+function bp_redirect($user) {
+	$redirect_url = 'https://www.bogadia.com/concurso-portada';
+	bp_core_redirect($redirect_url);
 }
-add_action( 'bp_core_signup_user', 'my_signup_redirect', 10, 5 );
+add_action('bp_core_signup_user', 'bp_redirect', 100, 1);
 /*
 
 -----BORRA ESTE COMENTARIO UNA VEZ HECHOS ESTOS PASOS
