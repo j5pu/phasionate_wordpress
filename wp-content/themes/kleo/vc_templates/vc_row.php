@@ -135,7 +135,7 @@ if ( ! empty( $full_width ) ) {
 		$wrapper_attributes[] = 'data-vc-stretch-content="true"';
 		$css_classes[] = 'vc_row-no-padding';
 	}
-	$after_output .= '<div class="vc_row-full-width"></div>';
+	$after_output .= '<div class="vc_row-full-width vc_clearfix"></div>';
 }
 
 if ( ! empty( $full_height ) ) {
@@ -143,6 +143,9 @@ if ( ! empty( $full_height ) ) {
 	if ( ! empty( $columns_placement ) ) {
 		$flex_row = true;
 		$css_classes[] = ' vc_row-o-columns-' . $columns_placement;
+		if ( 'stretch' === $columns_placement ) {
+			$css_classes[] = 'vc_row-o-equal-height';
+		}
 	}
 }
 

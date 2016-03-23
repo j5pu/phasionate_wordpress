@@ -88,8 +88,12 @@ $args['page_permissions'] = 'manage_options';
   DEFAULT Header Colors
 -----------------------------------------------------------------*/
 
+$customizer_teaser = sprintf(__('<br><strong>It is advised to use <a href="%s">Customizer</a> to live preview these color settings in your site.</strong>', 'kleo_framework'), admin_url('customize.php'));
+
 //Description
-$style_defaults['header']['desc'] = "Style your Header section(Logo, menu) with color and background settings. This affects the Top bar section too";
+$style_defaults['header']['desc'] = __('Style your Header section(Logo, menu) with color and background settings. ' .
+                                       'This affects the Top bar section too', 'kleo_framework') .
+                                    '<br>' . $customizer_teaser;
 //Text color
 $style_defaults['header']['text'] = "#444444";
 //Headings color
@@ -119,7 +123,9 @@ $style_defaults['header']['alt_border'] = "#e5e5e5";
 -----------------------------------------------------------------*/
 
 //Description
-$style_defaults['main']['desc'] = "Style your Main site section with color and background settings. This includes the sidebar too.";
+$style_defaults['main']['desc'] = __('Style your Main site section with color and background settings. ' .
+                                     'This includes the sidebar too.', 'kleo_framework') .
+                                  '<br>' . $customizer_teaser;
 //Text color
 $style_defaults['main']['text'] = "#777777";
 //Headings color
@@ -149,7 +155,8 @@ $style_defaults['main']['alt_border'] = "#e5e5e5";
 -----------------------------------------------------------------*/
 
 //Description
-$style_defaults['alternate']['desc'] = "Style your Title / Breadcrumb / Extra information section with color and background settings.";
+$style_defaults['alternate']['desc'] = __('Style your Title / Breadcrumb / Extra information section with color and background settings.', 'kleo_framework') .
+                                       '<br>' . $customizer_teaser;
 //Text color
 $style_defaults['alternate']['text'] = "#777777";
 //Headings color
@@ -178,7 +185,9 @@ $style_defaults['alternate']['alt_border'] = "#e5e5e5";
 -----------------------------------------------------------------*/
 
 //Description
-$style_defaults['side']['desc'] = "Style your Side menu section with color and background settings. This appears from left/right side of the site";
+$style_defaults['side']['desc'] = __("Style your Side menu section with color and background settings. " .
+                                     "This appears from left/right side of the site", "kleo_framework") .
+                                  '<br>' . $customizer_teaser;
 //Text color
 $style_defaults['side']['text'] = "#777777";
 //Headings color
@@ -207,7 +216,9 @@ $style_defaults['side']['alt_border'] = "#333333";
 -----------------------------------------------------------------*/
 
 //Description
-$style_defaults['footer']['desc'] = "Style your Footer section with color and background settings. This is the section with the four columns at the bottom of your site.";
+$style_defaults['footer']['desc'] = __("Style your Footer section with color and background settings. " .
+                                       "This is the section with the four columns at the bottom of your site.", "kleo_framework") .
+                                    '<br>' . $customizer_teaser;
 //Text color
 $style_defaults['footer']['text'] = "#777777";
 //Headings color
@@ -237,7 +248,9 @@ $style_defaults['footer']['alt_border'] = "#333333";
 -----------------------------------------------------------------*/
 
 //Description
-$style_defaults['socket']['desc'] = "Style your Socket area with color and background settings. This is the last section of your site with the Credits information.";
+$style_defaults['socket']['desc'] = __("Style your Socket area with color and background settings. " .
+                                       "This is the last section of your site with the Credits information.", "kleo_framework") .
+                                    '<br>' . $customizer_teaser;
 //Text color
 $style_defaults['socket']['text'] = "#515151";
 //Headings color
@@ -444,17 +457,17 @@ $style_sets = $kleo_config['style_sets'];
 $style_elements = array(
     array('slug' => 'desc', 'desc' => 'ss', 'type' => 'info'),
     array('slug' => 'preset', 'desc' => 'ss', 'type' => 'preset'),
-    array('slug' => 'text', 'title' => 'Text color', 'subtitle' => '', 'desc' => 'Set the texts color for this section', 'type' => 'color'),
-    array('slug' => 'headings', 'title' => 'Headings color', 'subtitle' => '', 'desc' => 'Set the color for h1,h2,h3,h4,h5,h6 elements', 'type' => 'color'),
+    array('slug' => 'text', 'title' => 'Text color', 'subtitle' => '', 'desc' => 'Set the text color for this section', 'type' => 'color'),
+    array('slug' => 'headings', 'title' => 'Headings color', 'subtitle' => '', 'desc' => 'Set the text color for h1,h2,h3,h4,h5,h6 elements', 'type' => 'color'),
     array('slug' => 'bg', 'title' => 'Background color', 'subtitle' => '', 'desc' => 'Set the background color for this section', 'type' => 'color'),
     array('slug' => 'bg_image', 'title' => 'Background image', 'subtitle' => '', 'desc' => 'Set a background image for this section', 'type' => 'background', 'default' => array()),
-    array('slug' => 'border', 'title' => 'Border color', 'subtitle' => '', 'desc' => 'Set the borders color for this section', 'type' => 'color', 'default' => ''),
-    array('slug' => 'link', 'title' => 'Link color', 'subtitle' => '', 'desc' => 'Select your color for anchor elements(links)', 'type' => 'color'),
-    array('slug' => 'link_hover', 'title' => 'Hover link color', 'desc' => 'Select your color for links elements when hovered', 'subtitle' => '', 'type' => 'color'),
-    array('slug' => 'high_color', 'title' => 'Highlight color', 'desc' => 'Select your text color for highlight elements like buttons and other elements what will stand out like notification bubbles', 'subtitle' => '', 'type' => 'color'),
-    array('slug' => 'high_bg', 'title' => 'Highlight background color', 'desc' => 'Select your background color for highlight elements like buttons and other elements what will stand out like notification bubbles', 'subtitle' => '', 'type' => 'color'),
-    array('slug' => 'alt_bg', 'title' => 'Alternate background color', 'desc' => 'Select a background color for alternate elements. This is a supplementary color used when the design needs an extra color for some elements.', 'subtitle' => '', 'type' => 'color'),
-    array('slug' => 'alt_border', 'title' => 'Alternate border color', 'desc' => 'Select a color for other border elements in this section', 'subtitle' => '', 'type' => 'color')
+    array('slug' => 'border', 'title' => 'Border color', 'subtitle' => '', 'desc' => 'Set the borders color for this section. It affects the border css property for elements in this section', 'type' => 'color', 'default' => ''),
+    array('slug' => 'link', 'title' => 'Link color', 'subtitle' => '', 'desc' => 'Select your color for anchor elements(links) for this section', 'type' => 'color'),
+    array('slug' => 'link_hover', 'title' => 'Hover link color', 'desc' => 'Select your color for anchor elements(links) when hovered', 'subtitle' => '', 'type' => 'color'),
+    array('slug' => 'high_color', 'title' => 'Highlight color', 'desc' => 'Select your text color for highlight elements. It can be the highlight button style, notification bubbles, pricing table popular column or Pin shortcode color', 'subtitle' => '', 'type' => 'color'),
+    array('slug' => 'high_bg', 'title' => 'Highlight background color', 'desc' => 'Select your background color for highlight elements. It can be the highlight button style, notification bubbles, pricing table popular column or Pin shortcode color', 'subtitle' => '', 'type' => 'color'),
+    array('slug' => 'alt_bg', 'title' => 'Alternate background color', 'desc' => 'This is not very used in the design but is a supplementary color when some elements needed it. It is mostly used on elements hover like tabbed navigation, pagination or disabled inputs.', 'subtitle' => '', 'type' => 'color'),
+    array('slug' => 'alt_border', 'title' => 'Alternate border color', 'desc' => 'This is not very used in the design but is a supplementary color when some elements needed it. It is mostly used on elements hover like tabbed navigation, pagination or disabled inputs.', 'subtitle' => '', 'type' => 'color')
 );
 
 
@@ -1461,7 +1474,8 @@ $sections[] = $style_sections[] = array(
             'type' => 'info',
             'notice' => true,
             'style' => 'success',
-            'desc' => __('Style colors and backgrounds for each section of your site.<br>Start by selecting a sub-menu from the left.', 'kleo_framework'),
+            'desc' => __('Style colors and backgrounds for each section of your site.<br>' .
+                         'Start by selecting a sub-menu from the left.', 'kleo_framework') . "<br>" . $customizer_teaser,
         ),
     )
 );
@@ -1524,7 +1538,7 @@ foreach ($style_sets as $set ) {
     $sections[] = $style_sections[] = array(
         'icon' => 'el-icon-adjust',
         'icon_class' => 'icon-large',
-        'title' => ucfirst($set),
+        'title' => ucfirst( ( $set == 'alternate' ? 'Title/Breadcrumb' : $set ) ),
         'desc' => '',
         'fields' => $style_fields,
         'subsection' => true
@@ -2901,7 +2915,8 @@ function kleo_register_customizer_controls( $wp_customize )
                         'label' => $option['title'],
                         'section' => $section['id'],
                         'settings' => $option['id'],
-                        'priority' => $option['priority']
+                        'priority' => $option['priority'],
+                        'description' => $option['desc']
                     )));
                     break;
 

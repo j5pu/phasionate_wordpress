@@ -8,10 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div>
 			<img class="vc-featured-img" src="<?php echo vc_asset_url( 'vc/vc-welcome/screenshot.png' ); ?>"/>
 
-			<h3><?php _e( 'New Elements and Options', 'js_composer' ); ?></h3>
+			<h3><?php _e( 'Awesome Styles, Icons and More', 'js_composer' ); ?></h3>
 
-			<p><?php _e( 'Visual Composer 4.10 offers new and enhanced elements to improve your page building process. You will discover new options that will help you build even better layouts and use unlimited options of page building plugin.', 'js_composer' ); ?></p>
-			<p><?php _e( 'We have been constantly following your feature requests and latest update contains all the best of what you have been looking for. We are aiming to offer you most flexible tools and options with everything you will ever need to creating a website.', 'js_composer' ); ?></p>
+			<p><?php _e( 'Visual Composer 4.11 offers fresh update to create and control even the smallest pieces of your WordPress site. Follow latest design trends by applying new buttons, get your hands on new predefined templates and various social icons.', 'js_composer' ); ?></p>
+			<p><?php _e( 'With new version of Visual Composer you now how even more control over your grid elements, including grid loading and paging settings.', 'js_composer' ); ?></p>
 		</div>
 	</div>
 
@@ -19,23 +19,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="vc_col-xs-4">
 			<img class="vc-img-center"
 			     src="<?php echo vc_asset_url( 'vc/vc-welcome/01.png' ); ?>"/>
-			<h4><?php _e( 'ACF Support', 'js_composer' ); ?></h4>
+			<h4><?php _e( 'Grid Loading', 'js_composer' ); ?></h4>
 
-			<p><?php _e( 'Combine power of Visual Composer and ACF - add any custom field of ACF to your page, post and even custom post type.', 'js_composer' ); ?></p>
+			<p><?php _e( 'Control or disable initial loading and pagination animation of Visual Composer grid content elements with one click only.', 'js_composer' ); ?></p>
 		</div>
 		<div class="vc_col-xs-4">
 			<img class="vc-img-center"
 			     src="<?php echo vc_asset_url( 'vc/vc-welcome/02.png' ); ?>"/>
-			<h4><?php _e( 'Categories and Authors', 'js_composer' ); ?></h4>
+			<h4><?php _e( 'Gradient Buttons', 'js_composer' ); ?></h4>
 
-			<p><?php _e( 'Visual Composer Grid Builder has 2 more content elements allowing you to add data about categories and authors to your post grid.', 'js_composer' ); ?></p>
+			<p><?php _e( 'Choose trendy gradient button design with smooth hover transition. Specify gradient colors from default or choose your own custom colors.', 'js_composer' ); ?></p>
 		</div>
 		<div class="vc_col-xs-4">
 			<img class="vc-img-center"
 			     src="<?php echo vc_asset_url( 'vc/vc-welcome/03.png' ); ?>"/>
-			<h4><?php _e( 'Parallax Speed', 'js_composer' ); ?></h4>
+			<h4><?php _e( 'Social Icons', 'js_composer' ); ?></h4>
 
-			<p><?php _e( 'Control speed of Visual Composer parallax to align this effect with your overall website mood by simply adjusting speed parameter.', 'js_composer' ); ?></p>
+			<p><?php _e( 'Get your hands on "Mono Social" icons added to icon library with most popular social icons included.', 'js_composer' ); ?></p>
 		</div>
 	</div>
 

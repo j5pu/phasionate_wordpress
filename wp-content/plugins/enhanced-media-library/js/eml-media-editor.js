@@ -223,6 +223,7 @@ window.eml = window.eml || { l10n: {} };
                 defaultPostId = this.defaults.id,
                 attachments, selection, state, props;
 
+
             // Bail if we didn't match the shortcode or all of the content.
             if ( ! shortcode || shortcode.content !== content ) {
                 return;
@@ -285,7 +286,8 @@ window.eml = window.eml || { l10n: {} };
      *
      */
     _.extend( media.gallery.defaults, {
-		orderby : 'menuOrder'
+		orderby : 'menuOrder',
+        order: 'ASC'
     });
 
     delete media.gallery.defaults.id;

@@ -4,13 +4,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Enhanced Media Library PRO\n"
-"POT-Creation-Date: 2016-01-20 00:06+0200\n"
+"POT-Creation-Date: 2016-03-19 20:59+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.7\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -20,467 +20,189 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: core/class-eml-media-list-table.php:52
-#, php-format
-msgctxt "uploaded files"
-msgid "All (%s)"
-msgid_plural "All (%s)"
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/class-eml-media-list-table.php:63
-#, php-format
-msgctxt "detached files"
-msgid "Unattached (%s)"
-msgid_plural "Unattached (%s)"
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/class-eml-media-list-table.php:65 enhanced-media-library.php:453
-msgid "All Uncategorized"
-msgstr ""
-
-#: core/class-eml-media-list-table.php:68
-#, php-format
-msgctxt "uploaded files"
-msgid "Trash (%s)"
-msgid_plural "Trash (%s)"
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/class-eml-media-list-table.php:88
-msgid "Filter"
-msgstr ""
-
-#: core/class-eml-media-list-table.php:90 enhanced-media-library.php:457
-msgid "Reset All Filters"
-msgstr ""
-
-#: core/class-eml-media-list-table.php:94
-msgid "Empty Trash"
-msgstr ""
-
-#: core/eml-upload-4.1.php:21 core/eml-upload-4.4.php:20
-msgid "You do not have permission to upload files."
-msgstr ""
-
-#: core/eml-upload-4.1.php:41 core/eml-upload-4.1.php:215
-#: core/eml-upload-4.4.php:55 core/eml-upload-4.4.php:197
-msgid "Overview"
-msgstr ""
-
-#: core/eml-upload-4.1.php:43 core/eml-upload-4.4.php:57
-msgid ""
-"All the files you&#8217;ve uploaded are listed in the Media Library, with "
-"the most recent uploads listed first."
-msgstr ""
-
-#: core/eml-upload-4.1.php:44 core/eml-upload-4.1.php:219
-#: core/eml-upload-4.4.php:58 core/eml-upload-4.4.php:201
-msgid ""
-"You can view your media in a simple visual grid or a list with columns. "
-"Switch between these views using the icons to the left above the media."
-msgstr ""
-
-#: core/eml-upload-4.1.php:45 core/eml-upload-4.4.php:59
-msgid ""
-"To delete media items, click the Bulk Select button at the top of the "
-"screen. Select any items you wish to delete, then click the Delete Selected "
-"button. Clicking the Cancel Selection button takes you back to viewing your "
-"media."
-msgstr ""
-
-#: core/eml-upload-4.1.php:50 core/eml-upload-4.4.php:64
-msgid "Attachment Details"
-msgstr ""
-
-#: core/eml-upload-4.1.php:52 core/eml-upload-4.4.php:66
-msgid ""
-"Clicking an item will display an Attachment Details dialog, which allows you "
-"to preview media and make quick edits. Any changes you make to the "
-"attachment details will be automatically saved."
-msgstr ""
-
-#: core/eml-upload-4.1.php:53 core/eml-upload-4.4.php:67
-msgid ""
-"Use the arrow buttons at the top of the dialog, or the left and right arrow "
-"keys on your keyboard, to navigate between media items quickly."
-msgstr ""
-
-#: core/eml-upload-4.1.php:54 core/eml-upload-4.4.php:68
-msgid ""
-"You can also delete individual items and access the extended edit screen "
-"from the details dialog."
-msgstr ""
-
-#: core/eml-upload-4.1.php:58 core/eml-upload-4.1.php:235
-#: core/eml-upload-4.4.php:72 core/eml-upload-4.4.php:217
-msgid "For more information:"
-msgstr ""
-
-#: core/eml-upload-4.1.php:59 core/eml-upload-4.1.php:236
-msgid ""
-"<a href=\"http://codex.wordpress.org/Media_Library_Screen\" target=\"_blank"
-"\">Documentation on Media Library</a>"
-msgstr ""
-
-#: core/eml-upload-4.1.php:60 core/eml-upload-4.1.php:237
-#: core/eml-upload-4.4.php:74 core/eml-upload-4.4.php:219
-msgid ""
-"<a href=\"https://wordpress.org/support/\" target=\"_blank\">Support Forums</"
-"a>"
-msgstr ""
-
-#: core/eml-upload-4.1.php:63 core/eml-upload-4.1.php:206
-#: core/eml-upload-4.4.php:77 core/eml-upload-4.4.php:188
-msgid "Media Library"
-msgstr ""
-
-#: core/eml-upload-4.1.php:73 core/eml-upload-4.1.php:248
-#: core/eml-upload-4.4.php:87 core/eml-upload-4.4.php:238
-msgctxt "file"
-msgid "Add New"
-msgstr ""
-
-#: core/eml-upload-4.1.php:78 core/eml-upload-4.4.php:92
-msgid ""
-"The grid view for the Media Library requires JavaScript. <a href=\"upload."
-"php?mode=list\">Switch to the list view</a>."
-msgstr ""
-
-#: core/eml-upload-4.1.php:127
-msgid "You are not allowed to edit this post."
-msgstr ""
-
-#: core/eml-upload-4.1.php:164
-msgid "You are not allowed to move this post to the trash."
-msgstr ""
-
-#: core/eml-upload-4.1.php:167 core/eml-upload-4.4.php:149
-msgid "Error in moving to trash."
-msgstr ""
-
-#: core/eml-upload-4.1.php:176
-msgid "You are not allowed to move this post out of the trash."
-msgstr ""
-
-#: core/eml-upload-4.1.php:179 core/eml-upload-4.4.php:161
-msgid "Error in restoring from trash."
-msgstr ""
-
-#: core/eml-upload-4.1.php:188
-msgid "You are not allowed to delete this post."
-msgstr ""
-
-#: core/eml-upload-4.1.php:191 core/eml-upload-4.4.php:173
-msgid "Error in deleting."
-msgstr ""
-
-#: core/eml-upload-4.1.php:211
-msgctxt "items per page (screen options)"
-msgid "Media items"
-msgstr ""
-
-#: core/eml-upload-4.1.php:217 core/eml-upload-4.4.php:199
-msgid ""
-"All the files you&#8217;ve uploaded are listed in the Media Library, with "
-"the most recent uploads listed first. You can use the Screen Options tab to "
-"customize the display of this screen."
-msgstr ""
-
-#: core/eml-upload-4.1.php:218 core/eml-upload-4.4.php:200
-msgid ""
-"You can narrow the list by file type/status using the text link filters at "
-"the top of the screen. You also can refine the list by date using the "
-"dropdown menu above the media table."
-msgstr ""
-
-#: core/eml-upload-4.1.php:223 core/eml-upload-4.4.php:205
-msgid "Available Actions"
-msgstr ""
-
-#: core/eml-upload-4.1.php:225 core/eml-upload-4.4.php:207
-msgid ""
-"Hovering over a row reveals action links: Edit, Delete Permanently, and "
-"View. Clicking Edit or on the media file&#8217;s name displays a simple "
-"screen to edit that individual file&#8217;s metadata. Clicking Delete "
-"Permanently will delete the file from the media library (as well as from any "
-"posts to which it is currently attached). View will take you to the display "
-"page for that file."
-msgstr ""
-
-#: core/eml-upload-4.1.php:229 core/eml-upload-4.4.php:211
-msgid "Attaching Files"
-msgstr ""
-
-#: core/eml-upload-4.1.php:231 core/eml-upload-4.4.php:213
-msgid ""
-"If a media file has not been attached to any post, you will see that in the "
-"Attached To column, and can click on Attach File to launch a small popup "
-"that will allow you to search for a post and attach the file."
-msgstr ""
-
-#: core/eml-upload-4.1.php:251 core/eml-upload-4.4.php:241
-#, php-format
-msgid "Search results for &#8220;%s&#8221;"
-msgstr ""
-
-#: core/eml-upload-4.1.php:257 core/eml-upload-4.1.php:282
-#: core/eml-upload-4.4.php:247 core/eml-upload-4.4.php:292
-msgid "Media attachment updated."
-msgstr ""
-
-#: core/eml-upload-4.1.php:262 core/eml-upload-4.4.php:252
-#, php-format
-msgid "Reattached %d attachment."
-msgid_plural "Reattached %d attachments."
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/eml-upload-4.1.php:267 core/eml-upload-4.4.php:263
-#: core/eml-upload-4.4.php:293
-#, php-format
-msgid "Media attachment permanently deleted."
-msgid_plural "%d media attachments permanently deleted."
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/eml-upload-4.1.php:272 core/eml-upload-4.4.php:273
-#: core/eml-upload-4.4.php:295
-#, php-format
-msgid "Media attachment moved to the trash."
-msgid_plural "%d media attachments moved to the trash."
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/eml-upload-4.1.php:273 core/eml-upload-4.1.php:285
-#: core/eml-upload-4.4.php:278 core/eml-upload-4.4.php:295
-msgid "Undo"
-msgstr ""
-
-#: core/eml-upload-4.1.php:278 core/eml-upload-4.4.php:284
-#: core/eml-upload-4.4.php:296
-#, php-format
-msgid "Media attachment restored from the trash."
-msgid_plural "%d media attachments restored from the trash."
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/eml-upload-4.1.php:283
-msgid "Media permanently deleted."
-msgstr ""
-
-#: core/eml-upload-4.1.php:284 core/eml-upload-4.4.php:294
-msgid "Error saving media attachment."
-msgstr ""
-
-#: core/eml-upload-4.1.php:285
-msgid "Media moved to the trash."
-msgstr ""
-
-#: core/eml-upload-4.1.php:286
-msgid "Media restored from the trash."
-msgstr ""
-
-#: core/eml-upload-4.4.php:73 core/eml-upload-4.4.php:218
-msgid ""
-"<a href=\"https://codex.wordpress.org/Media_Library_Screen\" target=\"_blank"
-"\">Documentation on Media Library</a>"
-msgstr ""
-
-#: core/eml-upload-4.4.php:146
-msgid "You are not allowed to move this item to the Trash."
-msgstr ""
-
-#: core/eml-upload-4.4.php:158
-msgid "You are not allowed to move this item out of the Trash."
-msgstr ""
-
-#: core/eml-upload-4.4.php:170
-msgid "You are not allowed to delete this item."
-msgstr ""
-
-#: core/eml-upload-4.4.php:224
-msgid "Filter media items list"
-msgstr ""
-
-#: core/eml-upload-4.4.php:225
-msgid "Media items list navigation"
-msgstr ""
-
-#: core/eml-upload-4.4.php:226
-msgid "Media items list"
-msgstr ""
-
-#: core/eml-upload-4.4.php:257
-#, php-format
-msgid "Detached %d attachment."
-msgid_plural "Detached %d attachments."
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/eml-upload-4.4.php:265
-#, php-format
-msgid "%d media attachment permanently deleted."
-msgid_plural "%d media attachments permanently deleted."
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/eml-upload-4.4.php:275
-#, php-format
-msgid "%d media attachment moved to the trash."
-msgid_plural "%d media attachments moved to the trash."
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/eml-upload-4.4.php:286
-#, php-format
-msgid "%d media attachment restored from the trash."
-msgid_plural "%d media attachments restored from the trash."
-msgstr[0] ""
-msgstr[1] ""
-
-#: core/mime-types.php:27
+#: core/mime-types.php:30
 msgid "MIME type settings restored."
 msgstr ""
 
-#: core/mime-types.php:36
+#: core/mime-types.php:39
 msgid "MIME type settings saved."
 msgstr ""
 
-#: core/mime-types.php:112
+#: core/mime-types.php:115
 #, php-format
 msgid " <span class=\"count\">(%s)</span>"
 msgid_plural " <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/options-pages.php:69 core/options-pages.php:70
+#: core/options-pages.php:72 core/options-pages.php:73
 msgid "Enhanced Media Library"
 msgstr ""
 
-#: core/options-pages.php:79 core/options-pages.php:80
-#: core/options-pages.php:89
+#: core/options-pages.php:82 core/options-pages.php:83
+#: core/options-pages.php:92
 msgid "Media Settings"
 msgstr ""
 
-#: core/options-pages.php:90 core/options-pages.php:561
-#: core/options-pages.php:584 core/options-pages.php:630
-#: core/options-pages.php:696 core/options-pages.php:1058
+#: core/options-pages.php:93 core/options-pages.php:754
+#: core/options-pages.php:777 core/options-pages.php:817
+#: core/options-pages.php:879 core/options-pages.php:1242
 msgid "Settings"
 msgstr ""
 
-#: core/options-pages.php:97 core/options-pages.php:98
-#: core/options-pages.php:494
+#: core/options-pages.php:100 core/options-pages.php:101
+#: core/options-pages.php:687
 msgid "Taxonomies"
 msgstr ""
 
-#: core/options-pages.php:106 core/options-pages.php:107
-#: core/options-pages.php:886
+#: core/options-pages.php:109 core/options-pages.php:110
+#: core/options-pages.php:1070
 msgid "MIME Types"
 msgstr ""
 
-#: core/options-pages.php:143 core/options-pages.php:535
-#: core/options-pages.php:550 core/options-pages.php:619
-#: core/options-pages.php:693
+#: core/options-pages.php:148 core/options-pages.php:728
+#: core/options-pages.php:743 core/options-pages.php:806
+#: core/options-pages.php:876
 msgid "Edit"
 msgstr ""
 
-#: core/options-pages.php:144 pro/enhanced-media-library-pro.php:180
+#: core/options-pages.php:149 pro/enhanced-media-library-pro.php:184
 msgid "Close"
 msgstr ""
 
-#: core/options-pages.php:145 core/options-pages.php:551
-#: core/options-pages.php:620
+#: core/options-pages.php:150 core/options-pages.php:744
+#: core/options-pages.php:807
 msgid "View"
 msgstr ""
 
-#: core/options-pages.php:146 core/options-pages.php:552
-#: core/options-pages.php:621
+#: core/options-pages.php:151 core/options-pages.php:745
+#: core/options-pages.php:808
 msgid "Update"
 msgstr ""
 
-#: core/options-pages.php:147 core/options-pages.php:553
-#: core/options-pages.php:622
+#: core/options-pages.php:152 core/options-pages.php:746
+#: core/options-pages.php:809
 msgid "Add New"
 msgstr ""
 
-#: core/options-pages.php:148 core/options-pages.php:554
-#: core/options-pages.php:623
+#: core/options-pages.php:153 core/options-pages.php:747
+#: core/options-pages.php:810
 msgid "New"
 msgstr ""
 
-#: core/options-pages.php:149
+#: core/options-pages.php:154
 msgid "Name"
 msgstr ""
 
-#: core/options-pages.php:150 core/options-pages.php:555
-#: core/options-pages.php:624
+#: core/options-pages.php:155 core/options-pages.php:748
+#: core/options-pages.php:811
 msgid "Parent"
 msgstr ""
 
-#: core/options-pages.php:151 core/options-pages.php:549
-#: core/options-pages.php:618
+#: core/options-pages.php:156 core/options-pages.php:372
+#: core/options-pages.php:742 core/options-pages.php:805
 msgid "All"
 msgstr ""
 
-#: core/options-pages.php:152 core/options-pages.php:556
-#: core/options-pages.php:625
+#: core/options-pages.php:157 core/options-pages.php:749
+#: core/options-pages.php:812
 msgid "Search"
 msgstr ""
 
-#: core/options-pages.php:154
+#: core/options-pages.php:159
 msgid ""
 "Taxonomy will be deleted permanently! Your media files will remain intacted, "
 "but all the connections with this taxonomy and its terms will be lost."
 msgstr ""
 
-#: core/options-pages.php:155
+#: core/options-pages.php:160
 msgid "There is already a taxonomy with the same name. Please chose other one."
 msgstr ""
 
-#: core/options-pages.php:156 core/options-pages.php:606
+#: core/options-pages.php:161 core/options-pages.php:793
 msgid "New Taxonomy"
 msgstr ""
 
-#: core/options-pages.php:157
+#: core/options-pages.php:162
 msgid "Please choose Singular and Plural names for all your new taxomonies."
 msgstr ""
 
-#: core/options-pages.php:158
+#: core/options-pages.php:163
 msgid "Please choose Singilar name for all your new taxomonies."
 msgstr ""
 
-#: core/options-pages.php:159
+#: core/options-pages.php:164
 msgid "Please choose Plural Name for all your new taxomonies."
 msgstr ""
 
-#: core/options-pages.php:161
+#: core/options-pages.php:167 pro/core/options-pages.php:162
+msgid "Synchronize Now"
+msgstr ""
+
+#: core/options-pages.php:168
+msgid "This operation cannot be canceled. Are you still sure?"
+msgstr ""
+
+#: core/options-pages.php:169
+msgid "Synchronize"
+msgstr ""
+
+#: core/options-pages.php:170 core/options-pages.php:249
+msgid "Cancel"
+msgstr ""
+
+#: core/options-pages.php:171
+msgid "Synchronizing..."
+msgstr ""
+
+#: core/options-pages.php:207
 msgid "Warning! All your custom MIME Types will be deleted by this operation."
 msgstr ""
 
-#: core/options-pages.php:162
+#: core/options-pages.php:208
 msgid "Please fill into all fields."
 msgstr ""
 
-#: core/options-pages.php:163
+#: core/options-pages.php:209
 msgid "Duplicate extensions or MIME types. Please chose other one."
 msgstr ""
 
-#: core/options-pages.php:189 core/options-pages.php:486
-#: core/options-pages.php:878
+#: core/options-pages.php:245
+msgid ""
+"You are about to <strong style=\"text-transform:uppercase\">delete all "
+"plugin data</strong> from the database including backups."
+msgstr ""
+
+#: core/options-pages.php:246
+msgid "The operation cannot be canceled! Are you still sure?"
+msgstr ""
+
+#: core/options-pages.php:247 core/options-pages.php:363
+msgid "Complete Cleanup"
+msgstr ""
+
+#: core/options-pages.php:248
+msgid "Yes, delete all data"
+msgstr ""
+
+#: core/options-pages.php:250
+msgid "Cleaning..."
+msgstr ""
+
+#: core/options-pages.php:275 core/options-pages.php:679
+#: core/options-pages.php:1062
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: core/options-pages.php:194
+#: core/options-pages.php:280
 msgid "Enhanced Media Library Settings"
 msgstr ""
 
-#: core/options-pages.php:205
+#: core/options-pages.php:291
 msgid "Export"
 msgstr ""
 
-#: core/options-pages.php:209
+#: core/options-pages.php:295
 msgid ""
 "The plugin settings <strong>Media Settings > Taxonomies</strong> and "
 "<strong>Media Settings > MIME Types</strong> will be exported to a "
@@ -488,15 +210,15 @@ msgid ""
 "another website."
 msgstr ""
 
-#: core/options-pages.php:214
+#: core/options-pages.php:300
 msgid "Export Plugin Settings"
 msgstr ""
 
-#: core/options-pages.php:224
+#: core/options-pages.php:310
 msgid "Import"
 msgstr ""
 
-#: core/options-pages.php:228
+#: core/options-pages.php:314
 msgid ""
 "The plugin settings <strong>Media Settings > Taxonomies</strong> and "
 "<strong>Media Settings > MIME Types</strong> will be imported from a "
@@ -504,248 +226,288 @@ msgid ""
 "another website using the export button above."
 msgstr ""
 
-#: core/options-pages.php:229
+#: core/options-pages.php:315
 msgid ""
 "All plugin settings will be overriden by the import. You will have a chance "
 "to restore current data from an automatic backup in case you are not "
 "satisfied with the result of the import."
 msgstr ""
 
-#: core/options-pages.php:236
+#: core/options-pages.php:322
 msgid "Import Plugin Settings"
 msgstr ""
 
-#: core/options-pages.php:248
+#: core/options-pages.php:334
 msgid "Restore"
 msgstr ""
 
-#: core/options-pages.php:254
+#: core/options-pages.php:340
 msgid "No backup available at the moment."
 msgstr ""
 
-#: core/options-pages.php:256
+#: core/options-pages.php:342
 msgid "Backup will be created automatically before any import operation."
 msgstr ""
 
-#: core/options-pages.php:260
+#: core/options-pages.php:346
 msgid ""
 "The backup had been automatically created before the latest import opetarion."
 msgstr ""
 
-#: core/options-pages.php:264
+#: core/options-pages.php:350
 msgid "Restore Settings from the Backup"
 msgstr ""
 
-#: core/options-pages.php:371
+#: core/options-pages.php:370
+msgid "What will be deleted:"
+msgstr ""
+
+#: core/options-pages.php:375
+msgid "All plugin options"
+msgstr ""
+
+#: core/options-pages.php:376
+msgid "All plugin backups stored in database"
+msgstr ""
+
+#: core/options-pages.php:380
+msgid "What will remain intact:"
+msgstr ""
+
+#: core/options-pages.php:381
+msgid "All media items"
+msgstr ""
+
+#: core/options-pages.php:382
+msgid "All taxonomies not listed above"
+msgstr ""
+
+#: core/options-pages.php:385
+msgid ""
+"The plugin cannot delete itself because of security reason. Please delete it "
+"manually from plugin list after cleanup."
+msgstr ""
+
+#: core/options-pages.php:387
+msgid ""
+"If you are not sure about this operation please create a backup of your "
+"database prior to cleanup!"
+msgstr ""
+
+#: core/options-pages.php:393
+msgid "Delete All Data & Deactivate"
+msgstr ""
+
+#: core/options-pages.php:498
 msgid "Please upload a file to import settings."
 msgstr ""
 
-#: core/options-pages.php:390
+#: core/options-pages.php:517
 msgid "Plugin settings imported."
 msgstr ""
 
-#: core/options-pages.php:436
+#: core/options-pages.php:563
 msgid "Plugin settings restored from the backup."
 msgstr ""
 
-#: core/options-pages.php:510
+#: core/options-pages.php:703
 msgid "Media Taxonomies"
 msgstr ""
 
-#: core/options-pages.php:514 core/options-pages.php:668
+#: core/options-pages.php:707 core/options-pages.php:855
 msgid "Assign following taxonomies to Media Library:"
 msgstr ""
 
-#: core/options-pages.php:532 core/options-pages.php:604
-#: core/options-pages.php:686
+#: core/options-pages.php:725 core/options-pages.php:791
+#: core/options-pages.php:873
 msgid "Assign Taxonomy"
 msgstr ""
 
-#: core/options-pages.php:535 core/options-pages.php:693
+#: core/options-pages.php:728 core/options-pages.php:876
 msgid "Edit Taxonomy"
 msgstr ""
 
-#: core/options-pages.php:539 core/options-pages.php:608
+#: core/options-pages.php:732 core/options-pages.php:795
 msgid "Delete Taxonomy"
 msgstr ""
 
-#: core/options-pages.php:544 core/options-pages.php:613
+#: core/options-pages.php:737 core/options-pages.php:800
 msgid "Labels"
 msgstr ""
 
-#: core/options-pages.php:546 core/options-pages.php:615
+#: core/options-pages.php:739 core/options-pages.php:802
 msgid "Singular"
 msgstr ""
 
-#: core/options-pages.php:547 core/options-pages.php:616
+#: core/options-pages.php:740 core/options-pages.php:803
 msgid "Plural"
 msgstr ""
 
-#: core/options-pages.php:548 core/options-pages.php:617
+#: core/options-pages.php:741 core/options-pages.php:804
 msgid "Menu Name"
 msgstr ""
 
-#: core/options-pages.php:563 core/options-pages.php:632
+#: core/options-pages.php:756 core/options-pages.php:819
 msgid "Taxonomy Name"
 msgstr ""
 
-#: core/options-pages.php:564 core/options-pages.php:633
+#: core/options-pages.php:757 core/options-pages.php:820
 msgid "Hierarchical"
 msgstr ""
 
-#: core/options-pages.php:565 core/options-pages.php:634
-msgid "Column in List View"
+#: core/options-pages.php:758 core/options-pages.php:821
+msgid "Column for List View"
 msgstr ""
 
-#: core/options-pages.php:566 core/options-pages.php:586
-#: core/options-pages.php:635 core/options-pages.php:698
-msgid "Filter in List View"
+#: core/options-pages.php:759 core/options-pages.php:779
+#: core/options-pages.php:822 core/options-pages.php:881
+msgid "Filter for List View"
 msgstr ""
 
-#: core/options-pages.php:567 core/options-pages.php:587
-#: core/options-pages.php:636 core/options-pages.php:699
-msgid "Filter in Grid View / Media Popup"
+#: core/options-pages.php:760 core/options-pages.php:780
+#: core/options-pages.php:823 core/options-pages.php:882
+msgid "Filter for Grid View / Media Popup"
 msgstr ""
 
-#: core/options-pages.php:568 core/options-pages.php:588
-#: core/options-pages.php:637 core/options-pages.php:700
+#: core/options-pages.php:761 core/options-pages.php:781
+#: core/options-pages.php:824 core/options-pages.php:883
 msgid "Edit in Media Popup"
 msgstr ""
 
-#: core/options-pages.php:569 core/options-pages.php:638
+#: core/options-pages.php:762 core/options-pages.php:825
 msgid "Show in Nav Menu"
 msgstr ""
 
-#: core/options-pages.php:570 core/options-pages.php:639
+#: core/options-pages.php:763 core/options-pages.php:826
 msgid "Remember Terms Order (sort)"
 msgstr ""
 
-#: core/options-pages.php:571 core/options-pages.php:640
+#: core/options-pages.php:764 core/options-pages.php:827
 msgid "Show in REST"
 msgstr ""
 
-#: core/options-pages.php:572 core/options-pages.php:641
+#: core/options-pages.php:765 core/options-pages.php:828
 msgid "Rewrite Slug"
 msgstr ""
 
-#: core/options-pages.php:573 core/options-pages.php:642
+#: core/options-pages.php:766 core/options-pages.php:829
 msgid "Slug with Front"
 msgstr ""
 
-#: core/options-pages.php:654
+#: core/options-pages.php:841
 msgid "Add New Taxonomy"
 msgstr ""
 
-#: core/options-pages.php:664
+#: core/options-pages.php:851
 msgid "Non-Media Taxonomies"
 msgstr ""
 
-#: core/options-pages.php:727
+#: core/options-pages.php:913
 msgid "Options"
 msgstr ""
 
-#: core/options-pages.php:733
+#: core/options-pages.php:919
 msgid "General"
 msgstr ""
 
-#: core/options-pages.php:739 core/options-pages.php:742
+#: core/options-pages.php:925 core/options-pages.php:928
 msgid "Taxonomy archive pages"
 msgstr ""
 
-#: core/options-pages.php:743
+#: core/options-pages.php:929
 msgid "Turn on media taxonomy archive pages on the front-end"
 msgstr ""
 
-#: core/options-pages.php:744
+#: core/options-pages.php:930
 msgid ""
 "Re-save your permalink settings after this option change to make it work."
 msgstr ""
 
-#: core/options-pages.php:750
+#: core/options-pages.php:936
 msgid "Assign all like hierarchical"
 msgstr ""
 
-#: core/options-pages.php:753 core/options-pages.php:754
+#: core/options-pages.php:938
 msgid ""
 "Show non-hierarchical taxonomies like hierarchical in Grid View / Media Popup"
 msgstr ""
 
-#: core/options-pages.php:768
+#: core/options-pages.php:952
 msgid "Filters"
 msgstr ""
 
-#: core/options-pages.php:775
+#: core/options-pages.php:959
 msgid "Force filters"
 msgstr ""
 
-#: core/options-pages.php:777
+#: core/options-pages.php:961
 msgid "Show media filters for ANY Media Popup"
 msgstr ""
 
-#: core/options-pages.php:778
+#: core/options-pages.php:962
 msgid "Try this if filters are not shown for third-party plugins or themes."
 msgstr ""
 
-#: core/options-pages.php:783
+#: core/options-pages.php:967
 msgid "Order media items by"
 msgstr ""
 
-#: core/options-pages.php:790 core/options-pages.php:802
+#: core/options-pages.php:974 core/options-pages.php:986
 msgid "For media library and media popups"
 msgstr ""
 
-#: core/options-pages.php:791
+#: core/options-pages.php:975
 msgid "Option allows to change order by drag and drop with Custom Order value."
 msgstr ""
 
-#: core/options-pages.php:796
+#: core/options-pages.php:980
 msgid "Sort order"
 msgstr ""
 
-#: core/options-pages.php:815
+#: core/options-pages.php:999
 msgid "Media Shortcodes"
 msgstr ""
 
-#: core/options-pages.php:822 core/options-pages.php:825
+#: core/options-pages.php:1006 core/options-pages.php:1009
 msgid "Enhanced media shortcodes"
 msgstr ""
 
-#: core/options-pages.php:826
+#: core/options-pages.php:1010
 msgid ""
 "Enhance WordPress media shortcodes to make them understand media taxonomies, "
 "uploade date, and media items number limit"
 msgstr ""
 
-#: core/options-pages.php:827
+#: core/options-pages.php:1011
 msgid ""
 "Gallery example: [gallery media_category=\"5\" limit=\"10\" monthnum=\"12\" "
 "year=\"2015\"]"
 msgstr ""
 
-#: core/options-pages.php:828
+#: core/options-pages.php:1012
 msgid ""
 "Audio playlist example: [playlist media_category=\"5\" limit=\"10\" monthnum="
 "\"12\" year=\"2015\"]"
 msgstr ""
 
-#: core/options-pages.php:829
+#: core/options-pages.php:1013
 msgid ""
 "Video playlist example: [playlist type=\"video\" media_category=\"5\" limit="
 "\"10\" monthnum=\"12\" year=\"2015\"]"
 msgstr ""
 
-#: core/options-pages.php:831
+#: core/options-pages.php:1015
 #, php-format
 msgid ""
 "%sWarning:%s Incompatibility with other gallery plugins or themes possible!"
 msgstr ""
 
-#: core/options-pages.php:833
+#: core/options-pages.php:1017
 #, php-format
 msgid "%sLearn more%s."
 msgstr ""
 
-#: core/options-pages.php:835
+#: core/options-pages.php:1019
 #, php-format
 msgid ""
 "Please check out your gallery front-end and back-end functionality once this "
@@ -753,184 +515,206 @@ msgid ""
 "%s."
 msgstr ""
 
-#: core/options-pages.php:887
+#: core/options-pages.php:1071
 msgid "Add New MIME Type"
 msgstr ""
 
-#: core/options-pages.php:905 core/options-pages.php:960
+#: core/options-pages.php:1089 core/options-pages.php:1144
 msgid "Extension"
 msgstr ""
 
-#: core/options-pages.php:906 core/options-pages.php:961
+#: core/options-pages.php:1090 core/options-pages.php:1145
 msgid "MIME Type"
 msgstr ""
 
-#: core/options-pages.php:907 core/options-pages.php:962
+#: core/options-pages.php:1091 core/options-pages.php:1146
 msgid "Singular Label"
 msgstr ""
 
-#: core/options-pages.php:908 core/options-pages.php:963
+#: core/options-pages.php:1092 core/options-pages.php:1147
 msgid "Plural Label"
 msgstr ""
 
-#: core/options-pages.php:909 core/options-pages.php:939
-#: core/options-pages.php:952 core/options-pages.php:964
+#: core/options-pages.php:1093 core/options-pages.php:1123
+#: core/options-pages.php:1136 core/options-pages.php:1148
 msgid "Add Filter"
 msgstr ""
 
-#: core/options-pages.php:910 core/options-pages.php:940
-#: core/options-pages.php:953 core/options-pages.php:965
+#: core/options-pages.php:1094 core/options-pages.php:1124
+#: core/options-pages.php:1137 core/options-pages.php:1149
 msgid "Allow Upload"
 msgstr ""
 
-#: core/options-pages.php:954
+#: core/options-pages.php:1138
 msgid "Delete MIME Type"
 msgstr ""
 
-#: core/options-pages.php:971
+#: core/options-pages.php:1155
 msgid "Restore WordPress default MIME Types"
 msgstr ""
 
-#: core/options-pages.php:973 pro/enhanced-media-library-pro.php:179
+#: core/options-pages.php:1157 pro/enhanced-media-library-pro.php:183
 msgid "Save Changes"
 msgstr ""
 
-#: core/taxonomies.php:71
+#: core/taxonomies.php:83
 msgid "Taxonomy settings saved."
 msgstr ""
 
-#: core/taxonomies.php:307 core/taxonomies.php:313
-#: enhanced-media-library.php:454
+#: core/taxonomies.php:319 core/taxonomies.php:325
+#: enhanced-media-library.php:491
 msgid "Filter by "
 msgstr ""
 
-#: core/taxonomies.php:314 enhanced-media-library.php:455
+#: core/taxonomies.php:326 enhanced-media-library.php:492
 msgid "All "
 msgstr ""
 
-#: core/taxonomies.php:315 enhanced-media-library.php:456
+#: core/taxonomies.php:327 enhanced-media-library.php:493
 msgid "Not in "
 msgstr ""
 
-#: enhanced-media-library.php:488
+#: enhanced-media-library.php:334 enhanced-media-library.php:490
+msgid "All Uncategorized"
+msgstr ""
+
+#: enhanced-media-library.php:335 enhanced-media-library.php:494
+msgid "Reset All Filters"
+msgstr ""
+
+#: enhanced-media-library.php:525
 msgid "Uploaded to post #"
 msgstr ""
 
-#: enhanced-media-library.php:489
+#: enhanced-media-library.php:526
 msgid "Based On"
 msgstr ""
 
-#: pro/core/bulk-edit.php:55 pro/core/bulk-edit.php:62
+#: pro/core/bulk-edit.php:58 pro/core/bulk-edit.php:65
 msgid "Remove"
 msgstr ""
 
-#: pro/core/bulk-edit.php:57 pro/core/bulk-edit.php:64
+#: pro/core/bulk-edit.php:60 pro/core/bulk-edit.php:67
 msgid "Deselect"
 msgstr ""
 
-#: pro/core/bulk-edit.php:109
+#: pro/core/bulk-edit.php:112
 msgid "Caption this image&hellip;"
 msgstr ""
 
-#: pro/core/bulk-edit.php:113
+#: pro/core/bulk-edit.php:116
 msgid "Describe this video&hellip;"
 msgstr ""
 
-#: pro/core/bulk-edit.php:115
+#: pro/core/bulk-edit.php:118
 msgid "Describe this audio file&hellip;"
 msgstr ""
 
-#: pro/core/bulk-edit.php:117
+#: pro/core/bulk-edit.php:120
 msgid "Describe this media file&hellip;"
 msgstr ""
 
-#: pro/core/bulk-edit.php:126
+#: pro/core/bulk-edit.php:129
 msgid "Attachments Details"
 msgstr ""
 
-#: pro/core/bulk-edit.php:178 pro/core/bulk-edit.php:183
+#: pro/core/bulk-edit.php:181 pro/core/bulk-edit.php:186
 msgid "Select All"
 msgstr ""
 
-#: pro/core/bulk-edit.php:179 pro/core/bulk-edit.php:184
+#: pro/core/bulk-edit.php:182 pro/core/bulk-edit.php:187
 msgid "Edit Selection"
 msgstr ""
 
-#: pro/core/bulk-edit.php:180 pro/core/bulk-edit.php:185
+#: pro/core/bulk-edit.php:183 pro/core/bulk-edit.php:188
 msgid "Deselect All"
 msgstr ""
 
-#: pro/core/bulk-edit.php:181 pro/core/bulk-edit.php:186
+#: pro/core/bulk-edit.php:184 pro/core/bulk-edit.php:189
 msgid "Delete Selected"
 msgstr ""
 
-#: pro/core/medialist.php:21 pro/core/medialist.php:66
+#: pro/core/medialist.php:24 pro/core/medialist.php:69
 msgid "Order By"
 msgstr ""
 
-#: pro/core/medialist.php:25 pro/core/medialist.php:70
+#: pro/core/medialist.php:28 pro/core/medialist.php:73
 msgid "Date"
 msgstr ""
 
-#: pro/core/medialist.php:28 pro/core/medialist.php:73
+#: pro/core/medialist.php:31 pro/core/medialist.php:76
 msgid "Title"
 msgstr ""
 
-#: pro/core/medialist.php:31 pro/core/medialist.php:76
+#: pro/core/medialist.php:34 pro/core/medialist.php:79
 msgid "Custom Order"
 msgstr ""
 
-#: pro/core/medialist.php:34 pro/core/medialist.php:79
+#: pro/core/medialist.php:37 pro/core/medialist.php:82
 msgid "Random"
 msgstr ""
 
-#: pro/core/medialist.php:40 pro/core/medialist.php:85
+#: pro/core/medialist.php:43 pro/core/medialist.php:88
 msgid "Order"
 msgstr ""
 
-#: pro/core/medialist.php:44 pro/core/medialist.php:89
+#: pro/core/medialist.php:47 pro/core/medialist.php:92
 msgid "Ascending"
 msgstr ""
 
-#: pro/core/medialist.php:47 pro/core/medialist.php:92
+#: pro/core/medialist.php:50 pro/core/medialist.php:95
 msgid "Descending"
 msgstr ""
 
-#: pro/core/medialist.php:57 pro/core/medialist.php:98
+#: pro/core/medialist.php:60 pro/core/medialist.php:101
 msgid "Limit"
 msgstr ""
 
-#: pro/core/options-pages.php:72
+#: pro/core/options-pages.php:75
 msgid "Your license has been deactivated."
 msgstr ""
 
-#: pro/core/options-pages.php:82
+#: pro/core/options-pages.php:85
 msgid "Please check if your license key is correct and try again."
 msgstr ""
 
-#: pro/core/options-pages.php:95
+#: pro/core/options-pages.php:98
 msgid ""
 "Wrong license key or a server error occured. Please check your license key "
 "and try again."
 msgstr ""
 
-#: pro/core/options-pages.php:105
+#: pro/core/options-pages.php:108
 msgid "You license has been activated."
 msgstr ""
 
-#: pro/core/options-pages.php:156 pro/enhanced-media-library-pro.php:182
+#: pro/core/options-pages.php:161
+#, php-format
+msgid "Auto-assign media items to parent %s %s on upload"
+msgstr ""
+
+#: pro/core/options-pages.php:162
+#, php-format
+msgid ""
+"%sWarning:%s As a result of clicking \"Synchronize Now\" all media items "
+"attached to a %s will be assigned to %s of their parent %s. Currently "
+"assigned %s will not be saved. Media items that are not attached to any %s "
+"will not be affected."
+msgstr ""
+
+#: pro/core/options-pages.php:185 pro/enhanced-media-library-pro.php:186
 msgid "Bulk Edit"
 msgstr ""
 
-#: pro/core/options-pages.php:164 pro/core/options-pages.php:167
+#: pro/core/options-pages.php:193 pro/core/options-pages.php:196
 msgid "Turn off 'Save Changes' button"
 msgstr ""
 
-#: pro/core/options-pages.php:168
+#: pro/core/options-pages.php:197
 msgid "Save changes on the fly"
 msgstr ""
 
-#: pro/core/options-pages.php:169
+#: pro/core/options-pages.php:198
 msgid ""
 "Any click on a taxonomy checkbox during media files bulk edition will lead "
 "to an <strong style=\"color:red\">immediate saving</strong> of the data. "
@@ -939,17 +723,17 @@ msgid ""
 "files / taxonomies with this option turned on."
 msgstr ""
 
-#: pro/core/options-pages.php:170
+#: pro/core/options-pages.php:199
 msgid ""
 "Strongly NOT recommended option if you work with more than hundred of files "
 "at a time."
 msgstr ""
 
-#: pro/core/options-pages.php:209 pro/core/options-pages.php:227
+#: pro/core/options-pages.php:238 pro/core/options-pages.php:256
 msgid "License Key"
 msgstr ""
 
-#: pro/core/options-pages.php:220
+#: pro/core/options-pages.php:249
 #, php-format
 msgid ""
 "To unlock updates please enter your license key below. You can get your "
@@ -957,32 +741,32 @@ msgid ""
 "license, you are welcome to <a href=\"%s\">purchase it</a>."
 msgstr ""
 
-#: pro/core/options-pages.php:230
+#: pro/core/options-pages.php:259
 msgid "Activate License"
 msgstr ""
 
-#: pro/core/options-pages.php:237
+#: pro/core/options-pages.php:266
 msgid "Your license is active!"
 msgstr ""
 
-#: pro/core/options-pages.php:241
+#: pro/core/options-pages.php:270
 msgid "Deactivate License"
 msgstr ""
 
-#: pro/core/update.php:110 pro/core/update.php:116 pro/core/update.php:122
+#: pro/core/update.php:113 pro/core/update.php:119 pro/core/update.php:125
 msgid ""
 "An unexpected error occurred. Something may be wrong with WordPress.org or "
 "this server&#8217;s configuration. If you continue to have problems, please "
 "try the <a href=\"https://wordpress.org/support/\">support forums</a>."
 msgstr ""
 
-#: pro/core/update.php:110
+#: pro/core/update.php:113
 msgid ""
 "(WordPress could not establish a secure connection to WordPress.org. Please "
 "contact your server administrator.)"
 msgstr ""
 
-#: pro/core/update.php:177
+#: pro/core/update.php:180
 #, php-format
 msgid ""
 "To unlock updates, please <a href=\"%s\">activate your license</a>. You can "
@@ -990,72 +774,72 @@ msgid ""
 "a license, you are welcome to <a href=\"%s\">purchase it</a>."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:101
-#: pro/enhanced-media-library-pro.php:113
+#: pro/enhanced-media-library-pro.php:105
+#: pro/enhanced-media-library-pro.php:117
 msgid "Expand Details"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:102
-#: pro/enhanced-media-library-pro.php:114
+#: pro/enhanced-media-library-pro.php:106
+#: pro/enhanced-media-library-pro.php:118
 msgid "Collapse Details"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:105
+#: pro/enhanced-media-library-pro.php:109
 msgid "Validation Failed. One or more fields below are required."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:112
+#: pro/enhanced-media-library-pro.php:116
 msgid "The changes you made will be lost if you navigate away from this page"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:174
+#: pro/enhanced-media-library-pro.php:178
 msgid "ALL files belong to this item"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:175
+#: pro/enhanced-media-library-pro.php:179
 msgid "SOME files belong to this item"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:176
+#: pro/enhanced-media-library-pro.php:180
 msgid "NO files belong to this item"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:177
+#: pro/enhanced-media-library-pro.php:181
 msgid "Changes saved."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:178
+#: pro/enhanced-media-library-pro.php:182
 msgid "Something went wrong."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:181
+#: pro/enhanced-media-library-pro.php:185
 msgid "Edit Media Files"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:206
+#: pro/enhanced-media-library-pro.php:210
 msgid "Create a filter-based gallery"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:207
+#: pro/enhanced-media-library-pro.php:211
 msgid "Create a filter-based playlist"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:208
+#: pro/enhanced-media-library-pro.php:212
 msgid "Create a filter-based video playlist"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:282
+#: pro/enhanced-media-library-pro.php:290
 msgid ""
 "Please deactivate and <strong>remove</strong> the old FREE version prior to "
 "the <strong>Enhanced Media Library PRO</strong> activation. All your data "
 "will remain intact."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:282
+#: pro/enhanced-media-library-pro.php:290
 msgid "Return to Plugins"
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:333
+#: pro/enhanced-media-library-pro.php:341
 msgid ""
 "Both FREE and PRO versions of the Enhanced Media Library are network active. "
 "<strong>Enhanced Media Library PRO</strong> does not require free version to "
@@ -1063,14 +847,14 @@ msgid ""
 "plugin. All your data will remail intact."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:350
+#: pro/enhanced-media-library-pro.php:358
 msgid ""
 "<strong>Enhanced Media Library PRO</strong> does not require free version to "
 "be active. Please deactivate and delete the free version of the plugin. All "
 "your data will remain intact."
 msgstr ""
 
-#: pro/enhanced-media-library-pro.php:366
+#: pro/enhanced-media-library-pro.php:374
 msgid ""
 "Both FREE and PRO versions of the Enhanced Media Library are active for this "
 "site. <strong>Enhanced Media Library PRO</strong> does not require free "

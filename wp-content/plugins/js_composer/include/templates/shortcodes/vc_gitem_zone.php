@@ -85,7 +85,7 @@ if ( strlen( $link ) > 0 && 'none' !== $link ) {
 		$image_block = '<a href="{{ post_image_url }}" title="{{ post_title }}" class="vc_gitem-link vc-zone-link"></a>';
 	} elseif ( 'image_lightbox' === $link ) {
 		if ( ! isset( $this->prettyphoto_rel ) ) {
-			$this->prettyphoto_rel = ' rel="prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']"';
+			$this->prettyphoto_rel = ' data-rel="prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']"';
 		}
 		$image_block .= '<a href="{{ post_image_url }}" title="{{ post_title }}" ' . $this->prettyphoto_rel . ' data-vc-gitem-zone="prettyphotoLink" class="vc_gitem-link prettyphoto vc-zone-link vc-prettyphoto-link"></a>';
 	}

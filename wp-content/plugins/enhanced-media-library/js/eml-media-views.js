@@ -18,12 +18,39 @@ window.eml = window.eml || { l10n: {} };
      * wp.media.controller.Library
      *
      */
+    original.controllerLibrary = {
+
+        activate: media.controller.Library.prototype.activate
+    };
+
     _.extend( media.controller.Library.prototype, {
+
+        activate: function() {
+
+            original.controllerLibrary.activate.apply( this, arguments );
+
+            wp.Uploader.queue.on( 'reset', this.afterUpload, this );
+    	},
+
+        afterUpload: function() {
+
+            var library = this.get( 'library' ),
+                selection = this.get( 'selection' ),
+                orderby = library.props.get( 'orderby' );
+
+
+            if ( 'menuOrder' === orderby ) {
+                library.saveMenuOrder();
+            }
+
+            selection.trigger( 'selection:unsingle', selection.model, selection );
+            selection.trigger( 'selection:single', selection.model, selection );
+        },
 
         uploading: function( attachment ) {
 
     		var content = this.frame.content,
-                selection = this.get('selection');
+                selection = this.get( 'selection' );
 
 
     		if ( 'upload' === content.mode() ) {
@@ -349,7 +376,9 @@ window.eml = window.eml || { l10n: {} };
 				event.preventDefault();
 			}
 
-            $('.attachment-filters:has(option[value!="all"]:selected)').val( 'all' ).change();
+            $('.attachment-filters:has(option[value!="all"]:selected)').each( function( index ) {
+                $(this).val( 'all' ).change();
+            });
 		}
     });
 

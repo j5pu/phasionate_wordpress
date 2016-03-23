@@ -1,5 +1,8 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) )
+	exit;
+
 
 
 /**
@@ -27,17 +30,26 @@ if( ! function_exists( 'wpuxss_eml_taxonomies_validate' ) ) {
                 $taxonomy = $sanitized_taxonomy;
             }
 
-            $input[$taxonomy]['hierarchical'] = isset($params['hierarchical']) && !! $params['hierarchical'] ? 1 : 0;
-            $input[$taxonomy]['show_in_rest'] = isset($params['show_in_rest']) && !! $params['show_in_rest']  ? 1 : 0;
-            $input[$taxonomy]['sort'] = isset($params['sort']) && !! $params['sort']  ? 1 : 0;
-            $input[$taxonomy]['show_admin_column'] = isset($params['show_admin_column']) && !! $params['show_admin_column'] ? 1 : 0;
-            $input[$taxonomy]['show_in_nav_menus'] = isset($params['show_in_nav_menus']) && !! $params['show_in_nav_menus'] ? 1 : 0;
+            if ( $params['eml_media'] ) {
+                $input[$taxonomy]['hierarchical'] = isset($params['hierarchical']) && !! $params['hierarchical'] ? 1 : 0;
+                $input[$taxonomy]['show_in_rest'] = isset($params['show_in_rest']) && !! $params['show_in_rest']  ? 1 : 0;
+                $input[$taxonomy]['sort'] = isset($params['sort']) && !! $params['sort']  ? 1 : 0;
+                $input[$taxonomy]['show_admin_column'] = isset($params['show_admin_column']) && !! $params['show_admin_column'] ? 1 : 0;
+                $input[$taxonomy]['show_in_nav_menus'] = isset($params['show_in_nav_menus']) && !! $params['show_in_nav_menus'] ? 1 : 0;
+                $input[$taxonomy]['rewrite']['with_front'] = isset($params['rewrite']['with_front']) && !! $params['rewrite']['with_front'] ? 1 : 0;
+                $input[$taxonomy]['rewrite']['slug'] = isset($params['rewrite']['slug']) ? wpuxss_eml_sanitize_slug( $params['rewrite']['slug'], $taxonomy ) : '';
+            }
+
+            if ( ! $params['eml_media'] ) {
+                $input[$taxonomy]['taxonomy_auto_assign'] = isset($params['taxonomy_auto_assign']) && !! $params['taxonomy_auto_assign'] ? 1 : 0;
+            }
+
+
             $input[$taxonomy]['assigned'] = isset($params['assigned']) && !! $params['assigned'] ? 1 : 0;
             $input[$taxonomy]['admin_filter'] = isset($params['admin_filter']) && !! $params['admin_filter'] ? 1 : 0;
             $input[$taxonomy]['media_uploader_filter'] = isset($params['media_uploader_filter']) && !! $params['media_uploader_filter'] ? 1 : 0;
             $input[$taxonomy]['media_popup_taxonomy_edit'] = isset($params['media_popup_taxonomy_edit']) && !! $params['media_popup_taxonomy_edit'] ? 1 : 0;
-            $input[$taxonomy]['rewrite']['with_front'] = isset($params['rewrite']['with_front']) && !! $params['rewrite']['with_front'] ? 1 : 0;
-            $input[$taxonomy]['rewrite']['slug'] = isset($params['rewrite']['slug']) ? wpuxss_eml_sanitize_slug( $params['rewrite']['slug'], $taxonomy ) : '';
+
 
             if ( isset( $params['labels'] ) ) {
 
@@ -281,7 +293,7 @@ if( ! function_exists( 'wpuxss_eml_ajax_query_attachments' ) ) {
  *  @created  11/08/13
  */
 
-add_action('restrict_manage_posts','wpuxss_eml_restrict_manage_posts');
+add_action( 'restrict_manage_posts', 'wpuxss_eml_restrict_manage_posts' );
 
 if( ! function_exists( 'wpuxss_eml_restrict_manage_posts' ) ) {
 
@@ -349,15 +361,18 @@ if( ! function_exists( 'wpuxss_eml_dropdown_cats' ) ) {
 
         global $current_screen;
 
-        if ( ! is_admin() || empty( $output ) )
+
+        if ( ! is_admin() || empty( $output ) || ! isset( $current_screen ) ) {
             return $output;
+        }
 
 
         $media_library_mode = get_user_option( 'media_library_mode' ) ? get_user_option( 'media_library_mode' ) : 'grid';
 
 
-        if ( ! isset( $current_screen ) || 'upload' !== $current_screen->base || 'list' !== $media_library_mode )
-             return $output;
+        if ( 'upload' !== $current_screen->base || 'list' !== $media_library_mode ) {
+            return $output;
+        }
 
 
         $whole_select = $output;
@@ -400,39 +415,6 @@ if( ! function_exists( 'wpuxss_eml_dropdown_cats' ) ) {
 
 
 /**
- *  wpuxss_eml_custom_media
- *
- *  Replaces upload.php with the custom one
- *
- *  @since    2.0.4
- *  @created  21/02/15
- */
-
-add_action( 'load-upload.php', 'wpuxss_eml_custom_media', 999 );
-
-if( ! function_exists( 'wpuxss_eml_custom_media' ) ) {
-
-    function wpuxss_eml_custom_media() {
-
-        global $wpdb,
-               $wp_version;
-
-
-        require_once( ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php' );
-        require_once( 'class-eml-media-list-table.php' );
-
-        if ( version_compare( $wp_version, '4.2', '<' ) )
-            require_once( 'eml-upload-4.1.php' );
-        else
-            require_once( 'eml-upload-4.4.php' );
-
-        exit();
-    }
-}
-
-
-
-/**
  *  wpuxss_eml_parse_tax_query
  *
  *  @since    2.0.4
@@ -448,116 +430,104 @@ if( ! function_exists( 'wpuxss_eml_parse_tax_query' ) ) {
         global $current_screen;
 
 
-        if ( ! is_admin() ) {
+        if ( ! is_admin() || ! isset( $current_screen ) ) {
             return;
         }
-
-
-        /**
-         *  actually just the fix for
-         *
-         *  Fatal error: Call to undefined function get_userdata()
-         *  in /wp-includes/user.php on line 360
-         *
-         *  caused by, in particular, "Woocommerce Product Tabs" plugin
-         *  /admin/class-woocommerce-product-tabs-admin.php
-         *  line 56
-         *  get_posts()!!!
-         *
-         *  very strange error! test it more carefully!
-         */
-        require_once( ABSPATH . 'wp-includes/pluggable.php' );
 
 
         $media_library_mode = get_user_option( 'media_library_mode' ) ? get_user_option( 'media_library_mode' ) : 'grid';
 
 
-        if ( isset( $current_screen ) && 'upload' === $current_screen->base && 'list' === $media_library_mode ) {
+        if ( 'upload' !== $current_screen->base || 'list' !== $media_library_mode ) {
+            return;
+        }
 
-            $uncategorized = ( isset( $_REQUEST['attachment-filter'] ) && 'uncategorized' === $_REQUEST['attachment-filter'] ) ? 1 : 0;
 
-            if ( isset( $_REQUEST['category'] ) )
-                $query->query['category'] = $query->query_vars['category'] = $_REQUEST['category'];
+        $uncategorized = ( isset( $_REQUEST['attachment-filter'] ) && 'uncategorized' === $_REQUEST['attachment-filter'] ) ? 1 : 0;
 
-            if ( isset( $_REQUEST['post_tag'] ) )
-                $query->query['post_tag'] = $query->query_vars['post_tag'] = $_REQUEST['post_tag'];
+        if ( isset( $_REQUEST['category'] ) )
+            $query->query['category'] = $query->query_vars['category'] = $_REQUEST['category'];
 
-            if ( isset( $query->query_vars['taxonomy'] ) && isset( $query->query_vars['term'] ) ) {
+        if ( isset( $_REQUEST['post_tag'] ) )
+            $query->query['post_tag'] = $query->query_vars['post_tag'] = $_REQUEST['post_tag'];
 
-                $tax = $query->query_vars['taxonomy'];
-                $term = get_term_by( 'slug', $query->query_vars['term'], $tax );
+        if ( isset( $query->query_vars['taxonomy'] ) && isset( $query->query_vars['term'] ) ) {
 
-                if ( $term ) {
+            $tax = $query->query_vars['taxonomy'];
+            $term = get_term_by( 'slug', $query->query_vars['term'], $tax );
 
-                    $query->query_vars[$tax] = $term->term_id;
-                    $query->query[$tax] = $term->term_id;
+            if ( $term ) {
 
-                    unset( $query->query_vars['taxonomy'] );
-                    unset( $query->query_vars['term'] );
+                $query->query_vars[$tax] = $term->term_id;
+                $query->query[$tax] = $term->term_id;
 
-                    unset( $query->query['taxonomy'] );
-                    unset( $query->query['term'] );
-                }
+                unset( $query->query_vars['taxonomy'] );
+                unset( $query->query_vars['term'] );
+
+                unset( $query->query['taxonomy'] );
+                unset( $query->query['term'] );
             }
+        }
 
-            foreach ( get_object_taxonomies( 'attachment','names' ) as $taxonomy ) {
 
-                if ( $uncategorized ) {
+        foreach ( get_object_taxonomies( 'attachment','names' ) as $taxonomy ) {
 
-                    $terms = get_terms( $taxonomy, array('fields'=>'ids','get'=>'all') );
+            if ( $uncategorized ) {
 
-                    $tax_query[] = array(
-                        'taxonomy' => $taxonomy,
-                        'field' => 'term_id',
-                        'terms' => $terms,
-                        'operator' => 'NOT IN',
-                    );
+                $terms = get_terms( $taxonomy, array('fields'=>'ids','get'=>'all') );
 
-                    if ( isset( $query->query[$taxonomy] ) ) unset( $query->query[$taxonomy] );
-                    if ( isset( $query->query_vars[$taxonomy] ) ) unset( $query->query_vars[$taxonomy] );
-                }
-                else {
+                $tax_query[] = array(
+                    'taxonomy' => $taxonomy,
+                    'field' => 'term_id',
+                    'terms' => $terms,
+                    'operator' => 'NOT IN',
+                );
 
-                    if ( isset( $query->query[$taxonomy] ) && $query->query[$taxonomy] ) {
+                if ( isset( $query->query[$taxonomy] ) ) unset( $query->query[$taxonomy] );
+                if ( isset( $query->query_vars[$taxonomy] ) ) unset( $query->query_vars[$taxonomy] );
+            }
+            else {
 
-                        if( is_numeric( $query->query[$taxonomy] ) ) {
+                if ( isset( $query->query[$taxonomy] ) && $query->query[$taxonomy] ) {
 
-                            $tax_query[] = array(
-                                'taxonomy' => $taxonomy,
-                                'field' => 'term_id',
-                                'terms' => array( $query->query[$taxonomy] )
-                            );
-                        }
-                        elseif ( 'not_in' === $query->query[$taxonomy] ) {
+                    if( is_numeric( $query->query[$taxonomy] ) ) {
 
-                            $terms = get_terms( $taxonomy, array('fields'=>'ids','get'=>'all') );
+                        $tax_query[] = array(
+                            'taxonomy' => $taxonomy,
+                            'field' => 'term_id',
+                            'terms' => array( $query->query[$taxonomy] )
+                        );
+                    }
+                    elseif ( 'not_in' === $query->query[$taxonomy] ) {
 
-                            $tax_query[] = array(
-                                'taxonomy' => $taxonomy,
-                                'field' => 'term_id',
-                                'terms' => $terms,
-                                'operator' => 'NOT IN',
-                            );
-                        }
-                        elseif ( 'in' === $query->query[$taxonomy] ) {
+                        $terms = get_terms( $taxonomy, array('fields'=>'ids','get'=>'all') );
 
-                            $terms = get_terms( $taxonomy, array('fields'=>'ids','get'=>'all') );
+                        $tax_query[] = array(
+                            'taxonomy' => $taxonomy,
+                            'field' => 'term_id',
+                            'terms' => $terms,
+                            'operator' => 'NOT IN',
+                        );
+                    }
+                    elseif ( 'in' === $query->query[$taxonomy] ) {
 
-                            $tax_query[] = array(
-                                'taxonomy' => $taxonomy,
-                                'field' => 'term_id',
-                                'terms' => $terms,
-                                'operator' => 'IN',
-                            );
-                        }
+                        $terms = get_terms( $taxonomy, array('fields'=>'ids','get'=>'all') );
+
+                        $tax_query[] = array(
+                            'taxonomy' => $taxonomy,
+                            'field' => 'term_id',
+                            'terms' => $terms,
+                            'operator' => 'IN',
+                        );
                     }
                 }
-            } // endforeach
+            }
+        } // endforeach
 
-            if ( ! empty( $tax_query ) )
-                $query->tax_query = new WP_Tax_Query( $tax_query );
 
-        } // endif
+        if ( ! empty( $tax_query ) ) {
+            $query->tax_query = new WP_Tax_Query( $tax_query );
+        }
     }
 }
 
@@ -800,6 +770,95 @@ if( ! function_exists('wpuxss_eml_save_attachment_compat') ) {
 
 
 
+/**
+ *  wpuxss_eml_save_attachment_order
+ *
+ *  Based on /wp-admin/includes/ajax-actions.php
+ *
+ *  @since    2.2
+ *  @created  11/02/16
+ */
+
+add_action( 'wp_ajax_save-attachment-order', 'wpuxss_eml_save_attachment_order', 0 );
+
+if( ! function_exists( 'wpuxss_eml_save_attachment_order' ) ) {
+
+    function wpuxss_eml_save_attachment_order() {
+
+        if ( ! isset( $_REQUEST['post_id'] ) )
+            wp_send_json_error();
+
+        if ( empty( $_REQUEST['attachments'] ) )
+            wp_send_json_error();
+
+        if ( $post_id = absint( $_REQUEST['post_id'] ) ) {
+
+            check_ajax_referer( 'update-post_' . $post_id, 'nonce' );
+
+            if ( ! current_user_can( 'edit_post', $post_id ) )
+                wp_send_json_error();
+        }
+        else {
+            check_ajax_referer( 'eml-bulk-edit-nonce', 'nonce' );
+        }
+
+        $attachments = $_REQUEST['attachments'];
+
+        foreach ( $attachments as $attachment_id => $menu_order ) {
+
+            if ( ! current_user_can( 'edit_post', $attachment_id ) )
+                continue;
+            if ( ! $attachment = get_post( $attachment_id ) )
+                continue;
+            if ( 'attachment' != $attachment->post_type )
+                continue;
+
+            wp_update_post( array( 'ID' => $attachment_id, 'menu_order' => $menu_order ) );
+        }
+
+        wp_send_json_success();
+    }
+}
+
+
+
+/**
+ *  wpuxss_eml_get_eml_taxonomies
+ *
+ *  @since    2.2
+ *  @created  13/03/16
+ */
+
+if( ! function_exists( 'wpuxss_eml_get_eml_taxonomies' ) ) {
+
+    function wpuxss_eml_get_eml_taxonomies() {
+
+        $wpuxss_eml_taxonomies = get_option( 'wpuxss_eml_taxonomies', array() );
+        $return = array_filter( $wpuxss_eml_taxonomies, 'wpuxss_eml_filter_by_eml_taxonomies' );
+
+        return $return;
+    }
+}
+
+
+
+/**
+ *  wpuxss_eml_filter_by_eml_taxonomies
+ *
+ *  @since    2.2
+ *  @created  13/03/16
+ */
+
+if( ! function_exists( 'wpuxss_eml_filter_by_eml_taxonomies' ) ) {
+
+    function wpuxss_eml_filter_by_eml_taxonomies( $taxonomy ) {
+
+        return $taxonomy['eml_media'];
+    }
+}
+
+
+
 // TODO: Quick Edit for the List mode (MediaFrame.EditAttachments)
 // add_filter( 'media_row_actions', 'wpuxss_eml_media_row_actions', 10, 2 );
 //
@@ -856,12 +915,17 @@ if( ! function_exists('wpuxss_eml_pre_get_posts') ) {
 
             $media_library_mode = get_user_option( 'media_library_mode'  ) ? get_user_option( 'media_library_mode'  ) : 'grid';
             $wpuxss_eml_tax_options = get_option('wpuxss_eml_tax_options');
-            $orderby = $query->get('orderby');
-            $order = $query->get('order');
 
-            if ( isset( $current_screen ) && 'upload' === $current_screen->base && 'list' === $media_library_mode && empty( $orderby ) && empty( $order ) ) {
-                $query->set('orderby', $wpuxss_eml_tax_options['media_orderby'] );
-                $query->set('order', $wpuxss_eml_tax_options['media_order'] );
+            $query_orderby = $query->get('orderby');
+            $query_order = $query->get('order');
+
+            if ( isset( $current_screen ) && 'upload' === $current_screen->base && 'list' === $media_library_mode && empty( $query_orderby ) && empty( $query_order ) ) {
+
+                $orderby = 'menuOrder' === $wpuxss_eml_tax_options['media_orderby'] ? 'menu_order' : $wpuxss_eml_tax_options['media_orderby'];
+                $order = $wpuxss_eml_tax_options['media_order'];
+
+                $query->set('orderby', $orderby );
+                $query->set('order', $order );
             }
         }
     }

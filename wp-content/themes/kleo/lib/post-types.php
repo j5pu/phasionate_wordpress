@@ -210,8 +210,8 @@ if (! function_exists( 'kleo_archive_add_custom_types' ) ) {
     function kleo_archive_add_custom_types( $query )
     {
         if (is_tag() && empty($query->query_vars['suppress_filters'])) {
-            /*$query->set( 'post_type', array('post', 'portfolio', 'product'));*/
-            $query->set('post_type', 'any');
+            $query->set( 'post_type', array('post', 'portfolio', 'product'));
+            //$query->set('post_type', 'any');
             return $query;
         }
     }

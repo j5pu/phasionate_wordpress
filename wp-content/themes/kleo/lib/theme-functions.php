@@ -1,5 +1,5 @@
 <?php
-define( 'KLEO_THEME_VERSION', '4.0.3' );
+define( 'KLEO_THEME_VERSION', '4.0.4' );
 
 /* Configuration array */
 global $kleo_config;
@@ -61,6 +61,12 @@ $kleo_config['tpl_map'] = array(
 :: Framework initialization with required plugins
 ***************************************************/
 
+/* Delete plugin version transient on Install plugins page */
+$kleo_rem_plugin_transient = false;
+if (is_admin() && isset($_GET['page']) && $_GET['page'] == 'install-required-plugins') {
+	$kleo_rem_plugin_transient = true;
+}
+
 $theme_args = array(
 	'required_plugins' => array(
 		array(
@@ -85,9 +91,9 @@ $theme_args = array(
         array(
 				'name'			=> 'Visual Composer', // The plugin name
 				'slug'			=> 'js_composer', // The plugin slug (typically the folder name)
-				'source'			=> get_template_directory() . '/lib/inc/js_composer.zip', // The plugin source
+				'version'			=> kleo_get_plugin_version( 'js_composer', '4.11.1', $kleo_rem_plugin_transient ), // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'source'			=> kleo_get_plugin_src( 'js_composer', '4.11.1' ), // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '4.10', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -97,7 +103,7 @@ $theme_args = array(
 				'slug'			=> 'revslider', // The plugin slug (typically the folder name)
 				'source'			=> 'http://seventhqueen.com/support/files/kleo/plugins/revslider.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> kleo_get_plugin_version('revslider', '5.2.1'), // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> kleo_get_plugin_version('revslider', '5.2.3', $kleo_rem_plugin_transient), // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -107,7 +113,7 @@ $theme_args = array(
 				'slug'			=> 'k-elements', // The plugin slug (typically the folder name)
 				'source'			=> get_template_directory() . '/lib/inc/k-elements.zip', // The plugin source
 				'required'			=> true, // If false, the plugin is only 'recommended' instead of required
-				'version'			=> '4.0.2', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+				'version'			=> '4.0.4', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 				'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 				'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 				'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -117,7 +123,7 @@ $theme_args = array(
             'slug'			=> 'go_pricing', // The plugin slug (typically the folder name)
             'source'			=> 'http://seventhqueen.com/support/files/kleo/plugins/go_pricing.zip', // The plugin source
             'required'			=> false, // If false, the plugin is only 'recommended' instead of required
-            'version'			=> kleo_get_plugin_version('go_pricing', '3.2.1'), // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+            'version'			=> kleo_get_plugin_version( 'go_pricing', '3.2.1', $kleo_rem_plugin_transient ), // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
             'force_activation'		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
             'force_deactivation'	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
             'external_url'		=> '', // If set, overrides default API URL and points to an external URL
@@ -205,12 +211,37 @@ $kleo_theme = new Kleo($theme_args);
 
 
 /**
+ * Get the source of the plugin depending on the version available
+ * @param string $name
+ * @param string $version
+ *
+ * @return string
+ */
+function kleo_get_plugin_src($name, $version) {
+
+	$online_version = kleo_get_plugin_version( $name, $version );
+
+	if ( version_compare( $online_version, $version, '>' ) ) {
+		$output = 'http://seventhqueen.com/support/files/kleo/plugins/' . $name . '.zip';
+	} else {
+		$output = get_template_directory() . '/lib/inc/' . $name . '.zip';
+	}
+
+	return $output;
+}
+
+/**
  * @param string $name Plugin name
  * @param string $version Default version in case of error
+ * @param boolean $reset_transient Delete transient and check the online version now
  *
  * @return mixed|string
  */
-function kleo_get_plugin_version( $name, $version ) {
+function kleo_get_plugin_version( $name, $version, $reset_transient = false ) {
+
+	if( $reset_transient === true ) {
+		delete_transient( 'kleo_'. $name );
+	}
 
 	$final_version = $version;
 
@@ -1715,6 +1746,9 @@ if ( class_exists( 'RTMedia' ) ) {
         $classes[] = 'rtm-' . RTMEDIA_VERSION ;
         return $classes;
     }
+
+	global $rtmedia_admin;
+	remove_action( 'admin_notices', array( $rtmedia_admin, 'rtmedia_admin_notices' ) );
 
 }
 

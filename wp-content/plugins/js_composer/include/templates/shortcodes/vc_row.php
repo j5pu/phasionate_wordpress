@@ -64,29 +64,32 @@ if ( ! empty( $full_width ) ) {
 		$wrapper_attributes[] = 'data-vc-stretch-content="true"';
 		$css_classes[] = 'vc_row-no-padding';
 	}
-	$after_output .= '<div class="vc_row-full-width"></div>';
+	$after_output .= '<div class="vc_row-full-width vc_clearfix"></div>';
 }
 
 if ( ! empty( $full_height ) ) {
-	$css_classes[] = ' vc_row-o-full-height';
+	$css_classes[] = 'vc_row-o-full-height';
 	if ( ! empty( $columns_placement ) ) {
 		$flex_row = true;
-		$css_classes[] = ' vc_row-o-columns-' . $columns_placement;
+		$css_classes[] = 'vc_row-o-columns-' . $columns_placement;
+		if ( 'stretch' === $columns_placement ) {
+			$css_classes[] = 'vc_row-o-equal-height';
+		}
 	}
 }
 
 if ( ! empty( $equal_height ) ) {
 	$flex_row = true;
-	$css_classes[] = ' vc_row-o-equal-height';
+	$css_classes[] = 'vc_row-o-equal-height';
 }
 
 if ( ! empty( $content_placement ) ) {
 	$flex_row = true;
-	$css_classes[] = ' vc_row-o-content-' . $content_placement;
+	$css_classes[] = 'vc_row-o-content-' . $content_placement;
 }
 
 if ( ! empty( $flex_row ) ) {
-	$css_classes[] = ' vc_row-flex';
+	$css_classes[] = 'vc_row-flex';
 }
 
 $has_video_bg = ( ! empty( $video_bg ) && ! empty( $video_bg_url ) && vc_extract_youtube_id( $video_bg_url ) );
@@ -96,7 +99,7 @@ if ( $has_video_bg ) {
 	$parallax = $video_bg_parallax;
 	$parallax_speed = $parallax_speed_video;
 	$parallax_image = $video_bg_url;
-	$css_classes[] = ' vc_video-bg-container';
+	$css_classes[] = 'vc_video-bg-container';
 	wp_enqueue_script( 'vc_youtube_iframe_api_js' );
 }
 
@@ -127,7 +130,7 @@ if ( ! empty( $parallax_image ) ) {
 if ( ! $parallax && $has_video_bg ) {
 	$wrapper_attributes[] = 'data-vc-video-bg="' . esc_attr( $video_bg_url ) . '"';
 }
-$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
+$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( array_unique( $css_classes ) ) ), $this->settings['base'], $atts ) );
 $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 
 $output .= '<div ' . implode( ' ', $wrapper_attributes ) . '>';

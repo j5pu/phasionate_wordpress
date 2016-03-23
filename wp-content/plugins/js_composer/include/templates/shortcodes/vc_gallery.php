@@ -86,7 +86,7 @@ if ( '' === $images ) {
 	$images = '-1,-2,-3';
 }
 
-$pretty_rel_random = ' rel="prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']"';
+$pretty_rel_random = ' data-rel="prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']"';
 
 if ( 'custom_link' === $onclick ) {
 	$custom_links = vc_value_from_safe( $custom_links );

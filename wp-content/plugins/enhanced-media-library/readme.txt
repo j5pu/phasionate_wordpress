@@ -2,8 +2,8 @@
 Contributors: webbistro
 Tags: media library, media category, media categories, media gallery, gallery shortcode, media tag, media tags, media taxonomy, media taxonomies, media uploader, mime type, mime, mime types, file types, media types, media filter, attachment, gallery, image, images, media, ux, user experience, wp-admin, admin, taxonomy, taxonomies
 Requires at least: 4.4
-Tested up to: 4.4.1
-Stable tag: 2.1.7
+Tested up to: 4.4.2
+Stable tag: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,7 @@ Support is free for both versions of the plugin. "PRO"-users do not have priorit
 * Hebrew
 * Korean
 * Polish
+* Spanish (thanks to Jose Antonio Ruiz)
 * Swedish
 
 Many thanks to the authors of the translations! If you wish to be credited here please just let us know what name and URL we have to use.
@@ -101,9 +102,11 @@ Please notice that you use the Enhanced Media Library with other plugins that ad
 
 > The key features:
 
-> * Media files can be categorized in bulk (multiple files to multiple taxonomies at once) both just uploaded and existing
-> * Media files within a category can be selected in bulk with a single click
-> * Selected media files can be deleted in bulk in the Grid mode of the media library or in the post/page editor media popup
+> * Media items categorization in bulk (multiple items to multiple categories at once) for both just uploaded and existing
+> * Media items within a category can be selected in bulk with a single click
+> * Selected media items can be deleted in bulk in the Grid mode of the media library or in the post/page editor media popup with a single click
+> * Media items child to a post of any type can be auto-assigned to their parent post categories on upload
+> * Categories of existing media items can be synchronized with their parent post categories of any type with a single click
 > * Filter-based gallery in two clicks, no need to figure out your media category IDs, nor to delve into the text editor shortcode
 
 
@@ -148,7 +151,9 @@ Also, you can use WP_Query ([example of the code](http://wordpress.org/support/t
 
 First, please make sure that you chose "Custom Order" on `Media Settings > Taxonomies > Options > Filters > Order media items by`.
 
-If you use Chrome on Windows, there can be an unexplored issue with it. See core tickets [#22607](https://core.trac.wordpress.org/ticket/22607), [#29606](https://core.trac.wordpress.org/ticket/29606), [#31652](https://core.trac.wordpress.org/ticket/31652). Feel free to contribute your issue details. Meanwhile, use other browser to re-order with drag and drop.
+If you use Chrome on Windows, there can be an unexplored issue with it. See core tickets [#22607](https://core.trac.wordpress.org/ticket/22607), [#29606](https://core.trac.wordpress.org/ticket/29606), [#31652](https://core.trac.wordpress.org/ticket/31652). Feel free to contribute your issue details.
+
+In case you use Chrome on a touch screen laptop try to fix the issue as described [here](https://github.com/dbushell/Nestable/issues/92) or use other browser to re-order with drag and drop.
 
 = My gallery behavior is strange | Wrong or none media items displayed | Ligtbox/carousel/slideshow/mosaic looks broken =
 
@@ -194,6 +199,25 @@ No, all your data will remain intact. Your created media categories and their ti
 
 == Changelog ==
 
+= 2.2 =
+*Release Date - March 19, 2016*
+
+= New =
+* Option "Auto-assign media items to parent post categories on upload" added per non-media taxonomy [PRO only]
+* Options and database cleanup added
+
+= Improvements =
+* Few security improvements
+* Few CSS, UI and behavior improvements
+* Slight performance improvement
+
+= Bugfixes =
+* A bug with non-saved drag and drop order in media library fixed
+* A bug with "Reset All Filters" button fixed
+* Custom order works now correctly on upload
+
+
+&nbsp;
 = 2.1.7 =
 *Release Date - January 24, 2016*
 

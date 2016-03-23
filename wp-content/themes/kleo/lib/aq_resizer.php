@@ -200,6 +200,14 @@ if(!function_exists('aq_resize')) {
      */
     function aq_resize( $url, $width = null, $height = null, $crop = null, $single = true, $upscale = false ) {
         $aq_resize = Aq_Resize::getInstance();
+
+        /* WPML Fix */
+        if ( defined( 'ICL_SITEPRESS_VERSION' ) ){
+            global $sitepress;
+            $url = $sitepress->convert_url( $url, $sitepress->get_default_language() );
+        }
+        /* WPML Fix */
+
         return $aq_resize->process( $url, $width, $height, $crop, $single, $upscale );
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) )
+	exit;
+
 
 
 /**
@@ -65,7 +68,7 @@ if( ! function_exists('wpuxss_eml_admin_menu') ) {
 
     function wpuxss_eml_admin_menu() {
 
-        add_options_page(
+        $eml_options_suffix = add_options_page(
             __('Enhanced Media Library','eml'),
             __('Enhanced Media Library','eml'),
             'manage_options',
@@ -110,36 +113,38 @@ if( ! function_exists('wpuxss_eml_admin_menu') ) {
             'wpuxss_eml_print_mimetypes_options'
         );
 
-        add_action('admin_print_scripts-' . $eml_taxonomies_options_suffix, 'wpuxss_eml_admin_settings_pages_scripts');
-        add_action('admin_print_scripts-' . $eml_mimetype_options_suffix, 'wpuxss_eml_admin_settings_pages_scripts');
+        add_action('admin_print_scripts-' . $eml_taxonomies_options_suffix, 'wpuxss_eml_taxonomies_options_page_scripts');
+        add_action('admin_print_scripts-' . $eml_mimetype_options_suffix, 'wpuxss_eml_mimetype_options_page_scripts');
+
+        add_action('admin_print_scripts-' . $eml_options_suffix, 'wpuxss_eml_options_page_scripts');
     }
 }
 
 
 
 /**
- *  wpuxss_eml_admin_settings_pages_scripts
+ *  wpuxss_eml_taxonomies_options_page_scripts
  *
- *  @since    1.0
- *  @created  28/10/13
+ *  @since    2.2
+ *  @created  08/03/16
  */
 
-if( ! function_exists('wpuxss_eml_admin_settings_pages_scripts') ) {
+if( ! function_exists( 'wpuxss_eml_taxonomies_options_page_scripts' ) ) {
 
-    function wpuxss_eml_admin_settings_pages_scripts() {
+    function wpuxss_eml_taxonomies_options_page_scripts() {
 
         global $wpuxss_eml_version,
                $wpuxss_eml_dir;
 
         wp_enqueue_script(
-            'wpuxss-eml-options-script',
-            $wpuxss_eml_dir . 'js/eml-options.js',
-            array('jquery'),
+            'wpuxss-eml-taxonomies-options-script',
+            $wpuxss_eml_dir . 'js/eml-taxonomies-options.js',
+            array( 'jquery', 'underscore', 'wpuxss-eml-admin-script' ),
             $wpuxss_eml_version,
             true
         );
 
-        $i18n_data = array(
+        $l10n_data = array(
             'edit' => __( 'Edit', 'eml' ),
             'close' => __( 'Close', 'eml' ),
             'view' => __( 'View', 'eml' ),
@@ -158,16 +163,97 @@ if( ! function_exists('wpuxss_eml_admin_settings_pages_scripts') ) {
             'tax_error_empty_singular' => __( 'Please choose Singilar name for all your new taxomonies.', 'eml' ),
             'tax_error_empty_plural' => __( 'Please choose Plural Name for all your new taxomonies.', 'eml' ),
 
+            'bulk_edit_nonce' => wp_create_nonce( 'eml-bulk-edit-nonce' ),
+            'sync_warning_title' => __( 'Synchronize Now', 'eml' ),
+            'sync_warning_text' => __( 'This operation cannot be canceled. Are you still sure?', 'eml' ),
+            'sync_warning_yes' => __( 'Synchronize', 'eml' ),
+            'sync_warning_no' => __( 'Cancel', 'eml' ),
+            'in_progress_sync_text' => __( 'Synchronizing...', 'eml' )
+        );
+
+        wp_localize_script(
+            'wpuxss-eml-taxonomies-options-script',
+            'wpuxss_eml_taxonomies_options_l10n_data',
+            $l10n_data
+        );
+    }
+}
+
+
+
+/**
+ *  wpuxss_eml_mimetype_options_page_scripts
+ *
+ *  @since    2.2
+ *  @created  08/03/16
+ */
+
+if( ! function_exists( 'wpuxss_eml_mimetype_options_page_scripts' ) ) {
+
+    function wpuxss_eml_mimetype_options_page_scripts() {
+
+        global $wpuxss_eml_version,
+               $wpuxss_eml_dir;
+
+        wp_enqueue_script(
+            'wpuxss-eml-mimetype-options-script',
+            $wpuxss_eml_dir . 'js/eml-mimetype-options.js',
+            array( 'jquery', 'underscore' ),
+            $wpuxss_eml_version,
+            true
+        );
+
+        $l10n_data = array(
             'mime_deletion_confirm' => __( 'Warning! All your custom MIME Types will be deleted by this operation.', 'eml' ),
             'mime_error_empty_fields' => __( 'Please fill into all fields.', 'eml' ),
             'mime_error_duplicate' => __( 'Duplicate extensions or MIME types. Please chose other one.', 'eml' )
         );
 
-        // TODO: revise l10n
+        wp_localize_script(
+            'wpuxss-eml-mimetype-options-script',
+            'wpuxss_eml_mimetype_options_l10n_data',
+            $l10n_data
+        );
+    }
+}
+
+
+
+/**
+ *  wpuxss_eml_options_page_scripts
+ *
+ *  @since    2.2
+ *  @created  08/03/16
+ */
+
+if( ! function_exists( 'wpuxss_eml_options_page_scripts' ) ) {
+
+    function wpuxss_eml_options_page_scripts() {
+
+        global $wpuxss_eml_version,
+               $wpuxss_eml_dir;
+
+        wp_enqueue_script(
+            'wpuxss-eml-options-script',
+            $wpuxss_eml_dir . 'js/eml-options.js',
+            array( 'jquery', 'underscore', 'wpuxss-eml-admin-script' ),
+            $wpuxss_eml_version,
+            true
+        );
+
+        $l10n_data = array(
+            'cleanup_warning_p1' => '<p>' . __( 'You are about to <strong style="text-transform:uppercase">delete all plugin data</strong> from the database including backups.', 'eml' ) . '</p>',
+            'cleanup_warning_p2' => '<p>' . __( 'The operation cannot be canceled! Are you still sure?', 'eml') . '</p>',
+            'cleanup_warning_title' => __( 'Complete Cleanup', 'eml' ),
+            'cleanup_warning_yes' => __( 'Yes, delete all data', 'eml' ),
+            'cleanup_warning_no' => __( 'Cancel', 'eml' ),
+            'in_progress_cleanup_text' => __( 'Cleaning...', 'eml' )
+        );
+
         wp_localize_script(
             'wpuxss-eml-options-script',
-            'wpuxss_eml_i18n_data',
-            $i18n_data
+            'wpuxss_eml_options_l10n_data',
+            $l10n_data
         );
     }
 }
@@ -270,6 +356,47 @@ if( ! function_exists('wpuxss_eml_print_settings') ) {
                             </div>
 
                         </div>
+
+
+                        <div class="postbox">
+
+                            <h3 class="hndle"><?php _e( 'Complete Cleanup', 'eml' ); ?></h3>
+
+                            <div class="inside">
+
+                                <?php $wpuxss_eml_taxonomies = wpuxss_eml_get_eml_taxonomies(); ?>
+
+                                <ul>
+                                    <li><strong><?php _e( 'What will be deleted:', 'eml' ); ?></strong></li>
+                                    <?php foreach( (array) $wpuxss_eml_taxonomies as $taxonomy => $params ) : ?>
+                                        <li><?php _e( 'All', 'eml' );
+                                        echo ' ' . $params['labels']['name']; ?></li>
+                                    <?php endforeach; ?>
+                                    <li><?php _e( 'All plugin options', 'eml' ); ?></li>
+                                    <li><?php _e( 'All plugin backups stored in database', 'eml' ); ?></li>
+                                </ul>
+
+                                <ul>
+                                    <li><strong><?php _e( 'What will remain intact:', 'eml' ); ?></strong></li>
+                                    <li><?php _e( 'All media items', 'eml' ); ?></li>
+                                    <li><?php _e( 'All taxonomies not listed above', 'eml' ); ?></li>
+                                </ul>
+
+                                <p><?php _e( 'The plugin cannot delete itself because of security reason. Please delete it manually from plugin list after cleanup.', 'eml' ); ?></p>
+
+                                <p><strong style="color:red;"><?php _e( 'If you are not sure about this operation please create a backup of your database prior to cleanup!', 'eml' ); ?></strong></p>
+
+                                <form id="eml-form-cleanup" method="post">
+
+                                    <input type='hidden' name='eml-settings-cleanup' />
+                                    <?php wp_nonce_field( 'eml_settings_cleanup_nonce', 'eml-settings-cleanup-nonce' ); ?>
+                                    <?php submit_button( __( 'Delete All Data & Deactivate', 'eml' ), 'primary', 'eml-settings-cleanup' ); ?>
+                                </form>
+
+                            </div>
+
+                        </div>
+
 
                         <?php do_action( 'wpuxss_eml_extend_settings_page' ); ?>
 
@@ -442,13 +569,79 @@ if( ! function_exists('wpuxss_eml_settings_restoring') ) {
 
 
 /**
+ *  wpuxss_eml_settings_cleanup
+ *
+ *  @since    2.2
+ *  @created  23/02/16
+ */
+
+add_action( 'admin_init', 'wpuxss_eml_settings_cleanup' );
+
+if( ! function_exists( 'wpuxss_eml_settings_cleanup' ) ) {
+
+    function wpuxss_eml_settings_cleanup() {
+
+        global $wpdb;
+
+
+        if( ! isset( $_POST['eml-settings-cleanup'] ) )
+            return;
+
+        if( ! wp_verify_nonce( $_POST['eml-settings-cleanup-nonce'], 'eml_settings_cleanup_nonce' ) )
+            return;
+
+        if( ! current_user_can( 'manage_options' ) )
+            return;
+
+
+        $wpuxss_eml_taxonomies = wpuxss_eml_get_eml_taxonomies();
+
+        foreach ( (array) $wpuxss_eml_taxonomies as $taxonomy => $params ) {
+
+            $terms = get_terms( $taxonomy, array( 'fields' => 'ids', 'hide_empty' => false ) );
+
+            foreach ( $terms as $id ) {
+                wp_delete_term( $id, $taxonomy );
+            }
+
+            $wpdb->delete( $wpdb->term_taxonomy, array( 'taxonomy' => $taxonomy ), array( '%s' ) );
+            delete_option( $taxonomy . '_children' );
+        }
+
+
+        $options = array(
+            'wpuxss_eml_version',
+            'wpuxss_eml_taxonomies',
+            'wpuxss_eml_tax_options',
+            'wpuxss_eml_mimes_backup',
+            'wpuxss_eml_mimes',
+            'wpuxss_eml_backup',
+            'wpuxss_eml_pro_bulkedit_savebutton_off',
+            'wpuxss_eml_pro_license_key',
+        );
+
+        foreach ( $options as $option ) {
+    		delete_option( $option );
+        }
+
+
+        deactivate_plugins( wpuxss_get_eml_basename() );
+
+        wp_safe_redirect( admin_url( 'plugins.php' ) );
+        exit;
+    }
+}
+
+
+
+/**
  *  wpuxss_eml_get_settings
  *
  *  @since    2.1
  *  @created  25/10/15
  */
 
-if( ! function_exists('wpuxss_eml_get_settings') ) {
+if ( ! function_exists('wpuxss_eml_get_settings') ) {
 
     function wpuxss_eml_get_settings() {
 
@@ -562,9 +755,9 @@ if ( ! function_exists( 'wpuxss_eml_print_taxonomies_options' ) ) {
                                                 $html .= '<ul>';
                                                 $html .= '<li><label>' . __('Taxonomy Name','eml') . '</label><input type="text" class="wpuxss-eml-taxonomy-name" name="" value="' . esc_attr($taxonomy->name) . '" disabled="disabled" /></li>';
                                                 $html .= '<li><label>' . __('Hierarchical','eml') . '</label><input type="checkbox" class="wpuxss-eml-hierarchical" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][hierarchical]" value="1" ' . checked( 1, $taxonomy->hierarchical, false ) . ' /></li>';
-                                                $html .= '<li><label>' . __('Column in List View','eml') . '</label><input type="checkbox" class="wpuxss-eml-show_admin_column" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][show_admin_column]" value="1" ' . checked( 1, $taxonomy->show_admin_column, false ) . ' /></li>';
-                                                $html .= '<li><label>' . __('Filter in List View','eml') . '</label><input type="checkbox" class="wpuxss-eml-admin_filter" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][admin_filter]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['admin_filter'], false ) . ' /></li>';
-                                                $html .= '<li><label>' . __('Filter in Grid View / Media Popup','eml') . '</label><input type="checkbox" class="wpuxss-eml-media_uploader_filter" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][media_uploader_filter]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['media_uploader_filter'], false ) . ' /></li>';
+                                                $html .= '<li><label>' . __('Column for List View','eml') . '</label><input type="checkbox" class="wpuxss-eml-show_admin_column" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][show_admin_column]" value="1" ' . checked( 1, $taxonomy->show_admin_column, false ) . ' /></li>';
+                                                $html .= '<li><label>' . __('Filter for List View','eml') . '</label><input type="checkbox" class="wpuxss-eml-admin_filter" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][admin_filter]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['admin_filter'], false ) . ' /></li>';
+                                                $html .= '<li><label>' . __('Filter for Grid View / Media Popup','eml') . '</label><input type="checkbox" class="wpuxss-eml-media_uploader_filter" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][media_uploader_filter]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['media_uploader_filter'], false ) . ' /></li>';
                                                 $html .= '<li><label>' . __('Edit in Media Popup','eml') . '</label><input type="checkbox" class="wpuxss-eml-media_popup_taxonomy_edit" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][media_popup_taxonomy_edit]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['media_popup_taxonomy_edit'], false ) . ' /></li>';
                                                 $html .= '<li><label>' . __('Show in Nav Menu','eml') . '</label><input type="checkbox" class="wpuxss-eml-show_in_nav_menus" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][show_in_nav_menus]" value="1" ' . checked( 1, $taxonomy->show_in_nav_menus, false ) . ' /></li>';
                                                 $html .= '<li><label>' . __('Remember Terms Order (sort)','eml') . '</label><input type="checkbox" class="wpuxss-eml-sort" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][sort]" value="1" ' . checked( 1, $taxonomy->sort, false ) . ' /></li>';
@@ -583,17 +776,11 @@ if ( ! function_exists( 'wpuxss_eml_print_taxonomies_options' ) ) {
                                                 $html .= '<div class="wpuxss-eml-settings-edit">';
                                                 $html .= '<h4>' . __('Settings','eml') . '</h4>';
                                                 $html .= '<ul>';
-                                                $html .= '<li><label>' . __('Filter in List View','eml') . '</label><input type="checkbox" class="wpuxss-eml-admin_filter" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][admin_filter]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['admin_filter'], false ) . ' /></li>';
-                                                $html .= '<li><label>' . __('Filter in Grid View / Media Popup','eml') . '</label><input type="checkbox" class="wpuxss-eml-media_uploader_filter" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][media_uploader_filter]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['media_uploader_filter'], false ) . ' /></li>';
+                                                $html .= '<li><label>' . __('Filter for List View','eml') . '</label><input type="checkbox" class="wpuxss-eml-admin_filter" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][admin_filter]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['admin_filter'], false ) . ' /></li>';
+                                                $html .= '<li><label>' . __('Filter for Grid View / Media Popup','eml') . '</label><input type="checkbox" class="wpuxss-eml-media_uploader_filter" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][media_uploader_filter]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['media_uploader_filter'], false ) . ' /></li>';
                                                 $html .= '<li><label>' . __('Edit in Media Popup','eml') . '</label><input type="checkbox" class="wpuxss-eml-media_popup_taxonomy_edit" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][media_popup_taxonomy_edit]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['media_popup_taxonomy_edit'], false ) . ' /></li>';
                                                 $html .= '</ul>';
-
-                                                $html .= '<input name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][show_admin_column]" type="hidden" value="' . $wpuxss_eml_taxonomies[$taxonomy->name]['show_admin_column'] . '" />';
-                                                $html .= '<input name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][show_in_nav_menus]" type="hidden" value="' . $wpuxss_eml_taxonomies[$taxonomy->name]['show_in_nav_menus'] . '" />';
-                                                $html .= '<input name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][hierarchical]" type="hidden" value="' . $wpuxss_eml_taxonomies[$taxonomy->name]['hierarchical'] . '" />';
-                                                $html .= '<input name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][sort]" type="hidden" value="' . $wpuxss_eml_taxonomies[$taxonomy->name]['sort'] . '" />';
                                                 $html .= '</div>';
-
                                                 $html .= '</div>';
                                             }
                                             $html .= '</li>';
@@ -631,9 +818,9 @@ if ( ! function_exists( 'wpuxss_eml_print_taxonomies_options' ) ) {
                                     $html .= '<ul>';
                                     $html .= '<li><label>' . __('Taxonomy Name','eml') . '</label><input type="text" class="wpuxss-eml-taxonomy-name" name="" value="" disabled="disabled" /></li>';
                                     $html .= '<li><label>' . __('Hierarchical','eml') . '</label><input type="checkbox" class="wpuxss-eml-hierarchical" name="" value="1" checked="checked" /></li>';
-                                    $html .= '<li><label>' . __('Column in List View','eml') . '</label><input class="wpuxss-eml-show_admin_column" type="checkbox" name="" value="1" /></li>';
-                                    $html .= '<li><label>' . __('Filter in List View','eml') . '</label><input class="wpuxss-eml-admin_filter" type="checkbox"  name="" value="1" /></li>';
-                                    $html .= '<li><label>' . __('Filter in Grid View / Media Popup','eml') . '</label><input class="wpuxss-eml-media_uploader_filter" type="checkbox" name="" value="1" /></li>';
+                                    $html .= '<li><label>' . __('Column for List View','eml') . '</label><input class="wpuxss-eml-show_admin_column" type="checkbox" name="" value="1" /></li>';
+                                    $html .= '<li><label>' . __('Filter for List View','eml') . '</label><input class="wpuxss-eml-admin_filter" type="checkbox"  name="" value="1" /></li>';
+                                    $html .= '<li><label>' . __('Filter for Grid View / Media Popup','eml') . '</label><input class="wpuxss-eml-media_uploader_filter" type="checkbox" name="" value="1" /></li>';
                                     $html .= '<li><label>' . __('Edit in Media Popup','eml') . '</label><input class="wpuxss-eml-media_popup_taxonomy_edit" type="checkbox" name="" value="1" /></li>';
                                     $html .= '<li><label>' . __('Show in Nav Menu','eml') . '</label><input type="checkbox" class="wpuxss-eml-show_in_nav_menus" name="" value="1" /></li>';
                                     $html .= '<li><label>' . __('Remember Terms Order (sort)','eml') . '</label><input type="checkbox" class="wpuxss-eml-sort" name="" value="1" /></li>';
@@ -685,24 +872,23 @@ if ( ! function_exists( 'wpuxss_eml_print_taxonomies_options' ) ) {
                                                         $html .= '<li>';
                                                         $html .= '<input class="wpuxss-eml-assigned" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][assigned]" type="checkbox" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['assigned'], false ) . ' title="' . __('Assign Taxonomy','eml') . '" />';
                                                         $html .= '<input name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][eml_media]" type="hidden" value="' . $wpuxss_eml_taxonomies[$taxonomy->name]['eml_media'] . '" />';
-                                                        $html .= '<input name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][show_admin_column]" type="hidden" value="' . $wpuxss_eml_taxonomies[$taxonomy->name]['show_admin_column'] . '" />';
-                                                        $html .= '<input name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][show_in_nav_menus]" type="hidden" value="' . $wpuxss_eml_taxonomies[$taxonomy->name]['show_in_nav_menus'] . '" />';
-                                                        $html .= '<input name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][hierarchical]" type="hidden" value="' . $wpuxss_eml_taxonomies[$taxonomy->name]['hierarchical'] . '" />';
-                                                        $html .= '<input name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][sort]" type="hidden" value="' . $wpuxss_eml_taxonomies[$taxonomy->name]['sort'] . '" />';
                                                         $html .= ' <label>' . $taxonomy->label . '</label>';
                                                         $html .= '<a class="wpuxss-eml-button-edit" title="' . __('Edit Taxonomy','eml') . '" href="javascript:;">' . __('Edit','eml') . ' &darr;</a>';
                                                         $html .= '<div class="wpuxss-eml-taxonomy-edit" style="display:none;">';
 
                                                         $html .= '<h4>' . __('Settings','eml') . '</h4>';
                                                         $html .= '<ul>';
-                                                        $html .= '<li><label>' . __('Filter in List View','eml') . '</label><input type="checkbox" class="wpuxss-eml-admin_filter" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][admin_filter]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['admin_filter'], false ) . ' /></li>';
-                                                        $html .= '<li><label>' . __('Filter in Grid View / Media Popup','eml') . '</label><input type="checkbox" class="wpuxss-eml-media_uploader_filter" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][media_uploader_filter]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['media_uploader_filter'], false ) . ' /></li>';
-                                                        $html .= '<li><label>' . __('Edit in Media Popup','eml') . '</label><input type="checkbox" class="wpuxss-eml-media_popup_taxonomy_edit" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][media_popup_taxonomy_edit]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['media_popup_taxonomy_edit'], false ) . ' /></li>';
+                                                        $html .= '<li><input type="checkbox" class="wpuxss-eml-admin_filter" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][admin_filter]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['admin_filter'], false ) . ' /><label>' . __('Filter for List View','eml') . '</label></li>';
+                                                        $html .= '<li><input type="checkbox" class="wpuxss-eml-media_uploader_filter" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][media_uploader_filter]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['media_uploader_filter'], false ) . ' /><label>' . __('Filter for Grid View / Media Popup','eml') . '</label></li>';
+                                                        $html .= '<li><input type="checkbox" class="wpuxss-eml-media_popup_taxonomy_edit" name="wpuxss_eml_taxonomies[' . $taxonomy->name . '][media_popup_taxonomy_edit]" value="1" ' . checked( 1, $wpuxss_eml_taxonomies[$taxonomy->name]['media_popup_taxonomy_edit'], false ) . ' /><label>' . __('Edit in Media Popup','eml') . '</label></li>';
+
+                                                        $options = '';
+                                                        $html .= apply_filters( 'wpuxss_eml_extend_non_media_taxonomy_options', $options, $taxonomy, $post_type, $wpuxss_eml_taxonomies );
+
                                                         $html .= '</ul>';
 
                                                         $html .= '</div>';
                                                         $html .= '</li>';
-
                                                     }
                                                 } ?>
 
@@ -747,14 +933,12 @@ if ( ! function_exists( 'wpuxss_eml_print_taxonomies_options' ) ) {
                                         </tr>
 
                                         <tr>
-                                            <th scope="row"><?php _e('Assign all like hierarchical','eml'); ?></th>
+                                            <th scope="row"><label for="wpuxss_eml_tax_options[edit_all_as_hierarchical]"><?php _e('Assign all like hierarchical','eml'); ?></label></th>
                                             <td>
-                                                <fieldset>
-                                                    <legend class="screen-reader-text"><span><?php _e('Show non-hierarchical taxonomies like hierarchical in Grid View / Media Popup','eml'); ?></span></legend>
-                                                    <label for="wpuxss_eml_tax_options[edit_all_as_hierarchical]"><input name="wpuxss_eml_tax_options[edit_all_as_hierarchical]" type="hidden" value="0" /><input name="wpuxss_eml_tax_options[edit_all_as_hierarchical]" type="checkbox" value="1" <?php checked( true, $wpuxss_eml_tax_options['edit_all_as_hierarchical'], true ); ?> /> <?php _e('Show non-hierarchical taxonomies like hierarchical in Grid View / Media Popup','eml'); ?></label>
-                                                </fieldset>
+                                                <input name="wpuxss_eml_tax_options[edit_all_as_hierarchical]" type="hidden" value="0" /><input name="wpuxss_eml_tax_options[edit_all_as_hierarchical]" type="checkbox" value="1" <?php checked( true, $wpuxss_eml_tax_options['edit_all_as_hierarchical'], true ); ?> /> <?php _e('Show non-hierarchical taxonomies like hierarchical in Grid View / Media Popup','eml'); ?>
                                             </td>
                                         </tr>
+
                                     </table>
 
                                     <?php submit_button(); ?>

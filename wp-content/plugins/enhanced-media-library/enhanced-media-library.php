@@ -3,7 +3,7 @@
 Plugin Name: Enhanced Media Library
 Plugin URI: http://wpUXsolutions.com
 Description: This plugin will be handy for those who need to manage a lot of media files.
-Version: 2.1.7
+Version: 2.2
 Author: wpUXsolutions
 Author URI: http://wpUXsolutions.com
 Text Domain: eml
@@ -15,6 +15,11 @@ Copyright 2013-2016  wpUXsolutions  (email : wpUXsolutions@gmail.com)
 
 
 
+if ( ! defined( 'ABSPATH' ) )
+	exit;
+
+
+
 global $wp_version,
        $wpuxss_eml_version,
        $wpuxss_eml_dir,
@@ -22,7 +27,7 @@ global $wp_version,
 
 
 
-$wpuxss_eml_version = '2.1.7';
+$wpuxss_eml_version = '2.2';
 
 
 
@@ -136,21 +141,32 @@ if ( ! function_exists( 'wpuxss_eml_on_init' ) ) {
     function wpuxss_eml_on_init() {
 
         global $wpuxss_eml_dir,
-               $wpuxss_eml_path;
+               $wpuxss_eml_path,
+               $wpuxss_eml_version;
 
 
         $wpuxss_eml_dir = plugin_dir_url( __FILE__ );
         $wpuxss_eml_path = plugin_dir_path( __FILE__ );
 
 
-        wpuxss_eml_on_activation_update();
+        $wpuxss_eml_old_version = get_option( 'wpuxss_eml_version', null );
+
+        if ( version_compare( $wpuxss_eml_version, $wpuxss_eml_old_version, '<>' ) ) {
+            update_option( 'wpuxss_eml_version', $wpuxss_eml_version );
+        }
+
+        if ( is_null( $wpuxss_eml_old_version ) ) {
+            wpuxss_eml_on_activation();
+        }
+        elseif ( version_compare( $wpuxss_eml_version, $wpuxss_eml_old_version, '>' ) ) {
+            wpuxss_eml_on_update();
+        }
 
 
-        $wpuxss_eml_taxonomies = get_option('wpuxss_eml_taxonomies');
-        if ( empty($wpuxss_eml_taxonomies) ) $wpuxss_eml_taxonomies = array();
+        $wpuxss_eml_taxonomies = get_option( 'wpuxss_eml_taxonomies', array() );
 
         // register eml taxonomies
-        foreach ( $wpuxss_eml_taxonomies as $taxonomy => $params ) {
+        foreach ( (array) $wpuxss_eml_taxonomies as $taxonomy => $params ) {
 
             if ( $params['eml_media'] && ! empty( $params['labels']['singular_name'] ) && ! empty( $params['labels']['name'] ) ) {
 
@@ -194,24 +210,20 @@ if ( ! function_exists( 'wpuxss_eml_on_wp_loaded' ) ) {
 
         global $wp_taxonomies;
 
-        $wpuxss_eml_taxonomies = get_option('wpuxss_eml_taxonomies');
-        if ( empty($wpuxss_eml_taxonomies) ) $wpuxss_eml_taxonomies = array();
-        $taxonomies = get_taxonomies(array(),'object');
+        $wpuxss_eml_taxonomies = get_option( 'wpuxss_eml_taxonomies', array() );
+        $taxonomies = get_taxonomies( array(), 'object' );
 
         // discover 'foreign' taxonomies
         foreach ( $taxonomies as $taxonomy => $params ) {
 
-            if ( !empty($params->object_type) && !array_key_exists($taxonomy,$wpuxss_eml_taxonomies) && !in_array('revision',$params->object_type) && !in_array('nav_menu_item',$params->object_type) && $taxonomy != 'post_format' ) {
+            if ( ! empty( $params->object_type ) && ! array_key_exists( $taxonomy,$wpuxss_eml_taxonomies ) && ! in_array( 'revision', $params->object_type ) && ! in_array( 'nav_menu_item', $params->object_type ) && $taxonomy !== 'post_format' && $taxonomy !== 'link_category' ) {
 
                 $wpuxss_eml_taxonomies[$taxonomy] = array(
                     'eml_media' => 0,
                     'admin_filter' => 0,
                     'media_uploader_filter' => 0,
                     'media_popup_taxonomy_edit' => 0,
-                    'show_admin_column' => isset($params->show_admin_column) ? $params->show_admin_column : 0,
-                    'show_in_nav_menus' => isset($params->show_in_nav_menus) ? $params->show_in_nav_menus : 0,
-                    'hierarchical' => $params->hierarchical ? 1 : 0,
-                    'sort' => isset($params->sort) ? $params->sort : 0
+                    'taxonomy_auto_assign' => 0
                 );
 
                 if ( in_array('attachment',$params->object_type) )
@@ -280,6 +292,20 @@ if ( ! function_exists( 'wpuxss_eml_admin_enqueue_scripts' ) ) {
             'all'
         );
 
+        wp_enqueue_style ( 'wp-jquery-ui-dialog' );
+
+
+        // admin scripts
+        wp_enqueue_script(
+            'wpuxss-eml-admin-script',
+            $wpuxss_eml_dir . 'js/eml-admin.js',
+            array( 'jquery', 'jquery-ui-dialog' ),
+            $wpuxss_eml_version,
+            true
+        );
+
+
+
         // scripts for list view :: /wp-admin/upload.php
         if ( isset( $current_screen ) && 'upload' === $current_screen->base && 'list' === $media_library_mode ) {
 
@@ -289,6 +315,18 @@ if ( ! function_exists( 'wpuxss_eml_admin_enqueue_scripts' ) ) {
                 array('jquery'),
                 $wpuxss_eml_version,
                 true
+            );
+
+            $media_list_l10n = array(
+                '$_GET'   => wp_json_encode($_GET),
+                'uncategorized' => __( 'All Uncategorized', 'eml' ),
+                'reset_all_filters' => __( 'Reset All Filters', 'eml' )
+            );
+
+            wp_localize_script(
+                'wpuxss-eml-media-list-script',
+                'wpuxss_eml_media_list_l10n',
+                $media_list_l10n
             );
         }
     }
@@ -418,8 +456,9 @@ if ( ! function_exists( 'wpuxss_eml_enqueue_media' ) ) {
 
 
         $media_models_l10n = array(
-            'media_orderby' => $wpuxss_eml_tax_options['media_orderby'],
-            'media_order'   => $wpuxss_eml_tax_options['media_order']
+            'media_orderby'   => $wpuxss_eml_tax_options['media_orderby'],
+            'media_order'     => $wpuxss_eml_tax_options['media_order'],
+            'bulk_edit_nonce' => wp_create_nonce( 'eml-bulk-edit-nonce' )
         );
 
         wp_localize_script(
@@ -499,164 +538,194 @@ if ( ! function_exists( 'wpuxss_eml_enqueue_media' ) ) {
 
 
 
+
 /**
- *  wpuxss_eml_on_activation_update
+ *  wpuxss_eml_on_activation
  *
- *  It is performed during activation or update
- *
- *  @since    2.0.4
- *  @created  30/01/15
+ *  @since    2.2
+ *  @created  12/03/16
  */
 
-if ( ! function_exists( 'wpuxss_eml_on_activation_update' ) ) {
+if ( ! function_exists( 'wpuxss_eml_on_activation' ) ) {
 
-    function wpuxss_eml_on_activation_update() {
+    function wpuxss_eml_on_activation() {
 
-        global $wpuxss_eml_version;
+        $wpuxss_eml_taxonomies['media_category'] = array(
+            'assigned' => 1,
+            'eml_media' => 1,
+            'public' => 1,
 
-        $wpuxss_eml_old_version = get_option('wpuxss_eml_version', false);
+            'labels' => array(
+                'name' => 'Media Categories',
+                'singular_name' => 'Media Category',
+                'menu_name' => 'Media Categories',
+                'all_items' => 'All Media Categories',
+                'edit_item' => 'Edit Media Category',
+                'view_item' => 'View Media Category',
+                'update_item' => 'Update Media Category',
+                'add_new_item' => 'Add New Media Category',
+                'new_item_name' => 'New Media Category Name',
+                'parent_item' => 'Parent Media Category',
+                'parent_item_colon' => 'Parent Media Category:',
+                'search_items' => 'Search Media Categories'
+            ),
 
-        if ( version_compare( $wpuxss_eml_version, $wpuxss_eml_old_version, '<>' ) ) {
+            'hierarchical' => 1,
 
-            update_option('wpuxss_eml_version', $wpuxss_eml_version );
+            'show_admin_column' => 1,
+            'admin_filter' => 1, // list view filter
+            'media_uploader_filter' => 1, // grid view filter
+            'media_popup_taxonomy_edit' => 1,
 
-            if ( empty($wpuxss_eml_old_version) ) {
+            'show_in_nav_menus' => 1,
+            'sort' => 0,
+            'show_in_rest' => 0,
+            'rewrite' => array(
+                'slug' => 'media_category',
+                'with_front' => 1
+            )
+        );
 
-                $wpuxss_eml_taxonomies['media_category'] = array(
-                    'assigned' => 1,
-                    'eml_media' => 1,
-                    'public' => 1,
+        $wpuxss_eml_tax_options = array(
+            'tax_archives' => 1,
+            'edit_all_as_hierarchical' => 0,
+            'force_filters' => 0,
+            'enhance_media_shortcodes' => 0,
+            'media_orderby' => 'date',
+            'media_order' => 'DESC'
+        );
 
-                    'labels' => array(
-                        'name' => 'Media Categories',
-                        'singular_name' => 'Media Category',
-                        'menu_name' => 'Media Categories',
-                        'all_items' => 'All Media Categories',
-                        'edit_item' => 'Edit Media Category',
-                        'view_item' => 'View Media Category',
-                        'update_item' => 'Update Media Category',
-                        'add_new_item' => 'Add New Media Category',
-                        'new_item_name' => 'New Media Category Name',
-                        'parent_item' => 'Parent Media Category',
-                        'parent_item_colon' => 'Parent Media Category:',
-                        'search_items' => 'Search Media Categories'
-                    ),
+        $allowed_mimes = get_allowed_mime_types();
 
-                    'hierarchical' => 1,
+        foreach ( wp_get_mime_types() as $type => $mime ) {
 
-                    'show_admin_column' => 1,
-                    'admin_filter' => 1, // list view filter
-                    'media_uploader_filter' => 1, // grid view filter
-                    'media_popup_taxonomy_edit' => 1,
+            $wpuxss_eml_mimes[$type] = array(
+                'mime'     => $mime,
+                'singular' => $mime,
+                'plural'   => $mime,
+                'filter'   => 0,
+                'upload'   => isset($allowed_mimes[$type]) ? 1 : 0
+            );
+        }
 
-                    'show_in_nav_menus' => 1,
-                    'sort' => 0,
-                    'show_in_rest' => 0,
-                    'rewrite' => array(
-                        'slug' => 'media_category',
-                        'with_front' => 1
-                    )
-                );
+        // backup mimes without PDF
+        update_option( 'wpuxss_eml_mimes_backup', $wpuxss_eml_mimes );
 
-                $wpuxss_eml_tax_options = array(
-                    'tax_archives' => 1,
-                    'edit_all_as_hierarchical' => 0,
-                    'force_filters' => 0,
-                    'enhance_media_shortcodes' => 0,
-                    'media_orderby' => 'date',
-                    'media_order' => 'DESC'
-                );
+        $wpuxss_eml_mimes['pdf']['singular'] = 'PDF';
+        $wpuxss_eml_mimes['pdf']['plural'] = 'PDFs';
+        $wpuxss_eml_mimes['pdf']['filter'] = 1;
 
-                $allowed_mimes = get_allowed_mime_types();
+        update_option( 'wpuxss_eml_taxonomies', $wpuxss_eml_taxonomies );
+        update_option( 'wpuxss_eml_tax_options', $wpuxss_eml_tax_options );
 
-                foreach ( wp_get_mime_types() as $type => $mime ) {
-
-                    $wpuxss_eml_mimes[$type] = array(
-                        'mime'     => $mime,
-                        'singular' => $mime,
-                        'plural'   => $mime,
-                        'filter'   => 0,
-                        'upload'   => isset($allowed_mimes[$type]) ? 1 : 0
-                    );
-                }
-
-                // backup mimes without PDF
-                update_option( 'wpuxss_eml_mimes_backup', $wpuxss_eml_mimes );
-
-                $wpuxss_eml_mimes['pdf']['singular'] = 'PDF';
-                $wpuxss_eml_mimes['pdf']['plural'] = 'PDFs';
-                $wpuxss_eml_mimes['pdf']['filter'] = 1;
-
-                update_option( 'wpuxss_eml_taxonomies', $wpuxss_eml_taxonomies );
-                update_option( 'wpuxss_eml_tax_options', $wpuxss_eml_tax_options );
-
-                update_option( 'wpuxss_eml_mimes', $wpuxss_eml_mimes );
+        update_option( 'wpuxss_eml_mimes', $wpuxss_eml_mimes );
+    }
+}
 
 
-                return;
-            } // endif :: old version absent
 
-            if ( version_compare( $wpuxss_eml_old_version, '2.0.2', '<' ) ) {
+/**
+ *  wpuxss_eml_on_update
+ *
+ *  @since    2.2
+ *  @created  12/03/16
+ */
 
-                $wpuxss_eml_taxonomies = get_option('wpuxss_eml_taxonomies');
+if ( ! function_exists( 'wpuxss_eml_on_update' ) ) {
 
-                foreach( (array) $wpuxss_eml_taxonomies as $taxonomy => $params ) {
+    function wpuxss_eml_on_update() {
 
-                    if ( $params['eml_media'] )
-                        $wpuxss_eml_taxonomies[$taxonomy]['rewrite']['with_front'] = 1;
-                }
+        $wpuxss_eml_taxonomies = get_option( 'wpuxss_eml_taxonomies' );
+        $wpuxss_eml_tax_options = get_option( 'wpuxss_eml_tax_options', null );
 
-                update_option( 'wpuxss_eml_taxonomies', $wpuxss_eml_taxonomies );
+
+        foreach( (array) $wpuxss_eml_taxonomies as $taxonomy => $params ) {
+
+            $eml_media = intval( $params['eml_media'] );
+
+            // since 2.0.2
+            if ( $eml_media && ! isset( $params['rewrite']['with_front'] ) ) {
+                $wpuxss_eml_taxonomies[$taxonomy]['rewrite']['with_front'] = 1;
             }
 
-            if ( version_compare( $wpuxss_eml_old_version, '2.0.4', '<' ) ) {
-
-                $wpuxss_eml_taxonomies = get_option('wpuxss_eml_taxonomies');
-
-                foreach( (array) $wpuxss_eml_taxonomies as $taxonomy => $params ) {
-                    $wpuxss_eml_taxonomies[$taxonomy]['media_popup_taxonomy_edit'] = 1;
-                }
-
-                $wpuxss_eml_tax_options = array(
-                    'tax_archives' => 1,
-                    'edit_all_as_hierarchical' => 0,
-                    'force_filters' => 0
-                );
-
-                update_option( 'wpuxss_eml_taxonomies', $wpuxss_eml_taxonomies );
-                update_option( 'wpuxss_eml_tax_options', $wpuxss_eml_tax_options );
+            // since 2.0.4
+            if ( ! isset( $wpuxss_eml_taxonomies[$taxonomy]['media_popup_taxonomy_edit'] ) ) {
+                $wpuxss_eml_taxonomies[$taxonomy]['media_popup_taxonomy_edit'] = 0;
             }
 
-            if ( version_compare( $wpuxss_eml_old_version, '2.1.4', '<' ) ) {
+            // since 2.1.6
+            if ( $eml_media && ! isset( $params['show_in_rest'] ) ) {
+                $wpuxss_eml_taxonomies[$taxonomy]['show_in_rest'] = 0;
+            }
 
-                $wpuxss_eml_tax_options = get_option('wpuxss_eml_tax_options');
+            // since 2.2
+            if ( ! $eml_media && ! isset( $params['taxonomy_auto_assign'] ) ) {
+                $wpuxss_eml_taxonomies[$taxonomy]['taxonomy_auto_assign'] = 0;
+            }
 
+            // unset since 2.2
+            if ( $taxonomy == 'link_category' ) {
+                unset( $wpuxss_eml_taxonomies[$taxonomy] );
+            }
+            if ( ! $eml_media ) {
+
+                if ( isset( $params['hierarchical'] ) ) {
+                    unset( $wpuxss_eml_taxonomies[$taxonomy]['hierarchical'] );
+                }
+                if ( isset( $params['rewrite'] ) ) {
+                    unset( $wpuxss_eml_taxonomies[$taxonomy]['rewrite'] );
+                }
+                if ( isset( $params['sort'] ) ) {
+                    unset( $wpuxss_eml_taxonomies[$taxonomy]['sort'] );
+                }
+                if ( isset( $params['show_admin_column'] ) ) {
+                    unset( $wpuxss_eml_taxonomies[$taxonomy]['show_admin_column'] );
+                }
+                if ( isset( $params['show_in_nav_menus'] ) ) {
+                    unset( $wpuxss_eml_taxonomies[$taxonomy]['show_in_nav_menus'] );
+                }
+                if ( isset( $params['show_in_rest'] ) ) {
+                    unset( $wpuxss_eml_taxonomies[$taxonomy]['show_in_rest'] );
+                }
+            }
+        }
+
+
+        // since 2.0.4
+        if ( is_null( $wpuxss_eml_tax_options ) ) {
+
+            $wpuxss_eml_tax_options = array(
+                'tax_archives' => 1,
+                'edit_all_as_hierarchical' => 0,
+                'force_filters' => 0,
+                'enhance_media_shortcodes' => 0,
+                'media_orderby' => 'date',
+                'media_order' => 'DESC'
+            );
+        }
+        else {
+
+            // since 2.1.4
+            if ( ! isset( $wpuxss_eml_tax_options['media_orderby'] ) || ! isset( $wpuxss_eml_tax_options['media_order'] ) ) {
                 $wpuxss_eml_tax_options['media_orderby'] = 'date';
                 $wpuxss_eml_tax_options['media_order'] = 'DESC';
-
-                update_option( 'wpuxss_eml_tax_options', $wpuxss_eml_tax_options );
             }
 
-            if ( version_compare( $wpuxss_eml_old_version, '2.1.6', '<' ) ) {
-
-                $wpuxss_eml_tax_options = get_option('wpuxss_eml_tax_options');
-                $wpuxss_eml_taxonomies = get_option('wpuxss_eml_taxonomies');
+            // since 2.1.6
+            if ( ! isset( $wpuxss_eml_tax_options['enhance_media_shortcodes'] ) ) {
 
                 if ( isset( $wpuxss_eml_tax_options['enhance_gallery_shortcode'] ) ) {
                     $wpuxss_eml_tax_options['enhance_media_shortcodes'] = $wpuxss_eml_tax_options['enhance_gallery_shortcode'];
+                    unset( $wpuxss_eml_tax_options['enhance_gallery_shortcode'] );
                 }
                 else {
                     $wpuxss_eml_tax_options['enhance_media_shortcodes'] = 0;
                 }
-
-                foreach( (array) $wpuxss_eml_taxonomies as $taxonomy => $params ) {
-                    $wpuxss_eml_taxonomies[$taxonomy]['show_in_rest'] = 0;
-                }
-
-                update_option( 'wpuxss_eml_tax_options', $wpuxss_eml_tax_options );
-                update_option( 'wpuxss_eml_taxonomies', $wpuxss_eml_taxonomies );
             }
-        } // endif :: new and old versions are not the same
+        }
+
+        update_option( 'wpuxss_eml_taxonomies', $wpuxss_eml_taxonomies );
+        update_option( 'wpuxss_eml_tax_options', $wpuxss_eml_tax_options );
     }
 }
 

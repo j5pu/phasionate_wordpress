@@ -14,6 +14,42 @@ window.eml = window.eml || { l10n: {} };
 
 
 
+    _.extend( Attachments.prototype, {
+
+        saveMenuOrder: function() {
+
+            var nonce = wp.media.model.settings.post.nonce || eml.l10n.bulk_edit_nonce;
+
+            if ( 'menuOrder' !== this.props.get('orderby') ) {
+                return;
+            }
+
+            // Removes any uploading attachments, updates each attachment's
+            // menu order, and returns an object with an { id: menuOrder }
+            // mapping to pass to the request.
+            var attachments = this.chain().filter( function( attachment ) {
+                return ! _.isUndefined( attachment.id );
+            }).map( function( attachment, index ) {
+                // Indices start at 1.
+                index = index + 1;
+                attachment.set( 'menuOrder', index );
+                return [ attachment.id, index ];
+            }).object().value();
+
+            if ( _.isEmpty( attachments ) ) {
+                return;
+            }
+
+            return wp.media.post( 'save-attachment-order', {
+                nonce: nonce,
+                post_id: wp.media.model.settings.post.id,
+                attachments: attachments
+            });
+        }
+    });
+
+
+
     _.extend( Query.prototype, {
 
         initialize: function( models, options ) {
@@ -32,12 +68,13 @@ window.eml = window.eml || { l10n: {} };
                 var orderby = this.props.get('orderby'),
                     order = this.props.get('order');
 
+
                 if ( ! this.comparator ) {
                     return true;
                 }
 
                 if ( 'title' === orderby ) {
-                    return attachment.get( 'modified' ) >= this.created;
+                    return attachment.get( 'modified' )  >= this.created;
 
                 // We want any items that can be placed before the last
                 // item in the set. If we add any items after the last
@@ -84,9 +121,9 @@ window.eml = window.eml || { l10n: {} };
     _.extend( Query, {
 
         defaultProps: {
-    		orderby: eml.l10n.media_orderby,
-    		order: eml.l10n.media_order
-    	},
+            orderby: eml.l10n.media_orderby,
+            order: eml.l10n.media_order
+        },
 
         queries: [],
 
@@ -166,12 +203,12 @@ window.eml = window.eml || { l10n: {} };
 
     media.query = function( props ) {
 
-    	return new Attachments( null, {
-    		props: _.extend( _.defaults( props || {}, {
+        return new Attachments( null, {
+            props: _.extend( _.defaults( props || {}, {
                 orderby: eml.l10n.media_orderby,
                 order: eml.l10n.media_order
             } ), { query: true } )
-    	});
+        });
     };
 
 })( jQuery, _ );

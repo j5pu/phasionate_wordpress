@@ -264,7 +264,29 @@ class Kleo {
 			
         return $output;
     }
-    
+
+
+	public function get_std_fonts() {
+		return array(
+			"Arial, Helvetica, sans-serif",
+			"'Arial Black', Gadget, sans-serif",
+			"'Bookman Old Style', serif",
+			"'Comic Sans MS', cursive",
+			"Courier, monospace",
+			"Garamond, serif",
+			"Georgia, serif",
+			"Impact, Charcoal, sans-serif",
+			"'Lucida Console', Monaco, monospace",
+			"'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+			"'MS Sans Serif', Geneva, sans-serif",
+			"'MS Serif', 'New York', sans-serif",
+			"'Palatino Linotype', 'Book Antiqua', Palatino, serif",
+			"Tahoma, Geneva, sans-serif",
+			"'Times New Roman', Times, serif",
+			"'Trebuchet MS', Helvetica, sans-serif",
+			"Verdana, Geneva, sans-serif"
+		);
+	}
     
     /**
      * Add css for typography option
@@ -285,25 +307,7 @@ class Kleo {
 
 			global $kleo_config;
 
-            $std_fonts = array(
-                "Arial, Helvetica, sans-serif",
-                "'Arial Black', Gadget, sans-serif",
-                "'Bookman Old Style', serif",
-                "'Comic Sans MS', cursive",
-                "Courier, monospace",
-                "Garamond, serif",
-                "Georgia, serif",
-                "Impact, Charcoal, sans-serif",
-                "'Lucida Console', Monaco, monospace",
-                "'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
-                "'MS Sans Serif', Geneva, sans-serif",
-                "'MS Serif', 'New York', sans-serif",
-                "'Palatino Linotype', 'Book Antiqua', Palatino, serif",
-                "Tahoma, Geneva, sans-serif",
-                "'Times New Roman', Times, serif",
-                "'Trebuchet MS', Helvetica, sans-serif",
-                "Verdana, Geneva, sans-serif"
-          );
+            $std_fonts = $this->get_std_fonts();
 			
 			$fonts = array();
 			$sections = $kleo_config['font_sections'];
@@ -381,15 +385,22 @@ class Kleo {
 		public function add_font_css() {
 
 			global $kleo_config;
-			$sections = $kleo_config['font_sections'];
-			$output = '';
+			$std_fonts  = $this->get_std_fonts();
+			$sections   = $kleo_config['font_sections'];
+			$output     = '';
 
 
 			foreach($sections as $section) {
 				$font = sq_option('font_'.$section);
 
+				if ( in_array($font['font-family'], $std_fonts )) {
+					$is_google = false;
+				} else {
+					$is_google = true;
+				}
+
 				//family
-				if ( isset($font['google']) && $font['google'] == 1 ) {
+				if ( $is_google === true ) {
 					$font_backup = '';
 					if ( isset($font['font-backup']) && ! empty($font['font-backup']) ) {
 						$font_backup = ', ' . $font['font-backup'];

@@ -1,5 +1,8 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) )
+	exit;
+
 
 
 add_filter( 'shortcode_atts_gallery', 'wpuxss_eml_shortcode_atts', 10, 3 );

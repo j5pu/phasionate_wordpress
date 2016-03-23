@@ -289,7 +289,7 @@ border-top-color: <?php echo $section['border']; ?>;
 .<?php echo $name; ?>-color,
 .<?php echo $name; ?>-color .kleo-main-header,
 .<?php echo $name; ?>-color .btn-default:hover,
-.<?php echo $name; ?>-color .hr-title abbr,
+
 .<?php echo $name; ?>-color .nav-tabs > li.active > a,
 .<?php echo $name; ?>-color .panel,
 .<?php echo $name; ?>-color .dropdown-menu,
@@ -308,7 +308,7 @@ border-top-color: <?php echo $section['border']; ?>;
     .<?php echo $name; ?>-color .box-style .feature-item.big-icons-size .feature-icon,
 
 /*Buddypress*/
-.<?php echo $name; ?>-color #buddypress .activity-read-more a,
+
 .<?php echo $name; ?>-color #wp-calendar caption,
 .<?php echo $name; ?>-color #buddypress input[type=submit],
 .<?php echo $name; ?>-color #buddypress #friend-list .friend-inner-list,
@@ -363,11 +363,22 @@ border-top-color: <?php echo $section['border']; ?>;
 
 /* WooCommerce */
 .<?php echo $name; ?>-color .kleo-toggle-menu .kleo-toggle-submenu,
-    .<?php echo $name; ?>-color .kleo-toggle-menu .minicart-buttons .btn-default,
-    .<?php echo $name; ?>-color .kleo_ajax_results h4 span {
+.<?php echo $name; ?>-color .kleo-toggle-menu .minicart-buttons .btn-default {
 
 	background-color: <?php echo $section['bg']; ?>;
 }
+
+<?php
+/* Dividers check for transparent BG */
+$bg_fallback = $section['bg'] == 'transparent' ? '#ffffff' : $section['bg'];
+
+?>
+.<?php echo $name; ?>-color .hr-title abbr,
+.<?php echo $name; ?>-color .kleo_ajax_results h4 span,
+.<?php echo $name; ?>-color #buddypress .activity-read-more a {
+    background-color: <?php echo $bg_fallback; ?>;
+}
+
 
 .<?php echo $name; ?>-color .btn-primary,
 .<?php echo $name; ?>-color .btn-primary:hover,
