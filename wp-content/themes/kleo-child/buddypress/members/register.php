@@ -37,7 +37,7 @@
 
 									<div>
 										<div class="user_email">
-											<label style="width: 100%;" for="signup_username"><?php _e( 'Username', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
+											<label style="width: 100%;" for="signup_username"><?php _e( 'Username', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?>No uses espacios</label>
 											<?php do_action( 'bp_signup_username_errors' ); ?>
 											<input style="width: 100%;" type="text" name="signup_username" id="signup_username" value="<?php bp_signup_username_value(); ?>" />
 
