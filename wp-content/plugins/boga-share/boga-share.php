@@ -5,7 +5,9 @@ Description: Muestra el cajon de compartir a traves de api para el concurso de s
 */
 
 function insert_my_footer() {
-    include 'share.php';
+    if(is_single(11826)){
+        include 'share.php';
+    }
 }
 add_action('wp_footer', 'insert_my_footer');
 ?>
